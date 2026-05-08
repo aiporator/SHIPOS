@@ -4,17 +4,29 @@ Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 
 ## First 1000 users — readiness checklist
 
-| Item                                                         | Status |
-| ------------------------------------------------------------ | ------ |
-| `users.email_lower` UNIQUE — cross-platform dedup             | ✅ already in place |
-| `meta_tags` auto-maintained from sessions/auth signups        | ✅ migration `cross_platform_unification_and_scale_prep` |
-| Composite indexes on hot dashboard query paths                | ✅ migration `cross_platform_unification_and_scale_prep` |
-| Dashboard views with `security_invoker = true`                | ✅ migrations `leader_os_dashboard_views*` and `cross_platform_views` |
-| Trigger functions revoked from `anon` / `authenticated`       | ✅ migration `harden_trigger_function_grants` |
-| `upsert_incomplete_attempt` revoked from `authenticated`      | ✅ — anon-only as intended |
-| Edge functions deployed (`ingest-leader-check`, `ingest-leader-os`, `ai-strategist`, `wladbot-chat`) | ⚠️ pending — see below |
-| Vault secret `service_role_key` set (for `trigger_strategist`) | ⚠️ verify in Studio → Settings → Vault |
-| `ANTHROPIC_API_KEY` and `VOYAGE_API_KEY` set as edge fn secrets | ⚠️ pending |
+### Database (done)
+| Item                                                                                  | Status |
+| ------------------------------------------------------------------------------------- | ------ |
+| `users.email_lower` UNIQUE — cross-platform dedup                                     | ✅ |
+| `meta_tags` auto-maintained from sessions + auth signups                              | ✅ migration `cross_platform_unification_and_scale_prep` |
+| Composite indexes on hot dashboard query paths                                        | ✅ same migration |
+| 17 dashboard views, all `security_invoker = true`                                     | ✅ migrations `leader_os_dashboard_views*`, `cross_platform_views` |
+| Trigger functions revoked from `anon` / `authenticated`                               | ✅ migration `harden_trigger_function_grants` |
+| `upsert_incomplete_attempt` revoked from `authenticated` (anon-only by design)        | ✅ |
+| `match_wladbot_*`, `user_context` revoked from `anon`                                 | ✅ migration `tighten_anon_rpc_grants` |
+| All FKs have backing indexes; all functions `SET search_path`; RLS enabled everywhere | ✅ verified |
+| `dashboard_summary(7)` end-to-end smoke                                               | ✅ returns expected JSON shape |
+| Schema integrity (orphans, dup emails, missing tags)                                  | ✅ 0 issues |
+
+### Pre-launch (you, not me)
+| Item                                                                  | Where           |
+| --------------------------------------------------------------------- | --------------- |
+| Vault secret `service_role_key` (for `trigger_strategist`)            | Studio → Settings → Vault |
+| Auth: enable **Leaked Password Protection** (HaveIBeenPwned)          | Studio → Auth → Policies |
+| Edge functions: `supabase functions deploy <each of 4>`               | your Mac (commands below) |
+| Edge fn secrets: `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`                | `supabase secrets set ...` |
+| Vercel env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel project settings |
+| (Optional) pg_cron schedule for `select trigger_strategist(7|30)`     | Studio → SQL or `pg_cron` |
 
 ## Edge function deploy
 
