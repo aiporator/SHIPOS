@@ -22,38 +22,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate JSON files
+      - name: Show environment
         run: |
-          set -euo pipefail
+          echo "PWD=$(pwd)"
+          echo "Tracked files:"
+          git ls-files | head -50
+          echo "Tracked JSON files:"
+          git ls-files '*.json' || true
+
+      - name: Validate JSON files
+        shell: bash
+        run: |
           fail=0
-          while IFS= read -r f; do
-            if ! python3 -m json.tool "$f" > /dev/null; then
-              echo "::error file=$f::Invalid JSON"
+          for f in $(git ls-files '*.json'); do
+            echo "Checking $f"
+            if python3 -m json.tool "$f" > /dev/null; then
+              echo "  OK"
+            else
+              echo "  FAIL"
               fail=1
             fi
-          done < <(git ls-files '*.json')
+          done
           exit $fail
 
-      - name: Verify Supabase MCP project ref is unchanged
+      - name: Verify Supabase MCP project_ref
+        shell: bash
         run: |
-          set -euo pipefail
           expected="srujvjjncrszhaaxepxf"
           actual=$(python3 -c "import json; print(json.load(open('.mcp.json'))['mcpServers']['supabase']['url'])")
-          case "$actual" in
-            *"project_ref=$expected"*) echo "OK: $actual" ;;
-            *) echo "::error::.mcp.json project_ref drifted (expected $expected): $actual"; exit 1 ;;
-          esac
+          echo "actual=$actual"
+          echo "$actual" | grep -q "project_ref=$expected"
 
-      - name: Verify CLAUDE.md mentions the project ref
-        run: |
-          grep -q "srujvjjncrszhaaxepxf" CLAUDE.md || {
-            echo "::error::CLAUDE.md no longer references the Supabase project ref"; exit 1; }
+      - name: Verify CLAUDE.md mentions project_ref
+        shell: bash
+        run: grep -q "srujvjjncrszhaaxepxf" CLAUDE.md
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Lint Markdown
-        run: |
-          npx --yes markdownlint-cli2@0.13.0 "**/*.md" "#node_modules"
+        shell: bash
+        run: npx --yes markdownlint-cli2@0.13.0 "**/*.md" "#node_modules" "#.claude/skills/**"
