@@ -1,0 +1,21 @@
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Claude Code local overrides (keep team config in .claude/settings.json checked in)
+.claude/settings.local.json
+
+# Env / secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Build / cache (defensive — no app code lives here, but guard anyway)
+node_modules/
+.next/
+dist/
+build/
+*.log
