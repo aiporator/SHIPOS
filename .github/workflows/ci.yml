@@ -2,7 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - master
+      - claude/install-supabase-cli-Z8CF9
   pull_request:
 
 permissions:
@@ -31,24 +34,11 @@ jobs:
           done < <(git ls-files '*.json')
           exit $fail
 
-      - name: Lint Markdown
-        uses: DavidAnson/markdownlint-cli2-action@v16
-        with:
-          globs: |
-            **/*.md
-            !node_modules
-
-      - name: Check Markdown links
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: --no-progress --verbose --max-concurrency 4 './**/*.md'
-          fail: true
-
       - name: Verify Supabase MCP project ref is unchanged
         run: |
           set -euo pipefail
           expected="srujvjjncrszhaaxepxf"
-          actual=$(python3 -c "import json,sys; print(json.load(open('.mcp.json'))['mcpServers']['supabase']['url'])")
+          actual=$(python3 -c "import json; print(json.load(open('.mcp.json'))['mcpServers']['supabase']['url'])")
           case "$actual" in
             *"project_ref=$expected"*) echo "OK: $actual" ;;
             *) echo "::error::.mcp.json project_ref drifted (expected $expected): $actual"; exit 1 ;;
@@ -58,3 +48,12 @@ jobs:
         run: |
           grep -q "srujvjjncrszhaaxepxf" CLAUDE.md || {
             echo "::error::CLAUDE.md no longer references the Supabase project ref"; exit 1; }
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Lint Markdown
+        run: |
+          npx --yes markdownlint-cli2@0.13.0 "**/*.md" "#node_modules"

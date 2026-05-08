@@ -5,6 +5,7 @@ Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 ## First 1000 users — readiness checklist
 
 ### Database (done)
+
 | Item                                                                                  | Status |
 | ------------------------------------------------------------------------------------- | ------ |
 | `users.email_lower` UNIQUE — cross-platform dedup                                     | ✅ |
@@ -19,6 +20,7 @@ Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 | Schema integrity (orphans, dup emails, missing tags)                                  | ✅ 0 issues |
 
 ### Pre-launch (you, not me)
+
 | Item                                                                  | Where           |
 | --------------------------------------------------------------------- | --------------- |
 | Vault secret `service_role_key` (for `trigger_strategist`)            | Studio → Settings → Vault |
