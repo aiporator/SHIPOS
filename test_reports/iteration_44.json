@@ -1,0 +1,69 @@
+{
+  "summary": "Iteration 44 - Business Logic Update Testing Complete. All backend tests passed (14/14). Frontend tests verified: Credits system with 50 free credits, soft_pause field, dismiss-pause endpoint, payment packages with €997 and €4797 pricing. PaywallModal shows 1000+ Leader stat, dual pricing, Wlad's 3 books. OnboardingTour uses localStorage (not sessionStorage). SalesWidget.js confirmed deleted. Chat page has book link and Premium upsell. BotMascot call screen working.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: GET /api/credits returns 200",
+    "Backend: GET /api/credits returns limit:50 for free users",
+    "Backend: GET /api/credits returns soft_pause field (boolean)",
+    "Backend: GET /api/credits returns balance field",
+    "Backend: GET /api/credits returns is_premium field",
+    "Backend: GET /api/credits returns total_used field",
+    "Backend: POST /api/credits/dismiss-pause returns 200",
+    "Backend: POST /api/credits/dismiss-pause returns dismissed:true",
+    "Backend: POST /api/credits/reset returns 200",
+    "Backend: POST /api/credits/reset sets balance to 50",
+    "Backend: POST /api/credits/reset verified with GET",
+    "Backend: GET /api/payments/packages returns 200",
+    "Backend: GET /api/payments/packages has standard package at €997",
+    "Backend: GET /api/payments/packages has fast_track package at €4797",
+    "Frontend: Login and navigate to dashboard works",
+    "Frontend: Credit badge shows '50 Credits' in header",
+    "Frontend: OnboardingTour stores in localStorage (not sessionStorage)",
+    "Frontend: SalesWidget.js file does NOT exist (verified)",
+    "Frontend: PaywallModal shows 1.000+ Leader stat",
+    "Frontend: PaywallModal shows €997 pricing (Leadership System)",
+    "Frontend: PaywallModal shows €4.797 pricing (Fast Track + 1:1 Calls)",
+    "Frontend: PaywallModal shows 3 Wlad book links (Die Kunst der Kommunikation, Schwarze Rhetorik, Weiße Rhetorik)",
+    "Frontend: Chat page has book recommendation link (data-testid='book-link')",
+    "Frontend: Chat page has Premium upsell link (data-testid='upsell-mini-btn')",
+    "Frontend: BotMascot call screen visible with Ablehnen/Annehmen buttons",
+    "Frontend: Dashboard KI-Briefing card visible (data-testid='ki-news-card')"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_iteration44_credits.py",
+    "/app/test_reports/pytest/pytest_iteration44.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "credits.py correctly implements FREE_CREDITS = 50 and SOFT_PAUSE_AT = 10",
+    "credits.py has /dismiss-pause endpoint that sets soft_pause_dismissed flag",
+    "CreditContext.js correctly exposes softPause and dismissPause",
+    "PaywallModal.js has all required elements: 1000+ Leader stat, €997 and €4797 pricing, 3 Wlad books with Amazon links",
+    "PaywallModal.js shows 'Kostenlos weiter nutzen' button only when isSoftPause=true",
+    "OnboardingTour.js uses localStorage.setItem('wladbot_onboarding_done', 'true') - correct",
+    "ChatPage.js has book-link and upsell-mini-btn at bottom",
+    "ChatPage.js has inline upsell every 10 assistant messages (data-testid='chat-inline-upsell')",
+    "DashboardLayout.js imports useCredits and handles softPause state",
+    "BotMascot.js has proper data-testid attributes for testing"
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration44_credits.py"
+  ],
+  "success_rate": {
+    "backend": "100% (14/14 pytest tests passed)",
+    "frontend": "100% (all business logic features verified)"
+  },
+  "test_credentials": "Email: test@test.com, Password: test123",
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 44 complete. Major business logic updates verified: 1) Credits changed from 3 to 50 free credits with soft pause after 10 uses. 2) OnboardingTour uses localStorage (not sessionStorage). 3) SalesWidget.js deleted - BotMascot handles everything. 4) PaywallModal redesigned with 1000+ Leader stat, dual pricing (€997 + €4797), Wlad's 3 books. 5) Chat has book link and Premium upsell at bottom. 6) BotMascot call auto-triggers after 5s - click 'Ablehnen' to decline. Note: Inline chat upsell only appears after 10 assistant messages. To test paywall manually: window.dispatchEvent(new CustomEvent('wladbot:paywall')). Rate limiter: auth 20 req/min."
+}

@@ -1,0 +1,83 @@
+{
+  "summary": "Iter 60 — ProfilePage + Enterprise ROI Calculator + Sidebar nav tested end-to-end. 10/12 backend tests PASS. Frontend: /profile renders perfectly for accelerator tier (all 9 new testids + activity feed + tabs + dimension scores), edit flow saves + toast + bio persists across reload, referrals navigation works, enterprise ROI strip + calculator + sliders all render. 1 real backend data-flow bug found (community post creation does not write activity_log), and 1 frontend UI bug (ProfilePage LEVEL_META uses outdated English level names — fails for migrated German levels).",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "POST /api/community/posts  →  GET /api/profile/activity",
+        "issue": "Creating a community post does NOT insert into activity_log nor award XP. /api/profile/activity feed will never show community_post entries. Root cause: routes/community.py create_post() only does db.community_posts.insert_one() and never calls update_user_scores() (defined in services.py:202). Other routes (challenge30, checkin, simulations, deep_assist, referral) DO call update_user_scores and correctly populate activity_log. Spec explicitly lists 'community_post' as an expected action key in routes/profile.py ACTION_META.",
+        "priority": "HIGH"
+      }
+    ],
+    "minor": [
+      {
+        "endpoint": "PATCH /api/profile/me",
+        "issue": "'updated' count in response includes the internally-added 'updated_at' field, so a 3-field patch returns updated=4 with fields=[...,'updated_at']. Consider excluding updated_at from the count/fields array so the response matches user intent."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ProfilePage LevelProgress",
+        "issue": "LEVEL_META only contains English level names (Emerging Leader/Capable Leader/Confident Leader/Strategic Leader/Visionary Leader), but backend startup migration (server.py:110-126) now rewrites all users to German role names (Teamplayer/Mentor/Kommunikator/Strategischer Denker/Visionär). Result: for a user with level='Visionär' and 2521 XP, the progress bar shows 'Nächstes Level: Capable Leader' at thresholds 0→200 XP which is totally wrong (see screenshot — accelerator user). The LEVEL_META object should be keyed by the German role names OR an i18n mapping layer should be added.",
+        "selector": "LEVEL_META in ProfilePage.js:29-35",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration60_profile.py",
+    "/app/test_reports/pytest/pytest_iteration60.xml"
+  ],
+  "backend_test_results": {
+    "profile_me_free": "PASS",
+    "profile_me_starter": "PASS",
+    "profile_me_standard": "PASS",
+    "profile_me_accelerator": "PASS — all required keys + stats sub-keys present",
+    "profile_patch_partial_bio": "PASS — bio persists via subsequent GET",
+    "profile_patch_multi_fields": "FAIL (minor) — updated count is 4 instead of 3 because backend adds updated_at to the count/fields array",
+    "profile_activity_de": "PASS — activities array with activity_id/action/label/icon/xp_color/xp_delta/created_at",
+    "profile_activity_en_vs_de": "PASS — EN labels correctly differ from DE (e.g. 'Deep-Assist analysis' vs 'Deep-Assist Analyse')",
+    "upload_profile_picture_png": "PASS — returns {path, size}",
+    "community_post_to_activity_flow": "FAIL (critical) — community_post is absent from activity feed after POST. activity_log not populated by community route.",
+    "regression_5_endpoints": "PASS — /api/my-path/videos, /api/dashboard-v4, /api/wladhub/3layer, /api/community/feed, /api/referral/code all 200",
+    "regression_enterprise_submit": "PASS"
+  },
+  "frontend_test_results": {
+    "profile_page_accelerator": "PASS — hero + avatar + tier badge + edit/linkedin/referrals buttons + 6 stat tiles + 3 dimension scores + 2 tabs + activity feed (8 entries +0 XP in 30 days) all render",
+    "profile_edit_flow": "PASS — edit-btn opens form, bio='TEST My leadership motto UI' saved, toast 'Profil gespeichert!' visible, bio persists on reload (visible in hero under name)",
+    "profile_avatar_upload_btn": "PASS — data-testid='profile-avatar-upload' clickable, hidden input exists",
+    "profile_referrals_btn_nav": "PASS — click navigates to /referrals",
+    "sidebar_profile_btn_nav": "PASS — after dismissing OnboardingTour via 'Überspringen', click navigates to /profile",
+    "enterprise_roi_stats_strip": "PASS — 312%, 10h, 87%, 4.9 all visible",
+    "enterprise_roi_calculator": "PASS — roi-calculator + roi-team-slider + roi-salary-slider testids present, live-updating cards render",
+    "enterprise_start_cta": "PASS — enterprise-start-btn visible on explore view"
+  },
+  "action_items": [
+    "CRITICAL: In /app/backend/routes/community.py create_post(): call await update_user_scores(user_id, action='community_post', xp_delta=<e.g. 10>, metadata={'post_id': post['post_id']}) after inserting the post, so (a) user earns XP, (b) activity_log gets populated, (c) /api/profile/activity returns the new post as most recent entry. This is the spec'd data-flow.",
+    "HIGH: Update LEVEL_META in /app/frontend/src/pages/ProfilePage.js:29 to match the German role-based level names the backend actually returns (Teamplayer, Mentor, Kommunikator, Strategischer Denker, Visionär). Without this, every user sees a wrong 'next level' label + wrong XP thresholds.",
+    "MINOR: In /app/backend/routes/profile.py PATCH /me, either don't add updated_at to the dict before counting, OR subtract it from the returned count/fields array so the response reflects only user-provided fields."
+  ],
+  "critical_code_review_comments": [
+    "community.py is silently missing the activity_log + XP integration that every other action route has — this is a systemic gap. Consider a middleware/decorator or a central `record_user_action(user_id, action, xp, metadata)` helper so routes can't forget.",
+    "ProfilePage.js LEVEL_META constants are decoupled from backend's LEVEL_THRESHOLDS. Suggestion: expose a GET /api/profile/levels endpoint that returns the authoritative list so the frontend stays in sync.",
+    "profile.py _within_last_days() swallows all exceptions with bare except — not ideal; at least log.",
+    "ProfilePage.js line 256: joinedYears uses member_since = '' default which Date.parse() returns NaN. Math.floor(NaN) = NaN — might render 'NaN+ Jahre'. Should guard with isNaN check (currently masked because member_since is always set).",
+    "EnterpriseROICalculator computes roiPct using investmentAssumed = teamSize * 2497, but /app/backend/routes/payments.py enterprise pricing is not €2,497/seat — this is a made-up marketing figure. Should either cite the source or be dynamic from packages config."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration60_profile.py"
+  ],
+  "success_rate": {
+    "backend": "83% (10/12 pytest cases)",
+    "frontend": "100% (8/8 critical UI flows verified)"
+  },
+  "test_credentials": "5 seeded accounts (free/starter/standard/accelerator/accelerator-raten@wladbot.test) + test@test.com — all test123. POST /api/auth/login returns {token}. Quick-login testids on /login: quick-login-free/starter/standard/accelerator/raten.",
+  "seed_data_creation": "Patched profiles during testing: accelerator@wladbot.test now has position='TEST_CTO' company='TEST_AcmeAI' industry='SaaS' bio='TEST My leadership motto UI'; standard@wladbot.test now has bio='TEST_My leadership motto'. 1 community post created as standard user (content='TEST_iter60 leadership insight') — this post does NOT appear in activity_log (confirms the bug). Main agent may want to clean up TEST_ prefixed profile fields after fixing.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "After main agent fixes: (1) re-run /app/backend/tests/test_iteration60_profile.py — test_community_post_appears_in_activity should now PASS. (2) Verify on UI that ProfilePage hero displays correct level name and LevelProgress shows correct next-level and XP thresholds for accelerator user (level=Visionär, xp=2521 — should show 'Max level reached' or similar since Visionär is top). (3) Clean up TEST_ prefixed fields on accelerator@ and standard@ users if needed. Note: OnboardingTour modal blocks sidebar clicks on fresh sessions — dismiss via clicking 'Überspringen' text or set localStorage(wladbot_onboarding_completed='1') BEFORE navigating (setting after login + reload does NOT persist past the tour's own flag which appears to be different). The profile page itself loads fine directly via /profile without needing to dismiss the tour.",
+  "rca_of_the_issue": "community_post flow bug: /api/community/posts route (routes/community.py:53) inserts the post document but never calls the shared update_user_scores() helper (services.py:202) that is responsible for (a) awarding XP, (b) updating leadership_score/eq_score/communication_score, (c) inserting into activity_log (line 233). Every other action route in the codebase (daily_checkin, challenge30 day completion, simulations, deep_assist, referral_success, etc.) does call it. Fix is a 2-line addition after db.community_posts.insert_one. Level-Progress bug: server.py:111-122 migrates legacy levels to German role names at startup, but the frontend LEVEL_META constant in ProfilePage.js was never updated to reflect those names, causing a silent fallback to 'Emerging Leader' meta which renders wrong next-level and thresholds."
+}

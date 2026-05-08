@@ -1,0 +1,35 @@
+{
+  "summary": "Iter 73 REGRESSION test of Audio-Mode after godmode refactor (VoiceModeOverlay split into useVoiceMode hook + VoiceOrb + VoiceControls; backend voice_conversation split into _ensure_voice_session/_persist_voice_turn/_cap_reply_length/_synthesize_or_cached helpers). Backend 4/4 pytest cases PASS (1 openapi probe skipped — same as iter 72). Frontend full E2E confirmed: login (Standard quick-login) → /chat → audio-mode-btn renders → click opens overlay with all 5 testids (overlay + orb + status + pause + mute + close) visible → status correctly reads 'Mikrofonzugriff verweigert' (EXPECTED in headless, NotFoundError on getUserMedia) → close button cleanly removes overlay → chat regression: 'Hallo, kurzer Regression Test' message persists in transcript area, 4 message DOM nodes present. Zero regressions vs iter 72 baseline. Functional contract preserved exactly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration72_voice_conversation.py",
+    "/app/test_reports/pytest/pytest_iteration73.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "POSITIVE: useVoiceMode hook is a clean state machine — VOICE_STATES enum, MIME feature-detect chain (webm→mp4→ogg) addresses iter72 Safari concern, MAX_EMPTY_RETRIES=3 addresses iter72 infinite-restart concern, 'empty_transcript' branch silently restarts without showing error (good UX). All 4 iter72 review comments have been addressed by this refactor.",
+    "POSITIVE: Backend _ensure_voice_session/_persist_voice_turn/_cap_reply_length/_synthesize_or_cached helpers are well-scoped, single-purpose, and readable. Credit deduction now happens AFTER transcription succeeds (line 422 — addresses iter72's #1 risk: empty-audio uploads no longer burn credits because 400 'Empty audio' / 502 'Transcription failed' / 400 'empty_transcript' all raise before check_and_deduct_credit). Excellent fix.",
+    "MINOR: useVoiceMode.js eslint-disable-next-line react-hooks/exhaustive-deps appears 4 times — most are intentional (avoid recreate-loop on stoppedRef/cancelledRef), but a comment explaining each suppression would help future maintainers.",
+    "MINOR: useVoiceMode.js useEffect at line 303 has empty dep array but calls startRecording — relies on cancelledRef.current to gate. Works correctly but a code-comment 'mount-only auto-start; gated by cancelledRef' would clarify intent.",
+    "MINOR: VoiceModeOverlay.js statusLabel() rebuilds the entire dict on every render — micro-optimization could memoize via useMemo, but impact is negligible (5-key object). Not worth fixing."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (4/4 pass, 1 skipped openapi probe — unchanged from iter 72)",
+    "frontend": "100% — audio-mode-btn renders, overlay opens with all 5 testids, mic-denied status as expected in headless, close cleanly removes overlay and restores chat, regression chat send works"
+  },
+  "test_credentials": "standard@wladbot.test / test123 (worked via Quick-login button on /login page; direct email+password fill did not auto-redirect because /login renders register form by default, but Anmelden link or quick-login resolves it).",
+  "seed_data_creation": "None. Tests reuse existing seeded users.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iter 73 godmode refactor of Audio-Mode is GREEN. The split (1 hook + 2 leaf components + 1 thin composer; 4 backend helpers + thin orchestrator) preserves contract. Audio-mode is still NOT exercised end-to-end with real audio (headless cannot grant mic — NotFoundError). For full happy-path verification, do a manual browser test on a machine with mic. Files of interest: /app/frontend/src/hooks/useVoiceMode.js (state machine), /app/frontend/src/components/chat/VoiceModeOverlay.js (75-line composer), /app/backend/routes/voice_tts.py (lines 331-385 are the new helpers). Iter 72 concerns (credit-burn, Safari MIME, infinite retry) all addressed. Test file /app/backend/tests/test_iteration72_voice_conversation.py was reused unchanged.",
+  "rca of the issue": "No regressions. Refactor verified clean."
+}

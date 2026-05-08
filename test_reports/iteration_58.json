@@ -1,0 +1,66 @@
+{
+  "summary": "Iteration 58 — E2E tested the new MyPath Lernvideos tab + previously-untested Community Feed, Admin Panel, Deep-Assist Modal, and Chat document upload. 11 pytest cases (8 pass, 3 fail due to spec/endpoint-name mismatches — actual implementation works correctly as wired in frontend). All 5 critical user flows work in the browser.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/community/posts", "issue": "Spec says GET /api/community/posts for feed but code only exposes GET /api/community/feed. Frontend correctly calls /community/feed, so no functional impact. Rename spec OR add an alias."},
+      {"endpoint": "GET /api/community/leaderboard", "issue": "Spec says /api/community/leaderboard but code only exposes /api/admin/community/leaderboard (public, gated only by login). Frontend already calls /admin/community/leaderboard correctly. No functional impact but naming/location is confusing."},
+      {"endpoint": "POST /api/chat/sessions", "issue": "Spec says multipart upload via /api/chat/sessions; actual implementation uses separate POST /api/chat/upload-document (single 'file' field). /chat/sessions only accepts JSON ChatSessionCreate body. Frontend ChatPage.js already uses /chat/upload-document correctly. No functional impact."},
+      {"endpoint": "POST /api/tools/deep-assist", "issue": "Spec body {topic, context}; implementation expects {situation, goal}. Frontend DeepAssistModal uses situation/goal. Just a spec mismatch."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration58_features.py",
+    "/app/test_reports/pytest/pytest_iteration58.xml"
+  ],
+  "backend_test_results": {
+    "my_path_videos_free": "PASS (0 unlocked)",
+    "my_path_videos_starter": "PASS (6 unlocked, 4 accelerator-locked)",
+    "my_path_videos_standard": "PASS (6 unlocked, 4 accelerator-locked)",
+    "my_path_videos_accelerator": "PASS (10 unlocked)",
+    "community_feed_get": "PASS (returns list)",
+    "community_posts_create": "PASS (persists & appears in feed)",
+    "community_posts_get_per_spec": "FAIL — endpoint only supports POST at /posts; GET is at /feed (no functional bug)",
+    "community_leaderboard_per_spec": "FAIL — only /admin/community/leaderboard exists (frontend uses it correctly)",
+    "deep_assist": "PASS — returns argumentation + tips + action_plan structured JSON",
+    "chat_upload_document": "PASS — accepts PDF/DOCX (endpoint /api/chat/upload-document, not /chat/sessions)",
+    "chat_sessions_multipart_per_spec": "FAIL — /chat/sessions is JSON-only (frontend uses separate upload-document endpoint)",
+    "admin_overview_access_gate": "PASS — 403 for non-admin, works as gated"
+  },
+  "frontend_test_results": {
+    "quick_login_starter": "PASS",
+    "quick_login_accelerator": "PASS",
+    "mypath_tabs_exist": "PASS (tab-progress, tab-videos both present)",
+    "mypath_lernvideos_starter": "PASS — 10 cards total, 6 unlocked, 4 with UPGRADE badge (screenshot verified)",
+    "mypath_lernvideos_accelerator": "PASS — 10 cards, 0 UPGRADE badges, all unlocked",
+    "community_page": "PASS — feed + Top Leaders sidebar + Community-Puls widget render correctly",
+    "admin_page": "PASS — page loads (no 500); admin endpoints 403 for non-admin users (gated)",
+    "tools_deep_assist_modal": "PASS — 'KI Deep-Assist' button opens modal with Situation/Ziel fields and submit CTA",
+    "chat_file_upload": "PASS — file input element present on /chat"
+  },
+  "action_items": [
+    "OPTIONAL: Align spec/docs with actual endpoint names — spec said /api/community/posts (GET) + /api/community/leaderboard + multipart /chat/sessions + {topic,context} body for deep-assist; actual implementation uses /community/feed, /admin/community/leaderboard, /chat/upload-document, and {situation,goal}. Frontend is already wired to the correct paths so no code change needed — just update the spec description next time.",
+    "OPTIONAL (nice-to-have): Consider adding a thin alias GET /api/community/posts -> feed and /api/community/leaderboard -> admin/community/leaderboard for API consistency."
+  ],
+  "critical_code_review_comments": [
+    "services_tier.resolve_user_tier is called twice in my_path.py videos endpoint — OK performance.",
+    "Community feed is exposed at /feed but POST lives at /posts — inconsistent REST naming (minor).",
+    "Admin router hosts the PUBLIC community/leaderboard endpoint — should probably live in community.py for clarity.",
+    "test_credentials.md sample smoke-test script uses 'access_token' key, but login actually returns 'token'. Update credentials doc so new agents don't get confused."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration58_features.py (new)"
+  ],
+  "success_rate": {"backend": "73% (8/11 — 3 failures are spec/naming mismatches, not functional bugs)", "frontend": "100% (9/9 critical flows)"},
+  "test_credentials": "5 pre-seeded accounts from /app/memory/test_credentials.md (password=test123). All login endpoints return {token, user} — NOT access_token.",
+  "seed_data_creation": "Created 1 TEST_POST via POST /api/community/posts with starter user; deleted after verification.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 5 feature batches work end-to-end: (1) MyPath Lernvideos tab with correct tier gating (6 starter cards + 4 accelerator cards with CROWN/UPGRADE), (2) Community feed+post creation+leaderboard, (3) Deep-Assist modal with structured JSON output, (4) Chat document upload via /chat/upload-document, (5) Admin panel accessible & gated. Deep-Assist body is {situation, goal} NOT {topic, context}. Community feed is /community/feed NOT /community/posts. Leaderboard is /admin/community/leaderboard NOT /community/leaderboard. Chat doc upload is /chat/upload-document NOT multipart /chat/sessions. test_credentials.md smoke-test uses 'access_token' but API returns 'token' — known doc typo.",
+  "rca_of_the_issue": "The 3 pytest failures are all due to the review-request description using different endpoint names/bodies than what the implementation actually uses. The frontend correctly calls the implemented endpoints, so all UI flows pass. Recommendation: update the review-request spec (or add route aliases) for consistency; no runtime bug exists."
+}

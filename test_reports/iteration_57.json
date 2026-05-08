@@ -1,0 +1,56 @@
+{
+  "summary": "Iteration 57 — Tier system fully verified end-to-end. All 9 backend pytest tests passed (packages, tiers matrix, /api/user/tier auth + payload, video-analyze 402 gate, accelerator_installment Stripe checkout creation, /payments/installment/next 404 without plan, /cron/installments-due). Frontend: TierBadge 'Free' shown in 2 places (next to username + sidebar footer). Coaching page renders tier-pricing-grid with all 3 cards (€199 starter, €997 standard POPULAR, €6.970 accelerator VIP). installment-link opens installment-modal showing €6.970 / €580,83 with confirm-installment-btn. /video-challenge correctly shows tier-lock-overlay with 'Video-Analyse', 'Accelerator', €6.970/€580 strip and tier-upgrade-btn.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/app/backend/routes/payments.py", "issue": "Function _record_pending_transaction is defined twice (lines ~91 and ~155). Python keeps the second definition, but the first variant captures more fields (tier, billing) that the second one drops. The duplicate at line 155 silently overrides the richer one. Currently no impact on this iter's tests since checkout still records the package_id; suggest deleting the duplicate at lines 155-172."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Video-challenge → upgrade", "issue": "Clicking tier-upgrade-btn on TierLockOverlay landed on /missions, not /coaching. A 'Willkommen bei WladBot!' onboarding tour modal auto-launched which likely intercepted navigation. Verify in clean session that the button hrefs to /coaching and that the onboarding tour doesn't override navigation.", "affected_selectors": ["[data-testid='tier-upgrade-btn']"]}
+    ],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "BACKEND: GET /api/payments/packages returns 5 packages with tier+billing fields; accelerator_installment €580.83/eur/installment/12",
+    "BACKEND: GET /api/payments/tiers returns free+starter+standard+accelerator; video_analysis is true ONLY for accelerator",
+    "BACKEND: GET /api/user/tier requires auth (401 without), returns {tier, tier_name, active, in_grace_period, badge_color, features} with auth",
+    "BACKEND: POST /api/video-challenges/{id}/analyze returns 402 with detail{error:'tier_required',feature:'video_analysis',required_tier:'accelerator'} for free user (multipart upload)",
+    "BACKEND: POST /api/payments/checkout package_id=accelerator_installment returns Stripe url+session_id",
+    "BACKEND: POST /api/payments/installment/next without active plan returns 404 'Kein aktiver Ratenzahlungs-Plan'",
+    "BACKEND: POST /api/cron/installments-due returns {sent:int} (Resend live, scanned plans)",
+    "FRONTEND: /dashboard renders 2× tier-badge-free with text 'Free' (header + sidebar footer)",
+    "FRONTEND: /coaching renders tier-pricing-grid with tier-card-starter/standard/accelerator showing €199, €997, €6.970, POPULAR + VIP labels",
+    "FRONTEND: installment-link click opens installment-modal showing €6.970 vs €580,83 with confirm-installment-btn",
+    "FRONTEND: /video-challenge renders tier-lock-overlay with 'Video-Analyse ist exklusiv im Accelerator', €6.970/€580 strip and tier-upgrade-btn"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_iteration57_tiers.py",
+    "/app/test_reports/pytest/pytest_iteration57.xml"
+  ],
+  "action_items": [
+    "Investigate why tier-upgrade-btn from VideoChallenge TierLockOverlay routes to /missions (or onboarding tour intercepts). Verify navigate('/coaching') is invoked.",
+    "Remove duplicate _record_pending_transaction definition in /app/backend/routes/payments.py (lines 155-172) — the second redefinition drops tier+billing fields from inserted document."
+  ],
+  "critical_code_review_comments": [
+    "services_tier.TIER_CONFIG cleanly mirrors wladhub.com pricing with explicit feature flags per tier. video_analysis correctly gated only on accelerator. require_feature raises HTTPException(402) with structured detail — frontend can parse this directly.",
+    "Duplicate _record_pending_transaction in routes/payments.py is a code-smell: Python keeps only the second def. Currently the function is called from create_checkout (line 211) — the active variant lacks tier+billing fields written into payment_transactions. This will hurt analytics and could cause webhook _handle_installment_payment lookup to miss billing=='installment_followup' for non-followup installments. Recommend deleting lines 155-172.",
+    "_create_installment_checkout properly tags transactions with billing='installment_followup' and installment_num for webhook routing — good design.",
+    "cron/installments-due is dedup-safe via email_log type='installment_due_{n}' — won't double-send for same installment.",
+    "Frontend TierBadge appears twice on dashboard (once near user name, once in sidebar footer) — both use data-testid='tier-badge-free'. Consider differentiating testids (e.g., 'tier-badge-header' / 'tier-badge-sidebar') for unambiguous targeting."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration57_tiers.py"
+  ],
+  "success_rate": {
+    "backend": "100% (9/9 tests passed)",
+    "frontend": "95% (all P0 testids + flows verified; 1 minor navigation oddity on tier-upgrade-btn)"
+  },
+  "test_credentials": "test@test.com / test123 (free tier)",
+  "seed_data_creation": "Stripe test-mode checkout sessions created (1 for accelerator_installment). Payment_transactions DB rows inserted (will not auto-cleanup but will remain in 'pending' state since not paid).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iter 57 verified: 5 PACKAGES with new accelerator_installment, 4 tiers via /api/payments/tiers, /api/user/tier resolved correctly, video-analysis 402 gate works on free user, installment Stripe checkout creates session, cron endpoint dedupes via email_log. Frontend TierBadge ('Free' for test user) renders on dashboard + sidebar; coaching pricing grid + installment modal + video tier-lock-overlay all render correctly with German copy. Login still defaults to register form — click 'Anmelden' text (not link role) to switch. Test user remains 'free'. Note: clicking tier-upgrade-btn from /video-challenge unexpectedly landed on /missions — onboarding tour modal appeared mid-flow, may be interfering."
+}

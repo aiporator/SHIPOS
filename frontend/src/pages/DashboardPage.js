@@ -1,0 +1,279 @@
+import { useEffect, useState, useCallback } from 'react';
+import logger from '../lib/logger';
+import { DashboardLayout } from '../components/layout/DashboardLayout';
+import { Card, CardContent } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Button } from '../components/ui/button';
+import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import { OnboardingTour } from '../components/shared/OnboardingTour';
+import { AnimatedNumber } from '../components/dashboard/AnimatedNumber';
+import { StatCardsRow, QuickActionsGrid } from '../components/dashboard/StatCards';
+import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
+import { EventReminderBanner } from '../components/dashboard/EventReminder';
+import { WladMotivationCard } from '../components/dashboard/WladMotivationCard';
+import api from '../lib/api';
+import { useCredits } from '../contexts/CreditContext';
+import { WeekCalendarCard } from '../components/dashboard/WeekCalendarCard';
+import { TierBadge } from '../components/shared/TierBadge';
+import { useTier } from '../contexts/TierContext';
+import {
+  Zap, ArrowRight, Flame, ChevronRight,
+  MessageSquareText, Sparkles, CheckCircle2, Star, Gift,
+  Share2, Copy, Play, BarChart3
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+
+const WLAD_AVATAR = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
+
+export default function DashboardPage() {
+  const { user } = useAuth();
+  const { t, lang } = useLanguage();
+  const navigate = useNavigate();
+  const de = lang === 'de';
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [referralCode, setReferralCode] = useState('');
+  const { balance, isPremium } = useCredits();
+  const loadDashboard = useCallback(async () => {
+    try {
+      const [dashRes, refRes] = await Promise.all([
+        api.get('/dashboard-v4').catch(() => api.get('/dashboard')),
+        api.get('/referral/code').catch(() => ({ data: {} })),
+      ]);
+      setData(dashRes.data);
+      setReferralCode(refRes.data?.code || '');
+    } catch (err) { logger.error('Dashboard load error:', err); } finally { setLoading(false); }
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem('wladbot_onboarding_done')) setShowOnboarding(true);
+    loadDashboard();
+  }, [loadDashboard]);
+
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h < 12) return de ? 'Guten Morgen' : 'Good Morning';
+    if (h < 17) return de ? 'Guten Tag' : 'Good Afternoon';
+    return de ? 'Guten Abend' : 'Good Evening';
+  };
+
+  const copyReferral = () => {
+    navigator.clipboard.writeText(`https://wladhub.com?ref=${referralCode}`);
+    toast.success(de ? 'Referral-Link kopiert!' : 'Referral link copied!');
+  };
+
+  const ud = data?.user || user || {};
+  const tierInfo = useTier();
+  const xpInfo = data?.xp_info || {};
+  const ls = data?.leader_score || {};
+  const streak = data?.streak || { days: 0 };
+  const c30 = data?.challenge30 || {};
+  const xpCurrent = xpInfo.xp ?? ud.xp ?? 0;
+  const levelName = xpInfo.level || ud.level || 'Teamplayer';
+  const levelLabel = de ? (xpInfo.level_label_de || 'Grundlagen entdecken') : (xpInfo.level_label_en || 'Discovering fundamentals');
+  const levelIndex = xpInfo.level_index ?? 0;
+  const levelProgress = xpInfo.progress_pct ?? 0;
+  const nextLevel = xpInfo.next_level;
+  const xpToNext = xpInfo.xp_to_next || 0;
+  const aiReadiness = ls.composite || 0;
+  const learningPct = c30.progress_pct || 0;
+
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="p-6 lg:p-10 max-w-6xl mx-auto" data-testid="dashboard-loading">
+          <div className="space-y-4">{[1,2,3,4].map(i => <div key={`sk-${i}`} className="h-28 rounded-2xl skeleton-pulse" />)}</div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  return (
+    <DashboardLayout>
+      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen" data-testid="dashboard-page">
+        {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
+
+        {/* ── Greeting ── */}
+        <div className="flex items-center justify-between mb-8 animate-fade-in">
+          <div>
+            <p className="text-sm text-muted-foreground">{de ? 'Willkommen zurück,' : 'Welcome back,'}</p>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{ud.name || 'Leader'}</h1>
+              <TierBadge size="sm" />
+              {tierInfo?.inGracePeriod && (
+                <button onClick={() => navigate('/coaching')} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25 hover:bg-rose-500/25 transition-colors" data-testid="grace-badge">
+                  {de ? 'Jetzt verlängern' : 'Renew now'}
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate('/chat')} className="font-semibold text-xs h-9 gap-1.5" data-testid="talk-coach-btn">
+              <MessageSquareText size={14} /> {de ? 'KI-Coach' : 'AI Coach'}
+            </Button>
+            {!isPremium && balance >= 0 && (
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0A0A0A] text-white" data-testid="credit-badge">
+                <Zap size={12} className="text-[#BFFF00]" />
+                <span className="text-[11px] font-bold">{balance}</span>
+                <span className="text-[10px] text-white/40">Credits</span>
+              </div>
+            )}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#BFFF00]/10 border border-[#BFFF00]/20" data-testid="streak-bar">
+              <Flame size={13} className="text-[#6B8A00] dark:text-[#BFFF00]" />
+              <span className="text-[12px] font-bold"><AnimatedNumber value={streak?.days || 0} duration={500} /></span>
+              <span className="text-[10px] text-muted-foreground font-medium">{de ? 'Tage' : 'days'}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Event Reminder ── */}
+        <EventReminderBanner de={de} />
+
+        {/* Wlad's Daily Motivation — click to hear Wlad speak via ElevenLabs */}
+        <div className="mb-5">
+          <WladMotivationCard de={de} />
+        </div>
+
+        {/* ── Stat Cards Row ── */}
+        <StatCardsRow aiReadiness={aiReadiness} learningPct={learningPct} c30={c30} de={de} />
+
+        {/* ── YOUR NEXT STEP (DOMINANT) ── */}
+        <Card className="bg-[#0A0A0A] text-white border-0 mb-6 overflow-hidden animate-fade-in" data-testid="next-step-cta">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-5">
+              <img src={WLAD_AVATAR} alt="Wlad" className="w-14 h-14 rounded-full object-cover ring-2 ring-white/10 shrink-0" />
+              <div className="flex-1">
+                <h3 className="text-lg font-black">{de ? 'Dein nächster Schritt' : 'Your Next Step'}</h3>
+                <p className="text-sm text-white/50 mt-0.5">
+                  {!c30.started
+                    ? (de ? 'Starte deinen 30-Tage KI-Leadership Sprint und lerne die Grundlagen.' : 'Start your 30-day AI Leadership sprint and learn the fundamentals.')
+                    : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge — 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge — 10 interactive questions await.`)
+                  }
+                </p>
+              </div>
+              <Button onClick={() => navigate('/challenge')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold h-11 px-5 shrink-0 shadow-lg shadow-[#BFFF00]/20" data-testid="next-step-btn">
+                <Play size={14} className="mr-1.5" /> {!c30.started ? (de ? 'Challenge starten' : 'Start Challenge') : (de ? 'Weitermachen' : 'Continue')}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* ── Main Grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* LEFT: Actions + Quick Access */}
+          <div className="lg:col-span-2 space-y-5">
+
+            {/* Quick Actions */}
+            <QuickActionsGrid de={de} navigate={navigate} />
+
+            {/* XP + Level Progress */}
+            <Card className="border-black/[0.04] dark:border-white/[0.06] animate-fade-in overflow-hidden relative" data-testid="level-progress">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#BFFF00]/[0.06] rounded-full blur-3xl pointer-events-none" />
+              <CardContent className="p-5 relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{de ? 'Dein Leadership-Level' : 'Your Leadership Level'}</h3>
+                  </div>
+                  <Badge className="text-[10px] font-bold bg-[#BFFF00]/15 text-[#4A6200] dark:text-[#BFFF00] border-0">
+                    LVL {levelIndex + 1} / 5
+                  </Badge>
+                </div>
+
+                {/* Level name + descriptive label */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] flex items-center justify-center shadow-lg shadow-[#BFFF00]/20 shrink-0">
+                    <span className="text-2xl font-black text-[#0A0A0A]">{levelIndex + 1}</span>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl font-black tracking-tight truncate">{levelName}</p>
+                    <p className="text-[12px] text-muted-foreground font-medium truncate">{levelLabel}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-2xl font-black leading-none"><AnimatedNumber value={xpCurrent} /></p>
+                    <p className="text-[10px] text-muted-foreground font-medium mt-0.5">XP</p>
+                  </div>
+                </div>
+
+                {/* Progress to next */}
+                <div className="space-y-1.5">
+                  <div className="h-2.5 rounded-full bg-gray-100 dark:bg-muted overflow-hidden">
+                    <div className="h-full rounded-full bg-gradient-to-r from-[#BFFF00] to-[#9ACC00] transition-all duration-1000 shadow-[0_0_8px_rgba(191,255,0,0.4)]"
+                      style={{ width: `${Math.min(100, levelProgress)}%` }} />
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] font-semibold">
+                    <span className="text-muted-foreground">{levelProgress}% {de ? 'zum nächsten Level' : 'to next level'}</span>
+                    {nextLevel ? (
+                      <span className="text-[#4A6200] dark:text-[#BFFF00]">
+                        {xpToNext > 0 ? `${xpToNext} XP → ${nextLevel}` : nextLevel}
+                      </span>
+                    ) : (
+                      <span className="text-[#4A6200] dark:text-[#BFFF00]">{de ? 'MAX LEVEL' : 'MAX LEVEL'}</span>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Upsell Banner */}
+            <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden animate-fade-in" data-testid="upsell-banner">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
+                    <Sparkles size={22} className="text-[#BFFF00]" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-bold">{de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential'}</p>
+                    <p className="text-xs text-white/40 mt-0.5">{de ? 'Alle 16 Missionen, 10 Workflows und persönliches Coaching.' : 'All 16 missions, 10 workflows and personal coaching.'}</p>
+                    <p className="text-[10px] text-white/25 mt-1"><Sparkles size={9} className="inline mr-0.5" /> {de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <Button onClick={() => navigate('/coaching')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4">
+                      {de ? 'Premium werden' : 'Upgrade to Premium'}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* RIGHT: Sidebar */}
+          <div className="space-y-5">
+
+            {/* This Week Calendar */}
+            <WeekCalendarCard de={de} onNavigate={navigate} />
+
+            {/* Referral Card */}
+            <Card className="bg-[#0A0A0A] text-white border-0 animate-fade-in" data-testid="referral-upsell-card">
+              <CardContent className="p-4 space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#BFFF00]/15 flex items-center justify-center"><Gift size={13} className="text-[#BFFF00]" /></div>
+                  <div>
+                    <p className="text-xs font-bold">{de ? 'Freunde einladen' : 'Invite friends'}</p>
+                    <p className="text-[9px] text-white/40">{de ? 'Verdiene Rewards' : 'Earn rewards'}</p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={() => navigate('/referral')} size="sm" className="flex-1 bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] text-[10px] font-bold h-8" data-testid="referral-share-btn">
+                    <Share2 size={10} className="mr-1" /> TEILEN
+                  </Button>
+                  {referralCode && (
+                    <Button onClick={copyReferral} size="sm" variant="outline" className="border-white/15 text-white hover:bg-white/10 text-[10px] h-8" data-testid="referral-copy-btn">
+                      <Copy size={10} className="mr-1" /> {referralCode}
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* WladHub Diagnosis */}
+            <WladHubDiagnosisCard wladhubScores={ud.wladhub_scores} de={de} onNavigate={navigate} />
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  );
+}

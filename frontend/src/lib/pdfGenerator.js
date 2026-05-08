@@ -1,0 +1,296 @@
+import jsPDF from 'jspdf';
+
+/**
+ * Premium branded PDF generator — WladBot Leadership OS
+ * Supports all result types from workflows, playbooks, simulations
+ */
+export async function generatePDF(reportData, filename = 'WladBot-Report') {
+  const doc = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 20;
+  const contentWidth = pageWidth - 2 * margin;
+  let y = 0;
+
+  const brand = [107, 138, 0];
+  const dark = [30, 30, 40];
+  const gray = [120, 120, 135];
+  const green = [16, 185, 129];
+  const amber = [245, 158, 11];
+  const blue = [59, 130, 246];
+  const rose = [244, 63, 94];
+
+  const checkNewPage = (needed = 20) => {
+    if (y > 270 - needed) { doc.addPage(); y = 20; }
+  };
+
+  const addSection = (title, items, color = brand) => {
+    if (!items?.length) return;
+    checkNewPage(30);
+    doc.setTextColor(...brand);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text(title, margin, y);
+    y += 6;
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    items.forEach((item, i) => {
+      checkNewPage();
+      const text = typeof item === 'string' ? item : `${item.task || item.goal || item.topic || ''}: ${item.why || item.action || item.duration || ''}`;
+      const lines = doc.splitTextToSize(`${i + 1}. ${text}`, contentWidth - 8);
+      doc.text(lines, margin + 4, y);
+      y += lines.length * 4.5 + 1.5;
+    });
+    y += 5;
+  };
+
+  // Header gradient bar
+  doc.setFillColor(...brand);
+  doc.rect(0, 0, pageWidth, 40, 'F');
+  doc.setFillColor(...brand);
+  doc.rect(pageWidth * 0.55, 0, pageWidth * 0.45, 40, 'F');
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(20);
+  doc.setFont('helvetica', 'bold');
+  doc.text('WladBot', margin, 18);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.text('LEADERSHIP OS', margin, 26);
+
+  doc.setFontSize(11);
+  const titleText = reportData.title || 'Leadership Report';
+  const titleLines = doc.splitTextToSize(titleText, contentWidth * 0.5);
+  doc.text(titleLines, pageWidth - margin, 18, { align: 'right' });
+  doc.setFontSize(8);
+  doc.text(new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }), pageWidth - margin, 26 + (titleLines.length - 1) * 4, { align: 'right' });
+
+  y = 52;
+
+  // Overall Assessment
+  if (reportData.overall_assessment) {
+    doc.setTextColor(...dark);
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Gesamtbewertung', margin, y);
+    y += 7;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...gray);
+    const lines = doc.splitTextToSize(reportData.overall_assessment, contentWidth);
+    doc.text(lines, margin, y);
+    y += lines.length * 5 + 8;
+  }
+
+  // Score
+  if (reportData.score !== undefined) {
+    checkNewPage(30);
+    doc.setFillColor(245, 245, 250);
+    doc.roundedRect(margin, y, contentWidth, 22, 3, 3, 'F');
+    doc.setTextColor(...brand);
+    doc.setFontSize(22);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${reportData.score}/100`, margin + 8, y + 15);
+    doc.setFontSize(9);
+    doc.setTextColor(...gray);
+    doc.text('Leader Score', margin + 42, y + 15);
+    y += 30;
+  }
+
+  // Conversation Plan
+  if (reportData.conversation_plan) {
+    checkNewPage(30);
+    doc.setTextColor(...blue);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Gesprächsplan', margin, y);
+    y += 7;
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    if (reportData.conversation_plan.opening) {
+      const lines = doc.splitTextToSize(`Eröffnung: ${reportData.conversation_plan.opening}`, contentWidth - 5);
+      doc.text(lines, margin + 3, y); y += lines.length * 4.5 + 2;
+    }
+    reportData.conversation_plan.main_points?.forEach((p, i) => {
+      checkNewPage();
+      const lines = doc.splitTextToSize(`${i + 1}. ${p}`, contentWidth - 5);
+      doc.text(lines, margin + 3, y); y += lines.length * 4.5 + 2;
+    });
+    if (reportData.conversation_plan.closing) {
+      const lines = doc.splitTextToSize(`Abschluss: ${reportData.conversation_plan.closing}`, contentWidth - 5);
+      doc.text(lines, margin + 3, y); y += lines.length * 4.5 + 2;
+    }
+    y += 5;
+  }
+
+  // Insights
+  addSection('Top Erkenntnisse', reportData.top_10_insights, brand);
+
+  // Feedback Formulations
+  addSection('Feedback-Formulierungen', reportData.feedback_formulations, green);
+
+  // Guide Questions
+  addSection('Leitfragen', reportData.guide_questions, amber);
+
+  // Optimized Text
+  if (reportData.optimized_text) {
+    checkNewPage(20);
+    doc.setTextColor(...blue);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Optimierte Version', margin, y);
+    y += 7;
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(reportData.optimized_text, contentWidth);
+    lines.forEach(line => { checkNewPage(); doc.text(line, margin, y); y += 4.5; });
+    y += 5;
+  }
+
+  // Pros & Cons
+  const halfWidth = (contentWidth - 6) / 2;
+  if (reportData.pros?.length || reportData.cons?.length) {
+    checkNewPage(40);
+    if (reportData.pros?.length) {
+      doc.setFillColor(240, 253, 244);
+      doc.roundedRect(margin, y, halfWidth, 10 + reportData.pros.length * 5, 2, 2, 'F');
+      doc.setTextColor(...green);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('PRO', margin + 4, y + 7);
+      doc.setTextColor(...dark);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      reportData.pros.forEach((s, i) => {
+        const lines = doc.splitTextToSize(`+ ${s}`, halfWidth - 10);
+        doc.text(lines, margin + 4, y + 13 + i * 5);
+      });
+    }
+    if (reportData.cons?.length) {
+      const x2 = margin + halfWidth + 6;
+      doc.setFillColor(255, 251, 235);
+      doc.roundedRect(x2, y, halfWidth, 10 + reportData.cons.length * 5, 2, 2, 'F');
+      doc.setTextColor(...rose);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('CONTRA', x2 + 4, y + 7);
+      doc.setTextColor(...dark);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      reportData.cons.forEach((s, i) => {
+        const lines = doc.splitTextToSize(`- ${s}`, halfWidth - 10);
+        doc.text(lines, x2 + 4, y + 13 + i * 5);
+      });
+    }
+    const maxItems = Math.max(reportData.pros?.length || 0, reportData.cons?.length || 0);
+    y += 16 + maxItems * 5;
+  }
+
+  // Recommendation
+  if (reportData.recommendation) {
+    checkNewPage(20);
+    doc.setFillColor(238, 242, 255);
+    doc.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
+    doc.setTextColor(...brand);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Empfehlung', margin + 6, y + 7);
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(reportData.recommendation, contentWidth - 14);
+    doc.text(lines, margin + 6, y + 13);
+    y += 22 + (lines.length - 1) * 4;
+  }
+
+  // Counter-Check
+  if (reportData.counter_check) {
+    checkNewPage(20);
+    doc.setFillColor(255, 251, 235);
+    doc.roundedRect(margin, y, contentWidth, 20, 3, 3, 'F');
+    doc.setTextColor(...amber);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Gegencheck (Devil's Advocate)", margin + 6, y + 7);
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(reportData.counter_check, contentWidth - 14);
+    doc.text(lines, margin + 6, y + 13);
+    y += 22 + (lines.length - 1) * 4;
+  }
+
+  // Strengths & Improvements
+  if (reportData.strengths?.length || reportData.improvements?.length) {
+    checkNewPage(40);
+    if (reportData.strengths?.length) {
+      doc.setFillColor(240, 253, 244);
+      doc.roundedRect(margin, y, halfWidth, 10 + reportData.strengths.length * 5, 2, 2, 'F');
+      doc.setTextColor(...green);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Stärken', margin + 4, y + 7);
+      doc.setTextColor(...dark);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      reportData.strengths.forEach((s, i) => doc.text(`+ ${s}`, margin + 4, y + 13 + i * 5));
+    }
+    if (reportData.improvements?.length) {
+      const x2 = margin + halfWidth + 6;
+      doc.setFillColor(255, 251, 235);
+      doc.roundedRect(x2, y, halfWidth, 10 + reportData.improvements.length * 5, 2, 2, 'F');
+      doc.setTextColor(...amber);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Verbesserungspotenzial', x2 + 4, y + 7);
+      doc.setTextColor(...dark);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      reportData.improvements.forEach((s, i) => doc.text(`- ${s}`, x2 + 4, y + 13 + i * 5));
+    }
+    const maxItems = Math.max(reportData.strengths?.length || 0, reportData.improvements?.length || 0);
+    y += 16 + maxItems * 5;
+  }
+
+  // High Impact Tasks
+  addSection('Hoher Impact — Sofort umsetzen', reportData.high_impact, blue);
+
+  // Development Plan
+  addSection('Entwicklungsplan', reportData.development_plan, violet);
+
+  // Agenda
+  addSection('Agenda', reportData.agenda, amber);
+
+  // Next Steps
+  addSection('Nächste Schritte', reportData.next_steps, violet);
+
+  // Leadership Recommendations
+  addSection('Leadership-Empfehlungen', reportData.leadership_recommendations, brand);
+
+  // Generic result text
+  if (reportData.result && typeof reportData.result === 'string') {
+    checkNewPage(20);
+    doc.setTextColor(...dark);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(reportData.result, contentWidth);
+    lines.forEach(line => { checkNewPage(); doc.text(line, margin, y); y += 4.5; });
+    y += 5;
+  }
+
+  // Footer on all pages
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFillColor(...brand);
+    doc.rect(0, 287, pageWidth, 10, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(7);
+    doc.text('WladBot Leadership OS — Basierend auf Wlad Jachtchenkos Methodik', margin, 293);
+    doc.text(`Seite ${i}/${pageCount}`, pageWidth - margin, 293, { align: 'right' });
+  }
+
+  doc.save(`${filename}.pdf`);
+}
