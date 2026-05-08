@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate repo hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS= read -r f; do
+            if ! python3 -m json.tool "$f" > /dev/null; then
+              echo "::error file=$f::Invalid JSON"
+              fail=1
+            fi
+          done < <(git ls-files '*.json')
+          exit $fail
+
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: |
+            **/*.md
+            !node_modules
+
+      - name: Check Markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --verbose --max-concurrency 4 './**/*.md'
+          fail: true
+
+      - name: Verify Supabase MCP project ref is unchanged
+        run: |
+          set -euo pipefail
+          expected="srujvjjncrszhaaxepxf"
+          actual=$(python3 -c "import json,sys; print(json.load(open('.mcp.json'))['mcpServers']['supabase']['url'])")
+          case "$actual" in
+            *"project_ref=$expected"*) echo "OK: $actual" ;;
+            *) echo "::error::.mcp.json project_ref drifted (expected $expected): $actual"; exit 1 ;;
+          esac
+
+      - name: Verify CLAUDE.md mentions the project ref
+        run: |
+          grep -q "srujvjjncrszhaaxepxf" CLAUDE.md || {
+            echo "::error::CLAUDE.md no longer references the Supabase project ref"; exit 1; }
