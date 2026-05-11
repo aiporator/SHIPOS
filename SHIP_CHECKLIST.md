@@ -161,11 +161,14 @@ REACT_APP_BACKEND_URL=https://leader-os.de
 
 ## 🏁 Pre-Launch Checklist
 
+- [x] **Login-Page polish complete (Iter 77)** — a11y labels paired, autoComplete attrs, Mobile keyboard hints, Loader2 spinner, env-gated QuickLogin
+- [ ] **CRITICAL for prod**: `REACT_APP_SHOW_QUICK_LOGIN` env var MUST NOT be set to `'true'` on the production build (or QuickLoginList with test-credentials would be visible publicly). Currently only set in `/app/frontend/.env` (preview). Verify in Emergent deploy settings.
 - [ ] Stripe-Account auf Live umstellen (Live-Key + 4 Products + Webhook)
 - [ ] `ENTERPRISE_LEAD_EMAIL` in Backend `.env` setzen (Sales-Inbox)
 - [ ] Externer Cron-Job für `/api/cron/installments-due` (täglich 09:00)
 - [ ] Externer Cron-Job für `/api/cron/monthly-scorecard` (1. des Monats)
-- [ ] DNS auf `leader-os.de` verifizieren (bereits aktiv)
+- [x] DNS auf `leader-os.de` verifizieren (bereits aktiv)
+- [x] Final regression test ALL GREEN: `/app/test_reports/iteration_77.json` (Backend 10/10 · Frontend 35/35)
 - [ ] Test-User-Daten vor Launch wegräumen (`db.users.deleteMany({email: /@wladbot.test$/})`)
 - [ ] Audio-Mode auf Mobile (Chrome iOS / Android) verifizieren
 - [ ] Stripe-Webhook-Empfang einmal mit echtem Test-Payment durchspielen
