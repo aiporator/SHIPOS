@@ -206,12 +206,18 @@ async function generatePDFFromHTML(html, filename, fallbackBlob) {
 
     iframe = document.createElement('iframe');
     iframe.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:auto;border:0;visibility:hidden;';
+    // srcdoc instead of document.write() — safer, future-proof, no parser blocking.
+    iframe.srcdoc = html;
     document.body.appendChild(iframe);
-    iframe.contentDocument.open();
-    iframe.contentDocument.write(html);
-    iframe.contentDocument.close();
-    // Wait for fonts/layout
-    await new Promise((r) => setTimeout(r, 350));
+
+    // Wait for srcdoc parsing + fonts/layout
+    await new Promise((resolve) => {
+      const onLoad = () => { iframe.removeEventListener('load', onLoad); resolve(); };
+      iframe.addEventListener('load', onLoad);
+      // Hard timeout in case load never fires
+      setTimeout(resolve, 1500);
+    });
+    await new Promise((r) => setTimeout(r, 200));
 
     const target = iframe.contentDocument.querySelector('.container') || iframe.contentDocument.body;
     const canvas = await html2canvas(target, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
