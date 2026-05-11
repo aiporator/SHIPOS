@@ -6,7 +6,6 @@ import api from '../lib/api';
 import { parseAuthError } from '../lib/authErrors';
 import { Globe, Zap, WifiOff } from 'lucide-react';
 import { LoginBrandPanel } from '../components/auth/LoginBrandPanel';
-import { QuickLoginList } from '../components/auth/QuickLoginList';
 import { AuthForm } from '../components/auth/AuthForm';
 import { GoogleButton, TrustBadges, ModeSwitch } from '../components/auth/LoginExtras';
 
@@ -28,7 +27,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState('register');
   const [loading, setLoading] = useState(false);
-  const [quickLoadingEmail, setQuickLoadingEmail] = useState(null);
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -56,26 +54,6 @@ export default function LoginPage() {
       }
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleQuickLogin = async (email) => {
-    setQuickLoadingEmail(email);
-    setError('');
-    try {
-      const res = await api.post('/auth/login', { email, password: 'test123' });
-      login(res.data.user);
-      navigate('/dashboard');
-    } catch (err) {
-      if (!err.response) {
-        setError(de
-          ? 'Keine Verbindung zum Server. Server evtl. noch am Starten — bitte in 10 Sek nochmal versuchen.'
-          : 'Cannot reach server. Backend may still be starting — retry in 10s.');
-      } else {
-        setError(parseAuthError(err, de ? 'Test-Login fehlgeschlagen' : 'Test login failed'));
-      }
-    } finally {
-      setQuickLoadingEmail(null);
     }
   };
 
@@ -147,15 +125,6 @@ export default function LoginPage() {
             showPw={showPw} setShowPw={setShowPw}
             loading={loading} onSubmit={handleSubmit} de={de}
           />
-
-          {/* Quick-Login: visible only in preview/dev — NEVER in production */}
-          {process.env.REACT_APP_SHOW_QUICK_LOGIN === 'true' && (
-            <QuickLoginList
-              quickLoadingEmail={quickLoadingEmail}
-              onQuickLogin={handleQuickLogin}
-              de={de}
-            />
-          )}
 
           <div className="mt-6 lg:mt-8 text-center">
             <ModeSwitch mode={mode} onSwitchMode={switchMode} de={de} />
