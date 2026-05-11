@@ -148,11 +148,14 @@ export default function LoginPage() {
             loading={loading} onSubmit={handleSubmit} de={de}
           />
 
-          <QuickLoginList
-            quickLoadingEmail={quickLoadingEmail}
-            onQuickLogin={handleQuickLogin}
-            de={de}
-          />
+          {/* Quick-Login: visible only in preview/dev — NEVER in production */}
+          {process.env.REACT_APP_SHOW_QUICK_LOGIN === 'true' && (
+            <QuickLoginList
+              quickLoadingEmail={quickLoadingEmail}
+              onQuickLogin={handleQuickLogin}
+              de={de}
+            />
+          )}
 
           <div className="mt-6 lg:mt-8 text-center">
             <ModeSwitch mode={mode} onSwitchMode={switchMode} de={de} />
