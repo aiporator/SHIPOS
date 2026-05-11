@@ -137,6 +137,15 @@ async def register(data: UserRegister, request: Request, response: Response):
     await _create_session(user_id, ip_address, response, method="register")
     await record_user_action(user_id, "register")
 
+    # Mirror to Supabase (fire-and-forget — does not block response)
+    from services_supabase_sync import mirror_user_event_fire_and_forget
+    mirror_user_event_fire_and_forget(
+        mongo_user_id=user_id,
+        email=email,
+        full_name=data.name.strip(),
+        event="user.created",
+    )
+
     # JWT token kept for backwards-compat API consumers; frontend uses httpOnly cookie only
     return {"token": token, "user": _safe_user_output(user_doc)}
 
@@ -198,6 +207,7 @@ async def google_session(request: Request, response: Response):
             },
             "$push": {"login_history": {"$each": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "google"}], "$slice": -50}}
         })
+        sync_event = "user.updated"
     else:
         user_id = f"user_{uuid.uuid4().hex[:12]}"
         await db.users.insert_one({
@@ -208,12 +218,24 @@ async def google_session(request: Request, response: Response):
             "login_history": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "google"}],
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
+        sync_event = "user.created"
 
     # Generate a real JWT token (not the session_token)
     token = create_jwt_token(user_id)
     await _create_session(user_id, ip_address, response, method="google")
 
     user = await db.users.find_one({"user_id": user_id}, {"_id": 0})
+
+    # Mirror to Supabase (fire-and-forget)
+    from services_supabase_sync import mirror_user_event_fire_and_forget
+    mirror_user_event_fire_and_forget(
+        mongo_user_id=user_id,
+        email=email,
+        full_name=user.get("name") or "",
+        event=sync_event,
+        extra={"auth_method": "google"},
+    )
+
     return {"user": _safe_user_output(user), "token": token}
 
 

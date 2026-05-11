@@ -63,6 +63,10 @@ app.include_router(admin_router)
 app.include_router(profile_router)
 app.include_router(voice_tts_router)
 
+# Internal sync layer (Supabase ↔ Mongo)
+from routes.sync import router as sync_router  # noqa: E402
+app.include_router(sync_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:
@@ -142,6 +146,11 @@ async def startup() -> None:
         await db.chat_messages.create_index([("session_id", 1), ("created_at", 1)])
         await db.activity_log.create_index([("user_id", 1), ("created_at", -1)])
         logger.info("Production query indexes ensured (users.xp, chat_messages.session_id, activity_log.user_id+created_at)")
+
+        # Supabase sync events — idempotency (unique event_id) + audit trail
+        await db.sync_events.create_index("event_id", unique=True, name="sync_event_id_unique")
+        await db.sync_events.create_index([("direction", 1), ("received_at", -1)])
+        logger.info("Sync event indexes ensured (sync_events.event_id unique)")
 
         # Migrate old level names to new role-based names
         level_migration = {
