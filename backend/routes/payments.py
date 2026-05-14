@@ -12,7 +12,7 @@ from emergentintegrations.payments.stripe.checkout import (
 )
 
 from config import db, STRIPE_API_KEY, logger
-from services import get_current_user
+from services import get_current_user, require_cron_auth
 from services_tier import TIER_CONFIG, activate_tier, resolve_user_tier, calc_enterprise_quote
 from services_email import send_email, tier_welcome_email, installment_due_email, monthly_scorecard_email, is_enabled as email_enabled
 
@@ -421,6 +421,7 @@ async def _handle_installment_payment(user_id: str, installment_num: int):
 async def cron_installments_due(request: Request):
     """Scan all active installment plans. For each plan where next_due_date <= today,
     email the user a link to pay the next installment. Run daily."""
+    require_cron_auth(request)
     if not email_enabled():
         return {"sent": 0, "error": "email service not configured"}
 
@@ -550,6 +551,7 @@ async def _send_scorecard_and_log(user: dict, metrics: dict, month_key: str, app
 async def cron_monthly_scorecard(request: Request) -> dict:
     """Send monthly Leadership Scorecard email to all Accelerator users.
     Run once per month (typically 1st of month)."""
+    require_cron_auth(request)
     if not email_enabled():
         return {"sent": 0, "error": "email service not configured"}
 

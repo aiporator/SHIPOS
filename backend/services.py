@@ -81,6 +81,29 @@ async def _authenticate_via_jwt(token: str) -> dict | None:
         return None
 
 
+# ========== CRON AUTH ==========
+
+import hmac
+import os
+
+
+def require_cron_auth(request: Request) -> None:
+    """Opt-in shared-secret check for public cron endpoints.
+
+    If CRON_SHARED_SECRET is set in the environment, the request must carry
+    a matching value in the `X-Cron-Secret` header (constant-time compare).
+    If the env var is unset, the check is a no-op — preserves the current
+    behaviour where the endpoints are open, while letting ops harden them
+    by just setting one env var + a matching GitHub Actions secret.
+    """
+    expected = os.environ.get("CRON_SHARED_SECRET")
+    if not expected:
+        return
+    provided = request.headers.get("X-Cron-Secret", "")
+    if not hmac.compare_digest(provided, expected):
+        raise HTTPException(status_code=401, detail="cron auth failed")
+
+
 # ========== AI HELPERS ==========
 
 def clean_ai_text(text: str) -> str:
