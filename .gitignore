@@ -7,6 +7,7 @@
 
 # Claude Code local overrides (keep team config in .claude/settings.json checked in)
 .claude/settings.local.json
+.mcp.local.json
 
 # Env / secrets — never commit
 .env
