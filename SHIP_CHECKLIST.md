@@ -182,19 +182,26 @@ REACT_APP_BACKEND_URL=https://leader-os.de
 
 The FastAPI backend continues to run on `leader-os.de` (MongoDB-bound,
 not a fit for Vercel serverless without a rewrite). Vercel hosts only
-the CRA frontend; `frontend/vercel.json` rewrites `/api/*` to the
-existing backend, so `src/lib/api.js`'s same-origin path keeps working.
+the CRA frontend; the repo-root `vercel.json` cd's into `frontend/`,
+runs `yarn build`, serves `frontend/build/`, and rewrites `/api/*` to
+the existing backend so `src/lib/api.js`'s same-origin path keeps
+working.
 
 **Setup (one time, in Vercel dashboard):**
 1. Import the GitHub repo.
-2. Set **Root Directory** → `frontend`.
-3. Framework preset: **Create React App** (auto-detected).
-4. Environment variables (Production scope):
+2. Leave **Root Directory** as the repo root — `vercel.json` handles
+   the cd-into-frontend dance. (If you prefer setting Root Directory =
+   `frontend`, move `vercel.json` into that folder and drop the cd
+   prefix from the install/build commands.)
+3. Environment variables (Production scope):
    - `REACT_APP_BACKEND_URL=https://leader-os.de`
    - `REACT_APP_SHOW_QUICK_LOGIN` → **leave UNSET** (or `false`).
    - `GENERATE_SOURCEMAP=false`
-5. Deploy. Vercel runs `yarn install --frozen-lockfile && yarn build`
-   and serves `frontend/build/`.
+4. **Deployment Protection** → disable Vercel Authentication on
+   Preview if you want shareable preview URLs (currently 403s
+   externally — Team SSO is on by default).
+5. Deploy. Vercel runs `cd frontend && yarn install --frozen-lockfile
+   && yarn build` and serves `frontend/build/`.
 
 **Local trial without GitHub:**
 ```
