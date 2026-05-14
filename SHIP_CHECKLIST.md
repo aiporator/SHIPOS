@@ -161,17 +161,30 @@ REACT_APP_BACKEND_URL=https://leader-os.de
 
 ## 🏁 Pre-Launch Checklist
 
-- [x] **Login-Page polish complete (Iter 77)** — a11y labels paired, autoComplete attrs, Mobile keyboard hints, Loader2 spinner, env-gated QuickLogin
-- [ ] **CRITICAL for prod**: `REACT_APP_SHOW_QUICK_LOGIN` env var MUST NOT be set to `'true'` on the production build (or QuickLoginList with test-credentials would be visible publicly). Currently only set in `/app/frontend/.env` (preview). Verify in Emergent deploy settings.
-- [ ] Stripe-Account auf Live umstellen (Live-Key + 4 Products + Webhook)
-- [ ] `ENTERPRISE_LEAD_EMAIL` in Backend `.env` setzen (Sales-Inbox)
-- [x] Externer Cron-Job für `/api/cron/installments-due` (täglich 09:00) — `.github/workflows/cron.yml`
-- [x] Externer Cron-Job für `/api/cron/monthly-scorecard` (1. des Monats) — `.github/workflows/cron.yml`
-- [x] DNS auf `leader-os.de` verifizieren (bereits aktiv)
-- [x] Final regression test ALL GREEN: `/app/test_reports/iteration_77.json` (Backend 10/10 · Frontend 35/35)
-- [ ] Test-User-Daten vor Launch wegräumen (`db.users.deleteMany({email: /@wladbot.test$/})`)
-- [ ] Audio-Mode auf Mobile (Chrome iOS / Android) verifizieren
-- [ ] Stripe-Webhook-Empfang einmal mit echtem Test-Payment durchspielen
+> **The authoritative tomorrow-launch runbook is `docs/GO_LIVE.md`.**
+> This list mirrors it for at-a-glance status.
+
+Done in code (verified):
+- [x] **Login-Page polish (Iter 77)** — a11y, autoComplete, mobile keyboard hints, Loader2, env-gated QuickLogin.
+- [x] **Frontend Vercel build** — `dpl_HQd42CLjTY9QrVNwkKcGaN5WcC6U` "Compiled successfully", `main.831fabaa.js` 429.3 kB. Repo-root `vercel.json` runs `cd frontend && yarn install --frozen-lockfile && yarn build`.
+- [x] **CI on every PR** — `.github/workflows/ci.yml` (frontend build + backend `compileall`).
+- [x] **Cron automation** — `.github/workflows/cron.yml` POSTs both endpoints; idempotent dedup makes drift safe.
+- [x] **Cron auth (opt-in)** — `CRON_SHARED_SECRET` plumbing on backend + workflow.
+- [x] **Security headers on Vercel** — HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy.
+- [x] **Final regression** — `test_reports/iteration_77.json` (Backend 10/10 · Frontend 35/35).
+- [x] **DNS verified** on `leader-os.de` (currently pointing at Emergent host).
+
+Dashboard / external work (only you can do these — see `docs/GO_LIVE.md` for exact steps):
+- [ ] Vercel: set Production env vars (`REACT_APP_BACKEND_URL`, no `REACT_APP_SHOW_QUICK_LOGIN`, `GENERATE_SOURCEMAP=false`).
+- [ ] Vercel: disable Deployment Protection on Production.
+- [ ] Vercel: attach production domain (recommend `app.leader-os.de` so backend keeps the apex — see GO_LIVE §1c).
+- [ ] Stripe: switch to Live, create 4 products, register webhook, paste `sk_live_*` into backend `.env`.
+- [ ] Backend `.env`: set `ENTERPRISE_LEAD_EMAIL` (and optionally `CRON_SHARED_SECRET` + the matching GH Actions secret).
+- [ ] Mongo: `db.users.deleteMany({email: /@wladbot\.test$/})` (after Stripe is live).
+- [ ] Real-device mobile test for Audio-Mode (Chrome iOS + Android).
+- [ ] One real test payment end-to-end; confirm webhook received in Stripe → Events.
+- [ ] Optional: Sentry / PostHog signup.
+- [ ] Merge PR #8 to trigger the production Vercel build.
 - [ ] Optional: Sentry/PostHog für Error-Tracking + Conversion-Funnel
 
 **Du kannst die App jetzt produktiv ausspielen.** 🚀
