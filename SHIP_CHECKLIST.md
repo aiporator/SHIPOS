@@ -175,3 +175,40 @@ REACT_APP_BACKEND_URL=https://leader-os.de
 - [ ] Optional: Sentry/PostHog für Error-Tracking + Conversion-Funnel
 
 **Du kannst die App jetzt produktiv ausspielen.** 🚀
+
+---
+
+## 🔟 Vercel Deploy (Frontend only)
+
+The FastAPI backend continues to run on `leader-os.de` (MongoDB-bound,
+not a fit for Vercel serverless without a rewrite). Vercel hosts only
+the CRA frontend; `frontend/vercel.json` rewrites `/api/*` to the
+existing backend, so `src/lib/api.js`'s same-origin path keeps working.
+
+**Setup (one time, in Vercel dashboard):**
+1. Import the GitHub repo.
+2. Set **Root Directory** → `frontend`.
+3. Framework preset: **Create React App** (auto-detected).
+4. Environment variables (Production scope):
+   - `REACT_APP_BACKEND_URL=https://leader-os.de`
+   - `REACT_APP_SHOW_QUICK_LOGIN` → **leave UNSET** (or `false`).
+   - `GENERATE_SOURCEMAP=false`
+5. Deploy. Vercel runs `yarn install --frozen-lockfile && yarn build`
+   and serves `frontend/build/`.
+
+**Local trial without GitHub:**
+```
+cd frontend
+npx vercel        # link the project (interactive)
+npx vercel --prod # ship a production build
+```
+
+**DNS:** point `leader-os.de` apex/`www` at Vercel only if the backend
+gets moved; otherwise add a Vercel preview/alt domain so the FastAPI
+host keeps owning `leader-os.de`.
+
+**Backend on Vercel?** Not in scope here. The current FastAPI app
+relies on a long-lived MongoDB connection and Stripe webhooks — porting
+to Vercel Functions would require splitting routes into `api/*.py`
+handlers and externalising the Mongo client. Track separately.
+
