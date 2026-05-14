@@ -165,8 +165,8 @@ REACT_APP_BACKEND_URL=https://leader-os.de
 - [ ] **CRITICAL for prod**: `REACT_APP_SHOW_QUICK_LOGIN` env var MUST NOT be set to `'true'` on the production build (or QuickLoginList with test-credentials would be visible publicly). Currently only set in `/app/frontend/.env` (preview). Verify in Emergent deploy settings.
 - [ ] Stripe-Account auf Live umstellen (Live-Key + 4 Products + Webhook)
 - [ ] `ENTERPRISE_LEAD_EMAIL` in Backend `.env` setzen (Sales-Inbox)
-- [ ] Externer Cron-Job für `/api/cron/installments-due` (täglich 09:00)
-- [ ] Externer Cron-Job für `/api/cron/monthly-scorecard` (1. des Monats)
+- [x] Externer Cron-Job für `/api/cron/installments-due` (täglich 09:00) — `.github/workflows/cron.yml`
+- [x] Externer Cron-Job für `/api/cron/monthly-scorecard` (1. des Monats) — `.github/workflows/cron.yml`
 - [x] DNS auf `leader-os.de` verifizieren (bereits aktiv)
 - [x] Final regression test ALL GREEN: `/app/test_reports/iteration_77.json` (Backend 10/10 · Frontend 35/35)
 - [ ] Test-User-Daten vor Launch wegräumen (`db.users.deleteMany({email: /@wladbot.test$/})`)
@@ -211,4 +211,21 @@ host keeps owning `leader-os.de`.
 relies on a long-lived MongoDB connection and Stripe webhooks — porting
 to Vercel Functions would require splitting routes into `api/*.py`
 handlers and externalising the Mongo client. Track separately.
+
+**Cron-Triggers:** `.github/workflows/cron.yml` POSTs the two endpoints
+from §2 on the documented schedule. Free GitHub Actions cron is at-most-
+once with up-to-15-minute drift; both endpoints are idempotent (dedup
+via `email_log`) so duplicates are safe. Override the backend host with
+the repo variable `BACKEND_URL` if needed; manual runs available via
+**Actions → cron-jobs → Run workflow**.
+
+**CI:** `.github/workflows/ci.yml` runs `yarn build` on every PR with
+the same env Vercel uses, so a red CI signals a red Vercel deploy
+before merge.
+
+**Removed dep:** `@emergentbase/visual-edits` was pulled — its private
+tarball 403'd outside Emergent's infra and broke `yarn install` on
+Vercel/CI. `craco.config.js` already wraps the require in a
+MODULE_NOT_FOUND try/catch, so dev still warns gracefully on hosts
+that don't have it.
 
