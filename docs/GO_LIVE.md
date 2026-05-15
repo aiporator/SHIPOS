@@ -22,6 +22,40 @@
 
 ---
 
+## 0.5 Pre-flight (do this BEFORE the dashboard work)
+
+Run from your laptop. If any step fails, **don't start the dashboard
+changes** — fix the failure first.
+
+```bash
+# 1. Backend is alive and serving the public endpoints the frontend uses.
+curl -sI https://leader-os.de/api/payments/packages | head -1   # → HTTP/2 200
+curl -sI https://leader-os.de/api/voice/personas    | head -1   # → HTTP/2 200
+
+# 2. The CI/CD train is green on PR #8's head.
+gh pr checks 8        # all four lines should say "pass"
+
+# 3. The latest Vercel preview is a real build, not the empty-deploy
+#    bug we hit yesterday. Look for "Compiled successfully" and bundle
+#    sizes (main bundle should be ~429 kB after gzip).
+gh pr view 8 --json statusCheckRollup --jq '.statusCheckRollup[] | select(.name=="Vercel Preview Comments")'
+
+# 4. Open the preview URL in a private browser window. Vercel
+#    Deployment Protection will 403 unless you're signed into the team.
+#    Sign in, then verify:
+#    - /login renders, NO QuickLogin panel visible (env gate working).
+#    - Register a throwaway, land on /dashboard.
+#    - DevTools → Application → Cookies: session_token is HttpOnly+Secure.
+#    - DevTools → Network: /api/payments/packages returns 200 (proves the
+#      Vercel /api/* rewrite is wired to leader-os.de).
+```
+
+Preview URL pattern: `https://shipos-vuml-git-<branch>-aiporators-projects.vercel.app`
+(see Vercel dashboard → Deployments for the exact hostname for the
+current commit).
+
+---
+
 ## 1. Pre-launch sequence (~30 min the night before)
 
 ### 1a. Vercel — Production environment variables
@@ -29,10 +63,12 @@
 Vercel dashboard → `shipos-vuml` → Settings → Environment Variables.
 Scope: **Production** (uncheck Preview/Development).
 
-```
-REACT_APP_BACKEND_URL = https://leader-os.de
-GENERATE_SOURCEMAP    = false
-```
+Paste-ready (one per row):
+
+| Name | Value |
+|---|---|
+| `REACT_APP_BACKEND_URL` | `https://leader-os.de` |
+| `GENERATE_SOURCEMAP` | `false` |
 
 **Do not set** `REACT_APP_SHOW_QUICK_LOGIN`. If it's already there from a
 preview-config copy, delete it on Production scope.
@@ -60,6 +96,16 @@ practice with low TTLs).
 >    backend changes. Marketing site can stay on apex too.
 >
 > Option 2 is the safer pre-launch move.
+>
+> **Why the `/api/*` rewrite, not direct cross-origin calls?** The
+> backend sets a host-only `session_token` cookie (`HttpOnly`, `Secure`,
+> `SameSite=Lax`, no `Domain` attr — see `backend/routes/auth.py:17`).
+> Vercel's server-side rewrite makes every `/api/*` look same-origin to
+> the browser, so the cookie ends up on the frontend host and is sent
+> back on every subsequent request without needing CORS gymnastics. If
+> you ever bypass the rewrite (e.g. call `https://leader-os.de` directly
+> from the SPA), you'd need to add `Domain=.leader-os.de` to the cookie
+> AND wire CORS preflight on every authenticated route. Not worth it.
 
 ### 1d. Stripe — Live cutover
 
@@ -179,8 +225,60 @@ For 24h after launch, watch:
 
 ---
 
-## 6. What's parked for post-launch
+## 6. Rollback (≤ 5 minutes)
 
-See `docs/SUPABASE_MIGRATION.md` for the Mongo → Postgres roadmap.
-Bundle-splitting (lazy routes, ~200 kB potential win) and a strict CSP
-are also parked — neither is blocking launch.
+Three failure modes, three reverts. Pick the smallest one that fixes
+the symptom.
+
+### 6a. Symptom: Vercel-served frontend is broken, backend is fine
+DNS-level revert. In your DNS provider, point the production hostname
+(`app.leader-os.de` or whichever you attached) **away** from Vercel and
+back to the Emergent host. Propagation < 5 min with low TTLs. The
+previous Emergent-served frontend keeps working unchanged.
+
+If you cut the apex over to Vercel and that's what's broken: in Vercel
+dashboard → Project → Domains → remove the apex assignment. The DNS
+record still resolves to the Emergent host (assuming the A/CNAME wasn't
+changed) — if it was, restore the previous record.
+
+### 6b. Symptom: a regression slipped in via PR #8 merge
+```bash
+# Find the merge commit on mvpcode.
+git fetch origin
+MERGE_SHA=$(git log origin/mvpcode --merges --grep "#8" -n 1 --format=%H)
+echo "$MERGE_SHA"
+
+# Revert it.
+git checkout mvpcode
+git revert -m 1 "$MERGE_SHA"
+git push origin mvpcode
+```
+Vercel will rebuild from the reverted `mvpcode` automatically.
+
+### 6c. Symptom: Stripe Live cutover misbehaving
+In Emergent → backend `.env`: swap `STRIPE_API_KEY=sk_live_…` back to
+the previous `sk_test_emergent`. Restart backend
+(`sudo supervisorctl restart backend`). Customer charges queue up at
+Stripe regardless; you can re-enable Live once you've fixed the
+backend-side issue.
+
+> If you need to communicate downtime: the previous Emergent deployment
+> is still owned by you — nothing about today's launch removes that
+> fallback. The Vercel deploy is purely additive until DNS cuts over.
+
+---
+
+## 7. What's parked for post-launch
+
+- **Mongo → Postgres / Supabase Edge Functions migration** — there are
+  unmerged branches (PRs #5, #6, #7 stacked on `claude/install-supabase-cli-Z8CF9`)
+  that implement a Supabase-native rewrite of the backend. Roadmap and
+  rationale in `docs/SUPABASE_MIGRATION.md`. Don't merge these today.
+- **Bundle splitting** — every page is a static import in `App.js`,
+  giving us a 429 kB main bundle. `React.lazy` per route would shave
+  ~200 kB but is a real refactor.
+- **Strict CSP** — baseline security headers are in place; a strict
+  `Content-Security-Policy` needs a per-host inventory of Stripe,
+  Calendly, ElevenLabs, etc. before it can be flipped on safely.
+- **Sentry / PostHog** — only the env-var hook is needed once you have
+  the keys; can wire in 30 min post-launch.
