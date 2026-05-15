@@ -13,6 +13,12 @@ db = client[os.environ['DB_NAME']]
 
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
+if not JWT_SECRET:
+    raise RuntimeError(
+        "JWT_SECRET is not set in environment. Refusing to start — "
+        "every /api/auth/login would return 500. "
+        "Set a cryptographically random 64+ char value in backend/.env."
+    )
 OAUTH_SESSION_URL = os.environ.get('OAUTH_SESSION_URL')
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
 
