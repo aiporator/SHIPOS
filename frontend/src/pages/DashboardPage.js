@@ -61,7 +61,7 @@ export default function DashboardPage() {
   };
 
   const copyReferral = () => {
-    navigator.clipboard.writeText(`https://wladhub.com?ref=${referralCode}`);
+    navigator.clipboard.writeText(`https://leader-check.de?ref=${referralCode}`);
     toast.success(de ? 'Referral-Link kopiert!' : 'Referral link copied!');
   };
 

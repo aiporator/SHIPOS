@@ -236,7 +236,7 @@ export default function OnboardingPage() {
                 </div>
 
                 <Button variant="outline" className="w-full text-xs font-bold border-amber-300 hover:bg-amber-50 dark:border-amber-500/30 dark:hover:bg-amber-500/5"
-                  onClick={() => window.open('https://wladhub.com', '_blank')} data-testid="wladhub-onboarding-link">
+                  onClick={() => window.open('https://leader-check.de', '_blank', 'noopener,noreferrer')} data-testid="wladhub-onboarding-link">
                   <ExternalLink size={12} className="mr-1.5" /> {de ? 'Noch keine Diagnose? Jetzt auf WladHub machen' : "No diagnosis yet? Do it on WladHub"}
                 </Button>
               </CardContent>

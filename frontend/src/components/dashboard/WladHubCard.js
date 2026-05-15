@@ -32,7 +32,7 @@ export const WladHubDiagnosisCard = ({ wladhubScores, de, onNavigate }) => {
         toast.success(de ? 'WladHub-Daten synchronisiert!' : 'WladHub data synced!');
         loadDiagnosis();
       } else if (status === 'no_data') {
-        toast.info(de ? 'Starte zuerst die Diagnose auf wladhub.com' : 'Start the diagnosis on wladhub.com first');
+        toast.info(de ? 'Starte zuerst die Diagnose auf leader-check.de' : 'Start the diagnosis on leader-check.de first');
       } else {
         toast.success(de ? 'Daten sind aktuell' : 'Data is up to date');
       }

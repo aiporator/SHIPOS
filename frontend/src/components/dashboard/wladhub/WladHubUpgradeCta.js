@@ -8,7 +8,7 @@ export const WladHubUpgradeCta = ({ de, onSync, syncing }) => (
       {de ? 'Die WladHub-Diagnose gibt dir ein professionelles 3-Layer Leadership-Profil in 3 Minuten.' : 'The WladHub diagnosis gives you a professional 3-layer leadership profile in 3 minutes.'}
     </p>
     <div className="flex gap-2">
-      <Button size="sm" onClick={() => window.open('https://wladhub.com', '_blank')}
+      <Button size="sm" onClick={() => window.open('https://leader-check.de', '_blank', 'noopener,noreferrer')}
         className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-[9px] h-6 flex-1" data-testid="wladhub-upgrade-btn">
         {de ? 'Kostenlose Diagnose' : 'Free Diagnosis'} <ExternalLink size={9} className="ml-1" />
       </Button>

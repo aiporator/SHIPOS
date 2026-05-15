@@ -307,8 +307,8 @@ async def sync_wladhub_data(data: WladHubSyncRequest, request: Request):
             }
         return {
             "status": "no_data",
-            "message": "Noch keine WladHub-Diagnose gefunden. Starte die kostenlose Diagnose auf wladhub.com",
-            "wladhub_url": "https://wladhub.com",
+            "message": "Noch keine Leader-Diagnose gefunden. Starte die kostenlose Diagnose auf leader-check.de",
+            "wladhub_url": "https://leader-check.de",
             "has_diagnosis": False,
         }
 

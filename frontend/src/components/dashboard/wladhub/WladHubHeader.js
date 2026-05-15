@@ -25,7 +25,7 @@ export const WladHubHeader = ({ connected, isComputed, syncing, onSync, de }) =>
         </button>
       )}
       {connected && (
-        <button onClick={() => window.open('https://wladhub.com', '_blank')} className="text-[10px] font-semibold" style={{ color: '#BFFF00' }}>
+        <button onClick={() => window.open('https://leader-check.de', '_blank', 'noopener,noreferrer')} className="text-[10px] font-semibold" style={{ color: '#BFFF00' }}>
           {de ? 'Öffnen' : 'Open'} <ChevronRight size={10} className="inline" />
         </button>
       )}

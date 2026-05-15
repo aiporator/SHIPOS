@@ -4,7 +4,7 @@ from fastapi import HTTPException
 
 from config import db
 
-# ── Canonical tier definitions (synced with wladhub.com pricing page) ─────────
+# ── Canonical tier definitions (synced with leader-os.de pricing page) ─────────
 
 TIER_CONFIG = {
     "free": {

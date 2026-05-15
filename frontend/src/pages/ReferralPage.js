@@ -50,7 +50,7 @@ export default function ReferralPage() {
   };
 
   const shareOn = async (platform) => {
-    const url = referralData?.share_url || 'https://wladhub.com';
+    const url = referralData?.share_url || 'https://leader-check.de';
     const text = de
       ? `Ich nutze WladBot — das KI Leadership OS von Wlad Jachtchenko. Teste es kostenlos:`
       : `I use WladBot — the AI Leadership OS by Wlad Jachtchenko. Try it free:`;
@@ -68,7 +68,7 @@ export default function ReferralPage() {
     const text = de
       ? `Mein Leadership Score: ${certData?.leadership_score || 0}/100 — Level: ${certData?.level}. Teste deinen auf WladBot!`
       : `My Leadership Score: ${certData?.leadership_score || 0}/100 — Level: ${certData?.level}. Test yours on WladBot!`;
-    const url = referralData?.share_url || 'https://wladhub.com';
+    const url = referralData?.share_url || 'https://leader-check.de';
 
     const links = {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent(text)}`,

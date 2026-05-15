@@ -163,7 +163,7 @@ export default function CoachingPage() {
             {de ? 'Noch Fragen? ' : 'Questions? '}
             <button onClick={() => window.open('mailto:support@leader-os.de')} className="text-[#4A6200] dark:text-[#BFFF00] font-bold hover:underline" data-testid="support-link">{de ? 'Support kontaktieren' : 'Contact Support'}</button>
             {de ? ' oder schreib uns an ' : ' or email us at '}
-            <a href="mailto:support@wladhub.com" className="text-[#4A6200] dark:text-[#BFFF00] font-bold hover:underline">support@wladhub.com</a>
+            <a href="mailto:support@leader-os.de" className="text-[#4A6200] dark:text-[#BFFF00] font-bold hover:underline">support@leader-os.de</a>
           </p>
         </div>
       </div>
