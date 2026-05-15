@@ -119,7 +119,7 @@ In Stripe Dashboard:
    - `leadership_os_12x` — €99 EUR (first installment; cron handles 11
      more)
    - `leadership_os_plus` — €4 447 EUR, one-time
-3. Register webhook → `https://leader-os.de/api/payments/webhook/stripe`
+3. Register webhook → `https://leader-os.de/api/webhook/stripe`
    (or the new sub-domain if you went with option 1 above).
 4. Copy the **live secret key** and **webhook signing secret**.
 
@@ -169,7 +169,7 @@ Open the production URL (the new domain) and walk through:
    `Secure` (DevTools → Application → Cookies).
 4. **Buy** `leadership_os` with a real card → Stripe success page →
    tier shows `leadership_os` on `/profile`.
-5. **Webhook** event lands at `/api/payments/webhook/stripe` (visible
+5. **Webhook** event lands at `/api/webhook/stripe` (visible
    in Stripe → Developers → Events).
 6. **Chat** sends a message → GPT response → no errors.
 7. **Audio Mode** opens, mic permission granted, get a voice reply.
