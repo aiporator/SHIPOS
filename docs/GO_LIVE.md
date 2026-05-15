@@ -28,7 +28,9 @@ Run from your laptop. If any step fails, **don't start the dashboard
 changes** — fix the failure first.
 
 ```bash
-# 1. Backend is alive and serving the public endpoints the frontend uses.
+# 1. Backend is alive (health + the two public endpoints the frontend
+#    hits on first paint).
+curl -sI https://leader-os.de/api/health            | head -1   # → HTTP/2 200
 curl -sI https://leader-os.de/api/payments/packages | head -1   # → HTTP/2 200
 curl -sI https://leader-os.de/api/voice/personas    | head -1   # → HTTP/2 200
 
