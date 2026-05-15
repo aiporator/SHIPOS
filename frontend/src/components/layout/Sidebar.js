@@ -20,6 +20,8 @@ export const Sidebar = () => {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
+  const isAdmin = Boolean(user?.is_admin);
+
   const navSections = [
     {
       id: 'today', label: t('nav.today'), badge: SBolt, badgeGrad: 'from-[#BFFF00] to-[#9ACC00]',
@@ -52,11 +54,13 @@ export const Sidebar = () => {
     {
       id: 'admin', label: lang === 'de' ? 'Admin' : 'Admin', badge: SBolt, badgeGrad: 'from-[#7B3FE4] to-[#4F1FE4]',
       items: [
-        { path: '/admin', label: 'Admin Panel', icon: IconShield },
+        // Admin Panel is C-level-only; hidden from sidebar for everyone else.
+        // (Direct /admin URL still returns 403 from backend if not admin.)
+        ...(isAdmin ? [{ path: '/admin', label: 'Admin Panel', icon: IconShield }] : []),
         { path: '/coaching', label: t('nav.coaching'), icon: IconDiamond },
       ]
     }
-  ];
+  ].filter(section => section.items.length > 0);
 
   const activeSection = navSections.find(s => s.items.some(i => location.pathname === i.path))?.id || 'today';
 

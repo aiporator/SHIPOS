@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import api from '../lib/api';
 import logger from '../lib/logger';
 import {
@@ -33,6 +35,7 @@ const Stat = ({ icon: Icon, label, value, sub, color = 'text-[#6B8A00] dark:text
 );
 
 export default function AdminPage() {
+  const { user } = useAuth();
   const { lang } = useLanguage();
   const de = lang === 'de';
   const [data, setData] = useState(null);
@@ -42,6 +45,11 @@ export default function AdminPage() {
   const [authHealth, setAuthHealth] = useState(null);
   const [loading, setLoading] = useState(true);
   const [forbidden, setForbidden] = useState(false);
+
+  // Hard client-side guard: only admins see this page. Non-admins → /dashboard.
+  // Backend already returns 403 on /api/admin/* without admin role, but redirecting
+  // avoids exposing the admin UI shell at all.
+  const blockNonAdmin = user && !user.is_admin;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -72,6 +80,10 @@ export default function AdminPage() {
     }, 60000);
     return () => clearInterval(iv);
   }, []);
+
+  if (blockNonAdmin) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   if (forbidden) {
     return (
