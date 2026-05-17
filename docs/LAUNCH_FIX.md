@@ -122,20 +122,37 @@ run `scripts/deploy-backend.sh` after rescuing it from
 
 ---
 
-## 5. Sentry — activate when ready (10 min) — OPEN
+## 5. Sentry — activate (10 min) — IN PROGRESS
 
-`@sentry/react` is installed and init code is in place but **dormant** until
-`REACT_APP_SENTRY_DSN` is set. To turn it on:
+Two EU projects already exist in Sentry org `aiporate`:
+**`leader-os`** and **`leader-check`**. Frontend init now does host-based
+DSN selection (`frontend/src/index.js`) — errors land in the correct
+project automatically.
 
-1. Create a project in Sentry EU (`sentry.io`, region `de`).
-2. Copy the DSN → Vercel env vars (production scope):
-   - `REACT_APP_SENTRY_DSN=https://...@o....ingest.de.sentry.io/...`
-   - `REACT_APP_SENTRY_ENV=production`
-3. Redeploy (any commit to `mvpcode` or use Vercel "Redeploy" button).
+To activate:
 
-First error event appears in Sentry within seconds. No code change needed.
+1. Vercel → project → **Settings → Environment Variables** → add to
+   **Production** scope:
+   ```
+   REACT_APP_SENTRY_DSN_LEADER_OS=https://a7ea61a3e6e122ac9427ae9184fff624@o4511406606516224.ingest.de.sentry.io/4511407177990224
+   REACT_APP_SENTRY_DSN_LEADER_CHECK=https://137256c15f1197642e09056bb224176d@o4511406606516224.ingest.de.sentry.io/4511407178448976
+   REACT_APP_SENTRY_ENV=production
+   ```
+2. Vercel → Deployments → **Redeploy** the latest `mvpcode` build
+   (CRA bakes env vars at build time — a redeploy is required).
+3. Verify: open each domain in a browser, then in DevTools console:
+   ```js
+   throw new Error('sentry-test-' + Date.now())
+   ```
+   Within ~5 seconds the event appears in the matching Sentry project.
 
-Backend Sentry init exists on `claude/security-hardening-tonight` (see §3).
+**Cleanup:** the `javascript-nextjs` project in Sentry is vestigial (created
+by the onboarding wizard) — delete it via Sentry → Settings → Projects →
+javascript-nextjs → Remove Project.
+
+Backend Sentry init exists on `claude/security-hardening-tonight` /
+PR #10 — gated on `SENTRY_DSN` server-side env var. Same project-per-surface
+split is NOT needed for backend (single origin).
 
 ---
 
