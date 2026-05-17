@@ -4,9 +4,19 @@ import * as Sentry from "@sentry/react";
 import "@/index.css";
 import App from "@/App";
 
-if (process.env.REACT_APP_SENTRY_DSN) {
+// Host-based DSN selection: the same CRA bundle serves both surfaces, but
+// errors land in the correct Sentry project. Both env vars are baked at
+// build time; the hostname check picks one at runtime. Falls back to
+// leader-os for previews, localhost, and anything else.
+const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+const isLeaderCheck = /(^|\.)leader-check\.de$/i.test(hostname);
+const sentryDsn = isLeaderCheck
+  ? process.env.REACT_APP_SENTRY_DSN_LEADER_CHECK
+  : process.env.REACT_APP_SENTRY_DSN_LEADER_OS;
+
+if (sentryDsn) {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
+    dsn: sentryDsn,
     environment: process.env.REACT_APP_SENTRY_ENV || "production",
     tracesSampleRate: 0.1,
     replaysSessionSampleRate: 0,

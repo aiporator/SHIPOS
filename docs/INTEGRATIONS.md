@@ -87,29 +87,58 @@ REACT_APP_SUPABASE_ANON_KEY=eyJ...
 
 ---
 
-## 3. Sentry — already wired
+## 3. Sentry — already wired (host-based, one project per surface)
 
 `@sentry/react` is in `frontend/package.json`. Init lives in
-`frontend/src/index.js` and is **env-gated**: with no `REACT_APP_SENTRY_DSN`
-set, Sentry stays dormant and ships zero overhead beyond the import. Set the
-DSN in Vercel to activate.
+`frontend/src/index.js` and is **env-gated**: with no DSN set, the SDK stays
+dormant and ships zero overhead beyond the import.
+
+The same CRA bundle serves both surfaces, so the init code picks the right
+project at runtime based on hostname:
+
+```js
+const isLeaderCheck = /(^|\.)leader-check\.de$/i.test(window.location.hostname);
+const dsn = isLeaderCheck
+  ? process.env.REACT_APP_SENTRY_DSN_LEADER_CHECK
+  : process.env.REACT_APP_SENTRY_DSN_LEADER_OS;
+```
+
+Errors from `leader-check.de` (and `www.leader-check.de`) land in the
+**leader-check** project; everything else (`leader-os.de`, `www.leader-os.de`,
+previews, localhost) lands in **leader-os**.
 
 User context is wired in `frontend/src/contexts/AuthContext.js`:
 `Sentry.setUser({ email: emailLower })` on login + rehydrate,
-`Sentry.setUser(null)` on logout — same `email_lower` key as PostHog.
+`Sentry.setUser(null)` on logout — same `email_lower` key as PostHog. Works
+across both projects (it's a global Sentry singleton).
 
-### Env vars (Vercel)
+### Sentry projects (org `aiporate`, EU region `de`)
+
+| Project | Use | DSN |
+|---|---|---|
+| `leader-os` | Authenticated app + previews + localhost | `https://a7ea61a3e6e122ac9427ae9184fff624@o4511406606516224.ingest.de.sentry.io/4511407177990224` |
+| `leader-check` | Funnel surface | `https://137256c15f1197642e09056bb224176d@o4511406606516224.ingest.de.sentry.io/4511407178448976` |
+| ~~`javascript-nextjs`~~ | Vestigial from wizard — **delete** | — |
+
+DSNs are public-by-design (they're baked into client JS); checking them into
+`.env.example` is fine. Anyone with the DSN can submit events to the project,
+so use Sentry's **Inbound Filters** (Settings → Filters) to drop noise.
+
+### Env vars (Vercel, production scope)
 
 ```
-REACT_APP_SENTRY_DSN=https://...@o....ingest.de.sentry.io/...
+REACT_APP_SENTRY_DSN_LEADER_OS=https://a7ea61a3...@o4511406606516224.ingest.de.sentry.io/4511407177990224
+REACT_APP_SENTRY_DSN_LEADER_CHECK=https://137256c1...@o4511406606516224.ingest.de.sentry.io/4511407178448976
 REACT_APP_SENTRY_ENV=production
 ```
 
-Use the **EU region DSN** (`*.ingest.de.sentry.io`). Until DSN is set,
-Sentry is a no-op — safe to deploy without it.
+CRA bakes env vars at **build time** — after setting these, you must
+**redeploy** for them to take effect (Vercel → Deployments → Redeploy
+latest mvpcode).
 
-Backend Sentry (FastAPI) is a separate task — see `backend/server.py` and
-`sentry-sdk` if needed.
+Backend Sentry (FastAPI) is on `claude/security-hardening-tonight` / PR #10
+— uses `sentry-sdk` gated on `SENTRY_DSN` server-side env var. Same
+host-based split isn't needed there (the backend only serves one origin).
 
 ### Source maps (optional, recommended)
 
