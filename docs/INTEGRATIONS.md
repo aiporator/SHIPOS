@@ -87,53 +87,16 @@ REACT_APP_SUPABASE_ANON_KEY=eyJ...
 
 ---
 
-## 3. Sentry — not yet wired
+## 3. Sentry — already wired
 
-Add Sentry to the CRA frontend in three steps. Run locally so `yarn.lock`
-stays in sync (Vercel uses `--frozen-lockfile`).
+`@sentry/react` is in `frontend/package.json`. Init lives in
+`frontend/src/index.js` and is **env-gated**: with no `REACT_APP_SENTRY_DSN`
+set, Sentry stays dormant and ships zero overhead beyond the import. Set the
+DSN in Vercel to activate.
 
-### Install
-
-```bash
-cd frontend
-yarn add @sentry/react
-```
-
-### Init in `src/index.js`
-
-```js
-import * as Sentry from '@sentry/react'
-
-if (process.env.REACT_APP_SENTRY_DSN) {
-  Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
-    environment: process.env.REACT_APP_SENTRY_ENV || 'production',
-    tracesSampleRate: 0.1,
-    replaysSessionSampleRate: 0,
-    replaysOnErrorSampleRate: 1.0,
-    integrations: [
-      Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }),
-    ],
-  })
-}
-```
-
-Place above the `ReactDOM.createRoot(...)` call so Sentry hooks load first.
-
-### Wire the user context
-
-In `src/contexts/AuthContext.js`, alongside the PostHog `identifyByEmail`:
-
-```js
-import * as Sentry from '@sentry/react'
-
-// in login:
-Sentry.setUser({ email: userData?.email?.toLowerCase() })
-
-// in logout:
-Sentry.setUser(null)
-```
+User context is wired in `frontend/src/contexts/AuthContext.js`:
+`Sentry.setUser({ email: emailLower })` on login + rehydrate,
+`Sentry.setUser(null)` on logout — same `email_lower` key as PostHog.
 
 ### Env vars (Vercel)
 
@@ -142,8 +105,11 @@ REACT_APP_SENTRY_DSN=https://...@o....ingest.de.sentry.io/...
 REACT_APP_SENTRY_ENV=production
 ```
 
-Use the **EU region DSN** (`*.ingest.de.sentry.io`). Backend Sentry (FastAPI)
-is a separate task — see `backend/server.py` and `sentry-sdk` if needed.
+Use the **EU region DSN** (`*.ingest.de.sentry.io`). Until DSN is set,
+Sentry is a no-op — safe to deploy without it.
+
+Backend Sentry (FastAPI) is a separate task — see `backend/server.py` and
+`sentry-sdk` if needed.
 
 ### Source maps (optional, recommended)
 

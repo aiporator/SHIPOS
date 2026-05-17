@@ -95,7 +95,13 @@ In a browser:
 
 ---
 
-## 5. After launch — Sentry follow-up
+## 5. Sentry — activate when ready
 
-Sentry is documented in `docs/INTEGRATIONS.md §3` but not yet wired.
-Three-step add (15 minutes) once you have a Sentry EU project DSN.
+`@sentry/react` is installed and init code is in place but **dormant** until
+`REACT_APP_SENTRY_DSN` is set. To turn it on:
+
+1. Create a project in Sentry EU (`sentry.io`, region `de`).
+2. Copy the DSN → Vercel env vars on both project scopes:
+   - `REACT_APP_SENTRY_DSN=https://...@o....ingest.de.sentry.io/...`
+   - `REACT_APP_SENTRY_ENV=production`
+3. Redeploy. First error event will appear in Sentry within seconds.
