@@ -7,6 +7,21 @@ import sys
 # Ensure backend directory is in path for imports
 sys.path.insert(0, os.path.dirname(__file__))
 
+# Sentry: opt-in via SENTRY_DSN env var. No-op when unset, so dev and CI
+# environments don't need an account.
+_sentry_dsn = os.environ.get("SENTRY_DSN")
+if _sentry_dsn:
+    import sentry_sdk
+    from sentry_sdk.integrations.fastapi import FastApiIntegration
+    from sentry_sdk.integrations.starlette import StarletteIntegration
+    sentry_sdk.init(
+        dsn=_sentry_dsn,
+        environment=os.environ.get("SENTRY_ENV", "production"),
+        traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+        send_default_pii=False,
+        integrations=[StarletteIntegration(), FastApiIntegration()],
+    )
+
 from config import client, db, logger
 from middleware import RateLimitMiddleware, SecurityHeadersMiddleware
 
