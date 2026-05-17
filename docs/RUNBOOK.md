@@ -28,6 +28,7 @@ Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 | Edge functions: `supabase functions deploy <each of 4>`               | your Mac (commands below) |
 | Edge fn secrets: `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`                | `supabase secrets set ...` |
 | Vercel env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel project settings |
+| PostHog EU env vars on both frontends (see [Analytics](#analytics--posthog-eu)) | Vercel project settings |
 | (Optional) pg_cron schedule for `select trigger_strategist(7|30)`     | Studio → SQL or `pg_cron` |
 
 ## Edge function deploy
@@ -52,6 +53,61 @@ supabase functions deploy wladbot-chat
 The edge function source lives in `supabase/functions/<name>/`. The bundle was
 provided as `ship-os-FINAL.zip`; copy `edge_functions/_shared` and each
 `edge_functions/<name>` into `supabase/functions/` before deploying.
+
+## Analytics — PostHog EU
+
+Both frontends ship to the **EU cloud** (`eu.i.posthog.com`) — required so that
+EU end-user data never leaves the region, matching our Supabase
+`eu-north-1` posture.
+
+### Initial setup (per frontend repo)
+
+Run the wizard *inside the frontend repo*, not this docs repo:
+
+```bash
+# In leader-check (Next.js) and leader-os (Next.js) repos:
+npx @posthog/wizard@latest --region eu
+```
+
+The wizard installs `posthog-js` (+ `posthog-node` if SSR is detected), writes
+the provider/init code, and adds the env vars below to `.env.local`. Review the
+diff before committing — it occasionally touches `next.config.js` for the
+reverse-proxy rewrite, which is desirable (avoids ad-blockers).
+
+### Required env vars (Vercel → both projects)
+
+| Var                          | Value                       | Notes                          |
+| ---------------------------- | --------------------------- | ------------------------------ |
+| `NEXT_PUBLIC_POSTHOG_KEY`    | `phc_...` (project API key) | Per-project, from EU UI         |
+| `NEXT_PUBLIC_POSTHOG_HOST`   | `https://eu.i.posthog.com`  | Ingest host. **Do not use the US `us.i.posthog.com`.** |
+
+Optional, if SSR/server-side capture is wired:
+
+| Var                  | Value                       |
+| -------------------- | --------------------------- |
+| `POSTHOG_API_KEY`    | `phx_...` (personal/secret) |
+| `POSTHOG_HOST`       | `https://eu.i.posthog.com`  |
+
+Dashboard UI lives at `https://eu.posthog.com` (note: no `i.`).
+
+### Identity — keep it consistent across surfaces
+
+Both frontends must `identify()` users by `email_lower` so leader-check
+(anonymous → email-gated) and leader-os (Supabase Auth) sessions stitch
+into the same PostHog person — same dedup key as `public.users.email_lower`:
+
+```ts
+posthog.identify(emailLower, { email: emailLower })
+```
+
+For pre-identify anonymous traffic on leader-check, call `posthog.alias(emailLower)`
+the moment the email is captured so the prior `distinct_id` merges in.
+
+### Verifying region
+
+After deploy, open the network tab on either site and confirm capture requests
+go to `https://eu.i.posthog.com/e/` (or the rewritten `/ingest/e/` proxy path).
+Any `us.i.posthog.com` hit means an env var is wrong.
 
 ## Common ops
 
