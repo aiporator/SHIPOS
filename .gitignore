@@ -137,6 +137,9 @@ frontend/node_modules/.cache/default-development/57.pack
 .env
 .env.*
 *.env
+# Allow committed templates and the public-by-design production env.
+!.env.example
+!.env.production
 credentials.json
 *.pem
 *.key

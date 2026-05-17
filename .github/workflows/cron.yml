@@ -1,0 +1,57 @@
+name: cron-jobs
+
+# Replaces SHIP_CHECKLIST §2 "Cron-Jobs (täglich extern triggern)":
+#   - installments-due → daily 09:00 Europe/Berlin (≈ 07:00–08:00 UTC depending on DST)
+#   - monthly-scorecard → 1st of month, 09:00 Europe/Berlin
+# Endpoints are public idempotent POSTs that no-op when there's nothing due.
+
+on:
+  schedule:
+    - cron: '0 7 * * *'     # 09:00 Berlin (CEST) / 08:00 Berlin (CET)
+    - cron: '0 7 1 * *'     # 1st of month, same window
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Which cron to run'
+        required: true
+        default: 'installments-due'
+        type: choice
+        options:
+          - installments-due
+          - monthly-scorecard
+
+env:
+  BACKEND_URL: ${{ vars.BACKEND_URL || 'https://leader-os.de' }}
+
+jobs:
+  installments-due:
+    if: |
+      (github.event_name == 'schedule' && github.event.schedule == '0 7 * * *') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.job == 'installments-due')
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST /api/cron/installments-due
+        env:
+          CRON_SHARED_SECRET: ${{ secrets.CRON_SHARED_SECRET }}
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error \
+               -X POST "${BACKEND_URL%/}/api/cron/installments-due" \
+               -H 'Accept: application/json' \
+               ${CRON_SHARED_SECRET:+-H "X-Cron-Secret: ${CRON_SHARED_SECRET}"}
+
+  monthly-scorecard:
+    if: |
+      (github.event_name == 'schedule' && github.event.schedule == '0 7 1 * *') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.job == 'monthly-scorecard')
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST /api/cron/monthly-scorecard
+        env:
+          CRON_SHARED_SECRET: ${{ secrets.CRON_SHARED_SECRET }}
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error \
+               -X POST "${BACKEND_URL%/}/api/cron/monthly-scorecard" \
+               -H 'Accept: application/json' \
+               ${CRON_SHARED_SECRET:+-H "X-Cron-Secret: ${CRON_SHARED_SECRET}"}

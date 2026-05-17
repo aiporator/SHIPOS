@@ -8,7 +8,7 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 
 from config import db
-from services import get_current_user
+from services import get_current_user, require_cron_auth
 from services_email import (
     send_email, is_enabled as email_enabled,
     event_registration_email, event_reminder_email,
@@ -680,9 +680,10 @@ async def _send_reminders_for_window(window_hours: float, label: str) -> dict:
 
 
 @router.post("/cron/event-reminders")
-async def cron_send_reminders():
+async def cron_send_reminders(request: Request):
     """Public cron endpoint — call every 15 minutes from an external scheduler.
     Sends 24h and 1h reminders for all registered events (deduplicated)."""
+    require_cron_auth(request)
     r24 = await _send_reminders_for_window(24.0, "24h")
     r1 = await _send_reminders_for_window(1.0, "1h")
     return {"24h": r24, "1h": r1, "enabled": email_enabled()}

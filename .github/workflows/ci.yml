@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend-build:
+    name: frontend build (Vercel parity)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+        env:
+          CI: 'false'                       # CRA treats warnings as errors when CI=true
+          GENERATE_SOURCEMAP: 'false'
+          REACT_APP_BACKEND_URL: 'https://leader-os.de'
+
+  backend-syntax:
+    name: backend syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      # `emergentintegrations` (in requirements.txt) is hosted on Emergent's
+      # private index and 404s from generic runners — the same situation as
+      # the frontend's @emergentbase/visual-edits dep. So instead of pip-
+      # installing the real environment we run a syntax check on every .py
+      # in backend/. That catches the failure mode this job is shaped to
+      # catch (broken Python on push) without needing the private wheel.
+      - run: python -m compileall -q backend
