@@ -158,6 +158,44 @@ gh pr merge 8 --squash      # or via the GitHub UI
 ```
 This is what makes Vercel build the production target.
 
+### 1h. Sync Emergent backend with GitHub
+
+Vercel auto-deploys the frontend on every push to `mvpcode`. Emergent
+does **not** — it's a hosted dev environment, not a CD target. Backend
+changes only reach `leader-os.de` when you pull them in on the Emergent
+host.
+
+```bash
+# Inside the Emergent shell, from the repo root:
+bash scripts/deploy-backend.sh
+```
+
+The script (added in this branch) is idempotent and safe:
+
+- Refuses to run if there are uncommitted Emergent-side edits (so you
+  can't accidentally clobber unsaved work).
+- Fast-forward pulls `origin/mvpcode` only (no merge commits on the
+  deploy host).
+- Re-runs `pip install` **only if** `backend/requirements.txt` changed.
+- Restarts the backend via supervisor.
+- Polls `/api/health` and exits non-zero if the new build doesn't come
+  back up within 10s.
+
+Run it **once before launch** to guarantee the live backend is on the
+same commit as GitHub, and again after any backend-touching PR
+post-launch.
+
+> ⚠️ Before the very first run, check for drift:
+> ```bash
+> git status                                              # any uncommitted Emergent edits?
+> git fetch origin
+> git log HEAD..origin/mvpcode --oneline                  # commits GitHub has, Emergent doesn't
+> git log origin/mvpcode..HEAD --oneline                  # commits Emergent has, GitHub doesn't
+> ```
+> If the third command shows anything, **stop** — those commits exist
+> only on Emergent. Commit & push them from inside Emergent first, then
+> run the deploy script. Otherwise the fast-forward pull will reject.
+
 ---
 
 ## 2. Go-live smoke test (T-0, ~15 min)
@@ -257,7 +295,21 @@ git push origin mvpcode
 ```
 Vercel will rebuild from the reverted `mvpcode` automatically.
 
-### 6c. Symptom: Stripe Live cutover misbehaving
+### 6c. Symptom: backend on Emergent regressed after a `deploy-backend.sh` run
+Roll back to the previous commit on the deploy host. The deploy script
+prints the SHAs it moved between, e.g. `>> abc1234 -> def5678`.
+
+```bash
+# On Emergent:
+cd /app   # or wherever the repo is
+git reset --hard abc1234       # the OLD_SHA the script printed
+sudo supervisorctl restart backend
+curl -fsS http://127.0.0.1:8001/api/health
+```
+This is the one place destructive `git reset --hard` is OK — the
+deploy host is a checkout, not a source of truth.
+
+### 6d. Symptom: Stripe Live cutover misbehaving
 In Emergent → backend `.env`: swap `STRIPE_API_KEY=sk_live_…` back to
 the previous `sk_test_emergent`. Restart backend
 (`sudo supervisorctl restart backend`). Customer charges queue up at
