@@ -2,13 +2,16 @@
 
 Source of truth for the **Leader-OS** product surface. Two front-ends share a
 single Supabase project; this repo holds the schema reference, runbook,
-dashboard catalog, and Claude Code wiring. **No application code lives here** —
-front-end code ships from separate repositories.
+dashboard catalog, integration spec, and Claude Code wiring. **No application
+code lives here** — frontend code lives in the repo below.
 
 | Surface          | URL              | Purpose                                                  |
 | ---------------- | ---------------- | -------------------------------------------------------- |
 | **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ)         |
 | **leader-os**    | leader-os.de     | Authenticated coaching app + ai-strategist + wladbot RAG |
+
+**Frontend repo:** [`aiporator/vibe-coding-platform`](https://github.com/aiporator/vibe-coding-platform)
+— single Next.js app, host-based rewrites route each domain to its own folder.
 
 **Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`, Postgres 17).
 
@@ -42,6 +45,7 @@ want first-touch attribution via `source_platform`.
 | [`docs/SCHEMA.md`](./docs/SCHEMA.md)     | Table reference                                      |
 | [`docs/DASHBOARD.md`](./docs/DASHBOARD.md) | Studio dashboard views                              |
 | [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)   | Deploy, secrets, common ops                          |
+| [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) | Frontend wiring spec: Supabase + PostHog EU + Sentry |
 | [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) | Schema migration history                             |
 | [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Working rules for schema changes, advisors, reviews  |
 | [`SECURITY.md`](./SECURITY.md)         | Vulnerability reporting                              |
@@ -58,7 +62,11 @@ want first-touch attribution via `source_platform`.
 
 ## Repository scope
 
-This repo deliberately contains **no front-end code, no Edge Function source**,
-and no Vercel build target. Production deploys happen from the front-end repos
-linked to Vercel; Edge Functions deploy from the bundle described in
-`docs/RUNBOOK.md`.
+This repo deliberately contains **no frontend code, no Edge Function source**,
+and no Vercel build target.
+
+- Frontend code: [`aiporator/vibe-coding-platform`](https://github.com/aiporator/vibe-coding-platform).
+  Wiring spec for it lives at [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md).
+- Edge Functions: deploy from the bundle described in `docs/RUNBOOK.md`.
+- Vercel deploys: two projects (`leader-check`, `leader-os`) point at the
+  frontend repo above, one domain each.

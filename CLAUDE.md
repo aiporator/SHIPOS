@@ -8,6 +8,12 @@ spans two front-ends backed by a single Supabase project:
 | **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ assessment) |
 | **leader-os**    | leader-os.de     | Authenticated coaching app + ai-strategist + wladbot RAG    |
 
+**Frontend repo:** `aiporator/vibe-coding-platform` — single Next.js app, two
+domains via host-based rewrites. **All app-code changes happen there**, not in
+SHIPOS. The integration contract (Supabase + PostHog EU + Sentry + OTel) lives
+in [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) — that file is the spec the
+frontend repo implements.
+
 **Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`, Postgres 17).
 
 The Supabase MCP server is wired in `.mcp.json`, scoped to the project ref above.
@@ -64,6 +70,7 @@ For analytics, **always use `meta_tags`** ("ever touched X"), not
 | Schema reference                       | `docs/SCHEMA.md`                                         |
 | Dashboard views (in Supabase Studio)   | `docs/DASHBOARD.md`                                      |
 | Operational runbook (deploy, secrets)  | `docs/RUNBOOK.md`                                        |
+| Frontend wiring (PostHog/Sentry/SSR)   | `docs/INTEGRATIONS.md`                                   |
 | Postgres best practices skill          | `.claude/skills/supabase-postgres-best-practices/`       |
 | Supabase MCP usage skill               | `.claude/skills/supabase/`                               |
 
