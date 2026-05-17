@@ -1,6 +1,13 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import * as Sentry from '@sentry/react';
 import api from '../lib/api';
 import logger from '../lib/logger';
+import { identifyByEmail, resetIdentity } from '../lib/analytics';
+
+const setSentryUser = (email) => {
+  if (!email) return Sentry.setUser(null);
+  Sentry.setUser({ email: String(email).trim().toLowerCase() });
+};
 
 const AuthContext = createContext(null);
 
@@ -17,6 +24,8 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
       setNetworkError(false);
       sessionStorage.setItem('wladbot_user', JSON.stringify(res.data));
+      identifyByEmail(res.data?.email);
+      setSentryUser(res.data?.email);
     } catch (err) {
       // Network error (backend unreachable, CORS blocked, offline) ≠ unauthorized.
       // Don't clear cached user on network errors — let them keep browsing cached state.
@@ -63,6 +72,8 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     setNetworkError(false);
     sessionStorage.setItem('wladbot_user', JSON.stringify(userData));
+    identifyByEmail(userData?.email);
+    setSentryUser(userData?.email);
   }, []);
 
   const logout = useCallback(async () => {
@@ -71,6 +82,8 @@ export const AuthProvider = ({ children }) => {
     }
     sessionStorage.removeItem('wladbot_user');
     setUser(null);
+    resetIdentity();
+    setSentryUser(null);
   }, []);
 
   const value = useMemo(
