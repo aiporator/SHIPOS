@@ -127,3 +127,6 @@ watchfiles==1.1.1
 websockets==16.0
 yarl==1.23.0
 zipp==3.23.0
+
+# Observability (opt-in via SENTRY_DSN env var)
+sentry-sdk[fastapi]==2.18.0

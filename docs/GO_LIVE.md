@@ -128,7 +128,10 @@ In Stripe Dashboard:
 In Emergent → backend `.env`:
 ```
 STRIPE_API_KEY=sk_live_…
-STRIPE_WEBHOOK_SECRET=whsec_…        # if your StripeCheckout lib uses it
+STRIPE_WEBHOOK_SECRET=whsec_…        # REQUIRED — webhook handler now does
+                                     # native stripe-sdk signature validation.
+                                     # Unset = warning logged, still works but
+                                     # without our defense-in-depth check.
 ENTERPRISE_LEAD_EMAIL=sales@leader-os.de
 ```
 Then `sudo supervisorctl restart backend`.

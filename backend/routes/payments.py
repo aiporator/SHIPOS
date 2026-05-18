@@ -3,6 +3,7 @@ import os
 import re
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, field_validator
 import uuid
 from datetime import datetime, timezone
@@ -311,9 +312,39 @@ async def _finalize_paid_transaction(event, tx: dict) -> None:
 
 @router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
-    """Handle Stripe webhook events."""
+    """Handle Stripe webhook events.
+
+    Defense-in-depth: when STRIPE_WEBHOOK_SECRET is set, validate the signature
+    with the official stripe SDK BEFORE handing off to the integrations wrapper.
+    On any pre-validation failure (missing/invalid sig) we return 400 so
+    Stripe surfaces the failure in its dashboard. On failures AFTER validation
+    (DB errors etc.) we return 500 so Stripe retries — the per-session
+    idempotency below prevents double-fulfillment on retry.
+    """
+    import os
+    import stripe as stripe_sdk
+
     body = await request.body()
     sig = request.headers.get("Stripe-Signature", "")
+    webhook_secret = os.environ.get("STRIPE_WEBHOOK_SECRET")
+
+    if not sig:
+        logger.warning("Stripe webhook called without Stripe-Signature header")
+        return JSONResponse(status_code=400, content={"detail": "missing signature"})
+
+    if webhook_secret:
+        try:
+            stripe_sdk.Webhook.construct_event(body, sig, webhook_secret)
+        except stripe_sdk.error.SignatureVerificationError:
+            logger.warning("Stripe webhook signature verification FAILED")
+            return JSONResponse(status_code=400, content={"detail": "invalid signature"})
+        except ValueError:
+            return JSONResponse(status_code=400, content={"detail": "invalid payload"})
+    else:
+        logger.warning(
+            "STRIPE_WEBHOOK_SECRET unset — relying on wrapper validation only. "
+            "Set this env var for defense-in-depth."
+        )
 
     try:
         webhook_url = f"{str(request.base_url).rstrip('/')}/api/webhook/stripe"
@@ -328,8 +359,8 @@ async def stripe_webhook(request: Request):
         return {"received": True}
 
     except Exception as e:
-        logger.error(f"Webhook error: {e}")
-        return {"received": True, "error": str(e)}
+        logger.error(f"Webhook processing error after validation: {e}")
+        return JSONResponse(status_code=500, content={"detail": "processing error"})
 
 
 @router.get("/payments/history")
