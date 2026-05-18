@@ -11,7 +11,8 @@ from emergentintegrations.llm.openai import OpenAISpeechToText
 from config import db, EMERGENT_LLM_KEY, logger
 from services import get_current_user, update_user_scores, get_user_memory
 from services_actions import record_user_action
-from services_tier import require_feature
+from services_tier import require_feature, resolve_user_tier
+from services_video_trial import get_video_trial_status, consume_video_trial
 
 router = APIRouter(prefix="/api", tags=["video"])
 
@@ -228,14 +229,31 @@ async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dic
     )
 
 
+@router.get("/user/video-trial-status")
+async def get_user_video_trial_status(request: Request):
+    user = await get_current_user(request)
+    tier_info = await resolve_user_tier(user)
+    return await get_video_trial_status(user, tier_info["tier"])
+
+
 @router.post("/video-challenges/{challenge_id}/analyze")
 async def analyze_video_challenge(challenge_id: str, request: Request, file: UploadFile = File(...)):
     from data import VIDEO_CHALLENGES
     from routes.credits import check_and_deduct_credit
     user = await get_current_user(request)
 
-    # Accelerator-only feature — enforced before credit deduction
-    await require_feature(user, "video_analysis")
+    # Trial-first: Free + Starter + Standard get 3 free analyses in their first 14 days.
+    # Accelerator skips the trial entirely (require_feature returns immediately).
+    tier_info = await resolve_user_tier(user)
+    trial = await get_video_trial_status(user, tier_info["tier"])
+    used_trial_slot = False
+    if trial["active"]:
+        # Inside trial window with quota remaining → bypass require_feature, consume slot.
+        await consume_video_trial(user["user_id"])
+        used_trial_slot = True
+    else:
+        # Either Accelerator (passes) or trial-ineligible/expired (raises 402 with upgrade detail).
+        await require_feature(user, "video_analysis")
 
     credit_result = await check_and_deduct_credit(user, "video_mission")
     if not credit_result["allowed"]:
@@ -257,6 +275,12 @@ async def analyze_video_challenge(challenge_id: str, request: Request, file: Upl
         transcript = await _transcribe_audio(file)
         analysis = await _run_video_ai_analysis(challenge, transcript, prev_attempts, user_memory, rating_context)
         await _persist_video_analysis(user["user_id"], challenge_id, analysis, rating, len(prev_attempts) + 1)
+        # Attach trial metadata for the UI banner (X / 3 remaining etc.)
+        if used_trial_slot:
+            analysis["_trial"] = await get_video_trial_status(
+                await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0}) or user,
+                tier_info["tier"],
+            )
         return analysis
     except Exception as e:
         logger.error(f"Video challenge error: {e}")

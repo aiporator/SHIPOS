@@ -80,7 +80,8 @@ function AppRouter() {
       <Route path="/my-path" element={<ProtectedRoute><MyPathPage /></ProtectedRoute>} />
       <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
-      <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+      {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
+      <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
       <Route path="/progress-old" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
       <Route path="/coaching" element={<ProtectedRoute><CoachingPage /></ProtectedRoute>} />
       <Route path="/downloads" element={<ProtectedRoute><DownloadsPage /></ProtectedRoute>} />
