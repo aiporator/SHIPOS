@@ -233,8 +233,8 @@ async def maybe_send_new_device_alert(
 def fire_and_forget_new_device_alert(**kwargs) -> None:
     """Schedule maybe_send_new_device_alert without awaiting (login response stays fast)."""
     try:
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         loop.create_task(maybe_send_new_device_alert(**kwargs))
     except RuntimeError:
-        # No running loop (rare in FastAPI) — fall back to sync run
+        # No running loop (rare — e.g. called from sync test fixture)
         asyncio.run(maybe_send_new_device_alert(**kwargs))

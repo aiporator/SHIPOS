@@ -578,8 +578,22 @@ async def security_overview(request: Request):
          "password_changed_at": 1},
     ) or {}
 
-    # Last 20 entries (newest first)
-    history = list(reversed((full.get("login_history") or [])[-20:]))
+    # Last 20 entries (newest first) — backfill missing fields for old entries
+    raw = list(reversed((full.get("login_history") or [])[-20:]))
+    history = [
+        {
+            "ip": h.get("ip") or "",
+            "at": h.get("at") or "",
+            "method": h.get("method") or "email",
+            "browser": h.get("browser") or "",
+            "os": h.get("os") or "",
+            "device_type": h.get("device_type") or "",
+            "city": h.get("city") or "",
+            "country_code": h.get("country_code") or "",
+            "fingerprint": h.get("fingerprint") or "",
+        }
+        for h in raw
+    ]
 
     # Active sessions (server-side cookie sessions)
     current_cookie = request.cookies.get("session_token") or ""
