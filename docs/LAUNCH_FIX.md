@@ -1,54 +1,107 @@
-# Launch cleanup — current state and what's left
+# Launch state — current and remaining work
 
 Production went live on 2026-05-17 after PR #13 merged into `mvpcode`.
-Vercel deployment `dpl_6mG22ig…` is READY and serving the CRA app on all four
-domains: `leader-os.de`, `www.leader-os.de`, `leader-check.de`,
-`www.leader-check.de`.
+Vercel serves the CRA app on all four domains: `leader-os.de`,
+`www.leader-os.de`, `leader-check.de`, `www.leader-check.de`.
 
-Live security advisor: **0 errors, 3 WARN (none launch-blocking)** — see §6.
+**This doc is the state tracker.** For the go-live execution sequence, see
+`docs/LAUNCH_DAY.md`. For incident response, see `docs/INCIDENT_RUNBOOK.md`.
 
-This doc tracks the items still open after the launch.
-
----
-
-## 1. ~~Fix the live 404~~ ✅ DONE
-
-Done by PR #13. Vercel Production Branch is `mvpcode`, deployment promoted
-automatically on merge.
+Last updated after PR #16 (CSP allowlist fix) merged at commit `561e50e`.
 
 ---
 
-## 2. Set the default branch on GitHub (UI · 30 sec) — OPEN
+## Live infrastructure
 
-The repo's default branch is still `claude/install-supabase-cli-Z8CF9`
-(a stale Claude branch). Move it to `mvpcode`.
-
-1. GitHub → `aiporator/shipos` → **Settings → Branches**.
-2. Under **Default branch**, click the swap icon.
-3. Select **`mvpcode`** → Update → confirm.
-
-After this, `git clone` defaults to `mvpcode` and PRs target `mvpcode` by
-default.
+| Layer | State | Notes |
+|---|---|---|
+| Vercel frontend | ✅ Live | `mvpcode` HEAD auto-deploys; 4 domains served |
+| Supabase EU (`srujvjjncrszhaaxepxf`) | ✅ Live | Advisor: 0 errors, 3 reviewed WARNs |
+| PostHog EU | ✅ Live | inline init in `frontend/public/index.html`, project `phc_xmMQne...` |
+| Sentry frontend (`leader-os`, `leader-check` projects) | ✅ Live* | * if Vercel env vars set + redeploy happened |
+| Sentry backend (`leader-os` project) | 🔴 Wired, not deployed | `backend/server.py` has init; pod is stale |
+| CSP report-only | ✅ Live | EU PostHog + Sentry hosts allowlisted (PR #16) |
+| Supabase migrations | ✅ Pinned | `supabase/migrations/20260517195842_lock_ops_…sql` matches live DB |
+| Frontend Stripe checkout | ✅ Wired | Calls live `/api/payments/*` — backend bug blocks this |
+| Backend Stripe webhook | 🔴 Wired on mvpcode, not deployed | Native signature validation in PR #10 |
 
 ---
 
-## 3. Branch hygiene (UI · 2 min) — OPEN
+## Remaining work in priority order
 
-Diff-audited 2026-05-17. Branches sorted by what they actually contain.
+### 🔴 HARD BLOCKERS (must do before opening to real users)
+
+#### HB1. Pod backend pull (15 min)
+
+The Emergent pod is 14 commits behind mvpcode. Without this, the backend:
+- Has the old Stripe webhook handler (returns 200 on any exception — exploitable)
+- Has no Sentry init (server errors invisible)
+- Has no CSP-aware logging
+
+**Fix:** Emergent UI → "Pull from GitHub" → branch `mvpcode`. Then set
+`SENTRY_DSN` env var on the pod and `sudo supervisorctl restart backend`.
+Full sequence in `docs/LAUNCH_DAY.md §Phase 1`.
+
+#### HB2. Stripe switch from test → live (30 min)
+
+`STRIPE_API_KEY` on the pod is still `sk_test_...`. Until this is `sk_live_...`:
+- Real customer cards fail at checkout
+- Test cards work but revenue = €0
+
+**Fix:** create live products + webhook in Stripe Dashboard, copy
+`sk_live_...` + `whsec_...` into Emergent's env-config UI, restart backend.
+Full sequence in `docs/LAUNCH_DAY.md §Phase 2` (with the 4 product IDs +
+6 webhook events needed).
+
+#### HB3. End-to-end smoke test (15 min)
+
+Don't open the doors until this passes:
+```bash
+bash scripts/verify-launch.sh
+```
+Plus the manual flows in `docs/LAUNCH_DAY.md §Phase 3` (signup, checkout
+with real card, force-error in DevTools).
+
+---
+
+### 🟡 SOFT BLOCKERS (won't break launch, do same-day)
+
+| # | Item | Effort | Done? |
+|---|---|---|---|
+| SB1 | GitHub: set default branch to `mvpcode` | 30 sec UI | ☐ |
+| SB2 | GitHub: delete 9 dead `claude/*` branches | 2 min UI | ☐ |
+| SB3 | Supabase: enable HaveIBeenPwned password protection | 30 sec UI | ☐ |
+| SB4 | Sentry: delete vestigial `javascript-nextjs` project | 30 sec UI | ☐ |
+
+---
+
+### 🟢 POST-LAUNCH (do in week 1)
+
+- Re-run `get_advisors(type='performance')` after 7 days of traffic. Currently
+  flagged 25 unused indexes — these are cold from zero traffic. Don't drop
+  any until real usage shows what's actually unused.
+- Set up Sentry alert rules (Slack/email when issue volume > threshold).
+- Configure PostHog dashboards for activation, retention, revenue funnel.
+- Address the 3 unindexed FKs on email tables (`email_events`, `email_sends`,
+  `email_suppressions`) — only matters at ~10k emails/day.
+- Schedule weekly Dependabot PR reviews.
+- Decide on Edge Functions (PR #5) — defer or merge.
+
+---
+
+## Branch hygiene reference
 
 ### KEEP
 
 - `mvpcode` — production source of truth
 - `backup/mvpcode-pre-emergent-2026-05-17` — pre-Emergent snapshot, archive
+- `iter-80-emergent` — Emergent's auto-push branch (active, do not delete)
 - `dependabot/*` — auto-maintained
-- `claude/godmode-followup` — this PR's branch (delete after merge)
+- This PR's branch — delete after merge
 
-### DELETE — safe (zero content diff vs `mvpcode`)
+### DELETE (after SB1 default-branch swap)
 
-These 9 branches all live in the "docs-only universe" (separate history
-that has been merged into `mvpcode` via PR #13). `git diff` against
-`mvpcode` shows **zero file differences**:
-
+All 9 have zero content diff vs `mvpcode`:
 - `claude/install-supabase-cli-Z8CF9`
 - `claude/integrate-sentry-mcp-BV4Ev`
 - `claude/setup-posthog-eu-Oy6Ly`
@@ -59,126 +112,31 @@ that has been merged into `mvpcode` via PR #13). `git diff` against
 - `claude/mcp-server-integration-WWmJL`
 - `claude/rename-default-branch-KQrTc`
 
-GitHub UI: **Branches → All branches → trash icon** next to each.
-
-### RESCUE FIRST — has unmerged work
-
-#### `claude/check-status-indicators-MlDyM` — 17 files, +842/-23 lines
-
-Name is misleading; this branch contains the original launch-readiness work.
-Some commits made it into mvpcode via PR #8, but this branch is still ahead
-on:
-
-- `scripts/deploy-backend.sh` (the backend sync script — **needed** for
-  pushing FastAPI to Emergent)
-- `frontend/.env.production` (production env template)
-- Updates to `.github/workflows/ci.yml`, `cron.yml`
-- Updates to `vercel.json`, `SHIP_CHECKLIST.md`, `docs/GO_LIVE.md`
-
-```bash
-git checkout -b rescue/deploy-backend-script origin/claude/check-status-indicators-MlDyM -- scripts/deploy-backend.sh
-# inspect, then cherry-pick the rest piece by piece
-```
-
-#### `claude/security-hardening-tonight` — 8 files, +141/-6 lines
-
-Contains genuinely useful follow-ups:
-
-- `.github/dependabot.yml` — Dependabot config (not yet in mvpcode)
-- `backend/routes/payments.py` — Stripe webhook native signature validation
-- `backend/server.py` — Sentry backend init (matches our frontend Sentry)
-- `vercel.json` — CSP report-only header
-
-Each is a discrete improvement. Cherry-pick what survives review:
-
-```bash
-git log origin/mvpcode..origin/claude/security-hardening-tonight
-git show <commit-sha>   # inspect each
-```
-
-Two commits:
-- `ccc7313` — Stripe webhook signature validation
-- `e64b6d9` — Sentry backend init, CSP report-only, Dependabot, cron auto-issue
+Other transient branches (`claude/godmode-launch-prep`, `claude/godmode-followup`,
+`claude/csp-allowlist-fix`, `claude/security-hardening-tonight`) — all merged
+via PRs already, safe to delete.
 
 ---
 
-## 4. Smoke-test production (browser · 5 min) — OPEN
+## Open security advisor items (all reviewed, all non-blocking)
 
-From this sandboxed session, outbound HTTP to `*.leader-os.de` is blocked
-by network policy (curl returns 403, WebFetch returns 403). The smoke test
-has to happen from a real browser:
+| # | Item | Verdict | Action |
+|---|---|---|---|
+| 1 | `upsert_incomplete_attempt` callable by `anon` | Keep as-is | Funnel capture needs anonymous write |
+| 2 | `is_admin()` callable by `authenticated` | Keep as-is | Returns boolean only, no escalation; gated on `auth.uid()` + `meta_tags ANY('admin')` |
+| 3 | Leaked password protection disabled | Fix via UI | SB3 above — one toggle |
 
-- [ ] `https://www.leader-os.de` loads the login page (no 404, no CRA "Cannot GET /")
-- [ ] `https://www.leader-check.de` loads the funnel landing
-- [ ] DevTools → Network → PostHog requests hit `eu.i.posthog.com` (NOT `us.`)
-- [ ] After login: `posthog.alias` + `posthog.identify` fire with the
-      lowercased email
-- [ ] Console: no Sentry init errors (Sentry stays dormant without DSN, which is fine)
-- [ ] `/api/health` returns 200 (proves backend proxy works)
-
-If `/api/health` returns anything other than 200, the backend is stale —
-run `scripts/deploy-backend.sh` after rescuing it from
-`claude/check-status-indicators-MlDyM` (see §3).
+Migration `20260517195842_lock_ops_dashboard_views_to_service_role.sql`
+applied on 2026-05-17 cleared the previous 2 ERROR-level findings. Repo
+mirrors live DB; future `supabase db push` won't re-grant `anon`.
 
 ---
 
-## 5. Sentry — activate (10 min) — IN PROGRESS
+## How to read this doc
 
-Two EU projects already exist in Sentry org `aiporate`:
-**`leader-os`** and **`leader-check`**. Frontend init now does host-based
-DSN selection (`frontend/src/index.js`) — errors land in the correct
-project automatically.
+- **🔴 hard blocker** = real customers will hit problems (payment failures, blind debugging)
+- **🟡 soft blocker** = should fix today, but launch won't fall over
+- **🟢 post-launch** = improvements that wait for real traffic data
 
-To activate:
-
-1. Vercel → project → **Settings → Environment Variables** → add to
-   **Production** scope:
-   ```
-   REACT_APP_SENTRY_DSN_LEADER_OS=https://a7ea61a3e6e122ac9427ae9184fff624@o4511406606516224.ingest.de.sentry.io/4511407177990224
-   REACT_APP_SENTRY_DSN_LEADER_CHECK=https://137256c15f1197642e09056bb224176d@o4511406606516224.ingest.de.sentry.io/4511407178448976
-   REACT_APP_SENTRY_ENV=production
-   ```
-2. Vercel → Deployments → **Redeploy** the latest `mvpcode` build
-   (CRA bakes env vars at build time — a redeploy is required).
-3. Verify: open each domain in a browser, then in DevTools console:
-   ```js
-   throw new Error('sentry-test-' + Date.now())
-   ```
-   Within ~5 seconds the event appears in the matching Sentry project.
-
-**Cleanup:** the `javascript-nextjs` project in Sentry is vestigial (created
-by the onboarding wizard) — delete it via Sentry → Settings → Projects →
-javascript-nextjs → Remove Project.
-
-Backend Sentry init exists on `claude/security-hardening-tonight` /
-PR #10 — gated on `SENTRY_DSN` server-side env var. Same project-per-surface
-split is NOT needed for backend (single origin).
-
----
-
-## 6. Open security advisor items — REVIEWED
-
-After the `lock_ops_dashboard_views_to_service_role` migration
-(2026-05-17 19:58 UTC), advisor errors went from 2 → 0. Three WARN-level
-items remain. All have been reviewed:
-
-| # | Item | Verdict |
-|---|---|---|
-| 1 | `upsert_incomplete_attempt` callable by `anon` | **Keep as-is.** Funnel capture on leader-check.de needs an anonymous write path. |
-| 2 | `is_admin()` callable by `authenticated` | **Keep as-is.** Returns boolean only, no privilege-escalation surface. The function checks `auth.uid()` against `users.meta_tags` ANY('admin') — a non-admin caller just gets `false`. SECURITY DEFINER is needed so it can read `users` regardless of RLS. |
-| 3 | Leaked password protection disabled | **One-toggle fix.** Supabase Dashboard → Auth → Password Settings → enable HaveIBeenPwned check. |
-
-Migration `20260517195842_lock_ops_dashboard_views_to_service_role.sql` is
-checked into `supabase/migrations/` to keep the repo in sync with the live
-DB. Future `supabase db pull` / `db push` won't re-grant `anon` on those views.
-
----
-
-## TL;DR — your remaining clicks
-
-1. GitHub → Settings → Branches → default = `mvpcode`
-2. GitHub → Branches → delete the 9 safe-to-delete branches in §3
-3. Browser → smoke-test the 6 checks in §4
-4. Cherry-pick `scripts/deploy-backend.sh` from `claude/check-status-indicators-MlDyM`
-5. (When ready) paste a Sentry DSN into Vercel
-6. Supabase Dashboard → enable leaked-password protection
+When everything in 🔴 is ☑, the launch is safe to open. When 🟡 is ☑, the
+operational footing is solid.
