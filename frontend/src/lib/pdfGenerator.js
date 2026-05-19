@@ -18,6 +18,7 @@ export async function generatePDF(reportData, filename = 'WladBot-Report') {
   const amber = [245, 158, 11];
   const blue = [59, 130, 246];
   const rose = [244, 63, 94];
+  const violet = [124, 58, 237];
 
   const checkNewPage = (needed = 20) => {
     if (y > 270 - needed) { doc.addPage(); y = 20; }
