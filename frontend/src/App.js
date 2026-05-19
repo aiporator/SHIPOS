@@ -29,6 +29,11 @@ import ReferralPage from "./pages/ReferralPage";
 import EnterprisePage from "./pages/EnterprisePage";
 import Challenge30Page from "./pages/Challenge30Page";
 import DownloadsPage from "./pages/DownloadsPage";
+import ImpressumPage from "./pages/ImpressumPage";
+import DatenschutzPage from "./pages/DatenschutzPage";
+import WiderrufPage from "./pages/WiderrufPage";
+import AGBPage from "./pages/AGBPage";
+import { CookieConsent } from "./components/legal/CookieConsent";
 
 import { CreditProvider } from "./contexts/CreditContext";
 import { TierProvider } from "./contexts/TierContext";
@@ -91,6 +96,11 @@ function AppRouter() {
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/enterprise" element={<ProtectedRoute><EnterprisePage /></ProtectedRoute>} />
       <Route path="/challenge" element={<ProtectedRoute><Challenge30Page /></ProtectedRoute>} />
+      {/* Public legal pages — no auth required (GDPR / German law) */}
+      <Route path="/impressum" element={<ImpressumPage />} />
+      <Route path="/datenschutz" element={<DatenschutzPage />} />
+      <Route path="/widerruf" element={<WiderrufPage />} />
+      <Route path="/agb" element={<AGBPage />} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
@@ -108,6 +118,7 @@ function App() {
                 <NetworkStatusBanner />
                 <AppRouter />
                 <Toaster position="bottom-right" />
+                <CookieConsent />
               </BrowserRouter>
             </TierProvider>
           </CreditProvider>

@@ -8,6 +8,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import { ProfileAccountTab } from '../components/profile/ProfileAccountTab';
+import { GdprSection } from '../components/profile/GdprSection';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../lib/api';
@@ -427,8 +428,9 @@ export default function ProfilePage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="account" className="mt-4">
+          <TabsContent value="account" className="mt-4 space-y-4">
             <ProfileAccountTab de={de} />
+            <GdprSection de={de} />
           </TabsContent>
         </Tabs>
 

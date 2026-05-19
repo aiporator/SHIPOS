@@ -131,6 +131,15 @@ export default function LoginPage() {
           </div>
 
           <TrustBadges />
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] text-muted-foreground" data-testid="legal-footer">
+            <a href="/impressum" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-impressum">Impressum</a>
+            <span className="opacity-30">·</span>
+            <a href="/datenschutz" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-datenschutz">{de ? 'Datenschutz' : 'Privacy'}</a>
+            <span className="opacity-30">·</span>
+            <a href="/agb" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-agb">AGB</a>
+            <span className="opacity-30">·</span>
+            <a href="/widerruf" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-widerruf">{de ? 'Widerruf' : 'Withdrawal'}</a>
+          </div>
         </div>
       </div>
     </div>
