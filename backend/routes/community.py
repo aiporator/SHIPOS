@@ -37,14 +37,22 @@ async def get_feed(request: Request, category: Optional[str] = None, limit: int 
             {"user_id": {"$in": user_ids}}, {"_id": 0, "user_id": 1, "name": 1, "picture": 1, "tier": 1, "level": 1}
         ).to_list(500)
     }
-    # Enrich with comment counts
+    # Enrich with comment counts — batched aggregation to avoid N+1 query
+    post_ids = [p["post_id"] for p in posts]
+    comment_counts = {}
+    if post_ids:
+        agg = db.community_comments.aggregate([
+            {"$match": {"post_id": {"$in": post_ids}}},
+            {"$group": {"_id": "$post_id", "count": {"$sum": 1}}},
+        ])
+        comment_counts = {doc["_id"]: doc["count"] async for doc in agg}
     for p in posts:
         author = users.get(p["user_id"], {})
         p["author_name"] = author.get("name", "Leader")
         p["author_picture"] = author.get("picture")
         p["author_tier"] = author.get("tier", "free")
         p["author_level"] = author.get("level", "")
-        p["comment_count"] = await db.community_comments.count_documents({"post_id": p["post_id"]})
+        p["comment_count"] = comment_counts.get(p["post_id"], 0)
         p["liked_by_me"] = user["user_id"] in (p.get("likes") or [])
         p["likes_count"] = len(p.get("likes") or [])
         p.pop("likes", None)
