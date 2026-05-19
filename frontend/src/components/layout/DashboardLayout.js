@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { SmartPopups } from '../shared/SmartPopups';
-import { BotMascot } from '../shared/BotMascot';
 import { PaywallModal } from '../shared/PaywallModal';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCredits } from '../../contexts/CreditContext';
@@ -53,7 +52,6 @@ export const DashboardLayout = ({ children, hideSidebar, rightPanel }) => {
         </aside>
       )}
       <SmartPopups userData={user} />
-      <BotMascot />
     </div>
   );
 };

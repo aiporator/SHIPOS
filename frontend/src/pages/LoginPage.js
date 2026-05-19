@@ -12,12 +12,12 @@ import { GoogleButton, TrustBadges, ModeSwitch } from '../components/auth/LoginE
 const getFeatures = (de) => (de ? [
   { t: '30-Tage KI-Leadership Sprint', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
   { t: '16 Video-Missionen mit KI-Analyse', s: 'Kamera an, Rede halten, sofort KI-Bewertung' },
-  { t: 'Persönlicher KI-Coach — 24/7', s: '5 spezialisierte Rollen für jede Situation' },
+  { t: 'Persönlicher KI-Coach — 24/7', s: 'Dein WladBot kennt Wlads Methodik in- und auswendig' },
   { t: 'Täglich KI-Business Briefing', s: 'Trends, Leader-Zitate, strategische Insights' },
 ] : [
   { t: '30-Day AI Leadership Sprint', s: '300 questions, daily challenges, AI roleplays' },
   { t: '16 Video Missions with AI Analysis', s: 'Camera on, give speech, instant AI scoring' },
-  { t: 'Personal AI Coach — 24/7', s: '5 specialized roles for every situation' },
+  { t: 'Personal AI Coach — 24/7', s: 'Your WladBot knows Wlad\'s methodology inside out' },
   { t: 'Daily AI Business Briefing', s: 'Trends, leader quotes, strategic insights' },
 ]);
 

@@ -196,6 +196,14 @@ async def google_session(request: Request, response: Response):
     if not session_id:
         raise HTTPException(status_code=400, detail="session_id required")
 
+    # Guard against missing OAuth config — fail with a friendly 503 instead
+    # of a Python TypeError that swamps the logs.
+    if not OAUTH_SESSION_URL:
+        raise HTTPException(
+            status_code=503,
+            detail="Google login is not configured on this environment. Use email/password.",
+        )
+
     async with httpx.AsyncClient() as http_client:
         resp = await http_client.get(OAUTH_SESSION_URL, headers={"X-Session-ID": session_id})
         if resp.status_code != 200:
