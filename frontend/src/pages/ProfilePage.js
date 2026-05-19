@@ -8,6 +8,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import { ProfileAccountTab } from '../components/profile/ProfileAccountTab';
+import { ProfileSecurityTab } from '../components/profile/ProfileSecurityTab';
 import { GdprSection } from '../components/profile/GdprSection';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,7 +19,7 @@ import {
   Camera, Edit3, Save, X, Trophy, Flame, Zap, Target, Users, Crown,
   Star, Sparkles, Gift, ArrowRight, CheckCircle2, MessageCircle, Brain,
   Video, Mic, Wrench, BookOpen, Share2, Building2, Loader2,
-  Activity as ActivityIcon, TrendingUp, Linkedin, Calendar, Settings
+  Activity as ActivityIcon, TrendingUp, Linkedin, Calendar, Settings, Shield
 } from 'lucide-react';
 // Lucide icon lookup for activity feed
 const ACTION_ICONS = {
@@ -378,6 +379,9 @@ export default function ProfilePage() {
             <TabsTrigger value="account" className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold data-[state=active]:bg-white dark:data-[state=active]:bg-card data-[state=active]:shadow-sm" data-testid="profile-tab-account">
               <Settings size={13} /> {de ? 'Konto' : 'Account'}
             </TabsTrigger>
+            <TabsTrigger value="security" className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold data-[state=active]:bg-white dark:data-[state=active]:bg-card data-[state=active]:shadow-sm" data-testid="profile-tab-security">
+              <Shield size={13} /> {de ? 'Sicherheit' : 'Security'}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="activity" className="mt-4">
@@ -431,6 +435,10 @@ export default function ProfilePage() {
           <TabsContent value="account" className="mt-4 space-y-4">
             <ProfileAccountTab de={de} />
             <GdprSection de={de} />
+          </TabsContent>
+
+          <TabsContent value="security" className="mt-4">
+            <ProfileSecurityTab de={de} />
           </TabsContent>
         </Tabs>
 

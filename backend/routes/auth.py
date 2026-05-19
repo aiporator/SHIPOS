@@ -1,6 +1,6 @@
 """Authentication routes — Enterprise-grade security."""
 from fastapi import APIRouter, HTTPException, Request, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from pymongo.errors import DuplicateKeyError
 import uuid
 import httpx
@@ -10,6 +10,12 @@ from config import db, OAUTH_SESSION_URL, logger
 from models import UserRegister, UserLogin
 from services import create_jwt_token, hash_password, verify_password, get_current_user, update_user_scores
 from services_actions import record_user_action
+from services_login_security import (
+    parse_user_agent,
+    device_fingerprint,
+    lookup_geo,
+    fire_and_forget_new_device_alert,
+)
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -90,6 +96,40 @@ def _get_client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
+async def _capture_login_context(request: Request) -> dict:
+    """Gather full login context: IP, UA, geo, device fingerprint.
+
+    Geo lookup runs concurrently with a hard timeout — never blocks login >2.5s.
+    Returns a dict ready to be stored in user.login_history[].
+    """
+    ip = _get_client_ip(request)
+    ua_parsed = parse_user_agent(request.headers.get("user-agent", ""))
+    geo = await lookup_geo(ip)
+    fingerprint = device_fingerprint(ip, ua_parsed)
+    return {
+        "ip": ip,
+        "at": datetime.now(timezone.utc).isoformat(),
+        "ua": ua_parsed,
+        "geo": geo,
+        "fingerprint": fingerprint,
+    }
+
+
+def _login_history_entry(ctx: dict, method: str) -> dict:
+    """Shape a login_history record (flat, queryable)."""
+    return {
+        "ip": ctx["ip"],
+        "at": ctx["at"],
+        "method": method,
+        "browser": ctx["ua"].get("browser", ""),
+        "os": ctx["ua"].get("os", ""),
+        "device_type": ctx["ua"].get("device_type", ""),
+        "city": ctx["geo"].get("city", ""),
+        "country_code": ctx["geo"].get("country_code", ""),
+        "fingerprint": ctx["fingerprint"],
+    }
+
+
 def _safe_user_output(user: dict) -> dict:
     """Strip sensitive fields from user document before sending to client.
 
@@ -111,9 +151,11 @@ def _safe_user_output(user: dict) -> dict:
 async def register(data: UserRegister, request: Request, response: Response):
     # Normalize email (case-insensitive uniqueness)
     email = data.email.strip().lower()
-    ip_address = _get_client_ip(request)
+    ctx = await _capture_login_context(request)
+    ip_address = ctx["ip"]
 
     user_id = f"user_{uuid.uuid4().hex[:12]}"
+    history_entry = _login_history_entry(ctx, method="register")
     user_doc = {
         "user_id": user_id,
         "email": email,
@@ -130,8 +172,12 @@ async def register(data: UserRegister, request: Request, response: Response):
         "xp": 0,
         "premium": False,
         "signup_ip": ip_address,
+        "signup_geo": ctx["geo"],
+        "signup_ua": ctx["ua"],
         "last_login_ip": ip_address,
-        "login_history": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "email"}],
+        "last_login_geo": ctx["geo"],
+        "last_login_ua": ctx["ua"],
+        "login_history": [history_entry],
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     try:
@@ -165,7 +211,8 @@ async def register(data: UserRegister, request: Request, response: Response):
 @router.post("/login")
 async def login(data: UserLogin, request: Request, response: Response):
     email = (data.email or "").strip().lower()
-    ip_address = _get_client_ip(request)
+    ctx = await _capture_login_context(request)
+    ip_address = ctx["ip"]
 
     # Enterprise: brute-force protection
     await _check_rate_limit(email, ip_address)
@@ -176,10 +223,28 @@ async def login(data: UserLogin, request: Request, response: Response):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     await _log_login_attempt(email, ip_address, success=True)
+    history_entry = _login_history_entry(ctx, method="email")
     await db.users.update_one({"user_id": user["user_id"]}, {
-        "$set": {"last_login_ip": ip_address, "last_login_at": datetime.now(timezone.utc).isoformat()},
-        "$push": {"login_history": {"$each": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "email"}], "$slice": -50}}
+        "$set": {
+            "last_login_ip": ip_address,
+            "last_login_at": history_entry["at"],
+            "last_login_geo": ctx["geo"],
+            "last_login_ua": ctx["ua"],
+        },
+        "$push": {"login_history": {"$each": [history_entry], "$slice": -50}}
     })
+
+    # New-device alert (fire-and-forget — never delays login response)
+    fire_and_forget_new_device_alert(
+        user_email=email,
+        user_name=user.get("name") or "",
+        ip=ip_address,
+        ua_parsed=ctx["ua"],
+        geo=ctx["geo"],
+        fingerprint=ctx["fingerprint"],
+        login_history=(user.get("login_history") or []) + [history_entry],
+        method="email",
+    )
 
     token = create_jwt_token(user["user_id"])
     await _create_session(user["user_id"], ip_address, response, method="email")
@@ -211,9 +276,11 @@ async def google_session(request: Request, response: Response):
         google_data = resp.json()
 
     email = google_data["email"]
-    ip_address = _get_client_ip(request)
+    ctx = await _capture_login_context(request)
+    ip_address = ctx["ip"]
 
     existing = await db.users.find_one({"email": email}, {"_id": 0})
+    history_entry = _login_history_entry(ctx, method="google")
     if existing:
         user_id = existing["user_id"]
         await db.users.update_one({"user_id": user_id}, {
@@ -221,19 +288,33 @@ async def google_session(request: Request, response: Response):
                 "name": google_data.get("name", existing.get("name")),
                 "picture": google_data.get("picture", existing.get("picture")),
                 "last_login_ip": ip_address,
-                "last_login_at": datetime.now(timezone.utc).isoformat(),
+                "last_login_at": history_entry["at"],
+                "last_login_geo": ctx["geo"],
+                "last_login_ua": ctx["ua"],
             },
-            "$push": {"login_history": {"$each": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "google"}], "$slice": -50}}
+            "$push": {"login_history": {"$each": [history_entry], "$slice": -50}}
         })
         sync_event = "user.updated"
+        # New-device email for existing Google user
+        fire_and_forget_new_device_alert(
+            user_email=email,
+            user_name=existing.get("name") or "",
+            ip=ip_address,
+            ua_parsed=ctx["ua"],
+            geo=ctx["geo"],
+            fingerprint=ctx["fingerprint"],
+            login_history=(existing.get("login_history") or []) + [history_entry],
+            method="google",
+        )
     else:
         user_id = f"user_{uuid.uuid4().hex[:12]}"
         await db.users.insert_one({
             "user_id": user_id, "email": email, "name": google_data.get("name", "User"),
             "picture": google_data.get("picture"), "leadership_score": 0, "eq_score": 0,
             "communication_score": 0, "level": "Emerging Leader", "xp": 0,
-            "signup_ip": ip_address, "last_login_ip": ip_address,
-            "login_history": [{"ip": ip_address, "at": datetime.now(timezone.utc).isoformat(), "method": "google"}],
+            "signup_ip": ip_address, "signup_geo": ctx["geo"], "signup_ua": ctx["ua"],
+            "last_login_ip": ip_address, "last_login_geo": ctx["geo"], "last_login_ua": ctx["ua"],
+            "login_history": [history_entry],
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
         sync_event = "user.created"
@@ -398,3 +479,149 @@ async def change_password(data: PasswordChangeRequest, request: Request):
         await db.user_sessions.delete_many({"user_id": user["user_id"]})
 
     return {"message": "Passwort erfolgreich geändert."}
+
+
+# ========== MAGIC LINK (passwordless) ==========
+
+class MagicLinkRequest(BaseModel):
+    email: EmailStr
+
+
+class MagicLinkVerify(BaseModel):
+    token: str
+
+
+@router.post("/magic-link/request")
+async def magic_link_request(data: MagicLinkRequest, request: Request):
+    """Request a passwordless login link via email.
+
+    Always returns 200 with the same generic message — never confirms whether
+    the email exists (prevents email enumeration attacks). Rate-limited by IP
+    to prevent abuse.
+    """
+    from services_magic_link import create_token, send_magic_link_email
+
+    email = data.email.strip().lower()
+    ip = _get_client_ip(request)
+
+    # Reuse brute-force collection as a soft cap (max 5 magic links per email per 15min)
+    recent = await db.login_attempts.count_documents({
+        "email": f"magic:{email}",
+        "ip": ip,
+        "created_at": {"$gte": datetime.now(timezone.utc) - timedelta(minutes=15)},
+    })
+    if recent >= 5:
+        raise HTTPException(status_code=429, detail="Zu viele Magic-Link-Anfragen. Bitte warte 15 Minuten.")
+
+    await db.login_attempts.insert_one({
+        "email": f"magic:{email}",
+        "ip": ip,
+        "success": True,
+        "created_at": datetime.now(timezone.utc),
+        "expires_at": datetime.now(timezone.utc) + timedelta(hours=1),
+    })
+
+    token = await create_token(email, ip)
+    if token:
+        await send_magic_link_email(email, token)
+
+    return {"message": "Falls die E-Mail in unserem System existiert, haben wir dir einen Login-Link geschickt. Bitte prüfe dein Postfach."}
+
+
+@router.post("/magic-link/verify")
+async def magic_link_verify(data: MagicLinkVerify, request: Request, response: Response):
+    """Exchange a magic-link token for a session. Token is single-use."""
+    from services_magic_link import consume_token
+
+    user = await consume_token(data.token)
+    if not user:
+        raise HTTPException(status_code=401, detail="Link ist ungültig, abgelaufen oder wurde bereits verwendet.")
+
+    ctx = await _capture_login_context(request)
+    history_entry = _login_history_entry(ctx, method="magic_link")
+    await db.users.update_one({"user_id": user["user_id"]}, {
+        "$set": {
+            "last_login_ip": ctx["ip"],
+            "last_login_at": history_entry["at"],
+            "last_login_geo": ctx["geo"],
+            "last_login_ua": ctx["ua"],
+        },
+        "$push": {"login_history": {"$each": [history_entry], "$slice": -50}}
+    })
+
+    fire_and_forget_new_device_alert(
+        user_email=user["email"],
+        user_name=user.get("name") or "",
+        ip=ctx["ip"],
+        ua_parsed=ctx["ua"],
+        geo=ctx["geo"],
+        fingerprint=ctx["fingerprint"],
+        login_history=(user.get("login_history") or []) + [history_entry],
+        method="magic_link",
+    )
+
+    token = create_jwt_token(user["user_id"])
+    await _create_session(user["user_id"], ctx["ip"], response, method="magic_link")
+    return {"token": token, "user": _safe_user_output(user)}
+
+
+# ========== SECURITY / SESSIONS (authenticated) ==========
+
+@router.get("/security/overview")
+async def security_overview(request: Request):
+    """Return login history + active sessions for the current user (Profile › Security)."""
+    user = await get_current_user(request)
+    full = await db.users.find_one(
+        {"user_id": user["user_id"]},
+        {"_id": 0, "login_history": 1, "last_login_at": 1, "last_login_geo": 1,
+         "last_login_ua": 1, "signup_ip": 1, "signup_geo": 1, "created_at": 1,
+         "password_changed_at": 1},
+    ) or {}
+
+    # Last 20 entries (newest first)
+    history = list(reversed((full.get("login_history") or [])[-20:]))
+
+    # Active sessions (server-side cookie sessions)
+    current_cookie = request.cookies.get("session_token") or ""
+    sessions_cursor = db.user_sessions.find(
+        {"user_id": user["user_id"]},
+        {"_id": 0, "session_token": 1, "created_at": 1, "ip_address": 1, "method": 1, "expires_at": 1},
+    ).sort("created_at", -1)
+    sessions = []
+    async for s in sessions_cursor:
+        is_current = s.get("session_token") == current_cookie
+        sessions.append({
+            "id": (s.get("session_token") or "")[-12:],  # last 12 chars as opaque id
+            "created_at": s.get("created_at"),
+            "expires_at": s.get("expires_at"),
+            "ip": s.get("ip_address") or "",
+            "method": s.get("method") or "",
+            "is_current": is_current,
+        })
+
+    return {
+        "login_history": history,
+        "sessions": sessions,
+        "signup": {
+            "at": full.get("created_at"),
+            "ip": full.get("signup_ip"),
+            "geo": full.get("signup_geo") or {},
+        },
+        "password_changed_at": full.get("password_changed_at"),
+    }
+
+
+@router.post("/security/revoke-other-sessions")
+async def revoke_other_sessions(request: Request):
+    """Log out all other devices (keep current session alive)."""
+    user = await get_current_user(request)
+    current_cookie = request.cookies.get("session_token") or ""
+    bearer = request.headers.get("Authorization", "")
+    if bearer.startswith("Bearer "):
+        current_cookie = current_cookie or bearer.split(" ", 1)[1]
+
+    query = {"user_id": user["user_id"]}
+    if current_cookie:
+        query["session_token"] = {"$ne": current_cookie}
+    result = await db.user_sessions.delete_many(query)
+    return {"revoked": result.deleted_count}

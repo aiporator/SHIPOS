@@ -6,6 +6,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { Toaster } from "./components/ui/sonner";
 import { NetworkStatusBanner } from "./components/shared/NetworkStatusBanner";
 import LoginPage from "./pages/LoginPage";
+import MagicLinkVerifyPage from "./pages/MagicLinkVerifyPage";
 import AuthCallback from "./pages/AuthCallback";
 import DashboardPage from "./pages/DashboardPage";
 import DailyCheckinPage from "./pages/DailyCheckinPage";
@@ -69,6 +70,7 @@ function AppRouter() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/auth/magic" element={<MagicLinkVerifyPage />} />
       <Route path="/auth-callback" element={<AuthCallback />} />
       <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />

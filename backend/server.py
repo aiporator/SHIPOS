@@ -171,6 +171,11 @@ async def startup() -> None:
         await db.sync_events.create_index([("direction", 1), ("received_at", -1)])
         logger.info("Sync event indexes ensured (sync_events.event_id unique)")
 
+        # Magic-link TTL — auto-cleanup expired tokens
+        from services_magic_link import ensure_indexes as ensure_magic_link_indexes
+        await ensure_magic_link_indexes()
+        logger.info("Magic-link indexes ensured (TTL on expires_at)")
+
         # Migrate old level names to new role-based names
         level_migration = {
             "Emerging Leader": "Teamplayer",

@@ -34,7 +34,7 @@ const processQueue = (success) => {
 };
 
 const isNetworkError = (error) => !error.response && error.message !== 'canceled';
-const isAuthEndpoint = (url) => /\/(auth\/login|auth\/refresh|auth\/me|auth\/register)/.test(url || '');
+const isAuthEndpoint = (url) => /\/(auth\/login|auth\/refresh|auth\/me|auth\/register|auth\/magic-link\/(request|verify)|auth\/google-session)/.test(url || '');
 
 api.interceptors.response.use(
   (response) => response,
