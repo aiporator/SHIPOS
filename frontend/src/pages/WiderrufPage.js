@@ -29,7 +29,7 @@ export default function WiderrufPage() {
               {de
                 ? 'Um Ihr Widerrufsrecht auszuüben, müssen Sie uns ('
                 : 'To exercise the right of withdrawal, you must inform us ('}
-              <strong>[Anbieter-Name], [Adresse], E-Mail: <a href="mailto:widerruf@leader-os.de" className="text-[#BFFF00] hover:underline">widerruf@leader-os.de</a></strong>
+              <strong>Argumentorik-Akademie GmbH, Tölzer Str. 1, 82031 Grünwald, E-Mail: <a href="mailto:info@argumentorik.com" className="text-[#BFFF00] hover:underline">info@argumentorik.com</a></strong>
               {de
                 ? ') mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.'
                 : ') of your decision to withdraw from this contract by an unequivocal statement (e.g. a letter sent by post or email).'}
@@ -62,9 +62,10 @@ export default function WiderrufPage() {
           <div>
             <h2 className="text-white font-bold text-base mb-2">{de ? 'Muster-Widerrufsformular' : 'Sample withdrawal form'}</h2>
             <div className="bg-white/[0.04] border border-white/10 rounded-lg p-4 font-mono text-[11px] whitespace-pre-line">
-              {de ? `An: [Anbieter-Name]
-[Adresse]
-widerruf@leader-os.de
+              {de ? `An: Argumentorik-Akademie GmbH
+Tölzer Str. 1
+82031 Grünwald
+info@argumentorik.com
 
 Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*)
 abgeschlossenen Vertrag über den Kauf der folgenden
@@ -76,9 +77,10 @@ Anschrift des/der Verbraucher(s):
 Datum:
 Unterschrift (nur bei Papier-Form):
 
-(*) Unzutreffendes streichen.` : `To: [Provider name]
-[Address]
-widerruf@leader-os.de
+(*) Unzutreffendes streichen.` : `To: Argumentorik-Akademie GmbH
+Tölzer Str. 1
+82031 Grünwald
+info@argumentorik.com
 
 I/we (*) hereby give notice that I/we (*) withdraw from
 my/our (*) contract for the purchase of the following

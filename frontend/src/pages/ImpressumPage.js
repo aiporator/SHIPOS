@@ -20,9 +20,9 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-white font-bold text-base mb-2">{de ? 'Anbieter' : 'Provider'}</h2>
             <p className="text-white/80">
-              [Vor- und Nachname / Firmenname]<br />
-              [Straße und Hausnummer]<br />
-              [PLZ Ort]<br />
+              Argumentorik-Akademie GmbH<br />
+              Tölzer Str. 1<br />
+              82031 Grünwald<br />
               {de ? 'Deutschland' : 'Germany'}
             </p>
           </div>
@@ -30,19 +30,28 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-white font-bold text-base mb-2">{de ? 'Kontakt' : 'Contact'}</h2>
             <p className="text-white/80">
-              {de ? 'E-Mail' : 'Email'}: <a href="mailto:kontakt@leader-os.de" className="text-[#BFFF00] hover:underline">kontakt@leader-os.de</a><br />
-              {de ? 'Telefon' : 'Phone'}: [+49 ...]
+              {de ? 'E-Mail' : 'Email'}: <a href="mailto:info@argumentorik.com" className="text-[#BFFF00] hover:underline">info@argumentorik.com</a>
             </p>
           </div>
 
           <div>
+            <h2 className="text-white font-bold text-base mb-2">{de ? 'Geschäftsführer' : 'Managing Director'}</h2>
+            <p className="text-white/80">Wladislaw Jachtchenko</p>
+          </div>
+
+          <div>
+            <h2 className="text-white font-bold text-base mb-2">{de ? 'Handelsregister' : 'Commercial Register'}</h2>
+            <p className="text-white/80">Amtsgericht München, HRB 279998</p>
+          </div>
+
+          <div>
             <h2 className="text-white font-bold text-base mb-2">{de ? 'Umsatzsteuer-Identifikationsnummer' : 'VAT ID'}</h2>
-            <p className="text-white/80">{de ? 'Gemäß § 27 a Umsatzsteuergesetz' : 'Pursuant to § 27a German VAT Act'}: [DE...]</p>
+            <p className="text-white/80">{de ? 'Gemäß § 27 a Umsatzsteuergesetz' : 'Pursuant to § 27a German VAT Act'}: DE 357468654</p>
           </div>
 
           <div>
             <h2 className="text-white font-bold text-base mb-2">{de ? 'Verantwortlich für den Inhalt' : 'Responsible for content'}</h2>
-            <p className="text-white/80">{de ? 'nach § 18 Abs. 2 MStV' : 'pursuant to § 18 (2) MStV'}: [Vor- und Nachname], [Adresse wie oben]</p>
+            <p className="text-white/80">{de ? 'nach § 18 Abs. 2 MStV' : 'pursuant to § 18 (2) MStV'}: Wladislaw Jachtchenko, Argumentorik-Akademie GmbH, Tölzer Str. 1, 82031 Grünwald</p>
           </div>
 
           <div>
@@ -52,6 +61,13 @@ export default function ImpressumPage() {
                 ? 'Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: '
                 : 'The European Commission provides a platform for online dispute resolution (ODR): '}
               <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-[#BFFF00] hover:underline">https://ec.europa.eu/consumers/odr/</a>.<br />
+              {de ? 'Unsere E-Mail-Adresse finden Sie oben im Impressum.' : 'Our email address is listed above.'}
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-white font-bold text-base mb-2">{de ? 'Verbraucherstreitbeilegung / Universalschlichtungsstelle' : 'Consumer dispute resolution'}</h2>
+            <p className="text-white/80">
               {de
                 ? 'Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.'
                 : 'We are not willing or obligated to participate in dispute resolution proceedings before a consumer arbitration board.'}

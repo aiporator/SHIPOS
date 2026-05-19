@@ -39,7 +39,7 @@ export default function AGBPage() {
 
         <Section num="1" title="Geltungsbereich">
           <p>
-            Diese AGB gelten für sämtliche Verträge zwischen [Anbieter-Name], [Adresse] („Anbieter") und seinen Kunden („Kunde") über die Nutzung der Plattform Leader-OS (leader-os.de). Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, der Anbieter stimmt ihrer Geltung ausdrücklich schriftlich zu.
+            Diese AGB gelten für sämtliche Verträge zwischen der <strong>Argumentorik-Akademie GmbH</strong>, Tölzer Str. 1, 82031 Grünwald, vertreten durch den Geschäftsführer Wladislaw Jachtchenko (HRB München 279998, USt-IdNr. DE 357468654), nachfolgend „Anbieter" und seinen Kunden („Kunde") über die Nutzung der Plattform Leader-OS (leader-os.de). Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, der Anbieter stimmt ihrer Geltung ausdrücklich schriftlich zu.
           </p>
         </Section>
 
@@ -119,7 +119,7 @@ export default function AGBPage() {
 
         <Section num="12" title="Schlussbestimmungen">
           <p>
-            Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Gerichtsstand für Kaufleute ist [Ort des Anbieters]. Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+            Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Gerichtsstand für Kaufleute ist München. Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
           </p>
         </Section>
 

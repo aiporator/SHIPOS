@@ -38,9 +38,11 @@ export default function DatenschutzPage() {
 
         <Section title={de ? '1. Verantwortlicher' : '1. Controller'}>
           <p>
-            [Vor- und Nachname / Firmenname]<br />
-            [Adresse]<br />
-            E-Mail: <a href="mailto:datenschutz@leader-os.de" className="text-[#BFFF00] hover:underline">datenschutz@leader-os.de</a>
+            Argumentorik-Akademie GmbH<br />
+            Geschäftsführer: Wladislaw Jachtchenko<br />
+            Tölzer Str. 1, 82031 Grünwald<br />
+            HRB München 279998 · USt-IdNr. DE 357468654<br />
+            E-Mail: <a href="mailto:info@argumentorik.com" className="text-[#BFFF00] hover:underline">info@argumentorik.com</a> ({de ? 'Datenschutz-Anfragen ebenfalls hier' : 'Privacy requests also here'})
           </p>
         </Section>
 
@@ -95,7 +97,7 @@ export default function DatenschutzPage() {
             <li><strong className="text-white">{de ? 'Widerspruch' : 'Objection'}</strong> (Art. 21 DSGVO): {de ? 'Gegen Verarbeitung auf Basis berechtigten Interesses.' : 'Against processing based on legitimate interest.'}</li>
             <li><strong className="text-white">{de ? 'Beschwerderecht' : 'Complaint'}</strong> (Art. 77 DSGVO): {de ? 'Bei deiner Aufsichtsbehörde, z.B. Berliner Beauftragte für Datenschutz.' : 'With your supervisory authority.'}</li>
           </ul>
-          <p className="mt-3">{de ? 'Anfragen bitte an' : 'Requests to'}: <a href="mailto:datenschutz@leader-os.de" className="text-[#BFFF00] hover:underline">datenschutz@leader-os.de</a></p>
+          <p className="mt-3">{de ? 'Anfragen bitte an' : 'Requests to'}: <a href="mailto:info@argumentorik.com" className="text-[#BFFF00] hover:underline">info@argumentorik.com</a></p>
         </Section>
 
         <Section title={de ? '7. Speicherdauer' : '7. Retention period'}>
