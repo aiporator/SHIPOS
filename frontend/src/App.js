@@ -30,6 +30,12 @@ import EnterprisePage from "./pages/EnterprisePage";
 import Challenge30Page from "./pages/Challenge30Page";
 import DownloadsPage from "./pages/DownloadsPage";
 
+import ImpressumPage from "./pages/legal/ImpressumPage";
+import DatenschutzPage from "./pages/legal/DatenschutzPage";
+import AGBPage from "./pages/legal/AGBPage";
+import WiderrufPage from "./pages/legal/WiderrufPage";
+import CookieConsentBanner from "./components/legal/CookieConsentBanner";
+
 import { CreditProvider } from "./contexts/CreditContext";
 import { TierProvider } from "./contexts/TierContext";
 
@@ -65,6 +71,10 @@ function AppRouter() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/auth-callback" element={<AuthCallback />} />
+      <Route path="/impressum" element={<ImpressumPage />} />
+      <Route path="/datenschutz" element={<DatenschutzPage />} />
+      <Route path="/agb" element={<AGBPage />} />
+      <Route path="/widerruf" element={<WiderrufPage />} />
       <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/daily-checkin" element={<ProtectedRoute><DailyCheckinPage /></ProtectedRoute>} />
@@ -106,6 +116,7 @@ function App() {
               <BrowserRouter>
                 <NetworkStatusBanner />
                 <AppRouter />
+                <CookieConsentBanner />
                 <Toaster position="bottom-right" />
               </BrowserRouter>
             </TierProvider>
