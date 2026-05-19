@@ -90,6 +90,14 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 - P3: Real photos of Wlad Jachtchenko on PDF certificates
 
 ## Testing
+- **Iter 82 · 2026-02 (LAUNCH-DAY)**: 4-Punkt-Update + LLM Key Rotation + Claude Code Alignment.
+  1. **LLM-Key Rotation**: Veralteter `EMERGENT_LLM_KEY` (`sk-emergent-c08f...`) → `sk-emergent-c9aA8F6D100Dd693d4` via `emergent_integrations_manager`. ⚠️ Muss in Production Deploy env-config ebenfalls gesetzt werden, sonst tot.
+  2. **5 Rollen aus Chat entfernt** — `chatRoles.js` deleted. `ChatPage.js`, `ChatRolesHeader.js`, `ChatEmpty.js`, `ChatUpsellModal.js`, `LoginPage.js`, `BotMascotPanel.js` cleaned. WladBot ist jetzt ein simpler 1-Persona Chat mit 6 Universal-Suggestion-Prompts.
+  3. **PDF-Generator `violet` undefined gefixt** — `const violet = [124, 58, 237];` in `pdfGenerator.js`. PDF-Download für Workflow-Reports mit `development_plan`/`next_steps` crashed nicht mehr.
+  4. **Google OAuth graceful 503** — `routes/auth.py` `google_session()` returnt 503 wenn `OAUTH_SESSION_URL` fehlt (statt Python TypeError-Flood in Logs).
+  - **E2E TEST**: 13 LLM-Endpoints ✅ HTTP 200 mit echtem Output (chat, 7 workflows, deep-assist, daily-checkin, challenge30, simulations, playbooks).
+  - **Master-Handoff**: `/app/EMERGENT_CLAUDE_ALIGNMENT.md` erstellt mit kompletter Inventur aller Iter 80-82 Pod-Changes für Claude-Code-Merge zu `mvpcode`.
+  - **Pull from GitHub PENDING**: PR #10 (Sentry), #14 (Stripe Webhook), #15 (PostHog), #16, Voyage RAG (v1.1) sind NICHT im Pod. Grep-Verify: alle 0.
 - **Iter 81 · 2026-02**: 4-Punkt-Update (Mert):
   1. **BotMascot/Anruf-Modal komplett entfernt** — `BotMascot` Komponente aus `DashboardLayout.js` herausgenommen. Kein Wlad-Anruf mehr 5 Sek nach Login.
   2. **3 gratis Video-Analysen für Free + Standard in den ersten 14 Tagen** — Neuer Service `services_video_trial.py` + Endpoint `GET /api/user/video-trial-status`. `routes/video.py` Trial-first-check, bypass `require_feature` solange Trial aktiv. Frontend `VideoChallengePage.js` mit Banner "X/3 verbleibend · Y Tage". Curl verifiziert: free user (account >14d) → `window_expired: true`, accelerator → `accelerator_unlimited`.
