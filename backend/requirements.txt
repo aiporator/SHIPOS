@@ -128,5 +128,8 @@ websockets==16.0
 yarl==1.23.0
 zipp==3.23.0
 
-# Observability (opt-in via SENTRY_DSN env var)
+# Observability (opt-in via SENTRY_DSN / POSTHOG_API_KEY env vars)
 sentry-sdk[fastapi]==2.18.0
+posthog==3.7.0
+backoff==2.2.1
+monotonic==1.6
