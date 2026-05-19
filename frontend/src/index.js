@@ -3,26 +3,20 @@ import ReactDOM from "react-dom/client";
 import * as Sentry from "@sentry/react";
 import "@/index.css";
 import App from "@/App";
+import { bootstrapConsent, readConsent } from "@/lib/consent";
 
-// ── Consent-aware tracker init ────────────────────────────────────────────
-// PostHog + Sentry session-replay only fire when the user actively consented
-// via the cookie banner. Sentry error tracking itself runs on a "functional"
-// basis (Art. 6(1)(f) DSGVO, anonymized stacktraces, no PII).
-const readConsent = () => {
-  try {
-    const raw = localStorage.getItem("lo_consent_v1");
-    if (!raw) return null;
-    const p = JSON.parse(raw);
-    return p && p.v === 1 ? p : null;
-  } catch {
-    return null;
-  }
-};
+// Bootstrap GDPR/TTDSG consent BEFORE any tracking SDK initializes.
+// Normalizes legacy consent shapes and defaults PostHog to opt-out until
+// the user explicitly accepts in the banner.
+bootstrapConsent();
+
 const consent = readConsent();
-const replayAllowed = Boolean(consent?.session_replay);
-const analyticsAllowed = Boolean(consent?.analytics);
+const replayConsented = Boolean(consent?.replays);
+const analyticsConsented = Boolean(consent?.analytics);
 
-// Host-based DSN selection (existing behavior preserved).
+// Host-based Sentry DSN selection. The same CRA bundle serves both surfaces,
+// errors land in the correct project. Falls back to leader-os for preview,
+// localhost, and anything else.
 const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 const isLeaderCheck = /(^|\.)leader-check\.de$/i.test(hostname);
 const sentryDsn = isLeaderCheck
@@ -30,35 +24,51 @@ const sentryDsn = isLeaderCheck
   : process.env.REACT_APP_SENTRY_DSN_LEADER_OS;
 
 if (sentryDsn) {
+  // Sentry error tracking is always on (Art. 6(1)(f) DSGVO — legitimate
+  // interest in service stability, anonymized stacktraces, sendDefaultPii=false).
+  // Session-Replay only activates when the user has explicitly consented.
   const integrations = [Sentry.browserTracingIntegration()];
-  if (replayAllowed) {
-    integrations.push(Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }));
+  if (replayConsented) {
+    integrations.push(
+      Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }),
+    );
   }
+
   Sentry.init({
     dsn: sentryDsn,
     environment: process.env.REACT_APP_SENTRY_ENV || "production",
     tracesSampleRate: 0.1,
     replaysSessionSampleRate: 0,
-    replaysOnErrorSampleRate: replayAllowed ? 1.0 : 0,
+    replaysOnErrorSampleRate: replayConsented ? 1.0 : 0,
+    sendDefaultPii: false,
     integrations,
   });
 }
 
-// Listen for late consent changes (user toggles in banner) → enable analytics
-// without requiring a page reload.
+// PostHog: late-init when the user toggles analytics consent ON without
+// requiring a page reload. Dynamic import keeps it out of the critical-path
+// bundle when consent is denied.
+const maybeInitPostHog = () => {
+  const key = process.env.REACT_APP_POSTHOG_KEY;
+  if (!key) return;
+  import("posthog-js").then(({ default: posthog }) => {
+    if (posthog.__loaded) return;
+    const host = process.env.REACT_APP_POSTHOG_HOST || "https://eu.i.posthog.com";
+    posthog.init(key, {
+      api_host: host,
+      autocapture: false,
+      capture_pageview: true,
+      persistence: "localStorage+cookie",
+    });
+  }).catch(() => { /* network blocked / extension blocked — silent */ });
+};
+
+if (analyticsConsented) maybeInitPostHog();
+
 if (typeof window !== "undefined") {
   window.addEventListener("lo:consent", (e) => {
     const c = e?.detail || {};
-    if (c.analytics && !analyticsAllowed) {
-      // Defer PostHog dynamic-import to avoid blocking critical-path bundle.
-      import("posthog-js").then(({ default: posthog }) => {
-        const key = process.env.REACT_APP_POSTHOG_KEY;
-        const host = process.env.REACT_APP_POSTHOG_HOST || "https://eu.i.posthog.com";
-        if (key && !posthog.__loaded) {
-          posthog.init(key, { api_host: host, autocapture: false, capture_pageview: true });
-        }
-      }).catch(() => {});
-    }
+    if (c.analytics) maybeInitPostHog();
   });
 }
 

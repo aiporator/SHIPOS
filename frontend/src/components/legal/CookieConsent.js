@@ -12,57 +12,35 @@
  */
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-
-const CONSENT_KEY = 'lo_consent_v1';
-
-export const CONSENT_DEFAULTS = {
-  essential: true,         // always on — login session cookie, JWT
-  analytics: false,        // PostHog event capture
-  session_replay: false,   // Sentry replay + PostHog recordings
-};
-
-export const readConsent = () => {
-  try {
-    const raw = localStorage.getItem(CONSENT_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    return parsed && parsed.v === 1 ? parsed : null;
-  } catch {
-    return null;
-  }
-};
-
-const writeConsent = (consent) => {
-  const payload = { v: 1, ts: new Date().toISOString(), ...consent };
-  localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
-  // Broadcast so other tabs / trackers can react immediately.
-  window.dispatchEvent(new CustomEvent('lo:consent', { detail: payload }));
-};
+import { readConsent, writeConsent, CONSENT_DEFAULTS } from '../../lib/consent';
 
 export const CookieConsent = () => {
   const { lang } = useLanguage();
   const de = lang === 'de';
   const [show, setShow] = useState(false);
   const [customizing, setCustomizing] = useState(false);
-  const [opts, setOpts] = useState(CONSENT_DEFAULTS);
+  const [opts, setOpts] = useState({
+    essential: true,
+    analytics: CONSENT_DEFAULTS.analytics,
+    replays: CONSENT_DEFAULTS.replays,
+  });
 
   useEffect(() => {
-    const existing = readConsent();
-    if (!existing) setShow(true);
+    if (!readConsent()) setShow(true);
   }, []);
 
   if (!show) return null;
 
   const acceptAll = () => {
-    writeConsent({ essential: true, analytics: true, session_replay: true });
+    writeConsent({ analytics: true, replays: true });
     setShow(false);
   };
   const essentialOnly = () => {
-    writeConsent({ essential: true, analytics: false, session_replay: false });
+    writeConsent({ analytics: false, replays: false });
     setShow(false);
   };
   const saveCustom = () => {
-    writeConsent({ ...opts, essential: true });
+    writeConsent({ analytics: opts.analytics, replays: opts.replays });
     setShow(false);
   };
 
@@ -91,7 +69,7 @@ export const CookieConsent = () => {
               {[
                 { k: 'essential', t_de: 'Technisch notwendig', t_en: 'Strictly necessary', desc_de: 'Login, Session — kann nicht deaktiviert werden', desc_en: 'Login, session — cannot be disabled', locked: true },
                 { k: 'analytics', t_de: 'Analyse (PostHog)', t_en: 'Analytics (PostHog)', desc_de: 'Anonyme Nutzungs-Statistiken', desc_en: 'Anonymous usage stats' },
-                { k: 'session_replay', t_de: 'Session-Replay (Sentry)', t_en: 'Session replay (Sentry)', desc_de: 'Für gezielte Fehler-Reproduktion', desc_en: 'For targeted bug repro' },
+                { k: 'replays', t_de: 'Session-Replay (Sentry)', t_en: 'Session replay (Sentry)', desc_de: 'Für gezielte Fehler-Reproduktion', desc_en: 'For targeted bug repro' },
               ].map(({ k, t_de, t_en, desc_de, desc_en, locked }) => (
                 <label key={k} className="flex items-start gap-3 cursor-pointer">
                   <input
