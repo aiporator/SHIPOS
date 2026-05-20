@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import logger from '../lib/logger';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card, CardContent } from '../components/ui/card';
@@ -16,7 +16,6 @@ import api from '../lib/api';
 import { useCredits } from '../contexts/CreditContext';
 import { WeekCalendarCard } from '../components/dashboard/WeekCalendarCard';
 import { TierBadge } from '../components/shared/TierBadge';
-import { useMotion } from '../hooks/useMotion';
 import { useTier } from '../contexts/TierContext';
 import {
   Zap, ArrowRight, Flame, ChevronRight,
@@ -38,14 +37,7 @@ export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [referralCode, setReferralCode] = useState('');
   const { balance, isPremium } = useCredits();
-  const rootRef = useRef(null);
 
-  // Premium dashboard entrance — staggered widget reveal with subtle scale
-  useMotion(rootRef, ({ tl, q }) => {
-    tl.from(q('[data-anim="dash-header"]'),  { y: 18, opacity: 0, duration: 0.6 })
-      .from(q('[data-anim="dash-cta"]'),     { y: 24, opacity: 0, scale: 0.985, duration: 0.65, ease: 'back.out(1.2)' }, '-=0.35')
-      .from(q('[data-anim="dash-widget"]'),  { y: 22, opacity: 0, duration: 0.55, stagger: 0.07 }, '-=0.4');
-  }, [data]);
   const loadDashboard = useCallback(async () => {
     try {
       const [dashRes, refRes] = await Promise.all([
@@ -102,7 +94,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div ref={rootRef} className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen" data-testid="dashboard-page">
+      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen" data-testid="dashboard-page">
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
         {/* ── Greeting ── */}
