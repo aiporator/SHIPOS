@@ -61,7 +61,8 @@ export const ProfileSecurityTab = ({ de = true }) => {
     }
   };
 
-  useEffect(() => { load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { load(); }, []);
 
   const handleRevokeOthers = async () => {
     if (!window.confirm(de
