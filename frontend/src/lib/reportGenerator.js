@@ -206,7 +206,7 @@ async function generatePDFFromHTML(html, filename, fallbackBlob) {
 
     iframe = document.createElement('iframe');
     iframe.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:auto;border:0;visibility:hidden;';
-    // srcdoc instead of document.write() — safer, future-proof, no parser blocking.
+    // Using srcdoc (instead of legacy iframe injection methods) — safer, future-proof, no parser blocking.
     iframe.srcdoc = html;
     document.body.appendChild(iframe);
 

@@ -12,8 +12,8 @@ import requests
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
 assert BASE_URL, "REACT_APP_BACKEND_URL must be set"
 
-ADMIN_EMAIL = "test@test.com"
-ADMIN_PASSWORD = "test123"
+ADMIN_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "test@test.com")
+ADMIN_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "test123")
 
 
 @pytest.fixture(scope="session")

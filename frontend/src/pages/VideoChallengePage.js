@@ -107,7 +107,8 @@ export default function VideoChallengePage() {
       const msg = lang === 'de'
         ? 'Kamera-Zugriff verweigert. Bitte in deinen Browser-Einstellungen erlauben und neu laden.'
         : 'Camera access denied. Please allow it in browser settings and reload.';
-      try { (await import('sonner')).toast.error(msg); } catch { /* ignore if sonner not ready */ }
+      try { (await import('sonner')).toast.error(msg); }
+      catch (toastErr) { logger.warn('toast unavailable:', toastErr?.message); }
     }
   };
 

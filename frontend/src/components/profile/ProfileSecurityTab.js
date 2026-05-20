@@ -201,9 +201,9 @@ export const ProfileSecurityTab = ({ de = true }) => {
             </p>
           ) : (
             <div className="space-y-2">
-              {sessions.map((s, i) => (
+              {sessions.map((s) => (
                 <div
-                  key={i}
+                  key={s.id || `${s.created_at}-${s.ip}`}
                   className={`flex items-center justify-between gap-3 p-3 rounded-xl border ${
                     s.is_current
                       ? 'border-[#BFFF00]/30 bg-[#BFFF00]/[0.04]'
@@ -256,7 +256,7 @@ export const ProfileSecurityTab = ({ de = true }) => {
             <div className="divide-y divide-black/[0.04] dark:divide-white/[0.06] -mx-5">
               {history.map((h, i) => (
                 <div
-                  key={i}
+                  key={`${h.at || ''}-${h.fingerprint || ''}-${i}`}
                   className="flex items-center gap-3 px-5 py-3 hover:bg-muted/30 transition-colors"
                   data-testid="security-history-row"
                 >

@@ -10,16 +10,27 @@ const read = () => {
   try {
     const raw = parseFloat(localStorage.getItem(KEY));
     return ALLOWED.includes(raw) ? raw : DEFAULT;
-  } catch { return DEFAULT; }
+  } catch (err) {
+    // localStorage can throw in private-browsing / SSR / quota-exceeded states.
+    // Falling back to default is the only sensible thing — log for telemetry.
+    if (typeof console !== 'undefined') console.warn('[ttsSpeed] read failed:', err?.message);
+    return DEFAULT;
+  }
 };
 
 export const getTtsSpeed = () => read();
 
 export const setTtsSpeed = (speed) => {
   if (!ALLOWED.includes(speed)) return;
-  try { localStorage.setItem(KEY, String(speed)); } catch { /* ignore */ }
+  try { localStorage.setItem(KEY, String(speed)); }
+  catch (err) {
+    if (typeof console !== 'undefined') console.warn('[ttsSpeed] write failed:', err?.message);
+  }
   // Notify any mounted <audio> tags so they update in-flight.
-  try { window.dispatchEvent(new CustomEvent('wladbot:tts-speed', { detail: speed })); } catch { /* ignore */ }
+  try { window.dispatchEvent(new CustomEvent('wladbot:tts-speed', { detail: speed })); }
+  catch (err) {
+    if (typeof console !== 'undefined') console.warn('[ttsSpeed] event dispatch failed:', err?.message);
+  }
 };
 
 export const TTS_SPEEDS = ALLOWED;
