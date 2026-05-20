@@ -98,6 +98,7 @@ export const AnalysisResults = ({
                       variant="pill"
                       label={de ? 'Anhören' : 'Listen'}
                       testId="wlad-assessment-play"
+                      showWave
                     />
                   </div>
                 </div>

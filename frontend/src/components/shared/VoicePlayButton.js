@@ -3,6 +3,7 @@ import { Volume2, VolumeX, Loader2 } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import { getTtsSpeed } from '../../lib/ttsSpeed';
+import { VoiceWaveVisualizer } from './VoiceWaveVisualizer';
 
 /**
  * VoicePlayButton — triggers ElevenLabs TTS synthesis + inline <audio> playback.
@@ -11,16 +12,19 @@ import { getTtsSpeed } from '../../lib/ttsSpeed';
  * @param {string} size - xs | sm | md (default: sm)
  * @param {string} variant - primary | ghost | pill (default: ghost)
  * @param {string} label - Optional label override (default: "Anhören")
+ * @param {boolean} showWave - Render an inline waveform visualizer next to the button
  * @param {() => void} onStart - Optional callback when synthesis starts
  * @param {() => void} onEnd - Optional callback when audio finishes
  */
 export default function VoicePlayButton({
   text, persona, size = 'sm', variant = 'ghost', label,
-  onStart, onEnd, className = '', testId,
+  onStart, onEnd, className = '', testId, showWave = false,
 }) {
   const [loading, setLoading] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
+  // Force re-render when audioRef changes so the visualizer sees it
+  const [audioVersion, setAudioVersion] = useState(0);
 
   const sizeClasses = {
     xs: 'w-6 h-6 text-[10px]',
@@ -68,6 +72,7 @@ export default function VoicePlayButton({
       audio.playbackRate = getTtsSpeed();
       audio.preservesPitch = false; // browsers default to true; false = "cooler" pitched-up feel
       audioRef.current = audio;
+      setAudioVersion(v => v + 1);  // Trigger re-render so visualizer picks up new audio
       // Live-update playbackRate if user changes the global speed mid-playback.
       const onSpeedChange = (e) => {
         if (audioRef.current) {
@@ -109,14 +114,25 @@ export default function VoicePlayButton({
   }
 
   return (
-    <button
-      onClick={speak}
-      disabled={loading}
-      className={`inline-flex items-center gap-1.5 rounded-full transition-all ${sizeClasses[size]} ${variantClasses[variant]} ${className} ${playing ? 'ring-2 ring-[#BFFF00]/40' : ''}`}
-      data-testid={testId || `voice-play-${persona}`}
-    >
-      {loading ? <Loader2 size={12} className="animate-spin" /> : playing ? <VolumeX size={12} /> : <Volume2 size={12} />}
-      <span className="font-bold">{playing ? (loading ? '...' : 'Stop') : (label || 'Anhören')}</span>
-    </button>
+    <span className="inline-flex items-center gap-2.5">
+      <button
+        onClick={speak}
+        disabled={loading}
+        className={`inline-flex items-center gap-1.5 rounded-full transition-all ${sizeClasses[size]} ${variantClasses[variant]} ${className} ${playing ? 'ring-2 ring-[#BFFF00]/40' : ''}`}
+        data-testid={testId || `voice-play-${persona}`}
+      >
+        {loading ? <Loader2 size={12} className="animate-spin" /> : playing ? <VolumeX size={12} /> : <Volume2 size={12} />}
+        <span className="font-bold">{playing ? (loading ? '...' : 'Stop') : (label || 'Anhören')}</span>
+      </button>
+      {showWave && (
+        <VoiceWaveVisualizer
+          key={audioVersion}
+          audioEl={audioRef.current}
+          active={playing}
+          width={120}
+          height={32}
+        />
+      )}
+    </span>
   );
 }
