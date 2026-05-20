@@ -101,7 +101,14 @@ export default function VideoChallengePage() {
       const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       setStream(s);
       if (videoRef.current) { videoRef.current.srcObject = s; videoRef.current.muted = true; }
-    } catch (err) { logger.error('Camera access denied:', err); }
+    } catch (err) {
+      logger.error('Camera access denied:', err);
+      // Surface the failure so the user doesn't sit through a countdown that goes nowhere.
+      const msg = lang === 'de'
+        ? 'Kamera-Zugriff verweigert. Bitte in deinen Browser-Einstellungen erlauben und neu laden.'
+        : 'Camera access denied. Please allow it in browser settings and reload.';
+      try { (await import('sonner')).toast.error(msg); } catch { /* ignore if sonner not ready */ }
+    }
   };
 
   const submitVideo = async () => {
