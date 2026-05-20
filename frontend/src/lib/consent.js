@@ -35,7 +35,9 @@ export const readConsent = () => {
       p.replays = !!p.session_replay;
     }
     return p;
-  } catch {
+  } catch (err) {
+    // localStorage unavailable / corrupted JSON — treat as no consent given.
+    if (typeof console !== 'undefined') console.warn('[consent] read failed:', err?.message);
     return null;
   }
 };
@@ -51,8 +53,10 @@ export const writeConsent = (partial) => {
   try {
     localStorage.setItem(KEY, JSON.stringify(payload));
     window.dispatchEvent(new CustomEvent("lo:consent", { detail: payload }));
-  } catch {
-    /* localStorage unavailable (private mode, SSR) — ignore */
+  } catch (err) {
+    // localStorage unavailable (private mode, SSR) — payload still returned so
+    // callers can use it in-memory for the rest of the session.
+    if (typeof console !== 'undefined') console.warn('[consent] write failed:', err?.message);
   }
   return payload;
 };

@@ -19,12 +19,18 @@ const read = () => {
     if (!raw) return [];
     const arr = JSON.parse(raw);
     return Array.isArray(arr) ? arr : [];
-  } catch { return []; }
+  } catch (err) {
+    // localStorage unavailable (private mode / quota) OR corrupted JSON — start fresh.
+    if (typeof console !== 'undefined') console.warn('[recentLogins] read failed:', err?.message);
+    return [];
+  }
 };
 
 const write = (arr) => {
   try { localStorage.setItem(KEY, JSON.stringify(arr.slice(0, MAX_ACCOUNTS))); }
-  catch { /* localStorage full or disabled — ignore */ }
+  catch (err) {
+    if (typeof console !== 'undefined') console.warn('[recentLogins] write failed:', err?.message);
+  }
 };
 
 const isStale = (entry) => {
@@ -70,5 +76,8 @@ export const forgetLogin = (email) => {
 
 /** Clear ALL remembered accounts (used on full logout). */
 export const forgetAllLogins = () => {
-  try { localStorage.removeItem(KEY); } catch { /* ignore */ }
+  try { localStorage.removeItem(KEY); }
+  catch (err) {
+    if (typeof console !== 'undefined') console.warn('[recentLogins] clear failed:', err?.message);
+  }
 };
