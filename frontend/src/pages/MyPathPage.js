@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card, CardContent } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
@@ -7,7 +7,6 @@ import LearningVideosTab from '../components/mypath/LearningVideosTab';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import logger from '../lib/logger';
-import { useMotion } from '../hooks/useMotion';
 import {
   Sparkles, Lock, CheckCircle2, ArrowRight, Zap, Crown,
   Star, Shield, Eye, Trophy, Brain, Target, HeartHandshake,
@@ -106,7 +105,6 @@ export default function MyPathPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const rootRef = useRef(null);
 
   const loadPath = useCallback(async () => {
     setLoading(true);
@@ -119,15 +117,6 @@ export default function MyPathPage() {
   }, []);
 
   useEffect(() => { loadPath(); }, [loadPath]);
-
-  // ── Cinematic entrance: header → tabs → current-level card → level nodes → trophy ──
-  useMotion(rootRef, ({ tl, q }) => {
-    tl.from(q('[data-anim="mypath-header"]'),       { y: 28, opacity: 0, duration: 0.7 })
-      .from(q('[data-anim="mypath-tabs"]'),         { y: 14, opacity: 0, duration: 0.5 }, '-=0.45')
-      .from(q('[data-anim="mypath-current-level"]'),{ y: 20, opacity: 0, scale: 0.97, duration: 0.6, ease: 'back.out(1.3)' }, '-=0.3')
-      .from(q('[data-anim="mypath-node"]'),         { y: 18, opacity: 0, duration: 0.5, stagger: 0.08 }, '-=0.35')
-      .from(q('[data-anim="mypath-trophy"]'),       { y: 16, opacity: 0, scale: 0.92, duration: 0.55, ease: 'back.out(1.5)' }, '-=0.2');
-  }, [data]);
 
   if (loading) return <DashboardLayout><div className="flex items-center justify-center min-h-[60vh]"><div className="w-8 h-8 border-3 border-[#BFFF00] border-t-transparent rounded-full animate-spin" /></div></DashboardLayout>;
   if (!data) return (
@@ -201,7 +190,7 @@ export default function MyPathPage() {
         </button>
       </div>
     }>
-      <div ref={rootRef} className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
+      <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
         <div className="mb-6" data-anim="mypath-header">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles size={14} className="text-[#BFFF00]" />

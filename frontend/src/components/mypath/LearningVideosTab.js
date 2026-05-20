@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
-import { useMotion, gsap, prefersReducedMotion } from '../../hooks/useMotion';
 
 const UNLOCK_MEMO_KEY = 'mypath:lastUnlockedIds';
 
@@ -12,58 +11,6 @@ const VideoCard = ({ video, onPlay, onUpgrade, newlyUnlocked }) => {
   const cardRef = useRef(null);
   const thumbRef = useRef(null);
   const sparkleRefs = useRef([]);
-
-  // Hover micro-interactions: lift + thumb parallax + glow
-  useEffect(() => {
-    if (prefersReducedMotion() || !cardRef.current) return;
-    const card = cardRef.current;
-    const thumb = thumbRef.current;
-    const onEnter = () => {
-      gsap.to(card, { y: -6, scale: 1.015, duration: 0.35, ease: 'power3.out' });
-      if (thumb) gsap.to(thumb, { scale: 1.06, duration: 0.6, ease: 'power3.out' });
-    };
-    const onLeave = () => {
-      gsap.to(card, { y: 0, scale: 1, duration: 0.45, ease: 'power3.out' });
-      if (thumb) gsap.to(thumb, { scale: 1, duration: 0.6, ease: 'power3.out' });
-    };
-    card.addEventListener('mouseenter', onEnter);
-    card.addEventListener('mouseleave', onLeave);
-    return () => {
-      card.removeEventListener('mouseenter', onEnter);
-      card.removeEventListener('mouseleave', onLeave);
-    };
-  }, []);
-
-  // Unlock celebration — only fires when this card was JUST unlocked this session
-  useEffect(() => {
-    if (!newlyUnlocked || prefersReducedMotion() || !cardRef.current) return;
-    const tl = gsap.timeline();
-    tl.to(cardRef.current, { scale: 1.04, duration: 0.35, ease: 'back.out(2)' })
-      .to(cardRef.current, { scale: 1, duration: 0.4, ease: 'power2.out' });
-
-    // Sparkles burst around the card
-    sparkleRefs.current.forEach((s, i) => {
-      if (!s) return;
-      gsap.fromTo(s,
-        { scale: 0, rotate: 0, opacity: 0 },
-        {
-          scale: 1, rotate: 180, opacity: 1,
-          duration: 0.6, delay: 0.1 + i * 0.08, ease: 'back.out(2.5)',
-          onComplete: () => gsap.to(s, { opacity: 0, scale: 0.5, duration: 0.6, delay: 0.5 }),
-        },
-      );
-    });
-
-    // Lime ring glow that fades in then out
-    const ring = cardRef.current.querySelector('[data-unlock-ring]');
-    if (ring) {
-      gsap.fromTo(ring,
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.4, ease: 'power3.out',
-          onComplete: () => gsap.to(ring, { opacity: 0, duration: 1.2, delay: 0.6 }) },
-      );
-    }
-  }, [newlyUnlocked]);
 
   return (
     <div
@@ -215,24 +162,6 @@ export default function LearningVideosTab() {
     return newOnes;
   }, [data]);
 
-  const rootRef = useRef(null);
-
-  // ── ScrollTrigger-driven stagger: tiles fade in as the user scrolls each section ──
-  useMotion(rootRef, ({ gsap: g, q, ScrollTrigger: ST }) => {
-    q('[data-anim="video-section"]').forEach((section) => {
-      const tiles = section.querySelectorAll('[data-anim="video-tile"]');
-      if (!tiles.length) return;
-      g.from(tiles, {
-        y: 24, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08,
-        scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none none' },
-      });
-    });
-    // Header strip + section headers
-    g.from(q('[data-anim="summary-strip"]'), { y: 16, opacity: 0, duration: 0.7 });
-    g.from(q('[data-anim="section-header"]'), { y: 18, opacity: 0, duration: 0.6, stagger: 0.15, delay: 0.1 });
-    return () => { ST.getAll().forEach(t => t.kill()); };
-  }, [data]);
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16" data-testid="learning-videos-loading">
@@ -247,7 +176,7 @@ export default function LearningVideosTab() {
   const hasAccelerator = userRank >= 3;
 
   return (
-    <div ref={rootRef} className="space-y-8" data-testid="learning-videos-tab">
+    <div className="space-y-8" data-testid="learning-videos-tab">
       {/* Summary strip */}
       <div data-anim="summary-strip" className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.06] bg-gradient-to-br from-white to-gray-50/60 dark:from-card dark:to-card/80">
         <div className="flex items-center gap-3">
