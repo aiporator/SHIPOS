@@ -98,6 +98,12 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
   - **E2E TEST**: 13 LLM-Endpoints ✅ HTTP 200 mit echtem Output (chat, 7 workflows, deep-assist, daily-checkin, challenge30, simulations, playbooks).
   - **Master-Handoff**: `/app/EMERGENT_CLAUDE_ALIGNMENT.md` erstellt mit kompletter Inventur aller Iter 80-82 Pod-Changes für Claude-Code-Merge zu `mvpcode`.
   - **Pull from GitHub PENDING**: PR #10 (Sentry), #14 (Stripe Webhook), #15 (PostHog), #16, Voyage RAG (v1.1) sind NICHT im Pod. Grep-Verify: alle 0.
+- **Iter 84.5 · 2026-02-20 (Launch-Day Hardening)**:
+  1. **Identity Architecture formalized**: Frontend `analytics.identifyByEmail()` deprecated → new `identifyByUser(user)` uses canonical MongoDB `user_id` as PostHog `distinct_id`, email/name/tier as person properties. Sentry `setUser({email})` → `setUser({id: user_id, email, username})`. Old shim kept for transitional safety with console.warn.
+  2. **GDPR Delete Cascade hardened**: Now also deletes `user_actions`, `login_attempts`, `magic_links` (by email), and magic-link rate-limit entries. Fires `user.deleted` event to Supabase mirror via `services_supabase_sync` (fire-and-forget). `system_events` audit log retained for legal compliance.
+  3. **End-to-End GDPR test PASSED**: Register → seed magic-link → export 17 collections → delete with confirm phrase → verify user_id, sessions, magic_links all gone from DB; audit entry retained; subsequent JWT use returns 401.
+  4. **Architecture docs**: `/app/docs/IDENTITY_ARCHITECTURE.md` — canonical identity map across MongoDB / Supabase / PostHog / Sentry. Documents the Mongo-first source-of-truth rule, anti-patterns (no email as primary key, no dual writes), and OAuth provider sub-doc structure.
+  - **Launch status**: leader-os.de 200 · /api/health 200 · google OAuth live · sentry+posthog both true · 74 users in DB · CI=true yarn build clean.
 - **Iter 84 · 2026-02 (Higgsfield-Level Auth)**: 
   1. **Direct Google OAuth** — own Google Cloud project (not via Emergent). `services_oauth.verify_google_id_token()` uses `google-auth` to verify ID-token against Google JWKS. New endpoint: `POST /api/auth/google/callback`. Frontend: `GoogleSignInButton` loads `accounts.google.com/gsi/client` lazily and supports One-Tap.
   2. **Apple Sign-In** — `services_oauth.verify_apple_id_token()` verifies via Apple JWKS using `PyJWKClient`. Endpoint: `POST /api/auth/apple/callback`. Frontend `AppleSignInButton` loads `appleid.cdn-apple.com` lazily, uses popup flow.

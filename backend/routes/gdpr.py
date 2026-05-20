@@ -101,14 +101,45 @@ async def delete_my_account(request: Request):
     snapshot = {"email": user.get("email"), "tier": user.get("tier"), "deleted_at": datetime.now(timezone.utc).isoformat()}
 
     deleted = {}
-    for coll in _EXPORTABLE_COLLECTIONS + ["user_sessions"]:
+    # Cascade across product collections + session/security data.
+    # NOTE: `system_events` and `gdpr_exports` are retained for audit/legal
+    # (anonymized via user_id only — no PII).
+    cascade_collections = _EXPORTABLE_COLLECTIONS + [
+        "user_sessions",
+        "user_actions",
+        "login_attempts",
+    ]
+    for coll in cascade_collections:
         try:
             res = await db[coll].delete_many({"user_id": user_id})
             deleted[coll] = res.deleted_count
         except Exception:  # noqa: BLE001
             deleted[coll] = 0
 
-    # Best-effort: outbound Supabase user-mirror cleanup is event-driven elsewhere.
+    # Magic-link records are keyed by email, not user_id — delete those too.
+    try:
+        email_lower = (user.get("email") or "").strip().lower()
+        if email_lower:
+            res = await db.magic_links.delete_many({"email": email_lower})
+            deleted["magic_links"] = res.deleted_count
+            # Also clear magic-link rate-limit entries (stored as "magic:<email>")
+            await db.login_attempts.delete_many({"email": f"magic:{email_lower}"})
+    except Exception:  # noqa: BLE001
+        deleted["magic_links"] = 0
+
+    # Fire Supabase mirror "user.deleted" event so the read-model stays in sync.
+    try:
+        from services_supabase_sync import mirror_user_event_fire_and_forget
+        mirror_user_event_fire_and_forget(
+            mongo_user_id=user_id,
+            email=user.get("email") or "",
+            full_name=user.get("name") or "",
+            event="user.deleted",
+            extra={"deleted_at": snapshot["deleted_at"]},
+        )
+    except Exception:  # noqa: BLE001 — non-blocking
+        pass
+
     await _log_event(user_id, "gdpr.delete", {"snapshot": snapshot, "counts": deleted})
 
     return {"ok": True, "deleted": deleted, "message": "account_deleted_irreversible"}

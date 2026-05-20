@@ -2,12 +2,22 @@ import { createContext, useContext, useState, useEffect, useCallback, useMemo } 
 import * as Sentry from '@sentry/react';
 import api from '../lib/api';
 import logger from '../lib/logger';
-import { identifyByEmail, resetIdentity } from '../lib/analytics';
+import { identifyByUser, resetIdentity } from '../lib/analytics';
 import { rememberLogin, forgetAllLogins } from '../lib/recentLogins';
 
-const setSentryUser = (email) => {
-  if (!email) return Sentry.setUser(null);
-  Sentry.setUser({ email: String(email).trim().toLowerCase() });
+/**
+ * Identify the current user in Sentry using the canonical MongoDB user_id.
+ * Sentry's User object accepts `id` as the primary identifier; email/name
+ * are searchable properties. This keeps error grouping stable across email
+ * changes and OAuth provider re-links.
+ */
+const setSentryUser = (user) => {
+  if (!user || !user.user_id) return Sentry.setUser(null);
+  Sentry.setUser({
+    id: user.user_id,
+    email: user.email ? String(user.email).trim().toLowerCase() : undefined,
+    username: user.name || undefined,
+  });
 };
 
 const AuthContext = createContext(null);
@@ -25,8 +35,8 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
       setNetworkError(false);
       sessionStorage.setItem('wladbot_user', JSON.stringify(res.data));
-      identifyByEmail(res.data?.email);
-      setSentryUser(res.data?.email);
+      identifyByUser(res.data);
+      setSentryUser(res.data);
     } catch (err) {
       // Network error (backend unreachable, CORS blocked, offline) ≠ unauthorized.
       // Don't clear cached user on network errors — let them keep browsing cached state.
@@ -74,8 +84,8 @@ export const AuthProvider = ({ children }) => {
     setNetworkError(false);
     sessionStorage.setItem('wladbot_user', JSON.stringify(userData));
     rememberLogin(userData, method);
-    identifyByEmail(userData?.email);
-    setSentryUser(userData?.email);
+    identifyByUser(userData);
+    setSentryUser(userData);
   }, []);
 
   const logout = useCallback(async () => {
