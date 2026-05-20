@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Volume2, VolumeX, Loader2 } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
+import { getTtsSpeed } from '../../lib/ttsSpeed';
 
 /**
  * VoicePlayButton — triggers ElevenLabs TTS synthesis + inline <audio> playback.
@@ -64,9 +65,25 @@ export default function VoicePlayButton({
     try {
       const res = await api.post('/voice/tts', { text: text.slice(0, 800), persona });
       const audio = new Audio(res.data.audio_url);
+      audio.playbackRate = getTtsSpeed();
+      audio.preservesPitch = false; // browsers default to true; false = "cooler" pitched-up feel
       audioRef.current = audio;
-      audio.onended = () => { setPlaying(false); if (onEnd) onEnd(); };
-      audio.onerror = () => { setPlaying(false); setLoading(false); };
+      // Live-update playbackRate if user changes the global speed mid-playback.
+      const onSpeedChange = (e) => {
+        if (audioRef.current) {
+          audioRef.current.playbackRate = e.detail;
+          audioRef.current.preservesPitch = false;
+        }
+      };
+      window.addEventListener('wladbot:tts-speed', onSpeedChange);
+      audio.onended = () => {
+        window.removeEventListener('wladbot:tts-speed', onSpeedChange);
+        setPlaying(false); if (onEnd) onEnd();
+      };
+      audio.onerror = () => {
+        window.removeEventListener('wladbot:tts-speed', onSpeedChange);
+        setPlaying(false); setLoading(false);
+      };
       audio.onplay = () => { setLoading(false); setPlaying(true); };
       await audio.play();
     } catch (err) {
