@@ -110,6 +110,84 @@ guarantees at most one active version per name.
 | `match_wladbot_documents(...)`               | authenticated  | RAG: cosine-similarity search over `wladbot_documents.embedding`.  |
 | `match_wladbot_with_neighbors(...)`          | authenticated  | RAG: similarity search + adjacent chunks for context.              |
 
+### `courses` — video course catalog (leader-os)
+
+| Column           | Type           | Notes                                                              |
+| ---------------- | -------------- | ------------------------------------------------------------------ |
+| `id`             | uuid pk        |                                                                    |
+| `slug`           | text UNIQUE    | URL slug used on `/my-path/:slug`.                                  |
+| `title`          | text           |                                                                    |
+| `subtitle`       | text           | Tile copy.                                                          |
+| `category`       | text CHECK     | `kommunikation | fuehrung | coaching | strategie | ai-strategie`.   |
+| `level`          | text CHECK     | `einstieg | fortgeschritten | master`.                              |
+| `tier`           | text CHECK     | `free | leader-os | plus` — access gate.                            |
+| `is_accelerator` | bool           | True for PLUS Master programs.                                      |
+| `total_minutes`  | int            | Sum of episode durations (for tile display).                        |
+| `episode_count`  | int            | Folgenzahl in UI.                                                   |
+| `cover_image_url`| text           |                                                                    |
+| `sort_order`     | int            | Display order on `/my-path`.                                        |
+| `is_published`   | bool           | Soft-publish gate.                                                  |
+
+### `episodes` — individual lessons inside a course
+
+| Column                | Type              | Notes                                              |
+| --------------------- | ----------------- | -------------------------------------------------- |
+| `id`                  | uuid pk           |                                                    |
+| `course_id`           | uuid FK           | → `courses.id` ON DELETE CASCADE.                  |
+| `sort_order`          | int               | UNIQUE per `course_id`.                            |
+| `title`               | text              |                                                    |
+| `description`         | text              |                                                    |
+| `duration_seconds`    | int               |                                                    |
+| `vimeo_id`            | text nullable     | Filled later via `rpc_attach_vimeo(...)`.          |
+| `vimeo_url`           | text generated    | `'https://vimeo.com/' || vimeo_id` when set.       |
+| `thumbnail_url`       | text              |                                                    |
+| `is_preview`          | bool              | If true, visible to non-unlocked users (teaser).   |
+| `is_published`        | bool              |                                                    |
+
+### `user_course_unlocks` — which courses a user can watch
+
+| Column                  | Type      | Notes                                          |
+| ----------------------- | --------- | ---------------------------------------------- |
+| `(user_id, course_id)`  | PK        | FKs to `users` / `courses`.                    |
+| `unlocked_at`           | timestamptz |                                              |
+| `unlock_reason`         | text CHECK| `tier | drip | manual | gift`.                 |
+| `source_subscription_id`| uuid FK   | → `subscriptions.id` (nullable).               |
+
+### `user_episode_progress` — playback state per user
+
+| Column                  | Type        | Notes                                         |
+| ----------------------- | ----------- | --------------------------------------------- |
+| `(user_id, episode_id)` | PK          |                                               |
+| `watched_seconds`       | int         | Cumulative.                                   |
+| `last_position_seconds` | int         | Resume position.                              |
+| `completed_at`          | timestamptz | Set when episode finishes (≥95% watched).     |
+| `first_started_at`      | timestamptz |                                               |
+| `updated_at`            | timestamptz |                                               |
+
+`users.current_tier` (text CHECK `free | leader-os | plus`, default `'free'`)
+is set by `tg_subscription_apply_access` whenever a `subscriptions` row goes
+`active` / `trialing` / `canceled` / `expired`.
+
+#### Video access RPCs & views
+
+| Object                                       | Caller role    | Purpose                                                            |
+| -------------------------------------------- | -------------- | ------------------------------------------------------------------ |
+| `v_course_catalog`                           | anon + auth    | Public marketing catalog (no per-user state).                       |
+| `v_my_path`                                  | authenticated  | One row per course for caller: unlock + % progress + episodes_done. |
+| `rpc_record_episode_progress(...)`           | authenticated  | Upsert progress; emits activity events on start/completion.         |
+| `rpc_attach_vimeo(episode_id, vimeo_id)`     | admin only     | Validates numeric Vimeo ID and stores it. `vimeo_url` is generated. |
+| `apply_monthly_drip()`                       | service_role   | Cron `17 3 * * *`: unlocks 3 courses/month for leader-os subs.      |
+| `fn_course_tier_for_plan(plan_tier)`         | service_role   | Maps `pricing_plans.tier` → course tier.                            |
+| `greatest_tier(a, b)`                        | service_role   | Tier ordering `free < leader-os < plus`.                            |
+
+When a `leadership_os_yearly` (€997) subscription becomes active, the trigger:
+1. Sets `users.current_tier = 'leader-os'`.
+2. Unlocks the first 3 leader-os courses (sort_order asc) immediately.
+3. `apply_monthly_drip()` extends the unlock by +3 each subsequent month.
+
+`leadership_os_plus_yearly` (€4 447) and `founder_lifetime` unlock **all**
+published courses, including the 4 PLUS Accelerator master programs.
+
 ---
 
 ## RLS at a glance

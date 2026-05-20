@@ -13,11 +13,20 @@ Migrations are recorded by name in the Supabase project's migration history.
 | 4 | `cross_platform_views`                             | Added `v_user_360`, `v_dashboard_cross_platform`, `v_dashboard_platform_journey`, `v_dashboard_user_360_recent`, `v_dashboard_health`. |
 | 5 | `harden_trigger_function_grants`                   | Revoked `public/anon/authenticated` execute on 4 trigger functions; granted only `service_role`. |
 | 6 | `tighten_anon_rpc_grants`                          | Revoked anon execute on `match_wladbot_documents`, `match_wladbot_with_neighbors`, `user_context`. |
+| 7 | `video_catalog_tables`                             | `courses`, `episodes` (with generated `vimeo_url`), `user_course_unlocks`, `user_episode_progress`. Added `users.current_tier`. Subscription trigger maps `pricing_plans.tier` → course access tier and unlocks first month immediately. |
+| 8 | `video_catalog_rls`                                | RLS: public `courses`, episode visibility gated by `is_preview OR unlocked`, owner-only progress writes. |
+| 9 | `video_views_and_rpcs`                             | `v_course_catalog` (anon), `v_my_path` (per-user unlock + progress), `rpc_record_episode_progress`, `rpc_attach_vimeo` (admin-gated). |
+| 10| `video_drip_and_metrics`                           | `apply_monthly_drip()` + pg_cron `video_drip_daily` (03:17 UTC). Added 4 video columns to `daily_metric_snapshots`. |
+| 11| `video_catalog_seed`                               | Seeded 10 courses + 72 episodes matching `/my-path` UI (6 Leader-OS + 4 PLUS Accelerator). Vimeo IDs intentionally NULL — attach via `rpc_attach_vimeo`. |
+| 12| `video_pin_search_paths`                           | `SET search_path = public` on `fn_course_tier_for_plan`, `greatest_tier`, `tg_videos_touch_updated_at`, `fn_user_owns`. |
 
-After migration 6 the security advisor reports two WARNs:
+After migration 12 the security advisor reports five WARNs, all intentional:
 
-1. `upsert_incomplete_attempt` callable by `anon` — **intentional** (leader-check landing page).
-2. `Leaked Password Protection Disabled` — fix in **Studio → Auth → Policies** (toggle, not DDL).
+1. `upsert_incomplete_attempt` callable by `anon` — leader-check landing page.
+2. `is_admin` callable by `authenticated` — meant to be (used by RLS policies).
+3. `rpc_record_episode_progress` callable by `authenticated` — that's the whole point (player calls it).
+4. `rpc_attach_vimeo` callable by `authenticated` — gated by `is_admin` check inside the function body.
+5. `Leaked Password Protection Disabled` — fix in **Studio → Auth → Policies** (toggle, not DDL).
 
 ## Repo changes
 
