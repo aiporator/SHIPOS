@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card, CardContent } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
@@ -7,6 +7,7 @@ import LearningVideosTab from '../components/mypath/LearningVideosTab';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import logger from '../lib/logger';
+import { useMotion } from '../hooks/useMotion';
 import {
   Sparkles, Lock, CheckCircle2, ArrowRight, Zap, Crown,
   Star, Shield, Eye, Trophy, Brain, Target, HeartHandshake,
@@ -105,6 +106,7 @@ export default function MyPathPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const rootRef = useRef(null);
 
   const loadPath = useCallback(async () => {
     setLoading(true);
@@ -117,6 +119,15 @@ export default function MyPathPage() {
   }, []);
 
   useEffect(() => { loadPath(); }, [loadPath]);
+
+  // ── Cinematic entrance: header → tabs → current-level card → level nodes → trophy ──
+  useMotion(rootRef, ({ tl, q }) => {
+    tl.from(q('[data-anim="mypath-header"]'),       { y: 28, opacity: 0, duration: 0.7 })
+      .from(q('[data-anim="mypath-tabs"]'),         { y: 14, opacity: 0, duration: 0.5 }, '-=0.45')
+      .from(q('[data-anim="mypath-current-level"]'),{ y: 20, opacity: 0, scale: 0.97, duration: 0.6, ease: 'back.out(1.3)' }, '-=0.3')
+      .from(q('[data-anim="mypath-node"]'),         { y: 18, opacity: 0, duration: 0.5, stagger: 0.08 }, '-=0.35')
+      .from(q('[data-anim="mypath-trophy"]'),       { y: 16, opacity: 0, scale: 0.92, duration: 0.55, ease: 'back.out(1.5)' }, '-=0.2');
+  }, [data]);
 
   if (loading) return <DashboardLayout><div className="flex items-center justify-center min-h-[60vh]"><div className="w-8 h-8 border-3 border-[#BFFF00] border-t-transparent rounded-full animate-spin" /></div></DashboardLayout>;
   if (!data) return (
@@ -190,8 +201,8 @@ export default function MyPathPage() {
         </button>
       </div>
     }>
-      <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
-        <div className="mb-6 animate-fade-in">
+      <div ref={rootRef} className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
+        <div className="mb-6" data-anim="mypath-header">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles size={14} className="text-[#BFFF00]" />
             <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MY PATH</span>
@@ -205,7 +216,7 @@ export default function MyPathPage() {
         </div>
 
         <Tabs defaultValue="progress" className="w-full">
-          <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs">
+          <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs" data-anim="mypath-tabs">
             <TabsTrigger
               value="progress"
               className="flex items-center gap-2 px-4 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-card"
@@ -224,7 +235,7 @@ export default function MyPathPage() {
 
           <TabsContent value="progress" className="mt-0" data-testid="tab-content-progress">
             {currentMeta && (
-              <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="mb-8" data-anim="mypath-current-level">
                 <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${currentMeta.color}15, ${currentMeta.color}05)`, border: `1px solid ${currentMeta.color}20` }}>
                   <div className="p-5 flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, ${currentMeta.color}, ${currentMeta.color}CC)`, boxShadow: `0 8px 25px ${currentMeta.color}30` }}>
@@ -253,13 +264,15 @@ export default function MyPathPage() {
               </div>
             )}
 
-            <div className="animate-fade-in max-w-3xl" style={{ animationDelay: '0.2s' }}>
+            <div className="max-w-3xl">
               {data.levels.map((level, i) => (
-                <LevelNode key={level.level} level={level} isLast={i === data.levels.length - 1} navigate={navigate} />
+                <div key={level.level} data-anim="mypath-node">
+                  <LevelNode level={level} isLast={i === data.levels.length - 1} navigate={navigate} />
+                </div>
               ))}
             </div>
 
-            <div className="flex items-center justify-center py-8 animate-fade-in max-w-3xl" style={{ animationDelay: '0.4s' }}>
+            <div className="flex items-center justify-center py-8 max-w-3xl" data-anim="mypath-trophy">
               <div className={`flex items-center gap-3 px-5 py-3 rounded-2xl ${data.current_index === 4 ? 'bg-[#BFFF00]/10 border border-[#BFFF00]/20' : 'bg-muted/20 border border-border'}`}>
                 <Trophy size={18} className={data.current_index === 4 ? 'text-[#BFFF00]' : 'text-muted-foreground/30'} />
                 <span className={`text-sm font-bold ${data.current_index === 4 ? 'text-[#BFFF00]' : 'text-muted-foreground/40'}`}>
