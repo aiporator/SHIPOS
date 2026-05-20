@@ -1,0 +1,26 @@
+{
+  "summary": "Iter 84 (Direct OAuth + Continue-as) fully verified. Backend: 11/11 pytest tests pass (providers discovery, all 3 OAuth callbacks return 401 with clear NOT_CONFIGURED messages, login/security/magic-link/health/openapi routes intact). Frontend E2E via Playwright: /login loads, oauth-provider-stack correctly absent (no providers configured), mode tabs + magic-link form render, Continue-as card seeded via localStorage renders + forget X works, real email login (test@test.com/test123) navigates to /dashboard and writes recent-logins entry with provider='email'. Production CI build (CI=true yarn build) exits 0 with 'Compiled successfully' — no eslint warnings-as-errors. Backend boots cleanly, no import errors for google-auth / PyJWT / PyJWKClient.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": { "ui_bugs": [], "integration_issues": [], "design_issues": [] },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration84_oauth.py",
+    "/app/test_reports/pytest/iter84_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "STALE_AFTER_DAYS=60 in /app/frontend/src/lib/recentLogins.js silently drops 'Continue as' entries older than 60 days — works as intended but worth knowing for any future test fixtures (use Date.now() for savedAt or the card will not render).",
+    "/openapi.json is only reachable via localhost (kubernetes ingress proxies only /api/*). Existing behaviour — not a bug, just noted for future testing agents.",
+    "/app/frontend/src/pages/LoginPage.js is 297 lines — close to the 700-line cap but starting to accumulate concerns (mode logic + OAuth handlers + continue-as + magic-link). Consider extracting useLoginPage() hook in a future iter.",
+    "OAuth callback exception handler in routes/oauth.py catches generic Exception → returns 500 with class name; for production observability, ensure these unexpected failures are reported to Sentry (logger.exception is good — confirm Sentry capture)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration84_oauth.py"
+  ],
+  "success_rate": { "backend": "100% (11/11)", "frontend": "100% (all critical flows pass)" },
+  "test_credentials": "admin: test@test.com / test123 (used for login + security/overview). No real Google/Apple/Microsoft credentials needed — preview verifies the unconfigured/graceful-degradation path only.",
+  "seed_data_creation": "Frontend test seeded localStorage key 'wladbot_recent_logins_v1' with a Continue-as entry using current Date.now() — cleaned up at test end.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter 84 wires /api/auth/{providers,google/callback,apple/callback,microsoft/callback} via routes/oauth.py + services_oauth.py. Without env vars (GOOGLE_CLIENT_ID, APPLE_SERVICE_ID, MICROSOFT_CLIENT_ID), all callbacks return 401 'NOT_CONFIGURED' — this is the intended SAFE state. When the user later adds env vars, the frontend will auto-render the corresponding sign-in buttons via the /providers discovery endpoint. The 'Continue as' UX is keyed on localStorage 'wladbot_recent_logins_v1' (max 3 accounts, 60-day stale window). After any successful login (any provider), rememberLogin() is called from AuthContext.login(). For Playwright tests, ALWAYS seed savedAt with new Date().toISOString() — anything older than 60 days is filtered out by isStale().",
+  "rca_of_the_issue": "N/A — no bugs found. One minor self-correction in the test harness: initial Playwright seed used a hardcoded date string from 4 months ago which the 60-day stale filter dropped, hiding the Continue-as card. Re-ran with a current-date seed → card rendered correctly. This is correct behaviour, not a bug."
+}

@@ -29,7 +29,7 @@ fsspec==2026.2.0
 google-ai-generativelanguage==0.6.15
 google-api-core==2.30.0
 google-api-python-client==2.191.0
-google-auth==2.49.0.dev0
+google-auth==2.53.0
 google-auth-httplib2==0.3.0
 google-genai==1.65.0
 google-generativeai==0.8.6
@@ -84,7 +84,7 @@ pydantic==2.12.5
 pydantic_core==2.41.5
 pyflakes==3.4.0
 Pygments==2.19.2
-PyJWT==2.11.0
+PyJWT[crypto]==2.11.0
 pymongo==4.5.0
 pyparsing==3.3.2
 pypdf==6.10.2
@@ -133,3 +133,6 @@ sentry-sdk[fastapi]==2.18.0
 posthog==3.7.0
 backoff==2.2.1
 monotonic==1.6
+
+# OAuth providers (Google, Apple, Microsoft) — verify ID tokens server-side
+google-auth-oauthlib==1.2.1

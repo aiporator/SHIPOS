@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import api from '../lib/api';
 import { parseAuthError } from '../lib/authErrors';
 import { Globe, Zap, WifiOff, KeyRound, Sparkles } from 'lucide-react';
 import { LoginBrandPanel } from '../components/auth/LoginBrandPanel';
 import { AuthForm } from '../components/auth/AuthForm';
-import { GoogleButton, TrustBadges, ModeSwitch } from '../components/auth/LoginExtras';
+import { TrustBadges, ModeSwitch } from '../components/auth/LoginExtras';
 import { MagicLinkForm } from '../components/auth/MagicLinkForm';
+import { OAuthProviderStack } from '../components/auth/OAuthButtons';
+import { ContinueAsCard, useContinueAs } from '../components/auth/ContinueAsCard';
+import { useAuthProviders } from '../lib/authProviders';
+import { getLastLogin, forgetLogin } from '../lib/recentLogins';
 
 const getFeatures = (de) => (de ? [
   { t: '30-Tage KI-Leadership Sprint', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
@@ -22,7 +27,6 @@ const getFeatures = (de) => (de ? [
   { t: 'Daily AI Business Briefing', s: 'Trends, leader quotes, strategic insights' },
 ]);
 
-// Authentication mode: 'register' | 'login' | 'magic'
 export default function LoginPage() {
   const { login } = useAuth();
   const { lang, toggleLang } = useLanguage();
@@ -32,7 +36,25 @@ export default function LoginPage() {
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [lastAccount, setLastAccount] = useState(getLastLogin());
+  const { data: providers } = useAuthProviders();
   const de = lang === 'de';
+
+  // If a previous login exists, default to "login" mode so the Continue-as card shows
+  useEffect(() => {
+    if (lastAccount && mode === 'register') setMode('login');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleOAuthSuccess = (user, method) => {
+    login(user, method);
+    toast.success(de ? `Willkommen zurück, ${user.name || user.email}!` : `Welcome back, ${user.name || user.email}!`);
+    navigate('/dashboard');
+  };
+
+  const handleOAuthError = (msg) => {
+    setError(msg);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,13 +66,13 @@ export default function LoginPage() {
         ? { ...form, email: (form.email || '').trim() }
         : { email: (form.email || '').trim(), password: form.password };
       const res = await api.post(endpoint, payload);
-      login(res.data.user);
+      login(res.data.user, 'email');
       navigate('/dashboard');
     } catch (err) {
       if (!err.response) {
         setError(de
-          ? 'Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung und versuche es erneut.'
-          : 'Cannot reach server. Please check your connection and try again.');
+          ? 'Keine Verbindung zum Server. Bitte prüfe deine Internetverbindung.'
+          : 'Cannot reach server. Please check your connection.');
       } else {
         setError(parseAuthError(err, de ? 'Fehler aufgetreten' : 'An error occurred'));
       }
@@ -59,33 +81,58 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogle = () => {
-    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(window.location.origin + '/auth-callback')}`;
-  };
-
   const switchMode = (newMode) => {
     setMode(newMode);
     setError('');
   };
 
+  const { trigger: triggerContinue, loading: continueLoading } = useContinueAs(lastAccount, {
+    de,
+    onPrefill: (email, provider) => {
+      // For OAuth providers, switch mode to 'login' so the buttons are visible
+      // then ask user to click the provider button (one-tap auto-prompts if available)
+      if (provider) {
+        setMode('login');
+        setForm(f => ({ ...f, email }));
+        toast.info(de
+          ? `Klicke unten auf "Mit ${provider === 'google' ? 'Google' : provider === 'apple' ? 'Apple' : 'Microsoft'} fortfahren"`
+          : `Click "Continue with ${provider}" below`);
+      } else {
+        setMode('login');
+        setForm(f => ({ ...f, email }));
+      }
+    },
+    onMagicSent: () => {
+      toast.success(de ? 'Login-Link wurde gesendet — prüfe dein Postfach.' : 'Login link sent — check your inbox.');
+    },
+    onError: setError,
+  });
+
+  const handleForget = (email) => {
+    forgetLogin(email);
+    setLastAccount(getLastLogin());
+    toast.success(de ? 'Konto entfernt.' : 'Account removed.');
+  };
+
   const isMagic = mode === 'magic';
   const isRegister = mode === 'register';
+  const showContinueAs = !!lastAccount && !isRegister && !isMagic;
 
-  const heading = isMagic
-    ? (de ? 'Login ohne Passwort' : 'Sign in without a password')
-    : isRegister
-      ? (de ? 'Account erstellen' : 'Create account')
-      : (de ? 'Willkommen zurück' : 'Welcome back');
+  const heading = useMemo(() => {
+    if (isMagic) return de ? 'Login ohne Passwort' : 'Sign in without a password';
+    if (isRegister) return de ? 'Account erstellen' : 'Create account';
+    return de ? 'Willkommen zurück' : 'Welcome back';
+  }, [isMagic, isRegister, de]);
 
-  const subheading = isMagic
-    ? (de ? 'Gib deine E-Mail ein — wir senden dir einen sicheren 1-Klick-Link.' : 'Enter your email — we\'ll send you a secure 1-click link.')
-    : isRegister
-      ? (de ? 'Starte deinen KI-Leadership Sprint — 3 Sessions kostenlos.' : 'Start your AI Leadership sprint — 3 sessions free.')
-      : (de ? 'Melde dich an und mach weiter.' : 'Sign in and continue.');
+  const subheading = useMemo(() => {
+    if (isMagic) return de ? 'Gib deine E-Mail ein — wir senden dir einen sicheren 1-Klick-Link.' : 'Enter your email — we\'ll send a secure 1-click link.';
+    if (isRegister) return de ? 'Starte deinen KI-Leadership Sprint — 3 Sessions kostenlos.' : 'Start your AI Leadership sprint — 3 sessions free.';
+    return de ? 'Schön dich wiederzusehen.' : 'Good to see you again.';
+  }, [isMagic, isRegister, de]);
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#0A0A0A] relative overflow-hidden" data-testid="login-page">
-      {/* Premium ambient background — only on the form side */}
+      {/* Aurora background */}
       <div aria-hidden className="pointer-events-none absolute inset-0 lg:left-1/2">
         <div className="absolute top-1/4 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-[#BFFF00]/[0.045] blur-[140px]" />
         <div className="absolute bottom-[-10%] left-[10%] h-[28rem] w-[28rem] rounded-full bg-emerald-500/[0.035] blur-[130px]" />
@@ -117,15 +164,33 @@ export default function LoginPage() {
             <h2 className="text-[28px] sm:text-[32px] leading-[1.1] tracking-tight text-white" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 500 }}>
               {heading}
             </h2>
-            <p className="text-sm text-white/45 mt-2.5 leading-relaxed">
-              {subheading}
-            </p>
+            <p className="text-sm text-white/45 mt-2.5 leading-relaxed">{subheading}</p>
           </div>
 
-          {/* Magic link tab toggle — only visible in login/magic modes (not on register) */}
+          {/* "Continue as" — only when a previous login is cached */}
+          {showContinueAs && (
+            <div className="mb-5">
+              <ContinueAsCard
+                account={lastAccount}
+                onClick={triggerContinue}
+                onForget={handleForget}
+                loading={continueLoading}
+                de={de}
+              />
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <span className="h-px flex-1 bg-white/[0.06]" />
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold">
+                  {de ? 'oder anderer Account' : 'or another account'}
+                </span>
+                <span className="h-px flex-1 bg-white/[0.06]" />
+              </div>
+            </div>
+          )}
+
+          {/* Auth method tabs (only in non-register mode) */}
           {!isRegister && (
             <div
-              className="mb-5 inline-flex p-1 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+              className="mb-4 inline-flex p-1 rounded-xl bg-white/[0.03] border border-white/[0.06]"
               role="tablist"
               data-testid="auth-mode-tabs"
             >
@@ -156,10 +221,18 @@ export default function LoginPage() {
             </div>
           )}
 
-          {!isMagic && <GoogleButton onClick={handleGoogle} de={de} />}
+          {/* OAuth providers (only show if any configured AND we're not in magic mode) */}
+          {!isMagic && providers && (
+            <OAuthProviderStack
+              providers={providers}
+              onSuccess={handleOAuthSuccess}
+              onError={handleOAuthError}
+              de={de}
+            />
+          )}
 
-          {!isMagic && (
-            <div className="relative my-6 lg:my-7">
+          {!isMagic && providers?.providers && (providers.providers.google || providers.providers.apple || providers.providers.microsoft) && (
+            <div className="relative my-5">
               <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/[0.08]" /></div>
               <div className="relative flex justify-center">
                 <span className="bg-[#0A0A0A] px-3 text-[10px] text-white/30 uppercase tracking-widest font-semibold">

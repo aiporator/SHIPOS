@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react';
 import api from '../lib/api';
 import logger from '../lib/logger';
 import { identifyByEmail, resetIdentity } from '../lib/analytics';
+import { rememberLogin, forgetAllLogins } from '../lib/recentLogins';
 
 const setSentryUser = (email) => {
   if (!email) return Sentry.setUser(null);
@@ -68,10 +69,11 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener('wladbot:network-error', handler);
   }, []);
 
-  const login = useCallback((userData) => {
+  const login = useCallback((userData, method = 'email') => {
     setUser(userData);
     setNetworkError(false);
     sessionStorage.setItem('wladbot_user', JSON.stringify(userData));
+    rememberLogin(userData, method);
     identifyByEmail(userData?.email);
     setSentryUser(userData?.email);
   }, []);
@@ -81,14 +83,21 @@ export const AuthProvider = ({ children }) => {
       logger.error('Logout request failed:', err?.message || err);
     }
     sessionStorage.removeItem('wladbot_user');
+    // NOTE: We do NOT call forgetAllLogins() on a normal logout — the user
+    // likely wants "Continue as me" on next visit. Only clear on explicit
+    // "Forget all accounts" action from the security tab.
     setUser(null);
     resetIdentity();
     setSentryUser(null);
   }, []);
 
+  const forgetAllAccounts = useCallback(() => {
+    forgetAllLogins();
+  }, []);
+
   const value = useMemo(
-    () => ({ user, loading, networkError, login, logout, setUser, checkAuth }),
-    [user, loading, networkError, login, logout, checkAuth]
+    () => ({ user, loading, networkError, login, logout, setUser, checkAuth, forgetAllAccounts }),
+    [user, loading, networkError, login, logout, checkAuth, forgetAllAccounts]
   );
 
   return (
