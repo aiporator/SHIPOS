@@ -188,6 +188,33 @@ When a `leadership_os_yearly` (€997) subscription becomes active, the trigger:
 `leadership_os_plus_yearly` (€4 447) and `founder_lifetime` unlock **all**
 published courses, including the 4 PLUS Accelerator master programs.
 
+### `email_journeys`, `email_journey_steps`, `user_journey_state` — orchestration
+
+| Object                       | Purpose                                                                |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| `email_journeys`             | Journey definitions (code, name, is_active).                            |
+| `email_journey_steps`        | Per-journey ordered steps: `step_order`, `template_code`, `delay_hours` from previous step, `requires_inactivity` + `inactivity_threshold_hours` for backward-pressure gating. |
+| `user_journey_state`         | Per-user enrollment in a journey. `current_step_order`, `next_run_at`, `paused_until`, `completed_at`, `exit_reason`. UNIQUE(user_id, journey_id). |
+
+Engagement signals (columns on `users`): `last_seen_at` (sessions insert),
+`last_episode_started_at` (user_episode_progress insert), `last_email_engagement_at`
+(email_events opened/clicked/replied). Helper:
+`fn_user_hours_since_engagement(uid)` returns hours since the most recent of those.
+
+Triggers + cron:
+- `subscriptions_enroll_journey` (AFTER INSERT/UPDATE on `subscriptions`): on transition into `active`/`trialing`, enrolls into `leader_os_onboarding` (€997 plans) or `plus_onboarding` (€4 447). On transition into `canceled`, completes any active onboarding and enrolls into `winback`.
+- `sessions_update_last_seen`, `episode_progress_update_signal`, `email_events_engagement_signal`: keep the three engagement columns fresh.
+- Cron `advance_email_journeys` (`*/15 * * * *`): walks due `user_journey_state` rows, queues template into `email_sends` (drained by `email_dispatcher` cron), advances `current_step_order` + sets `next_run_at` by next step's `delay_hours`. Steps marked `requires_inactivity` skip if the user engaged within `inactivity_threshold_hours`.
+
+Defined journeys today:
+
+| Code | Trigger plan | Steps (delay-from-prev) |
+|---|---|---|
+| `leader_os_onboarding` | `leadership_os_yearly*` | welcome (0h) · onboarding_day_1 (24h) · nudge_day_3 (48h) · **inactivity_day_7** ⓘ (96h, gated 168h) · progress_day_14 (168h) · **inactivity_day_14** ⓘ (168h, gated 336h) · reassessment_day_30 (216h) |
+| `plus_onboarding` | `leadership_os_plus_yearly` | purchase_welcome_plus (0h) · plus_onboarding_day_1 (24h) · plus_coaching_invite_day_3 (48h) · inactivity_day_7 ⓘ · progress_day_14 · inactivity_day_14 ⓘ · reassessment_day_30 |
+
+ⓘ = requires_inactivity step; auto-skipped if user has logged in / watched an episode / opened a previous mail within the threshold.
+
 ---
 
 ## RLS at a glance

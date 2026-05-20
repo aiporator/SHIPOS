@@ -19,14 +19,22 @@ Migrations are recorded by name in the Supabase project's migration history.
 | 10| `video_drip_and_metrics`                           | `apply_monthly_drip()` + pg_cron `video_drip_daily` (03:17 UTC). Added 4 video columns to `daily_metric_snapshots`. |
 | 11| `video_catalog_seed`                               | Seeded 10 courses + 72 episodes matching `/my-path` UI (6 Leader-OS + 4 PLUS Accelerator). Vimeo IDs intentionally NULL — attach via `rpc_attach_vimeo`. |
 | 12| `video_pin_search_paths`                           | `SET search_path = public` on `fn_course_tier_for_plan`, `greatest_tier`, `tg_videos_touch_updated_at`, `fn_user_owns`. |
+| 13| `add_emergent_mongo_bridge_trigger`                | Realtime sync trigger `trg_notify_emergent_on_subscription_change` on `subscriptions`. Uses Vault secrets `EMERGENT_INBOUND_SECRET` + `EMERGENT_API_BASE` via `private.get_secret()`. POSTs to `leader-os.de/api/internal/sync/subscription-updated` via pg_net. Eliminates the 15-min queue lag for tier sync. Both forward (active) and reverse (canceled) verified end-to-end. |
+| 14| `email_journey_engine_schema`                      | `email_journeys`, `email_journey_steps`, `user_journey_state` tables. Engagement signals `last_seen_at` / `last_episode_started_at` / `last_email_engagement_at` on `users`. Helper `fn_user_hours_since_engagement(uid)`. RLS owner-read on user_journey_state. |
+| 15| `email_journey_signals_and_advancer`               | Signal triggers (sessions → last_seen_at, user_episode_progress → last_episode_started_at, email_events → last_email_engagement_at). `fn_enroll_in_journey(uid, code, ctx)`. Subscription trigger `subscriptions_enroll_journey` routes leader_os_yearly* → `leader_os_onboarding` journey, leadership_os_plus_yearly → `plus_onboarding`, canceled → `winback`. `advance_email_journeys()` cron `*/15 * * * *` queues template into `email_sends` and advances state. Backward-pressure steps skip if `fn_user_hours_since_engagement < threshold`. |
+| 16| `leader_os_onboarding_templates_and_journey_v2`    | 4 new DE templates (`purchase_welcome_leader_os`, `onboarding_day_1`, `inactivity_day_7`, `inactivity_day_14`) + `leader_os_onboarding` 7-step journey (T+0, +1d, +3d, +7d gated, +14d, +21d gated, +30d). |
+| 17| `fix_advance_email_journeys_v3`                    | Fix ambiguous column reference in `advance_email_journeys()` (OUT params shadowed `step_order` column). |
+| 18| `drop_legacy_welcome_add_plus_journey`             | Detached `subscriptions_send_welcome_email` legacy trigger (journey owns welcomes now). 3 new DE templates (`purchase_welcome_plus`, `plus_onboarding_day_1`, `plus_coaching_invite_day_3`). `plus_onboarding` 7-step journey with Accelerator emphasis + Calendly CTA for first 1:1 coaching slot. |
 
-After migration 12 the security advisor reports five WARNs, all intentional:
+After migration 18 the security advisor reports five WARNs and two INFOs, all intentional:
 
 1. `upsert_incomplete_attempt` callable by `anon` — leader-check landing page.
-2. `is_admin` callable by `authenticated` — meant to be (used by RLS policies).
-3. `rpc_record_episode_progress` callable by `authenticated` — that's the whole point (player calls it).
-4. `rpc_attach_vimeo` callable by `authenticated` — gated by `is_admin` check inside the function body.
-5. `Leaked Password Protection Disabled` — fix in **Studio → Auth → Policies** (toggle, not DDL).
+2. `is_admin` callable by `authenticated` — used by RLS policies.
+3. `rpc_record_episode_progress` callable by `authenticated` — that's the point.
+4. `rpc_attach_vimeo` callable by `authenticated` — gated by `is_admin()` inside.
+5. `Leaked Password Protection Disabled` — Studio toggle, not DDL.
+6. INFO: `email_journeys` RLS-enabled, no policy — config table, service_role only.
+7. INFO: `email_journey_steps` RLS-enabled, no policy — config table, service_role only.
 
 ## Repo changes
 
