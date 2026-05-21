@@ -86,6 +86,14 @@ export default function LoginPage() {
   const switchMode = (newMode) => {
     setMode(newMode);
     setError('');
+    // Always clear password — security & avoids browser auto-filling the login
+    // password into a register form. Drop `name` when leaving register since
+    // it's only collected there.
+    setForm(f => ({
+      ...f,
+      password: '',
+      name: newMode === 'register' ? f.name : '',
+    }));
   };
 
   const { trigger: triggerContinue, loading: continueLoading } = useContinueAs(lastAccount, {
