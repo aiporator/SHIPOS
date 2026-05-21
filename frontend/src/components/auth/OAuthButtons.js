@@ -63,69 +63,125 @@ const loadGoogleScript = () => {
 
 export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, label }) => {
   const [loading, setLoading] = useState(false);
+  const [scriptStatus, setScriptStatus] = useState('loading'); // loading | ready | failed
   const initialized = useRef(false);
+  const hiddenButtonRef = useRef(null);  // For Google's official renderButton fallback
+
+  const initGoogle = (resolveCallback) => {
+    if (!window.google?.accounts?.id) return;
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: async (resp) => {
+        if (!resp?.credential) return;
+        setLoading(true);
+        try {
+          const res = await api.post('/auth/google/callback', { credential: resp.credential });
+          onSuccess?.(res.data.user, 'google');
+        } catch (err) {
+          logger.error('Google sign-in backend error', err);
+          // Distinguish network vs auth vs server errors for clearer UX
+          let msg;
+          if (!err?.response) {
+            msg = de ? 'Keine Verbindung — bitte Internet prüfen.' : 'Network error — check your connection.';
+          } else if (err.response.status >= 500) {
+            msg = de ? 'Server-Fehler — bitte erneut versuchen.' : 'Server error — please retry.';
+          } else {
+            msg = err.response.data?.detail || (de ? 'Google-Login fehlgeschlagen.' : 'Google sign-in failed.');
+          }
+          onError?.(msg);
+        } finally {
+          setLoading(false);
+        }
+      },
+      auto_select: false,
+      cancel_on_tap_outside: true,
+      use_fedcm_for_prompt: true,
+    });
+    // Pre-render an invisible Google button — used as fallback when One-Tap is suppressed
+    if (hiddenButtonRef.current) {
+      try {
+        window.google.accounts.id.renderButton(hiddenButtonRef.current, {
+          type: 'standard', theme: 'outline', size: 'large', width: 320,
+        });
+      } catch (e) { logger.warn('Google renderButton failed', e); }
+    }
+    setScriptStatus('ready');
+    resolveCallback?.();
+  };
+
+  const tryLoadScript = () => {
+    setScriptStatus('loading');
+    loadGoogleScript()
+      .then(() => initGoogle())
+      .catch((e) => {
+        logger.warn('Google script load failed', e);
+        setScriptStatus('failed');
+      });
+  };
 
   useEffect(() => {
     if (!clientId || initialized.current) return;
     initialized.current = true;
-    loadGoogleScript()
-      .then(() => {
-        if (!window.google?.accounts?.id) return;
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          callback: async (resp) => {
-            if (!resp?.credential) return;
-            setLoading(true);
-            try {
-              const res = await api.post('/auth/google/callback', { credential: resp.credential });
-              onSuccess?.(res.data.user, 'google');
-            } catch (err) {
-              logger.error('Google sign-in backend error', err);
-              onError?.(err?.response?.data?.detail || 'Google-Login fehlgeschlagen.');
-            } finally {
-              setLoading(false);
-            }
-          },
-          // One Tap auto-prompt — non-intrusive, only when user is signed into Google
-          auto_select: false,
-          cancel_on_tap_outside: true,
-          use_fedcm_for_prompt: true,
-        });
-      })
-      .catch((e) => {
-        logger.warn('Google script load failed', e);
-      });
-  }, [clientId, onSuccess, onError]);
+    tryLoadScript();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientId]);
 
   const handleClick = () => {
+    if (scriptStatus === 'failed') {
+      // Retry script load
+      tryLoadScript();
+      return;
+    }
     if (!window.google?.accounts?.id) {
       onError?.(de ? 'Google-Login lädt noch — bitte einen Moment.' : 'Google sign-in is still loading…');
       return;
     }
-    // Prompt One Tap; if the user has dismissed it recently, fallback to oauth2 flow
+    // First try One-Tap prompt
     window.google.accounts.id.prompt((notification) => {
       if (notification?.isNotDisplayed?.() || notification?.isSkippedMoment?.()) {
-        // Fallback: full OAuth2 popup flow via the older "renderButton" trigger
-        // We use the implicit ID-token flow exposed by `google.accounts.id`.
-        // If One Tap is suppressed, just click again on the next mount.
-        logger.info('Google One Tap suppressed; user can retry');
+        // One-Tap suppressed (user dismissed previously, FedCM blocked, etc.)
+        // → fall back to clicking the hidden official Google button which
+        // opens a popup directly. This is Google's recommended fallback.
+        logger.info('Google One Tap suppressed; falling back to popup');
+        const realBtn = hiddenButtonRef.current?.querySelector('div[role="button"]');
+        if (realBtn) {
+          realBtn.click();
+        } else {
+          onError?.(de
+            ? 'Google-Login wurde vom Browser blockiert. Bitte E-Mail-Login verwenden oder Cookies erlauben.'
+            : 'Google login was blocked by the browser. Please use email login or allow cookies.');
+        }
       }
     });
   };
 
   if (!clientId) return null;
 
+  // Different button states for clarity
+  const buttonText = scriptStatus === 'failed'
+    ? (de ? 'Google nicht erreichbar — Erneut versuchen' : 'Google unavailable — Retry')
+    : (label || (de ? 'Mit Google fortfahren' : 'Continue with Google'));
+
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      disabled={loading}
-      className={buttonClass}
-      data-testid="google-signin-btn"
-    >
-      {loading ? <Loader2 size={16} className="animate-spin" /> : <GoogleBrand />}
-      <span>{label || (de ? 'Mit Google fortfahren' : 'Continue with Google')}</span>
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={loading || scriptStatus === 'loading'}
+        className={buttonClass}
+        data-testid="google-signin-btn"
+      >
+        {loading ? <Loader2 size={16} className="animate-spin" /> : <GoogleBrand />}
+        <span>{buttonText}</span>
+      </button>
+      {/* Hidden Google-rendered button — used as click-target fallback when
+          One-Tap is suppressed. Off-screen but in DOM so we can click() it. */}
+      <div
+        ref={hiddenButtonRef}
+        style={{ position: 'absolute', left: -10000, top: 'auto', width: 1, height: 1, overflow: 'hidden' }}
+        aria-hidden="true"
+      />
+    </>
   );
 };
 

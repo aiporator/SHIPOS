@@ -35,6 +35,7 @@ import DatenschutzPage from "./pages/DatenschutzPage";
 import WiderrufPage from "./pages/WiderrufPage";
 import AGBPage from "./pages/AGBPage";
 import { CookieConsent } from "./components/legal/CookieConsent";
+import { ReAuthModal } from "./components/auth/ReAuthModal";
 
 import { CreditProvider } from "./contexts/CreditContext";
 import { TierProvider } from "./contexts/TierContext";
@@ -121,6 +122,7 @@ function App() {
                 <AppRouter />
                 <Toaster position="bottom-right" />
                 <CookieConsent />
+                <ReAuthModal />
               </BrowserRouter>
             </TierProvider>
           </CreditProvider>

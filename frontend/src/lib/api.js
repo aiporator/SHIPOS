@@ -77,6 +77,30 @@ api.interceptors.response.use(
         processQueue(false);
         const onAuthPage = window.location.pathname.includes('/login') || window.location.hash.includes('session_id');
         if (!onAuthPage) {
+          // Soft re-auth flow: keep the user on the current page, show modal.
+          // If a user object exists in cache → show ReAuthModal (preserves scroll/state).
+          // Otherwise (cold session) → hard redirect to /login.
+          const hasCachedUser = Boolean(sessionStorage.getItem('wladbot_user'));
+          if (hasCachedUser) {
+            // Wait for re-auth-success event, then retry the original request
+            return new Promise((resolve, reject) => {
+              const onSuccess = () => {
+                window.removeEventListener('wladbot:reauth-success', onSuccess);
+                window.removeEventListener('wladbot:reauth-cancelled', onCancel);
+                // Re-issue the original request — cookies are now fresh
+                api(originalRequest).then(resolve).catch(reject);
+              };
+              const onCancel = () => {
+                window.removeEventListener('wladbot:reauth-success', onSuccess);
+                window.removeEventListener('wladbot:reauth-cancelled', onCancel);
+                sessionStorage.removeItem('wladbot_user');
+                reject(error);
+              };
+              window.addEventListener('wladbot:reauth-success', onSuccess);
+              window.addEventListener('wladbot:reauth-cancelled', onCancel);
+              window.dispatchEvent(new CustomEvent('wladbot:reauth-required'));
+            });
+          }
           sessionStorage.removeItem('wladbot_user');
           window.location.href = '/login';
         }
