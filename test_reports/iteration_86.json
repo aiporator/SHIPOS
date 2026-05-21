@@ -1,0 +1,39 @@
+{
+  "summary": "Iter 86 — 'Login that NEVER breaks' hardening verified end-to-end. All 4 hardenings work: (1) JWT leeway=10 absorbs +5s clock skew but rejects +30s, (2) deprecated /api/webhook/stripe returns 410 Gone, (3) /api/internal/sync/health enforces X-Sync-Secret with timing-safe compare, (4) ReAuthModal opens on 'wladbot:reauth-required' event, shows user email + password input + Google button, close dispatches 'wladbot:reauth-cancelled'. Backend 10/10 pytest. Frontend full flow passes.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/login", "issues": ["Default landing on /login is REGISTER form (Account erstellen), not login. User must click small 'Anmelden' link to switch. For a 'never-breaks login' UX this should be the other way around — defaulting to SIGN-IN (the more common return-user flow) and offering 'Account erstellen' as the alt link. Not a blocker, but Mert may want this flipped for leader-os.de pre-launch."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_auth_hardening.py",
+    "/app/test_reports/pytest/iter86_auth.xml"
+  ],
+  "action_items": [
+    "OPTIONAL UX: Consider defaulting /login to sign-in mode (not register). Currently the 'never-breaks login' page lands on the register form, requiring an extra click for returning users.",
+    "OPTIONAL CLEANUP: 7 transient 401s show in browser console after login → /dashboard (onboarding endpoints firing before refresh interceptor finishes). Not user-visible but pollutes logs."
+  ],
+  "critical_code_review_comments": [
+    "services.py:80 — jwt.decode(..., leeway=10) correctly absorbs ±10s clock skew. Verified live: +5s iat token accepted, +30s rejected.",
+    "routes/payments.py:313 — /api/webhook/stripe returns 410 with informative body pointing to Supabase Edge Function. Stripe Dashboard will now show errors loudly instead of silently. Good defensive design.",
+    "routes/sync.py:38-44 — _verify_secret uses secrets.compare_digest (timing-safe). Returns 503 when INBOUND_SYNC_SECRET unset (fail-closed) instead of accidental 200. Solid.",
+    "lib/api.js:60-105 — 401 interceptor checks sessionStorage('wladbot_user') BEFORE deciding modal vs hard redirect. Pending request is correctly held and retried after wladbot:reauth-success. Cancel path clears cache + rejects. Race-safe via single isRefreshing flag.",
+    "ReAuthModal.js — Listens only when user.email exists (correct — cold sessions fall back to /login). Lazy-loads /auth/providers when modal opens (no upfront network cost). Close button correctly dispatches wladbot:reauth-cancelled (verified live).",
+    "OAuthButtons.js:64-156 — scriptStatus state machine (loading|ready|failed) + retry on click + hidden Google-rendered button as One-Tap fallback. Robust against script load failure and FedCM/cookie suppression."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_auth_hardening.py (new)"
+  ],
+  "success_rate": {"backend": "100% (10/10)", "frontend": "100% on all 4 hardening flows"},
+  "test_credentials": "test@test.com / test123 (legacy admin) — verified login + cookie set + dashboard reached + sessionStorage wladbot_user populated.",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter 86 auth hardening verified live on https://command-center-229.preview.emergentagent.com. /login defaults to REGISTER view — must click 'Anmelden' text link first to switch to sign-in form. Backend pytest suite at /app/backend/tests/test_auth_hardening.py covers: leeway JWT (+5s pass, +30s fail), /webhook/stripe 410, /internal/sync/health secret enforcement, /auth/me with+without cookie, /auth/providers. ReAuthModal flow verified: dispatch CustomEvent('wladbot:reauth-required') → modal visible with user email + password input + submit btn + Google button (lazy-loaded after /auth/providers fetch ~2s). Close button fires 'wladbot:reauth-cancelled'."
+}
