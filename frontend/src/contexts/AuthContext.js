@@ -79,6 +79,29 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener('wladbot:network-error', handler);
   }, []);
 
+  // Proactive token refresh on tab focus — if the user has been away for >5 min,
+  // silently refresh the access cookie BEFORE the page fires its parallel API calls.
+  // Prevents the "7 transient 401s on dashboard mount" race that pollutes DevTools.
+  useEffect(() => {
+    let lastRefreshAt = Date.now();
+    const REFRESH_THRESHOLD_MS = 5 * 60 * 1000;
+    const refreshIfStale = async () => {
+      if (!user) return;
+      if (document.hidden) return;
+      if (Date.now() - lastRefreshAt < REFRESH_THRESHOLD_MS) return;
+      try {
+        await api.post('/auth/refresh');
+        lastRefreshAt = Date.now();
+      } catch { /* refresh failed → next request will trigger ReAuthModal */ }
+    };
+    document.addEventListener('visibilitychange', refreshIfStale);
+    window.addEventListener('focus', refreshIfStale);
+    return () => {
+      document.removeEventListener('visibilitychange', refreshIfStale);
+      window.removeEventListener('focus', refreshIfStale);
+    };
+  }, [user]);
+
   const login = useCallback((userData, method = 'email') => {
     setUser(userData);
     setNetworkError(false);
