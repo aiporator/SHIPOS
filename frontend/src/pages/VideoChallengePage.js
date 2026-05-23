@@ -42,7 +42,7 @@ export default function VideoChallengePage() {
     setRatingConfig(newConfig);
     try { await api.put('/auth/profile', { rating_preferences: newConfig }); }
     catch (err) { logger.error('Failed to save rating preferences:', err); }
-  }, []);
+  }, [api, logger]);
 
   const loadChallenges = useCallback(async () => {
     try {
@@ -64,13 +64,13 @@ export default function VideoChallengePage() {
         }));
       }
     } catch (err) { logger.error('Failed to load challenges:', err); }
-  }, []);
+  }, [api, logger]);
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();
     setRecording(false);
     clearInterval(timerRef.current);
-  }, []);
+  }, [mediaRecorderRef, timerRef]);
 
   const startRecording = useCallback(() => {
     if (!stream) return;
@@ -86,7 +86,7 @@ export default function VideoChallengePage() {
     setRecording(true);
     setTimer(0);
     timerRef.current = setInterval(() => setTimer(t => t + 1), 1000);
-  }, [stream]);
+  }, [stream, mediaRecorderRef, chunksRef]);
 
   useEffect(() => { loadChallenges(); }, [loadChallenges]);
   useEffect(() => { return () => { if (stream) stream.getTracks().forEach(t => t.stop()); }; }, [stream]);
