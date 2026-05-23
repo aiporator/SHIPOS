@@ -24,6 +24,8 @@ import ChallengersPage from "./pages/ChallengersPage";
 import CoachingPage from "./pages/CoachingPage";
 import ToolsPage from "./pages/ToolsPage";
 import VideoChallengePage from "./pages/VideoChallengePage";
+import VideoArchivePage from "./pages/VideoArchivePage";
+import LeaderDiagnosePage from "./pages/LeaderDiagnosePage";
 import OnboardingPage from "./pages/OnboardingPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import ReferralPage from "./pages/ReferralPage";
@@ -80,6 +82,8 @@ function AppRouter() {
       <Route path="/tools" element={<ProtectedRoute><ToolsPage /></ProtectedRoute>} />
       <Route path="/simulations" element={<ProtectedRoute><SimulationsPage /></ProtectedRoute>} />
       <Route path="/missions" element={<ProtectedRoute><VideoChallengePage /></ProtectedRoute>} />
+      <Route path="/missions/archive" element={<ProtectedRoute><VideoArchivePage /></ProtectedRoute>} />
+      <Route path="/leader-diagnose" element={<ProtectedRoute><LeaderDiagnosePage /></ProtectedRoute>} />
       <Route path="/video-challenge" element={<Navigate to="/missions" replace />} />
       <Route path="/challengers" element={<ProtectedRoute><ChallengersPage /></ProtectedRoute>} />
       <Route path="/tasks" element={<ProtectedRoute><TasksPage /></ProtectedRoute>} />

@@ -301,6 +301,19 @@ async def activate_tier(user_id: str, tier: str, via_installment: bool = False, 
 
     await db.users.update_one({"user_id": user_id}, {"$set": update})
 
+    # On Standard tier (€997 leadership_os) purchase → grant Video-Trial bonus
+    # (resets used to 0 + 2 extra analyses, idempotent so refund-rebuy doesn't stack).
+    if tier == "standard":
+        try:
+            from services_video_trial import grant_standard_purchase_bonus
+            await grant_standard_purchase_bonus(user_id)
+        except Exception as e:
+            # Non-fatal — log and continue. Tier activation must succeed even if bonus fails.
+            import logging
+            logging.getLogger("leader-os.tier").warning(
+                "video_trial bonus grant failed for %s: %s", user_id, e
+            )
+
     # Credit balance
     monthly = cfg["features"].get("credits_monthly", 0)
     await db.credits.update_one(

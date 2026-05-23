@@ -21,7 +21,7 @@ export const WladHubUpgradeCta = ({ de, onSync, syncing }) => (
 );
 
 export const WladHubDeepDiveBtn = ({ de, onNavigate }) => (
-  <Button size="sm" variant="outline" onClick={() => onNavigate('/my-path')}
+  <Button size="sm" variant="outline" onClick={() => onNavigate('/leader-diagnose')}
     className="w-full text-[10px] font-semibold h-7 border-dashed" data-testid="wladhub-deep-dive">
     {de ? 'Detailanalyse ansehen' : 'View detailed analysis'} <ArrowRight size={10} className="ml-1" />
   </Button>

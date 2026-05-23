@@ -190,7 +190,13 @@ async def get_video_challenges():
 
 
 async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts: list, user_memory, rating_context: str) -> dict:
-    """Call GPT-5.2 to analyse transcript and return structured feedback."""
+    """Call GPT-5.2 to analyse transcript and return structured feedback.
+
+    Defensive contract: NEVER returns a stub-score-50-feedback document.
+    If the AI's JSON is malformed, we retry once with a strict reformat prompt.
+    If retry also fails, raise — the caller will surface a clean 500 to the UI
+    which then prompts the user to retry. Better than persisting junk.
+    """
     prompt_text = _build_analysis_prompt(challenge, transcript, prev_attempts, user_memory, rating_context)
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
@@ -200,12 +206,51 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
     chat.with_model("openai", "gpt-5.2")
 
     ai_response = await chat.send_message(UserMessage(text=prompt_text))
-    try:
-        analysis = json.loads(ai_response)
-    except json.JSONDecodeError:
-        analysis = {"feedback": ai_response, "overall_score": 50, "transcript": transcript, "wlad_assessment": ai_response}
-    analysis["transcript"] = transcript
+
+    # Try parse; if it fails, ask the AI to reformat itself.
+    analysis = _safe_parse_json(ai_response)
+    if analysis is None:
+        logger.warning("Video AI returned non-JSON, attempting reformat retry")
+        reformat = await chat.send_message(UserMessage(text=(
+            "Deine letzte Antwort war kein gültiges JSON. Antworte JETZT ausschließlich mit dem oben "
+            "spezifizierten JSON-Schema. Keine Markdown-Codefences, kein Vorwort, nur das JSON-Objekt."
+        )))
+        analysis = _safe_parse_json(reformat)
+
+    if analysis is None or not isinstance(analysis.get("overall_score"), (int, float)):
+        # Final safety net — never persist junk, never silently score 50.
+        # Raise a clear error so the user gets retried-prompt UI instead of bad data.
+        raise ValueError("AI analysis failed to return structured feedback. Please retry.")
+
+    # Ensure transcript is preserved even if AI omitted it
+    analysis["transcript"] = analysis.get("transcript") or transcript
     return analysis
+
+
+def _safe_parse_json(text: str) -> dict | None:
+    """Best-effort JSON extraction from AI response — handles markdown fences."""
+    if not text:
+        return None
+    candidates = [text]
+    # Strip ```json...``` or ```...``` fences if present
+    if "```" in text:
+        import re as _re
+        m = _re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, _re.DOTALL)
+        if m:
+            candidates.append(m.group(1))
+    # Try outer-most JSON object
+    first_brace = text.find("{")
+    last_brace = text.rfind("}")
+    if first_brace != -1 and last_brace > first_brace:
+        candidates.append(text[first_brace:last_brace + 1])
+    for c in candidates:
+        try:
+            parsed = json.loads(c)
+            if isinstance(parsed, dict):
+                return parsed
+        except (json.JSONDecodeError, ValueError):
+            continue
+    return None
 
 
 async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dict, rating: dict, attempt_count: int) -> None:
@@ -234,6 +279,21 @@ async def get_user_video_trial_status(request: Request):
     user = await get_current_user(request)
     tier_info = await resolve_user_tier(user)
     return await get_video_trial_status(user, tier_info["tier"])
+
+
+@router.get("/video-archive")
+async def get_video_archive(request: Request):
+    """Return ALL of the current user's video-challenge attempts, newest first.
+
+    Used by the in-app Video-Archive page. Nothing is ever deleted — full history
+    so the user can review every analysis, every rewrite, every score.
+    """
+    user = await get_current_user(request)
+    docs = await db.video_challenges.find(
+        {"user_id": user["user_id"]},
+        {"_id": 0},
+    ).sort("created_at", -1).to_list(500)
+    return docs
 
 
 @router.post("/video-challenges/{challenge_id}/analyze")

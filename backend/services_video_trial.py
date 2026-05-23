@@ -3,6 +3,10 @@
 Free + Standard Users bekommen 3 kostenlose Video-Analysen innerhalb der ersten
 14 Tage nach Registrierung. Danach normales Paywall-Verhalten (Accelerator).
 Accelerator-User haben weiterhin unbegrenzten Zugang.
+
+Bonus-Mechanik: Beim Kauf von Leadership-OS (Standard / €997) bekommt der User
+einen Trial-Reset + 2 zusätzliche Bonus-Analysen, damit der Käufer sofort wieder
+mit dem Feature arbeiten kann ohne auf Accelerator upzugraden.
 """
 from datetime import datetime, timezone, timedelta
 
@@ -11,6 +15,11 @@ from config import db
 TRIAL_DAYS = 14
 TRIAL_VIDEO_LIMIT = 3
 TRIAL_ELIGIBLE_TIERS = {"free", "starter", "standard"}
+
+# Bonus given on tier upgrade to Standard / leadership_os (€997 plan).
+# Resets `video_trial_used` and grants this many additional analyses on top of any
+# remaining trial uses. Total: 3 (base trial) reset + 2 bonus = 5 fresh analyses.
+STANDARD_PURCHASE_BONUS = 2
 
 
 def _parse_dt(value):
@@ -58,18 +67,26 @@ async def get_video_trial_status(user: dict, current_tier: str) -> dict:
     if not created:
         # Defensive: missing timestamp → treat as fresh account
         created = datetime.now(timezone.utc)
+    # Use the purchase date as the new window start if user is on standard tier
+    # AND has a `video_trial_reset_at` flag from their purchase event.
+    reset_at = _parse_dt(user.get("video_trial_reset_at"))
+    window_start = reset_at if (reset_at and reset_at > created) else created
+
     now = datetime.now(timezone.utc)
-    deadline = created + timedelta(days=TRIAL_DAYS)
+    deadline = window_start + timedelta(days=TRIAL_DAYS)
     window_expired = now > deadline
     days_left = max(0, (deadline - now).days) if not window_expired else 0
 
+    bonus = int(user.get("video_trial_bonus", 0))
+    effective_limit = TRIAL_VIDEO_LIMIT + bonus
     used = int(user.get("video_trial_used", 0))
-    remaining = max(0, TRIAL_VIDEO_LIMIT - used)
+    remaining = max(0, effective_limit - used)
     active = (not window_expired) and remaining > 0
 
     return {
         "eligible": True, "active": active, "used": used,
-        "remaining": remaining, "total": TRIAL_VIDEO_LIMIT,
+        "remaining": remaining, "total": effective_limit,
+        "bonus": bonus, "base_total": TRIAL_VIDEO_LIMIT,
         "days_left": days_left, "window_expired": window_expired,
         "reason": "ok" if active else ("expired" if window_expired else "limit_reached"),
     }
@@ -84,3 +101,31 @@ async def consume_video_trial(user_id: str) -> int:
         return_document=True, projection={"_id": 0, "video_trial_used": 1},
     )
     return int((res or {}).get("video_trial_used", 0))
+
+
+async def grant_standard_purchase_bonus(user_id: str) -> dict:
+    """Called from the payment-success path when a user buys leadership_os (€997).
+
+    Resets the trial counter (used → 0), sets a fresh 14-day window starting NOW,
+    and adds STANDARD_PURCHASE_BONUS extra analyses on top.
+
+    Idempotent: if `video_trial_purchase_bonus_granted` is already truthy on the user,
+    this is a no-op so refunds + re-purchases don't keep stacking the bonus.
+    """
+    now = datetime.now(timezone.utc).isoformat()
+    res = await db.users.find_one_and_update(
+        {"user_id": user_id, "video_trial_purchase_bonus_granted": {"$ne": True}},
+        {"$set": {
+            "video_trial_used": 0,
+            "video_trial_bonus": STANDARD_PURCHASE_BONUS,
+            "video_trial_reset_at": now,
+            "video_trial_purchase_bonus_granted": True,
+            "video_trial_purchase_bonus_granted_at": now,
+        }},
+        return_document=True,
+        projection={"_id": 0, "video_trial_used": 1, "video_trial_bonus": 1},
+    )
+    if res is None:
+        return {"granted": False, "reason": "already_granted_or_user_not_found"}
+    return {"granted": True, "used": 0, "bonus": STANDARD_PURCHASE_BONUS,
+            "total": TRIAL_VIDEO_LIMIT + STANDARD_PURCHASE_BONUS}

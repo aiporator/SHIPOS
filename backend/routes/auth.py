@@ -202,6 +202,12 @@ async def register(data: UserRegister, request: Request, response: Response):
         event="user.created",
     )
 
+    # Auto-sync leader-check.de diagnosis if user already exists in Supabase
+    # leadership_insights table by email (fire-and-forget — does not block signup).
+    import asyncio as _asyncio
+    from services_wladhub_autosync import auto_sync_wladhub_on_signup
+    _asyncio.create_task(auto_sync_wladhub_on_signup(user_id=user_id, email=email))
+
     # JWT token kept for backwards-compat API consumers; frontend uses httpOnly cookie only
     return {"token": token, "user": _safe_user_output(user_doc)}
 
