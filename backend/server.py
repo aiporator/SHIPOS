@@ -88,6 +88,10 @@ app.include_router(gdpr_router)
 from routes.sync import router as sync_router  # noqa: E402
 app.include_router(sync_router)
 
+# Dynamic OG image generation (LinkedIn/X share cards)
+from routes.og import router as og_router  # noqa: E402
+app.include_router(og_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:
