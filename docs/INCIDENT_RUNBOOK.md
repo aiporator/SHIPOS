@@ -194,6 +194,100 @@ Either rebuild the index or check the query's planner stats with EXPLAIN.
 
 ---
 
+## Stripe Webhook (Supabase Edge Function — canonical endpoint)
+
+### Symptom: Stripe events not creating subscriptions
+
+The canonical webhook is now a **Supabase Edge Function** (`stripe-webhook` v3),
+NOT the backend `/api/webhook/stripe` (which returns 410 Gone).
+
+```sql
+-- Check what the Edge Function received/processed:
+SELECT level, event, payload->>'stripe_subscription_id' as sub,
+       payload->>'error' as err, created_at
+  FROM system_events
+ WHERE component = 'stripe-webhook'
+ ORDER BY created_at DESC LIMIT 20;
+
+-- Check idempotency (deduped events):
+SELECT key, status, error_message, created_at
+  FROM idempotency_keys
+ WHERE source = 'stripe-webhook'
+ ORDER BY created_at DESC LIMIT 10;
+```
+
+If zero rows → Stripe isn't reaching the Edge Function. Check:
+1. Stripe Dashboard → Webhooks → endpoint status
+2. URL must be: `https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/stripe-webhook`
+3. `STRIPE_WEBHOOK_SECRET` in Supabase Vault must match the endpoint's signing secret
+
+### Symptom: Installment plan charges forever (doesn't auto-cancel)
+
+The Edge Function creates a Subscription Schedule with `iterations: N` on
+checkout. If this failed, the sub runs indefinitely.
+
+```sql
+-- Find the subscription and check if schedule was created:
+SELECT event, payload
+  FROM system_events
+ WHERE component = 'stripe-webhook'
+   AND event IN ('installment_schedule_created', 'installment_schedule_failed')
+ ORDER BY created_at DESC LIMIT 5;
+```
+
+Manual fix: Stripe Dashboard → Subscriptions → find it → cancel at period end.
+
+---
+
+## Email Journey Engine
+
+### Symptom: User bought but got no welcome email
+
+```sql
+-- Check if journey was enrolled:
+SELECT ej.code, ujs.current_step_order, ujs.next_run_at, ujs.completed_at
+  FROM user_journey_state ujs
+  JOIN email_journeys ej ON ej.id = ujs.journey_id
+ WHERE ujs.user_id = '<user_uuid>';
+
+-- Check if email was queued:
+SELECT template_code, status, error_message, created_at
+  FROM email_sends
+ WHERE user_id = '<user_uuid>'
+ ORDER BY created_at DESC LIMIT 10;
+
+-- If queued but not sent: RESEND_API_KEY missing or email-dispatcher cron stopped
+SELECT * FROM cron.job WHERE jobname = 'email_dispatcher';
+```
+
+### Symptom: Inactivity emails firing for active users
+
+The backward-pressure gate checks `fn_user_hours_since_engagement()`. If it's
+returning NULL (no signal data), inactivity mails fire even for active users.
+
+```sql
+SELECT last_seen_at, last_episode_started_at, last_email_engagement_at
+  FROM users WHERE id = '<user_uuid>';
+-- If all NULL → signal triggers aren't firing. Check:
+SELECT tgname, tgenabled FROM pg_trigger
+ WHERE tgrelid IN ('sessions'::regclass, 'user_episode_progress'::regclass, 'email_events'::regclass)
+   AND tgname LIKE '%signal%' OR tgname LIKE '%update%';
+```
+
+---
+
+## Go-Live Readiness (single query)
+
+```sql
+SELECT * FROM go_live_readiness;
+```
+
+All rows should be green. Red/yellow items have `check_name` that tells you
+exactly what's missing. This view was created for the launch phase — run it
+daily for the first 2 weeks, then weekly.
+
+---
+
 ## Email (Resend)
 
 ### Symptom: Welcome email not arriving
