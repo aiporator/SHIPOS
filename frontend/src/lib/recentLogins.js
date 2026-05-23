@@ -14,8 +14,12 @@
  * ask the user to confirm / re-enter their address.
  */
 const KEY = 'wladbot_recent_logins_v2';
+const KEY_V1 = 'wladbot_recent_logins_v1'; // legacy key with plaintext emails
 const MAX_ACCOUNTS = 3;
 const STALE_AFTER_DAYS = 60;
+
+// One-time cleanup: remove the old v1 key that stored full email addresses.
+try { localStorage.removeItem(KEY_V1); } catch { /* ignore */ }
 
 /**
  * Derive a non-reversible display-only subset from a full email address.
