@@ -5,13 +5,13 @@ import json
 import io
 import base64
 from datetime import datetime, timezone
-from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 import pypdf
 import docx
 
 from config import db, EMERGENT_LLM_KEY, logger
 from models import ChatMessageIn, ChatSessionCreate
-from services import get_current_user, clean_ai_text, update_user_scores, get_user_memory, WLADBOT_SYSTEM_PROMPT
+from services import get_current_user, get_user_memory, WLADBOT_SYSTEM_PROMPT
 from services_actions import record_user_action
 from data import LEADERSHIP_QUOTES
 

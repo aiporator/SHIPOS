@@ -9,7 +9,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from config import db, EMERGENT_LLM_KEY, logger
-from services import get_current_user, update_user_scores, get_user_memory
+from services import get_current_user, get_user_memory
 from services_actions import record_user_action
 from services_tier import require_feature, resolve_user_tier
 from services_video_trial import get_video_trial_status, consume_video_trial

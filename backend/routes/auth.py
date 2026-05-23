@@ -8,7 +8,7 @@ from datetime import datetime, timezone, timedelta
 
 from config import db, OAUTH_SESSION_URL, logger
 from models import UserRegister, UserLogin
-from services import create_jwt_token, hash_password, verify_password, get_current_user, update_user_scores
+from services import create_jwt_token, hash_password, verify_password, get_current_user
 from services_actions import record_user_action
 from services_login_security import (
     parse_user_agent,
