@@ -34,6 +34,9 @@ export default function VideoChallengePage() {
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
   const blobRef = useRef(null);
+  const audioRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const audioBlobRef = useRef(null);
 
   // Trial-aware access: Accelerator always passes, others get 3 free in first 14 days.
   const canAccess = isAccelerator || Boolean(trial?.active);
@@ -68,13 +71,15 @@ export default function VideoChallengePage() {
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();
+    if (audioRecorderRef.current?.state === 'recording') audioRecorderRef.current.stop();
     setRecording(false);
     clearInterval(timerRef.current);
-  }, [mediaRecorderRef, timerRef]);
+  }, [mediaRecorderRef, audioRecorderRef, timerRef]);
 
   const startRecording = useCallback(() => {
     if (!stream) return;
     chunksRef.current = [];
+    audioChunksRef.current = [];
     const mr = new MediaRecorder(stream, { mimeType: 'video/webm' });
     mediaRecorderRef.current = mr;
     mr.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
@@ -82,11 +87,23 @@ export default function VideoChallengePage() {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
       setRecorded(true);
     };
+    // Separate audio-only recorder for Whisper transcription (rejects muxed video/webm)
+    const audioTrack = stream.getAudioTracks()[0];
+    if (audioTrack) {
+      const audioStream = new MediaStream([audioTrack]);
+      const ar = new MediaRecorder(audioStream, { mimeType: 'audio/webm;codecs=opus' });
+      audioRecorderRef.current = ar;
+      ar.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+      ar.onstop = () => {
+        audioBlobRef.current = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+      };
+      ar.start();
+    }
     mr.start();
     setRecording(true);
     setTimer(0);
     timerRef.current = setInterval(() => setTimer(t => t + 1), 1000);
-  }, [stream, mediaRecorderRef, chunksRef]);
+  }, [stream, mediaRecorderRef, chunksRef, audioChunksRef]);
 
   useEffect(() => { loadChallenges(); }, [loadChallenges]);
   useEffect(() => { return () => { if (stream) stream.getTracks().forEach(t => t.stop()); }; }, [stream]);
@@ -117,7 +134,10 @@ export default function VideoChallengePage() {
     setAnalyzing(true);
     try {
       const formData = new FormData();
-      formData.append('file', blobRef.current, 'challenge.webm');
+      // Send audio-only blob for Whisper transcription (falls back to video blob if audio unavailable)
+      const uploadBlob = audioBlobRef.current || blobRef.current;
+      const uploadName = audioBlobRef.current ? 'challenge_audio.webm' : 'challenge.webm';
+      formData.append('file', uploadBlob, uploadName);
       const params = new URLSearchParams();
       params.set('rating_mode', ratingConfig.mode);
       params.set('rating_level', ratingConfig.level);
