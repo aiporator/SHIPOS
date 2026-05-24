@@ -82,7 +82,7 @@ VOICE_REGISTRY: dict[str, dict] = {
         "name": "Richard Branson", "stability": 0.50, "similarity_boost": 0.75, "style": 0.55, "language": "de",
     },
     "sandberg": {
-        "voice_id": "21m00Tcm4Tlm7axTlAzs",  # "Rachel" — strong, professional female
+        "voice_id": "EXAVITQu4vr4xnSDxMaL",  # "Sarah" — German business professional female
         "name": "Sheryl Sandberg", "stability": 0.60, "similarity_boost": 0.75, "style": 0.35, "language": "de",
     },
     "page": {
@@ -96,6 +96,12 @@ VOICE_REGISTRY: dict[str, dict] = {
 }
 
 MODEL_ID = "eleven_multilingual_v2"  # supports both DE + EN
+
+# Fallback voice config used when a voice_id is no longer available on ElevenLabs
+DEFAULT_VOICE_CONFIG = {
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",  # "Sarah" — reliable default
+    "stability": 0.55, "similarity_boost": 0.75, "style": 0.35, "language": "de",
+}
 MAX_TEXT_LENGTH = 800  # ~60s of audio — enough for intros/quotes, protects cost
 
 
@@ -203,15 +209,24 @@ async def text_to_speech(data: TTSRequest, request: Request) -> dict:
     except HTTPException:
         raise
     except Exception as e:
-        err_msg = str(e)
+        err_msg = str(e).lower()
         # On 401 Unauthorized from ElevenLabs, drop cached client so next request
         # re-reads ELEVENLABS_API_KEY (handles rotation without pod restart).
-        if "401" in err_msg or "Unauthorized" in err_msg or "invalid_api_key" in err_msg.lower():
+        if "401" in err_msg or "unauthorized" in err_msg or "invalid_api_key" in err_msg:
             logger.warning(f"ElevenLabs 401 — resetting client for next request: {e}")
             _reset_client()
             raise HTTPException(status_code=502, detail="Voice service authentication failed — key may have rotated")
-        logger.error(f"ElevenLabs synthesis failed: {e}")
-        raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {e}")
+        # Fallback to default voice when a voice_id has been removed from ElevenLabs
+        if "voice_not_found" in err_msg or "was not found" in err_msg:
+            logger.warning(f"Voice {voice_config['voice_id']} not found — falling back to default: {e}")
+            try:
+                audio_bytes = await run_in_threadpool(_synthesize, text, DEFAULT_VOICE_CONFIG)
+            except Exception as fallback_err:
+                logger.error(f"Default voice fallback also failed: {fallback_err}")
+                raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {fallback_err}")
+        else:
+            logger.error(f"ElevenLabs synthesis failed: {e}")
+            raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {e}")
 
     audio_b64 = base64.b64encode(audio_bytes).decode("ascii")
 
@@ -371,11 +386,22 @@ async def _synthesize_or_cached(reply_text: str, persona_key: str, voice_config:
         from fastapi.concurrency import run_in_threadpool
         audio_bytes_out = await run_in_threadpool(_synthesize, reply_text, voice_config)
     except Exception as e:
-        err_msg = str(e)
-        if "401" in err_msg or "Unauthorized" in err_msg or "invalid_api_key" in err_msg.lower():
+        err_msg = str(e).lower()
+        if "401" in err_msg or "unauthorized" in err_msg or "invalid_api_key" in err_msg:
             _reset_client()
-        logger.error(f"Voice TTS failed: {e}")
-        raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {e}")
+            logger.error(f"Voice TTS failed: {e}")
+            raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {e}")
+        # Fallback to default voice when a voice_id has been removed from ElevenLabs
+        if "voice_not_found" in err_msg or "was not found" in err_msg:
+            logger.warning(f"Voice {voice_config['voice_id']} not found — falling back to default: {e}")
+            try:
+                audio_bytes_out = await run_in_threadpool(_synthesize, reply_text, DEFAULT_VOICE_CONFIG)
+            except Exception as fallback_err:
+                logger.error(f"Default voice fallback also failed: {fallback_err}")
+                raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {fallback_err}")
+        else:
+            logger.error(f"Voice TTS failed: {e}")
+            raise HTTPException(status_code=502, detail=f"Voice synthesis failed: {e}")
     audio_b64 = base64.b64encode(audio_bytes_out).decode("ascii")
     if len(audio_b64) < 250_000:
         try:

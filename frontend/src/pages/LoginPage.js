@@ -13,7 +13,7 @@ import { MagicLinkForm } from '../components/auth/MagicLinkForm';
 import { OAuthProviderStack } from '../components/auth/OAuthButtons';
 import { ContinueAsCard, useContinueAs } from '../components/auth/ContinueAsCard';
 import { useAuthProviders } from '../lib/authProviders';
-import { getLastLogin, forgetLogin } from '../lib/recentLogins';
+import { getLastLogin, forgetLogin, displayEmail } from '../lib/recentLogins';
 
 const getFeatures = (de) => (de ? [
   { t: '30-Tage KI-Leadership Sprint', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
@@ -86,32 +86,41 @@ export default function LoginPage() {
   const switchMode = (newMode) => {
     setMode(newMode);
     setError('');
+    // Always clear password — security & avoids browser auto-filling the login
+    // password into a register form. Drop `name` when leaving register since
+    // it's only collected there.
+    setForm(f => ({
+      ...f,
+      password: '',
+      name: newMode === 'register' ? f.name : '',
+    }));
   };
 
   const { trigger: triggerContinue, loading: continueLoading } = useContinueAs(lastAccount, {
     de,
     onPrefill: (email, provider) => {
+      // Full email is no longer cached in localStorage (PII protection).
       // For OAuth providers, switch mode to 'login' so the buttons are visible
-      // then ask user to click the provider button (one-tap auto-prompts if available)
-      if (provider) {
+      // then ask user to click the provider button (one-tap auto-prompts if available).
+      if (provider === 'magic_link') {
+        setMode('magic');
+        toast.info(de
+          ? 'Bitte gib deine E-Mail-Adresse ein, um einen Login-Link zu erhalten.'
+          : 'Please enter your email to receive a login link.');
+      } else if (provider) {
         setMode('login');
-        setForm(f => ({ ...f, email }));
         toast.info(de
           ? `Klicke unten auf "Mit ${provider === 'google' ? 'Google' : provider === 'apple' ? 'Apple' : 'Microsoft'} fortfahren"`
           : `Click "Continue with ${provider}" below`);
       } else {
         setMode('login');
-        setForm(f => ({ ...f, email }));
       }
-    },
-    onMagicSent: () => {
-      toast.success(de ? 'Login-Link wurde gesendet — prüfe dein Postfach.' : 'Login link sent — check your inbox.');
     },
     onError: setError,
   });
 
-  const handleForget = (email) => {
-    forgetLogin(email);
+  const handleForget = (entry) => {
+    forgetLogin(entry);
     setLastAccount(getLastLogin());
     toast.success(de ? 'Konto entfernt.' : 'Account removed.');
   };
