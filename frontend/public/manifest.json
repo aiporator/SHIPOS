@@ -1,0 +1,63 @@
+{
+  "name": "Leader-OS — KI Leadership System",
+  "short_name": "Leader-OS",
+  "description": "Werde KI-native Führungskraft in 30 Tagen. Persönlicher KI-Coach, Video-Missionen mit KI-Analyse, Boardroom-Rhetorik & EQ-Training.",
+  "lang": "de-DE",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "categories": ["education", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "WladBot Chat",
+      "short_name": "Chat",
+      "description": "Frag deinen KI Leadership Coach",
+      "url": "/chat",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tägliche Check-in",
+      "short_name": "Check-in",
+      "description": "Tägliche Leadership-Reflexion",
+      "url": "/daily-checkin",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Video-Missionen",
+      "short_name": "Missionen",
+      "description": "Trainiere mit KI-Bewertung",
+      "url": "/missions",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
