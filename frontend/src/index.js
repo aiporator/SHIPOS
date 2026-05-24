@@ -33,6 +33,24 @@ if (sentryDsn) {
       Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }),
     );
   }
+  integrations.push(
+    Sentry.feedbackIntegration({
+      colorScheme: "dark",
+      buttonLabel: "Feedback",
+      submitButtonLabel: "Absenden",
+      cancelButtonLabel: "Abbrechen",
+      formTitle: "Feedback geben",
+      nameLabel: "Name",
+      namePlaceholder: "Dein Name",
+      emailLabel: "E-Mail",
+      emailPlaceholder: "deine@email.de",
+      messageLabel: "Was ist passiert?",
+      messagePlaceholder: "Beschreibe das Problem oder dein Feedback...",
+      successMessageText: "Danke für dein Feedback!",
+      triggerBackground: "#BFFF00",
+      triggerForeground: "#0A0A0A",
+    }),
+  );
 
   Sentry.init({
     dsn: sentryDsn,
