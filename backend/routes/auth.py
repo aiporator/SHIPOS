@@ -140,7 +140,7 @@ def _safe_user_output(user: dict) -> dict:
     from routes.admin import ADMIN_EMAILS
     email = (user.get("email") or "").lower()
     is_admin = bool(user.get("is_admin")) or email in {e.lower() for e in ADMIN_EMAILS}
-    safe = {k: v for k, v in user.items() if k not in ("password_hash", "_id", "login_history", "signup_ip", "last_login_ip")}
+    safe = {k: v for k, v in user.items() if k not in ("password_hash", "_id", "login_history", "signup_ip", "last_login_ip", "session_token")}
     safe["is_admin"] = is_admin
     return safe
 
@@ -468,8 +468,8 @@ async def change_password(data: PasswordChangeRequest, request: Request):
     """
     user = await get_current_user(request)
 
-    if len(data.new_password) < 6:
-        raise HTTPException(status_code=400, detail="Neues Passwort muss min. 6 Zeichen haben.")
+    if len(data.new_password) < 8:
+        raise HTTPException(status_code=400, detail="Neues Passwort muss min. 8 Zeichen haben.")
     if data.new_password == data.current_password:
         raise HTTPException(status_code=400, detail="Neues Passwort darf nicht identisch zum aktuellen sein.")
 
