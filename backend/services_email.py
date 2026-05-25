@@ -523,3 +523,100 @@ def monthly_scorecard_email(
 """
     return subject, _base_layout(body, preheader=f"Score {overall}/100 · +{xp_delta} XP · {top_insight[:80]}")
 
+
+# ── Video-Drip: Week 1-6 Lernvideo-Sequence (Lead-Magnet) ─────────────────────
+# Triggered weekly after signup, once a Vimeo ID is filled for each video.
+# Skipped automatically by the cron if the corresponding video has no
+# vimeo_id yet — so we never email "watch this" with a broken link.
+
+VIDEO_DRIP_VIDEOS = [
+    {
+        "id": "v1", "week": 1, "title": "Rhetorik-Grundlagen",
+        "subtitle": "Die 3 Säulen wirkungsvoller Führungssprache",
+        "duration": "42 Min", "module": "Kommunikation",
+        "hook": "Eine Frage, die jeder Leader sich am Mittwoch stellt: warum hört keiner zu, wenn ich rede? Diese Lektion beantwortet sie.",
+        "takeaway": "Du erkennst die 3 unsichtbaren Hebel, die zwischen 'klingt wie Hintergrundrauschen' und 'der Raum verstummt' entscheiden.",
+    },
+    {
+        "id": "v2", "week": 2, "title": "Schwierige Gespräche meistern",
+        "subtitle": "Konflikt, Kritik & Kündigung — ohne Drama",
+        "duration": "38 Min", "module": "Kommunikation",
+        "hook": "Das Gespräch, das du seit Wochen vor dir herschiebst — wir machen es heute. Mit der SBI-Methode in 38 Minuten.",
+        "takeaway": "Du lernst, wie du auch die unbequemste Botschaft so platzierst, dass dein Gegenüber sie hört statt sich zu verschließen.",
+    },
+    {
+        "id": "v3", "week": 3, "title": "Delegation wie ein Profi",
+        "subtitle": "Aufgaben abgeben, Vertrauen aufbauen",
+        "duration": "29 Min", "module": "Führung",
+        "hook": "Wenn du nach 18 Uhr noch im Büro sitzt, hast du ein Delegations-Problem. Diese Lektion fixt es in einer Woche.",
+        "takeaway": "Du bekommst die Wlad-Delegations-Matrix — und weißt nach dieser Folge genau, was du WANN abgibst (und was nie).",
+    },
+    {
+        "id": "v4", "week": 4, "title": "Feedback-Formate (SBI & WWW)",
+        "subtitle": "Wöchentlich, faktenbasiert, wirksam",
+        "duration": "35 Min", "module": "Coaching",
+        "hook": "70% aller Feedback-Gespräche scheitern in den ersten 30 Sekunden. Diese Folge zeigt, wie du in 7 Sekunden gewinnst.",
+        "takeaway": "Du beherrschst SBI + WWW. Damit gibst du Feedback, das nicht persönlich ankommt — und trotzdem etwas verändert.",
+    },
+    {
+        "id": "v5", "week": 5, "title": "Storytelling im Boardroom",
+        "subtitle": "Komplexe Ideen in 2 Minuten verkaufen",
+        "duration": "47 Min", "module": "Kommunikation",
+        "hook": "Wer das Storytelling-Framework drauf hat, gewinnt das Meeting. Punkt. Diese Lektion gibt dir genau das.",
+        "takeaway": "Du baust nach dieser Folge jede C-Level-Präsentation nach der Hollywood-Dramaturgie. 3 Akte, 2 Minuten, eine Wirkung.",
+    },
+    {
+        "id": "v6", "week": 6, "title": "Meeting-Rhetorik",
+        "subtitle": "Die 20-Sekunden-Regel",
+        "duration": "33 Min", "module": "Führung",
+        "hook": "Wer zuerst spricht, gewinnt. Wer es richtig macht, dominiert. Heute lernst du das Wie.",
+        "takeaway": "Du verstehst Agenda-Hacking, die 20-Sekunden-Eröffnung und wie du nach der Hälfte eines Meetings als Gewinner dastehst.",
+    },
+]
+
+
+def video_drip_email(name: str, video: dict, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+    """Generate a weekly drip email pointing to a single Lernvideo.
+
+    Subject lines are intentionally psychological: a tease + the takeaway,
+    NOT 'watch this video'. Open-rate optimized.
+    """
+    week = video["week"]
+    title = video["title"]
+    subtitle = video["subtitle"]
+    hook = video["hook"]
+    takeaway = video["takeaway"]
+    duration = video["duration"]
+    module = video["module"]
+    deeplink = f"{app_url.rstrip('/')}/my-path?video={video['id']}"
+
+    subject = f"Woche {week}: {title} — freigeschaltet 🎬"
+
+    body = f"""
+<div style="font-size:9px;color:{BRAND_COLOR};letter-spacing:0.18em;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Lernvideo · Woche {week} / 6</div>
+<h1 style="font-size:30px;line-height:1.1;font-weight:900;margin:0 0 8px;letter-spacing:-0.025em;">{title}</h1>
+<p style="font-size:13px;color:rgba(255,255,255,0.55);margin:0 0 24px;">{subtitle} · {duration} · {module}</p>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.92);line-height:1.55;margin:0 0 18px;">
+Hallo {name},
+</p>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6;margin:0 0 18px;">
+{hook}
+</p>
+
+<div style="background:rgba(191,255,0,0.05);border:1px solid rgba(191,255,0,0.18);border-radius:14px;padding:18px 22px;margin:22px 0;">
+  <div style="font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:900;text-transform:uppercase;margin-bottom:6px;">Dein Takeaway</div>
+  <p style="font-size:14px;color:#fff;margin:0;line-height:1.55;">{takeaway}</p>
+</div>
+
+<div style="text-align:center;padding:14px 0 4px;">
+  <a href="{deeplink}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:15px 36px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:-0.01em;">▶︎ Lektion {week} ansehen</a>
+</div>
+
+<p style="font-size:11px;color:rgba(255,255,255,0.4);margin:24px 0 0;text-align:center;line-height:1.6;">
+{duration} · 100% kostenfrei · Kein Cliffhanger · Kein Upsell
+</p>
+"""
+    return subject, _base_layout(body, preheader=f"Woche {week}: {subtitle} · {duration}")
+

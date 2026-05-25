@@ -86,10 +86,26 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
   const startCheckout = useCallback(async (packageId) => {
     setBusy(packageId);
     setErr(null);
+
+    // Auto-apply bribe discount code if user earned WLAD10 via Fake-Wlad-Call
+    let discountCode;
+    try {
+      const raw = localStorage.getItem('wlad_discount_code');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.code && parsed?.expires_at > Date.now()) {
+          discountCode = parsed.code;
+        } else {
+          localStorage.removeItem('wlad_discount_code');
+        }
+      }
+    } catch { /* localStorage unavailable */ }
+
     try {
       const res = await api.post('/payments/checkout', {
         package_id: packageId,
         origin_url: window.location.origin,
+        discount_code: discountCode,
       });
       const url = res?.data?.url;
       if (!url) throw new Error('Kein Checkout-Link erhalten');

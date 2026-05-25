@@ -6,15 +6,22 @@
  * session (`sessionStorage` counter). Only mounts inside ProtectedRoute,
  * so unauthenticated visitors never see it.
  *
- * Accept   → navigates to /chat with a Wlad-style starter prompt
- * Decline  → silently closes and re-arms the next 3-min timer (only if
- *            cap not reached)
+ * Accept   → opens Cal.com booking modal (real consultation)
+ * Decline  → navigates to /chat with a Wlad-style starter prompt
+ *
+ * A/B Test (Iter 92.4 — `fake_wlad_call_bribe`):
+ *   - control: pure call overlay
+ *   - bribe:   reveals a "WLAD10" 10% discount code during the call;
+ *              code persists to localStorage so user sees it in checkout.
+ *   Variant assignment happens via GET /api/ab/assign/fake_wlad_call_bribe,
+ *   outcomes logged via POST /api/ab/event/fake_wlad_call_bribe.
  */
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Phone, PhoneOff, MessageCircle, Volume2 } from 'lucide-react';
+import { Phone, PhoneOff, MessageCircle, Volume2, Gift } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useBookConsultation } from '../brand/BookConsultationButton';
+import api from '../../lib/api';
 
 const SESSION_KEY = 'wlad_fake_call_count';
 const MAX_CALLS_PER_SESSION = 2;
@@ -49,6 +56,24 @@ export const FakeWladCall = () => {
 
   const isSuppressed = SUPPRESSED_PATHS.some((p) => location.pathname.startsWith(p));
 
+  // A/B variant: control | bribe (assigned once per user, deterministic)
+  const [variant, setVariant] = useState('control');
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    api.get('/api/ab/assign/fake_wlad_call_bribe')
+      .then((r) => {
+        if (!cancelled && r?.data?.variant) setVariant(r.data.variant);
+      })
+      .catch(() => { /* assignment is best-effort; default to control */ });
+    return () => { cancelled = true; };
+  }, [user]);
+
+  const logEvent = useCallback((event, meta = undefined) => {
+    api.post('/api/ab/event/fake_wlad_call_bribe', { event, meta })
+      .catch(() => { /* fire-and-forget; never block UX */ });
+  }, []);
+
   const scheduleNext = useCallback(() => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
@@ -66,8 +91,9 @@ export const FakeWladCall = () => {
       }
       bumpCallCount();
       setOpen(true);
+      logEvent('impression', { call_number: getCallCount() });
     }, TRIGGER_INTERVAL_MS);
-  }, []);
+  }, [logEvent]);
 
   // Arm the timer once when user is authenticated. We deliberately do NOT
   // reset on every navigation so the 3-minute cadence is preserved.
@@ -81,8 +107,20 @@ export const FakeWladCall = () => {
 
   // Accept = book a real consultation via Cal.com.
   // The Wlad team takes the actual call there. Highest-value path.
+  // Bribe variant: persist WLAD10 discount code so it shows in checkout.
   const accept = () => {
     setOpen(false);
+    logEvent('accept', { variant });
+    if (variant === 'bribe') {
+      try {
+        localStorage.setItem('wlad_discount_code', JSON.stringify({
+          code: 'WLAD10',
+          percent: 10,
+          earned_via: 'fake_wlad_call',
+          expires_at: Date.now() + 24 * 60 * 60 * 1000,  // 24h
+        }));
+      } catch { /* localStorage unavailable */ }
+    }
     scheduleNext();
     openBooking();
   };
@@ -91,6 +129,7 @@ export const FakeWladCall = () => {
   // immediately without committing to a calendar slot.
   const decline = () => {
     setOpen(false);
+    logEvent('decline', { variant });
     const prompt = STARTER_PROMPTS[Math.min(getCallCount() - 1, STARTER_PROMPTS.length - 1)]
       || STARTER_PROMPTS[0];
     try { sessionStorage.setItem('wlad_starter_prompt', prompt); } catch { /* sessionStorage unavailable */ }
@@ -161,6 +200,19 @@ export const FakeWladCall = () => {
             „Lass uns 30 Min reden — ich helf dir, deinen Pfad zu klären."
           </p>
         </div>
+
+        {/* Bribe variant — 10% discount appears ONLY for the treatment group */}
+        {variant === 'bribe' && (
+          <div
+            className="flex items-center gap-2.5 bg-[#BFFF00]/[0.08] border border-[#BFFF00]/30 rounded-xl px-3.5 py-2 backdrop-blur-sm wlad-call-shimmer"
+            data-testid="fake-call-bribe-banner"
+          >
+            <Gift size={14} className="text-[#BFFF00] shrink-0" />
+            <span className="text-[#BFFF00] text-[11px] font-bold leading-tight">
+              <span className="text-white/80 font-semibold">Beim Annehmen:</span> 10% auf Leader OS · Code <span className="font-black tracking-widest">WLAD10</span>
+            </span>
+          </div>
+        )}
 
         {/* Action row */}
         <div className="flex items-center justify-between w-full max-w-[280px] mt-3">
