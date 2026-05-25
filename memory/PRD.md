@@ -141,6 +141,24 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
   7. **Bug-Fix (Testing Agent High-Prio)**: `frontend/src/lib/api.js` `isAuthEndpoint` Regex erweitert um `/auth/magic-link/(request|verify)` + `/auth/google-session` — vorher wurden 401s auf diese Endpoints fälschlich zu `/login` redirected. Magic-Link-Verify Error-State E2E verifiziert.
   - **TEST**: Backend 12/12 PASS (pytest `/app/backend/tests/test_iteration83_security_magic_link.py`). Frontend 4/5 PASS (Login E2E, Tab-Switch, Magic-Link request confirmation, Security Tab UI; bad-token verify nach Cache-Bust live verifiziert per Screenshot).
 - **Iter 87 · 2026-02**: GSAP-Komplett-Cleanup (Mert) — User berichtete weiterhin MyPath-Probleme. Ursache identifiziert: `LearningVideosTab.js` nutzte `ScrollTrigger` mit `opacity:0` Start-State auf allen Video-Tiles — wenn der Trigger nicht zuverlässig feuerte (Element schon im Viewport bei Tab-Switch), blieben Tiles permanent unsichtbar. (1) `MyPathPage.js` `useMotion` entfernt (+useRef-Import, +rootRef). (2) `LearningVideosTab.js` komplett entrümpelt: ScrollTrigger-Stagger, Hover-Lift/Scale-Effekte auf Cards, Unlock-Celebration mit Sparkles+Ring, alle `useMotion`/`gsap`/`prefersReducedMotion` Imports raus. (3) `LoginBrandPanel.js` GSAP-Entrance entfernt — pure CSS-Aurora-Glow bleibt erhalten. (4) `useMotion.js` Hook-File komplett gelöscht. Verifiziert: Build ✅, MyPath-Screenshot zeigt alle 5 Levels mit opacity=1, kein Element mehr versteckt. **GSAP-Skills sind komplett aus User-facing Pages raus.** Behalten: `VoiceWaveVisualizer` (legitimes Voice-Playback-Feature). Package-Deps (`gsap`, `@gsap/react`) bleiben unused in package.json — Entfernung würde Vercel-Lockfile-Rebuild triggern (Risiko).
+- **Iter 90 · 2026-02 — Pre-Launch JSON-Parse Hardening**: Real-life Test deckte auf, dass Gesprächsvorbereitung und Video-Analyse Output unbenutzbar war — GPT-5.2 lieferte JSON in Markdown-Codefences (`\`\`\`json\n{...}\`\`\``), naive `json.loads` failed → Frontend bekam Raw-Text-Müll → PDFs leer.
+
+  **Solution**: Shared `services_ai_parse.parse_ai_json(text)` Helper mit 3-Strategie-Fallback (direct → fenced-extraction → outer-most-braces). Returns dict oder None. Plus retry-with-reformat-prompt wenn None.
+
+  **Applied in 7 routes**:
+  - `tools.py` (Gesprächsvorbereitung + 6 weitere Tools) — parse + retry + `{raw_text, format_error}` Final-Fallback
+  - `video.py` (Video-Analyse) — parse + retry + raises `ValueError` wenn unparsable (kein junk score=50 mehr persistiert)
+  - `playbooks.py` (Step + Report endpoints)
+  - `checkin.py` (Daily-Check-in mit sinnvollem Default-Fallback)
+  - `simulations.py` (Completion-Scores)
+  - `challengers.py` (Hired-Result extraction)
+  - `chat.py` (WladBot Chat-Antworten)
+
+  **UX-Fix**: `SmartPopups.js` `POPUP_BLOCKED_PATHS` erweitert um `/tools`, `/missions`, `/simulations`, `/playbooks`, `/challengers`, `/chat`, `/leader-diagnose`, `/video-challenge` — User wird nicht mehr von "Wlad sagt"-Popup unterbrochen während er ein Tool benutzt.
+
+  **E2E Verified (testing_agent Iter 89)**: Backend 15/15 PASS · Frontend 10/11 PASS · Live conversation-prep Test gibt strukturiertes Dict mit 5 top-level keys (conversation_plan, key_phrases, dos_and_donts, feedback_formulations, guide_questions), 6 main_points · `format_error` Flag nie observed bei realen German inputs · Pytest-Suite `/app/backend/tests/test_iteration89_prelaunch.py` (15 Tests) im Repo.
+
+  **LAUNCH READY**: User testet heute Abend nochmal, dann live. Save-to-GitHub pending.
 - **Iter 89 · 2026-02 — Marathon-Sprint Post-Stripe**: User-Request: "Video Trial Boost beim €997 Plan + Defensive AI Fallback + Video-Archive Page + Leader-Diagnose In-App Detail-Page + Auto-Sync von leader-check.de bei Signup".
 
   **Backend-Hardenings**:

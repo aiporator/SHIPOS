@@ -6,8 +6,13 @@ import { X, ArrowRight, Zap, Share2, Gift, Flame } from 'lucide-react';
 
 const WLAD = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
 
-// Pages where SmartPopups should NEVER fire (user already on a high-intent flow).
-const POPUP_BLOCKED_PATHS = ['/coaching', '/payment-success', '/downloads', '/onboarding'];
+// Pages where SmartPopups should NEVER fire (user already on a high-intent flow,
+// or active work that a popup would interrupt).
+const POPUP_BLOCKED_PATHS = [
+  '/coaching', '/payment-success', '/downloads', '/onboarding',
+  '/tools', '/missions', '/simulations', '/playbooks', '/challengers',
+  '/leader-diagnose', '/chat', '/video-challenge',
+];
 
 export const SmartPopups = ({ userData }) => {
   const [popup, setPopup] = useState(null);
