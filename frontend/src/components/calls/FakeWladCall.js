@@ -12,8 +12,9 @@
  */
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Phone, PhoneOff, Video, Volume2 } from 'lucide-react';
+import { Phone, PhoneOff, MessageCircle, Volume2 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useBookConsultation } from '../brand/BookConsultationButton';
 
 const SESSION_KEY = 'wlad_fake_call_count';
 const MAX_CALLS_PER_SESSION = 2;
@@ -34,14 +35,15 @@ const bumpCallCount = () => {
 };
 
 const STARTER_PROMPTS = [
-  'Du hast eben einen Anruf von mir verpasst. Lass uns sofort über deine größte Leadership-Herausforderung sprechen — bring sie auf den Tisch.',
-  'Ich hatte gerade 30 Sekunden für dich. Sag mir: was hält dich gerade davon ab, deine Top-Priorität anzugehen? Antworte in 1 Satz.',
+  'Ich habe gerade nicht abgenommen, als Wlad anrief — aber zeig mir trotzdem: wo ist meine größte Leadership-Lücke? Stell mir 3 Diagnose-Fragen.',
+  'Letzte Chance verpasst. Sag mir in 1 Satz: was hindert mich aktuell daran, meine Top-Priorität anzugehen?',
 ];
 
 export const FakeWladCall = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const openBooking = useBookConsultation();
   const [open, setOpen] = useState(false);
   const timerRef = useRef(null);
 
@@ -77,17 +79,23 @@ export const FakeWladCall = () => {
     };
   }, [user, scheduleNext]);
 
+  // Accept = book a real consultation via Cal.com.
+  // The Wlad team takes the actual call there. Highest-value path.
   const accept = () => {
+    setOpen(false);
+    scheduleNext();
+    openBooking();
+  };
+
+  // Decline = fallback to chat with WladBot so the user gets value
+  // immediately without committing to a calendar slot.
+  const decline = () => {
     setOpen(false);
     const prompt = STARTER_PROMPTS[Math.min(getCallCount() - 1, STARTER_PROMPTS.length - 1)]
       || STARTER_PROMPTS[0];
     try { sessionStorage.setItem('wlad_starter_prompt', prompt); } catch { /* sessionStorage unavailable */ }
     scheduleNext();
     navigate('/chat');
-  };
-  const decline = () => {
-    setOpen(false);
-    scheduleNext();
   };
 
   if (!user || !open || isSuppressed) return null;
@@ -150,7 +158,7 @@ export const FakeWladCall = () => {
         {/* Subtle suggestion bubble */}
         <div className="bg-white/[0.06] border border-white/[0.08] rounded-2xl px-4 py-2.5 backdrop-blur-sm">
           <p className="text-white/75 text-[13px] leading-snug">
-            „Ich hab dich heute auf dem Schirm. Hast du 60 Sekunden?"
+            „Lass uns 30 Min reden — ich helf dir, deinen Pfad zu klären."
           </p>
         </div>
 
@@ -160,6 +168,7 @@ export const FakeWladCall = () => {
             onClick={decline}
             color="#FF3B30"
             label="Ablehnen"
+            sublabel="→ WladBot Chat"
             testId="fake-call-decline"
             icon={<PhoneOff size={26} className="text-white" />}
           />
@@ -173,20 +182,21 @@ export const FakeWladCall = () => {
             onClick={accept}
             color="#30D158"
             label="Annehmen"
+            sublabel="→ Termin buchen"
             testId="fake-call-accept"
             pulse
             icon={<Phone size={26} className="text-white" />}
           />
         </div>
 
-        {/* tiny tertiary */}
+        {/* tiny tertiary — alternate fallback to chat */}
         <button
           type="button"
-          onClick={accept}
+          onClick={decline}
           className="mt-2 text-[11px] text-white/55 hover:text-white transition-colors inline-flex items-center gap-1.5"
-          data-testid="fake-call-video"
+          data-testid="fake-call-chat-fallback"
         >
-          <Video size={11} /> mit Video annehmen
+          <MessageCircle size={11} /> Lieber kurz mit WladBot chatten
         </button>
         <p className="text-white/15 text-[9px] tracking-[0.32em] uppercase mt-1">
           Leader OS · Wlad-Network
@@ -196,7 +206,7 @@ export const FakeWladCall = () => {
   );
 };
 
-const CallAction = ({ onClick, color, label, icon, pulse = false, testId }) => (
+const CallAction = ({ onClick, color, label, sublabel, icon, pulse = false, testId }) => (
   <div className="flex flex-col items-center gap-2">
     <button
       type="button"
@@ -208,7 +218,12 @@ const CallAction = ({ onClick, color, label, icon, pulse = false, testId }) => (
     >
       {icon}
     </button>
-    <span className="text-white/55 text-[11px] font-semibold">{label}</span>
+    <span className="text-white/70 text-[12px] font-bold leading-none">{label}</span>
+    {sublabel && (
+      <span className="text-white/35 text-[10px] font-semibold tracking-wide leading-none -mt-1">
+        {sublabel}
+      </span>
+    )}
   </div>
 );
 
