@@ -38,8 +38,9 @@
     --chart-5: 200 80% 50%;
     --radius: 0.75rem;
 
-    /* Brand tokens */
-    --brand: #BFFF00;
+    /* Brand tokens — light mode uses darker lime for WCAG contrast on white */
+    --brand: 72 100% 27%;        /* #6B8A00 — WCAG AA on light bg */
+    --brand-hex: #6B8A00;
     --brand-dark: #9ACC00;
     --brand-bg: #0A0A0A;
     --cyan: #BFFF00;
@@ -71,6 +72,9 @@
     --chart-3: 24 90% 55%;
     --chart-4: 340 75% 60%;
     --chart-5: 200 80% 55%;
+    /* Dark mode: full neon lime */
+    --brand: 72 100% 50%;
+    --brand-hex: #BFFF00;
   }
 }
 
@@ -83,8 +87,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    letter-spacing: -0.03em;
+    font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 800;
   }
   code, pre { font-family: 'JetBrains Mono', monospace; }
 }
