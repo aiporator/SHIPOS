@@ -1,17 +1,24 @@
 /**
- * WladMark — Das offizielle Premium-Logo für Leader-OS.
+ * WladMark — Premium asymmetric "W" mark for Leader-OS.
  *
- * Geometrie: Drei aufsteigende Linien innerhalb eines abgerundeten
- * Containers, die das „W" formen UND gleichzeitig den 3-Säulen-Aufstieg
- * (Inspire → Convince → Lead) abbilden. Inspiration: Revolut-Mark,
- * Stripe, Linear — minimal, geometrisch, sofort wiedererkennbar.
+ * Design rationale (Iter 92):
+ *   The previous mark read as a generic ascending bar chart. Mert asked for
+ *   something pixel-styled, asymmetric, animated, and unmistakably built
+ *   around the letter "W" — i.e. the mark must spell W on first glance,
+ *   while still feeling premium / glitch-tech.
  *
- * Modi:
- *   size           — Pixel-Größe (24 default)
- *   variant        — 'solid' (Brand bg, dark text) | 'outline' (transparent)
+ *   New geometry:
+ *     - Bold thick "W" letterform (custom hand-tuned path, not a font glyph)
+ *     - Asymmetric: the right leg is taller / heavier than the left, with a
+ *       single pixel "crown" floating off the top-right vertex
+ *     - Pixel-style accents: 3 chunky squares orbit the mark
+ *     - Animations: idle slow-glitch + hover trace-stroke + scan-line shimmer
+ *
+ * Modes:
+ *   size           — pixel size (28 default)
+ *   variant        — 'solid' (lime tile, dark glyph) | 'outline' (no bg)
  *   className      — extra wrapper classes
- *   animated       — hover-pulse + interaction-glow
- *   withWordmark   — render side wordmark text next to mark
+ *   animated       — adds idle-glitch + interaction-shimmer
  */
 import { forwardRef } from 'react';
 
@@ -22,9 +29,9 @@ export const WladMark = forwardRef(({
   animated = false,
   ...props
 }, ref) => {
-  // Two distinct visual treatments. Solid = filled lime tile, Outline = mark
-  // floating on transparent container (used on the brand bg itself).
   const isSolid = variant === 'solid';
+  const glyphFill = isSolid ? '#0A0A0A' : '#BFFF00';
+  const accentFill = isSolid ? '#0A0A0A' : '#D4FF4D';
 
   return (
     <span
@@ -45,53 +52,79 @@ export const WladMark = forwardRef(({
         />
       )}
 
-      {/* SVG mark — ASCENDING PIXEL CHART
-          Three rising columns connected by an upward W stroke. The pattern
-          reads as a clear "going-up" chart while still spelling W: each peak
-          higher than the previous, with thick chunky pixel-style strokes. */}
+      {/* Scan-line shimmer (only animated) */}
+      {animated && (
+        <span aria-hidden className="absolute inset-0 rounded-[28%] overflow-hidden pointer-events-none">
+          <span className="wlad-mark-scanline" />
+        </span>
+      )}
+
+      {/*  ASYMMETRIC "W" GLYPH
+            32×32 grid. Hand-tuned bold W with intentional asymmetry:
+            - left leg starts at x=3, has 2.6 stroke
+            - middle V dips to y=20 (shallow)
+            - right leg ends higher than left (asymmetry) and is 0.6 thicker
+            - tiny crown pixel floats off the right tip
+       */}
       <svg
         viewBox="0 0 32 32"
-        width={size * 0.74}
-        height={size * 0.74}
+        width={size * 0.78}
+        height={size * 0.78}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="relative z-10"
-        shapeRendering="crispEdges"
+        className="relative z-10 wlad-mark-glyph"
+        shapeRendering="geometricPrecision"
       >
         <defs>
           <linearGradient id="wm-stroke" x1="4" y1="26" x2="28" y2="6" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor={isSolid ? '#0A0A0A' : '#BFFF00'} />
-            <stop offset="100%" stopColor={isSolid ? '#1A1A1A' : '#D4FF4D'} />
+            <stop offset="0%" stopColor={glyphFill} stopOpacity="0.95" />
+            <stop offset="100%" stopColor={glyphFill} />
+          </linearGradient>
+          <linearGradient id="wm-accent" x1="0" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={accentFill} />
+            <stop offset="100%" stopColor={accentFill} stopOpacity="0.55" />
           </linearGradient>
         </defs>
 
-        {/* Pixel-style ascending columns — each step taller than the last */}
-        <g fill="url(#wm-stroke)">
-          <rect x="3"  y="18" width="3" height="9"  rx="0.5" />
-          <rect x="9"  y="14" width="3" height="13" rx="0.5" />
-          <rect x="15" y="10" width="3" height="17" rx="0.5" />
-          <rect x="21" y="6"  width="3" height="21" rx="0.5" />
-          <rect x="27" y="3"  width="3" height="24" rx="0.5" />
-        </g>
-
-        {/* Subtle W-connecting underline that ties the chart to the brand */}
+        {/* Drop-shadow ghost (asymmetric offset for depth) */}
         <path
-          d="M3 27 L30 27"
-          stroke={isSolid ? '#0A0A0A' : '#BFFF00'}
-          strokeWidth="1.5"
+          d="M4.4 7.2 L9.0 26.8 L13.0 14.4 L17.0 26.8 L22.0 12.0 L25.4 26.4"
+          stroke={glyphFill}
+          strokeWidth="3.4"
           strokeLinecap="round"
-          opacity="0.35"
-          className="wlad-mark-path"
+          strokeLinejoin="round"
+          opacity="0.18"
+          transform="translate(0.8 0.8)"
         />
 
-        {/* Crown-dot — apex accent on top of the tallest bar */}
-        <circle
-          cx="28.5"
-          cy="2.5"
-          r="1.7"
-          fill={isSolid ? '#0A0A0A' : '#BFFF00'}
-          className="wlad-mark-dot"
+        {/* Main W stroke — the centerpiece */}
+        <path
+          className="wlad-mark-w"
+          d="M3.6 6.4 L8.2 26.0 L12.2 13.6 L16.2 26.0 L21.2 11.2 L24.6 25.6"
+          stroke="url(#wm-stroke)"
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
         />
+
+        {/* Asymmetric heavy right tail — extra stroke that makes the W
+            visually heavier on the right (signature asymmetry). */}
+        <path
+          className="wlad-mark-tail"
+          d="M21.2 11.2 L25.4 23.0"
+          stroke="url(#wm-stroke)"
+          strokeWidth="3.8"
+          strokeLinecap="round"
+          fill="none"
+        />
+
+        {/* Pixel accent #1 — left valley dot */}
+        <rect className="wlad-mark-pixel-a" x="11" y="6.4" width="2.2" height="2.2" rx="0.35" fill="url(#wm-accent)" />
+        {/* Pixel accent #2 — right crown */}
+        <rect className="wlad-mark-pixel-b" x="25.6" y="3.4" width="2.6" height="2.6" rx="0.4" fill="url(#wm-accent)" />
+        {/* Pixel accent #3 — lower trailing pixel (off-axis for asymmetry) */}
+        <rect className="wlad-mark-pixel-c" x="6.4" y="27.8" width="1.6" height="1.6" rx="0.3" fill="url(#wm-accent)" opacity="0.7" />
       </svg>
     </span>
   );

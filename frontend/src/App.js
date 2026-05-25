@@ -40,6 +40,7 @@ import WiderrufPage from "./pages/WiderrufPage";
 import AGBPage from "./pages/AGBPage";
 import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
+import { FakeWladCall } from "./components/calls/FakeWladCall";
 
 import { CreditProvider } from "./contexts/CreditContext";
 import { PricingProvider } from "./contexts/PricingContext";
@@ -129,6 +130,7 @@ function App() {
                 <BrowserRouter>
                   <NetworkStatusBanner />
                   <AppRouter />
+                  <FakeWladCall />
                   <Toaster position="bottom-right" />
                   <CookieConsent />
                   <ReAuthModal />
