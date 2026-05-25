@@ -14,6 +14,7 @@ import { Button } from '../components/ui/button';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { BookConsultationButton, useBookConsultation } from '../components/brand/BookConsultationButton';
 import { useTheme } from '../contexts/ThemeContext';
+import { usePricing } from '../contexts/PricingContext';
 import {
   Sparkles, BookOpen, ExternalLink, Award, Mic2, GraduationCap,
   ArrowRight, Users, TrendingUp, Library, Target, CheckCircle2,
@@ -154,6 +155,7 @@ const PillarBlock = ({ pillar, onTrain, isDark }) => {
 export default function WladUniversePage() {
   const navigate = useNavigate();
   const openBooking = useBookConsultation();
+  const { open: openPricing } = usePricing();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -206,8 +208,18 @@ export default function WladUniversePage() {
                 </p>
 
                 <div className="flex flex-wrap gap-3">
+                  <Button
+                    onClick={() => openPricing('leadership_os')}
+                    size="lg"
+                    className="h-12 px-6 text-[13px] bg-brand text-[#0A0A0A] hover:brightness-105 font-bold shadow-[0_8px_24px_-8px_rgba(191,255,0,0.55)] btn-revolut"
+                    data-testid="hero-buy-cta"
+                  >
+                    <Sparkles size={14} className="mr-2" />
+                    Jetzt kaufen · ab 99€/Mo
+                  </Button>
                   <BookConsultationButton
-                    label="Kostenloses Beratungsgespräch buchen"
+                    variant="ghost"
+                    label="Beratungsgespräch"
                     size="lg"
                     className="text-[13px] h-12 px-6"
                     testId="hero-book-cta"
@@ -335,8 +347,17 @@ export default function WladUniversePage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
+              <Button
+                onClick={() => openPricing('leadership_os')}
+                size="lg"
+                className="h-12 px-6 text-[13px] bg-brand text-[#0A0A0A] hover:brightness-105 font-bold btn-revolut"
+                data-testid="ausbildung-buy-cta"
+              >
+                <Sparkles size={14} className="mr-2" /> Jetzt freischalten
+              </Button>
               <BookConsultationButton
                 size="lg"
+                variant="ghost"
                 label="Beratungsgespräch buchen"
                 className="h-12 px-6 text-[13px]"
                 testId="ausbildung-book-cta"
@@ -442,10 +463,19 @@ export default function WladUniversePage() {
               Beratern und finde heraus, welcher Pfad zu dir passt.
             </p>
             <div className="flex flex-wrap gap-3 justify-center mt-7">
+              <Button
+                onClick={() => openPricing('leadership_os')}
+                size="lg"
+                className="h-12 px-7 text-[13px] bg-brand text-[#0A0A0A] hover:brightness-105 font-bold btn-revolut shadow-[0_8px_24px_-8px_rgba(191,255,0,0.55)]"
+                data-testid="closer-buy-cta"
+              >
+                <Sparkles size={14} className="mr-2" /> Jetzt kaufen · 30 Tage Geld-zurück
+              </Button>
               <BookConsultationButton
                 size="lg"
-                label="Jetzt unverbindliches Beratungsgespräch buchen"
-                className="h-12 px-7 text-[13px]"
+                variant="ghost"
+                label="Beratungsgespräch buchen"
+                className="h-12 px-6 text-[13px]"
                 testId="closer-book-cta"
               />
               <Button

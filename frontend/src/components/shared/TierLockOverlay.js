@@ -2,7 +2,7 @@ import { Crown, Lock, Check, Mail, Calendar } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { PaywallModal } from './PaywallModal';
+import { PricingModal } from './PricingModal';
 
 const FEATURE_LABELS = {
   video_analysis: {
@@ -63,7 +63,6 @@ export const TierLockOverlay = ({
   const [showPaywall, setShowPaywall] = useState(false);
   const cfg = FEATURE_LABELS[feature] || FEATURE_LABELS.video_analysis;
   const isAccelerator = requiredTier === 'accelerator';
-
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0A0A0A]/75 backdrop-blur-md animate-fade-in p-6"
@@ -169,7 +168,12 @@ export const TierLockOverlay = ({
         </p>
       </div>
 
-      {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} />}
+      {showPaywall && (
+        <PricingModal
+          defaultTier={isAccelerator ? 'leadership_os_plus' : 'leadership_os'}
+          onClose={() => setShowPaywall(false)}
+        />
+      )}
     </div>
   );
 };

@@ -42,6 +42,7 @@ import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 
 import { CreditProvider } from "./contexts/CreditContext";
+import { PricingProvider } from "./contexts/PricingContext";
 import { TierProvider } from "./contexts/TierContext";
 
 const ProtectedRoute = ({ children }) => {
@@ -124,13 +125,15 @@ function App() {
         <AuthProvider>
           <CreditProvider>
             <TierProvider>
-              <BrowserRouter>
-                <NetworkStatusBanner />
-                <AppRouter />
-                <Toaster position="bottom-right" />
-                <CookieConsent />
-                <ReAuthModal />
-              </BrowserRouter>
+              <PricingProvider>
+                <BrowserRouter>
+                  <NetworkStatusBanner />
+                  <AppRouter />
+                  <Toaster position="bottom-right" />
+                  <CookieConsent />
+                  <ReAuthModal />
+                </BrowserRouter>
+              </PricingProvider>
             </TierProvider>
           </CreditProvider>
         </AuthProvider>

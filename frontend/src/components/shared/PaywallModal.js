@@ -1,6 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Card, CardContent } from '../ui/card';
-import { X, CheckCircle2, Flame, Brain, Video, Target } from 'lucide-react';
+import { X, CheckCircle2, Flame, Brain, Video, Target, Calendar, Sparkles } from 'lucide-react';
+import { PricingModal } from './PricingModal';
+import { useBookConsultation } from '../brand/BookConsultationButton';
 
 const WLAD = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
 
@@ -8,7 +10,14 @@ const WLAD = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-b
 const LIME_ACCENT = 'text-[#6B8A00] dark:text-[#BFFF00]';
 
 export const PaywallModal = ({ onClose, creditsUsed = 10, isSoftPause = false }) => {
-  const navigate = useNavigate();
+  const [showPricing, setShowPricing] = useState(false);
+  const [defaultTier, setDefaultTier] = useState('leadership_os');
+  const openCal = useBookConsultation();
+
+  const handlePick = (tier) => {
+    setDefaultTier(tier);
+    setShowPricing(true);
+  };
 
   const features = [
     { icon: Flame, label: '30-Tage KI-Leadership Sprint' },
@@ -79,8 +88,8 @@ export const PaywallModal = ({ onClose, creditsUsed = 10, isSoftPause = false })
             {/* Pricing — compact */}
             <div className="grid grid-cols-2 gap-2 pt-1">
               <button
-                onClick={() => { onClose(); navigate('/coaching'); }}
-                className="p-2.5 rounded-xl bg-[#0A0A0A] text-white text-center hover:bg-[#1A1A1A] transition-colors"
+                onClick={() => handlePick('leadership_os')}
+                className="p-2.5 rounded-xl bg-[#0A0A0A] text-white text-center hover:bg-[#1A1A1A] transition-colors btn-revolut"
                 data-testid="paywall-cta-standard"
               >
                 <p className="text-lg font-black leading-none">€997</p>
@@ -88,14 +97,32 @@ export const PaywallModal = ({ onClose, creditsUsed = 10, isSoftPause = false })
                 <p className="text-[7px] text-white/30 mt-0.5">1 Jahr · 12 Videokurse</p>
               </button>
               <button
-                onClick={() => { onClose(); navigate('/coaching'); }}
-                className="p-2.5 rounded-xl bg-gradient-to-br from-[#0A0A0A] to-[#1A1A2E] text-white text-center border border-[#BFFF00]/25 hover:border-[#BFFF00]/50 transition-colors relative overflow-hidden"
+                onClick={() => handlePick('leadership_os_plus')}
+                className="p-2.5 rounded-xl bg-gradient-to-br from-[#0A0A0A] to-[#1A1A2E] text-white text-center border border-[#BFFF00]/25 hover:border-[#BFFF00]/50 transition-colors relative overflow-hidden btn-revolut"
                 data-testid="paywall-cta-fast-track"
               >
                 <div className="absolute top-0 right-0 bg-[#BFFF00] text-[#0A0A0A] text-[6px] font-black px-1.5 py-0.5 rounded-bl-md">VIP</div>
                 <p className="text-lg font-black text-[#BFFF00] leading-none">€4.447</p>
                 <p className="text-[8px] text-white/50 mt-1">Leadership OS PLUS</p>
                 <p className="text-[7px] text-white/30 mt-0.5">+ 12× Coaching</p>
+              </button>
+            </div>
+
+            {/* Secondary CTAs — pricing details + cal.com */}
+            <div className="flex gap-2 pt-1">
+              <button
+                onClick={() => setShowPricing(true)}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 text-[10px] font-bold text-foreground/70 hover:text-foreground py-1.5 transition-colors"
+                data-testid="paywall-see-all-pricing"
+              >
+                <Sparkles size={10} className={LIME_ACCENT} /> Alle Optionen
+              </button>
+              <button
+                onClick={() => { onClose(); openCal(); }}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 text-[10px] font-bold text-foreground/70 hover:text-foreground py-1.5 transition-colors"
+                data-testid="paywall-book-cal"
+              >
+                <Calendar size={10} className={LIME_ACCENT} /> Beratung buchen
               </button>
             </div>
 
@@ -121,6 +148,12 @@ export const PaywallModal = ({ onClose, creditsUsed = 10, isSoftPause = false })
           </div>
         </CardContent>
       </Card>
+      {showPricing && (
+        <PricingModal
+          defaultTier={defaultTier}
+          onClose={() => setShowPricing(false)}
+        />
+      )}
     </div>
   );
 };

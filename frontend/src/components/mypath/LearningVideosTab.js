@@ -4,7 +4,7 @@ import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles, X } from 'luc
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import VideoPlayer from '../shared/VideoPlayer';
-import { PaywallModal } from '../shared/PaywallModal';
+import { PricingModal } from '../shared/PricingModal';
 
 const UNLOCK_MEMO_KEY = 'mypath:lastUnlockedIds';
 
@@ -308,7 +308,7 @@ export default function LearningVideosTab() {
           </div>
         </div>
       )}
-      {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} />}
+      {showPaywall && <PricingModal onClose={() => setShowPaywall(false)} />}
     </div>
   );
 }

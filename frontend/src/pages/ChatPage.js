@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePricing } from '../contexts/PricingContext';
 import logger from '../lib/logger';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
@@ -42,6 +43,7 @@ const buildFullMessage = ({ text, messages, userContext, attachedPdf }) => {
 };
 
 export default function ChatPage() {
+  const { open: openPricing } = usePricing();
   const [searchParams] = useSearchParams();
   const { lang } = useLanguage();
   const de = lang === 'de';
@@ -171,7 +173,7 @@ export default function ChatPage() {
             <div key={`msg-${msg.role}-${i}`}>
               <ChatMessage msg={msg} de={de} />
               {msg.role === 'assistant' && !isPremium && (i + 1) % 10 === 0 && (
-                <ChatInlineUpsell onNavigate={() => navigate('/coaching')} de={de} />
+                <ChatInlineUpsell onNavigate={() => openPricing('leadership_os')} de={de} />
               )}
             </div>
           ))}
@@ -192,7 +194,7 @@ export default function ChatPage() {
           onSend={() => handleSend()} onVoice={handleVoice}
           attachedPdf={attachedPdf} setAttachedPdf={setAttachedPdf}
           uploadingPdf={uploadingPdf} onPdfUpload={handlePdfUpload}
-          isPremium={isPremium} onOpenUpsell={() => setShowUpsell(true)}
+          isPremium={isPremium} onOpenUpsell={() => openPricing('leadership_os')}
           onOpenAudioMode={() => setAudioMode(true)}
           de={de}
         />
