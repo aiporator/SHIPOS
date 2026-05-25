@@ -96,7 +96,7 @@ const AttemptRow = ({ attempt, expanded, onToggle, de }) => {
             <div>
               <p className="text-[10px] font-bold text-white/40 tracking-wider uppercase mb-1.5">{de ? 'Stärken' : 'Strengths'}</p>
               <ul className="space-y-1">
-                {a.strengths.map((s, i) => <li key={i} className="text-sm text-emerald-300 flex gap-2"><span>+</span>{s}</li>)}
+                {a.strengths.map((s, i) => <li key={`strength-${i}-${s.slice(0, 24)}`} className="text-sm text-emerald-300 flex gap-2"><span>+</span>{s}</li>)}
               </ul>
             </div>
           )}
@@ -104,7 +104,7 @@ const AttemptRow = ({ attempt, expanded, onToggle, de }) => {
             <div>
               <p className="text-[10px] font-bold text-white/40 tracking-wider uppercase mb-1.5">{de ? 'Verbesserungen' : 'Improvements'}</p>
               <ul className="space-y-1">
-                {a.improvements.map((s, i) => <li key={i} className="text-sm text-amber-300 flex gap-2"><span>→</span>{s}</li>)}
+                {a.improvements.map((s, i) => <li key={`improvement-${i}-${s.slice(0, 24)}`} className="text-sm text-amber-300 flex gap-2"><span>→</span>{s}</li>)}
               </ul>
             </div>
           )}

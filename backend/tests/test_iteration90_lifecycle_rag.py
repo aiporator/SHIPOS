@@ -23,8 +23,8 @@ from pymongo import MongoClient
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
 assert BASE_URL, "REACT_APP_BACKEND_URL not set"
 
-ADMIN_EMAIL = "test@test.com"
-ADMIN_PASSWORD = "test123"
+ADMIN_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "test@test.com")
+ADMIN_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "test123")
 
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
 DB_NAME = os.environ.get("DB_NAME", "test_database")
@@ -110,7 +110,7 @@ class TestCronEndpoints:
 class TestRegisterWelcomeEmail:
     def test_register_fires_signup_welcome(self, mongo_db):
         email = f"e2e_lifecycle_{_rand(10)}@test.com"
-        password = "TestPass123!"
+        password = f"TestPass{_rand(8)}!"
         payload = {"email": email, "password": password, "name": "E2E Lifecycle"}
         r = requests.post(f"{BASE_URL}/api/auth/register", json=payload, timeout=30)
         if r.status_code == 429:

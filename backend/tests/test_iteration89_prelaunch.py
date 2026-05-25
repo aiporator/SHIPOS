@@ -12,8 +12,8 @@ import pytest
 import requests
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
-TEST_EMAIL = "test@test.com"
-TEST_PASSWORD = "test123"
+TEST_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "test@test.com")
+TEST_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "test123")
 
 REQUEST_TIMEOUT = 90  # GPT-5.2 can be slow
 

@@ -315,7 +315,7 @@ export const RagDebugStudio = () => {
             {result.warnings?.length > 0 && (
               <div className="space-y-2 mb-4">
                 {result.warnings.map((w, i) => (
-                  <div key={i} className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/[0.06] border border-amber-500/20">
+                  <div key={`warning-${i}-${String(w).slice(0, 24)}`} className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/[0.06] border border-amber-500/20">
                     <AlertTriangle size={14} className="text-amber-400 mt-0.5 shrink-0" />
                     <p className="text-xs text-amber-200 leading-relaxed">{w}</p>
                   </div>
