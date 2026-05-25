@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles } from 'lucide-react';
+import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles, X } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
+import VideoPlayer from '../shared/VideoPlayer';
 
 const UNLOCK_MEMO_KEY = 'mypath:lastUnlockedIds';
 
@@ -130,8 +131,15 @@ export default function LearningVideosTab() {
     })();
   }, []);
 
+  const [playerOpen, setPlayerOpen] = useState(null);  // video object currently playing
+
   const handlePlay = (video) => {
-    // Future: navigate to a dedicated video-player; for now, toast/alert
+    // If the video row has a Vimeo ID / URL → open in-app player.
+    // Otherwise (link not yet provided by Mert) → fall back to the chat flow.
+    if (video.vimeo_id || video.vimeo_url || video.video_url) {
+      setPlayerOpen(video);
+      return;
+    }
     navigate(`/chat?prefill=${encodeURIComponent('Erkläre mir die Kerninhalte von "' + video.title + '"')}`);
   };
   const handleUpgrade = () => navigate('/coaching');
@@ -266,6 +274,38 @@ export default function LearningVideosTab() {
           ))}
         </div>
       </section>
+
+      {/* In-app video player modal — opens when a video with vimeo_id/url is played */}
+      {playerOpen && (
+        <div
+          className="fixed inset-0 z-[9000] flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+          onClick={() => setPlayerOpen(null)}
+          data-testid="video-player-modal"
+        >
+          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white font-bold text-lg" style={{ fontFamily: 'Outfit, sans-serif' }}>{playerOpen.title}</h3>
+              <button
+                onClick={() => setPlayerOpen(null)}
+                className="text-white/40 hover:text-white p-2 -mr-2"
+                aria-label="close"
+                data-testid="video-player-close"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <VideoPlayer
+              src={playerOpen.vimeo_url || playerOpen.video_url}
+              vimeoId={playerOpen.vimeo_id}
+              title={playerOpen.title}
+              autoplay
+            />
+            {playerOpen.description && (
+              <p className="text-sm text-white/60 mt-4 leading-relaxed">{playerOpen.description}</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
