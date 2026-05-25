@@ -186,7 +186,9 @@
         <!-- Harmless Chrome bug: silence DataCloneError on PerformanceServerTiming -->
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
 
-        <!-- Cal.com embed: booking modal for /wlad-universe + Coaching pages -->
+        <!-- Cal.com embed: booking modal for /wlad-universe + Coaching pages.
+             Theme follows the OS-level prefers-color-scheme so the modal blends
+             seamlessly with the surrounding Light/Dark UI. -->
         <script>
           (function(C,A,L){let p=function(a,ar){a.q.push(ar);};let d=C.document;C.Cal=C.Cal||function(){
             let cal=C.Cal,ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true;}
@@ -195,8 +197,26 @@
             p(cal,ar);};})(window,"https://app.cal.com/embed/embed.js","init");
           Cal("init","beratung",{origin:"https://app.cal.com"});
           Cal.ns.beratung("ui",{
-            theme:"dark",
-            cssVarsPerTheme:{light:{"cal-brand":"#6B8A00"},dark:{"cal-brand":"#BFFF00"}},
+            theme:"auto",
+            styles:{branding:{brandColor:"#BFFF00"}},
+            cssVarsPerTheme:{
+              light:{
+                "cal-brand":"#6B8A00",
+                "cal-brand-emphasis":"#5a7400",
+                "cal-text":"#0A0A0A",
+                "cal-text-emphasis":"#000000",
+                "cal-bg-emphasis":"#F4F4F5",
+                "cal-bg":"#FFFFFF"
+              },
+              dark:{
+                "cal-brand":"#BFFF00",
+                "cal-brand-emphasis":"#D4FF4D",
+                "cal-text":"#FFFFFF",
+                "cal-text-emphasis":"#FFFFFF",
+                "cal-bg-emphasis":"#1A1A1A",
+                "cal-bg":"#0A0A0A"
+              }
+            },
             hideEventTypeDetails:false,
             layout:"month_view"
           });
