@@ -40,8 +40,11 @@ EXPERIMENTS: dict[str, dict] = {
 
 
 def _bucket(user_id: str, experiment: str) -> int:
-    """Deterministic 0-99 bucket for (user_id, experiment) pair."""
-    h = hashlib.md5(f"{user_id}|{experiment}".encode(), usedforsecurity=False).hexdigest()
+    """Deterministic 0-99 bucket for (user_id, experiment) pair.
+    SHA-256 is used (not for security — just a stable hash to map user IDs
+    to 100 buckets). `usedforsecurity=False` documents this explicitly.
+    """
+    h = hashlib.sha256(f"{user_id}|{experiment}".encode(), usedforsecurity=False).hexdigest()
     return int(h[:8], 16) % 100
 
 

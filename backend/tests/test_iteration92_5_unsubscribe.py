@@ -11,9 +11,9 @@ sys.path.insert(0, "/app/backend")
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
 assert BASE_URL, "REACT_APP_BACKEND_URL must be set"
 
-TEST_EMAIL = "test@test.com"
-TEST_PASSWORD = "test123"
-TEST_USER_ID = "user_f111693f1b00"
+TEST_EMAIL = os.environ.get("TEST_ADMIN_EMAIL", "test@test.com")
+TEST_PASSWORD = os.environ.get("TEST_ADMIN_PASSWORD", "test123")
+TEST_USER_ID = os.environ.get("TEST_ADMIN_USER_ID", "user_f111693f1b00")
 
 
 # ---------- Helpers / fixtures ----------
