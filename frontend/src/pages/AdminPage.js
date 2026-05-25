@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { AuthHealthWidget } from '../components/admin/AuthHealthWidget';
 import { RagDebugStudio } from '../components/admin/RagDebugStudio';
+import { LearningVideosManager } from '../components/admin/LearningVideosManager';
 
 const TIER_COLORS = {
   free: 'bg-slate-400',
@@ -278,6 +279,21 @@ export default function AdminPage() {
             </p>
           </div>
           <RagDebugStudio />
+        </div>
+
+        {/* Learning Videos Manager — Vimeo metadata for the 10-course catalogue */}
+        <div className="mt-6">
+          <div className="mb-3">
+            <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              {de ? 'Lernvideos · Vimeo-Verwaltung' : 'Learning Videos · Vimeo Manager'}
+            </h2>
+            <p className="text-[11px] text-muted-foreground">
+              {de
+                ? 'Hinterlege Vimeo-IDs / URLs für die 10 Kurse. Sobald gespeichert spielt der In-App-Player ohne Code-Deploy.'
+                : 'Drop Vimeo IDs / URLs into the 10-course catalogue. The in-app player picks them up live, no deploy needed.'}
+            </p>
+          </div>
+          <LearningVideosManager />
         </div>
       </div>
     </DashboardLayout>

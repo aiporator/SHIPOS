@@ -15,7 +15,10 @@ from emergentintegrations.payments.stripe.checkout import (
 from config import db, STRIPE_API_KEY, logger
 from services import get_current_user, require_cron_auth
 from services_tier import TIER_CONFIG, activate_tier, resolve_user_tier, calc_enterprise_quote
-from services_email import send_email, tier_welcome_email, installment_due_email, monthly_scorecard_email, is_enabled as email_enabled
+from services_email import (
+    send_email, tier_welcome_email, installment_due_email, monthly_scorecard_email,
+    stripe_receipt_email, is_enabled as email_enabled,
+)
 
 router = APIRouter(prefix="/api", tags=["payments"])
 
@@ -108,19 +111,41 @@ async def _activate_from_package(user_id: str, package_id: str):
     await activate_tier(user_id, tier, via_installment=via_inst, installment_plan_id=plan_id)
     logger.info(f"Tier {tier} activated for user {user_id} via {package_id} (installment={via_inst}, plan={plan_id})")
 
-    # Fire welcome email (best-effort)
+    # Fire welcome email (best-effort) + Stripe receipt
     if email_enabled() and tier in ("standard", "accelerator", "enterprise"):
         user = await db.users.find_one({"user_id": user_id}, {"_id": 0})
         if user and user.get("email"):
             name = user.get("name") or user["email"].split("@")[0]
+            # Find the most recent paid transaction for this user → receipt details
+            tx = await db.payment_transactions.find_one(
+                {"user_id": user_id, "payment_status": "paid"},
+                {"_id": 0}, sort=[("paid_at", -1)],
+            )
             try:
+                # 1. Receipt email — always send if we have transaction data
+                if tx:
+                    receipt_sub, receipt_html = stripe_receipt_email(
+                        name=name,
+                        package_name=tx.get("package_name") or pkg.get("name", "Leader-OS"),
+                        amount=float(tx.get("amount") or pkg.get("amount", 0)),
+                        currency=tx.get("currency") or pkg.get("currency", "eur"),
+                        tier=tier,
+                        transaction_id=tx.get("transaction_id") or "—",
+                    )
+                    await send_email(user["email"], receipt_sub, receipt_html)
+                    await db.email_log.insert_one({
+                        "user_id": user_id, "type": f"stripe_receipt_{tx.get('transaction_id', 'unknown')}",
+                        "sent_at": datetime.now(timezone.utc).isoformat(),
+                    })
+
+                # 2. Tier welcome email (the celebratory one)
                 subject, html = tier_welcome_email(tier, name)
                 await send_email(user["email"], subject, html)
                 await db.email_log.insert_one({
                     "user_id": user_id, "type": f"welcome_{tier}", "sent_at": datetime.now(timezone.utc).isoformat(),
                 })
             except Exception as e:
-                logger.error(f"Welcome email failed for {user_id}: {e}")
+                logger.error(f"Post-purchase emails failed for {user_id}: {e}")
 
 
 async def _record_pending_transaction(session_id: str, user: dict, package_id: str, package: dict) -> str:

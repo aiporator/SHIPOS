@@ -157,20 +157,42 @@ async def get_my_path(request: Request):
 
 @router.get("/my-path/videos")
 async def get_learning_videos(request: Request):
-    """Return the learning videos catalog with per-tier unlock info."""
+    """Return the learning videos catalog with per-tier unlock info.
+
+    Merges the static catalog with any per-video metadata stored in the
+    `learning_videos` MongoDB collection — that's where Mert drops vimeo_id /
+    vimeo_url once a recording is ready. Until a row exists, the frontend
+    falls back to a "chat about this lesson" deep link.
+    """
     user = await get_current_user(request)
     tier_info = await resolve_user_tier(user)
     user_tier = tier_info["tier"]
     user_rank = TIER_RANK.get(user_tier, 0)
 
+    # Pull video metadata overrides from Mongo (only fields we care about merging)
+    overrides_cursor = db.learning_videos.find(
+        {}, {"_id": 0, "id": 1, "vimeo_id": 1, "vimeo_url": 1, "video_url": 1,
+             "release_date": 1, "transcript_url": 1, "thumbnail_url": 1},
+    )
+    overrides = {row["id"]: row async for row in overrides_cursor if row.get("id")}
+
     videos = []
     for v in LEARNING_VIDEOS:
         required_rank = TIER_RANK.get(v["min_tier"], 1)
         unlocked = user_rank >= required_rank
-        videos.append({**v, "unlocked": unlocked})
+        merged = {**v, "unlocked": unlocked}
+        ov = overrides.get(v["id"])
+        if ov:
+            for field in ("vimeo_id", "vimeo_url", "video_url", "release_date",
+                          "transcript_url", "thumbnail_url"):
+                if ov.get(field):
+                    merged[field] = ov[field]
+        merged["has_video"] = bool(merged.get("vimeo_id") or merged.get("vimeo_url") or merged.get("video_url"))
+        videos.append(merged)
 
     starter_videos = [v for v in videos if v["min_tier"] == "starter"]
     accelerator_videos = [v for v in videos if v["min_tier"] == "accelerator"]
+    ready_count = sum(1 for v in videos if v["has_video"])
 
     return {
         "user_tier": user_tier,
@@ -180,4 +202,5 @@ async def get_learning_videos(request: Request):
         "total_episodes": sum(item["episodes"] for item in videos),
         "unlocked_count": sum(1 for item in videos if item["unlocked"]),
         "total_count": len(videos),
+        "ready_count": ready_count,  # how many have a real Vimeo link
     }

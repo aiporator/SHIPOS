@@ -92,6 +92,10 @@ app.include_router(sync_router)
 from routes.og import router as og_router  # noqa: E402
 app.include_router(og_router)
 
+# Lifecycle email crons (trial reminders + drip sequence)
+from routes.lifecycle_emails import router as lifecycle_emails_router  # noqa: E402
+app.include_router(lifecycle_emails_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:

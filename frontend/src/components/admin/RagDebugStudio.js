@@ -19,7 +19,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { Search, Sparkles, AlertTriangle, Loader2, BarChart3, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Sparkles, AlertTriangle, Loader2, BarChart3, BookOpen, ChevronDown, ChevronUp, Wand2 } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 
@@ -112,6 +112,8 @@ export const RagDebugStudio = () => {
   const [error, setError] = useState('');
   const [expanded, setExpanded] = useState(null);
   const [corpusStats, setCorpusStats] = useState(null);
+  const [enriching, setEnriching] = useState(false);
+  const [enrichResult, setEnrichResult] = useState(null);
 
   const loadCorpusStats = useCallback(async () => {
     try {
@@ -123,6 +125,21 @@ export const RagDebugStudio = () => {
   }, []);
 
   useEffect(() => { loadCorpusStats(); }, [loadCorpusStats]);
+
+  const runEnrich = async (dryRun = true) => {
+    setEnriching(true);
+    setEnrichResult(null);
+    try {
+      const res = await api.post('/admin/rag-enrich-metadata', { dry_run: dryRun, limit: 2000 });
+      setEnrichResult(res.data);
+      if (!dryRun) loadCorpusStats();
+    } catch (err) {
+      logger.error('rag-enrich-metadata failed', err);
+      setEnrichResult({ error: err?.response?.data?.detail || 'Enrichment failed' });
+    } finally {
+      setEnriching(false);
+    }
+  };
 
   const runQuery = async (q) => {
     const text = (q || query).trim();
@@ -148,13 +165,38 @@ export const RagDebugStudio = () => {
       {/* Corpus overview */}
       {corpusStats && (
         <Card className="p-5 bg-gradient-to-br from-[#BFFF00]/[0.05] to-transparent border-[#BFFF00]/15">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-[#BFFF00]/15 flex items-center justify-center">
-              <BookOpen size={16} className="text-[#BFFF00]" />
+          <div className="flex items-center justify-between mb-4 gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#BFFF00]/15 flex items-center justify-center">
+                <BookOpen size={16} className="text-[#BFFF00]" />
+              </div>
+              <div>
+                <h3 className="font-bold text-white">WladBot Knowledge Corpus</h3>
+                <p className="text-[11px] text-white/50">{corpusStats.total_chunks} Chunks · {corpusStats.unique_courses} Kurse · {corpusStats.unique_themes} Themen</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-white">WladBot Knowledge Corpus</h3>
-              <p className="text-[11px] text-white/50">{corpusStats.total_chunks} Chunks · {corpusStats.unique_courses} Kurse · {corpusStats.unique_themes} Themen</p>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => runEnrich(true)}
+                disabled={enriching}
+                className="border-white/15 text-white/70 hover:text-white text-[11px]"
+                data-testid="rag-enrich-dryrun-btn"
+              >
+                {enriching ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
+                <span className="ml-1.5">Dry-Run</span>
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => runEnrich(false)}
+                disabled={enriching}
+                className="bg-[#BFFF00] hover:bg-[#D4FF4D] text-black font-bold text-[11px]"
+                data-testid="rag-enrich-apply-btn"
+              >
+                {enriching ? <Loader2 size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                <span className="ml-1.5">Apply Backfill</span>
+              </Button>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -162,6 +204,30 @@ export const RagDebugStudio = () => {
               <CoverageChip key={c} label={c} count={n} total={corpusStats.total_chunks} />
             ))}
           </div>
+
+          {enrichResult && (
+            <div className="mt-4 p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[11px] text-white/75" data-testid="rag-enrich-result">
+              {enrichResult.error ? (
+                <span className="text-red-400">{enrichResult.error}</span>
+              ) : (
+                <>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#BFFF00]">
+                      {enrichResult.dry_run ? 'Dry-Run' : 'Applied'}
+                    </span>
+                    <span>· {enrichResult.enriched_total} enriched · {enrichResult.already_labeled} canonical · {enrichResult.skipped_no_match} no match</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {Object.entries(enrichResult.enriched_by_course || {}).map(([c, n]) => (
+                      <span key={c} className="px-2 py-0.5 rounded-full bg-[#BFFF00]/[0.08] border border-[#BFFF00]/15 text-[10px] text-[#BFFF00] font-semibold">
+                        {c} · {n}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </Card>
       )}
 

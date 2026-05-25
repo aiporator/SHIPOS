@@ -156,6 +156,15 @@ async def _upsert_user_from_oauth(profile: dict, request: Request) -> dict:
         logger.warning("Supabase mirror failed (non-blocking): %s", e)
 
     await record_user_action(user_id, f"register_{provider}")
+
+    # Welcome email for new OAuth user (fire-and-forget)
+    try:
+        import asyncio as _asyncio
+        from routes.auth import _send_signup_welcome
+        _asyncio.create_task(_send_signup_welcome(email, user_doc["name"]))
+    except Exception as e:
+        logger.warning("OAuth welcome email scheduling failed: %s", e)
+
     return user_doc
 
 

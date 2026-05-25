@@ -407,3 +407,263 @@ async def rag_corpus_stats(request: Request):
         "unique_themes": len(themes),
     }
 
+
+
+# ── RAG Metadata Enrichment ────────────────────────────────────────────────
+# Maps the legacy `book` field (and content heuristics) to the canonical
+# `course` field used by the WladBot UI + Admin RAG Studio.
+
+BOOK_TO_COURSE = {
+    "verhandlung":          "Verhandlungstraining",
+    "5_rollen":             "Die 5 Rollen einer Führungskraft",
+    "schwierige_gespraeche": "Schwierige Gespräche",
+    "fuehrung_durch_gruende": "Führung durch Gründe",
+    "Führung durch Gründe":  "Führung durch Gründe",
+    "digitale_rhetorik":     "Digitale Rhetorik",
+}
+
+# Canonicalisation: existing rows that have a non-canonical `course` value
+# get normalised to the canonical name (run by the enrichment endpoint).
+COURSE_ALIASES = {
+    "30_schlagfertigkeit":     "30 Schlagfertigkeitstechniken",
+    "13_kommunikationsfehler": "13 Kommunikationsfehler",
+}
+
+# Heuristics for chunks that have NEITHER `course` NOR `book`.
+# Order matters — first match wins.
+HEURISTIC_RULES = [
+    # 13 Kommunikationsfehler chunks tag themselves with `fehler_nr` or a summary topic
+    (lambda m, c: "fehler_nr" in m, "13 Kommunikationsfehler"),
+    (lambda m, c: m.get("topic") == "zusammenfassung" and "13 Kommunikationsfehler" in (c or ""),
+     "13 Kommunikationsfehler"),
+    # Schlagfertigkeit chunks always carry a `technique` numeric tag + `name`
+    (lambda m, c: isinstance(m.get("technique"), int) and m.get("name"),
+     "30 Schlagfertigkeitstechniken"),
+    # Argumentorik / Masterclass organisational FAQ
+    (lambda m, c: "Masterclass" in str(m.get("topic", "")),
+     "Argumentorik Masterclass FAQ"),
+    # Rolle-1-5 framework chunks (5 Rollen course expansion)
+    (lambda m, c: isinstance(m.get("role"), int) and 1 <= m["role"] <= 5,
+     "Die 5 Rollen einer Führungskraft"),
+    # 3-Layer Elite-Leader framework foundational chunks
+    (lambda m, c: m.get("framework") == "3layer", "Leader-OS Framework"),
+    # Other Leader-OS meta frameworks (diagnostic / ecosystem / agents)
+    (lambda m, c: m.get("framework") in {"diagnostic", "ecosystem", "agents"},
+     "Leader-OS Framework"),
+    # WladBot-expansion library (synthetic enrichment chunks)
+    (lambda m, c: m.get("author") == "wladbot_expansion", "WladBot Expansion Library"),
+    # Meta / resource pointers
+    (lambda m, c: m.get("topic") in {"weiterführende_ressourcen", "weiterfuehrende_ressourcen"},
+     "Empfehlungen & Ressourcen"),
+]
+
+
+def _infer_course(meta: dict, content: str) -> str | None:
+    """Return the inferred canonical course name, or None if no match.
+
+    Also returns the canonical name for chunks already labeled with an alias.
+    """
+    current = meta.get("course")
+    if current:
+        # Normalise non-canonical aliases
+        return COURSE_ALIASES.get(current) if current in COURSE_ALIASES else None
+    book = meta.get("book")
+    if book and book in BOOK_TO_COURSE:
+        return BOOK_TO_COURSE[book]
+    for predicate, course_name in HEURISTIC_RULES:
+        try:
+            if predicate(meta, content or ""):
+                return course_name
+        except Exception:
+            continue
+    return None
+
+
+@router.post("/rag-enrich-metadata")
+async def rag_enrich_metadata(request: Request):
+    """One-shot endpoint to backfill `course` metadata for every chunk that's missing it.
+
+    Body (optional): { "dry_run": bool, "limit": int }
+    Returns a per-course summary of how many chunks were enriched.
+    """
+    await require_admin(request)
+    body = {}
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    dry_run = bool(body.get("dry_run", False))
+    limit = int(body.get("limit", 1000))
+
+    import os
+    import httpx
+
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not (url and key):
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    headers = {
+        "apikey": key,
+        "Authorization": f"Bearer {key}",
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
+    }
+
+    async with httpx.AsyncClient(timeout=30) as client:
+        r = await client.get(
+            f"{url}/rest/v1/wladbot_documents?select=id,metadata,content&limit={limit}",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+        )
+        if r.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"Supabase fetch failed: {r.text[:200]}")
+        rows = r.json() if isinstance(r.json(), list) else []
+
+        enriched_by_course: dict[str, int] = {}
+        skipped_no_match = 0
+        already_labeled = 0
+        updates_failed = 0
+        plan: list[dict] = []
+
+        for row in rows:
+            meta = row.get("metadata") or {}
+            current_course = meta.get("course")
+            inferred = _infer_course(meta, row.get("content") or "")
+            if current_course and not inferred:
+                # already on a canonical course
+                already_labeled += 1
+                continue
+            if not inferred:
+                skipped_no_match += 1
+                continue
+            enriched_by_course[inferred] = enriched_by_course.get(inferred, 0) + 1
+            plan.append({"id": row["id"], "course": inferred,
+                         "was": current_course or "(none)"})
+
+            if dry_run:
+                continue
+
+            new_meta = dict(meta)
+            new_meta["course"] = inferred
+            patch_resp = await client.patch(
+                f"{url}/rest/v1/wladbot_documents?id=eq.{row['id']}",
+                headers=headers,
+                json={"metadata": new_meta},
+            )
+            if patch_resp.status_code not in (200, 204):
+                updates_failed += 1
+
+    return {
+        "dry_run": dry_run,
+        "total_scanned": len(rows),
+        "already_labeled": already_labeled,
+        "enriched_by_course": dict(sorted(enriched_by_course.items(), key=lambda x: -x[1])),
+        "enriched_total": sum(enriched_by_course.values()),
+        "skipped_no_match": skipped_no_match,
+        "updates_failed": updates_failed,
+        "plan_preview": plan[:25] if dry_run else [],
+    }
+
+
+@router.get("/rag-uncategorized-samples")
+async def rag_uncategorized_samples(request: Request, sample_size: int = 20):
+    """Return sample chunks that have neither `course` nor `book` — useful to extend heuristics."""
+    await require_admin(request)
+    import os
+    import httpx
+
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not (url and key):
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    async with httpx.AsyncClient(timeout=20) as client:
+        r = await client.get(
+            f"{url}/rest/v1/wladbot_documents?select=id,metadata,content&limit=2000",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+        )
+    if r.status_code != 200:
+        raise HTTPException(status_code=502, detail=f"Supabase fetch failed: {r.text[:200]}")
+    rows = r.json() if isinstance(r.json(), list) else []
+
+    samples = []
+    for row in rows:
+        m = row.get("metadata") or {}
+        if m.get("course") or m.get("book"):
+            continue
+        samples.append({
+            "id": row["id"],
+            "metadata": m,
+            "preview": (row.get("content") or "")[:240],
+        })
+        if len(samples) >= sample_size:
+            break
+    return {"count": len(samples), "samples": samples}
+
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Learning Videos — admin endpoints for managing Vimeo metadata
+# ─────────────────────────────────────────────────────────────────────────
+
+@router.get("/learning-videos")
+async def admin_list_learning_videos(request: Request):
+    """List all learning videos with their current vimeo metadata status."""
+    await require_admin(request)
+    from routes.my_path import LEARNING_VIDEOS
+
+    overrides = {row["id"]: row async for row in db.learning_videos.find({}, {"_id": 0}) if row.get("id")}
+    out = []
+    for v in LEARNING_VIDEOS:
+        ov = overrides.get(v["id"], {})
+        merged = {
+            "id": v["id"],
+            "title": v["title"],
+            "module": v["module"],
+            "min_tier": v["min_tier"],
+            "duration": v["duration"],
+            "episodes": v["episodes"],
+            "vimeo_id": ov.get("vimeo_id"),
+            "vimeo_url": ov.get("vimeo_url"),
+            "video_url": ov.get("video_url"),
+            "release_date": ov.get("release_date"),
+            "has_video": bool(ov.get("vimeo_id") or ov.get("vimeo_url") or ov.get("video_url")),
+        }
+        out.append(merged)
+    ready = sum(1 for v in out if v["has_video"])
+    return {"videos": out, "total": len(out), "ready": ready, "missing": len(out) - ready}
+
+
+@router.put("/learning-videos/{video_id}")
+async def admin_update_learning_video(video_id: str, request: Request):
+    """Upsert vimeo metadata for a learning video. Body: {vimeo_id, vimeo_url, video_url, release_date}."""
+    await require_admin(request)
+    from routes.my_path import LEARNING_VIDEOS
+
+    valid_ids = {v["id"] for v in LEARNING_VIDEOS}
+    if video_id not in valid_ids:
+        raise HTTPException(status_code=404, detail=f"Unknown video id: {video_id}")
+
+    body = await request.json()
+    update_fields = {}
+    for field in ("vimeo_id", "vimeo_url", "video_url", "release_date", "transcript_url", "thumbnail_url"):
+        if field in body:
+            value = body[field]
+            if value in (None, ""):
+                update_fields[field] = None
+            else:
+                update_fields[field] = str(value).strip()
+
+    if not update_fields:
+        raise HTTPException(status_code=400, detail="No valid fields provided")
+
+    update_fields["updated_at"] = datetime.now(timezone.utc).isoformat()
+
+    await db.learning_videos.update_one(
+        {"id": video_id},
+        {"$set": update_fields, "$setOnInsert": {"id": video_id,
+                                                 "created_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+    row = await db.learning_videos.find_one({"id": video_id}, {"_id": 0})
+    return {"updated": True, "video": row}
