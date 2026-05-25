@@ -4,6 +4,7 @@ import uuid
 import json
 import os
 import tempfile
+import subprocess
 from datetime import datetime, timezone
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 from emergentintegrations.llm.openai import OpenAISpeechToText
@@ -15,6 +16,54 @@ from services_tier import require_feature, resolve_user_tier
 from services_video_trial import get_video_trial_status, consume_video_trial
 
 router = APIRouter(prefix="/api", tags=["video"])
+
+
+# ── Audio normalisation ────────────────────────────────────────────────────
+# Browser MediaRecorder produces wildly different containers (Chrome → video/webm
+# with Opus, Safari → video/mp4 with AAC, Firefox → different again). OpenAI's
+# Whisper sometimes chokes on the raw containers — especially when the file has
+# a video track or non-standard codec settings. Our defence is to ALWAYS pipe
+# uploads through ffmpeg, strip the video, downsample to 16kHz mono MP3, and
+# only then ship to Whisper. This makes the flow robust against every browser
+# we care about and keeps payloads small (max ~25 MB Whisper limit).
+def _ffmpeg_executable() -> str:
+    """Return the path to a usable ffmpeg binary.
+
+    Prefers the system ffmpeg (faster startup), falls back to the static binary
+    bundled by `imageio-ffmpeg` (guarantees production has ffmpeg available even
+    when the host image doesn't ship it).
+    """
+    system_ff = "ffmpeg"
+    # Trust system ffmpeg if it's on PATH (subprocess.run will raise FileNotFoundError otherwise)
+    try:
+        r = subprocess.run([system_ff, "-version"], capture_output=True, timeout=5)
+        if r.returncode == 0:
+            return system_ff
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception as e:
+        raise RuntimeError(f"No ffmpeg binary available (tried PATH + imageio-ffmpeg): {e}")
+
+
+def _ffmpeg_extract_audio(input_path: str, output_path: str) -> None:
+    """Strip video, downmix to mono 16 kHz MP3. Raises RuntimeError on failure."""
+    cmd = [
+        _ffmpeg_executable(), "-y", "-hide_banner", "-loglevel", "error",
+        "-i", input_path,
+        "-vn",                # drop video
+        "-ac", "1",           # mono
+        "-ar", "16000",       # 16 kHz (Whisper's native rate)
+        "-c:a", "libmp3lame",
+        "-b:a", "64k",
+        output_path,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    if result.returncode != 0 or not os.path.exists(output_path) or os.path.getsize(output_path) < 200:
+        raise RuntimeError(f"ffmpeg audio extraction failed: {result.stderr[-300:]}")
+
 
 
 def _build_rating_context(mode: str, level: str, focus: str, audience: str) -> str:
@@ -112,16 +161,64 @@ Antworte NUR mit validem JSON. Kein extra Text."""
 
 
 async def _transcribe_audio(file: UploadFile) -> str:
-    """Transcribe uploaded audio file using OpenAI Whisper."""
+    """Transcribe uploaded media (audio or video) using OpenAI Whisper.
+
+    Pipeline: write upload to /tmp → ffmpeg-extract MP3 audio → send to Whisper.
+    Robust against browser-specific container quirks (Chrome video/webm,
+    Safari video/mp4, Firefox mixed). Falls back to raw upload if ffmpeg
+    isn't on PATH (development containers).
+    """
     stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
     contents = await file.read()
-    with tempfile.NamedTemporaryFile(suffix=".webm", delete=False) as tmp:
-        tmp.write(contents)
-        tmp_path = tmp.name
-    with open(tmp_path, "rb") as audio_file:
-        response = await stt.transcribe(file=audio_file, model="whisper-1", response_format="json", language="de")
-    os.unlink(tmp_path)
-    return response.text
+    if not contents:
+        raise HTTPException(status_code=400, detail="Empty audio file received")
+    if len(contents) > 25 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="Audio file exceeds 25 MB Whisper limit")
+
+    # Pick a suffix based on what the browser told us (best-effort, only used
+    # by ffmpeg as a hint — extraction works regardless).
+    raw_suffix = ".webm"
+    if file.filename and "." in file.filename:
+        ext = file.filename.rsplit(".", 1)[-1].lower()
+        if ext in {"webm", "mp4", "m4a", "mp3", "wav", "ogg", "mpga", "mpeg", "flac"}:
+            raw_suffix = f".{ext}"
+
+    with tempfile.NamedTemporaryFile(suffix=raw_suffix, delete=False) as raw_tmp:
+        raw_tmp.write(contents)
+        raw_path = raw_tmp.name
+
+    # Try ffmpeg-normalise to MP3 first. If ffmpeg isn't available or fails on
+    # this specific file, fall back to the raw upload (Whisper used to accept
+    # most webm/mp4 directly).
+    mp3_path: str | None = None
+    try:
+        mp3_path = raw_path.rsplit(".", 1)[0] + ".normalized.mp3"
+        _ffmpeg_extract_audio(raw_path, mp3_path)
+        audio_path = mp3_path
+        logger.info("Whisper: ffmpeg-normalised %s → %s (%d bytes)",
+                    raw_path, mp3_path, os.path.getsize(mp3_path))
+    except Exception as ff_err:
+        logger.warning("ffmpeg unavailable / failed (%s) — falling back to raw upload", ff_err)
+        audio_path = raw_path
+
+    try:
+        with open(audio_path, "rb") as audio_file:
+            response = await stt.transcribe(
+                file=audio_file, model="whisper-1",
+                response_format="json", language="de",
+            )
+        text = (getattr(response, "text", "") or "").strip()
+        if not text:
+            raise HTTPException(status_code=422,
+                                detail="Audio konnte nicht transkribiert werden — kein Sprachsignal erkannt.")
+        return text
+    finally:
+        for p in (raw_path, mp3_path):
+            if p and os.path.exists(p):
+                try:
+                    os.unlink(p)
+                except OSError:
+                    pass
 
 
 def _build_analysis_prompt(challenge: dict, transcript: str, prev_attempts: list, user_memory: str, rating_context: str) -> str:
@@ -323,24 +420,31 @@ async def analyze_video_challenge(challenge_id: str, request: Request, file: Upl
                 tier_info["tier"],
             )
         return analysis
+    except HTTPException:
+        # Preserve 4xx codes coming from _transcribe_audio (400 empty / 413 too big / 422 silent)
+        raise
     except Exception as e:
-        logger.error(f"Video challenge error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.exception("Video challenge error for user=%s challenge=%s", user.get("user_id"), challenge_id)
+        # Surface a friendlier message — most failures are Whisper container quirks.
+        detail = str(e)
+        if "Invalid file format" in detail or "litellm" in detail.lower():
+            detail = "Audio-Format wurde von Whisper abgelehnt. Bitte erneut aufnehmen (Chrome empfohlen) oder ein anderes Mikrofon verwenden."
+        raise HTTPException(status_code=500, detail=detail)
 
 
 @router.post("/voice/transcribe")
 async def transcribe_voice(request: Request, file: UploadFile = File(...)):
+    """Public transcription endpoint for the chat voice input.
+
+    Reuses the same ffmpeg-normalised pipeline as the video missions flow so
+    Safari / Chrome / Firefox containers all work the same way.
+    """
     await get_current_user(request)
     try:
-        stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
-        contents = await file.read()
-        with tempfile.NamedTemporaryFile(suffix=".webm", delete=False) as tmp:
-            tmp.write(contents)
-            tmp_path = tmp.name
-        with open(tmp_path, "rb") as audio_file:
-            response = await stt.transcribe(file=audio_file, model="whisper-1", response_format="json", language="de")
-        os.unlink(tmp_path)
-        return {"text": response.text}
+        text = await _transcribe_audio(file)
+        return {"text": text}
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Transcription error: {e}")
         raise HTTPException(status_code=500, detail=f"Transcription failed: {str(e)}")

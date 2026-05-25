@@ -136,3 +136,4 @@ monotonic==1.6
 
 # OAuth providers (Google, Apple, Microsoft) — verify ID tokens server-side
 google-auth-oauthlib==1.2.1
+imageio-ffmpeg==0.6.0

@@ -132,7 +132,16 @@ export default function VideoChallengePage() {
       if (res.data?._trial) setTrial(res.data._trial);
       if (stream) stream.getTracks().forEach(t => t.stop());
       setStream(null);
-    } catch (err) { logger.error('Analysis failed:', err); }
+    } catch (err) {
+      logger.error('Analysis failed:', err);
+      const detail = err?.response?.data?.detail || (lang === 'de'
+        ? 'Analyse konnte nicht abgeschlossen werden. Bitte erneut aufnehmen.'
+        : 'Analysis could not be completed. Please record again.');
+      try {
+        const { toast } = await import('sonner');
+        toast.error(detail, { duration: 6000 });
+      } catch (toastErr) { logger.warn('toast unavailable:', toastErr?.message); }
+    }
     finally { setAnalyzing(false); }
   };
 
