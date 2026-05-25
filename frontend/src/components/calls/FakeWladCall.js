@@ -61,7 +61,7 @@ export const FakeWladCall = () => {
   useEffect(() => {
     if (!user) return;
     let cancelled = false;
-    api.get('/api/ab/assign/fake_wlad_call_bribe')
+    api.get('/ab/assign/fake_wlad_call_bribe')
       .then((r) => {
         if (!cancelled && r?.data?.variant) setVariant(r.data.variant);
       })
@@ -70,7 +70,7 @@ export const FakeWladCall = () => {
   }, [user]);
 
   const logEvent = useCallback((event, meta = undefined) => {
-    api.post('/api/ab/event/fake_wlad_call_bribe', { event, meta })
+    api.post('/ab/event/fake_wlad_call_bribe', { event, meta })
       .catch(() => { /* fire-and-forget; never block UX */ });
   }, []);
 

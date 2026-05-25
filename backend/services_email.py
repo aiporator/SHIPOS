@@ -575,7 +575,7 @@ VIDEO_DRIP_VIDEOS = [
 ]
 
 
-def video_drip_email(name: str, video: dict, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def video_drip_email(name: str, video: dict, app_url: str = "https://leader-os.de", unsubscribe_link: str | None = None) -> tuple[str, str]:
     """Generate a weekly drip email pointing to a single Lernvideo.
 
     Subject lines are intentionally psychological: a tease + the takeaway,
@@ -589,6 +589,11 @@ def video_drip_email(name: str, video: dict, app_url: str = "https://leader-os.d
     duration = video["duration"]
     module = video["module"]
     deeplink = f"{app_url.rstrip('/')}/my-path?video={video['id']}"
+    unsub = (
+        f'<p style="font-size:10px;color:rgba(255,255,255,0.3);margin:20px 0 0;text-align:center;">'
+        f'<a href="{unsubscribe_link}" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Diese Lernvideo-Serie abbestellen</a>'
+        f'</p>' if unsubscribe_link else ''
+    )
 
     subject = f"Woche {week}: {title} — freigeschaltet 🎬"
 
@@ -617,6 +622,7 @@ Hallo {name},
 <p style="font-size:11px;color:rgba(255,255,255,0.4);margin:24px 0 0;text-align:center;line-height:1.6;">
 {duration} · 100% kostenfrei · Kein Cliffhanger · Kein Upsell
 </p>
+{unsub}
 """
     return subject, _base_layout(body, preheader=f"Woche {week}: {subtitle} · {duration}")
 

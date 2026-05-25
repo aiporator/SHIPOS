@@ -47,11 +47,13 @@ const ImpressumPage = lazy(() => import("./pages/ImpressumPage"));
 const DatenschutzPage = lazy(() => import("./pages/DatenschutzPage"));
 const WiderrufPage = lazy(() => import("./pages/WiderrufPage"));
 const AGBPage = lazy(() => import("./pages/AGBPage"));
+const EmailUnsubscribePage = lazy(() => import("./pages/EmailUnsubscribePage"));
 
 import { WladMark } from "./components/brand/WladMark";
 import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 import { FakeWladCall } from "./components/calls/FakeWladCall";
+import { AppErrorBoundary } from "./components/AppErrorBoundary";
 
 import { CreditProvider } from "./contexts/CreditContext";
 import { PricingProvider } from "./contexts/PricingContext";
@@ -135,6 +137,8 @@ function AppRouter() {
         <Route path="/datenschutz" element={<DatenschutzPage />} />
         <Route path="/widerruf" element={<WiderrufPage />} />
         <Route path="/agb" element={<AGBPage />} />
+        {/* Public — opens via signed token in lifecycle drip emails */}
+        <Route path="/email/unsubscribe" element={<EmailUnsubscribePage />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
@@ -144,26 +148,28 @@ function AppRouter() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <AuthProvider>
-          <CreditProvider>
-            <TierProvider>
-              <PricingProvider>
-                <BrowserRouter>
-                  <NetworkStatusBanner />
-                  <AppRouter />
-                  <FakeWladCall />
-                  <Toaster position="bottom-right" />
-                  <CookieConsent />
-                  <ReAuthModal />
-                </BrowserRouter>
-              </PricingProvider>
-            </TierProvider>
-          </CreditProvider>
-        </AuthProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+    <AppErrorBoundary>
+      <ThemeProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <CreditProvider>
+              <TierProvider>
+                <PricingProvider>
+                  <BrowserRouter>
+                    <NetworkStatusBanner />
+                    <AppRouter />
+                    <FakeWladCall />
+                    <Toaster position="bottom-right" />
+                    <CookieConsent />
+                    <ReAuthModal />
+                  </BrowserRouter>
+                </PricingProvider>
+              </TierProvider>
+            </CreditProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </ThemeProvider>
+    </AppErrorBoundary>
   );
 }
 

@@ -21,6 +21,7 @@ from services_email import (
     video_drip_email, VIDEO_DRIP_VIDEOS,
     is_enabled as email_enabled,
 )
+from routes.unsubscribe import unsubscribe_url
 from services_video_trial import (
     TRIAL_DAYS, TRIAL_VIDEO_LIMIT, TRIAL_ELIGIBLE_TIERS, _parse_dt,
 )
@@ -249,6 +250,7 @@ async def cron_video_drip(request: Request):
             "email": {"$exists": True, "$ne": ""},
             "created_at": {"$gte": cutoff},
             "unsubscribed_video_drip": {"$ne": True},
+            "unsubscribed_all": {"$ne": True},
         },
         {"_id": 0, "user_id": 1, "email": 1, "name": 1, "created_at": 1},
     ).to_list(5000)
@@ -276,7 +278,10 @@ async def cron_video_drip(request: Request):
             if already:
                 continue
 
-            subject, html = video_drip_email(name, video)
+            subject, html = video_drip_email(
+                name, video,
+                unsubscribe_link=unsubscribe_url(u["user_id"], "video_drip"),
+            )
             result = await send_email(u["email"], subject, html)
             await db.email_log.insert_one({
                 "user_id": u["user_id"], "type": log_type,

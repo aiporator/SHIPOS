@@ -157,6 +157,10 @@ app.include_router(lifecycle_emails_router)
 from routes.ab_testing import router as ab_testing_router  # noqa: E402
 app.include_router(ab_testing_router)
 
+# Email unsubscribe (HMAC-signed tokens, GDPR/CAN-SPAM compliant one-click)
+from routes.unsubscribe import router as unsubscribe_router  # noqa: E402
+app.include_router(unsubscribe_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:
