@@ -78,6 +78,18 @@ export default function ChatPage() {
   useEffect(() => { if (currentSession) loadHistory(currentSession); }, [currentSession, loadHistory]);
   useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
+  // Pick up a starter prompt from /wlad-universe (or any other deep-link source)
+  // and pre-fill the input so the user lands directly in a focused conversation.
+  useEffect(() => {
+    try {
+      const starter = sessionStorage.getItem('wlad_starter_prompt');
+      if (starter) {
+        setInput(starter);
+        sessionStorage.removeItem('wlad_starter_prompt');
+      }
+    } catch (e) { /* sessionStorage may be blocked */ }
+  }, []);
+
   const handleNewSession = async () => {
     try {
       const res = await api.post('/chat/sessions', { title: de ? 'Neues Gespräch' : 'New Conversation' });
