@@ -247,3 +247,163 @@ async def community_leaderboard(request: Request, limit: int = 10):
             "total_likes": r["total_likes"],
         })
     return result
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# RAG Debug — see exactly which Wlad-chunks WladBot retrieves for any query.
+# Critical tool to spot knowledge gaps in the 609-chunk corpus before users do.
+# ─────────────────────────────────────────────────────────────────────────
+
+@router.post("/rag-debug")
+async def rag_debug(request: Request):
+    """For a given query, return top-N chunks + similarity + metadata coverage.
+
+    Body: { "query": str, "match_count": int=10, "match_threshold": float=0.0 }
+    Returns:
+      {
+        query, model, embedding_dim,
+        chunks: [{ id, content, similarity, metadata: {course, section, themes, layer} }],
+        coverage: { courses, sections, themes, layers, top_score, avg_score, low_score_warning },
+      }
+    """
+    await require_admin(request)
+    body = await request.json()
+    query = (body.get("query") or "").strip()
+    if not query or len(query) < 3:
+        raise HTTPException(status_code=400, detail="Query must be at least 3 characters")
+    match_count = max(1, min(int(body.get("match_count", 10)), 30))
+    match_threshold = max(0.0, min(float(body.get("match_threshold", 0.0)), 1.0))
+
+    from services_rag import _embed_query, VOYAGE_MODEL, EMBEDDING_DIM
+    import os
+    import httpx
+
+    embedding = await _embed_query(query)
+    if not embedding:
+        raise HTTPException(status_code=503, detail="Embedding service unavailable (Voyage)")
+
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not (url and key):
+        raise HTTPException(status_code=503, detail="Supabase keys not configured")
+
+    async with httpx.AsyncClient(timeout=12) as client:
+        r = await client.post(
+            f"{url}/rest/v1/rpc/match_wladbot_documents",
+            headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+            json={"query_embedding": embedding, "match_threshold": match_threshold, "match_count": match_count},
+        )
+    if r.status_code != 200:
+        raise HTTPException(status_code=502, detail=f"Supabase RPC failed: {r.text[:200]}")
+
+    chunks_raw = r.json() if isinstance(r.json(), list) else []
+
+    # Build coverage breakdown
+    courses: dict[str, int] = {}
+    sections: dict[str, int] = {}
+    themes: dict[str, int] = {}
+    layers: dict[str, int] = {}
+    similarities: list[float] = []
+    chunks_out = []
+
+    for c in chunks_raw:
+        meta = c.get("metadata") or {}
+        sim = float(c.get("similarity") or 0)
+        similarities.append(sim)
+        course = meta.get("course") or "unknown"
+        section = meta.get("section") or "unknown"
+        layer = str(meta.get("layer") or "unknown")
+        chunk_themes = meta.get("themes") or []
+
+        courses[course] = courses.get(course, 0) + 1
+        sections[section] = sections.get(section, 0) + 1
+        layers[layer] = layers.get(layer, 0) + 1
+        for t in chunk_themes:
+            themes[t] = themes.get(t, 0) + 1
+
+        chunks_out.append({
+            "id": c.get("id"),
+            "similarity": round(sim, 4),
+            "content": (c.get("content") or "")[:400],
+            "metadata": {
+                "course": course,
+                "section": section,
+                "layer": layer,
+                "themes": chunk_themes,
+            },
+        })
+
+    top_score = max(similarities) if similarities else 0
+    avg_score = (sum(similarities) / len(similarities)) if similarities else 0
+
+    # Heuristic warnings
+    warnings = []
+    if not chunks_out:
+        warnings.append("ZERO_CHUNKS: query returned 0 chunks even at threshold=0.0 — embedding may be malformed.")
+    elif top_score < 0.40:
+        warnings.append(f"LOW_RELEVANCE: top similarity is only {top_score:.2f} — corpus likely lacks content for this topic. Consider adding source material.")
+    elif top_score < 0.55:
+        warnings.append(f"MEDIUM_RELEVANCE: top similarity {top_score:.2f} — answers will be loosely grounded. Stronger coverage would help.")
+
+    return {
+        "query": query,
+        "model": VOYAGE_MODEL,
+        "embedding_dim": EMBEDDING_DIM,
+        "match_count": match_count,
+        "match_threshold": match_threshold,
+        "chunks": chunks_out,
+        "coverage": {
+            "courses": dict(sorted(courses.items(), key=lambda x: -x[1])),
+            "sections": dict(sorted(sections.items(), key=lambda x: -x[1])[:8]),
+            "themes": dict(sorted(themes.items(), key=lambda x: -x[1])[:15]),
+            "layers": dict(sorted(layers.items(), key=lambda x: -x[1])),
+            "top_score": round(top_score, 4),
+            "avg_score": round(avg_score, 4),
+            "chunks_returned": len(chunks_out),
+        },
+        "warnings": warnings,
+    }
+
+
+@router.get("/rag-corpus-stats")
+async def rag_corpus_stats(request: Request):
+    """Overview of the entire 609-chunk corpus — which courses are best covered."""
+    await require_admin(request)
+    import os
+    import httpx
+
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not (url and key):
+        raise HTTPException(status_code=503, detail="Supabase not configured")
+
+    # Pull all metadata (lightweight — no embeddings, no content)
+    async with httpx.AsyncClient(timeout=20) as client:
+        r = await client.get(
+            f"{url}/rest/v1/wladbot_documents?select=id,metadata&limit=2000",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+        )
+    if r.status_code != 200:
+        raise HTTPException(status_code=502, detail=f"Supabase fetch failed: {r.text[:200]}")
+
+    rows = r.json() if isinstance(r.json(), list) else []
+    courses: dict[str, int] = {}
+    themes: dict[str, int] = {}
+    layers: dict[str, int] = {}
+    for row in rows:
+        m = row.get("metadata") or {}
+        course = m.get("course") or "unknown"
+        courses[course] = courses.get(course, 0) + 1
+        layers[str(m.get("layer") or "unknown")] = layers.get(str(m.get("layer") or "unknown"), 0) + 1
+        for t in (m.get("themes") or []):
+            themes[t] = themes.get(t, 0) + 1
+
+    return {
+        "total_chunks": len(rows),
+        "courses": dict(sorted(courses.items(), key=lambda x: -x[1])),
+        "layers": dict(sorted(layers.items(), key=lambda x: -x[1])),
+        "top_themes": dict(sorted(themes.items(), key=lambda x: -x[1])[:30]),
+        "unique_courses": len(courses),
+        "unique_themes": len(themes),
+    }
+

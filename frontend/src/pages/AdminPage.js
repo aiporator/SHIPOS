@@ -12,6 +12,7 @@ import {
   Loader2, ShieldAlert, Euro, Activity, MessageCircle,
 } from 'lucide-react';
 import { AuthHealthWidget } from '../components/admin/AuthHealthWidget';
+import { RagDebugStudio } from '../components/admin/RagDebugStudio';
 
 const TIER_COLORS = {
   free: 'bg-slate-400',
@@ -263,6 +264,21 @@ export default function AdminPage() {
             )}
           </CardContent>
         </Card>
+
+        {/* RAG Debug Studio — diagnose WladBot's knowledge retrieval */}
+        <div className="mt-2">
+          <div className="mb-3">
+            <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              {de ? 'WladBot Wissens-Studio' : 'WladBot Knowledge Studio'}
+            </h2>
+            <p className="text-[11px] text-muted-foreground">
+              {de
+                ? 'Sieh genau welche Wlad-Chunks WladBot für jede Frage findet — Coverage-Lücken vor den Usern entdecken.'
+                : 'See exactly which Wlad chunks WladBot retrieves for any question — spot coverage gaps before users do.'}
+            </p>
+          </div>
+          <RagDebugStudio />
+        </div>
       </div>
     </DashboardLayout>
   );

@@ -29,7 +29,9 @@ import httpx
 logger = logging.getLogger("leader-os.rag")
 
 VOYAGE_API_URL = "https://api.voyageai.com/v1/embeddings"
-VOYAGE_MODEL = "voyage-3-large"
+# IMPORTANT: must match the model used to embed `wladbot_documents` (voyage-3, dim=1024).
+# Using voyage-3-large here would give ~0.07 similarity (model mismatch).
+VOYAGE_MODEL = "voyage-3"
 EMBEDDING_DIM = 1024
 
 # RAG tuning
@@ -85,7 +87,7 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
     try:
         async with httpx.AsyncClient(timeout=8) as client:
             r = await client.post(
-                f"{url}/rest/v1/rpc/match_documents",
+                f"{url}/rest/v1/rpc/match_wladbot_documents",
                 headers={
                     "apikey": key,
                     "Authorization": f"Bearer {key}",

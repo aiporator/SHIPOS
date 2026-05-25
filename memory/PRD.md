@@ -141,6 +141,30 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
   7. **Bug-Fix (Testing Agent High-Prio)**: `frontend/src/lib/api.js` `isAuthEndpoint` Regex erweitert um `/auth/magic-link/(request|verify)` + `/auth/google-session` — vorher wurden 401s auf diese Endpoints fälschlich zu `/login` redirected. Magic-Link-Verify Error-State E2E verifiziert.
   - **TEST**: Backend 12/12 PASS (pytest `/app/backend/tests/test_iteration83_security_magic_link.py`). Frontend 4/5 PASS (Login E2E, Tab-Switch, Magic-Link request confirmation, Security Tab UI; bad-token verify nach Cache-Bust live verifiziert per Screenshot).
 - **Iter 87 · 2026-02**: GSAP-Komplett-Cleanup (Mert) — User berichtete weiterhin MyPath-Probleme. Ursache identifiziert: `LearningVideosTab.js` nutzte `ScrollTrigger` mit `opacity:0` Start-State auf allen Video-Tiles — wenn der Trigger nicht zuverlässig feuerte (Element schon im Viewport bei Tab-Switch), blieben Tiles permanent unsichtbar. (1) `MyPathPage.js` `useMotion` entfernt (+useRef-Import, +rootRef). (2) `LearningVideosTab.js` komplett entrümpelt: ScrollTrigger-Stagger, Hover-Lift/Scale-Effekte auf Cards, Unlock-Celebration mit Sparkles+Ring, alle `useMotion`/`gsap`/`prefersReducedMotion` Imports raus. (3) `LoginBrandPanel.js` GSAP-Entrance entfernt — pure CSS-Aurora-Glow bleibt erhalten. (4) `useMotion.js` Hook-File komplett gelöscht. Verifiziert: Build ✅, MyPath-Screenshot zeigt alle 5 Levels mit opacity=1, kein Element mehr versteckt. **GSAP-Skills sind komplett aus User-facing Pages raus.** Behalten: `VoiceWaveVisualizer` (legitimes Voice-Playback-Feature). Package-Deps (`gsap`, `@gsap/react`) bleiben unused in package.json — Entfernung würde Vercel-Lockfile-Rebuild triggern (Risiko).
+- **Iter 93 · 2026-02 — RAG Debug Studio (Godmode)**: Admin-only diagnose tool um die 609-Chunk Knowledge Base in Echtzeit zu inspizieren.
+
+  **Backend** (`routes/admin.py`):
+  - `POST /api/admin/rag-debug` — embed query mit Voyage → call `match_wladbot_documents` RPC → return chunks + similarity + metadata + coverage breakdown (courses, sections, themes, layers) + smart warnings (ZERO_CHUNKS, LOW_RELEVANCE if top<0.40, MEDIUM_RELEVANCE if top<0.55).
+  - `GET /api/admin/rag-corpus-stats` — full corpus overview: 609 total, 12 unique courses, 1345 unique themes. Liefert sortierte Course-Counts (Sales 78, Körpersprache 42, 1-zu-1-Meetings 39, Verhandlungstraining 24...).
+
+  **Frontend** (`components/admin/RagDebugStudio.js` NEU):
+  - Premium Apple-dark mit Voyage-Color-Coded Similarity-Bars (lime ≥0.6, amber 0.4-0.6, red <0.4).
+  - 6 Sample-Query "Preset" Buttons für 1-click Tests.
+  - Coverage-Card mit Top/Avg-Score Stats, Course-Breakdown-Chips, Theme-Tags.
+  - Expandable ChunkRows zeigen full content + course-tags + layer + themes.
+  - Smart-Warning-Banner für Coverage-Lücken.
+  - Eingebunden als neue Section "WladBot Wissens-Studio" am Ende der `/wlad-control-x7k9q2` Admin-Page.
+
+  **Live verifiziert via Screenshot**: 10 chunks visible, coverage card mit allen 12 Kursen, color-coded similarity bars rendern, sample-queries clickable.
+
+  **Killer-Insight aus erstem Probe**: 51% (313/609) der Chunks haben `course=unknown` Metadata — direkter Action-Item für Mert, das nachträglich zu annotieren damit Coverage-Analytics noch schärfer wird.
+- **Iter 92 · 2026-02 — RAG LIVE 🔥**: WladBot Chat nutzt jetzt die 609 Voyage-embedded Chunks in Supabase `wladbot_documents`. Build pipeline:
+  - `services_rag.py` (NEU) — async RAG layer: Voyage `voyage-3` embedding (NICHT `voyage-3-large`, das gab 0.07 similarity vs. 0.66 mit voyage-3) → Supabase RPC `match_wladbot_documents` (korrekter Name, nicht `match_documents`) → top-6 chunks bei threshold 0.6 → format als Context-Block (max 4000 chars) → inject in System-Prompt vor LLM-Call. In-Memory-Cache 60s/256 Entries.
+  - `routes/chat.py` ruft `retrieve_context()` vor dem GPT-5.2 Call, returnt `rag: {active, chunks}` Field im Response so Frontend visualisieren kann.
+  - `server.py` neu: `GET /api/rag-status` für Diagnostics — zeigt configured-flag, keys-set, cache-size, model, dim, thresholds.
+  - **Graceful fallback** an 4 Stellen: Voyage missing/fail · Supabase missing/fail · RPC error · 0 chunks returned — Chat funktioniert IMMER, RAG-Augmentation ist additive.
+  - **Live verifiziert**: Query "Wie gebe ich konstruktives Feedback?" → 3 chunks injected, top sim 0.66, GPT-Antwort referenziert "Wlads FEEDBACKFORMEL (Beobachtung + Wirkung + Wunsch)" und "Kommunikationsquadranten" — echte Wlad-Konzepte aus den Original-Materialien.
+  - **ENV Vars für Production-Redeploy**: `VOYAGE_API_KEY` (pa-...) und neuer `SUPABASE_SERVICE_KEY` (eyJ... JWT, der alte war stale).
 - **Iter 91 · 2026-02 — Pre-Launch Final Audit**: 6-Punkt-Check vor Production-Go-Live heute Abend.
   - ✅ **GDPR/EU-Compliance**: Verified — Export (Art. 20), Delete (Art. 17 mit "DELETE-MY-ACCOUNT" confirm phrase, cascading über `user_actions`, `magic_links`, `login_attempts`, sessions, etc.), Supabase mirror "user.deleted" event, Audit-Log retained. UI in `Profile → GdprSection` mit beiden Optionen.
   - ✅ **Routing-Sanity**: 36 Routes → 31 Pages, alle Imports resolven (geprüft via Python AST scan). 0 broken paths.
