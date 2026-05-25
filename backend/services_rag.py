@@ -79,6 +79,10 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
 
     The RPC must accept: query_embedding (vector), match_threshold (float),
     match_count (int). Returns list of {id, content, similarity, metadata?}.
+
+    Workaround: the deployed `match_wladbot_documents` RPC currently returns
+    metadata=NULL even though the underlying column is populated. When this
+    happens we backfill the metadata via a second batch read of the table.
     """
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_SERVICE_KEY")
@@ -103,10 +107,40 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
                 logger.warning("RAG: Supabase match_documents HTTP %s — %s", r.status_code, r.text[:200])
                 return []
             data = r.json()
-            return data if isinstance(data, list) else []
+            chunks = data if isinstance(data, list) else []
+
+            # Backfill missing metadata (RPC bug → metadata is None on every row)
+            missing_ids = [c["id"] for c in chunks if c.get("metadata") in (None, {})]
+            if missing_ids:
+                await _backfill_metadata(client, url, key, chunks, missing_ids)
+            return chunks
     except Exception as e:
         logger.warning("RAG: Supabase match_documents call failed: %s", e)
         return []
+
+
+async def _backfill_metadata(client, url: str, key: str,
+                              chunks: list[dict], missing_ids: list[str]) -> None:
+    """Fetch metadata for chunk IDs the RPC didn't populate, merge in place."""
+    if not missing_ids:
+        return
+    # PostgREST `in.(a,b,c)` filter — UUIDs are safe
+    in_clause = ",".join(missing_ids)
+    try:
+        r = await client.get(
+            f"{url}/rest/v1/wladbot_documents?id=in.({in_clause})&select=id,metadata",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+        )
+        if r.status_code != 200:
+            return
+        meta_by_id = {row["id"]: row.get("metadata") for row in r.json() if row.get("id")}
+        for chunk in chunks:
+            if chunk.get("metadata") in (None, {}):
+                m = meta_by_id.get(chunk["id"])
+                if m:
+                    chunk["metadata"] = m
+    except Exception as e:
+        logger.debug("RAG: metadata backfill failed (non-fatal): %s", e)
 
 
 def _format_chunks_for_prompt(chunks: list[dict]) -> str:

@@ -293,10 +293,16 @@ async def rag_debug(request: Request):
             headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
             json={"query_embedding": embedding, "match_threshold": match_threshold, "match_count": match_count},
         )
-    if r.status_code != 200:
-        raise HTTPException(status_code=502, detail=f"Supabase RPC failed: {r.text[:200]}")
+        if r.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"Supabase RPC failed: {r.text[:200]}")
 
-    chunks_raw = r.json() if isinstance(r.json(), list) else []
+        chunks_raw = r.json() if isinstance(r.json(), list) else []
+
+        # Backfill metadata for any chunk where the RPC returned NULL (known RPC bug).
+        missing_ids = [c["id"] for c in chunks_raw if c.get("metadata") in (None, {})]
+        if missing_ids:
+            from services_rag import _backfill_metadata
+            await _backfill_metadata(client, url, key, chunks_raw, missing_ids)
 
     # Build coverage breakdown
     courses: dict[str, int] = {}
