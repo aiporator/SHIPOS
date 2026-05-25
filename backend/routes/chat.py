@@ -237,6 +237,14 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
     user_memory = await get_user_memory(user["user_id"])
     system_msg = _build_system_message(data.agent, user_memory)
 
+    # RAG: retrieve Wlad-specific knowledge chunks based on the user's question.
+    # Graceful — if Voyage/Supabase keys are missing or fail, chat continues
+    # normally with just the base system prompt.
+    from services_rag import retrieve_context
+    rag_ctx = await retrieve_context(data.message)
+    if rag_ctx["context_block"]:
+        system_msg = system_msg + rag_ctx["context_block"]
+
     try:
         chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"wladbot_{session_id}", system_message=system_msg)
         chat.with_model("openai", "gpt-5.2")
@@ -263,7 +271,13 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
         await db.chat_sessions.update_one({"session_id": session_id}, {"$set": {"updated_at": datetime.now(timezone.utc).isoformat()}})
         await record_user_action(user["user_id"], "chat_message", metadata={"session_id": session_id, "agent": data.agent})
 
-        return {"session_id": session_id, "message_id": msg_id, "response": parsed, "raw": ai_response}
+        return {
+            "session_id": session_id,
+            "message_id": msg_id,
+            "response": parsed,
+            "raw": ai_response,
+            "rag": {"active": rag_ctx["rag_active"], "chunks": rag_ctx["chunks_count"]},
+        }
     except Exception as e:
         logger.error(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=f"AI service error: {str(e)}")

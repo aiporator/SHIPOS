@@ -103,6 +103,17 @@ async def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/api/rag-status")
+async def rag_health() -> dict:
+    """Diagnostic: is the WladBot RAG knowledge layer wired up correctly?
+
+    Returns config flags + cache size. Does NOT expose secret values.
+    Use this after rotating Voyage/Supabase keys to verify activation.
+    """
+    from services_rag import rag_status
+    return rag_status()
+
+
 # CORS: `allow_credentials=True` (needed for httpOnly session cookie) is INCOMPATIBLE
 # with `allow_origins=["*"]` per the CORS spec — browsers block credentialed requests.
 # Strategy: if CORS_ORIGINS="*", use allow_origin_regex=".*" which works WITH credentials.
