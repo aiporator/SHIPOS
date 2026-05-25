@@ -1,0 +1,56 @@
+name: lockfile-guard
+
+# Prevents Vercel build crashes caused by package.json being modified without
+# the matching yarn.lock. Vercel installs with --frozen-lockfile, so any drift
+# results in a hard failure on deploy. This job is the cheapest possible
+# pre-merge gate to catch lockfile drift in PRs and on push to main.
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'frontend/package.json'
+      - 'frontend/yarn.lock'
+  pull_request:
+    paths:
+      - 'frontend/package.json'
+      - 'frontend/yarn.lock'
+
+concurrency:
+  group: lockfile-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-lockfile:
+    name: yarn.lock matches package.json
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The simplest, most reliable check: ask yarn itself to install with
+      # `--frozen-lockfile`. If package.json was bumped but yarn.lock was
+      # forgotten, yarn exits non-zero with a "lockfile needs update" error.
+      # This is exactly what Vercel does on deploy — so if this passes, Vercel
+      # will too.
+      - name: yarn install (frozen lockfile parity with Vercel)
+        run: yarn install --frozen-lockfile --non-interactive
+
+      # Belt-and-suspenders: ensure yarn.lock is actually committed (not just
+      # ignored locally) and that running yarn install left no diff.
+      - name: assert no uncommitted lockfile changes
+        run: |
+          if [ -n "$(git status --porcelain yarn.lock)" ]; then
+            echo "::error file=frontend/yarn.lock::yarn.lock changed during install — commit the updated lockfile."
+            git --no-pager diff yarn.lock | head -40
+            exit 1
+          fi
+
+      - name: summary
+        if: success()
+        run: echo "yarn.lock is in sync with package.json — Vercel will deploy cleanly."
