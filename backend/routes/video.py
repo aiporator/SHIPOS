@@ -208,14 +208,15 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
     ai_response = await chat.send_message(UserMessage(text=prompt_text))
 
     # Try parse; if it fails, ask the AI to reformat itself.
-    analysis = _safe_parse_json(ai_response)
+    from services_ai_parse import parse_ai_json
+    analysis = parse_ai_json(ai_response)
     if analysis is None:
         logger.warning("Video AI returned non-JSON, attempting reformat retry")
         reformat = await chat.send_message(UserMessage(text=(
             "Deine letzte Antwort war kein gültiges JSON. Antworte JETZT ausschließlich mit dem oben "
             "spezifizierten JSON-Schema. Keine Markdown-Codefences, kein Vorwort, nur das JSON-Objekt."
         )))
-        analysis = _safe_parse_json(reformat)
+        analysis = parse_ai_json(reformat)
 
     if analysis is None or not isinstance(analysis.get("overall_score"), (int, float)):
         # Final safety net — never persist junk, never silently score 50.
@@ -228,29 +229,9 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
 
 
 def _safe_parse_json(text: str) -> dict | None:
-    """Best-effort JSON extraction from AI response — handles markdown fences."""
-    if not text:
-        return None
-    candidates = [text]
-    # Strip ```json...``` or ```...``` fences if present
-    if "```" in text:
-        import re as _re
-        m = _re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, _re.DOTALL)
-        if m:
-            candidates.append(m.group(1))
-    # Try outer-most JSON object
-    first_brace = text.find("{")
-    last_brace = text.rfind("}")
-    if first_brace != -1 and last_brace > first_brace:
-        candidates.append(text[first_brace:last_brace + 1])
-    for c in candidates:
-        try:
-            parsed = json.loads(c)
-            if isinstance(parsed, dict):
-                return parsed
-        except (json.JSONDecodeError, ValueError):
-            continue
-    return None
+    """DEPRECATED: use services_ai_parse.parse_ai_json instead. Kept for back-compat."""
+    from services_ai_parse import parse_ai_json
+    return parse_ai_json(text)
 
 
 async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dict, rating: dict, attempt_count: int) -> None:

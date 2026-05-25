@@ -51,12 +51,16 @@ def _parse_challenge_result(ai_response: str) -> dict | None:
     if '"hired"' not in ai_response:
         return None
     try:
-        if ai_response.strip().startswith("{"):
-            return json.loads(ai_response)
+        from services_ai_parse import parse_ai_json
+        # Try strict parse first (covers fenced/prose-wrapped)
+        parsed = parse_ai_json(ai_response)
+        if isinstance(parsed, dict) and "hired" in parsed:
+            return parsed
+        # Legacy fallback: regex extract single-line JSON containing "hired"
         json_match = re.search(r'\{[^{}]*"hired"[^{}]*\}', ai_response)
         if json_match:
             return json.loads(json_match.group())
-    except json.JSONDecodeError:
+    except (json.JSONDecodeError, Exception):
         pass
     return None
 

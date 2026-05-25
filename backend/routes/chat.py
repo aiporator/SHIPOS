@@ -245,8 +245,9 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
         ai_response = await chat.send_message(UserMessage(text=f"{context}\nUser: {data.message}"))
 
         try:
-            parsed = json.loads(ai_response)
-        except json.JSONDecodeError:
+            from services_ai_parse import parse_ai_json
+            parsed = parse_ai_json(ai_response) or {"insight": ai_response, "strategy": "", "action_steps": [], "simulation_prompt": None, "reflection": "", "tasks": [], "agent_used": data.agent or "General"}
+        except Exception:
             parsed = {"insight": ai_response, "strategy": "", "action_steps": [], "simulation_prompt": None, "reflection": "", "tasks": [], "agent_used": data.agent or "General"}
 
         msg_id = f"msg_{uuid.uuid4().hex[:12]}"
