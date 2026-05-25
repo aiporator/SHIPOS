@@ -1,23 +1,57 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 
-const VideoCard = ({ video, onPlay, onUpgrade }) => {
+const UNLOCK_MEMO_KEY = 'mypath:lastUnlockedIds';
+
+const VideoCard = ({ video, onPlay, onUpgrade, newlyUnlocked }) => {
   const { unlocked, exclusive } = video;
+  const cardRef = useRef(null);
+  const thumbRef = useRef(null);
+  const sparkleRefs = useRef([]);
+
   return (
     <div
+      ref={cardRef}
       onClick={() => (unlocked ? onPlay(video) : onUpgrade(video))}
-      className={`group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${
-        unlocked
-          ? 'hover:scale-[1.015] hover:shadow-xl'
-          : 'opacity-80 hover:opacity-100'
+      className={`group relative rounded-2xl overflow-hidden cursor-pointer transition-shadow duration-300 ${
+        unlocked ? 'hover:shadow-2xl hover:shadow-black/20' : 'opacity-80 hover:opacity-100'
       }`}
       data-testid={`learning-video-card-${video.id}`}
+      data-newly-unlocked={newlyUnlocked ? 'true' : 'false'}
+      data-anim="video-tile"
+      style={{ willChange: 'transform' }}
     >
+      {/* Unlock celebration ring — invisible until JIT animation triggers */}
+      {newlyUnlocked && (
+        <span
+          data-unlock-ring
+          aria-hidden
+          className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 z-10"
+          style={{ boxShadow: '0 0 0 2px #BFFF00, 0 0 48px rgba(191,255,0,0.55)' }}
+        />
+      )}
+
+      {/* Sparkle burst */}
+      {newlyUnlocked && [0, 1, 2].map((i) => (
+        <Sparkles
+          key={i}
+          ref={(el) => { sparkleRefs.current[i] = el; }}
+          size={20}
+          className="absolute z-20 text-[#BFFF00] opacity-0 pointer-events-none"
+          style={{
+            top:  i === 0 ? '8%' : i === 1 ? '50%' : '85%',
+            left: i === 0 ? '85%' : i === 1 ? '8%' : '70%',
+            filter: 'drop-shadow(0 0 12px rgba(191,255,0,0.8))',
+          }}
+        />
+      ))}
+
       {/* Thumbnail / cover */}
       <div
+        ref={thumbRef}
         className="relative h-32 flex items-center justify-center overflow-hidden"
         style={{
           background: exclusive
@@ -102,6 +136,32 @@ export default function LearningVideosTab() {
   };
   const handleUpgrade = () => navigate('/coaching');
 
+  // ── Unlock-diff detection: which IDs are NEW since last visit? ──
+  const newlyUnlockedIds = useMemo(() => {
+    if (!data) return new Set();
+    const currentUnlocked = new Set();
+    [...(data.starter_videos || []), ...(data.accelerator_videos || [])].forEach(v => {
+      if (v.unlocked) currentUnlocked.add(v.id);
+    });
+
+    let lastSet;
+    try {
+      const raw = localStorage.getItem(UNLOCK_MEMO_KEY);
+      lastSet = new Set(raw ? JSON.parse(raw) : []);
+    } catch { lastSet = new Set(); }
+
+    const newOnes = new Set([...currentUnlocked].filter(id => !lastSet.has(id)));
+
+    // Persist current state so we don't re-celebrate on next visit
+    try {
+      localStorage.setItem(UNLOCK_MEMO_KEY, JSON.stringify([...currentUnlocked]));
+    } catch { /* localStorage full / private mode — celebration only this session */ }
+
+    // Don't celebrate the FIRST-EVER load (lastSet was empty → would tag everything as new)
+    if (lastSet.size === 0) return new Set();
+    return newOnes;
+  }, [data]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-16" data-testid="learning-videos-loading">
@@ -118,7 +178,7 @@ export default function LearningVideosTab() {
   return (
     <div className="space-y-8" data-testid="learning-videos-tab">
       {/* Summary strip */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.06] bg-gradient-to-br from-white to-gray-50/60 dark:from-card dark:to-card/80">
+      <div data-anim="summary-strip" className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.06] bg-gradient-to-br from-white to-gray-50/60 dark:from-card dark:to-card/80">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-[#BFFF00]/15 flex items-center justify-center">
             <Sparkles size={18} className="text-[#BFFF00]" />
@@ -139,8 +199,8 @@ export default function LearningVideosTab() {
       </div>
 
       {/* Standard / Leadership OS section — 12 Videokurse drip */}
-      <section>
-        <div className="flex items-end justify-between mb-4">
+      <section data-anim="video-section">
+        <div className="flex items-end justify-between mb-4" data-anim="section-header">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-[9px] font-black uppercase tracking-widest text-[#6B8A00]">Leadership OS</span>
@@ -161,14 +221,20 @@ export default function LearningVideosTab() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.starter_videos.map(v => (
-            <VideoCard key={v.id} video={v} onPlay={handlePlay} onUpgrade={handleUpgrade} />
+            <VideoCard
+              key={v.id}
+              video={v}
+              onPlay={handlePlay}
+              onUpgrade={handleUpgrade}
+              newlyUnlocked={newlyUnlockedIds.has(v.id)}
+            />
           ))}
         </div>
       </section>
 
       {/* Accelerator / Leadership OS PLUS section */}
-      <section>
-        <div className="flex items-end justify-between mb-4">
+      <section data-anim="video-section">
+        <div className="flex items-end justify-between mb-4" data-anim="section-header">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Crown size={10} className="text-[#BFFF00]" />
@@ -190,7 +256,13 @@ export default function LearningVideosTab() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {data.accelerator_videos.map(v => (
-            <VideoCard key={v.id} video={v} onPlay={handlePlay} onUpgrade={handleUpgrade} />
+            <VideoCard
+              key={v.id}
+              video={v}
+              onPlay={handlePlay}
+              onUpgrade={handleUpgrade}
+              newlyUnlocked={newlyUnlockedIds.has(v.id)}
+            />
           ))}
         </div>
       </section>

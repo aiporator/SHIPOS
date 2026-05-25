@@ -7,7 +7,6 @@ import { PaywallModal } from '../components/shared/PaywallModal';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCredits } from '../contexts/CreditContext';
 import api from '../lib/api';
-import { FIVE_ROLES } from '../components/chat/chatRoles';
 import { ChatMessage } from '../components/chat/ChatMessage';
 import { ChatRolesHeader } from '../components/chat/ChatRolesHeader';
 import { ChatEmpty } from '../components/chat/ChatEmpty';
@@ -50,7 +49,6 @@ export default function ChatPage() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [currentSession, setCurrentSession] = useState(null);
-  const [selectedAgent, setSelectedAgent] = useState(searchParams.get('agent') || '');
   const [showUpsell, setShowUpsell] = useState(false);
   const [showContext, setShowContext] = useState(false);
   const [userContext, setUserContext] = useState({ role: '', company: '', industry: '' });
@@ -61,6 +59,8 @@ export default function ChatPage() {
   const { isPremium, totalUsed, reload: reloadCredits } = useCredits();
   const scrollRef = useRef(null);
   const navigate = useNavigate();
+  // searchParams kept to preserve deep-link behaviour (?session=... etc.)
+  void searchParams;
 
   const loadSessions = useCallback(async () => {
     try {
@@ -80,7 +80,7 @@ export default function ChatPage() {
 
   const handleNewSession = async () => {
     try {
-      const res = await api.post('/chat/sessions', { title: de ? 'Neues Gespräch' : 'New Conversation', agent: selectedAgent || null });
+      const res = await api.post('/chat/sessions', { title: de ? 'Neues Gespräch' : 'New Conversation' });
       setCurrentSession(res.data.session_id);
       setMessages([]);
       loadSessions();
@@ -99,7 +99,7 @@ export default function ChatPage() {
     setAttachedPdf(null);
     setLoading(true);
     try {
-      const res = await api.post('/chat', { message: fullMsg, session_id: currentSession, agent: selectedAgent || null });
+      const res = await api.post('/chat', { message: fullMsg, session_id: currentSession });
       if (!currentSession) { setCurrentSession(res.data.session_id); loadSessions(); }
       setMessages(prev => [...prev, { role: 'assistant', content: JSON.stringify(res.data.response), parsed: res.data.response }]);
       reloadCredits();
@@ -137,8 +137,6 @@ export default function ChatPage() {
 
   const handleVoice = (text) => setInput(prev => prev + ' ' + text);
 
-  const activeRole = FIVE_ROLES.find(a => a.value === selectedAgent);
-
   return (
     <DashboardLayout>
       {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} creditsUsed={totalUsed} />}
@@ -148,17 +146,14 @@ export default function ChatPage() {
         <ChatRolesHeader
           showContext={showContext} setShowContext={setShowContext}
           userContext={userContext} setUserContext={setUserContext}
-          selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent}
           onNewSession={handleNewSession}
-          activeRole={activeRole}
-          setInput={setInput}
           lang={lang}
           de={de}
         />
 
         <ScrollArea className="flex-1 px-6 py-4 bg-gradient-mesh">
           {messages.length === 0 && (
-            <ChatEmpty setSelectedAgent={setSelectedAgent} lang={lang} de={de} />
+            <ChatEmpty setInput={setInput} lang={lang} de={de} />
           )}
           {messages.map((msg, i) => (
             <div key={`msg-${msg.role}-${i}`}>

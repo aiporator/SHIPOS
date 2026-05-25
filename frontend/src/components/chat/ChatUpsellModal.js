@@ -13,7 +13,7 @@ export const ChatUpsellModal = ({ onClose, de }) => (
             <Star size={28} className="text-white" />
           </div>
           <h2 className="text-2xl font-black tracking-tight mb-2">{de ? 'Premium Leadership Coaching freischalten' : 'Unlock Premium Leadership Coaching'}</h2>
-          <p className="text-muted-foreground mb-4">{de ? 'Voller Zugang zu allen 5 Rollen mit erweiterten Szenarien und persönlichem Coaching.' : 'Full access to all 5 roles with advanced scenarios and personal coaching.'}</p>
+          <p className="text-muted-foreground mb-4">{de ? 'Vollzugang zum KI-Coach mit unlimitierten Gesprächen und persönlichem Coaching.' : 'Full access to the AI Coach with unlimited conversations and personal coaching.'}</p>
           <div className="flex items-center justify-center gap-2 mb-6">
             <span className="text-4xl font-black gradient-text">997</span>
             <span className="text-lg text-muted-foreground">EUR</span>

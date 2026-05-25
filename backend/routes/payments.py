@@ -312,55 +312,27 @@ async def _finalize_paid_transaction(event, tx: dict) -> None:
 
 @router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
-    """Handle Stripe webhook events.
+    """DEPRECATED — Stripe webhooks are now handled by the Supabase Edge Function
+    at `https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/stripe-webhook`.
 
-    Defense-in-depth: when STRIPE_WEBHOOK_SECRET is set, validate the signature
-    with the official stripe SDK BEFORE handing off to the integrations wrapper.
-    On any pre-validation failure (missing/invalid sig) we return 400 so
-    Stripe surfaces the failure in its dashboard. On failures AFTER validation
-    (DB errors etc.) we return 500 so Stripe retries — the per-session
-    idempotency below prevents double-fulfillment on retry.
+    This endpoint is intentionally kept active to return 410 Gone if Stripe is
+    ever misconfigured to point here — that way the error is loud (visible in
+    Stripe Dashboard) instead of silent. To re-enable, restore the prior body
+    from git history (commit before iter 88).
     """
-    import os
-    import stripe as stripe_sdk
-
-    body = await request.body()
-    sig = request.headers.get("Stripe-Signature", "")
-    webhook_secret = os.environ.get("STRIPE_WEBHOOK_SECRET")
-
-    if not sig:
-        logger.warning("Stripe webhook called without Stripe-Signature header")
-        return JSONResponse(status_code=400, content={"detail": "missing signature"})
-
-    if webhook_secret:
-        try:
-            stripe_sdk.Webhook.construct_event(body, sig, webhook_secret)
-        except stripe_sdk.error.SignatureVerificationError:
-            logger.warning("Stripe webhook signature verification FAILED")
-            return JSONResponse(status_code=400, content={"detail": "invalid signature"})
-        except ValueError:
-            return JSONResponse(status_code=400, content={"detail": "invalid payload"})
-    else:
-        logger.warning(
-            "STRIPE_WEBHOOK_SECRET unset — relying on wrapper validation only. "
-            "Set this env var for defense-in-depth."
-        )
-
-    try:
-        webhook_url = f"{str(request.base_url).rstrip('/')}/api/webhook/stripe"
-        stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-        event = await stripe_checkout.handle_webhook(body, sig)
-        logger.info(f"Stripe webhook: {event.event_type} for session {event.session_id}")
-
-        if event.payment_status == "paid":
-            tx = await db.payment_transactions.find_one({"session_id": event.session_id})
-            if tx and tx.get("payment_status") != "paid":
-                await _finalize_paid_transaction(event, tx)
-        return {"received": True}
-
-    except Exception as e:
-        logger.error(f"Webhook processing error after validation: {e}")
-        return JSONResponse(status_code=500, content={"detail": "processing error"})
+    logger.warning(
+        "DEPRECATED /api/webhook/stripe was called. "
+        "Stripe should be configured to point at the Supabase Edge Function instead. "
+        f"Headers: stripe-sig={'present' if request.headers.get('Stripe-Signature') else 'MISSING'}"
+    )
+    return JSONResponse(
+        status_code=410,
+        content={
+            "detail": "endpoint_deprecated",
+            "message": "Stripe webhooks moved to Supabase Edge Function. Update Stripe Dashboard endpoint URL.",
+            "canonical_endpoint": "https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/stripe-webhook",
+        },
+    )
 
 
 @router.get("/payments/history")

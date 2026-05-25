@@ -17,7 +17,7 @@ const DEFAULT_RATING = { mode: 'hard', level: 'fortgeschritten', focus: [], audi
 export default function VideoChallengePage() {
   const { lang } = useLanguage();
   const tierCtx = useTier();
-  const canAccess = tierCtx.hasFeature('video_analysis');
+  const isAccelerator = tierCtx.hasFeature('video_analysis');
   const [challenges, setChallenges] = useState([]);
   const [activeChallenge, setActiveChallenge] = useState(null);
   const [recording, setRecording] = useState(false);
@@ -28,25 +28,34 @@ export default function VideoChallengePage() {
   const [stream, setStream] = useState(null);
   const [showUpsell, setShowUpsell] = useState(false);
   const [ratingConfig, setRatingConfig] = useState(DEFAULT_RATING);
+  const [trial, setTrial] = useState(null);
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
   const blobRef = useRef(null);
+  const audioRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const audioBlobRef = useRef(null);
+
+  // Trial-aware access: Accelerator always passes, others get 3 free in first 14 days.
+  const canAccess = isAccelerator || Boolean(trial?.active);
 
   const saveGlobalPrefs = useCallback(async (newConfig) => {
     setRatingConfig(newConfig);
     try { await api.put('/auth/profile', { rating_preferences: newConfig }); }
     catch (err) { logger.error('Failed to save rating preferences:', err); }
-  }, []);
+  }, [api, logger]);
 
   const loadChallenges = useCallback(async () => {
     try {
-      const [challengeRes, prefsRes] = await Promise.all([
+      const [challengeRes, prefsRes, trialRes] = await Promise.all([
         api.get('/video-challenges'),
         api.get('/rating-preferences').catch(() => ({ data: {} })),
+        api.get('/user/video-trial-status').catch(() => ({ data: null })),
       ]);
       setChallenges(challengeRes.data);
+      setTrial(trialRes.data);
       const prefs = prefsRes.data;
       if (prefs && (prefs.mode || prefs.level)) {
         setRatingConfig(prev => ({
@@ -58,17 +67,19 @@ export default function VideoChallengePage() {
         }));
       }
     } catch (err) { logger.error('Failed to load challenges:', err); }
-  }, []);
+  }, [api, logger]);
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();
+    if (audioRecorderRef.current?.state === 'recording') audioRecorderRef.current.stop();
     setRecording(false);
     clearInterval(timerRef.current);
-  }, []);
+  }, [mediaRecorderRef, audioRecorderRef, timerRef]);
 
   const startRecording = useCallback(() => {
     if (!stream) return;
     chunksRef.current = [];
+    audioChunksRef.current = [];
     const mr = new MediaRecorder(stream, { mimeType: 'video/webm' });
     mediaRecorderRef.current = mr;
     mr.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
@@ -76,11 +87,23 @@ export default function VideoChallengePage() {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
       setRecorded(true);
     };
+    // Separate audio-only recorder for Whisper transcription (rejects muxed video/webm)
+    const audioTrack = stream.getAudioTracks()[0];
+    if (audioTrack) {
+      const audioStream = new MediaStream([audioTrack]);
+      const ar = new MediaRecorder(audioStream, { mimeType: 'audio/webm;codecs=opus' });
+      audioRecorderRef.current = ar;
+      ar.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+      ar.onstop = () => {
+        audioBlobRef.current = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+      };
+      ar.start();
+    }
     mr.start();
     setRecording(true);
     setTimer(0);
     timerRef.current = setInterval(() => setTimer(t => t + 1), 1000);
-  }, [stream]);
+  }, [stream, mediaRecorderRef, chunksRef, audioChunksRef]);
 
   useEffect(() => { loadChallenges(); }, [loadChallenges]);
   useEffect(() => { return () => { if (stream) stream.getTracks().forEach(t => t.stop()); }; }, [stream]);
@@ -95,7 +118,15 @@ export default function VideoChallengePage() {
       const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       setStream(s);
       if (videoRef.current) { videoRef.current.srcObject = s; videoRef.current.muted = true; }
-    } catch (err) { logger.error('Camera access denied:', err); }
+    } catch (err) {
+      logger.error('Camera access denied:', err);
+      // Surface the failure so the user doesn't sit through a countdown that goes nowhere.
+      const msg = lang === 'de'
+        ? 'Kamera-Zugriff verweigert. Bitte in deinen Browser-Einstellungen erlauben und neu laden.'
+        : 'Camera access denied. Please allow it in browser settings and reload.';
+      try { (await import('sonner')).toast.error(msg); }
+      catch (toastErr) { logger.warn('toast unavailable:', toastErr?.message); }
+    }
   };
 
   const submitVideo = async () => {
@@ -103,7 +134,10 @@ export default function VideoChallengePage() {
     setAnalyzing(true);
     try {
       const formData = new FormData();
-      formData.append('file', blobRef.current, 'challenge.webm');
+      // Send audio-only blob for Whisper transcription (falls back to video blob if audio unavailable)
+      const uploadBlob = audioBlobRef.current || blobRef.current;
+      const uploadName = audioBlobRef.current ? 'challenge_audio.webm' : 'challenge.webm';
+      formData.append('file', uploadBlob, uploadName);
       const params = new URLSearchParams();
       params.set('rating_mode', ratingConfig.mode);
       params.set('rating_level', ratingConfig.level);
@@ -114,6 +148,8 @@ export default function VideoChallengePage() {
         formData, { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       setAnalysis(res.data);
+      // Refresh trial counter from the response if backend attached it.
+      if (res.data?._trial) setTrial(res.data._trial);
       if (stream) stream.getTracks().forEach(t => t.stop());
       setStream(null);
     } catch (err) { logger.error('Analysis failed:', err); }
@@ -154,6 +190,37 @@ export default function VideoChallengePage() {
       <LoadingOverlay isOpen={analyzing} flow="video" de={lang === 'de'} />
       <div className="p-6 lg:p-10 max-w-4xl mx-auto bg-gradient-mesh min-h-screen" data-testid="video-challenge-page">
         {showUpsell && <VideoUpsellModal onClose={() => setShowUpsell(false)} lang={lang} />}
+
+        {/* Trial banner — visible for Free/Standard users with active trial */}
+        {!isAccelerator && trial?.eligible && (
+          <div className={`mb-5 rounded-2xl border px-4 py-3 flex items-center gap-3 ${trial.active ? 'bg-[#BFFF00]/10 border-[#BFFF00]/30' : 'bg-rose-500/5 border-rose-500/20'}`} data-testid="video-trial-banner">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
+              <span className="text-[13px] font-black">{trial.remaining}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[12px] font-bold leading-tight" data-testid="video-trial-headline">
+                {trial.active
+                  ? (lang === 'de'
+                      ? `Du hast ${trial.remaining} von ${trial.total} kostenlosen Video-Analysen übrig`
+                      : `${trial.remaining} of ${trial.total} free video analyses remaining`)
+                  : (lang === 'de'
+                      ? 'Dein gratis Video-Analyse-Kontingent ist aufgebraucht'
+                      : 'Your free video analysis quota is used up')
+                }
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">
+                {trial.active
+                  ? (lang === 'de'
+                      ? `Probier-Phase läuft noch ${trial.days_left} Tage — danach exklusiv im Leadership OS PLUS.`
+                      : `Trial ends in ${trial.days_left} days — then PLUS exclusive.`)
+                  : (lang === 'de'
+                      ? 'Upgrade auf Leadership OS PLUS für unbegrenzte Analysen.'
+                      : 'Upgrade to Leadership OS PLUS for unlimited analyses.')
+                }
+              </p>
+            </div>
+          </div>
+        )}
 
         {!activeChallenge && !analysis && (
           <ChallengeList

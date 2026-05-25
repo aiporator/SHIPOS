@@ -1,12 +1,23 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import * as Sentry from '@sentry/react';
 import api from '../lib/api';
 import logger from '../lib/logger';
-import { identifyByEmail, resetIdentity } from '../lib/analytics';
+import { identifyByUser, resetIdentity } from '../lib/analytics';
+import { rememberLogin, forgetAllLogins } from '../lib/recentLogins';
 
-const setSentryUser = (email) => {
-  if (!email) return Sentry.setUser(null);
-  Sentry.setUser({ email: String(email).trim().toLowerCase() });
+/**
+ * Identify the current user in Sentry using the canonical MongoDB user_id.
+ * Sentry's User object accepts `id` as the primary identifier; email/name
+ * are searchable properties. This keeps error grouping stable across email
+ * changes and OAuth provider re-links.
+ */
+const setSentryUser = (user) => {
+  if (!user || !user.user_id) return Sentry.setUser(null);
+  Sentry.setUser({
+    id: user.user_id,
+    email: user.email ? String(user.email).trim().toLowerCase() : undefined,
+    username: user.name || undefined,
+  });
 };
 
 const AuthContext = createContext(null);
@@ -24,8 +35,8 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
       setNetworkError(false);
       sessionStorage.setItem('wladbot_user', JSON.stringify(res.data));
-      identifyByEmail(res.data?.email);
-      setSentryUser(res.data?.email);
+      identifyByUser(res.data);
+      setSentryUser(res.data);
     } catch (err) {
       // Network error (backend unreachable, CORS blocked, offline) ≠ unauthorized.
       // Don't clear cached user on network errors — let them keep browsing cached state.
@@ -68,12 +79,41 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener('wladbot:network-error', handler);
   }, []);
 
-  const login = useCallback((userData) => {
+  // Proactive token refresh on tab focus — if the user has been away for >5 min,
+  // silently refresh the access cookie BEFORE the page fires its parallel API calls.
+  // Prevents the "7 transient 401s on dashboard mount" race that pollutes DevTools.
+  //
+  // useRef so the threshold survives across `user` updates (e.g. /auth/me hydrating
+  // a fresh profile). The previous let-in-useEffect would reset to Date.now() each
+  // time `user` changed, effectively disabling the 5-minute gate.
+  const lastRefreshAtRef = useRef(null);
+  useEffect(() => {
+    if (lastRefreshAtRef.current === null) lastRefreshAtRef.current = Date.now();
+    const REFRESH_THRESHOLD_MS = 5 * 60 * 1000;
+    const refreshIfStale = async () => {
+      if (!user) return;
+      if (document.hidden) return;
+      if (Date.now() - lastRefreshAtRef.current < REFRESH_THRESHOLD_MS) return;
+      try {
+        await api.post('/auth/refresh');
+        lastRefreshAtRef.current = Date.now();
+      } catch { /* refresh failed → next request will trigger ReAuthModal */ }
+    };
+    document.addEventListener('visibilitychange', refreshIfStale);
+    window.addEventListener('focus', refreshIfStale);
+    return () => {
+      document.removeEventListener('visibilitychange', refreshIfStale);
+      window.removeEventListener('focus', refreshIfStale);
+    };
+  }, [user]);
+
+  const login = useCallback((userData, method = 'email') => {
     setUser(userData);
     setNetworkError(false);
     sessionStorage.setItem('wladbot_user', JSON.stringify(userData));
-    identifyByEmail(userData?.email);
-    setSentryUser(userData?.email);
+    rememberLogin(userData, method);
+    identifyByUser(userData);
+    setSentryUser(userData);
   }, []);
 
   const logout = useCallback(async () => {
@@ -81,14 +121,21 @@ export const AuthProvider = ({ children }) => {
       logger.error('Logout request failed:', err?.message || err);
     }
     sessionStorage.removeItem('wladbot_user');
+    // NOTE: We do NOT call forgetAllLogins() on a normal logout — the user
+    // likely wants "Continue as me" on next visit. Only clear on explicit
+    // "Forget all accounts" action from the security tab.
     setUser(null);
     resetIdentity();
     setSentryUser(null);
   }, []);
 
+  const forgetAllAccounts = useCallback(() => {
+    forgetAllLogins();
+  }, []);
+
   const value = useMemo(
-    () => ({ user, loading, networkError, login, logout, setUser, checkAuth }),
-    [user, loading, networkError, login, logout, checkAuth]
+    () => ({ user, loading, networkError, login, logout, setUser, checkAuth, forgetAllAccounts }),
+    [user, loading, networkError, login, logout, checkAuth, forgetAllAccounts]
   );
 
   return (

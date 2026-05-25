@@ -49,11 +49,15 @@ from routes.community import router as community_router
 from routes.admin import router as admin_router
 from routes.profile import router as profile_router
 from routes.voice_tts import router as voice_tts_router
+from routes.monitoring import router as monitoring_router
+from routes.gdpr import router as gdpr_router
+from routes.oauth import router as oauth_router
 
 app = FastAPI(title="WladBot API", version="5.0")
 
 # Include all route modules
 app.include_router(auth_router)
+app.include_router(oauth_router)
 app.include_router(chat_router)
 app.include_router(tasks_router)
 app.include_router(simulations_router)
@@ -77,10 +81,16 @@ app.include_router(community_router)
 app.include_router(admin_router)
 app.include_router(profile_router)
 app.include_router(voice_tts_router)
+app.include_router(monitoring_router)
+app.include_router(gdpr_router)
 
 # Internal sync layer (Supabase ↔ Mongo)
 from routes.sync import router as sync_router  # noqa: E402
 app.include_router(sync_router)
+
+# Dynamic OG image generation (LinkedIn/X share cards)
+from routes.og import router as og_router  # noqa: E402
+app.include_router(og_router)
 
 
 @app.get("/api/")
@@ -98,14 +108,22 @@ async def health_check() -> dict[str, str]:
 # Strategy: if CORS_ORIGINS="*", use allow_origin_regex=".*" which works WITH credentials.
 # Otherwise: split env list into explicit origins (production-safe).
 _raw_cors = os.environ.get("CORS_ORIGINS", "").strip()
+_PRODUCTION_ORIGINS = [
+    "https://leader-os.de",
+    "https://www.leader-os.de",
+    "https://leader-check.de",
+    "https://www.leader-check.de",
+]
 _cors_kwargs: dict = {
     "allow_credentials": True,
     "allow_methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
 }
 if _raw_cors in ("", "*"):
-    # Wildcard with credentials: must use regex form
-    _cors_kwargs["allow_origin_regex"] = r".*"
+    if os.environ.get("ENVIRONMENT") == "production":
+        _cors_kwargs["allow_origins"] = _PRODUCTION_ORIGINS
+    else:
+        _cors_kwargs["allow_origin_regex"] = r"https?://(localhost|127\.0\.0\.1)(:\d+)?"
 else:
     _cors_kwargs["allow_origins"] = [o.strip() for o in _raw_cors.split(",") if o.strip()]
 
@@ -166,6 +184,11 @@ async def startup() -> None:
         await db.sync_events.create_index("event_id", unique=True, name="sync_event_id_unique")
         await db.sync_events.create_index([("direction", 1), ("received_at", -1)])
         logger.info("Sync event indexes ensured (sync_events.event_id unique)")
+
+        # Magic-link TTL — auto-cleanup expired tokens
+        from services_magic_link import ensure_indexes as ensure_magic_link_indexes
+        await ensure_magic_link_indexes()
+        logger.info("Magic-link indexes ensured (TTL on expires_at)")
 
         # Migrate old level names to new role-based names
         level_migration = {

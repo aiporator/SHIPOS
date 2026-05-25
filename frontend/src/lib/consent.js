@@ -1,83 +1,81 @@
 /**
- * Cookie / Tracking consent management for GDPR + TTDSG compliance.
+ * GDPR/TTDSG consent bootstrap and reader.
  *
- * Defaults to "no consent" on first visit. PostHog opt-out is enforced
- * immediately on load; opt-in only after explicit "Accept all" or
- * "Accept analytics" choice. Sentry error tracking is enabled on
- * legitimate-interest basis (Art. 6(1)(f) DSGVO) but session replays
- * are gated on consent.
+ * Single source of truth for the `lo_consent_v1` localStorage payload.
+ * Tracker code (index.js + CookieConsent banner + analytics events) all
+ * import from here so the shape stays in sync.
  *
- * Consent shape (localStorage key "consent_v1"):
- *   { version: 1, ts: 1734556800, essential: true, analytics: bool, replays: bool }
+ * Schema v1:
+ *   { v: 1, ts: ISO8601, essential: true, analytics: bool, replays: bool }
  *
- * essential is always true (functional cookies for login, etc).
- * analytics gates PostHog event capture + session recording.
- * replays gates Sentry session replays specifically.
+ * `essential` is always true and cannot be opted out of (login session, JWT).
+ * `analytics` gates PostHog event capture.
+ * `replays`  gates Sentry session-replay (alias kept for back-compat with
+ *            older banners that wrote `session_replay`).
  */
 
-const KEY = 'consent_v1';
+const KEY = "lo_consent_v1";
 
-export function readConsent() {
+const DEFAULT_OPT_OUT = {
+  v: 1,
+  ts: null,
+  essential: true,
+  analytics: false,
+  replays: false,
+};
+
+export const readConsent = () => {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = typeof localStorage !== "undefined" ? localStorage.getItem(KEY) : null;
     if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (parsed.version !== 1) return null;
-    return parsed;
-  } catch {
+    const p = JSON.parse(raw);
+    if (!p || p.v !== 1) return null;
+    // Back-compat: older builds wrote `session_replay`, normalize to `replays`.
+    if (p.session_replay !== undefined && p.replays === undefined) {
+      p.replays = !!p.session_replay;
+    }
+    return p;
+  } catch (err) {
+    // localStorage unavailable / corrupted JSON — treat as no consent given.
+    if (typeof console !== 'undefined') console.warn('[consent] read failed:', err?.message);
     return null;
   }
-}
+};
 
-export function writeConsent(consent) {
-  const value = {
-    version: 1,
-    ts: Math.floor(Date.now() / 1000),
+export const writeConsent = (partial) => {
+  const payload = {
+    ...DEFAULT_OPT_OUT,
+    ...partial,
+    v: 1,
     essential: true,
-    analytics: !!consent.analytics,
-    replays: !!consent.replays,
+    ts: new Date().toISOString(),
   };
-  localStorage.setItem(KEY, JSON.stringify(value));
-  applyConsent(value);
-  window.dispatchEvent(new CustomEvent('consent-changed', { detail: value }));
-  return value;
-}
-
-export function hasConsent() {
-  return readConsent() !== null;
-}
-
-/**
- * Apply consent decisions to live SDKs.
- * Called on first load and whenever the user changes preferences.
- */
-export function applyConsent(consent) {
-  // PostHog: respect opt-out by default until user accepts analytics
-  if (typeof window !== 'undefined' && window.posthog) {
-    if (consent.analytics) {
-      try { window.posthog.opt_in_capturing(); } catch (e) { /* noop */ }
-    } else {
-      try { window.posthog.opt_out_capturing(); } catch (e) { /* noop */ }
-    }
+  try {
+    localStorage.setItem(KEY, JSON.stringify(payload));
+    window.dispatchEvent(new CustomEvent("lo:consent", { detail: payload }));
+  } catch (err) {
+    // localStorage unavailable (private mode, SSR) — payload still returned so
+    // callers can use it in-memory for the rest of the session.
+    if (typeof console !== 'undefined') console.warn('[consent] write failed:', err?.message);
   }
-  // Sentry: error tracking always on (legitimate interest), but replay only with consent.
-  // We can't disable replay post-init easily; the init code reads consent at boot.
-  // No-op here — gating happens in src/index.js Sentry.init call.
-}
+  return payload;
+};
 
 /**
- * Bootstrap consent on page load. Call once from src/index.js BEFORE
- * the React app mounts. Returns the current consent (or a "no consent yet"
- * stub used for initial SDK gating).
+ * Idempotent. Call once at app boot before any tracker init.
+ * Does NOT create a consent record (we must not assume consent), but
+ * ensures any third-party SDK that reads consent gets a stable shape.
  */
-export function bootstrapConsent() {
+export const bootstrapConsent = () => {
+  // Normalize legacy keys in-place so trackers reading later see `replays`.
   const existing = readConsent();
-  if (existing) {
-    applyConsent(existing);
-    return existing;
+  if (existing && existing.session_replay !== undefined && existing.replays === undefined) {
+    writeConsent({
+      analytics: !!existing.analytics,
+      replays: !!existing.session_replay,
+    });
   }
-  // No consent yet — opt out PostHog immediately so the inline init's
-  // session_recording doesn't capture anything.
-  applyConsent({ analytics: false, replays: false, essential: true });
-  return null;
-}
+  return existing;
+};
+
+export const CONSENT_DEFAULTS = DEFAULT_OPT_OUT;

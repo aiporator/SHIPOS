@@ -47,8 +47,8 @@ export default function AdminPage() {
   const [forbidden, setForbidden] = useState(false);
 
   // Hard client-side guard: only admins see this page. Non-admins → /dashboard.
-  // Backend already returns 403 on /api/admin/* without admin role, but redirecting
-  // avoids exposing the admin UI shell at all.
+  // Note: route itself is at the non-guessable /wlad-control-x7k9q2 path. Backend
+  // require_admin() still returns 403 on /api/admin/*.
   const blockNonAdmin = user && !user.is_admin;
 
   const load = useCallback(async () => {

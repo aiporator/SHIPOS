@@ -37,6 +37,7 @@ export default function DashboardPage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [referralCode, setReferralCode] = useState('');
   const { balance, isPremium } = useCredits();
+
   const loadDashboard = useCallback(async () => {
     try {
       const [dashRes, refRes] = await Promise.all([
@@ -97,7 +98,7 @@ export default function DashboardPage() {
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
         {/* ── Greeting ── */}
-        <div className="flex items-center justify-between mb-8 animate-fade-in">
+        <div className="flex items-center justify-between mb-8" data-anim="dash-header">
           <div>
             <p className="text-sm text-muted-foreground">{de ? 'Willkommen zurück,' : 'Welcome back,'}</p>
             <div className="flex items-center gap-2">
@@ -141,7 +142,7 @@ export default function DashboardPage() {
         <StatCardsRow aiReadiness={aiReadiness} learningPct={learningPct} c30={c30} de={de} />
 
         {/* ── YOUR NEXT STEP (DOMINANT) ── */}
-        <Card className="bg-[#0A0A0A] text-white border-0 mb-6 overflow-hidden animate-fade-in" data-testid="next-step-cta">
+        <Card className="bg-[#0A0A0A] text-white border-0 mb-6 overflow-hidden" data-testid="next-step-cta" data-anim="dash-cta">
           <CardContent className="p-6">
             <div className="flex items-center gap-5">
               <img src={WLAD_AVATAR} alt="Wlad" className="w-14 h-14 rounded-full object-cover ring-2 ring-white/10 shrink-0" />
@@ -171,7 +172,7 @@ export default function DashboardPage() {
             <QuickActionsGrid de={de} navigate={navigate} />
 
             {/* XP + Level Progress */}
-            <Card className="border-black/[0.04] dark:border-white/[0.06] animate-fade-in overflow-hidden relative" data-testid="level-progress">
+            <Card className="border-black/[0.04] dark:border-white/[0.06] overflow-hidden relative" data-testid="level-progress" data-anim="dash-widget">
               <div className="absolute top-0 right-0 w-40 h-40 bg-[#BFFF00]/[0.06] rounded-full blur-3xl pointer-events-none" />
               <CardContent className="p-5 relative">
                 <div className="flex items-center justify-between mb-4">
@@ -219,7 +220,7 @@ export default function DashboardPage() {
             </Card>
 
             {/* Upsell Banner */}
-            <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden animate-fade-in" data-testid="upsell-banner">
+            <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden" data-testid="upsell-banner" data-anim="dash-widget">
               <CardContent className="p-5">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
@@ -247,7 +248,7 @@ export default function DashboardPage() {
             <WeekCalendarCard de={de} onNavigate={navigate} />
 
             {/* Referral Card */}
-            <Card className="bg-[#0A0A0A] text-white border-0 animate-fade-in" data-testid="referral-upsell-card">
+            <Card className="bg-[#0A0A0A] text-white border-0" data-testid="referral-upsell-card" data-anim="dash-widget">
               <CardContent className="p-4 space-y-3">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 rounded-lg bg-[#BFFF00]/15 flex items-center justify-center"><Gift size={13} className="text-[#BFFF00]" /></div>

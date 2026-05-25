@@ -1,4 +1,3 @@
-import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,20 +6,17 @@ import { SidebarNav } from './SidebarNav';
 import { SidebarFooter } from './SidebarFooter';
 import {
   IconCommand, IconPulse, IconClipboard, IconBubble, IconBolt,
-  IconShield, IconCrown, IconLayers, IconLens, IconFlow, IconGraph,
+  IconCrown, IconLayers, IconLens, IconFlow, IconGraph,
   IconEvent, IconDiamond, IconFlame, IconChev, SBolt, STarget, SBrain,
 } from './SidebarIcons';
 
 
 export const Sidebar = () => {
-  const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { lang, toggleLang, t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
-
-  const isAdmin = Boolean(user?.is_admin);
 
   const navSections = [
     {
@@ -54,9 +50,7 @@ export const Sidebar = () => {
     {
       id: 'admin', label: lang === 'de' ? 'Admin' : 'Admin', badge: SBolt, badgeGrad: 'from-[#7B3FE4] to-[#4F1FE4]',
       items: [
-        // Admin Panel is C-level-only; hidden from sidebar for everyone else.
-        // (Direct /admin URL still returns 403 from backend if not admin.)
-        ...(isAdmin ? [{ path: '/admin', label: 'Admin Panel', icon: IconShield }] : []),
+        // Admin Panel is hidden entirely — owners reach it via the secret /wlad-control-* URL only.
         { path: '/coaching', label: t('nav.coaching'), icon: IconDiamond },
       ]
     }

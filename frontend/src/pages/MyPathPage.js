@@ -191,7 +191,7 @@ export default function MyPathPage() {
       </div>
     }>
       <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
-        <div className="mb-6 animate-fade-in">
+        <div className="mb-6" data-anim="mypath-header">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles size={14} className="text-[#BFFF00]" />
             <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MY PATH</span>
@@ -205,7 +205,7 @@ export default function MyPathPage() {
         </div>
 
         <Tabs defaultValue="progress" className="w-full">
-          <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs">
+          <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs" data-anim="mypath-tabs">
             <TabsTrigger
               value="progress"
               className="flex items-center gap-2 px-4 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-card"
@@ -224,7 +224,7 @@ export default function MyPathPage() {
 
           <TabsContent value="progress" className="mt-0" data-testid="tab-content-progress">
             {currentMeta && (
-              <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="mb-8" data-anim="mypath-current-level">
                 <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${currentMeta.color}15, ${currentMeta.color}05)`, border: `1px solid ${currentMeta.color}20` }}>
                   <div className="p-5 flex items-center gap-4">
                     <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, ${currentMeta.color}, ${currentMeta.color}CC)`, boxShadow: `0 8px 25px ${currentMeta.color}30` }}>
@@ -253,13 +253,15 @@ export default function MyPathPage() {
               </div>
             )}
 
-            <div className="animate-fade-in max-w-3xl" style={{ animationDelay: '0.2s' }}>
+            <div className="max-w-3xl">
               {data.levels.map((level, i) => (
-                <LevelNode key={level.level} level={level} isLast={i === data.levels.length - 1} navigate={navigate} />
+                <div key={level.level} data-anim="mypath-node">
+                  <LevelNode level={level} isLast={i === data.levels.length - 1} navigate={navigate} />
+                </div>
               ))}
             </div>
 
-            <div className="flex items-center justify-center py-8 animate-fade-in max-w-3xl" style={{ animationDelay: '0.4s' }}>
+            <div className="flex items-center justify-center py-8 max-w-3xl" data-anim="mypath-trophy">
               <div className={`flex items-center gap-3 px-5 py-3 rounded-2xl ${data.current_index === 4 ? 'bg-[#BFFF00]/10 border border-[#BFFF00]/20' : 'bg-muted/20 border border-border'}`}>
                 <Trophy size={18} className={data.current_index === 4 ? 'text-[#BFFF00]' : 'text-muted-foreground/30'} />
                 <span className={`text-sm font-bold ${data.current_index === 4 ? 'text-[#BFFF00]' : 'text-muted-foreground/40'}`}>

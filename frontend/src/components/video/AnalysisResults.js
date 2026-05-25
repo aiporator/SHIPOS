@@ -5,6 +5,8 @@ import {
   Trophy, Target, ArrowLeft, ArrowRight, Star, Download,
   CheckCircle2, Lightbulb, TrendingUp
 } from 'lucide-react';
+import VoicePlayButton from '../shared/VoicePlayButton';
+import { VoiceSpeedToggle } from '../shared/VoiceSpeedToggle';
 
 export const AnalysisResults = ({
   analysis, activeChallenge, resetChallenge, handleDownloadReport,
@@ -84,8 +86,22 @@ export const AnalysisResults = ({
             <div className="flex items-start gap-4">
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=WladJachtchenko&backgroundColor=6366F1" alt="Wlad"
                 className="w-12 h-12 rounded-full ring-2 ring-white/20 shrink-0" />
-              <div>
-                <p className="text-xs font-bold text-white/50 uppercase tracking-wider mb-1">Wlad Jachtchenkos Einschätzung</p>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
+                  <p className="text-xs font-bold text-white/50 uppercase tracking-wider">Wlad Jachtchenkos Einschätzung</p>
+                  <div className="flex items-center gap-2">
+                    <VoiceSpeedToggle />
+                    <VoicePlayButton
+                      text={analysis.wlad_assessment}
+                      persona="wlad"
+                      size="sm"
+                      variant="pill"
+                      label={de ? 'Anhören' : 'Listen'}
+                      testId="wlad-assessment-play"
+                      showWave
+                    />
+                  </div>
+                </div>
                 <p className="text-sm leading-relaxed text-white/90">{analysis.wlad_assessment}</p>
               </div>
             </div>

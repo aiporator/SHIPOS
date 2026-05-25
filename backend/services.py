@@ -2,12 +2,11 @@
 import re
 import jwt
 import bcrypt
-import httpx
 import uuid
 from datetime import datetime, timezone, timedelta
 from fastapi import HTTPException, Request
 
-from config import db, JWT_SECRET, EMERGENT_LLM_KEY, OAUTH_SESSION_URL, logger
+from config import db, JWT_SECRET
 
 
 # ========== AUTH ==========
@@ -75,7 +74,9 @@ async def _authenticate_via_session(token: str) -> dict | None:
 
 async def _authenticate_via_jwt(token: str) -> dict | None:
     try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        # leeway=10 absorbs minor clock drift between client+server (max 10s).
+        # Without this, a 1-second server-time skew kills a perfectly valid JWT.
+        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"], leeway=10)
         return await db.users.find_one({"user_id": payload["user_id"]}, {"_id": 0})
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
         return None

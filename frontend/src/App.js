@@ -6,6 +6,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { Toaster } from "./components/ui/sonner";
 import { NetworkStatusBanner } from "./components/shared/NetworkStatusBanner";
 import LoginPage from "./pages/LoginPage";
+import MagicLinkVerifyPage from "./pages/MagicLinkVerifyPage";
 import AuthCallback from "./pages/AuthCallback";
 import DashboardPage from "./pages/DashboardPage";
 import DailyCheckinPage from "./pages/DailyCheckinPage";
@@ -23,12 +24,20 @@ import ChallengersPage from "./pages/ChallengersPage";
 import CoachingPage from "./pages/CoachingPage";
 import ToolsPage from "./pages/ToolsPage";
 import VideoChallengePage from "./pages/VideoChallengePage";
+import VideoArchivePage from "./pages/VideoArchivePage";
+import LeaderDiagnosePage from "./pages/LeaderDiagnosePage";
 import OnboardingPage from "./pages/OnboardingPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import ReferralPage from "./pages/ReferralPage";
 import EnterprisePage from "./pages/EnterprisePage";
 import Challenge30Page from "./pages/Challenge30Page";
 import DownloadsPage from "./pages/DownloadsPage";
+import ImpressumPage from "./pages/ImpressumPage";
+import DatenschutzPage from "./pages/DatenschutzPage";
+import WiderrufPage from "./pages/WiderrufPage";
+import AGBPage from "./pages/AGBPage";
+import { CookieConsent } from "./components/legal/CookieConsent";
+import { ReAuthModal } from "./components/auth/ReAuthModal";
 
 import ImpressumPage from "./pages/legal/ImpressumPage";
 import DatenschutzPage from "./pages/legal/DatenschutzPage";
@@ -70,6 +79,7 @@ function AppRouter() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/auth/magic" element={<MagicLinkVerifyPage />} />
       <Route path="/auth-callback" element={<AuthCallback />} />
       <Route path="/impressum" element={<ImpressumPage />} />
       <Route path="/datenschutz" element={<DatenschutzPage />} />
@@ -82,6 +92,8 @@ function AppRouter() {
       <Route path="/tools" element={<ProtectedRoute><ToolsPage /></ProtectedRoute>} />
       <Route path="/simulations" element={<ProtectedRoute><SimulationsPage /></ProtectedRoute>} />
       <Route path="/missions" element={<ProtectedRoute><VideoChallengePage /></ProtectedRoute>} />
+      <Route path="/missions/archive" element={<ProtectedRoute><VideoArchivePage /></ProtectedRoute>} />
+      <Route path="/leader-diagnose" element={<ProtectedRoute><LeaderDiagnosePage /></ProtectedRoute>} />
       <Route path="/video-challenge" element={<Navigate to="/missions" replace />} />
       <Route path="/challengers" element={<ProtectedRoute><ChallengersPage /></ProtectedRoute>} />
       <Route path="/tasks" element={<ProtectedRoute><TasksPage /></ProtectedRoute>} />
@@ -90,7 +102,8 @@ function AppRouter() {
       <Route path="/my-path" element={<ProtectedRoute><MyPathPage /></ProtectedRoute>} />
       <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
-      <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+      {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
+      <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
       <Route path="/progress-old" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
       <Route path="/coaching" element={<ProtectedRoute><CoachingPage /></ProtectedRoute>} />
       <Route path="/downloads" element={<ProtectedRoute><DownloadsPage /></ProtectedRoute>} />
@@ -100,6 +113,11 @@ function AppRouter() {
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/enterprise" element={<ProtectedRoute><EnterprisePage /></ProtectedRoute>} />
       <Route path="/challenge" element={<ProtectedRoute><Challenge30Page /></ProtectedRoute>} />
+      {/* Public legal pages — no auth required (GDPR / German law) */}
+      <Route path="/impressum" element={<ImpressumPage />} />
+      <Route path="/datenschutz" element={<DatenschutzPage />} />
+      <Route path="/widerruf" element={<WiderrufPage />} />
+      <Route path="/agb" element={<AGBPage />} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
@@ -118,6 +136,8 @@ function App() {
                 <AppRouter />
                 <CookieConsentBanner />
                 <Toaster position="bottom-right" />
+                <CookieConsent />
+                <ReAuthModal />
               </BrowserRouter>
             </TierProvider>
           </CreditProvider>
