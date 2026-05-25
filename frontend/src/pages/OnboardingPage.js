@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import { WladMark } from '../components/brand/WladMark';
 import api from '../lib/api';
 import {
   ArrowRight, Sparkles, Users, Target, Brain,
@@ -90,9 +91,9 @@ export default function OnboardingPage() {
 
         {/* Step 0: Welcome */}
         {step === 0 && (
-          <div className="text-center space-y-6 animate-fade-in">
-            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] flex items-center justify-center mx-auto shadow-2xl shadow-[#BFFF00]/30">
-              <span className="text-3xl font-black text-white">W</span>
+          <div className="text-center space-y-6 motion-fade-in-up">
+            <div className="mx-auto inline-flex animate-pulse-glow rounded-3xl">
+              <WladMark size={88} animated />
             </div>
             <div>
               <h1 className="text-3xl font-black tracking-tight">{de ? `Willkommen, ${user?.name?.split(' ')[0] || 'Leader'}!` : `Welcome, ${user?.name?.split(' ')[0] || 'Leader'}!`}</h1>

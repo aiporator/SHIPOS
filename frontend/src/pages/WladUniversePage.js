@@ -31,8 +31,8 @@ import {
 
 const StatTile = ({ value, label }) => (
   <div className="text-center px-4 py-3" data-testid={`wlad-stat-${label.split(' ')[0].toLowerCase()}`}>
-    <div className="text-3xl md:text-4xl font-black text-[#BFFF00] tabular-nums leading-none"
-         style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.03em' }}>
+    <div className="text-3xl md:text-4xl font-black text-[#BFFF00] num-ticker leading-none transition-transform duration-300 hover:scale-105"
+         style={{ fontFamily: 'Outfit, sans-serif' }}>
       {value}
     </div>
     <div className="text-[10px] uppercase tracking-wider text-white/55 mt-1.5 font-semibold">
@@ -127,7 +127,7 @@ export default function WladUniversePage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 max-w-6xl mx-auto pb-12">
+      <div className="space-y-8 max-w-6xl mx-auto pb-12 cascade">
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden rounded-2xl border border-[#BFFF00]/15"

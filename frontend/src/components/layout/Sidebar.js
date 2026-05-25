@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { SidebarNav } from './SidebarNav';
 import { SidebarFooter } from './SidebarFooter';
+import { WladMark } from '../brand/WladMark';
 import {
   IconCommand, IconPulse, IconClipboard, IconBubble, IconBolt,
   IconCrown, IconLayers, IconLens, IconFlow, IconGraph,
@@ -65,16 +66,24 @@ export const Sidebar = () => {
 
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 h-[56px] border-b border-black/[0.03] dark:border-white/[0.03]">
-        <div className="w-8 h-8 rounded-[10px] bg-[#0A0A0A] dark:bg-[#BFFF00] flex items-center justify-center shrink-0 cursor-pointer shadow-lg shadow-black/20 dark:shadow-[#BFFF00]/20 hover:shadow-black/30 dark:hover:shadow-[#BFFF00]/30 transition-shadow"
-          onClick={() => navigate('/dashboard')} data-testid="logo-btn">
-          <span className="text-[12px] font-black text-white dark:text-black">W</span>
-        </div>
-        {!collapsed && (
-          <div className="flex flex-col">
-            <span className="font-black text-[14px] tracking-tight leading-none gradient-text">WladBot</span>
-            <span className="text-[7px] text-muted-foreground/40 font-bold tracking-[0.2em] uppercase mt-[3px]">Leadership OS</span>
-          </div>
-        )}
+        <button
+          onClick={() => navigate('/dashboard')}
+          data-testid="logo-btn"
+          className="flex items-center gap-2.5 group focus-ring rounded-lg -m-1 p-1"
+        >
+          <WladMark size={32} animated />
+          {!collapsed && (
+            <div className="flex flex-col items-start leading-none">
+              <span className="font-black text-[14px] tracking-tight"
+                    style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.025em' }}>
+                Leader<span className="opacity-40">·</span>OS
+              </span>
+              <span className="text-[7.5px] text-muted-foreground/45 font-bold tracking-[0.22em] uppercase mt-[3px]">
+                Powered by WladBot
+              </span>
+            </div>
+          )}
+        </button>
       </div>
 
       {/* Collapse */}

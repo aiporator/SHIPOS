@@ -26,6 +26,7 @@ import ToolsPage from "./pages/ToolsPage";
 import VideoChallengePage from "./pages/VideoChallengePage";
 import VideoArchivePage from "./pages/VideoArchivePage";
 import WladUniversePage from "./pages/WladUniversePage";
+import { WladMark } from "./components/brand/WladMark";
 import LeaderDiagnosePage from "./pages/LeaderDiagnosePage";
 import OnboardingPage from "./pages/OnboardingPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
@@ -50,8 +51,8 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-10 h-10 rounded-xl bg-[var(--cyan)] flex items-center justify-center animate-pulse-glow">
-          <span className="text-lg font-bold text-black">W</span>
+        <div className="animate-pulse-glow rounded-xl">
+          <WladMark size={48} animated />
         </div>
       </div>
     );

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { WladMark } from '../brand/WladMark';
 
 /**
  * Premium immersive AI loading screen ("our agents are working").
@@ -218,12 +219,11 @@ export function LoadingOverlay({
       </div>
 
       <div className="relative z-10 w-full max-w-md mx-4 text-center space-y-7">
-        {/* Pulsing WladBot core */}
-        <div className="relative w-24 h-24 mx-auto">
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] animate-breathe shadow-2xl shadow-[#BFFF00]/40" />
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] opacity-50 blur-2xl animate-breathe" />
-          <div className="relative w-24 h-24 rounded-3xl flex items-center justify-center">
-            <span className="text-3xl font-black text-[#0A0A0A]">W</span>
+        {/* Pulsing WladMark core */}
+        <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#BFFF00]/40 to-[#9ACC00]/30 opacity-60 blur-2xl animate-breathe" />
+          <div className="relative animate-breathe">
+            <WladMark size={84} animated />
           </div>
         </div>
 

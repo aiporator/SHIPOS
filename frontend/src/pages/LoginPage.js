@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import api from '../lib/api';
 import { parseAuthError } from '../lib/authErrors';
-import { Globe, Zap, WifiOff, KeyRound, Sparkles } from 'lucide-react';
+import { Globe, WifiOff, KeyRound, Sparkles } from 'lucide-react';
 import { LoginBrandPanel } from '../components/auth/LoginBrandPanel';
+import { WladMark } from '../components/brand/WladMark';
 import { AuthForm } from '../components/auth/AuthForm';
 import { TrustBadges, ModeSwitch } from '../components/auth/LoginExtras';
 import { MagicLinkForm } from '../components/auth/MagicLinkForm';
@@ -152,12 +153,12 @@ export default function LoginPage() {
 
       <div className="flex-1 flex items-start lg:items-center justify-center px-5 pt-16 pb-8 sm:px-8 lg:p-12 relative z-10">
         <div data-testid="login-mobile-header" className="absolute top-4 left-4 flex items-center gap-2 lg:hidden">
-          <div className="w-8 h-8 rounded-lg bg-[#BFFF00] flex items-center justify-center shadow-md shadow-[#BFFF00]/20">
-            <Zap size={14} className="text-[#0A0A0A]" strokeWidth={2.5} />
-          </div>
-          <div>
-            <span className="font-bold text-sm text-white block leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>WLADBOT</span>
-            <span className="text-[9px] text-[#BFFF00]/70 font-semibold tracking-wider uppercase">Leadership OS</span>
+          <WladMark size={32} animated />
+          <div className="flex flex-col leading-none">
+            <span className="font-black text-[13px] text-white" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}>
+              Leader<span className="opacity-40">·</span>OS
+            </span>
+            <span className="text-[8px] text-[#BFFF00]/70 font-bold tracking-[0.2em] uppercase mt-[2px]">Powered by WladBot</span>
           </div>
         </div>
 

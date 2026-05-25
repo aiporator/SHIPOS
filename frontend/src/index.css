@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -261,4 +261,126 @@
 .btn-brand:hover {
   background: #D4FF4D;
   box-shadow: 0 0 20px rgba(191,255,0,0.3);
+}
+
+/* ══════════════════════════════════════════════════
+   REVOLUT-INSPIRED POLISH LAYER (Iter 91)
+   - Premium card surfaces with subtle gradient halos
+   - Buttery-smooth motion (cubic-bezier easing)
+   - Light/Dark parity (all values via design tokens)
+   ══════════════════════════════════════════════════ */
+
+/* ── WladMark animations ── */
+.wlad-mark-animated .wlad-mark-path {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.wlad-mark-animated:hover .wlad-mark-path { stroke-dashoffset: 0; animation: wladPulse 1.2s ease-out; }
+.wlad-mark-animated:hover .wlad-mark-dot { animation: wladDotBounce 0.5s ease-out; }
+@keyframes wladPulse {
+  0% { stroke-dashoffset: 120; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes wladDotBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ── Smooth motion: scope to elements that opt in ── */
+@keyframes fadeInUp { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes scaleIn   { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInRight { from { opacity: 0; transform: translate3d(-12px, 0, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+
+.motion-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-scale-in   { animation: scaleIn  0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-slide-in   { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Cascade helpers — apply to a parent and children get staggered entrance */
+.cascade > *:nth-child(1) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.00s both; }
+.cascade > *:nth-child(2) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.05s both; }
+.cascade > *:nth-child(3) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.10s both; }
+.cascade > *:nth-child(4) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+.cascade > *:nth-child(5) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.20s both; }
+.cascade > *:nth-child(6) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.25s both; }
+.cascade > *:nth-child(7) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
+.cascade > *:nth-child(8) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+
+/* ── Revolut-style premium card surface ── */
+.card-revolut {
+  position: relative;
+  border-radius: 16px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.5);
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+.card-revolut::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(at top left, rgba(191,255,0,0.04), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.card-revolut:hover {
+  transform: translateY(-2px);
+  border-color: hsl(var(--border));
+  box-shadow: 0 12px 32px -16px rgba(0,0,0,0.18);
+}
+.dark .card-revolut:hover {
+  box-shadow: 0 12px 32px -16px rgba(191,255,0,0.06);
+}
+.card-revolut:hover::before { opacity: 1; }
+
+/* ── Premium button with smooth ripple ── */
+.btn-revolut {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.15s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease;
+}
+.btn-revolut:hover { transform: translateY(-1px); }
+.btn-revolut:active { transform: translateY(0); }
+.btn-revolut::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.btn-revolut:hover::after { opacity: 1; }
+
+/* ── Number ticker (Revolut signature stat) ── */
+.num-ticker {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum', 'ss01';
+  letter-spacing: -0.03em;
+}
+
+/* ── Crisp focus ring for keyboard a11y ── */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px rgba(191,255,0,0.55);
+  border-radius: inherit;
+}
+
+/* ── Subtle reveal on scroll (use with IntersectionObserver) ── */
+.reveal-on-scroll { opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal-on-scroll.revealed { opacity: 1; transform: translate3d(0, 0, 0); }
+
+/* ── Light-mode parity for premium cards ── */
+:root .card-revolut::before {
+  background: radial-gradient(at top left, rgba(107,138,0,0.06), transparent 55%);
+}
+
+/* ── Honor reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .motion-fade-in-up, .motion-scale-in, .motion-slide-in,
+  .cascade > *, .wlad-mark-animated:hover .wlad-mark-path,
+  .reveal-on-scroll { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
 }

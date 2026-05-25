@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen" data-testid="dashboard-page">
+      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen cascade" data-testid="dashboard-page">
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
         {/* ── Greeting ── */}
