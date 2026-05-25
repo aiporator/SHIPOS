@@ -4,6 +4,7 @@ import { Lock, Play, Clock, Layers, Crown, CheckCircle2, Sparkles, X } from 'luc
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import VideoPlayer from '../shared/VideoPlayer';
+import { PaywallModal } from '../shared/PaywallModal';
 
 const UNLOCK_MEMO_KEY = 'mypath:lastUnlockedIds';
 
@@ -132,6 +133,7 @@ export default function LearningVideosTab() {
   }, []);
 
   const [playerOpen, setPlayerOpen] = useState(null);  // video object currently playing
+  const [showPaywall, setShowPaywall] = useState(false);
 
   const handlePlay = (video) => {
     // If the video row has a Vimeo ID / URL → open in-app player.
@@ -142,7 +144,7 @@ export default function LearningVideosTab() {
     }
     navigate(`/chat?prefill=${encodeURIComponent('Erkläre mir die Kerninhalte von "' + video.title + '"')}`);
   };
-  const handleUpgrade = () => navigate('/coaching');
+  const handleUpgrade = () => setShowPaywall(true);
 
   // ── Unlock-diff detection: which IDs are NEW since last visit? ──
   const newlyUnlockedIds = useMemo(() => {
@@ -306,6 +308,7 @@ export default function LearningVideosTab() {
           </div>
         </div>
       )}
+      {showPaywall && <PaywallModal onClose={() => setShowPaywall(false)} />}
     </div>
   );
 }

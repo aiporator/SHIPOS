@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { BookConsultationButton, useBookConsultation } from '../components/brand/BookConsultationButton';
+import { useTheme } from '../contexts/ThemeContext';
 import {
   Sparkles, BookOpen, ExternalLink, Award, Mic2, GraduationCap,
   ArrowRight, Users, TrendingUp, Library, Target, CheckCircle2,
@@ -29,6 +30,13 @@ import {
 } from '../data/wladTopics';
 
 const OUTFIT = { fontFamily: 'Outfit, Inter, system-ui, sans-serif' };
+
+// Resolve a color value for the current theme. Each Wlad role / pillar
+// carries `colorDark` (neon, dark-mode) and `colorLight` (WCAG-AA-safe on white).
+const themedColor = (entry, isDark) => {
+  if (!entry) return '#BFFF00';
+  return isDark ? (entry.colorDark || entry.color) : (entry.colorLight || entry.color);
+};
 
 // ── Atoms ────────────────────────────────────────────────────────────────
 
@@ -54,43 +62,46 @@ const StatTile = ({ value, label }) => (
   </div>
 );
 
-const RoleCard = ({ role, index, onTrain }) => (
-  <div className="card-revolut p-5 cursor-default" data-testid={`wlad-role-${role.id}`}>
-    <div className="flex items-start gap-3 mb-3">
-      <div
-        className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
-        style={{
-          background: `${role.color}1F`,
-          border: `1px solid ${role.color}3D`,
-          boxShadow: `inset 0 1px 0 ${role.color}22`,
-        }}
+const RoleCard = ({ role, index, onTrain, isDark }) => {
+  const c = themedColor(role, isDark);
+  return (
+    <div className="card-revolut p-5 cursor-default group" data-testid={`wlad-role-${role.id}`}>
+      <div className="flex items-start gap-3 mb-3">
+        <div
+          className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
+          style={{
+            background: `${c}${isDark ? '1F' : '14'}`,
+            border: `1px solid ${c}${isDark ? '3D' : '40'}`,
+            boxShadow: `inset 0 1px 0 ${c}22`,
+          }}
+        >
+          <span className="text-sm font-black" style={{ ...OUTFIT, color: c }}>
+            {index + 1}
+          </span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-black text-foreground text-base leading-tight" style={OUTFIT}>
+            {role.role}
+          </h3>
+          <p className="text-[11px] font-bold mt-1" style={{ color: c }}>
+            {role.headline}
+          </p>
+        </div>
+      </div>
+      <p className="text-[12.5px] text-muted-foreground leading-relaxed">{role.description}</p>
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={() => onTrain(role.prompt_de)}
+        data-testid={`train-role-${role.id}`}
+        className="mt-3.5 w-full border-border bg-foreground/[0.02] hover:bg-foreground/[0.06] text-foreground/85 text-[11px] font-semibold btn-revolut"
       >
-        <span className="text-sm font-black" style={{ ...OUTFIT, color: role.color }}>
-          {index + 1}
-        </span>
-      </div>
-      <div className="flex-1 min-w-0">
-        <h3 className="font-black text-foreground text-base leading-tight" style={OUTFIT}>
-          {role.role}
-        </h3>
-        <p className="text-[11px] font-bold mt-1" style={{ color: role.color }}>
-          {role.headline}
-        </p>
-      </div>
+        <Sparkles size={11} className="mr-1.5" style={{ color: c }} />
+        Mit WladBot trainieren
+      </Button>
     </div>
-    <p className="text-[12.5px] text-muted-foreground leading-relaxed">{role.description}</p>
-    <Button
-      size="sm"
-      variant="outline"
-      onClick={() => onTrain(role.prompt_de)}
-      data-testid={`train-role-${role.id}`}
-      className="mt-3.5 w-full border-border bg-foreground/[0.02] hover:bg-foreground/[0.06] text-foreground/85 text-[11px] font-semibold btn-revolut"
-    >
-      <Sparkles size={11} className="mr-1.5" style={{ color: role.color }} />
-      Mit WladBot trainieren
-    </Button>
-  </div>
-);
+  );
+};
 
 const TopicChip = ({ topic, color, onTrain }) => (
   <button
@@ -116,30 +127,35 @@ const TopicChip = ({ topic, color, onTrain }) => (
   </button>
 );
 
-const PillarBlock = ({ pillar, onTrain }) => (
-  <div data-testid={`wlad-pillar-${pillar.id}`}>
-    <div className="flex items-center gap-2.5 mb-3.5">
-      <span className="w-1.5 h-6 rounded-full" style={{ background: pillar.color }} />
-      <h3 className="text-base md:text-lg font-black text-foreground" style={OUTFIT}>
-        {pillar.label_de}
-      </h3>
-      <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">
-        · {pillar.label_en}
-      </span>
+const PillarBlock = ({ pillar, onTrain, isDark }) => {
+  const c = themedColor(pillar, isDark);
+  return (
+    <div data-testid={`wlad-pillar-${pillar.id}`}>
+      <div className="flex items-center gap-2.5 mb-3.5">
+        <span className="w-1.5 h-6 rounded-full" style={{ background: c }} />
+        <h3 className="text-base md:text-lg font-black text-foreground" style={OUTFIT}>
+          {pillar.label_de}
+        </h3>
+        <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">
+          · {pillar.label_en}
+        </span>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+        {pillar.topics.map((t) => (
+          <TopicChip key={t.id} topic={t} color={c} onTrain={onTrain} />
+        ))}
+      </div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-      {pillar.topics.map((t) => (
-        <TopicChip key={t.id} topic={t} color={pillar.color} onTrain={onTrain} />
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 // ── Page ─────────────────────────────────────────────────────────────────
 
 export default function WladUniversePage() {
   const navigate = useNavigate();
   const openBooking = useBookConsultation();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const handleTrain = (prompt) => {
     try { sessionStorage.setItem('wlad_starter_prompt', prompt); }
@@ -249,7 +265,7 @@ export default function WladUniversePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {WLAD_5_ROLES.map((r, i) => (
-              <RoleCard key={r.id} role={r} index={i} onTrain={handleTrain} />
+              <RoleCard key={r.id} role={r} index={i} onTrain={handleTrain} isDark={isDark} />
             ))}
           </div>
         </section>
@@ -267,7 +283,7 @@ export default function WladUniversePage() {
             </p>
           </div>
           {WLAD_TOPIC_PILLARS.map((p) => (
-            <PillarBlock key={p.id} pillar={p} onTrain={handleTrain} />
+            <PillarBlock key={p.id} pillar={p} onTrain={handleTrain} isDark={isDark} />
           ))}
         </section>
 

@@ -94,6 +94,7 @@ export const WLAD_TOPIC_PILLARS = [
     label_de: 'Menschen begeistern',
     label_en: 'Inspire People',
     color: '#BFFF00',
+    colorLight: '#5A7700',
     topics: [
       {
         id: 'charisma_code',
@@ -126,6 +127,7 @@ export const WLAD_TOPIC_PILLARS = [
     label_de: 'Menschen überzeugen',
     label_en: 'Convince People',
     color: '#00AAFF',
+    colorLight: '#0070B8',
     topics: [
       {
         id: 'weisse_rhetorik',
@@ -164,6 +166,7 @@ export const WLAD_TOPIC_PILLARS = [
     label_de: 'Business-Kommunikation',
     label_en: 'Business Communication',
     color: '#FFB800',
+    colorLight: '#A56A00',
     topics: [
       {
         id: 'verhandlung',
@@ -199,7 +202,8 @@ export const WLAD_ALL_TOPICS = WLAD_TOPIC_PILLARS.flatMap((p) =>
 );
 
 // Die 5 Rollen einer Führungskraft -- Wlads Kern-Framework
-// Wird auf der Wlad-Universum-Seite als Hero-Sektion gerendert.
+// `colorDark`: neon-bright variant fürs Dark Mode. `colorLight`: WCAG-AA-safe
+// darker variant fürs Light Mode (mindestens 4.5:1 Kontrast auf #FFFFFF).
 export const WLAD_5_ROLES = [
   {
     id: 'kommunikator',
@@ -207,7 +211,8 @@ export const WLAD_5_ROLES = [
     headline: 'Charismatisch auftreten · Souverän argumentieren',
     description: 'Charismatisch auftreten, fesselnd präsentieren und souverän argumentieren — auch unter Druck.',
     prompt_de: 'Trainier mit mir die Rolle „Kommunikator". Stell mir eine kritische Frage aus einem Vorstands-Meeting und werte meine Antwort gegen Wlads Charisma-Code aus.',
-    color: '#BFFF00',
+    colorDark: '#BFFF00',
+    colorLight: '#5A7700',
   },
   {
     id: 'manager',
@@ -215,7 +220,8 @@ export const WLAD_5_ROLES = [
     headline: 'Stärken nutzen · Zeit zurückgewinnen',
     description: 'Eigene Stärken nutzen, Zeit zurückgewinnen und auch in schwierigen Lagen klare Entscheidungen treffen.',
     prompt_de: 'Coach mich als „Manager"-Rolle. Mein aktuelles Zeit-Problem: [ergänzen]. Führ mich durch Wlads Delegations- und Entscheidungs-Matrix.',
-    color: '#00AAFF',
+    colorDark: '#00AAFF',
+    colorLight: '#0070B8',
   },
   {
     id: 'team_leader',
@@ -223,7 +229,8 @@ export const WLAD_5_ROLES = [
     headline: 'Stärken erkennen · Klar delegieren',
     description: 'Die richtigen Leute finden, Stärken erkennen, klar delegieren und auch schwache Mitarbeiter motivieren.',
     prompt_de: 'Hilf mir, einen schwachen Mitarbeiter wieder auf Performance zu bringen. Nutze Wlads Mitarbeiter-Motivation-4.0-Framework.',
-    color: '#FFB800',
+    colorDark: '#FFB800',
+    colorLight: '#A56A00',
   },
   {
     id: 'psychologe',
@@ -231,7 +238,8 @@ export const WLAD_5_ROLES = [
     headline: 'Empathisch begegnen · Konflikte früh erkennen',
     description: 'Empathisch begegnen, Konflikte früh erkennen und ein Klima schaffen, in dem dein Team aufblüht.',
     prompt_de: 'Trainier mit mir die Rolle „Psychologe". Stell mir Fragen, mit denen ich versteckte Konflikte in meinem Team früh erkenne.',
-    color: '#FF6B9D',
+    colorDark: '#FF6B9D',
+    colorLight: '#C42463',
   },
   {
     id: 'problemloeser',
@@ -239,6 +247,7 @@ export const WLAD_5_ROLES = [
     headline: 'Verhandeln wie ein Profi · Konflikte souverän handhaben',
     description: 'Verhandeln wie ein Profi, Kritikgespräche konstruktiv führen und respektlose Mitarbeiter souverän handhaben.',
     prompt_de: 'Bereite mich auf ein schwieriges Kritikgespräch vor. Nutze Wlads 5-Schritte-Konfliktgespräch und stell mir die Discovery-Fragen.',
-    color: '#A78BFA',
+    colorDark: '#A78BFA',
+    colorLight: '#6D49D6',
   },
 ];

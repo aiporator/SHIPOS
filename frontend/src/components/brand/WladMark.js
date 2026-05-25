@@ -45,7 +45,10 @@ export const WladMark = forwardRef(({
         />
       )}
 
-      {/* SVG mark */}
+      {/* SVG mark — ASCENDING PIXEL CHART
+          Three rising columns connected by an upward W stroke. The pattern
+          reads as a clear "going-up" chart while still spelling W: each peak
+          higher than the previous, with thick chunky pixel-style strokes. */}
       <svg
         viewBox="0 0 32 32"
         width={size * 0.74}
@@ -53,30 +56,39 @@ export const WladMark = forwardRef(({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="relative z-10"
+        shapeRendering="crispEdges"
       >
         <defs>
-          <linearGradient id="wm-stroke" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+          <linearGradient id="wm-stroke" x1="4" y1="26" x2="28" y2="6" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor={isSolid ? '#0A0A0A' : '#BFFF00'} />
-            <stop offset="100%" stopColor={isSolid ? '#0A0A0A' : '#D4FF4D'} />
+            <stop offset="100%" stopColor={isSolid ? '#1A1A1A' : '#D4FF4D'} />
           </linearGradient>
         </defs>
 
-        {/* The three-stroke "W" — each stroke = ascending leadership pillar.
-            Drawn with stroke + linecaps round for a premium-fintech look. */}
+        {/* Pixel-style ascending columns — each step taller than the last */}
+        <g fill="url(#wm-stroke)">
+          <rect x="3"  y="18" width="3" height="9"  rx="0.5" />
+          <rect x="9"  y="14" width="3" height="13" rx="0.5" />
+          <rect x="15" y="10" width="3" height="17" rx="0.5" />
+          <rect x="21" y="6"  width="3" height="21" rx="0.5" />
+          <rect x="27" y="3"  width="3" height="24" rx="0.5" />
+        </g>
+
+        {/* Subtle W-connecting underline that ties the chart to the brand */}
         <path
-          d="M5 8 L9.5 23 L13.5 14 L18.5 23 L22.5 14 L27 23"
-          stroke="url(#wm-stroke)"
-          strokeWidth="3.2"
+          d="M3 27 L30 27"
+          stroke={isSolid ? '#0A0A0A' : '#BFFF00'}
+          strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round"
+          opacity="0.35"
           className="wlad-mark-path"
         />
 
-        {/* Crown-dot — apex accent (Revolut-style) */}
+        {/* Crown-dot — apex accent on top of the tallest bar */}
         <circle
-          cx="16"
-          cy="6.5"
-          r="1.6"
+          cx="28.5"
+          cy="2.5"
+          r="1.7"
           fill={isSolid ? '#0A0A0A' : '#BFFF00'}
           className="wlad-mark-dot"
         />
