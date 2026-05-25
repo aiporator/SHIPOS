@@ -16,16 +16,13 @@ import { BookConsultationButton, useBookConsultation } from '../components/brand
 import { useTheme } from '../contexts/ThemeContext';
 import { usePricing } from '../contexts/PricingContext';
 import {
-  Sparkles, BookOpen, ExternalLink, Award, Mic2, GraduationCap,
-  ArrowRight, Users, TrendingUp, Library, Target, CheckCircle2,
+  Sparkles, Award, GraduationCap,
+  ArrowRight, Users, Library, Target, CheckCircle2,
   Calendar, Headphones,
 } from 'lucide-react';
 import {
   WLAD_5_ROLES,
   WLAD_TOPIC_PILLARS,
-  WLAD_BOOKS,
-  WLAD_PODCAST,
-  WLAD_MASTERCLASS,
   WLAD_STATS,
   WLAD_AUSBILDUNG,
 } from '../data/wladTopics';
@@ -374,72 +371,7 @@ export default function WladUniversePage() {
           </div>
         </section>
 
-        {/* ── BOOKS · PODCAST · MASTERCLASS ─────────────────────────────── */}
-        <section data-testid="wlad-resources">
-          <SectionEyebrow icon={BookOpen} label="Originalquellen" />
-          <h2 className="text-2xl md:text-[34px] font-black text-foreground leading-tight mb-5"
-              style={{ ...OUTFIT, letterSpacing: '-0.025em' }}>
-            Bücher · Podcast · Masterclass
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {WLAD_BOOKS.map((b) => (
-              <a
-                key={b.id}
-                href={b.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid={`book-card-${b.id}`}
-                className="block card-revolut p-5 group"
-              >
-                <div className="flex items-start justify-between gap-2 mb-2.5">
-                  <BookOpen size={16} className="text-brand" />
-                  <ExternalLink size={11} className="text-muted-foreground/40 group-hover:text-brand transition-colors" />
-                </div>
-                <h3 className="font-black text-foreground text-base leading-tight" style={OUTFIT}>
-                  „{b.title}"
-                </h3>
-                <p className="text-[12px] text-muted-foreground mt-1.5 leading-relaxed">{b.subtitle}</p>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 font-black mt-3">
-                  {b.publisher}
-                </p>
-              </a>
-            ))}
-
-            <a
-              href={WLAD_PODCAST.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="podcast-card"
-              className="block card-revolut p-5 group"
-            >
-              <div className="flex items-start justify-between gap-2 mb-2.5">
-                <Mic2 size={16} className="text-brand" />
-                <ExternalLink size={11} className="text-muted-foreground/40 group-hover:text-brand transition-colors" />
-              </div>
-              <h3 className="font-black text-foreground text-base" style={OUTFIT}>„{WLAD_PODCAST.title}"</h3>
-              <p className="text-[12px] text-muted-foreground mt-1.5">{WLAD_PODCAST.subtitle}</p>
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 font-black mt-3">Podcast (DE)</p>
-            </a>
-
-            <a
-              href={WLAD_MASTERCLASS.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="masterclass-card"
-              className="block card-revolut p-5 group"
-            >
-              <div className="flex items-start justify-between gap-2 mb-2.5">
-                <TrendingUp size={16} className="text-brand" />
-                <ExternalLink size={11} className="text-muted-foreground/40 group-hover:text-brand transition-colors" />
-              </div>
-              <h3 className="font-black text-foreground text-base" style={OUTFIT}>{WLAD_MASTERCLASS.title}</h3>
-              <p className="text-[12px] text-muted-foreground mt-1.5">{WLAD_MASTERCLASS.subtitle}</p>
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 font-black mt-3">
-                1.100+ Videos · VR Training
-              </p>
-            </a>
-          </div>
-        </section>
+        {/* ── BOOKS · PODCAST · MASTERCLASS section removed per user request (Iter 92) ── */}
 
         {/* ── CLOSER CTA ─────────────────────────────────────────────────── */}
         <section
