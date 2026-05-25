@@ -7,27 +7,30 @@ from services_tier import resolve_user_tier
 router = APIRouter(prefix="/api", tags=["my-path"])
 
 
-# ── Lernvideos-Katalog (Starter vs. Accelerator exklusiv) ────────────────────
+# ── Lernvideos-Katalog ───────────────────────────────────────────────────────
+# First 6 videos: FREE for everyone (lead-magnet — pre-launch wlad cohort
+# strategy: give value upfront, convert to Leadership OS / PLUS later).
+# Remaining 4: Accelerator-exclusive Masterclasses.
 LEARNING_VIDEOS = [
-    # Starter-Bundle (6 Kurse @ €199 einmalig)
+    # Free leadership starter pack (lead-magnet — 6 episodes, no tier required)
     {"id": "v1", "title": "Rhetorik-Grundlagen", "duration": "42 Min", "module": "Kommunikation",
      "description": "Die 3 Säulen wirkungsvoller Führungssprache. Körpersprache, Stimme & Wortwahl.",
-     "min_tier": "starter", "episodes": 6, "thumbnail_color": "#6366F1", "level": "Einstieg"},
+     "min_tier": "free", "episodes": 6, "thumbnail_color": "#6366F1", "level": "Einstieg"},
     {"id": "v2", "title": "Schwierige Gespräche meistern", "duration": "38 Min", "module": "Kommunikation",
      "description": "Konflikt, Kritik & Kündigung — ohne Drama. SBI-Methode in Action.",
-     "min_tier": "starter", "episodes": 5, "thumbnail_color": "#8B5CF6", "level": "Einstieg"},
+     "min_tier": "free", "episodes": 5, "thumbnail_color": "#8B5CF6", "level": "Einstieg"},
     {"id": "v3", "title": "Delegation wie ein Profi", "duration": "29 Min", "module": "Führung",
      "description": "Aufgaben richtig abgeben, Vertrauen aufbauen, Mikromanagement vermeiden.",
-     "min_tier": "starter", "episodes": 4, "thumbnail_color": "#EC4899", "level": "Einstieg"},
+     "min_tier": "free", "episodes": 4, "thumbnail_color": "#EC4899", "level": "Einstieg"},
     {"id": "v4", "title": "Feedback-Formate (SBI & WWW)", "duration": "35 Min", "module": "Coaching",
      "description": "Strukturiertes Feedback geben — wöchentlich, faktenbasiert, wirksam.",
-     "min_tier": "starter", "episodes": 5, "thumbnail_color": "#F59E0B", "level": "Einstieg"},
+     "min_tier": "free", "episodes": 5, "thumbnail_color": "#F59E0B", "level": "Einstieg"},
     {"id": "v5", "title": "Storytelling im Boardroom", "duration": "47 Min", "module": "Kommunikation",
      "description": "Wie du komplexe Ideen in 2 Minuten verkaufst. Hollywood-Dramaturgie für Leader.",
-     "min_tier": "starter", "episodes": 7, "thumbnail_color": "#10B981", "level": "Fortgeschritten"},
+     "min_tier": "free", "episodes": 7, "thumbnail_color": "#10B981", "level": "Fortgeschritten"},
     {"id": "v6", "title": "Meeting-Rhetorik", "duration": "33 Min", "module": "Führung",
      "description": "Wer zuerst spricht, gewinnt. Agenda-Hacking & die 20-Sekunden-Regel.",
-     "min_tier": "starter", "episodes": 4, "thumbnail_color": "#14B8A6", "level": "Einstieg"},
+     "min_tier": "free", "episodes": 4, "thumbnail_color": "#14B8A6", "level": "Einstieg"},
 
     # Accelerator-exklusive Masterclasses
     {"id": "v7", "title": "KI-First Leadership", "duration": "2h 15 Min", "module": "AI-Strategie",
@@ -190,14 +193,17 @@ async def get_learning_videos(request: Request):
         merged["has_video"] = bool(merged.get("vimeo_id") or merged.get("vimeo_url") or merged.get("video_url"))
         videos.append(merged)
 
-    starter_videos = [v for v in videos if v["min_tier"] == "starter"]
+    free_videos = [v for v in videos if v["min_tier"] == "free"]
     accelerator_videos = [v for v in videos if v["min_tier"] == "accelerator"]
     ready_count = sum(1 for v in videos if v["has_video"])
 
     return {
         "user_tier": user_tier,
         "user_tier_name": tier_info["tier_name"],
-        "starter_videos": starter_videos,
+        # `starter_videos` kept for backward-compat with the frontend; it now
+        # serves the FREE pack (first 6 episodes — Wlad cohort lead-magnet).
+        "starter_videos": free_videos,
+        "free_videos": free_videos,
         "accelerator_videos": accelerator_videos,
         "total_episodes": sum(item["episodes"] for item in videos),
         "unlocked_count": sum(1 for item in videos if item["unlocked"]),

@@ -81,8 +81,8 @@ const VideoCard = ({ video, onPlay, onUpgrade, newlyUnlocked }) => {
           </div>
         )}
         {!exclusive && unlocked && (
-          <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/50 backdrop-blur text-white text-[9px] font-bold uppercase tracking-wider">
-            Starter
+          <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[9px] font-black uppercase tracking-wider shadow-lg shadow-emerald-500/30">
+            Gratis
           </div>
         )}
       </div>
@@ -208,26 +208,23 @@ export default function LearningVideosTab() {
         </div>
       </div>
 
-      {/* Standard / Leadership OS section — 12 Videokurse drip */}
+      {/* FREE starter pack — 6 episodes, lead-magnet for the cohort */}
       <section data-anim="video-section">
         <div className="flex items-end justify-between mb-4" data-anim="section-header">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[9px] font-black uppercase tracking-widest text-[#6B8A00]">Leadership OS</span>
-              <span className="text-[9px] font-bold text-muted-foreground/50">· €997 / Jahr · 12 Kurse drip</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">100% Gratis</span>
+              <span className="text-[9px] font-bold text-muted-foreground/50">· Lead-Magnet · 6 Kurse · Sofort verfügbar</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">12 Kurse · monatlich freigeschaltet · {data.starter_videos.reduce((s, v) => s + v.episodes, 0)} Folgen</p>
+            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen — Kostenlos</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">6 Kurse · {data.starter_videos.reduce((s, v) => s + v.episodes, 0)} Folgen · Vimeo HD · Ohne Anmeldepflicht</p>
           </div>
-          {!hasStarter && (
-            <button
-              onClick={handleUpgrade}
-              className="text-[11px] font-black px-4 py-2 rounded-xl bg-[#0A0A0A] text-[#BFFF00] hover:bg-[#0A0A0A]/90 transition-colors"
-              data-testid="unlock-starter-btn"
-            >
-              Freischalten →
-            </button>
-          )}
+          <span
+            className="text-[10px] font-black px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+            data-testid="free-videos-badge"
+          >
+            FREE FOREVER
+          </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.starter_videos.map(v => (
