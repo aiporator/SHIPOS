@@ -1,6 +1,8 @@
 import { Crown, Lock, Check, Mail, Calendar } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { PricingModal } from './PricingModal';
 
 const FEATURE_LABELS = {
   video_analysis: {
@@ -58,9 +60,9 @@ export const TierLockOverlay = ({
   de = true,
 }) => {
   const navigate = useNavigate();
+  const [showPaywall, setShowPaywall] = useState(false);
   const cfg = FEATURE_LABELS[feature] || FEATURE_LABELS.video_analysis;
   const isAccelerator = requiredTier === 'accelerator';
-
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0A0A0A]/75 backdrop-blur-md animate-fade-in p-6"
@@ -122,8 +124,8 @@ export const TierLockOverlay = ({
         {/* CTAs */}
         <div className="space-y-2">
           <Button
-            onClick={() => navigate('/coaching')}
-            className={`w-full font-bold h-11 ${
+            onClick={() => setShowPaywall(true)}
+            className={`w-full font-bold h-11 btn-revolut ${
               isAccelerator
                 ? 'bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#9ACC00]'
                 : 'bg-white text-[#0A0A0A] hover:bg-white/90'
@@ -136,7 +138,13 @@ export const TierLockOverlay = ({
           </Button>
           <div className="flex gap-2">
             <button
-              onClick={() => navigate('/coaching')}
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.Cal?.ns?.beratung) {
+                  window.Cal.ns.beratung('modal', { calLink: 'leaderos/beratung' });
+                } else {
+                  window.open('https://cal.com/leaderos/beratung', '_blank', 'noopener,noreferrer');
+                }
+              }}
               className="flex-1 flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white/50 hover:text-white/80 py-2 transition-colors"
               data-testid="book-call-btn"
             >
@@ -159,6 +167,13 @@ export const TierLockOverlay = ({
           </a>
         </p>
       </div>
+
+      {showPaywall && (
+        <PricingModal
+          defaultTier={isAccelerator ? 'leadership_os_plus' : 'leadership_os'}
+          onClose={() => setShowPaywall(false)}
+        />
+      )}
     </div>
   );
 };

@@ -92,6 +92,10 @@ app.include_router(sync_router)
 from routes.og import router as og_router  # noqa: E402
 app.include_router(og_router)
 
+# Lifecycle email crons (trial reminders + drip sequence)
+from routes.lifecycle_emails import router as lifecycle_emails_router  # noqa: E402
+app.include_router(lifecycle_emails_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:
@@ -101,6 +105,17 @@ async def root() -> dict[str, str]:
 @app.get("/api/health")
 async def health_check() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/rag-status")
+async def rag_health() -> dict:
+    """Diagnostic: is the WladBot RAG knowledge layer wired up correctly?
+
+    Returns config flags + cache size. Does NOT expose secret values.
+    Use this after rotating Voyage/Supabase keys to verify activation.
+    """
+    from services_rag import rag_status
+    return rag_status()
 
 
 # CORS: `allow_credentials=True` (needed for httpOnly session cookie) is INCOMPATIBLE

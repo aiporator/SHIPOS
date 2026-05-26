@@ -55,8 +55,9 @@ async def start_simulation(data: SimulationStart, request: Request):
 async def _process_simulation_completion(sim_id: str, user_id: str, scenario: dict, ai_response: str):
     """Parse AI response for completion scores and update user stats."""
     try:
-        scores = json.loads(ai_response)
-        if not scores.get("completed"):
+        from services_ai_parse import parse_ai_json
+        scores = parse_ai_json(ai_response)
+        if not scores or not scores.get("completed"):
             return None
         await db.simulations.update_one({"simulation_id": sim_id}, {"$set": {"status": "completed", "scores": scores}})
         overall = scores.get("overall_score", 0)
@@ -69,7 +70,7 @@ async def _process_simulation_completion(sim_id: str, user_id: str, scenario: di
             metadata={"simulation_id": sim_id, "scenario": scenario.get("title", ""), "overall_score": overall},
         )
         return scores
-    except json.JSONDecodeError:
+    except Exception:
         return None
 
 

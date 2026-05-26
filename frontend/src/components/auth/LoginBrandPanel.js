@@ -1,4 +1,5 @@
-import { Zap, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
+import { WladMark } from '../brand/WladMark';
 
 const BG_IMG = 'https://images.unsplash.com/photo-1633602114554-be8c2c5d6828?crop=entropy&cs=srgb&fm=jpg&w=1200&q=80';
 
@@ -17,13 +18,18 @@ export const LoginBrandPanel = ({ features, de }) => {
       <div className="relative z-10 flex flex-col justify-between p-12 xl:p-20 w-full">
         <div>
           <div className="flex items-center gap-2.5 mb-20">
-            <div className="w-10 h-10 rounded-xl bg-[#BFFF00] flex items-center justify-center">
-              <Zap size={20} className="text-[#0A0A0A]" />
+            <WladMark size={40} animated />
+            <div className="flex flex-col leading-none">
+              <span className="font-black text-[18px] tracking-tight text-white" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}>
+                Leader<span className="opacity-40">·</span>OS
+              </span>
+              <span className="text-[8px] tracking-[0.22em] uppercase font-bold text-white/35 mt-1">
+                Powered by WladBot
+              </span>
             </div>
-            <span className="font-bold text-lg tracking-tight text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>WLADBOT</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl tracking-tighter leading-[1.08] text-white mb-8" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 500 }}>
+          <h1 className="text-4xl sm:text-5xl tracking-tighter leading-[1.08] text-white mb-8" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 500, letterSpacing: '-0.035em' }}>
             {de ? (
               <>
                 <span className="block">Die Zukunft gehört</span>
@@ -39,7 +45,7 @@ export const LoginBrandPanel = ({ features, de }) => {
             )}
           </h1>
 
-          <div className="space-y-5 mt-12">
+          <div className="space-y-5 mt-12 cascade">
             {features.map(item => (
               <div key={item.t} className="flex items-start gap-3">
                 <CheckCircle2 size={16} className="text-[#BFFF00] mt-0.5 shrink-0" />

@@ -44,17 +44,18 @@ const build30TagePlan = (user) => ({
 });
 
 const buildWladBook = (user) => ({
-  title: 'Die Kunst der Kommunikation',
-  subtitle: 'Wlad Jachtchenko · Auszüge & Frameworks',
+  title: 'Wlads Methodik · Kern-Frameworks',
+  subtitle: 'Auszüge aus Weiße Rhetorik · Dunkle Rhetorik · Die 5 Rollen einer Führungskraft',
   userName: user?.name,
   sections: [
-    { title: 'Die 3 Säulen der Überzeugung', content: 'Logos (Logik): Klare Argumente und Daten. Ethos (Glaubwürdigkeit): Kompetenz und Authentizität. Pathos (Emotion): Storytelling und emotionale Verbindung. Wahre Überzeugungskraft entsteht im Zusammenspiel aller drei.' },
+    { title: 'Die 3 Säulen der Überzeugung (Argumentorik)', content: 'Logos (Logik): Klare Argumente und Daten. Ethos (Glaubwürdigkeit): Kompetenz und Authentizität. Pathos (Emotion): Storytelling und emotionale Verbindung. Wahre Überzeugungskraft entsteht im Zusammenspiel aller drei.' },
     { title: 'Der Kommunikationsquadrant', content: '1. Sachebene: Was ist die Information? 2. Selbstoffenbarung: Was sage ich über mich? 3. Beziehungsebene: Wie steht es um uns? 4. Appell: Was will ich erreichen?' },
     { title: 'Die Feedbackformel', content: 'Beobachtung (was genau habe ich gesehen) + Wirkung (wie hat es auf mich gewirkt) + Wunsch (was wünsche ich mir konkret) = klares, nicht verletzendes Feedback.' },
     { title: 'Aktives Zuhören (5 Ebenen)', content: '1. Ignorieren · 2. So tun als ob · 3. Selektiv · 4. Aufmerksam · 5. Empathisch (gefühlte Bedeutung). Ziel ist immer Stufe 5.' },
     { title: 'Die 4 Gesprächstypen', content: 'Informieren · Überzeugen · Verhandeln · Konfrontieren. Wer den richtigen Typ identifiziert, gewinnt das Gespräch.' },
+    { title: 'Die 5 Rollen einer Führungskraft', content: '1. Überzeugender Kommunikator · 2. Effektiver Manager · 3. Motivierender Team-Leader · 4. Empathischer Psychologe · 5. Strukturierter Problemlöser. Jede Rolle hat ihre eigenen Drills.' },
   ],
-  footer: '© Wlad Jachtchenko · "Die Kunst der Kommunikation" · ISBN: amazon.de/dp/B084DGDDTL',
+  footer: '© Wlad Jachtchenko · Originalbücher: „Weiße Rhetorik" (Goldmann) · „Dunkle Rhetorik" · „Die 5 Rollen einer Führungskraft" (remote-verlag)',
 });
 
 const buildLeadershipManifest = () => ({
@@ -100,9 +101,9 @@ const RESOURCES = [
   {
     id: 'wlad_book',
     icon: BookOpen,
-    title: 'Die Kunst der Kommunikation (Auszug)',
-    description: 'Wlads Kern-Frameworks: 3 Säulen, Quadrant, Feedbackformel, 5 Ebenen.',
-    badge: 'Wlad Buch',
+    title: 'Wlads Methodik · Kern-Frameworks',
+    description: '3 Säulen · Kommunikationsquadrant · Feedbackformel · 5 Ebenen · 5 Rollen.',
+    badge: 'Wlad-Kompendium',
     requiresTier: false,
     free: true,
     builder: buildWladBook,

@@ -1,0 +1,36 @@
+{
+  "summary": "Iter 90 backend verification of P0 Resend Email Sprint + P1 RAG Cleanup. 10/11 pytest tests PASS. Lifecycle: GET /api/lifecycle/status returns {email_enabled:true, trial_reminder_days_before:[3], drip_stages_days:[1,3,7]} ✓. Cron endpoints work without auth (CRON_SHARED_SECRET unset): POST /api/cron/trial-reminders → {sent:int, scanned:int} ✓; POST /api/cron/drip-sequence → {sent, scanned, by_stage} ✓ and IDEMPOTENT (second call sent=0 due to email_log dedup) ✓. Welcome email: POST /api/auth/register for fresh e2e_lifecycle_<rand>@test.com creates user AND writes a 'signup_welcome' row in db.email_log (sent=true, email_id from Resend) ✓ — note the row is keyed by user_email (NOT user_id). Admin RAG: rag-enrich-metadata dry_run returns total_scanned=609 enriched_total=0 errors=[] (already enriched on prior run as noted) ✓; rag-corpus-stats returns total_chunks=609, NO 'unknown' key in courses, unique_courses<=19 ✓. Learning videos admin: list returns exactly 10 videos with ids v1..v10 ✓; PUT v1 vimeo_id='987654321' persists, PUT '' resets ✓. /api/my-path/videos splits into starter_videos+accelerator_videos, every video has has_video bool, ready_count matches manual count ✓. SINGLE FAILURE — rag-debug query 'Wie führe ich ein schwieriges Konfliktgespräch?' (match_count=5) still returns coverage.courses={'unknown': 5} — i.e. the RPC match_wladbot_documents projects metadata.course=null for every returned chunk, even though the wladbot_documents.metadata column itself IS enriched (corpus-stats reads same table directly and reports 0 unknown). This is a Supabase Postgres function issue, not a backend Python issue.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/admin/rag-debug", "issue": "All returned chunks come back with metadata.course=null → coverage.courses={'unknown': 5} for the test query. wladbot_documents.metadata is enriched at rest (corpus-stats confirms zero 'unknown' across 609 chunks), but the Postgres RPC 'match_wladbot_documents' is not projecting the up-to-date metadata column. End-user RAG Studio + LLM grounding will still show 'unknown' until the RPC is rebuilt. Fix on Supabase side: drop & recreate match_wladbot_documents to SELECT metadata from wladbot_documents (or ensure it returns the metadata jsonb column verbatim).", "priority": "HIGH"}
+    ],
+    "minor": []
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iteration90_lifecycle_rag.py",
+    "/app/test_reports/pytest/iter90_lifecycle.xml"
+  ],
+  "action_items": [
+    "Recreate / fix the Supabase Postgres RPC `match_wladbot_documents` so that it returns the same enriched `metadata` jsonb that wladbot_documents already stores. After the fix, /api/admin/rag-debug coverage.courses should no longer contain the 'unknown' key — verify by re-running test_rag_debug_no_unknown_in_coverage.",
+    "OPTIONAL: routes/auth.py:_send_signup_welcome logs the row by `user_email` while routes/lifecycle_emails.py drip/trial log by `user_id` — consider adding both fields for easier cross-referencing in audits."
+  ],
+  "critical_code_review_comments": [
+    "lifecycle_emails.py — Idempotency design via email_log find_one before send is solid; the per-user-per-window dedup key `trial_reminder_<window_ts>` correctly handles trial resets. Drip sequence skips conversion-focused Day 7 mail for paid users — good UX defense.",
+    "lifecycle_emails.py:153 — Candidate query filters users created in last 14d to keep scan O(weekly cohort) instead of full-table. Sensible scaling.",
+    "auth.py:_send_signup_welcome — Pre-insert find_one on (user_email, type) prevents double-sends on register replays. Wraps the whole flow in try/except so welcome-mail failures never block signup. Good defensive design.",
+    "admin.py:rag-debug vs rag-corpus-stats — Inconsistent data source: corpus-stats reads `wladbot_documents?select=metadata` directly; rag-debug relies on RPC `match_wladbot_documents`. The RPC return signature is the single point of failure for the P1 'unknown' cleanup — recommend a quick integration assert in admin.py to log whenever rag-debug sees course=null (alert main agent that DB function is stale).",
+    "admin.py:rag-enrich-metadata — Good idempotent behavior (already_labeled tracked separately from enriched_total). dry_run honored throughout.",
+    "test infrastructure — Tests cleanly use Bearer JWT from /api/auth/login; cron tests deliberately omit auth header (matches CRON_SHARED_SECRET unset env). Mongo verification via pymongo direct read gives definitive proof of side-effects."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration90_lifecycle_rag.py (new — 11 tests, 10 passing)"
+  ],
+  "success_rate": {"backend": "91% (10/11)", "frontend": "not tested (backend-only request)"},
+  "test_credentials": "test@test.com / test123 (admin Bearer JWT). Real Resend emails do send to whatever email address is supplied — the welcome-email assertion uses a randomized e2e_lifecycle_<rand>@test.com.",
+  "seed_data_creation": "Each test_register_fires_signup_welcome run creates one new user with random email e2e_lifecycle_<8char>@test.com — these accumulate in users + email_log. Cleanup not required (won't collide on future runs).",
+  "retest_needed": true,
+  "main_agent_can_self_test": false,
+  "context_for_next_testing_agent": "Run: REACT_APP_BACKEND_URL=$(grep REACT_APP_BACKEND_URL /app/frontend/.env|cut -d= -f2) MONGO_URL=$(grep MONGO_URL /app/backend/.env|cut -d= -f2|tr -d '\"') DB_NAME=$(grep DB_NAME /app/backend/.env|cut -d= -f2|tr -d '\"') pytest /app/backend/tests/test_iteration90_lifecycle_rag.py -v. After main agent updates Supabase RPC match_wladbot_documents, only TestAdminRag::test_rag_debug_no_unknown_in_coverage needs re-running to confirm. Note: 'signup_welcome' email_log rows are keyed by `user_email`, NOT `user_id` (this is intentional). Cron endpoints currently open (no CRON_SHARED_SECRET) — main agent should set it before going to production. All 4 lifecycle email templates (signup_welcome, trial_reminder, drip_day1/3/7) verified to fire end-to-end through real Resend API.",
+  "rca of the issue": "rag-debug 'unknown' coverage RCA: 1) Reproduction — POST /api/admin/rag-debug body={query:'Wie führe ich ein schwieriges Konfliktgespräch?', match_count:5} returns chunks where every chunk.metadata.course=null → coverage.courses={'unknown':5}. 2) Root cause — /api/admin/rag-corpus-stats reads `wladbot_documents.metadata` directly via REST select and confirms 609/609 chunks have enriched metadata.course (no 'unknown' key). The divergence proves the Supabase Postgres function `match_wladbot_documents` is not returning the same metadata column — likely because the RPC was created BEFORE the enrichment migration with a fixed RETURNS TABLE signature, and Postgres functions cache their projection. 3) Mitigation — Re-create the RPC: `CREATE OR REPLACE FUNCTION match_wladbot_documents(...) RETURNS TABLE (id uuid, content text, metadata jsonb, similarity float) ...` ensuring the SELECT projects `d.metadata` (current enriched column). Or use a view. After re-deploy, the failing test will pass and end-user RAG grounding will surface real course names like 'Schwierige Gespräche'."
+}

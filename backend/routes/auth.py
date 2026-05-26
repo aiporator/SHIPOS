@@ -19,6 +19,31 @@ from services_login_security import (
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
+
+async def _send_signup_welcome(email: str, name: str) -> None:
+    """Send the post-signup welcome email. Silently no-ops if Resend isn't configured."""
+    try:
+        from services_email import send_email, signup_welcome_email, is_enabled
+        if not is_enabled() or not email:
+            return
+        # Dedup: don't send the same welcome twice if signup race / replays
+        already = await db.email_log.find_one(
+            {"user_email": email, "type": "signup_welcome"}, {"_id": 0}
+        )
+        if already:
+            return
+        subject, html = signup_welcome_email(name or email.split("@")[0])
+        r = await send_email(email, subject, html)
+        await db.email_log.insert_one({
+            "user_email": email, "type": "signup_welcome",
+            "sent": r["sent"], "email_id": r.get("email_id"),
+            "error": r.get("error"),
+            "sent_at": datetime.now(timezone.utc).isoformat(),
+        })
+    except Exception as e:
+        logger.warning("Signup welcome email failed for %s: %s", email, e)
+
+
 # Cookie config — shared across all endpoints for consistency
 COOKIE_CONFIG = {
     "key": "session_token",
@@ -228,6 +253,9 @@ async def register(data: UserRegister, request: Request, response: Response):
     from services_wladhub_autosync import auto_sync_wladhub_on_signup
     _asyncio.create_task(auto_sync_wladhub_on_signup(user_id=user_id, email=email))
 
+    # Welcome email (fire-and-forget — non-blocking)
+    _asyncio.create_task(_send_signup_welcome(email, data.name.strip()))
+
     # JWT token kept for backwards-compat API consumers; frontend uses httpOnly cookie only
     return {"token": token, "user": _safe_user_output(user_doc)}
 
@@ -344,6 +372,9 @@ async def google_session(request: Request, response: Response):
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
         sync_event = "user.created"
+        # Fire welcome email for new Google user (fire-and-forget)
+        import asyncio as _asyncio
+        _asyncio.create_task(_send_signup_welcome(email, google_data.get("name") or email.split("@")[0]))
 
     # Generate a real JWT token (not the session_token)
     token = create_jwt_token(user_id)

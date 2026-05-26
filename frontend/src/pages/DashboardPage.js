@@ -23,6 +23,7 @@ import {
   Share2, Copy, Play, BarChart3
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { usePricing } from '../contexts/PricingContext';
 import { toast } from 'sonner';
 
 const WLAD_AVATAR = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
@@ -31,6 +32,7 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const { t, lang } = useLanguage();
   const navigate = useNavigate();
+  const { open: openPricing } = usePricing();
   const de = lang === 'de';
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -94,7 +96,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen" data-testid="dashboard-page">
+      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen cascade" data-testid="dashboard-page">
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
         {/* ── Greeting ── */}
@@ -105,7 +107,7 @@ export default function DashboardPage() {
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{ud.name || 'Leader'}</h1>
               <TierBadge size="sm" />
               {tierInfo?.inGracePeriod && (
-                <button onClick={() => navigate('/coaching')} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25 hover:bg-rose-500/25 transition-colors" data-testid="grace-badge">
+                <button onClick={() => openPricing('leadership_os_plus')} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25 hover:bg-rose-500/25 transition-colors" data-testid="grace-badge">
                   {de ? 'Jetzt verlängern' : 'Renew now'}
                 </button>
               )}
@@ -232,8 +234,8 @@ export default function DashboardPage() {
                     <p className="text-[10px] text-white/25 mt-1"><Sparkles size={9} className="inline mr-0.5" /> {de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
                   </div>
                   <div className="flex gap-2 shrink-0">
-                    <Button onClick={() => navigate('/coaching')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4">
-                      {de ? 'Premium werden' : 'Upgrade to Premium'}
+                    <Button onClick={() => openPricing('leadership_os')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4 btn-revolut" data-testid="dashboard-upgrade-btn">
+                      {de ? 'Direkt kaufen' : 'Buy Now'}
                     </Button>
                   </div>
                 </div>

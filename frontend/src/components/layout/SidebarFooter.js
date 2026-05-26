@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTier } from '../../contexts/TierContext';
+import { usePricing } from '../../contexts/PricingContext';
 import { TierBadge } from '../shared/TierBadge';
 import { Crown } from 'lucide-react';
 import api from '../../lib/api';
@@ -13,6 +14,7 @@ import {
 export const SidebarFooter = ({ theme, toggleTheme, lang, toggleLang, t, collapsed, navigate }) => {
   const { user, logout, setUser } = useAuth();
   const { isAccelerator, tier } = useTier();
+  const { open: openPricing } = usePricing();
   const [uploadingPic, setUploadingPic] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState(null);
 
@@ -58,7 +60,7 @@ export const SidebarFooter = ({ theme, toggleTheme, lang, toggleLang, t, collaps
       {/* Upgrade CTA — hidden for OS PLUS users */}
       {user && !isAccelerator && (
         <button
-          onClick={() => navigate('/coaching')}
+          onClick={() => openPricing(tier === 'standard' ? 'leadership_os_plus' : 'leadership_os')}
           data-testid="sidebar-upgrade-btn"
           className={`flex items-center gap-2.5 w-full px-3 py-[7px] rounded-[10px] text-[12px] font-bold transition-all mt-1 ${
             collapsed

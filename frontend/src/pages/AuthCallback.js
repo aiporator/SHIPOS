@@ -3,6 +3,7 @@ import logger from '../lib/logger';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../lib/api';
+import { WladMark } from '../components/brand/WladMark';
 
 export default function AuthCallback() {
   const navigate = useNavigate();
@@ -38,11 +39,11 @@ export default function AuthCallback() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center animate-fade-in">
-        <div className="w-12 h-12 rounded-xl bg-[var(--cyan)] flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
-          <span className="text-xl font-bold text-black">W</span>
+      <div className="text-center motion-fade-in-up">
+        <div className="mx-auto mb-4 animate-pulse-glow rounded-xl">
+          <WladMark size={56} animated />
         </div>
-        <p className="text-muted-foreground">Authenticating...</p>
+        <p className="text-muted-foreground text-sm">Authentifizierung läuft…</p>
       </div>
     </div>
   );

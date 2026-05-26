@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePricing } from '../contexts/PricingContext';
 import logger from '../lib/logger';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
@@ -42,6 +43,7 @@ const buildFullMessage = ({ text, messages, userContext, attachedPdf }) => {
 };
 
 export default function ChatPage() {
+  const { open: openPricing } = usePricing();
   const [searchParams] = useSearchParams();
   const { lang } = useLanguage();
   const de = lang === 'de';
@@ -77,6 +79,18 @@ export default function ChatPage() {
   useEffect(() => { loadSessions(); }, [loadSessions]);
   useEffect(() => { if (currentSession) loadHistory(currentSession); }, [currentSession, loadHistory]);
   useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+
+  // Pick up a starter prompt from /wlad-universe (or any other deep-link source)
+  // and pre-fill the input so the user lands directly in a focused conversation.
+  useEffect(() => {
+    try {
+      const starter = sessionStorage.getItem('wlad_starter_prompt');
+      if (starter) {
+        setInput(starter);
+        sessionStorage.removeItem('wlad_starter_prompt');
+      }
+    } catch (e) { /* sessionStorage may be blocked */ }
+  }, []);
 
   const handleNewSession = async () => {
     try {
@@ -159,7 +173,7 @@ export default function ChatPage() {
             <div key={`msg-${msg.role}-${i}`}>
               <ChatMessage msg={msg} de={de} />
               {msg.role === 'assistant' && !isPremium && (i + 1) % 10 === 0 && (
-                <ChatInlineUpsell onNavigate={() => navigate('/coaching')} de={de} />
+                <ChatInlineUpsell onNavigate={() => openPricing('leadership_os')} de={de} />
               )}
             </div>
           ))}
@@ -180,7 +194,7 @@ export default function ChatPage() {
           onSend={() => handleSend()} onVoice={handleVoice}
           attachedPdf={attachedPdf} setAttachedPdf={setAttachedPdf}
           uploadingPdf={uploadingPdf} onPdfUpload={handlePdfUpload}
-          isPremium={isPremium} onOpenUpsell={() => setShowUpsell(true)}
+          isPremium={isPremium} onOpenUpsell={() => openPricing('leadership_os')}
           onOpenAudioMode={() => setAudioMode(true)}
           de={de}
         />

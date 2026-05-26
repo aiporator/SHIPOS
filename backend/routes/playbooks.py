@@ -63,8 +63,9 @@ async def playbook_step(playbook_id: str, data_in: dict, request: Request):
         ai_response = await chat.send_message(UserMessage(text=f"Step: {step['title']}\nPrompt: {step['prompt']}\nUser input: {user_input}"))
 
         try:
-            parsed = json.loads(ai_response)
-        except json.JSONDecodeError:
+            from services_ai_parse import parse_ai_json
+            parsed = parse_ai_json(ai_response) or {"advice": ai_response, "key_points": [], "next_action": ""}
+        except Exception:
             parsed = {"advice": ai_response, "key_points": [], "next_action": ""}
 
         await db.playbook_sessions.update_one(
@@ -103,10 +104,12 @@ Aktuelle Scores: Leadership={user.get('leadership_score',0)}, EQ={user.get('eq_s
 Antworte als JSON:
 {{"top_10_insights": ["..."], "strengths": ["..."], "improvements": ["..."], "next_steps": ["..."], "leadership_recommendations": ["..."], "overall_assessment": "...", "score": 0-100, "playbook_specific_feedback": "..."}}""")
         ai_response = await chat.send_message(msg)
-        try:
-            report = json.loads(ai_response)
-        except json.JSONDecodeError:
-            report = {"overall_assessment": ai_response, "top_10_insights": [], "strengths": [], "improvements": [], "next_steps": [], "leadership_recommendations": []}
+        from services_ai_parse import parse_ai_json
+        report = parse_ai_json(ai_response)
+        if report is None:
+            # Retry once with stricter prompt
+            reformat = await chat.send_message(UserMessage(text="Antworte JETZT NUR mit gültigem JSON, keine Markdown-Codefences, kein Vorwort."))
+            report = parse_ai_json(reformat) or {"overall_assessment": ai_response, "top_10_insights": [], "strengths": [], "improvements": [], "next_steps": [], "leadership_recommendations": []}
         await db.advice_reports.insert_one({
             "report_id": f"report_{uuid.uuid4().hex[:12]}", "user_id": user["user_id"],
             "playbook_id": playbook_id, "report": report,

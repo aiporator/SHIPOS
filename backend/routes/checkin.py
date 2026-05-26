@@ -47,8 +47,9 @@ async def submit_daily_checkin(data: DailyCheckinIn, request: Request):
         ai_response = await chat.send_message(UserMessage(text=f"Daily check-in from leader: {data.content}"))
 
         try:
-            parsed = json.loads(ai_response)
-        except json.JSONDecodeError:
+            from services_ai_parse import parse_ai_json
+            parsed = parse_ai_json(ai_response) or {"feedback": ai_response, "score_delta": 2, "category": "growth", "micro_tip": "Keep reflecting daily.", "encouragement": "Great job checking in!"}
+        except Exception:
             parsed = {"feedback": ai_response, "score_delta": 2, "category": "growth", "micro_tip": "Keep reflecting daily.", "encouragement": "Great job checking in!"}
 
         doc = {

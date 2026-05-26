@@ -117,6 +117,7 @@ async def deep_assist(request: Request):
 @router.post("/tools/{tool_id}")
 async def use_tool(tool_id: str, request: Request):
     from routes.credits import check_and_deduct_credit
+    from services_ai_parse import parse_ai_json
     user = await get_current_user(request)
 
     credit_result = await check_and_deduct_credit(user, "workflow")
@@ -136,10 +137,23 @@ async def use_tool(tool_id: str, request: Request):
         chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"tool_{uuid.uuid4().hex[:8]}", system_message=tool["system"] + persona_context)
         chat.with_model("openai", "gpt-5.2")
         ai_response = await chat.send_message(UserMessage(text=user_input))
-        try:
-            parsed = json.loads(ai_response)
-        except json.JSONDecodeError:
-            parsed = {"result": ai_response}
+
+        # Robust JSON parse — strips markdown fences, prose-wrapping, etc.
+        parsed = parse_ai_json(ai_response)
+        if parsed is None:
+            # Retry once asking for strict JSON
+            logger.warning(f"Tool {tool_id} returned non-JSON, retrying with reformat hint")
+            reformat = await chat.send_message(UserMessage(text=(
+                "Deine letzte Antwort war kein gültiges JSON. Antworte JETZT ausschließlich mit "
+                "dem oben spezifizierten JSON-Schema. Keine Markdown-Codefences, kein Vorwort, "
+                "nur das reine JSON-Objekt."
+            )))
+            parsed = parse_ai_json(reformat)
+
+        if parsed is None:
+            # Final safety net — preserve raw text so user at least sees the content
+            parsed = {"raw_text": ai_response, "format_error": True}
+
         await db.tool_usage.insert_one({
             "usage_id": f"tool_{uuid.uuid4().hex[:12]}", "user_id": user["user_id"],
             "tool_id": tool_id, "input": user_input, "output": parsed,
