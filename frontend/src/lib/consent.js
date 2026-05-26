@@ -78,4 +78,6 @@ export const bootstrapConsent = () => {
   return existing;
 };
 
+export const hasConsent = () => readConsent() !== null;
+
 export const CONSENT_DEFAULTS = DEFAULT_OPT_OUT;
