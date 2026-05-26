@@ -39,10 +39,6 @@ import AGBPage from "./pages/AGBPage";
 import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 
-import ImpressumPage from "./pages/legal/ImpressumPage";
-import DatenschutzPage from "./pages/legal/DatenschutzPage";
-import AGBPage from "./pages/legal/AGBPage";
-import WiderrufPage from "./pages/legal/WiderrufPage";
 import CookieConsentBanner from "./components/legal/CookieConsentBanner";
 
 import { CreditProvider } from "./contexts/CreditContext";
@@ -113,11 +109,6 @@ function AppRouter() {
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/enterprise" element={<ProtectedRoute><EnterprisePage /></ProtectedRoute>} />
       <Route path="/challenge" element={<ProtectedRoute><Challenge30Page /></ProtectedRoute>} />
-      {/* Public legal pages — no auth required (GDPR / German law) */}
-      <Route path="/impressum" element={<ImpressumPage />} />
-      <Route path="/datenschutz" element={<DatenschutzPage />} />
-      <Route path="/widerruf" element={<WiderrufPage />} />
-      <Route path="/agb" element={<AGBPage />} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
