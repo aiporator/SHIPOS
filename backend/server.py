@@ -123,14 +123,22 @@ async def rag_health() -> dict:
 # Strategy: if CORS_ORIGINS="*", use allow_origin_regex=".*" which works WITH credentials.
 # Otherwise: split env list into explicit origins (production-safe).
 _raw_cors = os.environ.get("CORS_ORIGINS", "").strip()
+_PRODUCTION_ORIGINS = [
+    "https://leader-os.de",
+    "https://www.leader-os.de",
+    "https://leader-check.de",
+    "https://www.leader-check.de",
+]
 _cors_kwargs: dict = {
     "allow_credentials": True,
     "allow_methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
 }
 if _raw_cors in ("", "*"):
-    # Wildcard with credentials: must use regex form
-    _cors_kwargs["allow_origin_regex"] = r".*"
+    if os.environ.get("ENVIRONMENT") == "production":
+        _cors_kwargs["allow_origins"] = _PRODUCTION_ORIGINS
+    else:
+        _cors_kwargs["allow_origin_regex"] = r"https?://(localhost|127\.0\.0\.1)(:\d+)?"
 else:
     _cors_kwargs["allow_origins"] = [o.strip() for o in _raw_cors.split(",") if o.strip()]
 

@@ -1,4 +1,5 @@
 import { Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const GoogleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -36,9 +37,18 @@ export const ModeSwitch = ({ mode, onSwitchMode, de }) => {
       <>
         <p className="text-[11px] text-white/20 mb-4">
           {de ? 'Mit der Erstellung akzeptierst du unsere ' : 'By creating an account, you agree to our '}
-          <span className="text-white/40 font-medium hover:text-[#BFFF00] transition-colors cursor-pointer">{de ? 'Nutzungsbedingungen' : 'Terms'}</span>
+          <Link to="/agb" target="_blank" className="text-white/40 font-medium hover:text-[#BFFF00] transition-colors underline">
+            {de ? 'Nutzungsbedingungen' : 'Terms'}
+          </Link>
+          {de ? ', ' : ', '}
+          <Link to="/datenschutz" target="_blank" className="text-white/40 font-medium hover:text-[#BFFF00] transition-colors underline">
+            {de ? 'Datenschutz' : 'Privacy'}
+          </Link>
           {de ? ' und ' : ' and '}
-          <span className="text-white/40 font-medium hover:text-[#BFFF00] transition-colors cursor-pointer">{de ? 'Datenschutz' : 'Privacy'}</span>
+          <Link to="/widerruf" target="_blank" className="text-white/40 font-medium hover:text-[#BFFF00] transition-colors underline">
+            {de ? 'Widerrufsbelehrung' : 'Withdrawal Right'}
+          </Link>
+          .
         </p>
         <p className="text-sm text-white/40">
           {de ? 'Bereits registriert? ' : 'Already have an account? '}

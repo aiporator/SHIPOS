@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import * as Sentry from '@sentry/react';
 import api from '../lib/api';
 import logger from '../lib/logger';
@@ -82,16 +82,21 @@ export const AuthProvider = ({ children }) => {
   // Proactive token refresh on tab focus — if the user has been away for >5 min,
   // silently refresh the access cookie BEFORE the page fires its parallel API calls.
   // Prevents the "7 transient 401s on dashboard mount" race that pollutes DevTools.
+  //
+  // useRef so the threshold survives across `user` updates (e.g. /auth/me hydrating
+  // a fresh profile). The previous let-in-useEffect would reset to Date.now() each
+  // time `user` changed, effectively disabling the 5-minute gate.
+  const lastRefreshAtRef = useRef(null);
   useEffect(() => {
-    let lastRefreshAt = Date.now();
+    if (lastRefreshAtRef.current === null) lastRefreshAtRef.current = Date.now();
     const REFRESH_THRESHOLD_MS = 5 * 60 * 1000;
     const refreshIfStale = async () => {
       if (!user) return;
       if (document.hidden) return;
-      if (Date.now() - lastRefreshAt < REFRESH_THRESHOLD_MS) return;
+      if (Date.now() - lastRefreshAtRef.current < REFRESH_THRESHOLD_MS) return;
       try {
         await api.post('/auth/refresh');
-        lastRefreshAt = Date.now();
+        lastRefreshAtRef.current = Date.now();
       } catch { /* refresh failed → next request will trigger ReAuthModal */ }
     };
     document.addEventListener('visibilitychange', refreshIfStale);

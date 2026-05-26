@@ -8,7 +8,7 @@ from datetime import datetime, timezone, timedelta
 
 from config import db, OAUTH_SESSION_URL, logger
 from models import UserRegister, UserLogin
-from services import create_jwt_token, hash_password, verify_password, get_current_user, update_user_scores
+from services import create_jwt_token, hash_password, verify_password, get_current_user
 from services_actions import record_user_action
 from services_login_security import (
     parse_user_agent,
@@ -165,12 +165,27 @@ def _safe_user_output(user: dict) -> dict:
     from routes.admin import ADMIN_EMAILS
     email = (user.get("email") or "").lower()
     is_admin = bool(user.get("is_admin")) or email in {e.lower() for e in ADMIN_EMAILS}
-    safe = {k: v for k, v in user.items() if k not in ("password_hash", "_id", "login_history", "signup_ip", "last_login_ip")}
+    safe = {k: v for k, v in user.items() if k not in ("password_hash", "_id", "login_history", "signup_ip", "last_login_ip", "session_token")}
     safe["is_admin"] = is_admin
     return safe
 
 
 # ========== REGISTER ==========
+
+MAX_REGISTER_ATTEMPTS = 5
+REGISTER_WINDOW_MINUTES = 60
+
+
+async def _check_register_rate_limit(ip: str) -> None:
+    cutoff = datetime.now(timezone.utc) - timedelta(minutes=REGISTER_WINDOW_MINUTES)
+    count = await db.login_attempts.count_documents({
+        "ip": ip,
+        "created_at": {"$gte": cutoff},
+        "method": "register",
+    })
+    if count >= MAX_REGISTER_ATTEMPTS:
+        raise HTTPException(status_code=429, detail="Too many registrations — try again later")
+
 
 @router.post("/register")
 async def register(data: UserRegister, request: Request, response: Response):
@@ -178,6 +193,8 @@ async def register(data: UserRegister, request: Request, response: Response):
     email = data.email.strip().lower()
     ctx = await _capture_login_context(request)
     ip_address = ctx["ip"]
+
+    await _check_register_rate_limit(ip_address)
 
     user_id = f"user_{uuid.uuid4().hex[:12]}"
     history_entry = _login_history_entry(ctx, method="register")
@@ -205,10 +222,13 @@ async def register(data: UserRegister, request: Request, response: Response):
         "login_history": [history_entry],
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
+    await db.login_attempts.insert_one({
+        "ip": ip_address, "email": email, "method": "register",
+        "created_at": datetime.now(timezone.utc), "success": True,
+    })
     try:
         await db.users.insert_one(user_doc)
     except DuplicateKeyError:
-        # Race-safe: unique index catches parallel duplicate registrations
         raise HTTPException(status_code=400, detail="Email already registered")
     except Exception as e:
         logger.error(f"Register insert failed: {e}")
@@ -485,8 +505,8 @@ async def change_password(data: PasswordChangeRequest, request: Request):
     """
     user = await get_current_user(request)
 
-    if len(data.new_password) < 6:
-        raise HTTPException(status_code=400, detail="Neues Passwort muss min. 6 Zeichen haben.")
+    if len(data.new_password) < 8:
+        raise HTTPException(status_code=400, detail="Neues Passwort muss min. 8 Zeichen haben.")
     if data.new_password == data.current_password:
         raise HTTPException(status_code=400, detail="Neues Passwort darf nicht identisch zum aktuellen sein.")
 

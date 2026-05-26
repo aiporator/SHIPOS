@@ -2,12 +2,11 @@
 import re
 import jwt
 import bcrypt
-import httpx
 import uuid
 from datetime import datetime, timezone, timedelta
 from fastapi import HTTPException, Request
 
-from config import db, JWT_SECRET, EMERGENT_LLM_KEY, OAUTH_SESSION_URL, logger
+from config import db, JWT_SECRET
 
 
 # ========== AUTH ==========

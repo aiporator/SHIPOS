@@ -2,8 +2,10 @@ name: ci
 
 on:
   push:
-    branches: [main, master]
-  pull_request:
+    branches-ignore: []
+    paths:
+      - 'frontend/package.json'
+      - 'frontend/yarn.lock'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

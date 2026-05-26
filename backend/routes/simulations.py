@@ -7,7 +7,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from config import db, EMERGENT_LLM_KEY, logger
 from models import SimulationStart, SimulationMessage
-from services import get_current_user, clean_ai_text, update_user_scores, SIMULATION_SYSTEM_PROMPT
+from services import get_current_user, clean_ai_text, SIMULATION_SYSTEM_PROMPT
 from services_actions import record_user_action
 from data import SIMULATION_SCENARIOS
 

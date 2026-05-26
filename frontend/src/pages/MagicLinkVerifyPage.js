@@ -35,7 +35,7 @@ export default function MagicLinkVerifyPage() {
       }
     })();
     return () => { cancelled = true; };
-  }, [params, login, navigate]);
+  }, [params, login, navigate, api]);
 
   return (
     <div
