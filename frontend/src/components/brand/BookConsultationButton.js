@@ -74,7 +74,7 @@ export const BookConsultationButton = ({
   // Three visual variants — all share the smooth Revolut hover lift
   const variantClasses = {
     primary:
-      'bg-[#BFFF00] hover:bg-[#D4FF4D] text-[#0A0A0A] font-bold shadow-[0_8px_24px_-8px_rgba(191,255,0,0.55)] hover:shadow-[0_12px_32px_-8px_rgba(191,255,0,0.75)]',
+      'bg-[#BFFF00] hover:bg-[#D4FF4D] text-[#0A0A0A] font-bold glow-lime',
     ghost:
       'bg-foreground/[0.04] hover:bg-foreground/[0.08] text-foreground border border-foreground/10 font-semibold',
     dark:

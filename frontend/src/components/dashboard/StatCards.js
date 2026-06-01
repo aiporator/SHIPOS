@@ -65,12 +65,12 @@ export const QuickActionsGrid = ({ de, navigate }) => (
     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
       {QUICK_ACTIONS.map(a => (
         <button key={a.path} onClick={() => navigate(a.path)}
-          className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-white dark:bg-card border border-black/[0.04] dark:border-white/[0.06] hover:shadow-md hover:-translate-y-0.5 transition-all"
+          className="card-lift btn-shine flex flex-col items-center gap-1.5 p-3 rounded-xl bg-white dark:bg-card border border-black/[0.04] dark:border-white/[0.06] transition-colors group"
           data-testid={`quick-${a.path.replace('/', '')}`}>
-          <div className={`w-9 h-9 rounded-xl ${a.color} flex items-center justify-center`}>
+          <div className={`w-9 h-9 rounded-xl ${a.color} flex items-center justify-center transition-transform group-hover:scale-110`}>
             <a.icon size={16} />
           </div>
-          <span className="text-[10px] font-semibold text-muted-foreground">{(de ? LABELS_DE : LABELS_EN)[a.path]}</span>
+          <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-foreground transition-colors">{(de ? LABELS_DE : LABELS_EN)[a.path]}</span>
         </button>
       ))}
     </div>

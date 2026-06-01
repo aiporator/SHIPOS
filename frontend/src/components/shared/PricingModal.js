@@ -212,9 +212,9 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
 
                 <span
                   onClick={(e) => { e.stopPropagation(); startCheckout(pkg.id); }}
-                  className={`block w-full py-2.5 px-4 rounded-xl text-[12px] font-bold text-center cursor-pointer transition-all btn-revolut ${
+                  className={`btn-shine block w-full py-2.5 px-4 rounded-xl text-[12px] font-bold text-center cursor-pointer transition-all ${
                     isVIP
-                      ? 'bg-brand text-[#0A0A0A] hover:brightness-105 shadow-[0_6px_18px_-6px_rgba(191,255,0,0.55)]'
+                      ? 'bg-brand text-[#0A0A0A] hover:brightness-105 glow-lime'
                       : 'bg-[#0A0A0A] dark:bg-foreground text-white dark:text-background hover:opacity-90'
                   }`}
                   data-testid={`pricing-buy-${pkg.id}`}

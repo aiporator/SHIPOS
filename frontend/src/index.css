@@ -511,3 +511,74 @@
 @media (prefers-reduced-motion: reduce) {
   .wlad-call-ring, .wlad-call-accept-pulse, .wlad-call-shimmer { animation: none !important; }
 }
+
+/* ══════════════════════════════════════════════════
+   Iter 92.7 — Universal premium micro-interactions
+   Reusable utilities applied across CTAs + cards for
+   the launch-day polish layer.
+   ══════════════════════════════════════════════════ */
+
+/* btn-shine — Revolut-style diagonal sheen sweep on hover.
+   Wrap any button: <button class="btn-shine">…</button>
+   Element must have `position: relative` + `overflow: hidden`
+   (we set both here so adding the class is plug-and-play). */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-shine:hover::after {
+  transform: translateX(120%);
+}
+/* Dark-mode-targeted sheen — slightly stronger so it pops on dark buttons */
+.dark .btn-shine::after {
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+}
+
+/* card-lift — subtle hover micro-interaction for clickable cards.
+   Used on Dashboard quick-access pills + MyPath level cards. */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.18),
+              0 2px 6px -2px rgba(0, 0, 0, 0.08);
+}
+.dark .card-lift:hover {
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.55),
+              0 2px 6px -2px rgba(0, 0, 0, 0.4),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* glow-lime — soft lime aura under premium CTAs.
+   Applied to Stripe-Checkout + Booking buttons. */
+.glow-lime {
+  box-shadow: 0 8px 24px -8px rgba(191, 255, 0, 0.55),
+              0 2px 4px -2px rgba(191, 255, 0, 0.35);
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glow-lime:hover {
+  box-shadow: 0 12px 32px -8px rgba(191, 255, 0, 0.75),
+              0 4px 8px -2px rgba(191, 255, 0, 0.45);
+  transform: translateY(-1px);
+}
+.glow-lime:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shine::after, .card-lift, .glow-lime { transition: none !important; }
+  .card-lift:hover, .glow-lime:hover { transform: none !important; }
+}
