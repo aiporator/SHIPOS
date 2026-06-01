@@ -93,20 +93,36 @@ async def simulation_message(sim_id: str, data: SimulationMessage, request: Requ
     )
 
     scenario = sim["scenario"]
+    end_sim = data.message.lower().strip() in ["end simulation", "end", "finish"]
+
+    # RAG only for the END-OF-SIM analysis (NOT during role-play turns).
+    # During the simulation the AI plays an employee character — pulling Wlad
+    # frameworks there would break the role-play. But the final scoring/feedback
+    # IS coaching from the platform's voice, so anchor it in Wlad's methodology.
+    rag_block = ""
+    if end_sim:
+        try:
+            from services_rag import retrieve_context
+            msgs_history = sim.get("messages", [])
+            rag_query = f"{scenario.get('title', '')} {scenario.get('description', '')[:300]}"
+            rag_ctx = await retrieve_context(rag_query)
+            rag_block = rag_ctx.get("context_block", "") or ""
+        except Exception:
+            pass
+
     try:
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY, session_id=f"sim_{sim_id}",
-            system_message=SIMULATION_SYSTEM_PROMPT + f"\n\nScenario: {scenario.get('description', '')}\nYou are playing: {scenario.get('character', 'an employee')}",
+            system_message=SIMULATION_SYSTEM_PROMPT + f"\n\nScenario: {scenario.get('description', '')}\nYou are playing: {scenario.get('character', 'an employee')}" + rag_block,
         )
         chat.with_model("openai", "gpt-5.2")
 
         msgs = sim.get("messages", [])
         context = "\n".join([f"{'Manager' if m['role'] == 'user' else 'Employee'}: {m['content']}" for m in msgs[-8:]])
 
-        end_sim = data.message.lower().strip() in ["end simulation", "end", "finish"]
         prompt = f"{context}\nManager: {data.message}"
         if end_sim:
-            prompt += "\n\nThe simulation is now ending. Provide the JSON analysis with scores."
+            prompt += "\n\nThe simulation is now ending. Provide the JSON analysis with scores. Reference Wlad Jachtchenkos specific frameworks (3 Säulen, Kommunikationsquadrant, Feedbackformel) in the feedback."
 
         ai_response = await chat.send_message(UserMessage(text=prompt))
 
