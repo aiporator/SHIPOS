@@ -293,12 +293,31 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
     If the AI's JSON is malformed, we retry once with a strict reformat prompt.
     If retry also fails, raise — the caller will surface a clean 500 to the UI
     which then prompts the user to retry. Better than persisting junk.
+
+    RAG (Iter 92.6): the user's transcript + challenge topic is used to pull
+    the top-matching Wlad-Korpus chunks so the AI grounds its feedback in
+    Wlad's actual frameworks (3 Säulen, Kommunikationsquadrant, etc.) rather
+    than generic coaching language.
     """
     prompt_text = _build_analysis_prompt(challenge, transcript, prev_attempts, user_memory, rating_context)
+
+    # Pull Wlad-specific RAG context. Best-effort — falls back to base prompt
+    # if Supabase/Voyage are unreachable.
+    rag_block = ""
+    try:
+        from services_rag import retrieve_context
+        rag_query = f"{challenge.get('title', '')} {challenge.get('focus', '')} {transcript[:500]}"
+        rag_ctx = await retrieve_context(rag_query)
+        if rag_ctx.get("rag_active"):
+            rag_block = "\n\n" + rag_ctx["context_block"]
+            logger.info("Video analysis RAG: %d chunks injected", rag_ctx["chunks_count"])
+    except Exception as e:
+        logger.warning(f"Video RAG fetch failed (proceeding without): {e}")
+
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
         session_id=f"vid_{uuid.uuid4().hex[:8]}",
-        system_message=VIDEO_ANALYSIS_PROMPT + rating_context + (f"\n\nUSER PROFIL:\n{user_memory}" if user_memory else ""),
+        system_message=VIDEO_ANALYSIS_PROMPT + rating_context + rag_block + (f"\n\nUSER PROFIL:\n{user_memory}" if user_memory else ""),
     )
     chat.with_model("openai", "gpt-5.2")
 
