@@ -54,10 +54,19 @@ async def playbook_step(playbook_id: str, data_in: dict, request: Request):
     if not step:
         raise HTTPException(status_code=400, detail="Invalid step")
 
+    # RAG: pull Wlad-specific frameworks for the playbook topic
+    rag_block = ""
+    try:
+        from services_rag import retrieve_context
+        rag_ctx = await retrieve_context(f"{playbook['title']} {step['title']} {user_input[:300]}")
+        rag_block = rag_ctx.get("context_block", "") or ""
+    except Exception:
+        pass
+
     try:
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY, session_id=f"pb_{session['session_id']}",
-            system_message=f"Du bist WLADBOT und führst den User durch das '{playbook['title']}' Playbook. Aktueller Schritt: {step['title']}. Gib umsetzbare, strukturierte Ratschläge basierend auf Wlad Jachtchenkos Leadership-Frameworks. Antworte IMMER auf DEUTSCH. Antworte als JSON: {{\"advice\": \"...\", \"key_points\": [...], \"next_action\": \"...\"}}"
+            system_message=f"Du bist WLADBOT und führst den User durch das '{playbook['title']}' Playbook. Aktueller Schritt: {step['title']}. Gib umsetzbare, strukturierte Ratschläge basierend auf Wlad Jachtchenkos Leadership-Frameworks. Antworte IMMER auf DEUTSCH. Antworte als JSON: {{\"advice\": \"...\", \"key_points\": [...], \"next_action\": \"...\"}}" + rag_block
         )
         chat.with_model("openai", "gpt-5.2")
         ai_response = await chat.send_message(UserMessage(text=f"Step: {step['title']}\nPrompt: {step['prompt']}\nUser input: {user_input}"))

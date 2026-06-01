@@ -295,10 +295,21 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
     which then prompts the user to retry. Better than persisting junk.
     """
     prompt_text = _build_analysis_prompt(challenge, transcript, prev_attempts, user_memory, rating_context)
+
+    # RAG: pull Wlad-specific frameworks relevant to what the user actually said.
+    rag_block = ""
+    try:
+        from services_rag import retrieve_context
+        rag_query = f"{challenge.get('title', '')} {transcript[:500]}"
+        rag_ctx = await retrieve_context(rag_query)
+        rag_block = rag_ctx.get("context_block", "") or ""
+    except Exception as e:
+        logger.warning(f"RAG retrieval skipped for video analysis: {e}")
+
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
         session_id=f"vid_{uuid.uuid4().hex[:8]}",
-        system_message=VIDEO_ANALYSIS_PROMPT + rating_context + (f"\n\nUSER PROFIL:\n{user_memory}" if user_memory else ""),
+        system_message=VIDEO_ANALYSIS_PROMPT + rating_context + (f"\n\nUSER PROFIL:\n{user_memory}" if user_memory else "") + rag_block,
     )
     chat.with_model("openai", "gpt-5.2")
 
