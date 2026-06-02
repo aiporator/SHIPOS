@@ -1,11 +1,12 @@
 import "@/App.css";
-import { lazy, Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Toaster } from "./components/ui/sonner";
 import { NetworkStatusBanner } from "./components/shared/NetworkStatusBanner";
+import { lazyWithRetry, clearChunkReloadGuard } from "./lib/lazyWithRetry";
 
 // ── Eager routes ────────────────────────────────────────────────────────
 // Login + Dashboard ship in the main bundle because they are the most-hit
@@ -14,40 +15,40 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 
 // ── Lazy routes ─────────────────────────────────────────────────────────
-// Everything else is code-split. CRA / webpack splits each into its own
-// chunk; the in-app navigation continues to feel instant because Suspense
-// shows the WladMark loader for the few hundred ms the chunk takes to load.
-const MagicLinkVerifyPage = lazy(() => import("./pages/MagicLinkVerifyPage"));
-const AuthCallback = lazy(() => import("./pages/AuthCallback"));
-const DailyCheckinPage = lazy(() => import("./pages/DailyCheckinPage"));
-const ChatPage = lazy(() => import("./pages/ChatPage"));
-const SimulationsPage = lazy(() => import("./pages/SimulationsPage"));
-const TasksPage = lazy(() => import("./pages/TasksPage"));
-const PlaybooksPage = lazy(() => import("./pages/PlaybooksPage"));
-const EventsPage = lazy(() => import("./pages/EventsPage"));
-const ProgressPage = lazy(() => import("./pages/ProgressPage"));
-const CommunityPage = lazy(() => import("./pages/CommunityPage"));
-const AdminPage = lazy(() => import("./pages/AdminPage"));
-const ProfilePage = lazy(() => import("./pages/ProfilePage"));
-const MyPathPage = lazy(() => import("./pages/MyPathPage"));
-const ChallengersPage = lazy(() => import("./pages/ChallengersPage"));
-const CoachingPage = lazy(() => import("./pages/CoachingPage"));
-const ToolsPage = lazy(() => import("./pages/ToolsPage"));
-const VideoChallengePage = lazy(() => import("./pages/VideoChallengePage"));
-const VideoArchivePage = lazy(() => import("./pages/VideoArchivePage"));
-const WladUniversePage = lazy(() => import("./pages/WladUniversePage"));
-const LeaderDiagnosePage = lazy(() => import("./pages/LeaderDiagnosePage"));
-const OnboardingPage = lazy(() => import("./pages/OnboardingPage"));
-const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
-const ReferralPage = lazy(() => import("./pages/ReferralPage"));
-const EnterprisePage = lazy(() => import("./pages/EnterprisePage"));
-const Challenge30Page = lazy(() => import("./pages/Challenge30Page"));
-const DownloadsPage = lazy(() => import("./pages/DownloadsPage"));
-const ImpressumPage = lazy(() => import("./pages/ImpressumPage"));
-const DatenschutzPage = lazy(() => import("./pages/DatenschutzPage"));
-const WiderrufPage = lazy(() => import("./pages/WiderrufPage"));
-const AGBPage = lazy(() => import("./pages/AGBPage"));
-const EmailUnsubscribePage = lazy(() => import("./pages/EmailUnsubscribePage"));
+// Iter 92.11: wrapped in `lazyWithRetry` — survives stale-deploy chunk-404s
+// by transparently retrying then forcing a single reload to pick up the
+// fresh index.html (and its new chunk hashes). See lib/lazyWithRetry.js.
+const MagicLinkVerifyPage = lazyWithRetry(() => import("./pages/MagicLinkVerifyPage"));
+const AuthCallback = lazyWithRetry(() => import("./pages/AuthCallback"));
+const DailyCheckinPage = lazyWithRetry(() => import("./pages/DailyCheckinPage"));
+const ChatPage = lazyWithRetry(() => import("./pages/ChatPage"));
+const SimulationsPage = lazyWithRetry(() => import("./pages/SimulationsPage"));
+const TasksPage = lazyWithRetry(() => import("./pages/TasksPage"));
+const PlaybooksPage = lazyWithRetry(() => import("./pages/PlaybooksPage"));
+const EventsPage = lazyWithRetry(() => import("./pages/EventsPage"));
+const ProgressPage = lazyWithRetry(() => import("./pages/ProgressPage"));
+const CommunityPage = lazyWithRetry(() => import("./pages/CommunityPage"));
+const AdminPage = lazyWithRetry(() => import("./pages/AdminPage"));
+const ProfilePage = lazyWithRetry(() => import("./pages/ProfilePage"));
+const MyPathPage = lazyWithRetry(() => import("./pages/MyPathPage"));
+const ChallengersPage = lazyWithRetry(() => import("./pages/ChallengersPage"));
+const CoachingPage = lazyWithRetry(() => import("./pages/CoachingPage"));
+const ToolsPage = lazyWithRetry(() => import("./pages/ToolsPage"));
+const VideoChallengePage = lazyWithRetry(() => import("./pages/VideoChallengePage"));
+const VideoArchivePage = lazyWithRetry(() => import("./pages/VideoArchivePage"));
+const WladUniversePage = lazyWithRetry(() => import("./pages/WladUniversePage"));
+const LeaderDiagnosePage = lazyWithRetry(() => import("./pages/LeaderDiagnosePage"));
+const OnboardingPage = lazyWithRetry(() => import("./pages/OnboardingPage"));
+const PaymentSuccessPage = lazyWithRetry(() => import("./pages/PaymentSuccessPage"));
+const ReferralPage = lazyWithRetry(() => import("./pages/ReferralPage"));
+const EnterprisePage = lazyWithRetry(() => import("./pages/EnterprisePage"));
+const Challenge30Page = lazyWithRetry(() => import("./pages/Challenge30Page"));
+const DownloadsPage = lazyWithRetry(() => import("./pages/DownloadsPage"));
+const ImpressumPage = lazyWithRetry(() => import("./pages/ImpressumPage"));
+const DatenschutzPage = lazyWithRetry(() => import("./pages/DatenschutzPage"));
+const WiderrufPage = lazyWithRetry(() => import("./pages/WiderrufPage"));
+const AGBPage = lazyWithRetry(() => import("./pages/AGBPage"));
+const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscribePage"));
 
 import { WladMark } from "./components/brand/WladMark";
 import { CookieConsent } from "./components/legal/CookieConsent";
@@ -84,6 +85,12 @@ const ProtectedRoute = ({ children }) => {
 
 function AppRouter() {
   const location = useLocation();
+
+  // Iter 92.11: once we successfully reach any route after a reload, clear
+  // the chunk-reload guard so future deploys can retry-then-reload again.
+  useEffect(() => {
+    clearChunkReloadGuard();
+  }, [location.pathname]);
 
   if (location.hash?.includes('session_id=')) {
     return (

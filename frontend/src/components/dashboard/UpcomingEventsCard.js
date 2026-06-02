@@ -72,19 +72,23 @@ export const UpcomingEventsCard = ({ locale = 'de' }) => {
   // GSAP entrance — fire once data resolved
   useEffect(() => {
     if (!rootRef.current || events === null || prefersReduce()) return undefined;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      const header = rootRef.current.querySelector('[data-anim="events-header"]');
-      const rows = rootRef.current.querySelectorAll('[data-anim="events-row"]');
-      const see = rootRef.current.querySelector('[data-anim="events-see-all"]');
-      if (header) tl.fromTo(header, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45 });
-      if (rows.length) tl.fromTo(rows,
-        { x: 16, autoAlpha: 0 },
-        { x: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: 'back.out(1.4)' },
-        '-=0.2');
-      if (see) tl.fromTo(see, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, '-=0.15');
-    }, rootRef);
-    return () => ctx.revert();
+    let ctx;
+    try {
+      ctx = gsap.context(() => {
+        if (!rootRef.current) return;
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        const header = rootRef.current.querySelector('[data-anim="events-header"]');
+        const rows = rootRef.current.querySelectorAll('[data-anim="events-row"]');
+        const see = rootRef.current.querySelector('[data-anim="events-see-all"]');
+        if (header) tl.fromTo(header, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45 });
+        if (rows.length) tl.fromTo(rows,
+          { x: 16, autoAlpha: 0 },
+          { x: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: 'back.out(1.4)' },
+          '-=0.2');
+        if (see) tl.fromTo(see, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, '-=0.15');
+      }, rootRef);
+    } catch { /* gsap target missing — degrade gracefully to instant render */ }
+    return () => { try { ctx?.revert(); } catch { /* noop */ } };
   }, [events]);
 
   if (err || (events && events.length === 0)) {
@@ -153,24 +157,14 @@ const Header = ({ de }) => (
 
 const EventRow = ({ event, de }) => {
   const dt = formatEventDate(event.date, de ? 'de' : 'en');
-  const rowRef = useRef(null);
 
-  // Micro-interaction: subtle lift + lime halo on hover (GSAP for buttery smoothness)
-  useEffect(() => {
-    if (!rowRef.current || prefersReduce()) return undefined;
-    const el = rowRef.current;
-    const enter = () => gsap.to(el, { y: -2, duration: 0.25, ease: 'power2.out' });
-    const leave = () => gsap.to(el, { y: 0, duration: 0.25, ease: 'power2.out' });
-    el.addEventListener('mouseenter', enter);
-    el.addEventListener('mouseleave', leave);
-    return () => { el.removeEventListener('mouseenter', enter); el.removeEventListener('mouseleave', leave); };
-  }, []);
-
+  // Iter 92.11: Pure-CSS hover-lift via Tailwind transform classes —
+  // GSAP-based addEventListener pattern was prone to null-ref races
+  // when the parent re-renders while the cursor is mid-hover.
   return (
     <div
-      ref={rowRef}
       data-anim="events-row"
-      className="group flex items-center gap-3 p-3 rounded-xl bg-background/40 dark:bg-background/30 hover:bg-foreground/[0.03] border border-border/40 hover:border-brand/30 transition-colors will-change-transform"
+      className="group flex items-center gap-3 p-3 rounded-xl bg-background/40 dark:bg-background/30 hover:bg-foreground/[0.03] border border-border/40 hover:border-brand/30 hover:-translate-y-0.5 transition-all duration-200 will-change-transform"
       data-testid={`event-row-${event.event_id}`}
       style={{ opacity: 0 }}
     >

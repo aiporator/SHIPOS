@@ -52,42 +52,53 @@ export const OnboardingVideoModal = () => {
     if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
       return undefined;
     }
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.fromTo(overlayRef.current,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.35 })
-        .fromTo(cardRef.current,
-          { y: 40, scale: 0.96, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, duration: 0.7, ease: 'back.out(1.4)' }, '-=0.18')
-        .fromTo(eyebrowRef.current,
+    let ctx;
+    try {
+      ctx = gsap.context(() => {
+        if (!overlayRef.current || !cardRef.current) return;
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.fromTo(overlayRef.current,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.35 })
+          .fromTo(cardRef.current,
+            { y: 40, scale: 0.96, autoAlpha: 0 },
+            { y: 0, scale: 1, autoAlpha: 1, duration: 0.7, ease: 'back.out(1.4)' }, '-=0.18');
+        if (eyebrowRef.current) tl.fromTo(eyebrowRef.current,
           { y: 10, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.35 }, '-=0.35')
-        .fromTo(headlineRef.current?.querySelectorAll('span.word') || [],
+          { y: 0, autoAlpha: 1, duration: 0.35 }, '-=0.35');
+        const words = headlineRef.current?.querySelectorAll('span.word');
+        if (words && words.length) tl.fromTo(words,
           { y: 24, autoAlpha: 0, rotateX: -45 },
-          { y: 0, autoAlpha: 1, rotateX: 0, duration: 0.55, stagger: 0.06 }, '-=0.2')
-        .fromTo(subRef.current,
+          { y: 0, autoAlpha: 1, rotateX: 0, duration: 0.55, stagger: 0.06 }, '-=0.2');
+        if (subRef.current) tl.fromTo(subRef.current,
           { y: 12, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.4 }, '-=0.3')
-        .fromTo(videoRef.current,
+          { y: 0, autoAlpha: 1, duration: 0.4 }, '-=0.3');
+        if (videoRef.current) tl.fromTo(videoRef.current,
           { autoAlpha: 0, scale: 0.97 },
-          { autoAlpha: 1, scale: 1, duration: 0.55 }, '-=0.2')
-        .fromTo(ctaRef.current?.children || [],
+          { autoAlpha: 1, scale: 1, duration: 0.55 }, '-=0.2');
+        const ctaChildren = ctaRef.current?.children;
+        if (ctaChildren && ctaChildren.length) tl.fromTo(ctaChildren,
           { y: 16, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.08, ease: 'back.out(1.6)' }, '-=0.25');
-    });
-    return () => ctx.revert();
+      });
+    } catch { /* GSAP target missing — modal still visible via fallback opacity:0→default styles */ }
+    return () => { try { ctx?.revert(); } catch { /* noop */ } };
   }, [open]);
 
   const dismiss = () => {
     try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch { /* noop */ }
-    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
+    const reduceMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    if (reduceMotion || !cardRef.current || !overlayRef.current) {
       setOpen(false);
       return;
     }
-    // Smooth exit
-    gsap.to(cardRef.current, { y: 30, scale: 0.97, autoAlpha: 0, duration: 0.25, ease: 'power2.in' });
-    gsap.to(overlayRef.current, { autoAlpha: 0, duration: 0.3, delay: 0.05, onComplete: () => setOpen(false) });
+    try {
+      gsap.to(cardRef.current, { y: 30, scale: 0.97, autoAlpha: 0, duration: 0.25, ease: 'power2.in' });
+      gsap.to(overlayRef.current, { autoAlpha: 0, duration: 0.3, delay: 0.05, onComplete: () => setOpen(false) });
+    } catch {
+      // GSAP threw (refs went null mid-animation) — just close the modal
+      setOpen(false);
+    }
   };
 
   const handleBookCall = () => {
