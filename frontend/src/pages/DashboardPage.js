@@ -87,8 +87,8 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="p-6 lg:p-10 max-w-6xl mx-auto" data-testid="dashboard-loading">
-          <div className="space-y-4">{[1,2,3,4].map(i => <div key={`sk-${i}`} className="h-28 rounded-2xl skeleton-pulse" />)}</div>
+        <div className="p-8 lg:p-14 max-w-6xl mx-auto" data-testid="dashboard-loading">
+          <div className="space-y-4">{[1,2,3,4].map(i => <div key={`sk-${i}`} className="h-28 rounded-xl skeleton-pulse" />)}</div>
         </div>
       </DashboardLayout>
     );
@@ -96,15 +96,22 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen cascade" data-testid="dashboard-page">
+      <div className="p-8 lg:p-14 max-w-6xl mx-auto min-h-screen cascade" data-testid="dashboard-page">
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
         {/* ── Greeting ── */}
-        <div className="flex items-center justify-between mb-8" data-anim="dash-header">
+        <div className="flex items-end justify-between mb-12 lg:mb-16 gap-6" data-anim="dash-header">
           <div>
-            <p className="text-sm text-muted-foreground">{de ? 'Willkommen zurück,' : 'Welcome back,'}</p>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{ud.name || 'Leader'}</h1>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-8 bg-[#BFFF00]/60" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                {de ? 'WILLKOMMEN ZURÜCK' : 'WELCOME BACK'}
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
+              {getGreeting()}, <em className="not-italic text-[#BFFF00]">{ud.name || 'Leader'}</em>
+            </h1>
+            <div className="flex items-center gap-2 mt-6">
               <TierBadge size="sm" />
               {tierInfo?.inGracePeriod && (
                 <button onClick={() => openPricing('leadership_os_plus')} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/25 hover:bg-rose-500/25 transition-colors" data-testid="grace-badge">
@@ -113,19 +120,19 @@ export default function DashboardPage() {
               )}
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button variant="outline" size="sm" onClick={() => navigate('/chat')} className="font-semibold text-xs h-9 gap-1.5" data-testid="talk-coach-btn">
-              <MessageSquareText size={14} /> {de ? 'KI-Coach' : 'AI Coach'}
+              <MessageSquareText size={14} strokeWidth={1.5} /> {de ? 'KI-Coach' : 'AI Coach'}
             </Button>
             {!isPremium && balance >= 0 && (
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0A0A0A] text-white" data-testid="credit-badge">
-                <Zap size={12} className="text-[#BFFF00]" />
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/[0.07] bg-white/[0.02]" data-testid="credit-badge">
+                <Zap size={12} strokeWidth={1.5} className="text-[#BFFF00]" />
                 <span className="text-[11px] font-bold">{balance}</span>
                 <span className="text-[10px] text-white/40">Credits</span>
               </div>
             )}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#BFFF00]/10 border border-[#BFFF00]/20" data-testid="streak-bar">
-              <Flame size={13} className="text-[#6B8A00] dark:text-[#BFFF00]" />
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#BFFF00]/20 bg-[#BFFF00]/[0.06]" data-testid="streak-bar">
+              <Flame size={13} strokeWidth={1.5} className="text-[#6B8A00] dark:text-[#BFFF00]" />
               <span className="text-[12px] font-bold"><AnimatedNumber value={streak?.days || 0} duration={500} /></span>
               <span className="text-[10px] text-muted-foreground font-medium">{de ? 'Tage' : 'days'}</span>
             </div>
@@ -144,42 +151,44 @@ export default function DashboardPage() {
         <StatCardsRow aiReadiness={aiReadiness} learningPct={learningPct} c30={c30} de={de} />
 
         {/* ── YOUR NEXT STEP (DOMINANT) ── */}
-        <Card className="bg-[#0A0A0A] text-white border-0 mb-6 overflow-hidden" data-testid="next-step-cta" data-anim="dash-cta">
+        <Card className="border border-white/[0.07] bg-white/[0.02] rounded-xl mb-8 overflow-hidden hover:border-white/[0.12] hover:bg-white/[0.04] transition-colors" data-testid="next-step-cta" data-anim="dash-cta">
           <CardContent className="p-6">
             <div className="flex items-center gap-5">
-              <img src={WLAD_AVATAR} alt="Wlad" className="w-14 h-14 rounded-full object-cover ring-2 ring-white/10 shrink-0" />
+              <img src={WLAD_AVATAR} alt="Wlad" className="w-14 h-14 rounded-full object-cover ring-1 ring-white/10 shrink-0" />
               <div className="flex-1">
-                <h3 className="text-lg font-black">{de ? 'Dein nächster Schritt' : 'Your Next Step'}</h3>
-                <p className="text-sm text-white/50 mt-0.5">
+                <h3 className="text-2xl tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
+                  {de ? 'Dein nächster Schritt' : 'Your Next Step'}
+                </h3>
+                <p className="text-sm text-white/50 mt-1 font-light leading-relaxed">
                   {!c30.started
                     ? (de ? 'Starte deinen 30-Tage KI-Leadership Sprint und lerne die Grundlagen.' : 'Start your 30-day AI Leadership sprint and learn the fundamentals.')
                     : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge — 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge — 10 interactive questions await.`)
                   }
                 </p>
               </div>
-              <Button onClick={() => navigate('/challenge')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold h-11 px-5 shrink-0 shadow-lg shadow-[#BFFF00]/20" data-testid="next-step-btn">
-                <Play size={14} className="mr-1.5" /> {!c30.started ? (de ? 'Challenge starten' : 'Start Challenge') : (de ? 'Weitermachen' : 'Continue')}
+              <Button onClick={() => navigate('/challenge')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold h-11 px-5 shrink-0" data-testid="next-step-btn">
+                <Play size={14} strokeWidth={1.5} className="mr-1.5" /> {!c30.started ? (de ? 'Challenge starten' : 'Start Challenge') : (de ? 'Weitermachen' : 'Continue')}
               </Button>
             </div>
           </CardContent>
         </Card>
 
         {/* ── Main Grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
           {/* LEFT: Actions + Quick Access */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-2 space-y-8">
 
             {/* Quick Actions */}
             <QuickActionsGrid de={de} navigate={navigate} />
 
             {/* XP + Level Progress */}
-            <Card className="border-black/[0.04] dark:border-white/[0.06] overflow-hidden relative" data-testid="level-progress" data-anim="dash-widget">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-[#BFFF00]/[0.06] rounded-full blur-3xl pointer-events-none" />
-              <CardContent className="p-5 relative">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{de ? 'Dein Leadership-Level' : 'Your Leadership Level'}</h3>
+            <Card className="border border-white/[0.07] bg-white/[0.02] rounded-xl overflow-hidden hover:border-white/[0.12] hover:bg-white/[0.04] transition-colors" data-testid="level-progress" data-anim="dash-widget">
+              <CardContent className="p-6 relative">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-8 bg-[#BFFF00]/60" />
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">{de ? 'DEIN LEADERSHIP-LEVEL' : 'YOUR LEADERSHIP LEVEL'}</h3>
                   </div>
                   <Badge className="text-[10px] font-bold bg-[#BFFF00]/15 text-[#4A6200] dark:text-[#BFFF00] border-0">
                     LVL {levelIndex + 1} / 5
@@ -187,34 +196,34 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Level name + descriptive label */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] flex items-center justify-center shadow-lg shadow-[#BFFF00]/20 shrink-0">
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="w-14 h-14 rounded-xl bg-[#BFFF00] flex items-center justify-center shrink-0">
                     <span className="text-2xl font-black text-[#0A0A0A]">{levelIndex + 1}</span>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xl font-black tracking-tight truncate">{levelName}</p>
-                    <p className="text-[12px] text-muted-foreground font-medium truncate">{levelLabel}</p>
+                    <p className="text-2xl tracking-tight truncate" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>{levelName}</p>
+                    <p className="text-[12px] text-white/50 font-light truncate mt-0.5">{levelLabel}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-2xl font-black leading-none"><AnimatedNumber value={xpCurrent} /></p>
-                    <p className="text-[10px] text-muted-foreground font-medium mt-0.5">XP</p>
+                    <p className="text-3xl leading-none" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}><AnimatedNumber value={xpCurrent} /></p>
+                    <p className="text-[10px] text-white/40 font-medium mt-1 uppercase tracking-[0.15em]">XP</p>
                   </div>
                 </div>
 
                 {/* Progress to next */}
-                <div className="space-y-1.5">
-                  <div className="h-2.5 rounded-full bg-gray-100 dark:bg-muted overflow-hidden">
-                    <div className="h-full rounded-full bg-gradient-to-r from-[#BFFF00] to-[#9ACC00] transition-all duration-1000 shadow-[0_0_8px_rgba(191,255,0,0.4)]"
+                <div className="space-y-2">
+                  <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                    <div className="h-full rounded-full bg-[#BFFF00] transition-all duration-1000"
                       style={{ width: `${Math.min(100, levelProgress)}%` }} />
                   </div>
                   <div className="flex items-center justify-between text-[10px] font-semibold">
-                    <span className="text-muted-foreground">{levelProgress}% {de ? 'zum nächsten Level' : 'to next level'}</span>
+                    <span className="text-white/40">{levelProgress}% {de ? 'zum nächsten Level' : 'to next level'}</span>
                     {nextLevel ? (
-                      <span className="text-[#4A6200] dark:text-[#BFFF00]">
+                      <span className="text-[#BFFF00]">
                         {xpToNext > 0 ? `${xpToNext} XP → ${nextLevel}` : nextLevel}
                       </span>
                     ) : (
-                      <span className="text-[#4A6200] dark:text-[#BFFF00]">{de ? 'MAX LEVEL' : 'MAX LEVEL'}</span>
+                      <span className="text-[#BFFF00]">{de ? 'MAX LEVEL' : 'MAX LEVEL'}</span>
                     )}
                   </div>
                 </div>
@@ -222,16 +231,18 @@ export default function DashboardPage() {
             </Card>
 
             {/* Upsell Banner */}
-            <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden" data-testid="upsell-banner" data-anim="dash-widget">
-              <CardContent className="p-5">
+            <Card className="border border-white/[0.07] bg-white/[0.02] rounded-xl overflow-hidden hover:border-white/[0.12] hover:bg-white/[0.04] transition-colors" data-testid="upsell-banner" data-anim="dash-widget">
+              <CardContent className="p-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
-                    <Sparkles size={22} className="text-[#BFFF00]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#BFFF00]/10 border border-[#BFFF00]/20 flex items-center justify-center shrink-0">
+                    <Sparkles size={20} strokeWidth={1.5} className="text-[#BFFF00]" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-bold">{de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential'}</p>
-                    <p className="text-xs text-white/40 mt-0.5">{de ? 'Alle 16 Missionen, 10 Workflows und persönliches Coaching.' : 'All 16 missions, 10 workflows and personal coaching.'}</p>
-                    <p className="text-[10px] text-white/25 mt-1"><Sparkles size={9} className="inline mr-0.5" /> {de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
+                    <p className="text-xl tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
+                      {de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential'}
+                    </p>
+                    <p className="text-xs text-white/50 mt-1 font-light leading-relaxed">{de ? 'Alle 16 Missionen, 10 Workflows und persönliches Coaching.' : 'All 16 missions, 10 workflows and personal coaching.'}</p>
+                    <p className="text-[10px] text-white/30 mt-2 font-light">{de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
                   </div>
                   <div className="flex gap-2 shrink-0">
                     <Button onClick={() => openPricing('leadership_os')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4 btn-revolut" data-testid="dashboard-upgrade-btn">
@@ -244,28 +255,28 @@ export default function DashboardPage() {
           </div>
 
           {/* RIGHT: Sidebar */}
-          <div className="space-y-5">
+          <div className="space-y-8">
 
             {/* This Week Calendar */}
             <WeekCalendarCard de={de} onNavigate={navigate} />
 
             {/* Referral Card */}
-            <Card className="bg-[#0A0A0A] text-white border-0" data-testid="referral-upsell-card" data-anim="dash-widget">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#BFFF00]/15 flex items-center justify-center"><Gift size={13} className="text-[#BFFF00]" /></div>
+            <Card className="border border-white/[0.07] bg-white/[0.02] rounded-xl hover:border-white/[0.12] hover:bg-white/[0.04] transition-colors" data-testid="referral-upsell-card" data-anim="dash-widget">
+              <CardContent className="p-5 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#BFFF00]/10 border border-[#BFFF00]/20 flex items-center justify-center"><Gift size={14} strokeWidth={1.5} className="text-[#BFFF00]" /></div>
                   <div>
-                    <p className="text-xs font-bold">{de ? 'Freunde einladen' : 'Invite friends'}</p>
-                    <p className="text-[9px] text-white/40">{de ? 'Verdiene Rewards' : 'Earn rewards'}</p>
+                    <p className="text-sm font-semibold">{de ? 'Freunde einladen' : 'Invite friends'}</p>
+                    <p className="text-[10px] text-white/40 font-light">{de ? 'Verdiene Rewards' : 'Earn rewards'}</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <Button onClick={() => navigate('/referral')} size="sm" className="flex-1 bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] text-[10px] font-bold h-8" data-testid="referral-share-btn">
-                    <Share2 size={10} className="mr-1" /> TEILEN
+                    <Share2 size={10} strokeWidth={1.5} className="mr-1" /> TEILEN
                   </Button>
                   {referralCode && (
                     <Button onClick={copyReferral} size="sm" variant="outline" className="border-white/15 text-white hover:bg-white/10 text-[10px] h-8" data-testid="referral-copy-btn">
-                      <Copy size={10} className="mr-1" /> {referralCode}
+                      <Copy size={10} strokeWidth={1.5} className="mr-1" /> {referralCode}
                     </Button>
                   )}
                 </div>
