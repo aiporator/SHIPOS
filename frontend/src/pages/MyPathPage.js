@@ -190,54 +190,76 @@ export default function MyPathPage() {
         </button>
       </div>
     }>
-      <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
-        <div className="mb-6" data-anim="mypath-header">
-          <div className="flex items-center gap-2 mb-2">
-            <Sparkles size={14} className="text-[#BFFF00]" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MY PATH</span>
+      <div className="p-8 lg:p-14 max-w-6xl" data-testid="my-path-page">
+        <div className="mb-12 lg:mb-16" data-anim="mypath-header">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="h-px w-8 bg-[#BFFF00]/60" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+              Mein Pfad
+            </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
-            Deine <span className="text-[#BFFF00]">Leadership</span> Journey
+          <h1
+            className="text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white"
+            style={{ fontFamily: "'Instrument Serif', 'Newsreader', 'Playfair Display', serif", fontWeight: 400 }}
+          >
+            Deine <em className="not-italic text-[#BFFF00]">Leadership</em><br className="hidden sm:block" /> Journey.
           </h1>
-          <p className="text-base text-muted-foreground mt-2 max-w-lg">
-            5 Stufen der Führung. Jedes Level-Up bringt dir ein Zertifikat und neue Fähigkeiten.
+          <p className="text-base sm:text-lg text-white/50 mt-6 max-w-xl leading-relaxed font-light">
+            Fünf Stufen der Führung. Jedes Level-Up bringt dir ein Zertifikat
+            und neue Fähigkeiten — von Teamplayer bis Visionär.
           </p>
         </div>
 
         <Tabs defaultValue="progress" className="w-full">
-          <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs" data-anim="mypath-tabs">
+          <TabsList
+            className="mb-10 lg:mb-12 bg-transparent border-b border-white/[0.06] rounded-none p-0 h-auto w-full justify-start gap-8"
+            data-testid="mypath-tabs"
+            data-anim="mypath-tabs"
+          >
             <TabsTrigger
               value="progress"
-              className="flex items-center gap-2 px-4 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-card"
+              className="flex items-center gap-2 px-0 pb-3 text-[13px] font-medium text-white/40 rounded-none border-b-2 border-transparent bg-transparent data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:border-[#BFFF00] data-[state=active]:shadow-none transition-colors hover:text-white/70"
               data-testid="tab-progress"
             >
-              <TrendingUp size={14} /> Mein Fortschritt
+              <TrendingUp size={14} strokeWidth={1.5} /> Mein Fortschritt
             </TabsTrigger>
             <TabsTrigger
               value="videos"
-              className="flex items-center gap-2 px-4 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-card"
+              className="flex items-center gap-2 px-0 pb-3 text-[13px] font-medium text-white/40 rounded-none border-b-2 border-transparent bg-transparent data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:border-[#BFFF00] data-[state=active]:shadow-none transition-colors hover:text-white/70"
               data-testid="tab-videos"
             >
-              <PlayCircle size={14} /> Lernvideos
+              <PlayCircle size={14} strokeWidth={1.5} /> Lernvideos
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="progress" className="mt-0" data-testid="tab-content-progress">
             {currentMeta && (
-              <div className="mb-8" data-anim="mypath-current-level">
-                <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${currentMeta.color}15, ${currentMeta.color}05)`, border: `1px solid ${currentMeta.color}20` }}>
-                  <div className="p-5 flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: `linear-gradient(135deg, ${currentMeta.color}, ${currentMeta.color}CC)`, boxShadow: `0 8px 25px ${currentMeta.color}30` }}>
-                      {(() => { const I = LEVEL_ICONS[data.current_index]; return <I size={22} className="text-white" />; })()}
+              <div className="mb-12" data-anim="mypath-current-level">
+                <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] overflow-hidden">
+                  <div className="p-7 lg:p-8 flex items-center gap-6">
+                    <div
+                      className="w-14 h-14 rounded-xl flex items-center justify-center"
+                      style={{
+                        backgroundColor: `${currentMeta.color}14`,
+                        border: `1px solid ${currentMeta.color}30`,
+                      }}
+                    >
+                      {(() => { const I = LEVEL_ICONS[data.current_index]; return <I size={22} strokeWidth={1.5} style={{ color: currentMeta.color }} />; })()}
                     </div>
                     <div className="flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: currentMeta.color }}>Aktuelles Level</p>
-                      <h2 className="text-xl font-black">{data.current_level}</h2>
-                      <p className="text-xs text-muted-foreground">{currentMeta.subtitle}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40 mb-1">
+                        Aktuelles Level
+                      </p>
+                      <h2 className="text-2xl font-medium tracking-tight text-white" style={{ fontFamily: "'Instrument Serif', serif" }}>
+                        {data.current_level}
+                      </h2>
+                      <p className="text-xs text-white/40 mt-0.5">{currentMeta.subtitle}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-2xl font-black" style={{ color: currentMeta.color }}>{data.xp}</p>
-                      <p className="text-[9px] text-muted-foreground">XP</p>
+                      <p className="text-3xl font-light tabular-nums" style={{ color: currentMeta.color, fontFamily: "'Instrument Serif', serif" }}>
+                        {data.xp}
+                      </p>
+                      <p className="text-[10px] uppercase tracking-widest text-white/40 mt-0.5">XP</p>
                     </div>
                   </div>
                   {data.current_index < 4 && (
