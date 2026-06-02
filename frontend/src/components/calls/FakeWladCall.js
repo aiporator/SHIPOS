@@ -27,7 +27,13 @@ const SESSION_KEY = 'wlad_fake_call_count';
 const MAX_CALLS_PER_SESSION = 2;
 const TRIGGER_INTERVAL_MS = 3 * 60 * 1000;  // 3 minutes
 // Routes where we must NOT pop the call (already in a call-equivalent flow)
-const SUPPRESSED_PATHS = ['/chat', '/onboarding', '/payment-success', '/login', '/auth/magic'];
+const SUPPRESSED_PATHS = ['/chat', '/onboarding', '/payment-success', '/login', '/auth/magic', '/email/unsubscribe'];
+// Tiers that have already converted — they don't need conversion-pressure.
+// Instead they see the call ONCE PER MONTH as a "Monthly Update Call" prompt
+// from the consultant team.
+const PRO_TIERS = new Set(['standard', 'accelerator', 'plus']);
+const PRO_MONTHLY_KEY = 'wlad_pro_monthly_call_at';
+const PRO_MONTHLY_MS = 30 * 24 * 60 * 60 * 1000;
 
 const getCallCount = () => {
   try { return parseInt(sessionStorage.getItem(SESSION_KEY) || '0', 10) || 0; }
@@ -97,13 +103,33 @@ export const FakeWladCall = () => {
 
   // Arm the timer once when user is authenticated. We deliberately do NOT
   // reset on every navigation so the 3-minute cadence is preserved.
+  //
+  // PRO users (standard / accelerator) get a DIFFERENT flow: ONE call per
+  // month framed as a "Monthly Update Call mit dem Beraterteam". We use
+  // localStorage timestamp to gate at 30-day intervals.
+  const isPro = PRO_TIERS.has((user?.tier || '').toLowerCase());
+
   useEffect(() => {
     if (!user) return undefined;
+    if (isPro) {
+      // Pro-Tier: fire once if 30 days since last shown, then never again
+      // until next month rolls around.
+      const last = parseInt(localStorage.getItem(PRO_MONTHLY_KEY) || '0', 10) || 0;
+      const ageMs = Date.now() - last;
+      if (ageMs > PRO_MONTHLY_MS) {
+        const t = setTimeout(() => {
+          try { localStorage.setItem(PRO_MONTHLY_KEY, String(Date.now())); } catch { /* noop */ }
+          setOpen(true);
+        }, TRIGGER_INTERVAL_MS);
+        return () => clearTimeout(t);
+      }
+      return undefined;
+    }
     scheduleNext();
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [user, scheduleNext]);
+  }, [user, scheduleNext, isPro]);
 
   // Accept = book a real consultation via Cal.com.
   // The Wlad team takes the actual call there. Highest-value path.
@@ -155,10 +181,10 @@ export const FakeWladCall = () => {
         {/* "Eingehender Anruf" eyebrow */}
         <div className="flex flex-col items-center gap-1">
           <span className="text-[10px] tracking-[0.32em] uppercase text-white/45 font-bold wlad-call-shimmer">
-            Eingehender Anruf
+            {isPro ? 'Monats-Update-Call' : 'Eingehender Anruf'}
           </span>
           <span className="text-[10px] tracking-[0.18em] uppercase text-white/30 font-semibold">
-            {callNumber === 1 ? 'Erinnerung · jetzt' : 'Letzte Erinnerung · jetzt'}
+            {isPro ? 'Dein Beraterteam meldet sich' : callNumber === 1 ? 'Erinnerung · jetzt' : 'Letzte Erinnerung · jetzt'}
           </span>
         </div>
 
@@ -187,22 +213,24 @@ export const FakeWladCall = () => {
             style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.025em' }}
             data-testid="fake-call-name"
           >
-            Wlad Jachtchenko
+            {isPro ? 'Beraterteam · Leader OS' : 'Wlad Jachtchenko'}
           </h2>
           <p className="text-white/55 text-[13px] font-semibold">
-            mobil · Leadership Coaching
+            {isPro ? 'PLUS · 1:1 Update · monatlich' : 'mobil · Leadership Coaching'}
           </p>
         </div>
 
         {/* Subtle suggestion bubble */}
         <div className="bg-white/[0.06] border border-white/[0.08] rounded-2xl px-4 py-2.5 backdrop-blur-sm">
           <p className="text-white/75 text-[13px] leading-snug">
-            „Lass uns 30 Min reden — ich helf dir, deinen Pfad zu klären."
+            {isPro
+              ? '„Zeit für deinen Monats-Check-in. 30 Min, wo du gerade stehst."'
+              : '„Lass uns 30 Min reden — ich helf dir, deinen Pfad zu klären."'}
           </p>
         </div>
 
-        {/* Bribe variant — 10% discount appears ONLY for the treatment group */}
-        {variant === 'bribe' && (
+        {/* Bribe variant — 10% discount appears ONLY for non-pro treatment group */}
+        {variant === 'bribe' && !isPro && (
           <div
             className="flex items-center gap-2.5 bg-[#BFFF00]/[0.08] border border-[#BFFF00]/30 rounded-xl px-3.5 py-2 backdrop-blur-sm wlad-call-shimmer"
             data-testid="fake-call-bribe-banner"

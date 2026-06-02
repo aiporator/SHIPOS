@@ -1,6 +1,6 @@
 import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { Brain, Target, Award, MessageSquareText, Flame, Wrench, Swords, Video, Trophy } from 'lucide-react';
+import { Brain, Target, Award, Sparkles, Flame, Wrench, Drama, Clapperboard, GraduationCap } from 'lucide-react';
 
 export const StatCardsRow = ({ aiReadiness, learningPct, c30, de }) => (
   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 animate-fade-in">
@@ -47,17 +47,23 @@ export const StatCardsRow = ({ aiReadiness, learningPct, c30, de }) => (
   </div>
 );
 
+// Iter 92.8: Unified brand-aligned icon palette.
+// Generic Lucide combinations (MessageSquare/Trophy/Sword) felt off-the-shelf.
+// We pick:
+//   - More specific verbs: Sparkles (KI), Drama (Simulieren), Clapperboard (Missionen), GraduationCap (Lernen)
+//   - One color system: lime base for the AI core surfaces, warm amber for streak/progress,
+//     deep indigo for community, off-brand colors removed
 const QUICK_ACTIONS = [
-  { icon: MessageSquareText, path: '/chat', color: 'bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400' },
-  { icon: Flame, path: '/challenge', color: 'bg-orange-50 text-orange-600' },
-  { icon: Wrench, path: '/tools', color: 'bg-amber-50 text-amber-600' },
-  { icon: Swords, path: '/simulations', color: 'bg-red-50 text-red-600' },
-  { icon: Video, path: '/missions', color: 'bg-purple-50 dark:bg-[#7B3FE4]/10 text-purple-600 dark:text-[#A78BFA]' },
-  { icon: Trophy, path: '/challengers', color: 'bg-amber-50 text-amber-600' },
+  { icon: Sparkles,        path: '/chat',        color: 'bg-[#BFFF00]/15 dark:bg-[#BFFF00]/[0.10] text-[#6B8A00] dark:text-[#BFFF00]' },
+  { icon: Flame,           path: '/challenge',   color: 'bg-amber-50 dark:bg-amber-500/[0.10] text-amber-600 dark:text-amber-400' },
+  { icon: Wrench,          path: '/tools',       color: 'bg-zinc-100 dark:bg-zinc-500/[0.12] text-zinc-700 dark:text-zinc-300' },
+  { icon: Drama,           path: '/simulations', color: 'bg-rose-50 dark:bg-rose-500/[0.10] text-rose-600 dark:text-rose-400' },
+  { icon: Clapperboard,    path: '/missions',    color: 'bg-violet-50 dark:bg-violet-500/[0.10] text-violet-600 dark:text-violet-400' },
+  { icon: GraduationCap,   path: '/my-path',     color: 'bg-sky-50 dark:bg-sky-500/[0.10] text-sky-600 dark:text-sky-400' },
 ];
 
-const LABELS_DE = { '/chat': 'KI-Coach', '/challenge': 'Challenge', '/tools': 'Workflows', '/simulations': 'Simulieren', '/missions': 'Missionen', '/challengers': 'Challengers' };
-const LABELS_EN = { '/chat': 'AI Coach', '/challenge': 'Challenge', '/tools': 'Workflows', '/simulations': 'Simulate', '/missions': 'Missions', '/challengers': 'Challengers' };
+const LABELS_DE = { '/chat': 'KI-Coach', '/challenge': 'Challenge', '/tools': 'Workflows', '/simulations': 'Simulieren', '/missions': 'Missionen', '/my-path': 'Lernpfad' };
+const LABELS_EN = { '/chat': 'AI Coach', '/challenge': 'Challenge', '/tools': 'Workflows', '/simulations': 'Simulate', '/missions': 'Missions', '/my-path': 'Path' };
 
 export const QuickActionsGrid = ({ de, navigate }) => (
   <div className="animate-fade-in">
