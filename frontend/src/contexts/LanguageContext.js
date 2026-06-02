@@ -159,7 +159,7 @@ const translations = {
     'upsell.title': 'Premium Leadership Programm mit Wlad',
     'upsell.subtitle': 'Erhalte personalisiertes 1:1 Coaching von Wlad Jachtchenko, erweiterte KI-Simulationen und deinen kompletten Leadership-Transformationsplan.',
     'upsell.cta': 'Transformation starten',
-    'upsell.noCreditCard': 'Kostenloses Strategiegespräch buchen',
+    'upsell.noCreditCard': 'Strategiegespräch buchen',
     'upsell.features': [
       'Persönliche 1:1 Coaching Sessions mit Wlad',
       'Alle Frameworks aus "Die Kunst der Überzeugung"',
@@ -169,7 +169,7 @@ const translations = {
       'Monatlicher Fortschritts-Report',
     ],
     'upsell.bookCall': 'Persönliches Strategiegespräch buchen',
-    'upsell.bookCallSub': '15 Min. — Kostenlos — Mit Wlad persönlich',
+    'upsell.bookCallSub': '15 Min · 1:1 mit Wlad · unverbindlich',
 
     // Funnel / Diagnostic
     'funnel.heroTitle': 'Dein Leadership-Profil in 10 Minuten.',
@@ -358,11 +358,11 @@ const translations = {
     'upsell.title': 'Unlock Your Full Leadership Potential',
     'upsell.subtitle': 'Get personalized 1:1 coaching, advanced AI simulations, and your complete leadership transformation plan.',
     'upsell.cta': 'Start Your Transformation',
-    'upsell.noCreditCard': 'Free strategy call',
+    'upsell.noCreditCard': 'Book a strategy call',
     'upsell.features': ['Personalized 1:1 Executive Coaching', 'Complete Leadership Transformation Program', 'Advanced AI Simulations & Analysis', 'Lifetime Access to All Premium Features', 'Priority Support & Community Access'],
     'funnel.heroTitle': 'Your Leadership Profile in 10 Minutes.',
     'funnel.heroSub': 'Discover which leadership role defines you.',
-    'funnel.startBtn': 'Start Free Leadership Diagnostic',
+    'funnel.startBtn': 'Start Leadership Diagnostic',
     'funnel.startSub': '10 minutes · Instant report · Personal action plan',
     'funnel.q1': 'What is your current role?',
     'funnel.q1opts': ['Self-employed / Founder', 'Team Lead / Manager', 'Senior Manager / Director', 'C-Level / Executive', 'High Potential / Rising Star', 'Other'],

@@ -208,22 +208,22 @@ export default function LearningVideosTab() {
         </div>
       </div>
 
-      {/* FREE starter pack — 6 episodes, lead-magnet for the cohort */}
+      {/* Starter pack — 6 episodes, lead-magnet for the cohort. Iter 92.10: "FREE" wording out — Mert wants premium positioning. */}
       <section data-anim="video-section">
         <div className="flex items-end justify-between mb-4" data-anim="section-header">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">100% Gratis</span>
-              <span className="text-[9px] font-bold text-muted-foreground/50">· Lead-Magnet · 6 Kurse · Sofort verfügbar</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Ohne Anmeldung</span>
+              <span className="text-[9px] font-bold text-muted-foreground/50">· Lead-Magnet · 6 Kurse · Sofortstart</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen — Kostenlos</h2>
+            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen — Sofortstart</h2>
             <p className="text-xs text-muted-foreground mt-0.5">6 Kurse · {data.starter_videos.reduce((s, v) => s + v.episodes, 0)} Folgen · Vimeo HD · Ohne Anmeldepflicht</p>
           </div>
           <span
             className="text-[10px] font-black px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
             data-testid="free-videos-badge"
           >
-            FREE FOREVER
+            INKLUSIVE
           </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

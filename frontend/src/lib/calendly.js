@@ -3,7 +3,8 @@
  *
  * Iter 92.9 (Mert): wir haben Calendly komplett verlassen. Alle "Termin
  * buchen" CTAs landen jetzt auf cal.com/leaderos/beratung — das gleiche
- * 15-Min Free Strategiegespräch, aber jetzt in unserer eigenen Pipeline.
+ * 15-Min Strategiegespräch (unverbindlich, 1:1 mit Wlads Team), aber jetzt
+ * in unserer eigenen Pipeline.
  *
  * Public-utility-style export (NICHT hook-based) damit auch nicht-React
  * Helpers (z.B. analytics events, email-callbacks) sie aufrufen können.

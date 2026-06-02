@@ -18,8 +18,8 @@ export const CoachingRightPanel = ({ de, onCheckout }) => {
             <Phone size={14} className="text-[#0A0A0A]" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold">{de ? 'Free Strategiegespräch' : 'Free Strategy Call'}</p>
-            <p className="text-[10px] text-muted-foreground">{de ? '15 Min · Kostenlos · Cal.com' : '15 min · Free · Cal.com'}</p>
+            <p className="text-xs font-bold">{de ? 'Strategiegespräch' : 'Strategy Call'}</p>
+            <p className="text-[10px] text-muted-foreground">{de ? '15 Min · Unverbindlich · Cal.com' : '15 min · No strings · Cal.com'}</p>
           </div>
         </button>
         <button onClick={() => navigate('/simulations')} className="flex items-center gap-3 w-full p-3 rounded-xl hover:bg-emerald-50/50 dark:hover:bg-emerald-500/5 transition-colors text-left" data-testid="quick-simulation">

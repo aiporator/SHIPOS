@@ -1,25 +1,22 @@
 /**
  * UpcomingEventsCard — Dashboard surface for the next 3 upcoming events.
  *
- * Pulls from GET /api/events?tab=live and shows the closest 3 upcoming
- * dates (chronologically). Each row has a quick "+ Kalender" button that
- * opens Google Calendar with the event pre-filled. Premium dark/light
- * adaptive, replaces the previous "Diese Woche" card that just showed
- * the day-name without actionable detail.
- *
- * Iter 92.8 — Mert wanted calendar functions to actually GRAB in the
- * dashboard with the new Thursday-cohort events.
+ * Iter 92.10 (Mert): GSAP-choreographed entrance — header drops in, then
+ * each row slide-reveals from the right with a staggered back-out easing.
+ * Hover micro-interaction lifts each row 2px with a soft shadow halo.
+ * Respects `prefers-reduced-motion` (skips animation entirely).
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Calendar, CalendarPlus, ChevronRight, Sparkles, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 
 const OUTFIT = { fontFamily: 'Outfit, Inter, sans-serif' };
 
 const formatEventDate = (iso, locale = 'de') => {
-  if (!iso) return '—';
+  if (!iso) return { dayLabel: '—', timeLabel: '', relative: null };
   try {
     const d = new Date(iso);
     const now = new Date();
@@ -31,7 +28,7 @@ const formatEventDate = (iso, locale = 'de') => {
       hour: '2-digit', minute: '2-digit',
     });
     const relative = diffH < 24 && diffH > 0
-      ? (locale === 'de' ? `in ${diffH}h` : `in ${diffH}h`)
+      ? `in ${diffH}h`
       : diffH < 168 && diffH > 0
         ? (locale === 'de' ? `in ${Math.round(diffH / 24)} Tagen` : `in ${Math.round(diffH / 24)} days`)
         : null;
@@ -39,10 +36,15 @@ const formatEventDate = (iso, locale = 'de') => {
   } catch { return { dayLabel: '—', timeLabel: '', relative: null }; }
 };
 
+const prefersReduce = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
 export const UpcomingEventsCard = ({ locale = 'de' }) => {
   const [events, setEvents] = useState(null);
   const [err, setErr] = useState(null);
   const de = locale === 'de';
+  const rootRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -50,7 +52,6 @@ export const UpcomingEventsCard = ({ locale = 'de' }) => {
       .then((r) => {
         if (cancelled) return;
         const list = Array.isArray(r.data) ? r.data : (r.data?.events || []);
-        // Filter strictly future, sort ascending, take 3
         const now = Date.now();
         const filtered = list
           .filter((e) => {
@@ -68,9 +69,27 @@ export const UpcomingEventsCard = ({ locale = 'de' }) => {
     return () => { cancelled = true; };
   }, []);
 
+  // GSAP entrance — fire once data resolved
+  useEffect(() => {
+    if (!rootRef.current || events === null || prefersReduce()) return undefined;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const header = rootRef.current.querySelector('[data-anim="events-header"]');
+      const rows = rootRef.current.querySelectorAll('[data-anim="events-row"]');
+      const see = rootRef.current.querySelector('[data-anim="events-see-all"]');
+      if (header) tl.fromTo(header, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45 });
+      if (rows.length) tl.fromTo(rows,
+        { x: 16, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: 'back.out(1.4)' },
+        '-=0.2');
+      if (see) tl.fromTo(see, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, '-=0.15');
+    }, rootRef);
+    return () => ctx.revert();
+  }, [events]);
+
   if (err || (events && events.length === 0)) {
     return (
-      <Card>
+      <div ref={rootRef} className="rounded-2xl bg-card border border-border overflow-hidden" data-testid="upcoming-events-card">
         <Header de={de} />
         <div className="px-5 pb-5 pt-1 text-center" data-testid="upcoming-events-empty">
           <Calendar size={20} className="mx-auto text-muted-foreground/50 mb-2" />
@@ -81,39 +100,41 @@ export const UpcomingEventsCard = ({ locale = 'de' }) => {
             {de ? 'Alle Events ansehen' : 'Browse all events'} →
           </Link>
         </div>
-      </Card>
+      </div>
     );
   }
 
   return (
-    <Card>
+    <div
+      ref={rootRef}
+      className="rounded-2xl bg-card border border-border overflow-hidden relative"
+      data-testid="upcoming-events-card"
+    >
+      {/* Subtle aurora glow behind the header — premium polish */}
+      <div className="pointer-events-none absolute -top-20 -left-20 w-48 h-48 rounded-full bg-brand/[0.06] blur-3xl" aria-hidden />
       <Header de={de} />
-      <div className="px-3 pb-3 space-y-1.5" data-testid="upcoming-events-list">
+      <div className="px-3 pb-3 space-y-1.5 relative" data-testid="upcoming-events-list">
         {(events || [null, null, null]).map((event, idx) => (
-          event ? <EventRow key={event.event_id} event={event} de={de} /> : <RowSkeleton key={`sk-${idx}`} />
+          event
+            ? <EventRow key={event.event_id} event={event} de={de} />
+            : <RowSkeleton key={`sk-${idx}`} />
         ))}
       </div>
-      <div className="px-5 pb-4 pt-1">
+      <div className="px-5 pb-4 pt-1 relative" data-anim="events-see-all" style={{ opacity: events ? undefined : 0 }}>
         <Link
           to="/events"
-          className="inline-flex items-center gap-1 text-[11.5px] font-bold text-foreground/80 hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-1 text-[11.5px] font-bold text-foreground/80 hover:text-foreground hover:gap-1.5 transition-all"
           data-testid="upcoming-events-see-all"
         >
           {de ? 'Alle Events ansehen' : 'Browse all events'} <ChevronRight size={12} />
         </Link>
       </div>
-    </Card>
+    </div>
   );
 };
 
-const Card = ({ children }) => (
-  <div className="rounded-2xl bg-card border border-border overflow-hidden" data-testid="upcoming-events-card">
-    {children}
-  </div>
-);
-
 const Header = ({ de }) => (
-  <div className="px-5 pt-4 pb-3 flex items-center justify-between">
+  <div className="px-5 pt-4 pb-3 flex items-center justify-between relative" data-anim="events-header">
     <div className="flex items-center gap-2">
       <div className="w-7 h-7 rounded-lg bg-brand/15 text-brand flex items-center justify-center">
         <Calendar size={13} />
@@ -132,12 +153,28 @@ const Header = ({ de }) => (
 
 const EventRow = ({ event, de }) => {
   const dt = formatEventDate(event.date, de ? 'de' : 'en');
+  const rowRef = useRef(null);
+
+  // Micro-interaction: subtle lift + lime halo on hover (GSAP for buttery smoothness)
+  useEffect(() => {
+    if (!rowRef.current || prefersReduce()) return undefined;
+    const el = rowRef.current;
+    const enter = () => gsap.to(el, { y: -2, duration: 0.25, ease: 'power2.out' });
+    const leave = () => gsap.to(el, { y: 0, duration: 0.25, ease: 'power2.out' });
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+    return () => { el.removeEventListener('mouseenter', enter); el.removeEventListener('mouseleave', leave); };
+  }, []);
+
   return (
     <div
-      className="card-lift group flex items-center gap-3 p-3 rounded-xl bg-background/40 dark:bg-background/30 hover:bg-foreground/[0.03] border border-border/40 transition-colors"
+      ref={rowRef}
+      data-anim="events-row"
+      className="group flex items-center gap-3 p-3 rounded-xl bg-background/40 dark:bg-background/30 hover:bg-foreground/[0.03] border border-border/40 hover:border-brand/30 transition-colors will-change-transform"
       data-testid={`event-row-${event.event_id}`}
+      style={{ opacity: 0 }}
     >
-      <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-brand/15 text-brand shrink-0">
+      <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-brand/15 text-brand shrink-0 group-hover:bg-brand/25 transition-colors">
         <span className="text-[15px] font-black leading-none" style={OUTFIT}>
           {(dt.dayLabel || '').match(/\d+/)?.[0] || '—'}
         </span>
@@ -165,7 +202,7 @@ const EventRow = ({ event, de }) => {
         target="_blank"
         rel="noopener noreferrer"
         title={de ? 'Zu Kalender hinzufügen' : 'Add to calendar'}
-        className="w-9 h-9 rounded-lg flex items-center justify-center bg-foreground/[0.04] hover:bg-foreground/[0.10] text-foreground/70 hover:text-foreground transition-colors shrink-0"
+        className="w-9 h-9 rounded-lg flex items-center justify-center bg-foreground/[0.04] hover:bg-foreground/[0.10] text-foreground/70 hover:text-foreground active:scale-90 transition-all shrink-0"
         data-testid={`event-add-calendar-${event.event_id}`}
         onClick={(e) => e.stopPropagation()}
       >

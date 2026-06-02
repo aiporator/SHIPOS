@@ -280,7 +280,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
               Unsicher, welcher Pfad zu dir passt?
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
-              15 Min · kostenlos · 1:1 mit einem Argumentorik-Berater.
+              15 Min · 1:1 mit einem Argumentorik-Berater · unverbindlich.
             </p>
           </div>
           <button

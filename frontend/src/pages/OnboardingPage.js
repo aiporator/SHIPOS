@@ -258,18 +258,18 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 5: Free Strategy Call CTA — Cal.com */}
+        {/* Step 5: Strategy Call CTA — Cal.com (Iter 92.10: no "Free" wording, premium positioning) */}
         {step === 5 && (
           <div className="space-y-5 animate-fade-in" data-testid="onboarding-call-step">
             <div className="text-center">
               <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-[10px] font-black uppercase tracking-wider px-3 py-1 mb-3">
-                {de ? 'Kostenlos · Unverbindlich · 15 Min' : 'Free · No Strings · 15 min'}
+                {de ? '15 Min · Unverbindlich · 1:1' : '15 min · No strings · 1:1'}
               </Badge>
               <h2 className="text-2xl font-black tracking-tight">{de ? 'Sicher den schnellsten Weg.' : 'Lock in the fastest path.'}</h2>
               <p className="text-sm text-muted-foreground mt-1.5 max-w-md mx-auto">
                 {de
-                  ? 'Bevor du loslegst — buch dir einen Free Call mit unserem Argumentorik-Berater. 15 Min, in denen du klar bekommst: wo stehst du, wo blockierst du, was sind deine nächsten 30 Tage.'
-                  : 'Before you dive in — book a free call with our Argumentorik consultant. 15 min to find out where you stand, where you block yourself, what your next 30 days should be.'}
+                  ? 'Bevor du loslegst — sichere dir einen Termin mit unserem Argumentorik-Berater. 15 Min, in denen du klar bekommst: wo stehst du, wo blockierst du, was sind deine nächsten 30 Tage.'
+                  : 'Before you dive in — book a slot with our Argumentorik consultant. 15 min to find out where you stand, where you block yourself, what your next 30 days should be.'}
               </p>
             </div>
 
@@ -280,19 +280,19 @@ export default function OnboardingPage() {
                     <Phone size={20} className="text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold">{de ? 'Free Strategiegespräch' : 'Free Strategy Call'}</p>
+                    <p className="text-sm font-bold">{de ? 'Strategiegespräch' : 'Strategy Call'}</p>
                     <p className="text-xs text-muted-foreground">{de ? 'Mit Wlads Head Coach · 1:1' : "With Wlad's Head Coach · 1:1"}</p>
                   </div>
                   <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    {de ? 'Slots verfügbar' : 'slots open'}
+                    {de ? 'Slots offen' : 'slots open'}
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   {[
                     { icon: Clock, label: de ? '15 Min' : '15 min' },
                     { icon: Sparkles, label: de ? '1:1 Strategie' : '1:1 strategy' },
-                    { icon: Shield, label: de ? '0 € · 0 Stress' : '€0 · no pressure' },
+                    { icon: Shield, label: de ? 'Unverbindlich' : 'No pressure' },
                   ].map((b) => (
                     <div key={b.label} className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/60 dark:bg-card/40">
                       <b.icon size={14} className="text-emerald-600 dark:text-emerald-400" />

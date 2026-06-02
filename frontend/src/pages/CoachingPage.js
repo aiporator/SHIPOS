@@ -118,7 +118,7 @@ export default function CoachingPage() {
           <CardContent className="p-0">
             <div className="p-6 border-b border-black/[0.04] dark:border-white/[0.04]">
               <h3 className="text-lg font-bold flex items-center gap-2"><Calendar size={18} className="text-[#6B8A00] dark:text-[#BFFF00]" />{de ? 'Strategiegespräch buchen' : 'Book Strategy Call'}</h3>
-              <p className="text-sm text-muted-foreground">{de ? '15 Minuten. Kostenlos. Unverbindlich.' : '15 minutes. Free. No obligation.'}</p>
+              <p className="text-sm text-muted-foreground">{de ? '15 Min · 1:1 · unverbindlich' : '15 min · 1:1 · no obligation'}</p>
             </div>
             <div className="p-8 flex items-center justify-center bg-gradient-to-br from-[#BFFF00]/[0.06] to-[#BFFF00]/[0.04] dark:from-[#BFFF00]/[0.04] dark:to-[#BFFF00]/[0.03]">
               <div className="text-center space-y-4">
