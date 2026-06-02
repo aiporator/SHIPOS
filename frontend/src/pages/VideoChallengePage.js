@@ -197,17 +197,37 @@ export default function VideoChallengePage() {
     <DashboardLayout>
       {!canAccess && !tierCtx.loading && <TierLockOverlay feature="video_analysis" requiredTier="accelerator" de={lang === 'de'} />}
       <LoadingOverlay isOpen={analyzing} flow="video" de={lang === 'de'} />
-      <div className="p-6 lg:p-10 max-w-4xl mx-auto bg-gradient-mesh min-h-screen" data-testid="video-challenge-page">
+      <div className="p-8 lg:p-14 max-w-6xl mx-auto min-h-screen" data-testid="video-challenge-page">
         {showUpsell && <VideoUpsellModal onClose={() => setShowUpsell(false)} lang={lang} />}
+
+        {/* Page Header */}
+        {!activeChallenge && !analysis && (
+          <div className="mb-12 lg:mb-16" data-testid="video-challenge-header">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-8 bg-[#BFFF00]/60" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                {lang === 'de' ? 'VIDEO-MISSIONEN' : 'VIDEO MISSIONS'}
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
+              {lang === 'de' ? 'Deine ' : 'Your '}<em className="not-italic text-[#BFFF00]">{lang === 'de' ? 'Bühne' : 'Stage'}</em>
+            </h1>
+            <p className="text-base sm:text-lg text-white/50 mt-6 max-w-xl leading-relaxed font-light">
+              {lang === 'de'
+                ? 'Übe deine Wirkung. Nimm dich auf, bekomm sofortiges KI-Feedback zu Klarheit, Souveränität und Empathie.'
+                : 'Train your presence. Record yourself and get instant AI feedback on clarity, confidence, and empathy.'}
+            </p>
+          </div>
+        )}
 
         {/* Trial banner — visible for Free/Standard users with active trial */}
         {!isAccelerator && trial?.eligible && (
-          <div className={`mb-5 rounded-2xl border px-4 py-3 flex items-center gap-3 ${trial.active ? 'bg-[#BFFF00]/10 border-[#BFFF00]/30' : 'bg-rose-500/5 border-rose-500/20'}`} data-testid="video-trial-banner">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
-              <span className="text-[13px] font-black">{trial.remaining}</span>
+          <div className={`mb-8 rounded-xl border px-5 py-4 flex items-center gap-4 transition-colors ${trial.active ? 'border-[#BFFF00]/20 bg-[#BFFF00]/[0.06] hover:border-[#BFFF00]/30' : 'border-rose-500/20 bg-rose-500/[0.04] hover:border-rose-500/30'}`} data-testid="video-trial-banner">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
+              <span className="text-[14px] font-bold">{trial.remaining}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[12px] font-bold leading-tight" data-testid="video-trial-headline">
+              <p className="text-[13px] font-semibold leading-tight" data-testid="video-trial-headline">
                 {trial.active
                   ? (lang === 'de'
                       ? `Du hast ${trial.remaining} von ${trial.total} kostenlosen Video-Analysen übrig`
@@ -217,7 +237,7 @@ export default function VideoChallengePage() {
                       : 'Your free video analysis quota is used up')
                 }
               </p>
-              <p className="text-[10px] text-muted-foreground mt-0.5">
+              <p className="text-[11px] text-white/50 mt-1 font-light leading-relaxed">
                 {trial.active
                   ? (lang === 'de'
                       ? `Probier-Phase läuft noch ${trial.days_left} Tage — danach exklusiv im Leadership OS PLUS.`
