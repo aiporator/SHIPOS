@@ -6,15 +6,16 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { WladMark } from '../components/brand/WladMark';
+import { useBookConsultation } from '../components/brand/BookConsultationButton';
 import api from '../lib/api';
 import {
   ArrowRight, Sparkles, Users, Target, Brain,
   MessageSquareText, Zap, Shield, ChevronRight,
   ExternalLink, CheckCircle2, Crown, Briefcase,
-  GraduationCap, Building, TrendingUp
+  GraduationCap, Building, TrendingUp, Calendar, Phone, Clock
 } from 'lucide-react';
 
-const STEPS = ['welcome', 'profile', 'role', 'goal', 'wladhub', 'done'];
+const STEPS = ['welcome', 'profile', 'role', 'goal', 'wladhub', 'call', 'done'];
 
 export default function OnboardingPage() {
   const { user, setUser } = useAuth();
@@ -26,6 +27,7 @@ export default function OnboardingPage() {
   const [loading, setLoading] = useState(false);
   const [wladhubScores, setWladhubScores] = useState({ ki_kompetenz: '', boardroom_rhetorik: '', strategisches_eq: '' });
   const de = lang === 'de';
+  const openBooking = useBookConsultation();
 
   const roles = [
     { id: 'team-lead', icon: Users, label: de ? 'Team Lead' : 'Team Lead', desc: de ? '3-10 Mitarbeiter' : '3-10 reports' },
@@ -256,8 +258,75 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 5: Done */}
+        {/* Step 5: Free Strategy Call CTA — Cal.com */}
         {step === 5 && (
+          <div className="space-y-5 animate-fade-in" data-testid="onboarding-call-step">
+            <div className="text-center">
+              <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 text-[10px] font-black uppercase tracking-wider px-3 py-1 mb-3">
+                {de ? 'Kostenlos · Unverbindlich · 15 Min' : 'Free · No Strings · 15 min'}
+              </Badge>
+              <h2 className="text-2xl font-black tracking-tight">{de ? 'Sicher den schnellsten Weg.' : 'Lock in the fastest path.'}</h2>
+              <p className="text-sm text-muted-foreground mt-1.5 max-w-md mx-auto">
+                {de
+                  ? 'Bevor du loslegst — buch dir einen Free Call mit unserem Argumentorik-Berater. 15 Min, in denen du klar bekommst: wo stehst du, wo blockierst du, was sind deine nächsten 30 Tage.'
+                  : 'Before you dive in — book a free call with our Argumentorik consultant. 15 min to find out where you stand, where you block yourself, what your next 30 days should be.'}
+              </p>
+            </div>
+
+            <Card className="overflow-hidden border-emerald-200/40 dark:border-emerald-500/20 bg-gradient-to-br from-emerald-50/40 to-[#BFFF00]/[0.04] dark:from-emerald-500/[0.04] dark:to-[#BFFF00]/[0.03]">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-[#BFFF00] flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+                    <Phone size={20} className="text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold">{de ? 'Free Strategiegespräch' : 'Free Strategy Call'}</p>
+                    <p className="text-xs text-muted-foreground">{de ? 'Mit Wlads Head Coach · 1:1' : "With Wlad's Head Coach · 1:1"}</p>
+                  </div>
+                  <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    {de ? 'Slots verfügbar' : 'slots open'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  {[
+                    { icon: Clock, label: de ? '15 Min' : '15 min' },
+                    { icon: Sparkles, label: de ? '1:1 Strategie' : '1:1 strategy' },
+                    { icon: Shield, label: de ? '0 € · 0 Stress' : '€0 · no pressure' },
+                  ].map((b) => (
+                    <div key={b.label} className="flex flex-col items-center gap-1 p-2 rounded-lg bg-white/60 dark:bg-card/40">
+                      <b.icon size={14} className="text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-[10px] font-bold text-foreground/80">{b.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  onClick={openBooking}
+                  className="w-full glow-lime btn-shine bg-gradient-to-r from-emerald-500 to-[#9ACC00] text-[#0A0A0A] font-bold h-11 shadow-lg shadow-emerald-500/20"
+                  data-testid="onboarding-book-call-btn"
+                >
+                  <Calendar size={14} className="mr-1.5" />
+                  {de ? 'Termin auswählen' : 'Pick a slot'}
+                  <ArrowRight size={14} className="ml-1.5" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-center">
+              <button
+                type="button"
+                onClick={next}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors font-medium"
+                data-testid="onboarding-skip-call-btn"
+              >
+                {de ? 'Überspringen — ich starte direkt' : 'Skip — I want to start now'} →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 6: Done */}
+        {step === 6 && (
           <div className="text-center space-y-6 animate-fade-in">
             <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mx-auto shadow-2xl shadow-green-500/30">
               <CheckCircle2 size={36} className="text-white" />

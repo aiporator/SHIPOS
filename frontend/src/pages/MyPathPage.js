@@ -4,6 +4,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import LearningVideosTab from '../components/mypath/LearningVideosTab';
+import { UpcomingEventsCard } from '../components/dashboard/UpcomingEventsCard';
 import { useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import logger from '../lib/logger';
@@ -188,6 +189,14 @@ export default function MyPathPage() {
           <p className="text-xs font-bold">Weiter trainieren</p>
           <p className="text-[9px] text-muted-foreground">30-Tage Challenge fortsetzen</p>
         </button>
+
+        {/* Iter 92.9: bringt Donnerstag-Cohort Events direkt in den My-Path Right-Rail */}
+        <div className="pt-2">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+            Nächste Events
+          </h3>
+          <UpcomingEventsCard locale="de" />
+        </div>
       </div>
     }>
       <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">

@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { OnboardingTour } from '../components/shared/OnboardingTour';
+import { OnboardingVideoModal } from '../components/onboarding/OnboardingVideoModal';
 import { AnimatedNumber } from '../components/dashboard/AnimatedNumber';
 import { StatCardsRow, QuickActionsGrid } from '../components/dashboard/StatCards';
 import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
@@ -14,7 +15,7 @@ import { EventReminderBanner } from '../components/dashboard/EventReminder';
 import { WladMotivationCard } from '../components/dashboard/WladMotivationCard';
 import api from '../lib/api';
 import { useCredits } from '../contexts/CreditContext';
-import { WeekCalendarCard } from '../components/dashboard/WeekCalendarCard';
+import { UpcomingEventsCard } from '../components/dashboard/UpcomingEventsCard';
 import { TierBadge } from '../components/shared/TierBadge';
 import { useTier } from '../contexts/TierContext';
 import {
@@ -98,6 +99,7 @@ export default function DashboardPage() {
     <DashboardLayout>
       <div className="p-6 lg:p-10 max-w-6xl mx-auto min-h-screen cascade" data-testid="dashboard-page">
         {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
+        <OnboardingVideoModal />
 
         {/* ── Greeting ── */}
         <div className="flex items-center justify-between mb-8" data-anim="dash-header">
@@ -221,33 +223,49 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Upsell Banner */}
-            <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden" data-testid="upsell-banner" data-anim="dash-widget">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
-                    <Sparkles size={22} className="text-[#BFFF00]" />
+            {/* Upsell Banner — tier-aware: hidden for OS PLUS, shows PLUS upgrade for Standard, shows OS for Free */}
+            {!tierInfo?.isAccelerator && (
+              <Card className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white border-0 overflow-hidden" data-testid="upsell-banner" data-anim="dash-widget">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
+                      <Sparkles size={22} className="text-[#BFFF00]" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-bold">
+                        {tierInfo?.tier === 'standard'
+                          ? (de ? 'Bereit für 1:1 Coaching mit Wlad?' : 'Ready for 1:1 Coaching with Wlad?')
+                          : (de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential')}
+                      </p>
+                      <p className="text-xs text-white/40 mt-0.5">
+                        {tierInfo?.tier === 'standard'
+                          ? (de ? '12× Einzelcoaching · Mastermind · Video-Analyse unlimited.' : '12× 1:1 coaching · Mastermind · Unlimited video analysis.')
+                          : (de ? 'Alle 16 Missionen, 10 Workflows und persönliches Coaching.' : 'All 16 missions, 10 workflows and personal coaching.')}
+                      </p>
+                      <p className="text-[10px] text-white/25 mt-1"><Sparkles size={9} className="inline mr-0.5" /> {de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
+                    </div>
+                    <div className="flex gap-2 shrink-0">
+                      <Button
+                        onClick={() => openPricing(tierInfo?.tier === 'standard' ? 'leadership_os_plus' : 'leadership_os')}
+                        className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4 btn-revolut"
+                        data-testid="dashboard-upgrade-btn"
+                      >
+                        {tierInfo?.tier === 'standard'
+                          ? (de ? 'OS PLUS holen' : 'Get OS PLUS')
+                          : (de ? 'Direkt kaufen' : 'Buy Now')}
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-bold">{de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential'}</p>
-                    <p className="text-xs text-white/40 mt-0.5">{de ? 'Alle 16 Missionen, 10 Workflows und persönliches Coaching.' : 'All 16 missions, 10 workflows and personal coaching.'}</p>
-                    <p className="text-[10px] text-white/25 mt-1"><Sparkles size={9} className="inline mr-0.5" /> {de ? '500+ Leader haben ihre Arbeitsweise transformiert' : '500+ leaders have transformed how they work'}</p>
-                  </div>
-                  <div className="flex gap-2 shrink-0">
-                    <Button onClick={() => openPricing('leadership_os')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-xs h-9 px-4 btn-revolut" data-testid="dashboard-upgrade-btn">
-                      {de ? 'Direkt kaufen' : 'Buy Now'}
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* RIGHT: Sidebar */}
           <div className="space-y-5">
 
-            {/* This Week Calendar */}
-            <WeekCalendarCard de={de} onNavigate={navigate} />
+            {/* Next 3 Events — Donnerstag-Cohort (Iter 92.9) */}
+            <UpcomingEventsCard locale={de ? 'de' : 'en'} />
 
             {/* Referral Card */}
             <Card className="bg-[#0A0A0A] text-white border-0" data-testid="referral-upsell-card" data-anim="dash-widget">

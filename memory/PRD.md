@@ -15,6 +15,17 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.9 · 26.02.26] Godmode Polish Wave (Mert "100 Mio$ App Level")** —
+  - **Calendly KOMPLETT raus**: `/app/frontend/src/lib/calendly.js` neu — `openStrategyCall(utmSource, prefill)` öffnet jetzt Cal.com Modal (`leaderos/beratung` namespace) via `window.Cal.ns.beratung('modal', ...)`. Fallback auf Tab-URL mit prefill (?name, ?email, utm). Affected: CoachingPage Booking-Card, Booking-Section "Strategiegespräch buchen 15 Min Kostenlos", CoachingRightPanel quick-action "Free Strategiegespräch" (war BUG: rief `onCheckout('accelerator')` statt Cal.com).
+  - **`UpcomingEventsCard` ins Dashboard + MyPath** wired: ersetzt `WeekCalendarCard` im Dashboard right-rail (Donnerstag-Cohort, Top-3 zukünftige Events, +Cal-Button → GCal-URL, card-lift Hover). MyPath right-rail bekommt eine zweite Instanz unter "Weiter trainieren".
+  - **Sidebar Profile-Gear**: Subtiles `Settings` icon (Lucide) erscheint im SidebarFooter-Profile-Row, dreht sich 90° on hover, signalisiert "klick mich für Einstellungen" → navigates `/profile`. `data-testid="sidebar-profile-gear"`.
+  - **Voice-Recorder 2-Min Timer**: `VoiceRecorder.js` komplett umgebaut. Hard auto-stop bei 120s. Live mm:ss Countdown (tabular-nums, Outfit Font). Animated SVG-Progress-Ring schrumpft as time runs out. Letzte 20s: red pulse + ping-Indicator. Auto-stop räumt MediaRecorder + Stream + Intervals sauber auf. `data-testid` für `voice-record-btn`, `voice-stop-btn`, `voice-countdown`, `voice-recording-active`.
+  - **OnboardingVideoModal**: NEU `/app/frontend/src/components/onboarding/OnboardingVideoModal.js`. Triggert EINMAL pro Browser (`localStorage.wlad_onboarding_video_seen_v1`) 1.2s nach Dashboard-Mount. Premium dark mit Lime/Violet aurora-glow, 16:9 Drive-iframe, primary CTA „Free Strategiegespräch buchen" → Cal.com, secondary „Später ansehen". Source: Google Drive Folder `1VK2m343YcuKrrh3bykCHuRB9EdZbHCUK` (Folder-Embed default; `REACT_APP_ONBOARDING_VIDEO_FILE_ID` env-overridable für direkten file/preview).
+  - **Onboarding Step 5 „Free Strategy Call"**: Neuer Step zwischen `wladhub` und `done`. Emerald+Lime Gradient-Card, 3-Pill-Grid (15 Min · 1:1 Strategie · 0€ · 0 Stress), prominenter `glow-lime btn-shine` CTA "Termin auswählen" → Cal.com, dezenter Skip-Link.
+  - **PricingModal Tier-Aware**: liest jetzt `useTier()`. `accelerator/plus` → komplette "Du hast schon alles"-Empty-State mit Crown-Icon. `standard` → blendet `leadership_os` + `leadership_os_12x` aus, zeigt NUR die Single OS-PLUS Upgrade-Card + grünen "Bereit für 1:1 mit Wlad?" Upsell-Banner darüber. `free/starter` → unverändert (alle 3 Cards). Grid auto-switch zu `md:grid-cols-1 max-w-md` bei nur 1 sichtbarem Paket.
+  - **Dashboard Upsell-Banner Tier-Aware**: ganzes `<Card>` Verstecken für `isAccelerator`. Standard-User sehen: Headline "Bereit für 1:1 Coaching mit Wlad?" + Button "OS PLUS holen" (öffnet `leadership_os_plus`). Free-User unverändert.
+  - **Smoke-Tested**: Standard-User Login → Dashboard rendert mit OS-PLUS-Upsell + UpcomingEvents (3 echte Events) + Sidebar-Gear + Onboarding-Video-Modal (dismissed via skip-button). ESLint clean auf allen 8 modifizierten Files.
+
 - [x] WLADHUB Brand Design (Neon Lime, Dark+Light)
 - [x] Enterprise Auth (JWT+Cookie, Refresh, Security Headers)
 - [x] 50 Credits + soft_pause at 10
