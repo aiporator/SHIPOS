@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { OnboardingTour } from '../components/shared/OnboardingTour';
 import { OnboardingVideoModal } from '../components/onboarding/OnboardingVideoModal';
+import { StripeModeBanner } from '../components/admin/StripeModeBanner';
 import { AnimatedNumber } from '../components/dashboard/AnimatedNumber';
 import { StatCardsRow, QuickActionsGrid } from '../components/dashboard/StatCards';
 import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
@@ -133,6 +134,9 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
+
+        {/* ── Stripe Mode Banner (admin/owner only, auto-hides when live) ── */}
+        <StripeModeBanner />
 
         {/* ── Event Reminder ── */}
         <EventReminderBanner de={de} />

@@ -257,6 +257,27 @@ async def startup() -> None:
         await db.sync_events.create_index([("direction", 1), ("received_at", -1)])
         logger.info("Sync event indexes ensured (sync_events.event_id unique)")
 
+        # Iter 92.12: 10k-user readiness — additional hot-path indexes.
+        # All idempotent (create_index is a no-op if it already exists).
+        # users hot-paths
+        await db.users.create_index("user_id", unique=True, name="user_id_unique", sparse=True)
+        await db.users.create_index([("tier", 1), ("created_at", -1)], name="tier_signup")
+        # email dedup for cron drips / lifecycle (avoids double-send)
+        await db.email_log.create_index([("user_id", 1), ("type", 1)], name="email_log_user_type")
+        await db.email_log.create_index("sent_at", expireAfterSeconds=60 * 60 * 24 * 365)  # auto-purge after 1y
+        # ab_test_events for fast bucket-lookup
+        await db.ab_test_events.create_index([("user_id", 1), ("experiment", 1)], name="ab_user_experiment")
+        await db.ab_test_events.create_index([("experiment", 1), ("event", 1), ("created_at", -1)], name="ab_experiment_event_time")
+        # events.start_date for calendar queries
+        await db.events.create_index([("start_date", 1)], name="events_start_date")
+        # chat_messages.user_id for "load my full history"
+        await db.chat_messages.create_index([("user_id", 1), ("created_at", -1)], name="chat_user_recent")
+        # video_attempts archive page
+        await db.video_attempts.create_index([("user_id", 1), ("created_at", -1)], name="video_user_recent")
+        # rate-limit auxiliary
+        await db.login_attempts.create_index([("ip", 1), ("created_at", -1)], name="login_ip_recent")
+        logger.info("10k-user scaling indexes ensured (email_log, ab_test_events, events, chat_messages, video_attempts, login_attempts.ip)")
+
         # Magic-link TTL — auto-cleanup expired tokens
         from services_magic_link import ensure_indexes as ensure_magic_link_indexes
         await ensure_magic_link_indexes()

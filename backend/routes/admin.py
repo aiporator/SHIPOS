@@ -9,7 +9,7 @@ from services_tier import TIER_CONFIG
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
 # Admin emails (expand as needed)
-ADMIN_EMAILS = {"test@test.com", "start@aiporate.com", "mert@wladbot.com"}
+ADMIN_EMAILS = {"test@test.com", "start@aiporate.com", "mert@wladbot.com", "mertzafermutlu@gmail.com"}
 
 
 async def require_admin(request: Request) -> dict:

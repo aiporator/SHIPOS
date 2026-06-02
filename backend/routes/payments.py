@@ -22,6 +22,56 @@ from services_email import (
 
 router = APIRouter(prefix="/api", tags=["payments"])
 
+
+# Iter 92.12 (Mert "sehe immer noch sandbox"):
+# Health/mode-detection endpoint so Mert can see at a glance whether the
+# pod is configured for LIVE Stripe charges or still on a test/sandbox key.
+# Public — returns NO secrets, just the mode + the first 7 chars of the key
+# so the Mert can verify the prefix without exposing the full secret.
+@router.get("/payments/stripe-mode")
+async def stripe_mode():
+    key = STRIPE_API_KEY or ""
+    if not key:
+        return {
+            "configured": False,
+            "mode": "missing",
+            "live": False,
+            "warning": "STRIPE_API_KEY not set — checkout will fail.",
+            "key_prefix": None,
+        }
+    if key == "sk_test_emergent":
+        return {
+            "configured": True,
+            "mode": "platform_default",
+            "live": False,
+            "warning": "Using Emergent's shared sandbox key (sk_test_emergent). Replace with your own sk_live_… key in backend/.env before going live.",
+            "key_prefix": "sk_test_e…",
+        }
+    if key.startswith("sk_live_"):
+        return {
+            "configured": True,
+            "mode": "live",
+            "live": True,
+            "warning": None,
+            "key_prefix": key[:8] + "…",
+        }
+    if key.startswith("sk_test_"):
+        return {
+            "configured": True,
+            "mode": "test",
+            "live": False,
+            "warning": "Stripe is in TEST mode — real cards will fail. Switch to sk_live_… for production.",
+            "key_prefix": key[:8] + "…",
+        }
+    return {
+        "configured": True,
+        "mode": "unknown",
+        "live": False,
+        "warning": "Unrecognized Stripe key prefix. Expected sk_live_ or sk_test_.",
+        "key_prefix": key[:7] + "…",
+    }
+
+
 # Fixed packages — amounts defined server-side only (security).
 # 3-Tier Structure: Free | Leadership OS €997 | Leadership OS PLUS €4.447 | Enterprise (quote)
 PACKAGES = {
