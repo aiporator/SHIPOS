@@ -15,6 +15,23 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.13 · 26.02.26] Stripe LIVE-Mode aktiviert + Deploy-Manifest** —
+  - **`STRIPE_API_KEY=sk_live_…`** in `/app/backend/.env` gesetzt (Mert pastete den Key, ich rotiere-Reminder wurde abgegeben → Mert muss den Key in Stripe-Dashboard rollen, da im Chat geleakt).
+  - **Health-Endpoint** `/api/payments/stripe-mode` returnt jetzt: `{mode: "live", live: true, warning: null, key_prefix: "sk_live_…"}` → live confirmed.
+  - **Frontend Banner** verschwindet automatisch (Banner-Count = 0 für admin user). Smoke-test bestätigt: 5/5 Checks GREEN.
+  - **Deploy-Files erstellt:**
+    - `/app/.env.production.template` — vollständige 11 Backend ENVs + 4 Frontend ENVs mit comments
+    - `/app/DEPLOY.md` — 5-Schritt Klick-Anleitung (12 Min) mit Stripe Live-Key + Webhook-Setup, Rollback-Procedure, ENV-Checklist
+    - `/app/scripts/smoke_test_production.sh` — One-Command Health-Check (`API_BASE=https://leader-os.de bash …`), 5 Checks, exit 0/1
+    - `/app/docs/PRODUCTION_READINESS.md` — vollständige Skalierungs-Doku (Agent-Matrix, Index-Tabelle, Gunicorn-Config, Caching-Strategy)
+  - **Verifikation**: Smoke-Test 5/5 GREEN (Backend health, Stripe live, Auth endpoint, Events public, Webhook signature-reject). UI bestätigt Banner-removal. Dashboard rendert komplett: Wlads Zitat des Tages, Stat-Cards (AI Readiness 68/Lernfortschritt 10%/Tag 30), Schnellzugriff-Tiles, UpcomingEventsCard mit echten Donnerstag-Events.
+  - **⚠️ Mert-Action vor Public Launch:**
+    1. Stripe Key rotieren (Chat-leaked) → dashboard.stripe.com → Roll key → neuer sk_live_ → in Vercel ENVs setzen
+    2. Stripe Webhook anlegen unter dashboard.stripe.com/webhooks: URL `https://leader-os.de/api/webhook/stripe`, 4 Events (checkout.session.completed, async_payment_succeeded, async_payment_failed, payment_intent.payment_failed), `STRIPE_WEBHOOK_SECRET` aus Stripe in Vercel ENVs
+    3. Vercel redeploy → `bash /app/scripts/smoke_test_production.sh` mit `API_BASE=https://leader-os.de` → erwarte 5/5 grün
+    4. 1€ Test-Charge mit eigener Karte → Refund über Stripe Dashboard sofort
+    5. Vimeo Privacy → "Anywhere" für ID 1197728183
+
 - [x] **[Iter 92.12 · 26.02.26] 10k-User Readiness + Stripe-Mode Transparenz (Mert „Anbindung Stripe perfekt? Agenten harmonisieren? 10k user?")** —
   - **Stripe Mode Health-Endpoint** (`GET /api/payments/stripe-mode`): public, kein secret, returnt `{ configured, mode (live/test/platform_default/missing/unknown), live (bool), warning, key_prefix }`. Erkennt automatisch ob `sk_live_…`, `sk_test_…`, der Emergent-Default `sk_test_emergent` oder fehlt komplett. Code-Pfade in `routes/payments.py` sind 100% live-ready (kein switch nötig — nur env-key tauschen).
   - **Stripe Mode Banner** (`/app/frontend/src/components/admin/StripeModeBanner.js`): Admin/Owner-only banner im Dashboard. Zeigt glasklar PLATFORM-SANDBOX-KEY + Warnung + direkten Link zu `dashboard.stripe.com/apikeys` + Hinweis wo Live-Key gesetzt werden muss. Self-hide sobald `sk_live_…` aktiv. 12h-Dismiss optional. Smoke-test: Banner sichtbar für `test@test.com` (admin via `ADMIN_EMAILS` allowlist), unsichtbar für free user.
