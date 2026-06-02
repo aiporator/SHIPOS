@@ -6,7 +6,6 @@ import {
   CheckCircle2, Lightbulb, TrendingUp
 } from 'lucide-react';
 import VoicePlayButton from '../shared/VoicePlayButton';
-import { VoiceSpeedToggle } from '../shared/VoiceSpeedToggle';
 
 export const AnalysisResults = ({
   analysis, activeChallenge, resetChallenge, handleDownloadReport,
@@ -90,7 +89,10 @@ export const AnalysisResults = ({
                 <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
                   <p className="text-xs font-bold text-white/50 uppercase tracking-wider">Wlad Jachtchenkos Einschätzung</p>
                   <div className="flex items-center gap-2">
-                    <VoiceSpeedToggle />
+                    {/* Iter 92.6: VoiceSpeedToggle removed — after a passed
+                        video test the user is in flow-state, we don't want
+                        to tempt them into a slower playback. Wlad's voice
+                        plays at the saved preferred speed (1.25× default). */}
                     <VoicePlayButton
                       text={analysis.wlad_assessment}
                       persona="wlad"

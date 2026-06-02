@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTier } from '../../contexts/TierContext';
 import { usePricing } from '../../contexts/PricingContext';
 import { TierBadge } from '../shared/TierBadge';
-import { Crown } from 'lucide-react';
+import { Crown, Settings } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import {
@@ -98,6 +98,13 @@ export const SidebarFooter = ({ theme, toggleTheme, lang, toggleLang, t, collaps
               <p className="text-[11px] font-semibold truncate leading-none">{user.name}</p>
               <div className="mt-1"><TierBadge size="xs" /></div>
             </div>
+            {/* Iter 92.9: Subtiles Zahnrad signalisiert "hier kannst du Einstellungen ändern" */}
+            <Settings
+              size={13}
+              className="text-muted-foreground/40 group-hover:text-[#4A6200] dark:group-hover:text-[#BFFF00] group-hover:rotate-90 transition-all duration-300 shrink-0"
+              aria-hidden
+              data-testid="sidebar-profile-gear"
+            />
           </button>
           {uploadingPic && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-lg">

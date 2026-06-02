@@ -1,0 +1,35 @@
+{
+  "summary": "Iter 92.5 FINAL PUSH — GREEN. All 4 premium features verified end-to-end. Backend 14/14 pytest GREEN: (1) GDPR Unsubscribe full lifecycle works — bad token → 400 'Ungültiger oder abgelaufener Link', valid HMAC token → 200 with email/category_label/already_unsubscribed; POST /confirm flips flag (already_unsubscribed:true on re-info), /resubscribe flips back (already_unsubscribed:false); (2) /api/lifecycle/status returns video_drip_weeks=[1,2,3,4,5,6]; (3) POST /api/cron/video-drip runs idempotent (0 sent due to missing vimeo_id, no 500s); (4) /api/ab/assign/fake_wlad_call_bribe returns enrolled:true with variant in (control|bribe); /api/ab/event accepts impression event ok:true; (5) Payments WLAD10 = 897.30€, no-code = 997.00€, invalid-code = 997.00€ (graceful); (6) /favicon.svg HTTP 200 + image/svg+xml, /icon-192.png + /apple-touch-icon.png HTTP 200. Frontend Playwright GREEN: WladMark new geometry verified on /login — `.wlad-mark-animated` class present, exact path `M2.8 4.8 L8.6 24.4 Q10 25.8 11.4 24.2 L15.4 9.8 Q16.4 8.8 17.4 9.8 L20.8 24.2 Q22.2 25.8 23.6 24.4 L28.8 4` (has both L linear + Q quadratic Bézier curves at valleys, matches spec exactly). Login test@test.com/test123 → /dashboard works. /email/unsubscribe (no token + garbage.token) → premium dark fallback with 'Hmm, das hat nicht geklappt.' + 'LINK UNGÜLTIG' badge + data-testid='unsubscribe-back-home' button visible. Dashboard loads error-free. MyPath → Lernvideos shows exactly 6 'Gratis'-Videos (Iter 92.3 not regressed). Zero pageerrors during normal flow.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "WladMark on /login brand panel & dashboard sidebar", "issue": "`data-testid=\"brand-wordmark\"` is defined on the WladWordmark React component (WladMark.js:152) but the /login and /dashboard sidebar render the mark via a different (custom) brand panel that does not expose this testid. The mark itself is visually rendered with .wlad-mark-animated + .wlad-mark-w (correct geometry).", "selector": "[data-testid='brand-wordmark']", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration92_5_unsubscribe.py",
+    "/app/test_reports/pytest/iter92_5_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Expose data-testid='brand-wordmark' on the /login + sidebar brand panels so QA can deterministically locate the wordmark (currently only present on the WladWordmark button component, which is not used in those positions)."
+  ],
+  "critical_code_review_comments": [
+    "routes/unsubscribe.py — Clean HMAC stateless implementation; signing key reuses JWT_SECRET (good — no extra secret to manage), 365-day TTL, base64url + JSON payload, hmac.compare_digest for timing-safe verification. CATEGORIES + CATEGORY_LABELS mapping centralised. unsubscribe_url() helper is the right abstraction for embedding in email templates. Idempotent: resubscribe before confirm and re-running confirm twice both behave correctly.",
+    "EmailUnsubscribePage — Error fallback design is consistent with brand (dark premium, WladMark, badge, CTA back to dashboard). data-testid='unsubscribe-back-home' present on error path. Token-missing + malformed-token both route to the same error phase. Good.",
+    "WladMark.js — NEW path geometry is clean: linear (L) segments for the legs + quadratic Bézier (Q) for the valley curves + signature flick + crown pixel-dot. .wlad-mark-animated triggers idle-sway + scan-line shimmer. Drop-shadow ghost path gives float depth without extra DOM nodes. Asymmetric end-flick differentiates from generic W glyphs.",
+    "AppErrorBoundary wrapping App.js is the right place (outermost). Note: not directly testable without forcing a render crash — verified via 'no pageerror events' during normal flow.",
+    "(Pre-existing minor) /api/payments/checkout requires `origin_url` in body — already documented in the route schema; the test was initially missing it (fixed in test)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration92_5_unsubscribe.py (created)"
+  ],
+  "success_rate": {"backend": "100% (14/14)", "frontend": "100% in-scope (12/12 checks)"},
+  "test_credentials": "test@test.com / test123 (works; user_id user_f111693f1b00 verified via HMAC token roundtrip with backend's JWT_SECRET)",
+  "seed_data_creation": "None — used existing seeded test user. State touched: users.unsubscribed_video_drip flag (toggled true → false during lifecycle test, ends in false/resubscribed state). One row written to email_unsubscribes collection per confirm call.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter 92.5 GREEN across the board. Backend regression file at /app/backend/tests/test_iteration92_5_unsubscribe.py covers: unsubscribe info/confirm/resubscribe HMAC flow, lifecycle status video_drip_weeks, /api/cron/video-drip, /api/ab/{assign,event}/fake_wlad_call_bribe, /api/payments/checkout (note: requires origin_url field — discounted_amount=897.30 with WLAD10, amount=997.00 without/invalid), and frontend public asset HEAD checks. Run with: cd /app/backend && set -a && source .env && set +a && export REACT_APP_BACKEND_URL=https://command-center-229.preview.emergentagent.com && python3 -m pytest tests/test_iteration92_5_unsubscribe.py -v. Frontend verified on https://command-center-229.preview.emergentagent.com: WladMark path d='M2.8 4.8 L8.6 24.4 Q10 25.8 11.4 24.2 L15.4 9.8 Q16.4 8.8 17.4 9.8 L20.8 24.2 Q22.2 25.8 23.6 24.4 L28.8 4' present with .wlad-mark-w + .wlad-mark-animated CSS classes; favicon.svg returns image/svg+xml; /email/unsubscribe error states render correctly with data-testid='unsubscribe-back-home'. Only minor finding: data-testid='brand-wordmark' is only on the WladWordmark button component, not on the login/dashboard brand panels that visually display the wordmark.",
+  "rca of the issue": "No bugs found in Iter 92.5 scope. The reported 'doppel /api/api/' prefix bug from EmailUnsubscribePage.js + FakeWladCall.js is already fixed — verified by /email/unsubscribe successfully returning the documented 400 error from /api/unsubscribe/info (would have been a 404 or path-not-found if double-prefixed)."
+}

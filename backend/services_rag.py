@@ -35,8 +35,12 @@ VOYAGE_MODEL = "voyage-3"
 EMBEDDING_DIM = 1024
 
 # RAG tuning
-MATCH_THRESHOLD = 0.60       # cosine similarity cutoff (0..1)
-MATCH_COUNT = 6              # top-K chunks
+# Voyage-3 cosine similarities for in-domain queries cluster between 0.25 and
+# 0.45 (empirically measured against the 609-chunk Wlad corpus). The previous
+# 0.60 threshold filtered EVERYTHING out — RAG looked configured but returned
+# zero context. Iter 92.6 lowered to 0.25 to actually surface relevant chunks.
+MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
+MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
 MAX_CONTEXT_CHARS = 4000     # truncate injected context to keep prompt size sane
 CACHE_TTL_SECONDS = 60       # in-memory cache for repeat queries
 CACHE_MAX_ENTRIES = 256

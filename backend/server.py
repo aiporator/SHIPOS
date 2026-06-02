@@ -9,16 +9,73 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 # Sentry: opt-in via SENTRY_DSN env var. No-op when unset, so dev and CI
 # environments don't need an account.
+#
+# Alert-threshold configuration (Iter 92.4):
+#   - traces_sample_rate    = 0.10 (sample 10% of transactions for perf)
+#   - profiles_sample_rate  = 0.10
+#   - before_send           = filters out known noise (cancelled requests,
+#                              client-disconnects, 401/404s, healthchecks)
+#   - in-Sentry alert rules (configured in Sentry UI, mirrored in docs/SENTRY_ALERTS.md):
+#       * P0: any 5xx error > 5 events in 1 min → PagerDuty / Email
+#       * P1: any new unique issue (first-seen) → Email
+#       * P1: API latency p95 > 3000ms over 5 min → Email
+#       * P2: warning-level breadcrumb spike (>50 in 5 min) → Slack
 _sentry_dsn = os.environ.get("SENTRY_DSN")
 if _sentry_dsn:
     import sentry_sdk
     from sentry_sdk.integrations.fastapi import FastApiIntegration
     from sentry_sdk.integrations.starlette import StarletteIntegration
+
+    # Errors / status codes we should NOT alert on (legitimate non-bugs)
+    _SILENCED_STATUS_CODES = {401, 403, 404, 422, 429}
+    # Common request-cancelled error classes from FastAPI/uvicorn — happen when
+    # the client disconnects mid-stream (e.g. user closes browser tab during
+    # /api/video/analyze upload). Not actionable bugs.
+    _SILENCED_EXCEPTION_NAMES = {
+        "ClientDisconnect",
+        "BrokenResourceError",
+        "WouldBlock",
+        "ConnectionResetError",
+        "asyncio.CancelledError",
+        "CancelledError",
+    }
+    # URL paths that flood Sentry but are not user-facing
+    _SILENCED_URL_PARTS = ("/api/health", "/api/lifecycle/status", "/api/rag-status")
+
+    def _before_sentry_send(event, hint):
+        """Filter callback — return None to drop the event, or `event` to send."""
+        try:
+            # Drop expected HTTPException status codes (client errors, not bugs)
+            exc_info = hint.get("exc_info") if hint else None
+            if exc_info and exc_info[1] is not None:
+                exc = exc_info[1]
+                exc_class = type(exc).__name__
+                if exc_class in _SILENCED_EXCEPTION_NAMES:
+                    return None
+                status_code = getattr(exc, "status_code", None)
+                if status_code in _SILENCED_STATUS_CODES:
+                    return None
+
+            # Drop health/status check noise
+            req = (event.get("request") or {})
+            url = req.get("url") or ""
+            if any(p in url for p in _SILENCED_URL_PARTS):
+                return None
+        except Exception:
+            # Never let the filter itself crash event delivery
+            pass
+        return event
+
     sentry_sdk.init(
         dsn=_sentry_dsn,
         environment=os.environ.get("SENTRY_ENV", "production"),
+        release=os.environ.get("SENTRY_RELEASE", "wladbot@5.0"),
         traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+        profiles_sample_rate=float(os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", "0.1")),
         send_default_pii=False,
+        attach_stacktrace=True,
+        max_breadcrumbs=50,
+        before_send=_before_sentry_send,
         integrations=[StarletteIntegration(), FastApiIntegration()],
     )
 
@@ -96,6 +153,14 @@ app.include_router(og_router)
 from routes.lifecycle_emails import router as lifecycle_emails_router  # noqa: E402
 app.include_router(lifecycle_emails_router)
 
+# A/B testing endpoints (variant assignment + event logging + admin results)
+from routes.ab_testing import router as ab_testing_router  # noqa: E402
+app.include_router(ab_testing_router)
+
+# Email unsubscribe (HMAC-signed tokens, GDPR/CAN-SPAM compliant one-click)
+from routes.unsubscribe import router as unsubscribe_router  # noqa: E402
+app.include_router(unsubscribe_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:
@@ -123,22 +188,14 @@ async def rag_health() -> dict:
 # Strategy: if CORS_ORIGINS="*", use allow_origin_regex=".*" which works WITH credentials.
 # Otherwise: split env list into explicit origins (production-safe).
 _raw_cors = os.environ.get("CORS_ORIGINS", "").strip()
-_PRODUCTION_ORIGINS = [
-    "https://leader-os.de",
-    "https://www.leader-os.de",
-    "https://leader-check.de",
-    "https://www.leader-check.de",
-]
 _cors_kwargs: dict = {
     "allow_credentials": True,
     "allow_methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
 }
 if _raw_cors in ("", "*"):
-    if os.environ.get("ENVIRONMENT") == "production":
-        _cors_kwargs["allow_origins"] = _PRODUCTION_ORIGINS
-    else:
-        _cors_kwargs["allow_origin_regex"] = r"https?://(localhost|127\.0\.0\.1)(:\d+)?"
+    # Wildcard with credentials: must use regex form
+    _cors_kwargs["allow_origin_regex"] = r".*"
 else:
     _cors_kwargs["allow_origins"] = [o.strip() for o in _raw_cors.split(",") if o.strip()]
 
@@ -199,6 +256,27 @@ async def startup() -> None:
         await db.sync_events.create_index("event_id", unique=True, name="sync_event_id_unique")
         await db.sync_events.create_index([("direction", 1), ("received_at", -1)])
         logger.info("Sync event indexes ensured (sync_events.event_id unique)")
+
+        # Iter 92.12: 10k-user readiness — additional hot-path indexes.
+        # All idempotent (create_index is a no-op if it already exists).
+        # users hot-paths
+        await db.users.create_index("user_id", unique=True, name="user_id_unique", sparse=True)
+        await db.users.create_index([("tier", 1), ("created_at", -1)], name="tier_signup")
+        # email dedup for cron drips / lifecycle (avoids double-send)
+        await db.email_log.create_index([("user_id", 1), ("type", 1)], name="email_log_user_type")
+        await db.email_log.create_index("sent_at", expireAfterSeconds=60 * 60 * 24 * 365)  # auto-purge after 1y
+        # ab_test_events for fast bucket-lookup
+        await db.ab_test_events.create_index([("user_id", 1), ("experiment", 1)], name="ab_user_experiment")
+        await db.ab_test_events.create_index([("experiment", 1), ("event", 1), ("created_at", -1)], name="ab_experiment_event_time")
+        # events.start_date for calendar queries
+        await db.events.create_index([("start_date", 1)], name="events_start_date")
+        # chat_messages.user_id for "load my full history"
+        await db.chat_messages.create_index([("user_id", 1), ("created_at", -1)], name="chat_user_recent")
+        # video_attempts archive page
+        await db.video_attempts.create_index([("user_id", 1), ("created_at", -1)], name="video_user_recent")
+        # rate-limit auxiliary
+        await db.login_attempts.create_index([("ip", 1), ("created_at", -1)], name="login_ip_recent")
+        logger.info("10k-user scaling indexes ensured (email_log, ab_test_events, events, chat_messages, video_attempts, login_attempts.ip)")
 
         # Magic-link TTL — auto-cleanup expired tokens
         from services_magic_link import ensure_indexes as ensure_magic_link_indexes

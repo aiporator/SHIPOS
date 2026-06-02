@@ -22,6 +22,56 @@ from services_email import (
 
 router = APIRouter(prefix="/api", tags=["payments"])
 
+
+# Iter 92.12 (Mert "sehe immer noch sandbox"):
+# Health/mode-detection endpoint so Mert can see at a glance whether the
+# pod is configured for LIVE Stripe charges or still on a test/sandbox key.
+# Public — returns NO secrets, just the mode + the first 7 chars of the key
+# so the Mert can verify the prefix without exposing the full secret.
+@router.get("/payments/stripe-mode")
+async def stripe_mode():
+    key = STRIPE_API_KEY or ""
+    if not key:
+        return {
+            "configured": False,
+            "mode": "missing",
+            "live": False,
+            "warning": "STRIPE_API_KEY not set — checkout will fail.",
+            "key_prefix": None,
+        }
+    if key == "sk_test_emergent":
+        return {
+            "configured": True,
+            "mode": "platform_default",
+            "live": False,
+            "warning": "Using Emergent's shared sandbox key (sk_test_emergent). Replace with your own sk_live_… key in backend/.env before going live.",
+            "key_prefix": "sk_test_e…",
+        }
+    if key.startswith("sk_live_"):
+        return {
+            "configured": True,
+            "mode": "live",
+            "live": True,
+            "warning": None,
+            "key_prefix": key[:8] + "…",
+        }
+    if key.startswith("sk_test_"):
+        return {
+            "configured": True,
+            "mode": "test",
+            "live": False,
+            "warning": "Stripe is in TEST mode — real cards will fail. Switch to sk_live_… for production.",
+            "key_prefix": key[:8] + "…",
+        }
+    return {
+        "configured": True,
+        "mode": "unknown",
+        "live": False,
+        "warning": "Unrecognized Stripe key prefix. Expected sk_live_ or sk_test_.",
+        "key_prefix": key[:7] + "…",
+    }
+
+
 # Fixed packages — amounts defined server-side only (security).
 # 3-Tier Structure: Free | Leadership OS €997 | Leadership OS PLUS €4.447 | Enterprise (quote)
 PACKAGES = {
@@ -173,6 +223,7 @@ async def _record_pending_transaction(session_id: str, user: dict, package_id: s
 class CheckoutRequest(BaseModel):
     package_id: str
     origin_url: str
+    discount_code: str | None = None
 
 
 @router.get("/payments/packages")
@@ -221,8 +272,18 @@ async def create_checkout(data: CheckoutRequest, request: Request):
     if not package:
         raise HTTPException(status_code=400, detail="Ungültiges Paket")
 
+    # Discount codes — currently single hardcoded "WLAD10" earned via the
+    # Fake-Wlad-Call A/B bribe variant. Applied server-side so users can't
+    # fake it client-side.
+    DISCOUNT_CODES = {"WLAD10": 0.10}  # 10% off
+    discount_pct = 0.0
+    if data.discount_code and data.discount_code.upper() in DISCOUNT_CODES:
+        discount_pct = DISCOUNT_CODES[data.discount_code.upper()]
+
     if not STRIPE_API_KEY:
         raise HTTPException(status_code=500, detail="Stripe nicht konfiguriert")
+
+    final_amount = round(package["amount"] * (1 - discount_pct), 2)
 
     origin = data.origin_url.rstrip("/")
     success_url = f"{origin}/payment-success?session_id={{CHECKOUT_SESSION_ID}}"
@@ -234,7 +295,7 @@ async def create_checkout(data: CheckoutRequest, request: Request):
         stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
 
         checkout_request = CheckoutSessionRequest(
-            amount=package["amount"],
+            amount=final_amount,
             currency=package["currency"],
             success_url=success_url,
             cancel_url=cancel_url,
@@ -243,14 +304,28 @@ async def create_checkout(data: CheckoutRequest, request: Request):
                 "user_email": user.get("email", ""),
                 "package_id": data.package_id,
                 "package_name": package["name"],
+                "discount_code": data.discount_code or "",
+                "discount_pct": str(discount_pct),
+                "original_amount": str(package["amount"]),
             }
         )
 
         session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
 
         await _record_pending_transaction(session.session_id, user, data.package_id, package)
-        logger.info(f"Checkout session created: {session.session_id} for user {user['user_id']} ({package['name']})")
-        return {"url": session.url, "session_id": session.session_id}
+        if discount_pct:
+            # Mark this user as having redeemed the bribe — A/B analytics
+            await db.ab_events.insert_one({
+                "user_id": user["user_id"],
+                "experiment": "fake_wlad_call_bribe",
+                "variant": "bribe",
+                "event": "bribe_redeemed",
+                "meta": {"package_id": data.package_id, "discount_pct": discount_pct,
+                         "final_amount": final_amount},
+                "ts": datetime.now(timezone.utc).isoformat(),
+            })
+        logger.info(f"Checkout session created: {session.session_id} for user {user['user_id']} ({package['name']}, discount={discount_pct*100:.0f}%)")
+        return {"url": session.url, "session_id": session.session_id, "discounted_amount": final_amount}
 
     except Exception as e:
         logger.error(f"Stripe checkout error: {e}")
