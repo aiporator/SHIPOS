@@ -7,7 +7,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from config import db, EMERGENT_LLM_KEY, logger
 from models import SimulationStart, SimulationMessage
-from services import get_current_user, clean_ai_text, SIMULATION_SYSTEM_PROMPT
+from services import get_current_user, clean_ai_text, update_user_scores, SIMULATION_SYSTEM_PROMPT
 from services_actions import record_user_action
 from data import SIMULATION_SCENARIOS
 
@@ -93,27 +93,35 @@ async def simulation_message(sim_id: str, data: SimulationMessage, request: Requ
     )
 
     scenario = sim["scenario"]
-    end_sim = data.message.lower().strip() in ["end simulation", "end", "finish"]
-
-    # RAG only for the END-OF-SIM analysis (NOT during role-play turns).
-    # During the simulation the AI plays an employee character — pulling Wlad
-    # frameworks there would break the role-play. But the final scoring/feedback
-    # IS coaching from the platform's voice, so anchor it in Wlad's methodology.
-    rag_block = ""
-    if end_sim:
-        try:
-            from services_rag import retrieve_context
-            msgs_history = sim.get("messages", [])
-            rag_query = f"{scenario.get('title', '')} {scenario.get('description', '')[:300]}"
-            rag_ctx = await retrieve_context(rag_query)
-            rag_block = rag_ctx.get("context_block", "") or ""
-        except Exception:
-            pass
-
     try:
+        end_sim = data.message.lower().strip() in ["end simulation", "end", "finish"]
+
+        # RAG: pull Wlad-corpus chunks ONLY on simulation-end (where scoring/feedback
+        # happens). During the role-play turns we want the AI to stay in-character,
+        # so we don't pollute the prompt with framework citations. End-state needs
+        # Wlad-grounding for the final assessment + scoring rubric.
+        rag_block = ""
+        if end_sim:
+            try:
+                from services_rag import retrieve_context
+                msgs_so_far = sim.get("messages", [])
+                user_lines = " ".join(
+                    m["content"][:200] for m in msgs_so_far if m["role"] == "user"
+                )[:600]
+                rag_query = f"{scenario.get('description', '')} Feedback Leadership Bewertung {user_lines}"
+                rag_ctx = await retrieve_context(rag_query)
+                if rag_ctx.get("rag_active"):
+                    rag_block = "\n\n" + rag_ctx["context_block"]
+            except Exception:
+                pass
+
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY, session_id=f"sim_{sim_id}",
-            system_message=SIMULATION_SYSTEM_PROMPT + f"\n\nScenario: {scenario.get('description', '')}\nYou are playing: {scenario.get('character', 'an employee')}" + rag_block,
+            system_message=(
+                SIMULATION_SYSTEM_PROMPT
+                + f"\n\nScenario: {scenario.get('description', '')}\nYou are playing: {scenario.get('character', 'an employee')}"
+                + rag_block
+            ),
         )
         chat.with_model("openai", "gpt-5.2")
 
@@ -122,7 +130,7 @@ async def simulation_message(sim_id: str, data: SimulationMessage, request: Requ
 
         prompt = f"{context}\nManager: {data.message}"
         if end_sim:
-            prompt += "\n\nThe simulation is now ending. Provide the JSON analysis with scores. Reference Wlad Jachtchenkos specific frameworks (3 Säulen, Kommunikationsquadrant, Feedbackformel) in the feedback."
+            prompt += "\n\nThe simulation is now ending. Provide the JSON analysis with scores."
 
         ai_response = await chat.send_message(UserMessage(text=prompt))
 

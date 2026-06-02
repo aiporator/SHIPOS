@@ -1,35 +1,35 @@
 /**
- * WladMark — Premium asymmetric "W" mark for Leader-OS.
+ * WladMark — Cool curvy "W" mark for Leader-OS (Iter 92.5).
  *
- * Design rationale (Iter 92):
- *   The previous mark read as a generic ascending bar chart. Mert asked for
- *   something pixel-styled, asymmetric, animated, and unmistakably built
- *   around the letter "W" — i.e. the mark must spell W on first glance,
- *   while still feeling premium / glitch-tech.
+ * Design v3: The previous iteration was too geometric / chart-bar-y.
+ * Mert wanted "cooler & geschwungen" — a flowing W that reads like a
+ * confident signature, not a logo template.
  *
- *   New geometry:
- *     - Bold thick "W" letterform (custom hand-tuned path, not a font glyph)
- *     - Asymmetric: the right leg is taller / heavier than the left, with a
- *       single pixel "crown" floating off the top-right vertex
- *     - Pixel-style accents: 3 chunky squares orbit the mark
- *     - Animations: idle slow-glitch + hover trace-stroke + scan-line shimmer
+ * Geometry rationale:
+ *   - Single continuous Bézier path drawn with smooth cubic curves
+ *   - Asymmetric: the right leg rises higher AND has a softer terminal
+ *   - Inner shadow ghost gives 3D float
+ *   - One single pixel-dot (top right) is the signature accent
+ *   - Hover: stroke-trace draws the W in 800ms
+ *   - Idle: very subtle 4° sway every 6s — the mark feels alive but not busy
  *
  * Modes:
  *   size           — pixel size (28 default)
- *   variant        — 'solid' (lime tile, dark glyph) | 'outline' (no bg)
- *   className      — extra wrapper classes
- *   animated       — adds idle-glitch + interaction-shimmer
+ *   variant        — 'solid' (lime tile, dark glyph) | 'outline' (no bg, lime glyph)
+ *   monogram       — render WITHOUT background tile, just the W on transparent
+ *   animated       — adds idle-sway + hover-trace + accent-twinkle
  */
 import { forwardRef } from 'react';
 
 export const WladMark = forwardRef(({
   size = 28,
   variant = 'solid',
+  monogram = false,
   className = '',
   animated = false,
   ...props
 }, ref) => {
-  const isSolid = variant === 'solid';
+  const isSolid = variant === 'solid' && !monogram;
   const glyphFill = isSolid ? '#0A0A0A' : '#BFFF00';
   const accentFill = isSolid ? '#0A0A0A' : '#D4FF4D';
 
@@ -40,91 +40,100 @@ export const WladMark = forwardRef(({
       style={{ width: size, height: size }}
       {...props}
     >
-      {/* Background tile — only for solid variant */}
+      {/* Background tile — only for solid variant (not monogram) */}
       {isSolid && (
         <span
           aria-hidden
-          className="absolute inset-0 rounded-[28%] transition-all duration-300 group-hover:scale-[1.04]"
+          className="absolute inset-0 rounded-[30%] transition-transform duration-300 group-hover:scale-[1.05]"
           style={{
-            background: 'linear-gradient(135deg, #D4FF4D 0%, #BFFF00 60%, #9ACC00 100%)',
-            boxShadow: '0 4px 16px -4px rgba(191,255,0,0.45), inset 0 1px 0 rgba(255,255,255,0.25)',
+            background: 'linear-gradient(135deg, #D4FF4D 0%, #BFFF00 55%, #A8E600 100%)',
+            boxShadow: '0 4px 18px -5px rgba(191,255,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.08)',
           }}
         />
       )}
 
-      {/* Scan-line shimmer (only animated) */}
-      {animated && (
-        <span aria-hidden className="absolute inset-0 rounded-[28%] overflow-hidden pointer-events-none">
+      {/* Scan-line shimmer (only animated + solid) */}
+      {animated && isSolid && (
+        <span aria-hidden className="absolute inset-0 rounded-[30%] overflow-hidden pointer-events-none">
           <span className="wlad-mark-scanline" />
         </span>
       )}
 
-      {/*  ASYMMETRIC "W" GLYPH
-            32×32 grid. Hand-tuned bold W with intentional asymmetry:
-            - left leg starts at x=3, has 2.6 stroke
-            - middle V dips to y=20 (shallow)
-            - right leg ends higher than left (asymmetry) and is 0.6 thicker
-            - tiny crown pixel floats off the right tip
+      {/*  COOL CURVY "W" GLYPH
+            32×32 grid. The path is a single continuous flow:
+            top-left → swoosh down to first dip → curve up
+            → swoosh down to second dip (deeper, asymmetric)
+            → swoosh up & right with a flick (the signature)
+            The right leg overshoots the baseline slightly for visual flair.
        */}
       <svg
         viewBox="0 0 32 32"
-        width={size * 0.78}
-        height={size * 0.78}
+        width={size * (isSolid ? 0.74 : 0.92)}
+        height={size * (isSolid ? 0.74 : 0.92)}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="relative z-10 wlad-mark-glyph"
         shapeRendering="geometricPrecision"
       >
         <defs>
-          <linearGradient id="wm-stroke" x1="4" y1="26" x2="28" y2="6" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor={glyphFill} stopOpacity="0.95" />
+          {/* Lime → softer-lime gradient along the stroke (visible on monogram) */}
+          <linearGradient id="wm-stroke" x1="2" y1="26" x2="30" y2="4" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={glyphFill} stopOpacity="0.92" />
             <stop offset="100%" stopColor={glyphFill} />
-          </linearGradient>
-          <linearGradient id="wm-accent" x1="0" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor={accentFill} />
-            <stop offset="100%" stopColor={accentFill} stopOpacity="0.55" />
           </linearGradient>
         </defs>
 
-        {/* Drop-shadow ghost (asymmetric offset for depth) */}
+        {/* Ghost shadow (offset for floating depth) */}
         <path
-          d="M4.4 7.2 L9.0 26.8 L13.0 14.4 L17.0 26.8 L22.0 12.0 L25.4 26.4"
+          d="M3.2 5.2 L9 24.8 Q10.4 26 11.8 24.6 L15.6 10.4 Q16.6 9.4 17.6 10.4 L21 24.6 Q22.4 26 23.8 24.8 L29.4 4.6"
           stroke={glyphFill}
-          strokeWidth="3.4"
+          strokeWidth="3.0"
           strokeLinecap="round"
           strokeLinejoin="round"
-          opacity="0.18"
-          transform="translate(0.8 0.8)"
+          opacity="0.16"
+          transform="translate(0.7 0.7)"
+          fill="none"
         />
 
-        {/* Main W stroke — the centerpiece */}
+        {/* MAIN CURVY W — clean W outline with smooth curves at valleys/peak */}
         <path
           className="wlad-mark-w"
-          d="M3.6 6.4 L8.2 26.0 L12.2 13.6 L16.2 26.0 L21.2 11.2 L24.6 25.6"
+          d="M2.8 4.8 L8.6 24.4 Q10 25.8 11.4 24.2 L15.4 9.8 Q16.4 8.8 17.4 9.8 L20.8 24.2 Q22.2 25.8 23.6 24.4 L28.8 4"
           stroke="url(#wm-stroke)"
-          strokeWidth="3.2"
+          strokeWidth="3.0"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
         />
 
-        {/* Asymmetric heavy right tail — extra stroke that makes the W
-            visually heavier on the right (signature asymmetry). */}
+        {/* Signature flick — extra curl off the right tip for asymmetry */}
         <path
-          className="wlad-mark-tail"
-          d="M21.2 11.2 L25.4 23.0"
+          className="wlad-mark-flick"
+          d="M28.8 4 Q30.2 4.6 29.6 6.4"
           stroke="url(#wm-stroke)"
-          strokeWidth="3.8"
+          strokeWidth="2.6"
           strokeLinecap="round"
           fill="none"
         />
 
-        {/* Pixel accent #1 — left valley dot */}
-        <rect className="wlad-mark-pixel-a" x="11" y="6.4" width="2.2" height="2.2" rx="0.35" fill="url(#wm-accent)" />
-        {/* Pixel accent #2 — right crown */}
-        <rect className="wlad-mark-pixel-b" x="25.6" y="3.4" width="2.6" height="2.6" rx="0.4" fill="url(#wm-accent)" />
-        {/* Pixel accent #3 — lower trailing pixel (off-axis for asymmetry) */}
-        <rect className="wlad-mark-pixel-c" x="6.4" y="27.8" width="1.6" height="1.6" rx="0.3" fill="url(#wm-accent)" opacity="0.7" />
+        {/* Tiny accent dot — top-right tip, the "crown" */}
+        <circle
+          className="wlad-mark-pixel-b"
+          cx="29.6"
+          cy="6.4"
+          r="1.2"
+          fill={accentFill}
+        />
+
+        {/* Faint second dot — bottom-left tip, off-axis */}
+        <circle
+          className="wlad-mark-pixel-c"
+          cx="2.8"
+          cy="4.8"
+          r="0.9"
+          fill={accentFill}
+          opacity="0.55"
+        />
       </svg>
     </span>
   );
@@ -144,13 +153,11 @@ export const WladWordmark = ({ size = 30, tagline, onClick }) => (
   >
     <WladMark size={size} animated />
     <span className="flex flex-col items-start leading-none">
-      <span className="text-[14px] font-black tracking-tight bg-clip-text text-transparent transition-all"
-            style={{
-              fontFamily: 'Outfit, Inter, sans-serif',
-              backgroundImage: 'linear-gradient(135deg, currentColor 0%, currentColor 50%, currentColor 100%)',
-              WebkitBackgroundClip: 'text',
-            }}>
-        Leader<span className="opacity-60">·</span>OS
+      <span
+        className="text-[14px] font-black tracking-tight text-foreground"
+        style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.025em' }}
+      >
+        Leader<span className="opacity-55">·</span>OS
       </span>
       {tagline && (
         <span className="text-[7.5px] tracking-[0.22em] uppercase font-bold mt-[2.5px] opacity-40">

@@ -18,8 +18,10 @@ from services import require_cron_auth
 from services_email import (
     send_email, trial_reminder_email,
     drip_day1_email, drip_day3_email, drip_day7_email,
+    video_drip_email, VIDEO_DRIP_VIDEOS,
     is_enabled as email_enabled,
 )
+from routes.unsubscribe import unsubscribe_url
 from services_video_trial import (
     TRIAL_DAYS, TRIAL_VIDEO_LIMIT, TRIAL_ELIGIBLE_TIERS, _parse_dt,
 )
@@ -205,4 +207,97 @@ async def lifecycle_status():
         "email_enabled": email_enabled(),
         "trial_reminder_days_before": list(TRIAL_REMINDER_DAYS_BEFORE),
         "drip_stages_days": [d for d, _, _ in DRIP_STAGES],
+        "video_drip_weeks": [v["week"] for v in VIDEO_DRIP_VIDEOS],
+    }
+
+
+# ── Weekly Video-Drip Cron (Week 1-6 Lernvideo-Sequence) ─────────────────────
+# Each user who signed up ≥ 7×W days ago gets the W-th video drip exactly once,
+# IF that video has a vimeo_id set in the `learning_videos` MongoDB collection
+# (so we never send "watch this!" with a broken deep-link).
+#
+# Designed to be called by an external scheduler once per day.
+
+@router.post("/cron/video-drip")
+async def cron_video_drip(request: Request):
+    """Weekly Lernvideo drip — sends Week 1..6 emails based on signup age."""
+    require_cron_auth(request)
+    if not email_enabled():
+        return {"sent": 0, "scanned": 0, "error": "RESEND_API_KEY not configured"}
+
+    now = datetime.now(timezone.utc)
+
+    # Which video IDs are READY (have a non-null vimeo_id / vimeo_url / video_url)
+    ready_ids = set()
+    async for row in db.learning_videos.find(
+        {"$or": [{"vimeo_id": {"$type": "string", "$ne": ""}},
+                 {"vimeo_url": {"$type": "string", "$ne": ""}},
+                 {"video_url": {"$type": "string", "$ne": ""}}]},
+        {"_id": 0, "id": 1},
+    ):
+        if row.get("id"):
+            ready_ids.add(row["id"])
+
+    sent_total = 0
+    sent_by_week = {}
+    scanned = 0
+    skipped_no_video = 0
+
+    # 6 weeks of drip + 7 days of buffer
+    cutoff = (now - timedelta(days=7 * 6 + 7)).isoformat()
+    candidates = await db.users.find(
+        {
+            "email": {"$exists": True, "$ne": ""},
+            "created_at": {"$gte": cutoff},
+            "unsubscribed_video_drip": {"$ne": True},
+            "unsubscribed_all": {"$ne": True},
+        },
+        {"_id": 0, "user_id": 1, "email": 1, "name": 1, "created_at": 1},
+    ).to_list(5000)
+
+    for u in candidates:
+        scanned += 1
+        days = _days_since(u.get("created_at"))
+        if days is None:
+            continue
+        name = u.get("name") or u["email"].split("@")[0]
+
+        for video in VIDEO_DRIP_VIDEOS:
+            # Week N fires once user is ≥ 7×N days old (with -0.25 day grace)
+            threshold_days = 7 * video["week"]
+            if days < threshold_days - 0.25:
+                continue
+            if video["id"] not in ready_ids:
+                skipped_no_video += 1
+                continue
+
+            log_type = f"video_drip_w{video['week']}"
+            already = await db.email_log.find_one(
+                {"user_id": u["user_id"], "type": log_type}, {"_id": 0}
+            )
+            if already:
+                continue
+
+            subject, html = video_drip_email(
+                name, video,
+                unsubscribe_link=unsubscribe_url(u["user_id"], "video_drip"),
+            )
+            result = await send_email(u["email"], subject, html)
+            await db.email_log.insert_one({
+                "user_id": u["user_id"], "type": log_type,
+                "video_id": video["id"], "week": video["week"],
+                "sent": result["sent"], "email_id": result.get("email_id"),
+                "error": result.get("error"),
+                "sent_at": now.isoformat(),
+            })
+            if result["sent"]:
+                sent_total += 1
+                sent_by_week[log_type] = sent_by_week.get(log_type, 0) + 1
+
+    return {
+        "sent": sent_total,
+        "scanned": scanned,
+        "by_week": sent_by_week,
+        "skipped_no_video": skipped_no_video,
+        "ready_video_ids": sorted(ready_ids),
     }

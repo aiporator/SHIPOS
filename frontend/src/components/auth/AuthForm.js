@@ -89,7 +89,7 @@ export const AuthForm = ({ mode, form, setForm, showPw, setShowPw, loading, onSu
         type="submit"
         disabled={loading}
         aria-busy={loading}
-        className="h-12 w-full rounded-xl bg-[#BFFF00] text-[#0A0A0A] font-bold text-sm hover:bg-[#D4FF4D] transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(191,255,0,0.15)] hover:shadow-[0_0_25px_rgba(191,255,0,0.3)] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="h-12 w-full rounded-xl bg-[#BFFF00] text-[#0A0A0A] font-bold text-sm hover:bg-[#D4FF4D] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed glow-lime btn-shine"
       >
         {loading
           ? <><Loader2 size={16} className="animate-spin" /> {loadingLabel}</>

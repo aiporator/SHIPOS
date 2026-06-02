@@ -18,6 +18,7 @@ import { X, CheckCircle2, Sparkles, Shield, ArrowRight, Loader2, Zap, Crown, Cal
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import { useBookConsultation } from '../brand/BookConsultationButton';
+import { useTier } from '../../contexts/TierContext';
 
 const OUTFIT = { fontFamily: 'Outfit, Inter, system-ui, sans-serif' };
 
@@ -82,14 +83,43 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
   const [busy, setBusy] = useState(null);
   const [err, setErr] = useState(null);
   const openCal = useBookConsultation();
+  const { tier, isAccelerator } = useTier();
+
+  // Iter 92.9 (Mert): Tier-aware Pricing.
+  //   - free / starter  → alle 3 Pakete sichtbar (volle Conversion-Funnel)
+  //   - standard        → user hat Leadership OS schon → zeige NUR OS PLUS Upsell
+  //   - accelerator/plus→ user hat alles → zeige "All-set" State statt Pakete
+  const ownedTier = (tier || 'free').toLowerCase();
+  const hasLeadershipOs = ownedTier === 'standard';
+  const visiblePackages = isAccelerator
+    ? []
+    : hasLeadershipOs
+      ? PACKAGES.filter((p) => p.id === 'leadership_os_plus')
+      : PACKAGES;
 
   const startCheckout = useCallback(async (packageId) => {
     setBusy(packageId);
     setErr(null);
+
+    // Auto-apply bribe discount code if user earned WLAD10 via Fake-Wlad-Call
+    let discountCode;
+    try {
+      const raw = localStorage.getItem('wlad_discount_code');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.code && parsed?.expires_at > Date.now()) {
+          discountCode = parsed.code;
+        } else {
+          localStorage.removeItem('wlad_discount_code');
+        }
+      }
+    } catch { /* localStorage unavailable */ }
+
     try {
       const res = await api.post('/payments/checkout', {
         package_id: packageId,
         origin_url: window.location.origin,
+        discount_code: discountCode,
       });
       const url = res?.data?.url;
       if (!url) throw new Error('Kein Checkout-Link erhalten');
@@ -145,8 +175,28 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
         </div>
 
         {/* Pricing grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 md:p-8">
-          {PACKAGES.map((pkg) => {
+        <div className={`grid grid-cols-1 ${visiblePackages.length === 1 ? 'md:grid-cols-1 max-w-md mx-auto' : 'md:grid-cols-3'} gap-4 p-6 md:p-8`}>
+          {isAccelerator && (
+            <div className="text-center py-8 px-4" data-testid="pricing-already-plus">
+              <div className="w-14 h-14 rounded-2xl bg-brand/15 flex items-center justify-center mx-auto mb-4">
+                <Crown size={26} className="text-brand" />
+              </div>
+              <h3 className="text-xl font-black" style={OUTFIT}>Du hast Leadership OS PLUS.</h3>
+              <p className="text-sm text-muted-foreground mt-1.5 max-w-md mx-auto">
+                Alle Pakete sind bereits aktiv. Nutze deine 1:1 Coaching-Slots oder buch direkt einen Termin.
+              </p>
+            </div>
+          )}
+          {hasLeadershipOs && !isAccelerator && (
+            <div className="md:col-span-1 mb-2">
+              <div className="text-center bg-brand/[0.06] border border-brand/20 rounded-2xl px-4 py-3" data-testid="pricing-upsell-banner">
+                <p className="text-[10px] uppercase tracking-[0.2em] font-black text-brand">Du hast Leadership OS</p>
+                <p className="text-[13px] font-bold mt-1" style={OUTFIT}>Bereit für 1:1 Coaching mit Wlad?</p>
+                <p className="text-[11px] text-muted-foreground mt-1">Upgrade auf OS PLUS · 12 Einzelcoachings inklusive</p>
+              </div>
+            </div>
+          )}
+          {visiblePackages.map((pkg) => {
             const isVIP = pkg.id === 'leadership_os_plus';
             const isSelected = selected === pkg.id;
             return (
@@ -196,9 +246,9 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
 
                 <span
                   onClick={(e) => { e.stopPropagation(); startCheckout(pkg.id); }}
-                  className={`block w-full py-2.5 px-4 rounded-xl text-[12px] font-bold text-center cursor-pointer transition-all btn-revolut ${
+                  className={`btn-shine block w-full py-2.5 px-4 rounded-xl text-[12px] font-bold text-center cursor-pointer transition-all ${
                     isVIP
-                      ? 'bg-brand text-[#0A0A0A] hover:brightness-105 shadow-[0_6px_18px_-6px_rgba(191,255,0,0.55)]'
+                      ? 'bg-brand text-[#0A0A0A] hover:brightness-105 glow-lime'
                       : 'bg-[#0A0A0A] dark:bg-foreground text-white dark:text-background hover:opacity-90'
                   }`}
                   data-testid={`pricing-buy-${pkg.id}`}
@@ -230,7 +280,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
               Unsicher, welcher Pfad zu dir passt?
             </p>
             <p className="text-[11px] text-muted-foreground mt-0.5">
-              15 Min · kostenlos · 1:1 mit einem Argumentorik-Berater.
+              15 Min · 1:1 mit einem Argumentorik-Berater · unverbindlich.
             </p>
           </div>
           <button

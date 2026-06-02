@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { BookConsultationButton, useBookConsultation } from '../components/brand/BookConsultationButton';
+import { BookingTeaserCard } from '../components/brand/BookingTeaserCard';
 import { useTheme } from '../contexts/ThemeContext';
 import { usePricing } from '../contexts/PricingContext';
 import {
@@ -372,6 +373,13 @@ export default function WladUniversePage() {
         </section>
 
         {/* ── BOOKS · PODCAST · MASTERCLASS section removed per user request (Iter 92) ── */}
+
+        {/* ── BOOKING TEASER (sexy live-availability card) ──────────────── */}
+        <BookingTeaserCard
+          eyebrow="Persönliche Beratung · 1:1"
+          title="30 Minuten, die deinen Pfad klären."
+          subtitle="Sprich mit einem Argumentorik-Leadership-Berater. Wir hören zu, analysieren deinen Status — und sagen dir ehrlich, welcher Weg zu dir passt."
+        />
 
         {/* ── CLOSER CTA ─────────────────────────────────────────────────── */}
         <section
