@@ -34,12 +34,14 @@
 
 ## Schritt 2 · Stripe Webhook registrieren
 
+> ⚠️ **WICHTIG:** Dein Stripe-Webhook geht NICHT an dein FastAPI-Backend, sondern an eine **Supabase Edge Function** die du bereits deployed hast. Der FastAPI-Endpoint `/api/webhook/stripe` ist deprecated und gibt 410.
+
 1. Stripe Dashboard → Developers → **Webhooks** → „Add endpoint"
-2. **Endpoint URL:**
+2. **Endpoint URL** (Supabase Edge Function, nicht leader-os.de!):
    ```
-   https://leader-os.de/api/webhook/stripe
+   https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/stripe-webhook
    ```
-3. **Description:** `Leader-OS Production Webhook`
+3. **Description:** `Leader-OS Production Webhook (Supabase Edge Fn)`
 4. **Events to send** — wähle exakt diese 4:
    - `checkout.session.completed` ← der wichtigste (Tier-Aktivierung)
    - `checkout.session.async_payment_succeeded` ← SEPA / Klarna nachträglich
@@ -47,12 +49,20 @@
    - `payment_intent.payment_failed` ← Failed-Email versenden
 5. Klick „Add endpoint"
 6. Auf der entstandenen Endpoint-Detail-Seite: **„Signing secret"** → „Reveal" → kopiere `whsec_…`
+7. Setze dieses Secret in **Supabase Dashboard → Project Settings → Edge Functions → Environment Variables** als `STRIPE_WEBHOOK_SECRET` (NICHT in Vercel — die Edge Fn liest die Vars aus Supabase)
 
 ---
 
-## Schritt 3 · Webhook-Secret auf Vercel
+## Schritt 3 · Webhook-Secret auf Supabase
 
-In Vercel Env Variables:
+> Note: Da der Webhook über die Supabase Edge Function läuft, wird das Secret in **Supabase** gesetzt, nicht in Vercel.
+
+In Supabase Dashboard → Project Settings → Edge Functions → Environment Variables:
+```
+STRIPE_WEBHOOK_SECRET = whsec_…
+```
+
+Optional: setze denselben Wert auch in Vercel (für FastAPI-Backend, falls du den Edge-Fn-Bypass mal brauchst):
 ```
 STRIPE_WEBHOOK_SECRET = whsec_…
 ```
