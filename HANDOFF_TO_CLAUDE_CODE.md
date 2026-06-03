@@ -271,16 +271,20 @@ Re-seed: `cd /app/backend && python3 seed_test_users.py`
 
 ### Production (leader-os.de)
 - ✅ Frontend (Vercel): live, auto-deploys from `mvpcode`
-- ⏳ Backend: needs re-deploy with Iter 92.12+ changes (Stripe-Mode endpoint = 404 currently)
-- ✅ Stripe Webhook: Supabase Edge Function `stripe-webhook` with new signing secret
+- ✅ Backend: redeployed mit Iter 92.12+ Code
+- ✅ Stripe Webhook: Supabase Edge Function `stripe-webhook` mit new signing secret (gesetzt 02.06.26)
 - ✅ Stripe Account: `acct_1TYd2YA6vBlw9Oi4` (Leader-OS, all Price IDs verified)
 - ✅ Resend Dispatcher: v2 deployed, `resend_configured: true`
 
-### Wlad's €1 Test Setup (READY)
+### Wlad's €1 Test — ✅ COMPLETED (02.06.26)
+- ✅ Stripe €1 live mode payment verarbeitet
+- ✅ Supabase Subscription `leadership_os_plus_yearly` aktiv bis 2027-06-03
+- ✅ MongoDB Mirror: tier=accelerator gesynced
+- ✅ Welcome-Email + free_course_1 raus via Resend (ids 4363f3fd / 3c910647)
+- ✅ Vimeo `leader-os.de` Domain whitelisted
 - Payment Link: `buy.stripe.com/00w5kCdfdbY56g9aqV00002`
-- Coupon: `h7k1NOLc` (€4446 off, 5 redemptions)
+- Coupon: `h7k1NOLc` (€4446 off, 5 redemptions, noch 4 übrig)
 - Promo Code: `TEST1EURO`
-- Triggers `plus_onboarding` Drip-Journey on completion
 
 ---
 

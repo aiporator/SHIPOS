@@ -15,6 +15,19 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.14 · 02.06.26] 🎉 FIRST REAL SALE — Wlad's €1 PLUS Test End-to-End ✅** —
+  - **Stripe €1 Live-Mode Charge** verarbeitet auf `acct_1TYd2YA6vBlw9Oi4`
+  - **Supabase Subscription** `leadership_os_plus_yearly` aktiv bis 2027-06-03
+  - **MongoDB Mirror** synced: tier=accelerator
+  - **Webhook Pipeline funktional**: Stripe → Supabase Edge Fn (`stripe-webhook`) → `subscriptions_enroll_journey` Trigger → `plus_onboarding` Journey
+  - **Resend Email Delivery** ✅:
+    - `purchase_welcome_plus` → Resend ID `4363f3fd-6a5f-41b4-b66d-7538eec05a79`
+    - `free_course_1` → Resend ID `3c910647-07fe-470e-9953-c9918e369164`
+  - **Vimeo Domain Whitelist** `leader-os.de` aktiv
+  - **Stripe Webhook Signing Secret** in Supabase Edge Fn ENV gesetzt
+  - **Test-Coupon** `h7k1NOLc` (TEST1EURO) noch 4× verfügbar
+  - **Known Issue (transient):** Supabase Platform-Glitch heute → pg_net DNS-Timeouts → Dispatcher hängt. Bypass via direct pg_net→Resend funktioniert. Sobald Supabase recovered (Stunden), läuft Pipeline automatisch.
+
 - [x] **[Iter 92.13 · 26.02.26] Stripe LIVE-Mode aktiviert + Deploy-Manifest** —
   - **`STRIPE_API_KEY=sk_live_…`** in `/app/backend/.env` gesetzt (Mert pastete den Key, ich rotiere-Reminder wurde abgegeben → Mert muss den Key in Stripe-Dashboard rollen, da im Chat geleakt).
   - **Health-Endpoint** `/api/payments/stripe-mode` returnt jetzt: `{mode: "live", live: true, warning: null, key_prefix: "sk_live_…"}` → live confirmed.
