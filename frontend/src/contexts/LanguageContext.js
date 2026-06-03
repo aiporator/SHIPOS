@@ -43,7 +43,7 @@ const translations = {
     'dash.tasksDone': 'Aufgaben erledigt',
     'dash.simulations': 'Simulationen',
     'dash.totalXp': 'Gesamt XP',
-    'dash.unlockCoaching': 'Premium Leadership Coaching mit Wlad',
+    'dash.unlockCoaching': 'Premium Leadership Coaching mit Wlads Expertenteam',
     'dash.unlockCoachingSub': 'Persönliche 1:1 Sessions, VIP-Zugang zu allen Trainings und dein individueller Entwicklungsplan.',
     'dash.learnMore': 'Mehr erfahren',
 
@@ -169,7 +169,7 @@ const translations = {
       'Monatlicher Fortschritts-Report',
     ],
     'upsell.bookCall': 'Persönliches Strategiegespräch buchen',
-    'upsell.bookCallSub': '15 Min · 1:1 mit Wlad · unverbindlich',
+    'upsell.bookCallSub': '15 Min · 1:1 mit Wlads Expertenteam · unverbindlich',
 
     // Funnel / Diagnostic
     'funnel.heroTitle': 'Dein Leadership-Profil in 10 Minuten.',

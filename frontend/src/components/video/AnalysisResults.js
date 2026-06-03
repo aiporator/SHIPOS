@@ -273,7 +273,7 @@ export const AnalysisResults = ({
           </div>
           <div className="flex-1">
             <p className="text-[14px] font-bold">{de ? 'Perfektioniere deine Executive Presence' : 'Perfect your executive presence'}</p>
-            <p className="text-[12px] text-muted-foreground">{de ? '1:1 Video-Coaching mit Wlad Jachtchenko' : '1:1 video coaching with Wlad Jachtchenko'}</p>
+            <p className="text-[12px] text-muted-foreground">{de ? '1:1 Video-Coaching mit Wlads Expertenteam' : '1:1 video coaching with Wlad’s Expert Team'}</p>
           </div>
           <Button onClick={() => setShowUpsell(true)} className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold shadow-sm shrink-0" data-testid="mission-upsell-btn">
             4.977 EUR <ArrowRight size={14} className="ml-1" />

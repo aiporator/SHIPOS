@@ -256,7 +256,7 @@ export default function EventsPage() {
                   <h3 className="text-lg font-bold mb-1">{de ? 'Accelerator Zugang freischalten' : 'Unlock Accelerator Access'}</h3>
                   <p className="text-sm text-white/50">
                     {de
-                      ? 'Mastermind Calls, 1:1 Coaching mit Wlad, exklusive Workshops — nur für Accelerator-Mitglieder.'
+                      ? 'Mastermind Calls, 1:1 Coaching mit Wlads Expertenteam, exklusive Workshops — nur für Accelerator-Mitglieder.'
                       : 'Mastermind calls, 1:1 coaching with Wlad, exclusive workshops — Accelerator members only.'}
                   </p>
                 </div>

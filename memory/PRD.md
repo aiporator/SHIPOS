@@ -15,6 +15,11 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.16 · 03.06.26] „Wlads Expertenteam" Wording + FakeWladCall Tone-Down + RAG Resilience (Mert: „nie mit Wlad immer mit Wlad Experten Team! Anrufe ausstellen / nur 1× nach 5 min / nicht fullscreen! RAG wirkung sitzt nicht")** —
+  - **„mit Wlad" → „Wlads Expertenteam"** Mass-Replace in 12 strings über 14 Files (Frontend + Backend). E2E-verifiziert: 0 leaks im rendered DOM.
+  - **FakeWladCall**: MAX 1× pro Session (war 2), Trigger 5 Min (war 3), NICHT fullscreen mehr — kompakte 360px Toast-Card unten rechts, aria-modal="false". Kill-Switch via `localStorage.wlad_fake_call_disabled='1'` oder URL `?nocall=1`.
+  - **RAG Resilience**: 3-attempt retry mit exponential backoff auf Supabase PGRST002 schema-cache errors in `services_rag` + `routes/admin/rag-debug`. Klare error-messages. Supabase Platform-Glitch (Mert's bekanntes Issue) braucht entweder warten oder Supabase-Dashboard "Reload schema cache" — Code-side ist optimal defensive.
+
 - [x] **[Iter 92.15 · 03.06.26] Community-Konsolidierung + WladHelp AI Support (Mert: „ein Community-Bereich, alles bleibt da, Support automatisieren")** —
   - **Community: ein kanonischer Bereich** — bisher zeigten ZWEI Routes (`/community` UND `/progress`) auf dieselbe CommunityPage → verwirrend. Jetzt sauber: `/progress` → `<Navigate to="/community" replace />`. Sidebar-Nav-Item zeigt jetzt korrekt `/community`. Backend Community-Routes (`feed`, `posts`, `posts/{id}/like`, `posts/{id}/comments`) waren bereits persistent in MongoDB (`community_posts`, `community_comments` collections). Smoke-Test bestätigt: 11 aktive Posts, alle User-Posts (Mert, Felix, Stefan) seit 13-40 Tagen sichtbar → nichts geht verloren.
   - **Community 10k-User Indexes** in `server.py` startup hook hinzugefügt:

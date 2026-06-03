@@ -197,7 +197,7 @@ den ersten Meilenstein. Wir melden uns in 3 Tagen wieder.""",
     },
     "accelerator": {
         "subject": "Welcome, Accelerator. Deine 2 Jahre starten jetzt, {name}.",
-        "headline": "VIP-Zugang aktiv. Dein 1:1 mit Wlad steht bereit.",
+        "headline": "VIP-Zugang aktiv. Dein 1:1 mit Wlads Expertenteam steht bereit.",
         "body": """Du bekommst als einziger Tier:<br>
 • <b>Video-Analyse & Missionen exklusiv</b><br>
 • <b>6× 1:1 Calls mit Wlad Jachtchenko</b><br>

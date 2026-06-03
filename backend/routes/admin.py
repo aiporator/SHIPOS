@@ -287,16 +287,30 @@ async def rag_debug(request: Request):
     if not (url and key):
         raise HTTPException(status_code=503, detail="Supabase keys not configured")
 
+    # Iter 92.16: retry on PGRST002 (Supabase schema cache transient).
+    import asyncio
     async with httpx.AsyncClient(timeout=12) as client:
-        r = await client.post(
-            f"{url}/rest/v1/rpc/match_wladbot_documents",
-            headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-            json={"query_embedding": embedding, "match_threshold": match_threshold, "match_count": match_count},
-        )
-        if r.status_code != 200:
-            raise HTTPException(status_code=502, detail=f"Supabase RPC failed: {r.text[:200]}")
-
-        chunks_raw = r.json() if isinstance(r.json(), list) else []
+        chunks_raw = []
+        last_err = None
+        for attempt in range(3):
+            r = await client.post(
+                f"{url}/rest/v1/rpc/match_wladbot_documents",
+                headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json={"query_embedding": embedding, "match_threshold": match_threshold, "match_count": match_count},
+            )
+            if r.status_code == 200:
+                chunks_raw = r.json() if isinstance(r.json(), list) else []
+                break
+            last_err = r.text[:200]
+            if "PGRST002" not in (r.text or ""):
+                raise HTTPException(status_code=502, detail=f"Supabase RPC failed: {last_err}")
+            await asyncio.sleep(0.8 * (attempt + 1))
+        if not chunks_raw and last_err:
+            raise HTTPException(
+                status_code=502,
+                detail=(f"Supabase RPC failed after 3 retries (PGRST002 schema-cache). "
+                        f"This is a transient Supabase platform issue — try again in ~30s. Last: {last_err}")
+            )
 
         # Backfill metadata for any chunk where the RPC returned NULL (known RPC bug).
         missing_ids = [c["id"] for c in chunks_raw if c.get("metadata") in (None, {})]

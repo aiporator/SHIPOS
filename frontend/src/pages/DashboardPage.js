@@ -238,7 +238,7 @@ export default function DashboardPage() {
                     <div className="flex-1">
                       <p className="text-sm font-bold">
                         {tierInfo?.tier === 'standard'
-                          ? (de ? 'Bereit für 1:1 Coaching mit Wlad?' : 'Ready for 1:1 Coaching with Wlad?')
+                          ? (de ? 'Bereit für 1:1 Coaching mit Wlads Expertenteam?' : 'Ready for 1:1 Coaching with Wlad’s Expert Team?')
                           : (de ? 'Schalte dein volles KI-Potenzial frei' : 'Unlock your full AI potential')}
                       </p>
                       <p className="text-xs text-white/40 mt-0.5">

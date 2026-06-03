@@ -19,6 +19,7 @@ on repeat questions.
 """
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import time
@@ -91,36 +92,51 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_SERVICE_KEY")
     if not (url and key):
+        logger.error("RAG: SUPABASE_URL or SUPABASE_SERVICE_KEY missing — skipping retrieval")
         return []
-    try:
-        async with httpx.AsyncClient(timeout=8) as client:
-            r = await client.post(
-                f"{url}/rest/v1/rpc/match_wladbot_documents",
-                headers={
-                    "apikey": key,
-                    "Authorization": f"Bearer {key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "query_embedding": embedding,
-                    "match_threshold": MATCH_THRESHOLD,
-                    "match_count": MATCH_COUNT,
-                },
-            )
-            if r.status_code != 200:
-                logger.warning("RAG: Supabase match_documents HTTP %s — %s", r.status_code, r.text[:200])
-                return []
-            data = r.json()
-            chunks = data if isinstance(data, list) else []
-
-            # Backfill missing metadata (RPC bug → metadata is None on every row)
-            missing_ids = [c["id"] for c in chunks if c.get("metadata") in (None, {})]
-            if missing_ids:
-                await _backfill_metadata(client, url, key, chunks, missing_ids)
-            return chunks
-    except Exception as e:
-        logger.warning("RAG: Supabase match_documents call failed: %s", e)
-        return []
+    # Iter 92.16: retry-with-backoff on PGRST002 (Supabase schema cache transient).
+    # Mert reported live "Could not query database for schema cache" → instead of
+    # silently returning [], retry twice with backoff so transient blips self-heal.
+    last_err: str | None = None
+    for attempt in range(3):
+        try:
+            async with httpx.AsyncClient(timeout=8) as client:
+                r = await client.post(
+                    f"{url}/rest/v1/rpc/match_wladbot_documents",
+                    headers={
+                        "apikey": key,
+                        "Authorization": f"Bearer {key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "query_embedding": embedding,
+                        "match_threshold": MATCH_THRESHOLD,
+                        "match_count": MATCH_COUNT,
+                    },
+                )
+                if r.status_code == 200:
+                    data = r.json()
+                    chunks = data if isinstance(data, list) else []
+                    if attempt > 0:
+                        logger.info("RAG: recovered after %d retries", attempt)
+                    # Backfill missing metadata (RPC bug → metadata is None on every row)
+                    missing_ids = [c["id"] for c in chunks if c.get("metadata") in (None, {})]
+                    if missing_ids:
+                        await _backfill_metadata(client, url, key, chunks, missing_ids)
+                    return chunks
+                last_err = f"HTTP {r.status_code}: {r.text[:200]}"
+                # PGRST002 = schema cache; retry. Anything else = unrecoverable.
+                if "PGRST002" not in (r.text or ""):
+                    logger.error("RAG: Supabase match_documents %s — not retryable", last_err)
+                    return []
+                logger.warning("RAG: PGRST002 schema-cache error (attempt %d/3) — retrying", attempt + 1)
+                await asyncio.sleep(0.8 * (attempt + 1))
+        except Exception as e:
+            last_err = str(e)
+            logger.warning("RAG: match_documents network error (attempt %d/3): %s", attempt + 1, e)
+            await asyncio.sleep(0.5 * (attempt + 1))
+    logger.error("RAG: match_documents FAILED after 3 attempts — last error: %s", last_err)
+    return []
 
 
 async def _backfill_metadata(client, url: str, key: str,

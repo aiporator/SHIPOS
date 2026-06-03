@@ -201,7 +201,7 @@ EVENTS_SEED_V2 = [
     },
     {
         "event_id": f"evt_{uuid.uuid4().hex[:8]}", "title": "1:1 Coaching-Slot: Executive Sparring",
-        "description": "30 Minuten 1:1 mit Wlad. Bringe dein wichtigstes Thema mit — Karriere, Konflikt, Strategie.",
+        "description": "30 Minuten 1:1 mit Wlads Expertenteam. Bringe dein wichtigstes Thema mit — Karriere, Konflikt, Strategie.",
         "outcomes": ["Persönliches Executive Coaching", "Konkreter Aktionsplan", "Follow-up Roadmap"],
         "event_type": "coaching", "date": "2026-08-20T10:00:00Z", "duration": "30 min", "duration_minutes": 30,
         "max_participants": 1, "registered": 0, "host": "Wlad Jachtchenko",
