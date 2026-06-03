@@ -192,6 +192,73 @@ async def submit_enterprise_diagnosis(data: EnterpriseDiagnosis, request: Reques
     await db.enterprise_leads.insert_one(lead_doc)
     await record_user_action(user["user_id"], "enterprise_diagnosis", metadata={"score": score})
 
+    # Fire-and-forget: confirmation to lead + scored notification to team
+    try:
+        from services_email import send_email
+        import asyncio
+
+        contact = data.contact_email or user.get("email")
+        lead_name = (user.get("name", "") or "dort").split()[0] or "dort"
+        company = data.company_name or user.get("company", "deinem Unternehmen")
+        priority_emoji = {"hot": "🔥", "warm": "🌡️", "cold": "❄️"}.get(lead_doc["priority"], "📥")
+
+        # 1. Confirmation to lead — bilingual depending on score (hot leads get urgency)
+        is_hot = lead_doc["priority"] == "hot"
+        asyncio.create_task(send_email(
+            to=contact,
+            subject=(
+                f"Deine Leadership OS Diagnose ist eingegangen — Score {score}/120"
+                if is_hot else "Wir haben deine Anfrage erhalten — Leadership OS Enterprise"
+            ),
+            html=(
+                f"<div style='font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#1a1a1a;padding:32px;max-width:560px;margin:0 auto'>"
+                f"<p style='font-size:11px;color:#666;letter-spacing:0.15em;text-transform:uppercase;font-weight:600'>Leadership OS · Enterprise Diagnose</p>"
+                f"<h1 style='font-size:24px;font-weight:600;margin:16px 0'>Hi {lead_name},</h1>"
+                + (
+                    f"<p style='font-size:15px;line-height:1.6;color:#444'>Vielen Dank für deine 12-Fragen-Diagnose für <strong>{company}</strong>.</p>"
+                    f"<div style='background:#F9F9F8;border-radius:8px;padding:20px;margin:20px 0'>"
+                    f"<p style='font-size:13px;color:#666;margin:0 0 4px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600'>Dein Readiness-Score</p>"
+                    f"<p style='font-size:32px;font-weight:700;margin:0;color:#0A0A0A'>{score}<span style='font-size:18px;color:#999'> / 120</span></p>"
+                    f"<p style='font-size:13px;color:#666;margin:8px 0 0'>Priorität: <strong>{lead_doc['priority'].upper()}</strong></p>"
+                    f"</div>"
+                    + (
+                        "<p style='font-size:15px;line-height:1.6;color:#444'>Dein Score zeigt: euer Team ist <strong>jetzt bereit</strong>. Wlad meldet sich <strong>persönlich heute oder morgen</strong> bei dir — meist mit einem konkreten Pilot-Vorschlag.</p>"
+                        if is_hot else
+                        "<p style='font-size:15px;line-height:1.6;color:#444'>Wlad's Enterprise-Team meldet sich <strong>innerhalb von 24 Stunden</strong> bei dir mit einem maßgeschneiderten Vorschlag.</p>"
+                    )
+                    + "<p style='font-size:15px;line-height:1.6;color:#444;margin-top:24px'>Beste Grüße<br>Wlad Jachtchenko</p>"
+                )
+                + "</div>"
+            ),
+        ))
+
+        # 2. Scored notification to team (priority in subject so it's filterable)
+        team_email = os.environ.get("ENTERPRISE_NOTIFY_EMAIL", "wlad@leader-os.de")
+        asyncio.create_task(send_email(
+            to=team_email,
+            subject=f"{priority_emoji} {lead_doc['priority'].upper()} Enterprise Lead · {company} · Score {score}",
+            html=(
+                f"<div style='font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;padding:24px;max-width:600px'>"
+                f"<h2 style='font-size:20px;margin:0 0 8px'>{priority_emoji} {lead_doc['priority'].upper()} Enterprise Diagnosis</h2>"
+                f"<p style='color:#666;margin:0 0 20px'>Score: <strong>{score}/120</strong> · Source: 12-question diagnosis</p>"
+                f"<table style='font-size:14px;line-height:1.7;border-collapse:collapse;width:100%'>"
+                f"<tr><td style='font-weight:600;padding-right:16px;vertical-align:top'>Company</td><td>{company}</td></tr>"
+                f"<tr><td style='font-weight:600;padding-right:16px;vertical-align:top'>Contact</td><td>{user.get('name', '—')}</td></tr>"
+                f"<tr><td style='font-weight:600;padding-right:16px;vertical-align:top'>Email</td><td><a href='mailto:{contact}'>{contact}</a></td></tr>"
+                f"<tr><td style='font-weight:600;padding-right:16px;vertical-align:top'>Team size</td><td>{data.team_size}</td></tr>"
+                f"<tr><td style='font-weight:600;padding-right:16px;vertical-align:top'>Lead ID</td><td><code>{lead_id}</code></td></tr>"
+                f"</table>"
+                + (
+                    f"<p style='font-size:13px;color:#9F2F2D;margin-top:24px;background:#FDEBEC;padding:12px;border-radius:6px'><strong>HOT lead — Wlad sollte heute persönlich antworten.</strong> User wurde versprochen: Antwort innerhalb 24h.</p>"
+                    if is_hot else
+                    f"<p style='font-size:13px;color:#666;margin-top:24px'>Reach out within 24h to maintain conversion velocity.</p>"
+                )
+                + "</div>"
+            ),
+        ))
+    except Exception as e:
+        logger.warning(f"Enterprise diagnosis emails failed (lead saved anyway): {e}")
+
     return {
         "lead_id": lead_id,
         "score": score,
