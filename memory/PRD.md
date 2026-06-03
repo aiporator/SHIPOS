@@ -15,6 +15,34 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.15 · 03.06.26] Community-Konsolidierung + WladHelp AI Support (Mert: „ein Community-Bereich, alles bleibt da, Support automatisieren")** —
+  - **Community: ein kanonischer Bereich** — bisher zeigten ZWEI Routes (`/community` UND `/progress`) auf dieselbe CommunityPage → verwirrend. Jetzt sauber: `/progress` → `<Navigate to="/community" replace />`. Sidebar-Nav-Item zeigt jetzt korrekt `/community`. Backend Community-Routes (`feed`, `posts`, `posts/{id}/like`, `posts/{id}/comments`) waren bereits persistent in MongoDB (`community_posts`, `community_comments` collections). Smoke-Test bestätigt: 11 aktive Posts, alle User-Posts (Mert, Felix, Stefan) seit 13-40 Tagen sichtbar → nichts geht verloren.
+  - **Community 10k-User Indexes** in `server.py` startup hook hinzugefügt:
+    - `community_posts.created_at -1` (feed-recent)
+    - `community_posts.category + created_at -1` (filtered feed)
+    - `community_posts.user_id + created_at -1` (user-own posts page)
+    - `community_comments.post_id + created_at 1` (thread-load)
+    - `community_comments.user_id + created_at -1` (user-own comments)
+    - `support_messages.user_id + created_at -1` (admin audit für WladHelp)
+  - **WladHelp Backend** (`/app/backend/routes/support.py`):
+    - `POST /api/support/ask` mit `SupportAskIn{message, session_id?}` → `SupportAskOut{answer, session_id, suggested_actions[]}`
+    - **2-Stage Architecture**: FAQ-Shortcut-Match (instant, no-LLM cost) bevor LLM-Fallback
+    - 6 FAQ-Shortcuts: refund, coaching-buchen, upgrade, passwort, unsubscribe, "wer ist Wlad"
+    - LLM-Fallback: GPT-5.2 mit tight `SUPPORT_SYSTEM_PROMPT` der Leader-OS-Tiers + Pricing + Cal.com + Support-Email kennt
+    - Persistiert jedes Q&A in `support_messages` collection (audit + future ML)
+    - **Smoke-Test bestätigt funktional**: FAQ "Wie kann ich Refund?" → 0ms, korrekte 30-Tage-Garantie-Antwort + mailto-Action. LLM "Was unterscheidet PLUS von Standard?" → kennt €997 vs €4.447, 12 Coachings, Cal.com-Link.
+  - **WladHelp Frontend** (`/app/frontend/src/components/support/WladHelpButton.js`):
+    - Floating Action Button (FAB) bottom-right, lime Apple-style mit live-dot
+    - GSAP entrance choreography (back.out 1.4)
+    - Premium dark Modal mit Aurora-glow + Quick-Prompts beim Cold-Start
+    - 4 Quick-Prompt-Pills (Strategiegespräch buchen, Refund, PLUS-Upgrade, Login-Fehler) — single-click
+    - Multi-Turn Chat via `session_id` (Backend-tracked)
+    - Suggested-Actions als pills (mailto / external Cal.com / internal route)
+    - Hidden auf `/login`, `/auth/callback`, `/payment-success`, `/email/unsubscribe`
+    - Mounted global in `App.js` neben FakeWladCall → sichtbar auf allen authed Routes
+  - **Smoke-Test Resultate**: FAB count=1 (visible), Panel opens=1, Messages after quick-prompt=3 (intro+user+LLM-answer), Community-page renders=1, /progress→/community redirect=verified, 0 Console-Errors.
+  - **Wlad-Marketing-Hint:** Du hast jetzt 11 aktive Community-Posts seit 40 Tagen — das ist sozialer Proof für deine Landing-Page. Embed "11 aktive Leader teilen Wins" als Live-Counter.
+
 - [x] **[Iter 92.14 · 02.06.26] 🎉 FIRST REAL SALE — Wlad's €1 PLUS Test End-to-End ✅** —
   - **Stripe €1 Live-Mode Charge** verarbeitet auf `acct_1TYd2YA6vBlw9Oi4`
   - **Supabase Subscription** `leadership_os_plus_yearly` aktiv bis 2027-06-03

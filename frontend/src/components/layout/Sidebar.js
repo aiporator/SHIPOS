@@ -45,7 +45,7 @@ export const Sidebar = () => {
       items: [
         { path: '/my-path', label: lang === 'de' ? 'My Path' : 'My Path', icon: IconFlame },
         { path: '/wlad-universe', label: lang === 'de' ? 'Wlad-Universum' : "Wlad's Universe", icon: IconLayers },
-        { path: '/progress', label: lang === 'de' ? 'Community' : 'Community', icon: IconGraph },
+        { path: '/community', label: lang === 'de' ? 'Community' : 'Community', icon: IconGraph },
         { path: '/events', label: t('nav.events'), icon: IconEvent },
       ]
     },

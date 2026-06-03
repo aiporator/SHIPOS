@@ -109,6 +109,7 @@ from routes.voice_tts import router as voice_tts_router
 from routes.monitoring import router as monitoring_router
 from routes.gdpr import router as gdpr_router
 from routes.oauth import router as oauth_router
+from routes.support import router as support_router
 
 app = FastAPI(title="WladBot API", version="5.0")
 
@@ -140,6 +141,7 @@ app.include_router(profile_router)
 app.include_router(voice_tts_router)
 app.include_router(monitoring_router)
 app.include_router(gdpr_router)
+app.include_router(support_router)
 
 # Internal sync layer (Supabase ↔ Mongo)
 from routes.sync import router as sync_router  # noqa: E402
@@ -276,7 +278,15 @@ async def startup() -> None:
         await db.video_attempts.create_index([("user_id", 1), ("created_at", -1)], name="video_user_recent")
         # rate-limit auxiliary
         await db.login_attempts.create_index([("ip", 1), ("created_at", -1)], name="login_ip_recent")
-        logger.info("10k-user scaling indexes ensured (email_log, ab_test_events, events, chat_messages, video_attempts, login_attempts.ip)")
+        # Iter 92.15 (Mert): Community 10k-user hot-paths
+        await db.community_posts.create_index([("created_at", -1)], name="community_feed_recent")
+        await db.community_posts.create_index([("category", 1), ("created_at", -1)], name="community_category_recent")
+        await db.community_posts.create_index([("user_id", 1), ("created_at", -1)], name="community_user_posts")
+        await db.community_comments.create_index([("post_id", 1), ("created_at", 1)], name="community_post_comments")
+        await db.community_comments.create_index([("user_id", 1), ("created_at", -1)], name="community_user_comments")
+        # Support / WladHelp ticket archive (only if/when synthesized)
+        await db.support_messages.create_index([("user_id", 1), ("created_at", -1)], name="support_user_recent")
+        logger.info("10k-user scaling indexes ensured (email_log, ab_test_events, events, chat_messages, video_attempts, login_attempts.ip, community, support_messages)")
 
         # Magic-link TTL — auto-cleanup expired tokens
         from services_magic_link import ensure_indexes as ensure_magic_link_indexes

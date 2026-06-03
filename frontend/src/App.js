@@ -54,6 +54,7 @@ import { WladMark } from "./components/brand/WladMark";
 import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 import { FakeWladCall } from "./components/calls/FakeWladCall";
+import { WladHelpButton } from "./components/support/WladHelpButton";
 import { AppErrorBoundary } from "./components/AppErrorBoundary";
 
 import { CreditProvider } from "./contexts/CreditContext";
@@ -122,7 +123,7 @@ function AppRouter() {
         <Route path="/playbooks" element={<ProtectedRoute><PlaybooksPage /></ProtectedRoute>} />
         <Route path="/events" element={<ProtectedRoute><EventsPage /></ProtectedRoute>} />
         <Route path="/my-path" element={<ProtectedRoute><MyPathPage /></ProtectedRoute>} />
-        <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+        <Route path="/progress" element={<Navigate to="/community" replace />} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
         <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
@@ -166,6 +167,7 @@ function App() {
                     <NetworkStatusBanner />
                     <AppRouter />
                     <FakeWladCall />
+                    <WladHelpButton />
                     <Toaster position="bottom-right" />
                     <CookieConsent />
                     <ReAuthModal />
