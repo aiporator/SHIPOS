@@ -3,14 +3,19 @@ name: lockfile-guard
 # Prevents Vercel build crashes caused by package.json being modified without
 # the matching yarn.lock. Vercel installs with --frozen-lockfile, so any drift
 # results in a hard failure on deploy. This job is the cheapest possible
-# pre-merge gate to catch lockfile drift in PRs and on push to main.
+# pre-merge gate to catch lockfile drift in PRs and on push to mvpcode.
+#
+# Previously this triggered on `branches: [main, master]` which never matched
+# in this repo (production branch is mvpcode). That misconfiguration is the
+# direct cause of the May 2026 gsap-lockfile incident: a direct auto-commit
+# push to mvpcode added two deps without updating the lockfile and silently
+# broke every Vercel deploy for 12 hours. Fixed branch name + dropped the
+# path filter so any change to lock/package files (or to nothing at all, in
+# the push case) still gets validated.
 
 on:
   push:
-    branches: [main, master]
-    paths:
-      - 'frontend/package.json'
-      - 'frontend/yarn.lock'
+    branches: [mvpcode]
   pull_request:
     paths:
       - 'frontend/package.json'

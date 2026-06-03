@@ -1,11 +1,21 @@
 name: ci
 
+# Frontend + backend gate. Runs on every PR (so it can be a required-status-check
+# on mvpcode) and on every push to mvpcode (so we catch drift introduced by
+# external bots that bypass PR review — e.g. Emergent's auto-commits push
+# directly to mvpcode and never hit the pull_request trigger. This job is the
+# only line of defense for those direct-to-prod pushes).
+#
+# Before the May 2026 ci-hardening sweep, this trigger was `push: paths:
+# ['frontend/package.json', 'frontend/yarn.lock']` with no PR coverage. That
+# narrow path filter + missing pull_request branch is exactly why the 12-hour
+# gsap lockfile incident slipped through — the trigger never fired for the
+# auto-commit that introduced the drift.
+
 on:
+  pull_request:
   push:
-    branches-ignore: []
-    paths:
-      - 'frontend/package.json'
-      - 'frontend/yarn.lock'
+    branches: [mvpcode]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,7 +35,7 @@ jobs:
           node-version: '22'
           cache: 'yarn'
           cache-dependency-path: frontend/yarn.lock
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile --non-interactive
       - run: yarn build
         env:
           CI: 'false'                       # CRA treats warnings as errors when CI=true
