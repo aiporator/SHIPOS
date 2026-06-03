@@ -182,12 +182,12 @@ export const OnboardingVideoModal = () => {
           </div>
         </div>
 
-        {/* Action Row */}
+        {/* Action Row — Iter 92.18 mobile fix: h-12 forces touch-target, flex-1 entfernt für column-stack */}
         <div ref={ctaRef} className="relative flex flex-col sm:flex-row gap-3 p-6 sm:p-8 pt-5">
           <button
             type="button"
             onClick={handleBookCall}
-            className="btn-shine glow-lime flex-1 inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-[#BFFF00] text-[#0A0A0A] font-black text-sm hover:bg-[#D4FF4D] transition-all"
+            className="btn-shine glow-lime sm:flex-1 inline-flex items-center justify-center gap-2 h-12 min-h-12 px-6 rounded-xl bg-[#BFFF00] text-[#0A0A0A] font-black text-sm hover:bg-[#D4FF4D] transition-all"
             data-testid="onboarding-video-book-call"
             style={{ opacity: 0 }}
           >
@@ -198,7 +198,7 @@ export const OnboardingVideoModal = () => {
           <button
             type="button"
             onClick={dismiss}
-            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-white/85 font-semibold text-sm transition-colors"
+            className="inline-flex items-center justify-center h-12 min-h-12 px-6 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-white/85 font-semibold text-sm transition-colors"
             data-testid="onboarding-video-skip"
             style={{ opacity: 0 }}
           >
@@ -206,11 +206,11 @@ export const OnboardingVideoModal = () => {
           </button>
         </div>
 
-        {/* Trust strip — no "free" wording, just facts that build value */}
+        {/* Trust strip */}
         <div className="relative px-6 sm:px-8 pb-5 flex items-center flex-wrap gap-x-3 gap-y-1 text-[10px] text-white/35 font-semibold">
           <span className="flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            15 Min · 1:1 mit Wlads Team · Unverbindlich
+            15 Min · 1:1 mit Wlads Expertenteam · Unverbindlich
           </span>
           <span className="text-white/15">·</span>
           <span>Wird nur einmal angezeigt</span>

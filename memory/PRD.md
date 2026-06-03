@@ -15,7 +15,31 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
-- [x] **[Iter 92.17 · 03.06.26] Pre-Launch Polish — Voice + WladHelp Smart-Trigger + No-Refund-Policy + Final Sanity (Mert: „stimme unsympathisch, SupportBot nur wo Hilfe nötig, nie für Refund, AI-Weiterbildung-Fokus, morgen LIVE")** —
+- [x] **[Iter 92.18 · 03.06.26] Mobile-Audit Fixes + CRM-Integration Wingman-ready (Mert: „Mobile Audit für FakeWladCall Toast + WladHelp FAB + OnboardingVideoModal · CRM-Integration mit Wingman · make sure all works")** —
+  - **Mobile-Audit (iPhone 13 viewport 390×844 getestet):**
+    - **OnboardingVideoModal Book/Skip Buttons**: war fatal squished (`flex-1 h-12` + parent `flex-col` = 308×20px = unklickbar). Fix: `sm:flex-1 h-12 min-h-12` → jetzt **308×48px** ✅ Apple-HIG-compliant Touch-Target
+    - **OnboardingVideoModal Wording**: "1:1 mit Wlads **Team**" → "1:1 mit Wlads **Expertenteam**" (Konsistenz mit Iter 92.16)
+    - **FakeWladCall vs WladHelp FAB Overlap-Fix**: Beide saßen auf `bottom-6 right-6` → kollidierten auf Mobile. Jetzt: FakeWladCall checkt aktive Route → wenn auf WladHelp-Allowed-Path (chat/coaching/my-path/etc), positioniert sich auf `bottom-24 right-6` (über FAB), sonst klassisch `bottom-6 right-6`
+    - **WladHelp FAB**: 56×56px Touch-Target ✅, Panel 92vw max-380px fits Viewport ✅
+    - **Vimeo Modal black**: bekannt (Mert muss Vimeo-Privacy auf "Anywhere" für 1197728183 setzen — kein Code-Bug)
+  - **CRM-Integration „Wingman-ready"** (`/app/backend/services_crm.py`, 175 lines NEW):
+    - **Vendor-neutral** Webhook-OUT system. Sobald Mert sein Wingman-CRM hat: `CRM_WEBHOOK_URL=<url>` + `CRM_WEBHOOK_SECRET=<shared>` → auto-aktiv. Aktuell: silent no-op bei missing URL = safe für jetzigen Production-Push.
+    - **Architektur**: fire-and-forget via `asyncio.create_task` → blockt NIE die API-Response. 1-retry bei 5xx/network-hiccup. `httpx.AsyncClient` mit 6s-Timeout. Best-effort (kein DB-Outbox — kann später bei Bedarf nachgerüstet werden).
+    - **Security**: jeder Webhook signiert mit `X-Leaderos-Signature` (HMAC-SHA256) → Mert's CRM kann Authenticity verifizieren.
+    - **Stabile Schema**: `{type, occurred_at, user_id, email, tier, name, data}` — abwärtskompatibel, neue Event-Types brechen nichts.
+    - **6 Lifecycle-Events gehookt:**
+      - `user.signup` ← `routes/auth.py` register endpoint
+      - `user.tier_upgraded` / `user.tier_downgraded` ← `services_tier.activate_tier()` (Direction automatisch via tier-rank)
+      - `checkout.completed` ← `routes/payments.py` checkout_callback (amount, package_id)
+      - `support.question_asked` ← `routes/support.py` `/api/support/ask` (Sales-Intent-Signal!)
+      - `mission.completed` ← Helper bereit, noch nicht gehookt (TODO post-launch)
+      - `consultation.booked` ← Helper bereit, noch nicht gehookt (TODO Cal.com Webhook)
+    - **Live-Test ohne URL**: `CRM_WEBHOOK_URL=False` → completely silent (no errors)
+    - **Live-Test mit URL** (httpbin.org als Mock): POST mit 64-char HMAC-Signature → HTTP 200 confirmed
+  - **Files touched (8)**: NEW `backend/services_crm.py`, modified `routes/auth.py` (signup hook), `services_tier.py` (tier_changed hook), `routes/payments.py` (checkout_completed hook), `routes/support.py` (support_question hook), `OnboardingVideoModal.js` (button heights), `FakeWladCall.js` (overlap fix). ESLint + Ruff alle clean.
+  - **Smoke-Test**: alle 14 Routes rendern crash-frei, CRM emit funktional, Mobile-Layout 100% korrekt verifiziert.
+
+- [x] **[Iter 92.17 · 03.06.26] Pre-Launch Polish — Voice + WladHelp Smart-Trigger + No-Refund-Policy + Final Sanity** —
   - **ElevenLabs Wlad-Voice umgestellt**: war `pNInz6obpgDQGcFmaJgB` "Adam" (deep + stern, klang unsympathisch) → jetzt `nPczCjzI2devNBz1zQrb` **"Brian"** (warm + natural + conversational male). Stability 0.55→0.50, similarity_boost 0.75→0.78, style 0.40→0.45 für mehr Wärme. **Env-overridable**: `ELEVENLABS_WLAD_VOICE_ID=<id>` falls Mert einen Voice-Clone von Wlad in seinem ElevenLabs-Workspace nachschiebt.
   - **WladHelp Smart-Trigger**: vorher auf allen Authed-Pages sichtbar → jetzt NUR auf Help-Pages wo User Aktivierung brauchen. **Allowed**: `/chat, /coaching, /my-path, /playbooks, /simulations, /tools, /missions, /community, /events, /video-challenge, /leader-diagnose, /enterprise, /daily-checkin`. **Hidden auf**: `/dashboard, /profile, /referral, /onboarding, /login, /auth/*, /payment-success, /impressum, /datenschutz, /widerruf, /agb, /downloads, /email/unsubscribe, /challengers`. E2E-Verifiziert: 2/2 hidden-routes ohne FAB, 6/6 allowed-routes mit FAB.
   - **WladHelp Refund-Policy umgestellt** (Mert: „nie für Refund immer nur upgrade oder Fokus auf AI Weiterbildung"):

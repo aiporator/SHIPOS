@@ -161,6 +161,19 @@ async def _activate_from_package(user_id: str, package_id: str):
     await activate_tier(user_id, tier, via_installment=via_inst, installment_plan_id=plan_id)
     logger.info(f"Tier {tier} activated for user {user_id} via {package_id} (installment={via_inst}, plan={plan_id})")
 
+    # Iter 92.18: CRM webhook — checkout completed signal (highest-value event)
+    try:
+        import services_crm
+        user_for_crm = await db.users.find_one({"user_id": user_id}, {"_id": 0, "email": 1, "name": 1, "tier": 1})
+        amount_eur = float(pkg.get("amount", 0))
+        services_crm.checkout_completed(
+            user_for_crm or {"user_id": user_id},
+            amount_eur=amount_eur,
+            package_id=package_id,
+        )
+    except Exception as crm_err:
+        logger.debug(f"CRM checkout emit failed (non-blocking): {crm_err}")
+
     # Fire welcome email (best-effort) + Stripe receipt
     if email_enabled() and tier in ("standard", "accelerator", "enterprise"):
         user = await db.users.find_one({"user_id": user_id}, {"_id": 0})

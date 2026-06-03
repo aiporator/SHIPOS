@@ -218,4 +218,11 @@ async def support_ask(data: SupportAskIn, request: Request):
     except Exception as e:
         logger.warning(f"WladHelp persist failed (non-blocking): {e}")
 
+    # Iter 92.18: CRM webhook — every support question is a sales-intent signal
+    try:
+        import services_crm
+        services_crm.support_question(user, question=msg, source="wladhelp")
+    except Exception as crm_err:
+        logger.debug(f"CRM support_question emit failed (non-blocking): {crm_err}")
+
     return SupportAskOut(answer=answer, session_id=session_id, suggested_actions=suggested)

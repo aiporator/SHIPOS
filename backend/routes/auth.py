@@ -236,6 +236,13 @@ async def register(data: UserRegister, request: Request, response: Response):
     # Welcome email (fire-and-forget — non-blocking)
     _asyncio.create_task(_send_signup_welcome(email, data.name.strip()))
 
+    # Iter 92.18: CRM webhook — fire to Wingman (or whatever CRM is wired up)
+    try:
+        import services_crm
+        services_crm.signup(user_doc, source="register_form")
+    except Exception as crm_err:
+        logger.debug(f"CRM signup emit failed (non-blocking): {crm_err}")
+
     # JWT token kept for backwards-compat API consumers; frontend uses httpOnly cookie only
     return {"token": token, "user": _safe_user_output(user_doc)}
 

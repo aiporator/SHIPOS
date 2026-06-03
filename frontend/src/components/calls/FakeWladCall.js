@@ -180,11 +180,18 @@ export const FakeWladCall = () => {
 
   const callNumber = getCallCount();
 
+  // Iter 92.18 mobile-fix (Mert): WladHelp FAB sitzt auch bottom-right.
+  // Wenn der User auf einer FAB-Page ist, hochschieben so dass sich beide
+  // nicht überlappen. FAB-Pfade siehe WladHelpButton.ALLOWED_PATHS.
+  const fabPaths = ['/chat', '/coaching', '/my-path', '/playbooks', '/simulations', '/tools', '/missions', '/community', '/events', '/video-challenge', '/leader-diagnose', '/enterprise', '/daily-checkin'];
+  const fabActive = fabPaths.some((p) => typeof window !== 'undefined' && (window.location.pathname === p || window.location.pathname.startsWith(`${p}/`)));
+  // FAB is ~56×56 + 24px inset → reserve 96px when active, sonst klassische bottom-6
+  const positionClass = fabActive ? 'bottom-24 right-6' : 'bottom-6 right-6';
+
   // Iter 92.16: NICHT fullscreen mehr — kompakte Toast-Karte unten rechts.
-  // Bleibt unaufdringlich, blockt nichts, kann via X gedismissed werden.
   return (
     <div
-      className="fixed bottom-6 right-6 z-[150] max-w-[360px] w-[92vw] wlad-call-fade-in"
+      className={`fixed ${positionClass} z-[150] max-w-[360px] w-[92vw] wlad-call-fade-in`}
       role="dialog"
       aria-modal="false"
       aria-label="Eingehender Coaching-Anruf"
