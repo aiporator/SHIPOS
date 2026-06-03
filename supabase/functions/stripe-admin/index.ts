@@ -1,4 +1,4 @@
-// stripe-admin v4 — server-side Stripe admin actions
+// stripe-admin v5 — force redeploy to pick up rotated STRIPE_SECRET_KEY
 //
 // Actions:
 //   create_coupon          { amount_off?, percent_off?, currency?, duration, name, max_redemptions }
@@ -20,11 +20,16 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import Stripe from "npm:stripe@^17";
 
 const STRIPE_SECRET_KEY = Deno.env.get("STRIPE_SECRET_KEY") ?? "";
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2024-06-20" });
+// Lazy SDK init — Stripe v17 throws at construction on empty key, which crashes
+// the worker before our 503 guard can fire. Build it inside the request handler
+// only when we have a key, so a missing secret returns a clean error instead.
+const stripe = STRIPE_SECRET_KEY
+  ? new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2024-06-20" })
+  : null;
 
 Deno.serve(async (req: Request) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
-  if (!STRIPE_SECRET_KEY) {
+  if (!STRIPE_SECRET_KEY || !stripe) {
     return new Response(JSON.stringify({ error: "stripe_not_configured" }), { status: 503 });
   }
 
