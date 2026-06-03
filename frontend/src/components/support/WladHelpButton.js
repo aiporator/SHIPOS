@@ -20,14 +20,38 @@ import api from '../../lib/api';
 import logger from '../../lib/logger';
 import { useAuth } from '../../contexts/AuthContext';
 
+// Iter 92.17 (Mert: "SupportBot eher nur bei den Seiten aufploppen lassen wo man Hilfe braucht"):
+//   FAB ist NUR auf Pages sichtbar wo User typischerweise stecken bleiben oder
+//   Aktivierungshilfe brauchen. Dashboard (klare CTAs), Profile (Settings),
+//   Auth-Flows (Login/Onboarding/Checkout) zeigen ihn NICHT — kein Funnel-Clutter.
+//
+//   Allowed: /chat (komplexe AI-Interaktion), /coaching (Pricing+Booking-Hilfe),
+//   /my-path (Curriculum-Fragen), /missions/* (Mission-Help),
+//   /playbooks (Tool-Bedienung), /simulations, /tools, /video-challenge,
+//   /community (Posting-Help), /events (Calendar-Confusion),
+//   /leader-diagnose, /enterprise.
+const ALLOWED_PATHS = [
+  '/chat', '/coaching', '/my-path', '/playbooks', '/simulations', '/tools',
+  '/missions', '/community', '/events', '/video-challenge',
+  '/leader-diagnose', '/enterprise', '/daily-checkin',
+];
+
 const HIDDEN_PATHS = new Set([
   '/login', '/auth/callback', '/payment-success', '/email/unsubscribe',
+  '/onboarding', '/dashboard', '/profile', '/referral', '/challengers',
+  '/impressum', '/datenschutz', '/widerruf', '/agb', '/downloads',
 ]);
 
+const isAllowedPath = (pathname) => {
+  if (HIDDEN_PATHS.has(pathname)) return false;
+  // Prefix match for nested routes like /missions/123/play
+  return ALLOWED_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+};
+
 const QUICK_PROMPTS = [
+  { de: 'Wie nutze ich AI als Leadership-Multiplier?', en: 'How do I use AI as a leadership multiplier?' },
   { de: 'Wie buche ich ein Strategiegespräch?', en: 'How do I book a strategy call?' },
-  { de: 'Wie funktioniert das Refund?', en: 'How does refund work?' },
-  { de: 'Wie upgrade ich auf PLUS?', en: 'How do I upgrade to PLUS?' },
+  { de: 'Was bringt mir OS PLUS?', en: 'What do I get with OS PLUS?' },
   { de: 'Login klappt nicht', en: 'Login is not working' },
 ];
 
@@ -63,8 +87,8 @@ export const WladHelpButton = () => {
   const fabRef = useRef(null);
   const scrollRef = useRef(null);
 
-  // Hide on auth/checkout flows so we don't clutter the funnel
-  const hidden = HIDDEN_PATHS.has(pathname) || !user;
+  // Hide on auth/checkout flows + clear-CTA pages — only show where users get stuck
+  const hidden = !user || !isAllowedPath(pathname);
 
   // GSAP entrance/exit
   useEffect(() => {

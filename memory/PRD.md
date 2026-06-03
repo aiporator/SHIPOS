@@ -15,7 +15,22 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
-- [x] **[Iter 92.16 · 03.06.26] „Wlads Expertenteam" Wording + FakeWladCall Tone-Down + RAG Resilience (Mert: „nie mit Wlad immer mit Wlad Experten Team! Anrufe ausstellen / nur 1× nach 5 min / nicht fullscreen! RAG wirkung sitzt nicht")** —
+- [x] **[Iter 92.17 · 03.06.26] Pre-Launch Polish — Voice + WladHelp Smart-Trigger + No-Refund-Policy + Final Sanity (Mert: „stimme unsympathisch, SupportBot nur wo Hilfe nötig, nie für Refund, AI-Weiterbildung-Fokus, morgen LIVE")** —
+  - **ElevenLabs Wlad-Voice umgestellt**: war `pNInz6obpgDQGcFmaJgB` "Adam" (deep + stern, klang unsympathisch) → jetzt `nPczCjzI2devNBz1zQrb` **"Brian"** (warm + natural + conversational male). Stability 0.55→0.50, similarity_boost 0.75→0.78, style 0.40→0.45 für mehr Wärme. **Env-overridable**: `ELEVENLABS_WLAD_VOICE_ID=<id>` falls Mert einen Voice-Clone von Wlad in seinem ElevenLabs-Workspace nachschiebt.
+  - **WladHelp Smart-Trigger**: vorher auf allen Authed-Pages sichtbar → jetzt NUR auf Help-Pages wo User Aktivierung brauchen. **Allowed**: `/chat, /coaching, /my-path, /playbooks, /simulations, /tools, /missions, /community, /events, /video-challenge, /leader-diagnose, /enterprise, /daily-checkin`. **Hidden auf**: `/dashboard, /profile, /referral, /onboarding, /login, /auth/*, /payment-success, /impressum, /datenschutz, /widerruf, /agb, /downloads, /email/unsubscribe, /challengers`. E2E-Verifiziert: 2/2 hidden-routes ohne FAB, 6/6 allowed-routes mit FAB.
+  - **WladHelp Refund-Policy umgestellt** (Mert: „nie für Refund immer nur upgrade oder Fokus auf AI Weiterbildung"):
+    - Refund-FAQ entfernt → bei Cancel/Refund/„Geld zurück" Triggers leitet jetzt zu **support@leader-os.de + Cal.com Strategiegespräch** (retention-save statt direkter Self-Service-Anleitung)
+    - **System-Prompt umgeschrieben**: WladHelp ist jetzt Retention + Activation Agent. „Refund-/Cancel-Anliegen NIEMALS direkt anleiten — IMMER zu support@leader-os.de leiten (persönlicher Save)". Positives Framing Pflicht.
+    - **2 neue Upgrade-Focused FAQ-Shortcuts**:
+      - `"ki lernen, ai weiterbildung, prompt engineering"` → "Im MyPath findest du den AI-Mastery Track — 16 strukturierte Missionen…" + Action zu `/my-path` + `/chat`
+      - `"was bringt mir, lohnt sich, value, vorteil"` → "Leader-OS macht aus dir einen AI-fluenten Leader…OS PLUS €4.447/Jahr…" + Action zu `/coaching` + Cal.com
+    - **Upgrade-FAQ erweitert**: jetzt nennt OS PLUS Features ("12× 1:1 Coaching mit Wlads Expertenteam + 35 Kurse + unbegrenzte AI-Sessions")
+    - **Quick-Prompts aktualisiert**: war ["Strategiegespräch", "Refund", "Upgrade auf PLUS", "Login"] → jetzt ["AI als Leadership-Multiplier", "Strategiegespräch", "Was bringt mir OS PLUS?", "Login"] — kein Refund-Trigger mehr in Quick-Access
+  - **Page-by-Page Smoke-Test**: ALLE 14 main Routes rendern crash-frei (`/dashboard`, `/chat`, `/my-path`, `/coaching`, `/profile`, `/missions`, `/playbooks`, `/simulations`, `/tools`, `/events`, `/community`, `/wlad-universe`, `/daily-checkin`, `/leader-diagnose`). 0 Console-Errors. WladHelp Smart-Trigger funktional bestätigt.
+  - **RAG Recovery bestätigt**: Supabase PostgREST nach SSL-Restart recovered. Test-Query "Killerphrasen" → `chunks=3, top_score=0.3729` → Wlad-Wissen wieder zugänglich.
+  - **Files touched (4)**: `backend/routes/voice_tts.py` (Wlad voice + env-override), `backend/routes/support.py` (FAQ + system-prompt overhaul), `frontend/src/components/support/WladHelpButton.js` (Smart-Trigger + Quick-Prompts), `memory/PRD.md`. ESLint + Ruff alle clean.
+
+- [x] **[Iter 92.16 · 03.06.26] „Wlads Expertenteam" Wording + FakeWladCall Tone-Down + RAG Resilience** —
   - **„mit Wlad" → „Wlads Expertenteam"** Mass-Replace in 12 strings über 14 Files (Frontend + Backend). E2E-verifiziert: 0 leaks im rendered DOM.
   - **FakeWladCall**: MAX 1× pro Session (war 2), Trigger 5 Min (war 3), NICHT fullscreen mehr — kompakte 360px Toast-Card unten rechts, aria-modal="false". Kill-Switch via `localStorage.wlad_fake_call_disabled='1'` oder URL `?nocall=1`.
   - **RAG Resilience**: 3-attempt retry mit exponential backoff auf Supabase PGRST002 schema-cache errors in `services_rag` + `routes/admin/rag-debug`. Klare error-messages. Supabase Platform-Glitch (Mert's bekanntes Issue) braucht entweder warten oder Supabase-Dashboard "Reload schema cache" — Code-side ist optimal defensive.

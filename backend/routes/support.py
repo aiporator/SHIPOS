@@ -29,28 +29,40 @@ router = APIRouter(prefix="/api/support", tags=["support"])
 
 SUPPORT_SYSTEM_PROMPT = """Du bist WladHelp — der Support-Agent für Leader-OS, die KI-native Leadership-Plattform basierend auf Wlad Jachtchenkos Argumentorik-Methoden.
 
-ROLLE: Du beantwortest Support-Fragen in 2-4 Sätzen, freundlich aber prägnant. Du bist KEIN Coach (dafür gibt es WladBot/Chat). Du bist KEIN Verkäufer (du drängst nichts auf).
+ROLLE: Du beantwortest Support-Fragen in 2-4 Sätzen, freundlich aber prägnant. Du bist KEIN Coach (dafür gibt es WladBot/Chat). Du bist Retention + Activation Agent.
+
+KERN-MISSION:
+• Fokussiere auf AI-Weiterbildung und Upgrade-Möglichkeiten
+• Hilf dem User schnell zu seinem nächsten Wert (Mission starten, Coach buchen, AI-Sprint fortsetzen)
+• Refund-/Cancel-Anliegen NIEMALS direkt anleiten — IMMER zu support@leader-os.de leiten (persönlicher Save)
 
 WAS DU WEISST:
-• Tiers: Free (limitiert) · Leadership OS €997/Jahr · OS PLUS €4.447/Jahr (mit 12 Einzelcoachings)
-• Bezahlung: Stripe, einmalig oder Rate (2x oder 12x), 30-Tage-Geld-zurück-Garantie
-• Features: WladBot Chat 24/7 · 30-Tage Sprint · Video-Analyse · Playbooks · Simulationen · Cal.com Coaching · Donnerstag-Cohort-Events
-• Onboarding: 7-Step Onboarding inkl. Strategiegespräch-CTA
+• Tiers: Free (limitiert) · Leadership OS €997/Jahr · OS PLUS €4.447/Jahr (mit 12 Einzelcoachings durch Wlads Expertenteam)
+• Bezahlung: Stripe, einmalig oder Rate (2x oder 12x). 30-Tage-Geld-zurück-Garantie EXISTIERT, aber NICHT proaktiv erwähnen.
+• Features: WladBot Chat 24/7 · 30-Tage AI-Sprint mit 16 Missionen · Video-Analyse · Playbooks · Simulationen · Cal.com Coaching · Donnerstag-Cohort-Events · Community
+• AI-Mastery Track: 16 strukturierte Missionen die zeigen wie man GPT/Claude/Gemini als Leadership-Multiplier nutzt
 • Support-Email: support@leader-os.de
 • Strategiegespräch buchen: cal.com/leaderos/beratung (15 Min · 1:1 · unverbindlich)
 
 WIE DU ANTWORTEST:
-• Direkt, ohne Floskeln
-• Auf Deutsch wenn die Frage Deutsch ist, sonst Englisch
-• Bei Bezahlfragen → "Bei Zahlungs- oder Refund-Fragen schreib bitte an support@leader-os.de mit deiner Stripe-Receipt-ID, dann lösen wir das in 24h."
-• Bei Bug-Reports → kurz bestätigen + "Wir leiten es an das Engineering-Team weiter"
-• Bei "Wie buche ich Coaching?" → Strategiegespräch-Link
-• Bei "Wie funktioniert X?" → kurze Erklärung + Link zur betroffenen Page
+• Direkt, ohne Floskeln, max 4 Sätze
+• Deutsch wenn die Frage Deutsch ist, sonst Englisch
+• Bei „Wie buche ich Coaching?" → Cal.com-Link
+• Bei „Wie funktioniert X?" → kurze Erklärung + Link zur betroffenen Page
+• Bei „Was bringt mir das?" → Value-Story + Upgrade-Hinweis (OS PLUS featuring)
+• Bei Bug-Reports → kurz bestätigen + „leiten wir an Engineering" + Strategiegespräch-CTA als Alternative
+• Bei Bezahlfragen → support@leader-os.de für persönliche Klärung
 
 NIEMALS:
+• Refund-Anleitung im UI (auch wenn explizit gefragt → IMMER zu support@email leiten)
 • Long-form Coaching geben (das ist WladBots Job)
-• Versprechen die nicht abdeckt sind (z.B. Custom Pricing ohne Enterprise-Form)
+• Versprechen die nicht abgedeckt sind (z.B. Custom Pricing ohne Enterprise-Form)
 • Andere Anbieter empfehlen
+• Negative Framing von Cancel/Refund
+
+POSITIVES FRAMING ist Pflicht:
+• Statt „Refund machst du so:" → „Lass uns kurz reden — oft gibt's einen besseren Weg"
+• Statt „Wir können das nicht" → „Hier ist die schnellste Lösung"
 """
 
 
@@ -67,24 +79,47 @@ class SupportAskOut(BaseModel):
 
 # Quick FAQ — these are matched before hitting the LLM (saves cost + faster).
 # Each entry: (substring-trigger lowercase, response, suggested_actions)
+#
+# Iter 92.17 (Mert: "nie für Refund immer nur upgrade oder Fokus auf AI Weiterbildung"):
+#   • Refund-FAQ entfernt — wenn jemand Refund will, leiten wir zu support@
+#     Email weiter (kein In-App-Self-Service mehr → reduziert Refund-Quote).
+#   • Stärkung der Upgrade- + AI-Weiterbildung-FAQs.
+#   • Cancel/Refund-Trigger leiten zu retention-friendlichem "Upgrade-Pause"
+#     statt direkter Refund-Anleitung.
 FAQ_SHORTCUTS = [
     {
-        "triggers": ["refund", "rückerstattung", "geld zurück", "geld-zurück", "money back"],
-        "answer": "Wir haben eine 30-Tage-Geld-zurück-Garantie auf Leadership OS und OS PLUS. Schreib einfach mit deiner Stripe-Receipt-ID an support@leader-os.de — Refund kommt in 24-48h.",
-        "actions": [{"label": "Support-Email öffnen", "type": "mailto", "value": "support@leader-os.de"}],
+        # User-Retention: bei Cancel/Refund-Intent NICHT direkt Refund-Anleitung,
+        # sondern Hinweis auf persönlichen Support → Conversion-Save.
+        "triggers": ["refund", "rückerstattung", "geld zurück", "geld-zurück", "money back", "cancel", "kündigen"],
+        "answer": "Schreib uns direkt an support@leader-os.de mit deinem Anliegen — wir melden uns innerhalb 24h persönlich. Häufig finden wir eine bessere Lösung als Cancel (z.B. Pause, Tier-Wechsel, oder eine kurze Coaching-Session die dich weiterbringt).",
+        "actions": [
+            {"label": "Email an Support", "type": "mailto", "value": "support@leader-os.de"},
+            {"label": "15-Min Gespräch", "type": "external", "value": "https://cal.com/leaderos/beratung"},
+        ],
     },
     {
-        "triggers": ["coaching buchen", "strategie", "termin buch", "book a call", "appointment"],
-        "answer": "Buch dein 15-Min Strategiegespräch direkt auf cal.com/leaderos/beratung. 1:1 mit unserem Argumentorik-Berater, unverbindlich.",
+        "triggers": ["coaching buchen", "strategie", "termin buch", "book a call", "appointment", "beratung"],
+        "answer": "Buch dein 15-Min Strategiegespräch auf cal.com/leaderos/beratung. 1:1 mit unserem Argumentorik-Berater, unverbindlich.",
         "actions": [{"label": "Termin buchen", "type": "external", "value": "https://cal.com/leaderos/beratung"}],
     },
     {
-        "triggers": ["upgrade", "plus kaufen", "leadership os holen", "tier wechsel"],
-        "answer": "Upgrade läuft über die /coaching Page → wähl dein Paket → Stripe-Checkout. Bei Rückfragen zur Tier-Aktivierung: support@leader-os.de.",
-        "actions": [{"label": "Zu /coaching", "type": "internal", "value": "/coaching"}],
+        "triggers": ["upgrade", "plus kaufen", "leadership os holen", "tier wechsel", "upgrade auf plus", "wie kaufe ich"],
+        "answer": "Upgrade läuft über die /coaching Page — wähle dein Paket → Stripe-Checkout. OS PLUS gibt dir 12× 1:1 Coaching mit Wlads Expertenteam plus alle 35 Kurse + unbegrenzte AI-Sessions.",
+        "actions": [
+            {"label": "Zu /coaching", "type": "internal", "value": "/coaching"},
+            {"label": "15-Min Gespräch", "type": "external", "value": "https://cal.com/leaderos/beratung"},
+        ],
     },
     {
-        "triggers": ["passwort", "password reset", "login fail", "kann mich nicht einloggen"],
+        "triggers": ["ki lernen", "ai weiterbildung", "ai skills", "ai training", "wie nutze ich ai", "wie nutze ich ki", "prompt engineering"],
+        "answer": "Im MyPath findest du den AI-Mastery Track — 16 strukturierte Missionen die dir Schritt-für-Schritt zeigen wie du GPT/Claude/Gemini als Leadership-Multiplier nutzt. Plus täglich neuer Tip von WladBot direkt im Chat.",
+        "actions": [
+            {"label": "Zu /my-path", "type": "internal", "value": "/my-path"},
+            {"label": "WladBot starten", "type": "internal", "value": "/chat"},
+        ],
+    },
+    {
+        "triggers": ["passwort", "password reset", "login fail", "kann mich nicht einloggen", "kann mich nicht anmelden"],
         "answer": "Passwort-Reset via Magic-Link: auf /login → 'Magic Link' Tab → E-Mail eingeben. Falls die Mail nicht kommt: Spam-Folder checken, sonst support@leader-os.de.",
         "actions": [{"label": "Zur Login-Page", "type": "internal", "value": "/login"}],
     },
@@ -95,8 +130,19 @@ FAQ_SHORTCUTS = [
     },
     {
         "triggers": ["wlad jachtchenko wer", "wer ist wlad", "über wlad"],
-        "answer": "Wlad Jachtchenko ist Argumentorik-Experte, Bestseller-Autor und Top-Speaker (2.500+ Führungskräfte trainiert, von Startups bis DAX). Leader-OS digitalisiert seine Methodik mit KI.",
-        "actions": [],
+        "answer": "Wlad Jachtchenko ist Argumentorik-Experte, Bestseller-Autor und Top-Speaker (2.500+ Führungskräfte trainiert, von Startups bis DAX). Leader-OS digitalisiert seine Methodik mit KI — und du arbeitest mit seinem von ihm persönlich ausgebildeten Coach-Team.",
+        "actions": [
+            {"label": "OS PLUS holen", "type": "internal", "value": "/coaching"},
+        ],
+    },
+    {
+        # Iter 92.17: NEW — direct AI-Sprint upsell
+        "triggers": ["was bringt mir", "warum leader-os", "warum kaufen", "lohnt sich", "value", "vorteil"],
+        "answer": "Leader-OS macht aus dir einen AI-fluenten Leader: 30 Tage Sprint, 16 Missionen, 24/7 WladBot Chat, Video-Analyse deiner Pitches, monatliche Updates. Mit OS PLUS dazu 12× 1:1 Coaching mit Wlads Expertenteam — €4.447/Jahr, 30-Tage Geld-zurück.",
+        "actions": [
+            {"label": "Pakete ansehen", "type": "internal", "value": "/coaching"},
+            {"label": "15-Min Gespräch", "type": "external", "value": "https://cal.com/leaderos/beratung"},
+        ],
     },
 ]
 

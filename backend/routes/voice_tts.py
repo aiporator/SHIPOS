@@ -53,11 +53,16 @@ def _reset_client() -> None:
 # Voice IDs from ElevenLabs public library — curated to match each persona's tone.
 # Users can later override these per-persona via admin endpoint (future feature).
 VOICE_REGISTRY: dict[str, dict] = {
-    # Motivational German coach (the heart of the app)
+    # Motivational German coach (the heart of the app).
+    # Iter 92.17 (Mert: "stimme klingt unsympathisch"):
+    #   Default umgestellt von "Adam" (deep+stern) auf "Brian" — warm,
+    #   natural, conversational male — passt besser zu Wlad's coaching tone.
+    #   Override via env `ELEVENLABS_WLAD_VOICE_ID=<id>` möglich, falls Mert
+    #   einen Voice-Clone von Wlad in seinem ElevenLabs-Workspace hat.
     "wlad": {
-        "voice_id": "pNInz6obpgDQGcFmaJgB",  # "Adam" — deep, confident male
+        "voice_id": os.environ.get("ELEVENLABS_WLAD_VOICE_ID", "nPczCjzI2devNBz1zQrb"),  # "Brian" — warm, conversational male
         "name": "Wlad Jachtchenko",
-        "stability": 0.55, "similarity_boost": 0.75, "style": 0.40,
+        "stability": 0.50, "similarity_boost": 0.78, "style": 0.45,
         "language": "de",
     },
     # 8 Challengers
