@@ -314,7 +314,15 @@ async def _transcribe_webm(audio_bytes: bytes) -> str:
 
 
 async def _voice_llm_reply(session_id: str, user_id: str, transcript: str, user_memory: str) -> str:
-    """Generate a short conversational reply for voice mode."""
+    """Generate a short conversational reply for voice mode.
+
+    Iter 92.19: Voice mode now grounds its replies in Wlad's corpus exactly the
+    same way the text-chat path (/api/chat) does — `retrieve_context(transcript)`
+    pulls the top-K chunks and we append them to the system prompt before
+    handing off to the LLM. Without this, voice replies were stock GPT-style
+    coaching language that never cited Wlad's frameworks. Now Wlad's Killerphrasen,
+    3 Säulen, Kommunikationsquadrant, etc. surface in voice answers too.
+    """
     from emergentintegrations.llm.chat import LlmChat, UserMessage
 
     history = await db.chat_messages.find(
@@ -323,6 +331,17 @@ async def _voice_llm_reply(session_id: str, user_id: str, transcript: str, user_
 
     memory_block = f"\n\n--- USER MEMORY ---\n{user_memory}\n---" if user_memory else ""
     system_msg = VOICE_CONVO_SYSTEM_PROMPT + memory_block
+
+    # RAG: ground the voice reply in Wlad's corpus. Best-effort — falls back to
+    # the bare system prompt if Voyage/Supabase are unreachable.
+    try:
+        from services_rag import retrieve_context
+        rag_ctx = await retrieve_context(transcript)
+        if rag_ctx.get("rag_active"):
+            system_msg = system_msg + rag_ctx["context_block"]
+            logger.info("Voice mode RAG: %d chunks injected", rag_ctx["chunks_count"])
+    except Exception as e:
+        logger.warning(f"Voice RAG fetch failed (proceeding without): {e}")
 
     chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"voicemode_{session_id}", system_message=system_msg)
     chat.with_model("openai", "gpt-5.2")
