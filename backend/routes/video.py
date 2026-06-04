@@ -354,8 +354,8 @@ Bewerte DETAILLIERT anhand von Wlads Methodik. Antworte als JSON:
     "drei_saeulen": "Wie gut nutzt der User Logos, Ethos und Pathos?",
     "kommunikationsquadrant": "Bewertung: Klarheit, Empathie, Struktur, Mut."
   }},
-  "strengths": ["Stärke 1 mit Beispiel", "Stärke 2 mit Beispiel"],
-  "improvements": ["Verbesserung 1 mit Übung", "Verbesserung 2 mit Übung"],
+  "strengths": ["GENAU 3 Stärken — konkret mit Beispiel-Zitat aus dem Transkript", "Stärke 2 mit Zitat", "Stärke 3 mit Zitat"],
+  "improvements": ["GENAU 3 Verbesserungen — jeweils mit konkreter Übung", "Verbesserung 2 mit Übung", "Verbesserung 3 mit Übung"],
   "speech_analysis": {{
     "filler_words": ["aehm", "also"],
     "filler_count": 0,
@@ -365,8 +365,11 @@ Bewerte DETAILLIERT anhand von Wlads Methodik. Antworte als JSON:
   }},
   "rewrite_suggestion": "Überarbeitete Version der Rede (2-3 Absätze).",
   "practice_exercises": ["Übung 1", "Übung 2", "Übung 3"],
-  "improvement_vs_previous": "Vergleich mit vorherigen Versuchen (falls vorhanden)"
-}}"""
+  "improvement_vs_previous": "Vergleich mit vorherigen Versuchen (falls vorhanden)",
+  "deep_feedback_prompt": "Eine konkrete Frage, die der User dem WladBot-Chat stellen könnte, um tiefer in das Thema einzusteigen (z.B. 'Wie übe ich für das nächste Boardroom-Meeting den Logos-Anteil?')."
+}}
+
+WICHTIG: strengths MUSS exakt 3 Einträge haben, improvements MUSS exakt 3 Einträge haben — keine 2, keine 4."""
 
 
 def _get_rating_params(request, user):
@@ -442,6 +445,40 @@ async def _run_video_ai_analysis(challenge: dict, transcript: str, prev_attempts
 
     # Ensure transcript is preserved even if AI omitted it
     analysis["transcript"] = analysis.get("transcript") or transcript
+
+    # Iter 92.22 (Mert): guarantee exactly 3 strengths + 3 improvements.
+    # Some LLM calls return 2 or 4 — pad with sensible defaults or truncate
+    # so the UI can render "3 Stärken / 3 Verbesserungen" reliably.
+    def _ensure_three(items: list, fallback: list) -> list:
+        items = [s.strip() for s in (items or []) if isinstance(s, str) and s.strip()]
+        if len(items) >= 3:
+            return items[:3]
+        # Pad from fallback if AI returned too few
+        for f in fallback:
+            if len(items) >= 3:
+                break
+            if f not in items:
+                items.append(f)
+        return items[:3]
+
+    analysis["strengths"] = _ensure_three(analysis.get("strengths"), [
+        "Erkennbare Struktur in der Rede",
+        "Klarer Einstieg in das Thema",
+        "Argument-Aufbau gut nachvollziehbar",
+    ])
+    analysis["improvements"] = _ensure_three(analysis.get("improvements"), [
+        "Mehr konkrete Beispiele einbauen (Pathos-Hebel)",
+        "Kürzere Sätze für bessere Verständlichkeit",
+        "Pausen bewusster setzen für mehr Wirkung",
+    ])
+
+    # Provide a default deep-dive prompt if the LLM omitted it — used by the
+    # "Tiefer im Chat besprechen" CTA in the analysis result UI.
+    if not analysis.get("deep_feedback_prompt"):
+        analysis["deep_feedback_prompt"] = (
+            f"Ich habe gerade die Mission '{challenge.get('title', '')}' gemacht "
+            f"(Score: {analysis.get('overall_score')}/100). Hilf mir gezielt an den Verbesserungen zu arbeiten."
+        )
     return analysis
 
 

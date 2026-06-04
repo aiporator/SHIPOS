@@ -3,8 +3,9 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import {
   Trophy, Target, ArrowLeft, ArrowRight, Star, Download,
-  CheckCircle2, Lightbulb, TrendingUp
+  CheckCircle2, Lightbulb, TrendingUp, MessageSquareText
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import VoicePlayButton from '../shared/VoicePlayButton';
 
 export const AnalysisResults = ({
@@ -12,6 +13,17 @@ export const AnalysisResults = ({
   setShowUpsell, lang
 }) => {
   const de = lang === 'de';
+  const navigate = useNavigate();
+
+  const handleDeepChat = () => {
+    // Iter 92.22 (Mert): "Willst du tiefer im Chat besprechen?" — bring the
+    // analysis context straight into WladBot so the user can drill into
+    // specific improvements without re-typing what just happened.
+    const prefill = analysis.deep_feedback_prompt || (de
+      ? `Ich habe gerade die Mission „${activeChallenge?.title}" gemacht und ${analysis.overall_score}/100 erreicht. Hilf mir gezielt an meinen 3 Verbesserungen zu arbeiten: ${(analysis.improvements || []).slice(0,3).join(' · ')}`
+      : `I just completed the mission "${activeChallenge?.title}" and scored ${analysis.overall_score}/100. Help me work on my 3 improvements: ${(analysis.improvements || []).slice(0,3).join(' · ')}`);
+    navigate(`/chat?prefill=${encodeURIComponent(prefill)}`);
+  };
 
   return (
     <div className="space-y-6 animate-fade-in" data-testid="video-results">
@@ -189,15 +201,20 @@ export const AnalysisResults = ({
         </Card>
       )}
 
-      {/* Strengths & Improvements */}
+      {/* Strengths & Improvements — guaranteed 3 each (Iter 92.22) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {analysis.strengths?.length > 0 && (
           <Card className="border-l-[3px] border-l-green-500 bg-white/80 dark:bg-card/80 border-black/[0.04] dark:border-white/[0.06]">
             <CardContent className="p-5">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 mb-3">{de ? 'Stärken' : 'Strengths'}</h4>
-              <ul className="space-y-2">
-                {analysis.strengths.map((s, sIdx) => (
-                  <li key={`strength-${sIdx}`} className="flex gap-2 text-sm"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" />{s}</li>
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 mb-3 flex items-center gap-2">
+                <CheckCircle2 size={12} /> {de ? `3 Dinge, die du gut gemacht hast` : '3 Things you did well'}
+              </h4>
+              <ul className="space-y-2.5">
+                {analysis.strengths.slice(0,3).map((s, sIdx) => (
+                  <li key={`strength-${sIdx}`} className="flex gap-2 text-sm leading-relaxed">
+                    <span className="text-xs font-black text-green-500 w-5 shrink-0 mt-0.5">{sIdx + 1}.</span>
+                    <span>{s}</span>
+                  </li>
                 ))}
               </ul>
             </CardContent>
@@ -206,16 +223,52 @@ export const AnalysisResults = ({
         {analysis.improvements?.length > 0 && (
           <Card className="border-l-[3px] border-l-amber-500 bg-white/80 dark:bg-card/80 border-black/[0.04] dark:border-white/[0.06]">
             <CardContent className="p-5">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-3">{de ? 'Verbesserungspotenzial' : 'Areas to Improve'}</h4>
-              <ul className="space-y-2">
-                {analysis.improvements.map((s, iIdx) => (
-                  <li key={`improve-${iIdx}`} className="flex gap-2 text-sm"><Target size={14} className="text-amber-500 shrink-0 mt-0.5" />{s}</li>
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-3 flex items-center gap-2">
+                <Target size={12} /> {de ? `3 Dinge, die du verbessern kannst` : '3 Things to improve'}
+              </h4>
+              <ul className="space-y-2.5">
+                {analysis.improvements.slice(0,3).map((s, iIdx) => (
+                  <li key={`improve-${iIdx}`} className="flex gap-2 text-sm leading-relaxed">
+                    <span className="text-xs font-black text-amber-500 w-5 shrink-0 mt-0.5">{iIdx + 1}.</span>
+                    <span>{s}</span>
+                  </li>
                 ))}
               </ul>
             </CardContent>
           </Card>
         )}
       </div>
+
+      {/* Iter 92.22: Deep-dive CTA — sofort tiefer im Chat besprechen */}
+      <Card className="border-0 bg-gradient-to-r from-[#0A0A0A] via-[#1A1A2E] to-[#0A0A0A] text-white overflow-hidden shadow-xl shadow-black/20" data-testid="deep-feedback-card">
+        <CardContent className="p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#BFFF00]/15 ring-1 ring-[#BFFF00]/30 flex items-center justify-center shrink-0">
+              <MessageSquareText size={22} className="text-[#BFFF00]" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#BFFF00] mb-1">
+                {de ? 'NÄCHSTER SCHRITT' : 'NEXT STEP'}
+              </p>
+              <p className="text-base sm:text-lg font-black leading-tight">
+                {de ? 'Willst du noch tiefer gehendes Feedback im Chat?' : 'Want deeper feedback in the chat?'}
+              </p>
+              <p className="text-xs sm:text-[13px] text-white/60 leading-snug mt-1">
+                {de
+                  ? 'WladBot kennt deine Analyse und arbeitet konkret mit dir an deinen 3 Verbesserungen.'
+                  : "WladBot has your full analysis and will work with you on your 3 improvements."}
+              </p>
+            </div>
+            <Button
+              onClick={handleDeepChat}
+              data-testid="deep-feedback-chat-btn"
+              className="bg-[#BFFF00] hover:bg-[#A8E600] text-black font-black shrink-0 h-11 px-5"
+            >
+              {de ? 'Im Chat öffnen' : 'Open in chat'} <ArrowRight size={16} className="ml-1" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Practice Exercises */}
       {analysis.practice_exercises?.length > 0 && (

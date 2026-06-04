@@ -34,6 +34,7 @@ export default function VideoChallengePage() {
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
   const blobRef = useRef(null);
+  const submitVideoRef = useRef(null);  // Iter 92.22: ref so MediaRecorder.onstop can auto-submit
 
   // Trial-aware access: Accelerator always passes, others get 3 free in first 14 days.
   const canAccess = isAccelerator || Boolean(trial?.active);
@@ -81,6 +82,10 @@ export default function VideoChallengePage() {
     mr.onstop = () => {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
       setRecorded(true);
+      // Iter 92.22 (Mert): Auto-Submit nach Stop. User soll nicht erst auf
+      // "Submit" klicken — die Analyse läuft direkt los, sobald die Aufnahme
+      // beendet ist (manuell gestoppt ODER Zeitlimit erreicht).
+      setTimeout(() => { submitVideoRef.current?.(); }, 250);
     };
     mr.start();
     setRecording(true);
@@ -198,6 +203,8 @@ export default function VideoChallengePage() {
     }
     finally { setAnalyzing(false); }
   };
+  // Keep submitVideoRef in sync so auto-submit on MediaRecorder.onstop works.
+  submitVideoRef.current = submitVideo;
 
   const resetChallenge = () => {
     setActiveChallenge(null); setAnalysis(null); setRecorded(false);

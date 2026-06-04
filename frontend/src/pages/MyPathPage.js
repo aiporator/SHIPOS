@@ -202,11 +202,11 @@ export default function MyPathPage() {
       <div className="p-6 lg:p-8 max-w-5xl" data-testid="my-path-page">
         <div className="mb-6" data-anim="mypath-header">
           <div className="flex items-center gap-2 mb-2">
-            <Sparkles size={14} className="text-[#BFFF00]" />
+            <Sparkles size={14} className="text-[#6B8A00] dark:text-[#BFFF00]" />
             <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MEIN FORTSCHRITT</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
-            Deine <span className="text-[#BFFF00]">Leadership</span> Journey
+            Deine <span className="text-[#6B8A00] dark:text-[#BFFF00]">Leadership</span> Journey
           </h1>
           <p className="text-base text-muted-foreground mt-2 max-w-lg">
             5 Stufen der Führung. Jedes Level-Up bringt dir ein Zertifikat und neue Fähigkeiten.
