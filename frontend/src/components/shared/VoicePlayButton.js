@@ -71,6 +71,12 @@ export default function VoicePlayButton({
       const audio = new Audio(res.data.audio_url);
       audio.playbackRate = getTtsSpeed();
       audio.preservesPitch = false; // browsers default to true; false = "cooler" pitched-up feel
+      // Iter 92.23: keep TTS audio at native pitch — playbackRate-induced
+      // pitch shifts made Wlad sound chipmunk-y. We still respect the user's
+      // preferred speed (1.25× default) but no longer disable pitch
+      // preservation — modern browsers handle pitch-corrected time-stretching
+      // gracefully, and that's what Mert means by "standard AI sound".
+      audio.preservesPitch = true;
       audioRef.current = audio;
       setAudioVersion(v => v + 1);  // Trigger re-render so visualizer picks up new audio
       // Live-update playbackRate if user changes the global speed mid-playback.

@@ -304,6 +304,19 @@ export default function VideoChallengePage() {
             handleDownloadReport={handleDownloadReport}
             setShowUpsell={setShowUpsell}
             lang={lang}
+            isAccelerator={isAccelerator}
+            onReplay={(challenge) => {
+              // Iter 92.23: "Mission wiederholen" — clear analysis state and
+              // restart camera with the same challenge so the user can record
+              // a second attempt immediately. Previous attempts remain in
+              // /missions/archive for side-by-side comparison.
+              setAnalysis(null);
+              setRecorded(false);
+              setRecording(false);
+              setTimer(0);
+              blobRef.current = null;
+              if (challenge) startChallenge(challenge);
+            }}
           />
         )}
       </div>

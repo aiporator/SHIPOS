@@ -3,7 +3,10 @@
  * Persisted in localStorage so the user's pace preference survives reloads.
  */
 const KEY = 'wladbot_tts_speed_v1';
-const DEFAULT = 1.25;
+// Iter 92.23 (Mert: "klingt zu hoch"): Default zurück auf 1.0× — die alten 1.25×
+// + preservesPitch=false haben Wlad chipmunk-y klingen lassen. User kann
+// weiter manuell auf 1.25× oder 1.5× hochschalten, default ist jetzt natural.
+const DEFAULT = 1.0;
 const ALLOWED = [0.75, 1, 1.25, 1.5];
 
 const read = () => {

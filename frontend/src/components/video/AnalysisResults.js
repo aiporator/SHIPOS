@@ -3,14 +3,14 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import {
   Trophy, Target, ArrowLeft, ArrowRight, Star, Download,
-  CheckCircle2, Lightbulb, TrendingUp, MessageSquareText
+  CheckCircle2, Lightbulb, TrendingUp, MessageSquareText, RotateCcw
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import VoicePlayButton from '../shared/VoicePlayButton';
 
 export const AnalysisResults = ({
   analysis, activeChallenge, resetChallenge, handleDownloadReport,
-  setShowUpsell, lang
+  setShowUpsell, lang, isAccelerator = false, onReplay
 }) => {
   const de = lang === 'de';
   const navigate = useNavigate();
@@ -90,33 +90,44 @@ export const AnalysisResults = ({
         </Card>
       )}
 
-      {/* Wlad's Assessment */}
+      {/* Wlad's Assessment — branded LEADER-OS audio player */}
       {analysis.wlad_assessment && (
-        <Card className="overflow-hidden border-0 bg-gradient-to-r from-slate-900 to-slate-800 text-white" data-testid="wlad-assessment">
+        <Card className="overflow-hidden border-0 bg-gradient-to-br from-[#0A0A0A] via-[#0F0F1A] to-[#1A1A2E] text-white relative" data-testid="wlad-assessment">
+          {/* LEADER-OS watermark badge — premium branding so it doesn't look like
+              a generic AI audio. Subtle, top-right, doesn't compete with content. */}
+          <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#BFFF00]/10 ring-1 ring-[#BFFF00]/30 backdrop-blur-sm z-10">
+            <div className="w-3.5 h-3.5 rounded-sm bg-[#BFFF00] flex items-center justify-center">
+              <span className="text-[7px] font-black text-black leading-none">W</span>
+            </div>
+            <span className="text-[8px] font-black uppercase tracking-[0.15em] text-[#BFFF00] leading-none">LEADER-OS</span>
+          </div>
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=WladJachtchenko&backgroundColor=6366F1" alt="Wlad"
-                className="w-12 h-12 rounded-full ring-2 ring-white/20 shrink-0" />
+              <div className="relative shrink-0">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=WladJachtchenko&backgroundColor=6366F1" alt="Wlad"
+                  className="w-14 h-14 rounded-full ring-2 ring-[#BFFF00]/40 shrink-0" />
+                {/* Verified-Badge — signals "this is Wlad's actual coaching voice" */}
+                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#BFFF00] flex items-center justify-center ring-2 ring-[#0A0A0A]">
+                  <CheckCircle2 size={11} className="text-black" strokeWidth={3} />
+                </div>
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
-                  <p className="text-xs font-bold text-white/50 uppercase tracking-wider">Wlad Jachtchenkos Einschätzung</p>
-                  <div className="flex items-center gap-2">
-                    {/* Iter 92.6: VoiceSpeedToggle removed — after a passed
-                        video test the user is in flow-state, we don't want
-                        to tempt them into a slower playback. Wlad's voice
-                        plays at the saved preferred speed (1.25× default). */}
-                    <VoicePlayButton
-                      text={analysis.wlad_assessment}
-                      persona="wlad"
-                      size="sm"
-                      variant="pill"
-                      label={de ? 'Anhören' : 'Listen'}
-                      testId="wlad-assessment-play"
-                      showWave
-                    />
+                  <div>
+                    <p className="text-[14px] font-black tracking-tight">Wlad Jachtchenko</p>
+                    <p className="text-[10px] font-bold text-[#BFFF00]/80 uppercase tracking-widest">Persönliche Einschätzung · KI-Voice</p>
                   </div>
+                  <VoicePlayButton
+                    text={analysis.wlad_assessment}
+                    persona="wlad"
+                    size="sm"
+                    variant="primary"
+                    label={de ? 'Wlad anhören' : 'Listen to Wlad'}
+                    testId="wlad-assessment-play"
+                    showWave
+                  />
                 </div>
-                <p className="text-sm leading-relaxed text-white/90">{analysis.wlad_assessment}</p>
+                <p className="text-sm leading-relaxed text-white/90 mt-2">{analysis.wlad_assessment}</p>
               </div>
             </div>
           </CardContent>
@@ -313,26 +324,38 @@ export const AnalysisResults = ({
         </Card>
       )}
 
-      {/* Download Report */}
-      <Button variant="outline" onClick={handleDownloadReport} className="w-full border-black/10 dark:border-white/10 font-semibold h-11" data-testid="download-mission-report-btn">
-        <Download size={14} className="mr-2" /> {de ? 'Vollständigen Mission-Report herunterladen' : 'Download Full Mission Report'}
-      </Button>
-
-      {/* Upsell */}
-      <div className="upsell-border">
-        <div className="p-5 flex items-center gap-4" data-testid="mission-upsell-banner">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0A0A0A] to-[#1A1A2E] flex items-center justify-center shrink-0 shadow-lg shadow-black/10">
-            <Star size={20} className="text-white" />
-          </div>
-          <div className="flex-1">
-            <p className="text-[14px] font-bold">{de ? 'Perfektioniere deine Executive Presence' : 'Perfect your executive presence'}</p>
-            <p className="text-[12px] text-muted-foreground">{de ? '1:1 Video-Coaching mit Wlads Expertenteam' : '1:1 video coaching with Wlad’s Expert Team'}</p>
-          </div>
-          <Button onClick={() => setShowUpsell(true)} className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold shadow-sm shrink-0" data-testid="mission-upsell-btn">
-            4.977 EUR <ArrowRight size={14} className="ml-1" />
-          </Button>
-        </div>
+      {/* Download Report + Replay buttons (Iter 92.23) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <Button variant="outline" onClick={handleDownloadReport} className="border-black/10 dark:border-white/10 font-semibold h-11" data-testid="download-mission-report-btn">
+          <Download size={14} className="mr-2" /> {de ? 'Report herunterladen (PDF)' : 'Download Report (PDF)'}
+        </Button>
+        <Button
+          onClick={() => onReplay?.(activeChallenge)}
+          className="bg-[#BFFF00] hover:bg-[#A8E600] text-black font-black h-11"
+          data-testid="mission-replay-btn"
+        >
+          <RotateCcw size={14} className="mr-2" /> {de ? 'Mission wiederholen' : 'Replay mission'}
+        </Button>
       </div>
+
+      {/* Upsell — Iter 92.23 (Mert): ONLY shown to non-Accelerator users.
+          Accelerator already paid, no need to keep selling them. */}
+      {!isAccelerator && (
+        <div className="upsell-border">
+          <div className="p-5 flex items-center gap-4" data-testid="mission-upsell-banner">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0A0A0A] to-[#1A1A2E] flex items-center justify-center shrink-0 shadow-lg shadow-black/10">
+              <Star size={20} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="text-[14px] font-bold">{de ? 'Perfektioniere deine Executive Presence' : 'Perfect your executive presence'}</p>
+              <p className="text-[12px] text-muted-foreground">{de ? '1:1 Video-Coaching mit Wlads Expertenteam' : '1:1 video coaching with Wlad’s Expert Team'}</p>
+            </div>
+            <Button onClick={() => setShowUpsell(true)} className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold shadow-sm shrink-0" data-testid="mission-upsell-btn">
+              4.977 EUR <ArrowRight size={14} className="ml-1" />
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

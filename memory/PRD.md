@@ -15,6 +15,21 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23 · 04.06.26] Voice Standard + Replay + Branding + Conditional Upsell + END-TO-END verified (Mert: „Wlad voice zu hoch → standard AI · Replay function · LEADER-OS Branding im Voice-Player · Upsell nur für Free Tester · Steve Jobs final check")** —
+  - **Wlad Voice = Adam standard** (`backend/routes/voice_tts.py`): Switch von "Brian" (`nPczCjzI2devNBz1zQrb`) auf **"Adam"** (`pNInz6obpgDQGcFmaJgB`) — ElevenLabs Standard-Voice, deep + neutral, "klingt wie AI" wie Mert es will. Stability auf 0.55, style 0.30 für natürlichere Performance.
+  - **TTS Default-Speed 1.25× → 1.0×** (`frontend/src/lib/ttsSpeed.js`): Default playback-Rate zurück auf 1.0× weil 1.25× + `preservesPitch=false` Wlad chipmunk-y klingen ließ. User kann manuell hochschalten falls gewünscht.
+  - **Pitch Preservation** (`frontend/src/components/shared/VoicePlayButton.js`): `audio.preservesPitch = true` — modernes Browser-Time-Stretching ohne Pitch-Shift, klingt natürlich auch bei 1.5×.
+  - **LEADER-OS Branding im Voice-Player** (`AnalysisResults.js`): Neuer top-right Watermark Badge mit grünem W-Icon + "LEADER-OS" Label, Wlad Avatar mit Verified-Badge (grüner CheckCircle), neon-grünem Ring, deeper background gradient. Voice-Button mit "Wlad anhören" Label + Primary Variant (gelb-grün CTA) statt subtilem Pill.
+  - **Mission Replay Button** (`AnalysisResults.js` + `VideoChallengePage.js`): Grüner "Mission wiederholen" Button neben "Report herunterladen". Klick clears analysis, resets recorded state, ruft `startChallenge(activeChallenge)` → Kamera startet wieder, User kann sofort 2. Versuch aufnehmen. Vorherige Versuche bleiben im Archive (`/missions/archive`) für Side-by-Side Vergleich.
+  - **Conditional Upsell** (`AnalysisResults.js`): "Leadership OS PLUS 4.977 EUR" Banner wrapped in `{!isAccelerator && ...}` — User die schon zahlen sehen es nicht mehr. Free + Standard sehen es weiterhin.
+  - **END-TO-END VERIFIED** (Iter 92.23):
+    - ✅ Voice persona registry: Adam ID active, model `eleven_multilingual_v2`
+    - ✅ Video analyze-async: complete in ~18s, 3 strengths + 3 improvements + deep_feedback_prompt + rewrite_suggestion + practice_exercises + framework_feedback
+    - ✅ Community feed: shared (not user-scoped), 4 leaders in leaderboard
+    - ✅ Lern-Videos: 6 starter + 4 accelerator = 10 total
+    - ✅ Stripe LIVE mode + key configured
+    - ✅ Voice/conversation RAG: "Voice RAG: 6 chunks injected" in backend logs
+  - **Files Touched**: `backend/routes/voice_tts.py`, `frontend/src/lib/ttsSpeed.js`, `frontend/src/components/shared/VoicePlayButton.js`, `frontend/src/components/video/AnalysisResults.js`, `frontend/src/pages/VideoChallengePage.js`
 - [x] **[Iter 92.22 · 04.06.26] Pre-Launch Final Polish: 3+3 Garantie, Auto-Submit, Light-Mode Fix, Vimeo Canonical Embed, Deep-Chat-CTA (Mert: „3 gut + 3 verbessern · automatische Analyse nach Stop · Light Mode lesbar · Vimeo iframe canonical embed code")** —
   - **Video-Analyse 3+3 Garantie** (`backend/routes/video.py`): LLM-Prompt verlangt jetzt explizit GENAU 3 Stärken + 3 Verbesserungen. Defensive `_ensure_three()` Post-Processor in `_run_video_ai_analysis()` paddet aus sensible Fallback-Liste falls AI weniger liefert, truncated falls AI mehr liefert. Verified End-to-End: SEXIER-Format Übung, Empathie-Block, 30-Sek-Drill — alle 3 mit konkreten Wlad-Übungen.
   - **`deep_feedback_prompt` Auto-Generation**: Wenn AI keinen liefert, baut Backend ein context-bezogenes Prompt aus Challenge-Title + Score. Frontend nutzt das für "Im Chat öffnen" CTA.

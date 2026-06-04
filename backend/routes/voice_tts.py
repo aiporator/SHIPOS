@@ -54,15 +54,16 @@ def _reset_client() -> None:
 # Users can later override these per-persona via admin endpoint (future feature).
 VOICE_REGISTRY: dict[str, dict] = {
     # Motivational German coach (the heart of the app).
-    # Iter 92.17 (Mert: "stimme klingt unsympathisch"):
-    #   Default umgestellt von "Adam" (deep+stern) auf "Brian" — warm,
-    #   natural, conversational male — passt besser zu Wlad's coaching tone.
-    #   Override via env `ELEVENLABS_WLAD_VOICE_ID=<id>` möglich, falls Mert
-    #   einen Voice-Clone von Wlad in seinem ElevenLabs-Workspace hat.
+    # Iter 92.23 (Mert: "Brian klingt zu hoch — standard AI voice, etwas tiefer"):
+    #   Default umgestellt auf "Adam" — deep, neutral, classic ElevenLabs
+    #   default voice. Klingt erkennbar als AI (genau was Mert will), aber
+    #   nicht piepsig. Stability auf 0.55 für mehr Natürlichkeit, style 0.30
+    #   damit Wlad nicht überdramatisch klingt.
+    #   Override via env `ELEVENLABS_WLAD_VOICE_ID=<id>` möglich.
     "wlad": {
-        "voice_id": os.environ.get("ELEVENLABS_WLAD_VOICE_ID", "nPczCjzI2devNBz1zQrb"),  # "Brian" — warm, conversational male
+        "voice_id": os.environ.get("ELEVENLABS_WLAD_VOICE_ID", "pNInz6obpgDQGcFmaJgB"),  # "Adam" — deep, neutral male (standard AI sound)
         "name": "Wlad Jachtchenko",
-        "stability": 0.50, "similarity_boost": 0.78, "style": 0.45,
+        "stability": 0.55, "similarity_boost": 0.75, "style": 0.30,
         "language": "de",
     },
     # 8 Challengers
