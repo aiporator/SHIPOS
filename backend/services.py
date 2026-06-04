@@ -112,6 +112,54 @@ def clean_ai_text(text: str) -> str:
     return re.sub(r"\*{1,2}([^*]+)\*{1,2}", r"\1", text or "")
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# WLAD_HARD_RULES — single-source identity + grounding rules
+# ─────────────────────────────────────────────────────────────────────────────
+# Appended to EVERY system prompt that goes to an LLM (chat, voice, video
+# analysis, simulations, daily check-in). Two purposes:
+#
+#  1. NAME LOCK. The corpus repeatedly contains "Wladislaw" and "Wlad" — the
+#     model occasionally hallucinates "Vlad" because that's the more common
+#     anglophone spelling. One single explicit rule kills the regression
+#     across every surface at once.
+#
+#  2. CORPUS USAGE LOCK. The retrieve_context() helper injects up to 6 Wlad-
+#     corpus chunks under a "=== WLAD-WISSEN ===" header. Without an explicit
+#     rule, GPT-5.2 sometimes politely ignores the chunks and falls back to
+#     generic Westwood-coaching language. This rule forces the model to cite
+#     the specific framework names from the chunks (Killerphrasen-Techniken,
+#     3 Säulen, Kommunikationsquadrant, Sachfragen, etc.) — any answer that
+#     doesn't reference Wlad's material when chunks were provided is wrong.
+#
+# Update this constant if either rule needs to evolve; do NOT inline-edit the
+# rule into individual prompts.
+
+WLAD_HARD_RULES = """
+
+═══ ABSOLUTE REGELN (gelten für JEDE Antwort) ═══
+1. NAME: Schreibe IMMER "Wlad" (mit W). NIEMALS "Vlad" (mit V).
+   Sein voller Name ist "Wlad Jachtchenko" — oder umgangssprachlich "Wladislaw".
+   "Vlad", "Vladimir" oder "Vladislav" sind FALSCH und ein direkter Fehler.
+
+2. KORPUS-NUTZUNG: Wenn dir Wlad-Korpus-Auszüge im System-Prompt bereitgestellt
+   werden (markiert mit "=== WLAD-WISSEN ===", "WLAD-WISSEN", "Retrieved context"
+   oder ähnlich), MUSST du die SPEZIFISCHEN Frameworks aus diesen Auszügen
+   zitieren — namentlich und mit Beispiel.
+   Konkret: Schlagfertigkeitstechnik Nr. X, 3 Säulen (Logos/Ethos/Pathos),
+   Kommunikationsquadrant, Sachfragen statt Wertungsfragen, 5 Rollen einer
+   Führungskraft, Feedbackformel (Beobachtung + Wirkung + Wunsch),
+   Wlads Verhandlungs-Framework, Dunkle Rhetorik Defense, Aktives Zuhören
+   (5 Ebenen), etc.
+   Generische Coaching-Sprache OHNE Bezug auf Wlads Material ist EIN FEHLER,
+   wenn Korpus-Chunks bereitgestellt wurden.
+
+3. CORPUS-BREITE: Wlads Wissen umfasst ALLE Quellen — seine 12 Bücher
+   (3 SPIEGEL-Bestseller), die Online-Kurse (Killerphrasen, Verkauf, Schwierige
+   Gespräche, etc.), seine Leadership-Frameworks und seine Argumentorik-
+   Ausbildung. Zitiere quer durch ALLE diese Quellen.
+
+═══════════════════════════════════════════════════"""
+
 WLADBOT_SYSTEM_PROMPT = """Du bist WLADBOT, das KI Leadership Operating System -- entwickelt auf Basis der Methoden, Bücher und der staatlich zertifizierten Führungskräfte-Ausbildung von Wlad Jachtchenko, Europas führendem Kommunikations- und Leadership-Coach.
 
 WLAD'S TRACK RECORD (vermittle Vertrauen, wenn der User danach fragt):
@@ -176,7 +224,7 @@ Agent-Routing:
 - Verhandlung → Verhandlungs-Agent (Harvard + Wlads Verhandlungs-Framework)
 - Persönliches Wachstum → Growth-Agent (Selbstreflexion + Charisma Code)
 
-Priorität: Klarheit, Empathie, umsetzbare Ratschläge. Niemals vage antworten. Beziehe dich wenn relevant auf Wlads konkrete Bücher oder Frameworks -- erfinde NICHTS dazu."""
+Priorität: Klarheit, Empathie, umsetzbare Ratschläge. Niemals vage antworten. Beziehe dich wenn relevant auf Wlads konkrete Bücher oder Frameworks -- erfinde NICHTS dazu.""" + WLAD_HARD_RULES
 
 SIMULATION_SYSTEM_PROMPT = """You are a roleplay simulation engine for leadership training. You play the role of an employee in a workplace scenario.
 
@@ -198,7 +246,7 @@ RULES:
   "improvements": ["Area 1", "Area 2"]
 }
 
-During the roleplay, respond naturally as the employee character. Only output the JSON analysis when ending."""
+During the roleplay, respond naturally as the employee character. Only output the JSON analysis when ending.""" + WLAD_HARD_RULES
 
 
 # ========== SCORING ENGINE ==========
