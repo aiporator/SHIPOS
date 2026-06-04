@@ -15,6 +15,31 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.1 · 04.06.26] P2 LIVE: Shared Mission Replay Public-Showcase + Voice RAG Monitor verified (Mert: „Shared Mission Replay-Link · Voice RAG nach erster Wlad-Audio-Click")** —
+  - **3 neue Backend-Endpoints** (`backend/routes/video.py`):
+    - `POST /api/missions/share` → idempotent slug-Generator, returns `{share_slug, share_url}`. Owner-only (Cookie/Bearer required).
+    - `GET /api/missions/share/{slug}` → PUBLIC (kein Auth), returns showcase-payload (scores, 3+3 strengths/improvements, wlad_assessment, transcript_excerpt capped 200 chars). Increments `view_count` per visit.
+    - `DELETE /api/missions/share/{slug}` → Owner-only revoke.
+  - **`_persist_video_analysis()` returns entry_id** + injects es zurück in analysis dict, damit Frontend ohne extra round-trip die Share-CTA bauen kann.
+  - **MongoDB Collection `mission_shares`**: `{share_slug, entry_id, user_id, challenge_id, user_name, user_picture, user_tier, created_at, view_count}`.
+  - **NEW: `SharedMissionPage.js`** (`frontend/src/pages/SharedMissionPage.js`): Premium dark-mode public landing page mit:
+    - Top-Bar mit LEADER-OS Brand + "Selbst testen" CTA
+    - Author-Avatar + View-Count
+    - Hero-Score (7xl/8xl Display) mit dynamischer Color (>=85 grün, >=70 amber, >=50 blue, else red)
+    - 4-Tile Score Grid + 3-Säulen Card
+    - Wlad-Assessment Card mit Leader-OS Watermark Badge
+    - 3+3 Strengths/Improvements
+    - Final CTA: "Willst du auch so eine Analyse?" — neon-grüner Banner mit Login-Conversion-Button
+  - **Public Route** `/m/:slug` in `App.js` — NO auth wrapper (öffentliche Showcase-URL).
+  - **AnalysisResults Share Button** (`components/video/AnalysisResults.js`): Nur sichtbar wenn `entry_id` exists UND `overall_score >= 50` (vermeidet peinliche Shares). Klick → Share-Link generation + auto-clipboard copy + URL-preview row mit "Öffnen ↗" link.
+  - **END-TO-END VERIFIED**:
+    - ✅ Submit Video → analyze-async → entry_id returned in 18s
+    - ✅ POST /missions/share → 10-char slug `723e91f420`
+    - ✅ GET /missions/share/{slug} public access (kein Auth nötig) → vollständige showcase payload
+    - ✅ Idempotency: 2× POST mit gleicher entry_id returns same slug
+    - ✅ View counter: 1 → 3 nach 3 visits
+    - ✅ **Voice RAG Trigger im Pod-Log bestätigt: `Voice RAG: 6 chunks injected`**
+  - **Files Touched**: `backend/routes/video.py`, `frontend/src/App.js`, `frontend/src/components/video/AnalysisResults.js`, NEW: `frontend/src/pages/SharedMissionPage.js`
 - [x] **[Iter 92.23 · 04.06.26] Voice Standard + Replay + Branding + Conditional Upsell + END-TO-END verified (Mert: „Wlad voice zu hoch → standard AI · Replay function · LEADER-OS Branding im Voice-Player · Upsell nur für Free Tester · Steve Jobs final check")** —
   - **Wlad Voice = Adam standard** (`backend/routes/voice_tts.py`): Switch von "Brian" (`nPczCjzI2devNBz1zQrb`) auf **"Adam"** (`pNInz6obpgDQGcFmaJgB`) — ElevenLabs Standard-Voice, deep + neutral, "klingt wie AI" wie Mert es will. Stability auf 0.55, style 0.30 für natürlichere Performance.
   - **TTS Default-Speed 1.25× → 1.0×** (`frontend/src/lib/ttsSpeed.js`): Default playback-Rate zurück auf 1.0× weil 1.25× + `preservesPitch=false` Wlad chipmunk-y klingen ließ. User kann manuell hochschalten falls gewünscht.

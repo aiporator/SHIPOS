@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import {
   Trophy, Target, ArrowLeft, ArrowRight, Star, Download,
-  CheckCircle2, Lightbulb, TrendingUp, MessageSquareText, RotateCcw
+  CheckCircle2, Lightbulb, TrendingUp, MessageSquareText, RotateCcw,
+  Share2, Copy, Check
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import api from '../../lib/api';
+import logger from '../../lib/logger';
 import VoicePlayButton from '../shared/VoicePlayButton';
 
 export const AnalysisResults = ({
@@ -14,6 +18,45 @@ export const AnalysisResults = ({
 }) => {
   const de = lang === 'de';
   const navigate = useNavigate();
+  const [shareUrl, setShareUrl] = useState(null);
+  const [shareLoading, setShareLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Iter 92.23: Public Share-Link Generator. Only offered if entry_id exists
+  // (= analysis was successfully persisted to DB) and score >= 50 — we don't
+  // want users embarrassed by sharing failed attempts.
+  const canShare = Boolean(analysis?.entry_id) && (analysis?.overall_score || 0) >= 50;
+
+  const handleShare = async () => {
+    if (shareUrl) {
+      // Already generated — copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) { logger.warn('clipboard failed:', err?.message); }
+      return;
+    }
+    setShareLoading(true);
+    try {
+      const res = await api.post('/missions/share', { entry_id: analysis.entry_id });
+      const fullUrl = `${window.location.origin}${res.data.share_url}`;
+      setShareUrl(fullUrl);
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      } catch (clipErr) { logger.warn('clipboard failed:', clipErr?.message); }
+    } catch (err) {
+      logger.error('Share link generation failed:', err);
+      try {
+        const { toast } = await import('sonner');
+        toast.error(de ? 'Share-Link konnte nicht erstellt werden' : 'Could not generate share link');
+      } catch (toastErr) { logger.warn('toast unavailable:', toastErr?.message); }
+    } finally {
+      setShareLoading(false);
+    }
+  };
 
   const handleDeepChat = () => {
     // Iter 92.22 (Mert): "Willst du tiefer im Chat besprechen?" — bring the

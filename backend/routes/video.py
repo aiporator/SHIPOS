@@ -1,5 +1,6 @@
 """Video challenge routes with Wlad Jachtchenko methodology feedback."""
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File
+from pydantic import BaseModel
 import asyncio
 import uuid
 import json
@@ -488,16 +489,20 @@ def _safe_parse_json(text: str) -> dict | None:
     return parse_ai_json(text)
 
 
-async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dict, rating: dict, attempt_count: int) -> None:
-    """Save video analysis entry + trigger XP/action recording."""
+async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dict, rating: dict, attempt_count: int) -> str:
+    """Save video analysis entry + trigger XP/action recording. Returns entry_id."""
+    entry_id = f"vid_{uuid.uuid4().hex[:12]}"
     await db.video_challenges.insert_one({
-        "entry_id": f"vid_{uuid.uuid4().hex[:12]}",
+        "entry_id": entry_id,
         "user_id": user_id,
         "challenge_id": challenge_id,
         "analysis": analysis,
         "rating_context": rating,
         "created_at": datetime.now(timezone.utc).isoformat(),
     })
+    # Attach entry_id back onto the analysis dict so the UI can offer a
+    # share-link CTA without an extra round-trip to find the record.
+    analysis["entry_id"] = entry_id
     overall = analysis.get("overall_score", 0)
     await record_user_action(
         user_id,
@@ -507,6 +512,7 @@ async def _persist_video_analysis(user_id: str, challenge_id: str, analysis: dic
         eq_bonus=max(1, analysis.get("empathy_score", 0) // 33),
         metadata={"challenge_id": challenge_id, "score": overall, "attempt": attempt_count},
     )
+    return entry_id
 
 
 @router.get("/user/video-trial-status")
@@ -529,6 +535,114 @@ async def get_video_archive(request: Request):
         {"_id": 0},
     ).sort("created_at", -1).to_list(500)
     return docs
+
+
+# ── Shared Mission Replay Links (Iter 92.23) ──────────────────────────────
+# Mert wants users to share their best video analyses as public landing pages.
+# Use case: "Look — I scored 88/100 on the Boardroom challenge in WladBot!"
+# Drives conversion via authentic social proof + opt-in only.
+
+class ShareMissionIn(BaseModel):
+    entry_id: str
+
+
+@router.post("/missions/share")
+async def create_mission_share(payload: ShareMissionIn, request: Request):
+    """Generate a public share-token for one of the user's mission analyses.
+
+    Returns a short, unguessable slug. The user can copy/share the resulting
+    URL. Anyone with the URL can view the analysis without auth — but
+    nothing private (name optional, transcript opt-in shown only as excerpt).
+    """
+    user = await get_current_user(request)
+    doc = await db.video_challenges.find_one(
+        {"entry_id": payload.entry_id, "user_id": user["user_id"]},
+        {"_id": 0},
+    )
+    if not doc:
+        raise HTTPException(status_code=404, detail="Mission entry not found")
+
+    # Re-use existing share-token if already public — idempotent.
+    existing = await db.mission_shares.find_one(
+        {"entry_id": payload.entry_id, "user_id": user["user_id"]},
+        {"_id": 0},
+    )
+    if existing:
+        return {"share_slug": existing["share_slug"], "share_url": f"/m/{existing['share_slug']}"}
+
+    slug = uuid.uuid4().hex[:10]
+    await db.mission_shares.insert_one({
+        "share_slug": slug,
+        "entry_id": payload.entry_id,
+        "user_id": user["user_id"],
+        "challenge_id": doc.get("challenge_id"),
+        "user_name": user.get("name", "Leader"),
+        "user_picture": user.get("picture"),
+        "user_tier": user.get("tier", "free"),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "view_count": 0,
+    })
+    return {"share_slug": slug, "share_url": f"/m/{slug}"}
+
+
+@router.get("/missions/share/{slug}")
+async def get_shared_mission(slug: str):
+    """PUBLIC endpoint — anyone with the slug can view the analysis.
+
+    Returns the minimum needed for the showcase landing page: scores +
+    summary, no full transcript by default. Counts views for the owner.
+    """
+    share = await db.mission_shares.find_one({"share_slug": slug}, {"_id": 0})
+    if not share:
+        raise HTTPException(status_code=404, detail="Shared mission not found")
+    doc = await db.video_challenges.find_one(
+        {"entry_id": share["entry_id"]},
+        {"_id": 0},
+    )
+    if not doc:
+        raise HTTPException(status_code=410, detail="Original mission deleted")
+
+    # Increment view counter — best-effort.
+    await db.mission_shares.update_one({"share_slug": slug}, {"$inc": {"view_count": 1}})
+
+    from data import VIDEO_CHALLENGES
+    challenge = next((c for c in VIDEO_CHALLENGES if c["challenge_id"] == share["challenge_id"]), None)
+    analysis = doc.get("analysis", {})
+    return {
+        "share_slug": slug,
+        "user_name": share.get("user_name", "Leader"),
+        "user_picture": share.get("user_picture"),
+        "challenge_title": (challenge or {}).get("title", "Leadership Mission"),
+        "challenge_description": (challenge or {}).get("description", ""),
+        "challenge_difficulty": (challenge or {}).get("difficulty", "mittel"),
+        "overall_score": analysis.get("overall_score"),
+        "clarity_score": analysis.get("clarity_score"),
+        "confidence_score": analysis.get("confidence_score"),
+        "empathy_score": analysis.get("empathy_score"),
+        "structure_score": analysis.get("structure_score"),
+        "logos_score": analysis.get("logos_score"),
+        "ethos_score": analysis.get("ethos_score"),
+        "pathos_score": analysis.get("pathos_score"),
+        "wlad_assessment": analysis.get("wlad_assessment"),
+        "strengths": (analysis.get("strengths") or [])[:3],
+        "improvements": (analysis.get("improvements") or [])[:3],
+        # Transcript excerpt only (first 200 chars) — avoid full PII exposure.
+        "transcript_excerpt": (analysis.get("transcript") or "")[:200],
+        "created_at": doc.get("created_at"),
+        "view_count": share.get("view_count", 0) + 1,
+    }
+
+
+@router.delete("/missions/share/{slug}")
+async def delete_mission_share(slug: str, request: Request):
+    """Revoke a previously-shared mission link. Owner-only."""
+    user = await get_current_user(request)
+    result = await db.mission_shares.delete_one(
+        {"share_slug": slug, "user_id": user["user_id"]}
+    )
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Share not found or not owned by you")
+    return {"deleted": True}
 
 
 @router.post("/video-challenges/{challenge_id}/analyze")
