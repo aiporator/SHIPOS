@@ -194,8 +194,12 @@ export const useVoiceMode = ({ initialSessionId, onSessionUpdate, persona = 'wla
       fd.append('file', blob, `voice.${ext}`);
       if (sessionIdRef.current) fd.append('session_id', sessionIdRef.current);
       fd.append('persona', persona);
+      // Hard-timeout 28s — Voice-Pipeline (Whisper + GPT-4o-mini + ElevenLabs)
+      // sollte typisch in 6-12s durchlaufen. Wenn länger → Cloudflare würde
+      // gleich killen → wir geben dem User stattdessen eine klare Fehlermeldung.
       const res = await api.post('/voice/conversation', fd, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 28000,
       });
       if (cancelledRef.current) return;
       const { transcript: t, response_text, audio_url, session_id } = res.data;
@@ -210,12 +214,18 @@ export const useVoiceMode = ({ initialSessionId, onSessionUpdate, persona = 'wla
       logger.error('Voice convo error:', err);
       const status = err.response?.status;
       const detail = err.response?.data?.detail;
+      const isTimeout = err.code === 'ECONNABORTED' || /timeout/i.test(err.message || '');
       if (status === 402) {
         setError(de ? 'Keine Credits mehr — Upgrade nötig.' : 'No credits left — upgrade required.');
         setState(VOICE_STATES.ERROR);
       } else if (status === 400 && detail === 'empty_transcript') {
         // Silently restart listening
         if (!pausedRef.current && !cancelledRef.current) setTimeout(startRecording, 400);
+      } else if (isTimeout) {
+        setError(de
+          ? 'Wlad braucht heute etwas länger. Tippe den Orb, um es erneut zu probieren.'
+          : 'Wlad is taking longer than usual. Tap the orb to try again.');
+        setState(VOICE_STATES.ERROR);
       } else {
         setError(de ? 'Fehler beim Verarbeiten — versuche es erneut.' : 'Processing failed — try again.');
         setState(VOICE_STATES.ERROR);

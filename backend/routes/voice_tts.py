@@ -137,8 +137,29 @@ async def _save_cached_audio(cache_key: str, persona: str, text: str, voice_id: 
     )
 
 
+import re as _re_name
+
+
+def _normalize_wlad_name(text: str) -> str:
+    """Defensive: ersetze alle Vorkommen von 'Vlad' / 'Vladimir' / 'Wladimir' durch 'Wlad'.
+
+    Mert: 'Vlad darf nicht genannt werden, nur Wlad'. Wenn das LLM trotz
+    System-Prompt-Anweisung 'Vlad' ausgibt (oder ein RAG-Quelltext es enthält),
+    fängt das hier den Slip ab — sowohl im TTS-Eingabetext als auch in
+    Antworten, die wir an den Frontend zurückgeben.
+    """
+    if not text:
+        return text
+    # Standalone occurrences only — keep 'Wlad' intact, fix 'Vlad' / 'Vladi'
+    text = _re_name.sub(r"\bVladimir\b", "Wlad", text)
+    text = _re_name.sub(r"\bWladimir\b", "Wlad", text)
+    text = _re_name.sub(r"\bVlad\b", "Wlad", text)
+    return text
+
+
 def _synthesize(text: str, voice_config: dict) -> bytes:
     """Blocking synthesis — returns raw MP3 bytes. Run inside run_in_threadpool."""
+    text = _normalize_wlad_name(text)
     client = _get_client()
     try:
         from elevenlabs import VoiceSettings
@@ -274,6 +295,17 @@ WICHTIG für Voice:
 - Stelle gerne Rückfragen, halte den Dialog am Leben.
 - Sprich Deutsch, sei direkt, warm, charismatisch — wie Wlad Jachtchenko persönlich.
 - Wenn der User unklar spricht, frage präzise nach.
+
+NAMENSREGEL — STRIKT:
+- Sein Name wird IMMER „Wlad" geschrieben (mit W), niemals „Vlad".
+- Auch nicht „Vladimir", nicht „Wladimir" — nur „Wlad".
+
+WLADS FRAMEWORKS (nutze, wenn der RAG-Kontext unten welche liefert):
+- 3 Säulen der Überzeugung (Logos · Ethos · Pathos)
+- Kommunikationsquadrant (Klarheit · Empathie · Struktur · Mut)
+- Schwarze Rhetorik / Manipulationsabwehr
+- Verhandeln nach Wlad-Methodik
+Wenn du ein Framework anwendest, nenne es kurz beim Namen — auch im Voice-Modus.
 """
 
 
@@ -304,18 +336,46 @@ async def _transcribe_webm(audio_bytes: bytes) -> str:
 
 
 async def _voice_llm_reply(session_id: str, user_id: str, transcript: str, user_memory: str) -> str:
-    """Generate a short conversational reply for voice mode."""
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    """Generate a short conversational reply for voice mode.
 
-    history = await db.chat_messages.find(
-        {"session_id": session_id}, {"_id": 0, "role": 1, "content": 1}
-    ).sort("created_at", 1).to_list(20)
+    Iter 92.20 (Mert): RAG-Injection + faster model + parallel context fetch
+    to keep total voice latency under the Cloudflare 30s edge timeout.
+
+    Pipeline (~6-12s total):
+      - parallel: history fetch | RAG retrieve (Voyage embed + Supabase top-K)
+      - gpt-4o-mini for the LLM step (2-3s vs gpt-5.2's 15-25s)
+      - Wlad's frameworks still grounded via RAG context block
+    """
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    import asyncio as _asyncio
+
+    async def _fetch_history():
+        return await db.chat_messages.find(
+            {"session_id": session_id}, {"_id": 0, "role": 1, "content": 1}
+        ).sort("created_at", 1).to_list(20)
+
+    async def _fetch_rag():
+        try:
+            from services_rag import retrieve_context
+            return await retrieve_context(transcript)
+        except Exception as e:
+            logger.warning(f"Voice RAG failed (proceeding without): {e}")
+            return {"rag_active": False, "context_block": "", "chunks_count": 0}
+
+    history, rag_ctx = await _asyncio.gather(_fetch_history(), _fetch_rag())
 
     memory_block = f"\n\n--- USER MEMORY ---\n{user_memory}\n---" if user_memory else ""
-    system_msg = VOICE_CONVO_SYSTEM_PROMPT + memory_block
+    rag_block = ""
+    if rag_ctx.get("rag_active") and rag_ctx.get("context_block"):
+        rag_block = "\n\n" + rag_ctx["context_block"]
+        logger.info("Voice RAG: %d chunks injected", rag_ctx.get("chunks_count", 0))
+
+    system_msg = VOICE_CONVO_SYSTEM_PROMPT + rag_block + memory_block
 
     chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"voicemode_{session_id}", system_message=system_msg)
-    chat.with_model("openai", "gpt-5.2")
+    # gpt-4o-mini = ~10x schneller als gpt-5.2 für 2-3 Satz-Voice-Antworten.
+    # RAG-Block grounded ihn auf Wlads Frameworks → Qualität bleibt hoch.
+    chat.with_model("openai", "gpt-4o-mini")
 
     # Build short context — only last 6 turns to keep TTS latency low
     ctx_lines = []
@@ -440,6 +500,9 @@ async def voice_conversation(
         logger.error(f"Voice LLM reply failed: {e}")
         raise HTTPException(status_code=502, detail=f"AI reply failed: {e}")
     reply_text = _cap_reply_length(reply_text)
+    reply_text = _normalize_wlad_name(reply_text)
+    # Also normalise the transcript that goes back to the UI/Memory.
+    transcript = _normalize_wlad_name(transcript)
 
     # 5. Persist assistant turn + bump session timestamp
     await _persist_voice_turn(session_id, user["user_id"], "assistant", reply_text)

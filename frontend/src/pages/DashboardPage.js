@@ -14,6 +14,7 @@ import { StatCardsRow, QuickActionsGrid } from '../components/dashboard/StatCard
 import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
 import { EventReminderBanner } from '../components/dashboard/EventReminder';
 import { WladMotivationCard } from '../components/dashboard/WladMotivationCard';
+import { DashboardLearningVideos } from '../components/dashboard/DashboardLearningVideos';
 import api from '../lib/api';
 import { useCredits } from '../contexts/CreditContext';
 import { UpcomingEventsCard } from '../components/dashboard/UpcomingEventsCard';
@@ -169,6 +170,11 @@ export default function DashboardPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* ── Lern-Videos Vorschau (direkter Zugriff aus dem Dashboard) ── */}
+        <div className="mb-6">
+          <DashboardLearningVideos de={de} />
+        </div>
 
         {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

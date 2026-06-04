@@ -5,7 +5,7 @@ import { Progress } from '../components/ui/progress';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import LearningVideosTab from '../components/mypath/LearningVideosTab';
 import { UpcomingEventsCard } from '../components/dashboard/UpcomingEventsCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../lib/api';
 import logger from '../lib/logger';
 import {
@@ -106,6 +106,8 @@ export default function MyPathPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get('tab') === 'videos' ? 'videos' : 'progress';
 
   const loadPath = useCallback(async () => {
     setLoading(true);
@@ -203,7 +205,7 @@ export default function MyPathPage() {
         <div className="mb-6" data-anim="mypath-header">
           <div className="flex items-center gap-2 mb-2">
             <Sparkles size={14} className="text-[#BFFF00]" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MY PATH</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">MEIN FORTSCHRITT</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
             Deine <span className="text-[#BFFF00]">Leadership</span> Journey
@@ -213,7 +215,7 @@ export default function MyPathPage() {
           </p>
         </div>
 
-        <Tabs defaultValue="progress" className="w-full">
+        <Tabs defaultValue={initialTab} className="w-full">
           <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs" data-anim="mypath-tabs">
             <TabsTrigger
               value="progress"

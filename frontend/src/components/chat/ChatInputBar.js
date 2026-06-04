@@ -2,7 +2,6 @@ import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { VoiceRecorder } from '../shared/VoiceRecorder';
 import { Send, Loader2, Paperclip, FileText, X, Zap, Headphones } from 'lucide-react';
-import { WladTopicChips } from './WladTopicChips';
 
 const AttachedPreview = ({ attachedPdf, onRemove, de }) => (
   <div className="max-w-4xl mx-auto mb-2 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#BFFF00]/8 border border-[#BFFF00]/20" data-testid="pdf-attached">
@@ -68,11 +67,6 @@ export const ChatInputBar = ({
         {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
       </Button>
     </div>
-
-    <WladTopicChips
-      onPickPrompt={(text) => setInput(text)}
-      lang={de ? 'de' : 'en'}
-    />
 
     {!isPremium && (
       <div className="flex items-center justify-center mt-2">
