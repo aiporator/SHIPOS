@@ -2,6 +2,7 @@ import {
   X, ArrowRight, Calendar, MessageSquareText, Zap, Rocket,
   HeadphonesIcon, Loader2
 } from 'lucide-react';
+import { openStrategyCall } from '../../lib/calendly';
 
 const WLAD_IMG = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
 
@@ -42,7 +43,7 @@ export const BotMascotPanel = ({ de, onClose, onNavigate, onCheckout, checkoutLo
         <div className="px-4 pb-3 space-y-2">
           <ActionButton icon={MessageSquareText} iconBg="bg-sky-50 dark:bg-sky-500/10 dark:bg-sky-50 dark:bg-sky-500/100/10" iconColor="text-sky-600" label={de ? 'KI-Coach starten' : 'Start AI Coach'} sub={de ? 'Frag WladBot direkt' : 'Ask WladBot directly'} testId="wlad-action-chat" onClick={() => onNavigate('/chat')} />
           <ActionButton icon={HeadphonesIcon} iconBg="bg-emerald-50 dark:bg-emerald-500/10" iconColor="text-emerald-600" label="Support" sub={de ? 'Frage stellen & Hilfe' : 'Ask questions & help'} testId="wlad-action-support" onClick={() => onNavigate('/chat?agent=Problemlöser')} />
-          <ActionButton icon={Calendar} iconBg="bg-purple-50 dark:bg-[#7B3FE4]/10" iconColor="text-purple-600" label={de ? 'Coaching-Call buchen' : 'Book Coaching Call'} sub={de ? '1:1 mit Wlads Expertenteam' : '1:1 with Wlad’s Expert Team'} testId="wlad-action-book" onClick={() => onNavigate('/coaching')} />
+          <ActionButton icon={Calendar} iconBg="bg-purple-50 dark:bg-[#7B3FE4]/10" iconColor="text-purple-600" label={de ? 'Strategiegespräch buchen' : 'Book Strategy Call'} sub={de ? '15 Min · 1:1 · unverbindlich' : '15 min · 1:1 · no obligation'} testId="wlad-action-book" onClick={() => openStrategyCall('wlad-mascot')} />
         </div>
 
         {/* Pricing */}

@@ -147,11 +147,15 @@ export const AnalysisResults = ({
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
               <div className="relative shrink-0">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=WladJachtchenko&backgroundColor=6366F1" alt="Wlad"
-                  className="w-14 h-14 rounded-full ring-2 ring-[#BFFF00]/40 shrink-0" />
+                {/* Iter 92.23.2 (Mert): replaced female-coded DiceBear avatar with
+                    LEADER-OS "W" mark. Cleaner branding, gender-neutral, and
+                    matches the watermark/logo system across the rest of the app. */}
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] flex items-center justify-center shadow-xl shadow-[#BFFF00]/30 ring-2 ring-[#BFFF00]/20" aria-label="LEADER-OS">
+                  <span className="text-2xl font-black text-black leading-none" style={{ fontFamily: 'Outfit, sans-serif' }}>W</span>
+                </div>
                 {/* Verified-Badge — signals "this is Wlad's actual coaching voice" */}
-                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#BFFF00] flex items-center justify-center ring-2 ring-[#0A0A0A]">
-                  <CheckCircle2 size={11} className="text-black" strokeWidth={3} />
+                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0A0A0A] flex items-center justify-center ring-2 ring-[#BFFF00]">
+                  <CheckCircle2 size={11} className="text-[#BFFF00]" strokeWidth={3} />
                 </div>
               </div>
               <div className="flex-1 min-w-0">

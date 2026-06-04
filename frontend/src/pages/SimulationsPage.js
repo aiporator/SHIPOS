@@ -10,6 +10,7 @@ import { Progress } from '../components/ui/progress';
 import { VoiceRecorder } from '../components/shared/VoiceRecorder';
 import { useLanguage } from '../contexts/LanguageContext';
 import api from '../lib/api';
+import { openStrategyCall } from '../lib/calendly';
 import { downloadHTMLReport } from '../lib/reportGenerator';
 import {
   Swords, Play, Send, Square, Loader2, Trophy, Target,
@@ -81,7 +82,7 @@ const ScoreDisplay = ({ scores, messages, navigate }) => {
             <h2 className="text-2xl font-black mb-2">Persönliches Coaching freischalten</h2>
             <p className="text-muted-foreground mb-4">Beschleunige dein Leadership-Wachstum mit 1:1 Experten-Coaching basierend auf deinen Simulationsergebnissen.</p>
             <div className="flex items-center justify-center gap-2 mb-6"><span className="text-4xl font-black gradient-text">997</span><span className="text-lg text-muted-foreground">EUR / 6 Monate</span></div>
-            <Button className="w-full bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold h-12 shadow-lg shadow-blue-500/25" onClick={() => window.location.href='/coaching'} data-testid="sim-upsell-cta">
+            <Button className="w-full bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold h-12 shadow-lg shadow-blue-500/25" onClick={() => openStrategyCall('simulations')} data-testid="sim-upsell-cta">
               Strategiegespräch buchen <ArrowRight size={16} className="ml-2" />
             </Button>
           </div></div></div>

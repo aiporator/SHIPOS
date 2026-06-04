@@ -11,6 +11,7 @@ import { VoiceRecorder } from '../components/shared/VoiceRecorder';
 import { LoadingOverlay } from '../components/shared/LoadingOverlay';
 import { useLanguage } from '../contexts/LanguageContext';
 import api from '../lib/api';
+import { openStrategyCall } from '../lib/calendly';
 import {
   Trophy, Send, Loader2, ArrowRight, Star,
   ArrowLeft, Shield, Zap, ChevronRight, Volume2, VolumeX
@@ -320,7 +321,7 @@ export default function ChallengersPage() {
           </div>
           <div className="flex gap-3">
             <Button onClick={resetChallenge} variant="outline" className="flex-1 font-semibold h-11" data-testid="try-another-btn">{lang === 'de' ? 'Anderen Challenger' : 'Try Another'}</Button>
-            <Button onClick={() => navigate('/coaching')} className="flex-1 bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold h-11 shadow-md" data-testid="book-coaching-btn">{lang === 'de' ? '1:1 Coaching buchen' : 'Book Coaching'}</Button>
+            <Button onClick={() => openStrategyCall('challengers')} className="flex-1 bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] text-white font-bold h-11 shadow-md" data-testid="book-coaching-btn">{lang === 'de' ? 'Strategiegespräch buchen' : 'Book Strategy Call'}</Button>
           </div>
         </div>
       </div>

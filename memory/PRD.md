@@ -15,6 +15,17 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.2 · 04.06.26] Post-Launch Polish: W-Logo, Chat-Continuity, Cal.com Direct-Links (Mert: „W-Logo statt Frau-Avatar · Chat-Erweiterung mit direktem Knowledge-Pickup · alle Strategiegespräch-Buttons direkt auf Cal.com")** —
+  - **Wlad-Avatar = W-Logo** (`components/video/AnalysisResults.js`): DiceBear Avatar (war female-coded) ersetzt durch LEADER-OS "W"-Mark — `bg-gradient-to-br from-[#BFFF00] to-[#9ACC00]`, Outfit-font, schwarz-gelb-Theme. Verified-Badge ist jetzt dark-on-lime statt invertiert. Brand-konsistent mit Watermark + Sidebar-Logo.
+  - **Chat-Continuity über `?prefill=...`** (`pages/ChatPage.js`): Neuer `prefillHandledRef` useEffect liest `searchParams.get('prefill')` → strippt URL via `history.replaceState` → ruft `handleSendRef.current(prefill)` nach 250ms → AUTO-SEND. User landet direkt auf Wlad's streamender Antwort, kein leeres Input-Feld. End-to-end verified: "Wie nutze ich die drei Säulen" → Reply mit 3 Säulen-Framework + 3 Action-Items.
+  - **Cal.com Direct-Links** (überall wo „Strategiegespräch buchen" steht):
+    - `BotMascotPanel.js`: Action-Button "Strategiegespräch buchen" → `openStrategyCall('wlad-mascot')` (war `/coaching` Zwischenseite)
+    - `ProgressPage.js`: "Strategiegespräch buchen" Button → `openStrategyCall('progress-leaderboard')`
+    - `ChallengersPage.js`: "Strategiegespräch buchen" (nach Challenge) → `openStrategyCall('challengers')`
+    - `SimulationsPage.js`: "Strategiegespräch buchen" Upsell → `openStrategyCall('simulations')`
+    - **Tier-upgrade CTAs (Events/Challenge30/Pricing) bleiben** auf `/coaching` — das sind Pricing-Page-Flows, keine direkten Bookings.
+  - **Lint clean**: alle 6 geänderten Files parsed via acorn — zero syntax issues.
+  - **Files Touched**: `components/video/AnalysisResults.js`, `pages/ChatPage.js`, `components/shared/BotMascotPanel.js`, `pages/ProgressPage.js`, `pages/ChallengersPage.js`, `pages/SimulationsPage.js`
 - [x] **[Iter 92.23.1 · 04.06.26] P2 LIVE: Shared Mission Replay Public-Showcase + Voice RAG Monitor verified (Mert: „Shared Mission Replay-Link · Voice RAG nach erster Wlad-Audio-Click")** —
   - **3 neue Backend-Endpoints** (`backend/routes/video.py`):
     - `POST /api/missions/share` → idempotent slug-Generator, returns `{share_slug, share_url}`. Owner-only (Cookie/Bearer required).

@@ -61,8 +61,8 @@ export default function ChatPage() {
   const { isPremium, totalUsed, reload: reloadCredits } = useCredits();
   const scrollRef = useRef(null);
   const navigate = useNavigate();
-  // searchParams kept to preserve deep-link behaviour (?session=... etc.)
-  void searchParams;
+  // searchParams used for ?prefill=... (deep-link from /missions Deep-Chat-CTA)
+  // and ?session=... (legacy deep-link). See effect below.
 
   const loadSessions = useCallback(async () => {
     try {
@@ -80,17 +80,29 @@ export default function ChatPage() {
   useEffect(() => { if (currentSession) loadHistory(currentSession); }, [currentSession, loadHistory]);
   useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
-  // Pick up a starter prompt from /wlad-universe (or any other deep-link source)
-  // and pre-fill the input so the user lands directly in a focused conversation.
+  // Iter 92.23.2 (Mert: "wenn man den Chat dann erweitern will sollte
+  // direkt das Wissen aufgegriffen werden und im Chat die Unterhaltung
+  // weitergehen") — handles ?prefill=... deep links from Mission Deep-Chat-CTA
+  // and other contextual entry-points. Auto-creates a fresh session AND
+  // auto-sends the prefilled message so the user lands on a streaming reply,
+  // not an empty input field.
+  const prefillHandledRef = useRef(false);
   useEffect(() => {
-    try {
-      const starter = sessionStorage.getItem('wlad_starter_prompt');
-      if (starter) {
-        setInput(starter);
-        sessionStorage.removeItem('wlad_starter_prompt');
-      }
-    } catch (e) { /* sessionStorage may be blocked */ }
-  }, []);
+    if (prefillHandledRef.current) return;
+    const prefill = searchParams.get('prefill');
+    if (!prefill) return;
+    prefillHandledRef.current = true;
+    // Strip the query-param from the URL so a manual refresh doesn't re-fire it.
+    const cleanPath = window.location.pathname;
+    window.history.replaceState(null, '', cleanPath);
+    // Auto-send: bypass the input field entirely so the user sees Wlad's reply
+    // immediately, with the deep-feedback question already incorporated.
+    setTimeout(() => {
+      handleSendRef.current?.(prefill);
+    }, 250);
+  }, [searchParams]);
+
+  const handleSendRef = useRef(null);
 
   const handleNewSession = async () => {
     try {
@@ -128,6 +140,9 @@ export default function ChatPage() {
     }
     finally { setLoading(false); }
   };
+  // Keep ref synced so the prefill effect (above) can call handleSend without
+  // referencing it in dependency arrays (would cause infinite loops).
+  handleSendRef.current = handleSend;
 
   const handlePdfUpload = async (e) => {
     const file = e.target.files?.[0];
