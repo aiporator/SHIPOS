@@ -15,6 +15,20 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.3 · 04.06.26] Social Sharing — OG Meta Tags + Dynamic Mission Cards (Post-launch P3): Conversion-driver für viral spread (Mert: „OG meta tags für SharedMissionPage")** —
+  - **3 neue Backend-Endpoints** (`backend/routes/og.py`):
+    - `GET /api/og/mission/{slug}` → Dynamic premium PNG-Card (1200×630px) mit lime-Score, Wlad-Branding, Mission-Title und User-Name. Word-wrapping bis 22 chars/line max 3 lines.
+    - `GET /api/og/mission-html/{slug}` → Server-rendered HTML-Stub mit OG/Twitter meta-tags + meta-refresh → SPA. Cache-Control: 600s public, 3600s edge, 86400s SWR.
+    - Default-fallback wenn slug nicht existiert → generic Leader-OS card.
+  - **Vercel Bot-Routing** (`vercel.json`): Neuer Rewrite-Pattern detected User-Agent matching `facebookexternalhit|Twitterbot|LinkedInBot|Slackbot|TelegramBot|WhatsApp|Discordbot|Pinterest|Embedly|bot|crawl|spider|prerender` → routet zu `/api/og/mission-html/{slug}` SSR. Echte User landen weiter auf der React-SPA.
+  - **Premium Card Design** (`_render_mission_share_card`): Score 220px lime/black gradient, Mission Title 48px white right-side, Brand-mark top-left "LEADER-OS · Video Mission · KI-Coach", Tagline bottom-left "Willst du auch so eine Analyse? →", User-attribution wenn vorhanden.
+  - **German Typographic Quotes**: title rendered mit `„…\u201c · Leader-OS` für maximale Crawler-Kompatibilität (LinkedIn/Twitter decoden `&quot;` nicht immer konsistent).
+  - **END-TO-END VERIFIED**:
+    - ✅ `GET /api/og/mission/723e91f420` → 200, 12430 bytes PNG
+    - ✅ `GET /api/og/mission-html/723e91f420` → vollständige `<head>` mit og:title, og:description, og:image, twitter:summary_large_image
+    - ✅ Invalid slug → graceful default fallback
+    - ✅ Existing `/api/og/leader-score/preview/85` regression-free
+  - **Files Touched**: `backend/routes/og.py`, `vercel.json`
 - [x] **[Iter 92.23.2 · 04.06.26] Post-Launch Polish: W-Logo, Chat-Continuity, Cal.com Direct-Links (Mert: „W-Logo statt Frau-Avatar · Chat-Erweiterung mit direktem Knowledge-Pickup · alle Strategiegespräch-Buttons direkt auf Cal.com")** —
   - **Wlad-Avatar = W-Logo** (`components/video/AnalysisResults.js`): DiceBear Avatar (war female-coded) ersetzt durch LEADER-OS "W"-Mark — `bg-gradient-to-br from-[#BFFF00] to-[#9ACC00]`, Outfit-font, schwarz-gelb-Theme. Verified-Badge ist jetzt dark-on-lime statt invertiert. Brand-konsistent mit Watermark + Sidebar-Logo.
   - **Chat-Continuity über `?prefill=...`** (`pages/ChatPage.js`): Neuer `prefillHandledRef` useEffect liest `searchParams.get('prefill')` → strippt URL via `history.replaceState` → ruft `handleSendRef.current(prefill)` nach 250ms → AUTO-SEND. User landet direkt auf Wlad's streamender Antwort, kein leeres Input-Feld. End-to-end verified: "Wie nutze ich die drei Säulen" → Reply mit 3 Säulen-Framework + 3 Action-Items.
