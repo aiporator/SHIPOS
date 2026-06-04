@@ -172,8 +172,19 @@ async def _transcribe_audio(file: UploadFile) -> str:
     contents = await file.read()
     if not contents:
         raise HTTPException(status_code=400, detail="Empty audio file received")
-    if len(contents) > 25 * 1024 * 1024:
-        raise HTTPException(status_code=413, detail="Audio file exceeds 25 MB Whisper limit")
+    # Raw upload limit: 150 MB. A typical 5-min video upload is 30-80 MB; capping
+    # at 150 leaves headroom for HD clips while protecting the pod from
+    # multi-gigabyte uploads. The 25 MB Whisper limit is enforced AFTER ffmpeg
+    # has extracted audio-only (audio is ~10x smaller than video), so a 100 MB
+    # video upload still works as long as its audio track fits the Whisper API.
+    # Before this change we rejected every >25 MB raw upload upfront, blocking
+    # most actual user recordings on the video-challenge surface.
+    MAX_RAW_UPLOAD_BYTES = 150 * 1024 * 1024
+    if len(contents) > MAX_RAW_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Datei zu groß ({len(contents) // (1024*1024)} MB). Max 150 MB — bitte kürzer aufnehmen oder die Auflösung reduzieren.",
+        )
 
     # Pick a suffix based on what the browser told us (best-effort, only used
     # by ffmpeg as a hint — extraction works regardless).
@@ -200,6 +211,23 @@ async def _transcribe_audio(file: UploadFile) -> str:
     except Exception as ff_err:
         logger.warning("ffmpeg unavailable / failed (%s) — falling back to raw upload", ff_err)
         audio_path = raw_path
+
+    # Whisper API enforces a 25 MB per-file cap. Audio-only MP3 at 64 kbps mono
+    # is ~480 KB/min, so 25 MB ≈ ~52 minutes of speech — comfortably above any
+    # realistic video-challenge recording. If the extracted audio still exceeds
+    # the cap (very long recording or ffmpeg failed and we're sending the raw
+    # video), reject with a clear message instead of letting Whisper return an
+    # opaque 4xx.
+    audio_size = os.path.getsize(audio_path)
+    if audio_size > 25 * 1024 * 1024:
+        for p in (raw_path, mp3_path):
+            if p and os.path.exists(p):
+                try: os.unlink(p)
+                except OSError: pass
+        raise HTTPException(
+            status_code=413,
+            detail=f"Audio nach Extraktion noch {audio_size // (1024*1024)} MB — über Whisper-Limit von 25 MB. Bitte Aufnahme kürzer als 50 Min halten.",
+        )
 
     try:
         with open(audio_path, "rb") as audio_file:
