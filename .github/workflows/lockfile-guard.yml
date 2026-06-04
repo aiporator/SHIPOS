@@ -5,21 +5,22 @@ name: lockfile-guard
 # results in a hard failure on deploy. This job is the cheapest possible
 # pre-merge gate to catch lockfile drift in PRs and on push to mvpcode.
 #
-# Previously this triggered on `branches: [main, master]` which never matched
-# in this repo (production branch is mvpcode). That misconfiguration is the
-# direct cause of the May 2026 gsap-lockfile incident: a direct auto-commit
-# push to mvpcode added two deps without updating the lockfile and silently
-# broke every Vercel deploy for 12 hours. Fixed branch name + dropped the
-# path filter so any change to lock/package files (or to nothing at all, in
-# the push case) still gets validated.
+# History:
+#   - Iter 92.20a: this triggered on `branches: [main, master]` which never
+#     matched in this repo (production branch is mvpcode). The May 2026 gsap-
+#     lockfile incident slipped through because of that.
+#   - Iter 92.20b: PR-trigger had `paths: [frontend/package.json,
+#     frontend/yarn.lock]`. Because this job is also a required-status-check
+#     on mvpcode, backend-only PRs (like #43) stayed permanently "expected"
+#     and unmergeable — GitHub waits forever for a status that never reports.
+#     Dropped the PR path filter; the job is fast (yarn install with cache
+#     ~30s) so running it on every PR has no meaningful cost and it unblocks
+#     every backend / docs / config PR.
 
 on:
   push:
     branches: [mvpcode]
   pull_request:
-    paths:
-      - 'frontend/package.json'
-      - 'frontend/yarn.lock'
 
 concurrency:
   group: lockfile-guard-${{ github.ref }}
