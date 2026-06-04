@@ -4,10 +4,11 @@ import { Button } from '../ui/button';
 import { Mic, Square, Loader2 } from 'lucide-react';
 import api from '../../lib/api';
 
-// Iter 92.9 (Mert): max 2 Min Aufnahmezeit. Visualisierter Countdown,
-// damit der User klar sieht: (1) Mic läuft (red ping), (2) wie viel Zeit
-// noch übrig ist (mm:ss + Progress Ring), (3) Auto-Stop bei 120s.
-const MAX_RECORD_MS = 2 * 60 * 1000;
+// Iter 92.20 (Mert/Wlad): max 15 Min für Boardroom-Rehearsals & längere Pitches.
+// Backend chunked Whisper-Pipeline (siehe routes/video.py) macht effektiv unlimited
+// Aufnahmelänge möglich — 15 Min ist nur ein UX-Safety-Cap gegen versehentliche
+// Endlos-Recordings. Wer länger braucht, kann eine Datei hochladen (Upload-Cap = 500 MB).
+const MAX_RECORD_MS = 15 * 60 * 1000;
 
 const formatMMSS = (ms) => {
   const total = Math.max(0, Math.ceil(ms / 1000));
@@ -75,7 +76,7 @@ export const VoiceRecorder = ({ onTranscription, disabled }) => {
         setElapsedMs(Date.now() - startTsRef.current);
       }, 100);
 
-      // Hard auto-stop bei 2 min — Whisper-Anfragen über 25 MB würden eh failen
+      // Hard auto-stop bei 15 min — danach chunked Whisper-Pipeline serverseitig
       autoStopRef.current = setTimeout(() => {
         stopRecording();
       }, MAX_RECORD_MS);
@@ -107,7 +108,7 @@ export const VoiceRecorder = ({ onTranscription, disabled }) => {
         disabled={disabled}
         className="shrink-0"
         data-testid="voice-record-btn"
-        title="Start voice input (max 2:00)"
+        title="Start voice input (max 15:00)"
       >
         <Mic size={16} />
       </Button>

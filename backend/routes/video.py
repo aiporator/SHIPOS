@@ -1,8 +1,11 @@
 """Video challenge routes with Wlad Jachtchenko methodology feedback."""
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File
+import asyncio
 import uuid
 import json
 import os
+import glob
+import shutil
 import tempfile
 import subprocess
 from datetime import datetime, timezone
@@ -48,7 +51,7 @@ def _ffmpeg_executable() -> str:
         raise RuntimeError(f"No ffmpeg binary available (tried PATH + imageio-ffmpeg): {e}")
 
 
-def _ffmpeg_extract_audio(input_path: str, output_path: str) -> None:
+def _ffmpeg_extract_audio(input_path: str, output_path: str, bitrate: str = "64k") -> None:
     """Strip video, downmix to mono 16 kHz MP3. Raises RuntimeError on failure."""
     cmd = [
         _ffmpeg_executable(), "-y", "-hide_banner", "-loglevel", "error",
@@ -57,12 +60,40 @@ def _ffmpeg_extract_audio(input_path: str, output_path: str) -> None:
         "-ac", "1",           # mono
         "-ar", "16000",       # 16 kHz (Whisper's native rate)
         "-c:a", "libmp3lame",
-        "-b:a", "64k",
+        "-b:a", bitrate,
         output_path,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
     if result.returncode != 0 or not os.path.exists(output_path) or os.path.getsize(output_path) < 200:
         raise RuntimeError(f"ffmpeg audio extraction failed: {result.stderr[-300:]}")
+
+
+# Whisper hard limit per single API call (OpenAI: 25 MB). We chunk anything
+# larger into 10-min segments and join the transcripts — gives us effectively
+# unlimited recording length (caps at ~500 MB raw upload below).
+WHISPER_MAX_BYTES = 24 * 1024 * 1024  # leave 1 MB headroom for HTTP overhead
+CHUNK_SECONDS = 600  # 10 minutes — well under 25 MB at 64 kbit/s mono
+
+
+def _ffmpeg_split_into_chunks(input_path: str, chunk_dir: str, seconds: int = CHUNK_SECONDS) -> list[str]:
+    """Split a normalised MP3 into N-second chunks. Returns sorted chunk paths."""
+    pattern = os.path.join(chunk_dir, "chunk_%03d.mp3")
+    cmd = [
+        _ffmpeg_executable(), "-y", "-hide_banner", "-loglevel", "error",
+        "-i", input_path,
+        "-f", "segment",
+        "-segment_time", str(seconds),
+        "-c", "copy",          # no re-encode — already normalised MP3
+        "-reset_timestamps", "1",
+        pattern,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+    if result.returncode != 0:
+        raise RuntimeError(f"ffmpeg segment failed: {result.stderr[-300:]}")
+    chunks = sorted(glob.glob(os.path.join(chunk_dir, "chunk_*.mp3")))
+    if not chunks:
+        raise RuntimeError("ffmpeg segment produced no chunks")
+    return chunks
 
 
 
@@ -163,62 +194,132 @@ Antworte NUR mit validem JSON. Kein extra Text."""
 async def _transcribe_audio(file: UploadFile) -> str:
     """Transcribe uploaded media (audio or video) using OpenAI Whisper.
 
-    Pipeline: write upload to /tmp → ffmpeg-extract MP3 audio → send to Whisper.
-    Robust against browser-specific container quirks (Chrome video/webm,
-    Safari video/mp4, Firefox mixed). Falls back to raw upload if ffmpeg
-    isn't on PATH (development containers).
+    Pipeline:
+      1. Read upload (cap at 500 MB raw — covers ~60-90 min HD video uploads).
+      2. ffmpeg-normalise to mono 16 kHz 64 kbit/s MP3 (typical 90%+ shrink).
+      3. If normalised MP3 fits Whisper's 24 MB ceiling → single API call.
+      4. Otherwise → re-encode at 32 kbit/s, segment into 10-min chunks,
+         transcribe each chunk sequentially, join transcripts.
+
+    This means a user can record a 60-min boardroom rehearsal locally and we
+    still return a single transcript — Whisper's per-call 25 MB limit no
+    longer caps recording length.
     """
     stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
     contents = await file.read()
     if not contents:
         raise HTTPException(status_code=400, detail="Empty audio file received")
-    if len(contents) > 25 * 1024 * 1024:
-        raise HTTPException(status_code=413, detail="Audio file exceeds 25 MB Whisper limit")
+    # Raw upload cap: 500 MB. Anything bigger is almost certainly a misfire
+    # (4K screen-recording etc.) — we ask the user to compress first.
+    if len(contents) > 500 * 1024 * 1024:
+        raise HTTPException(status_code=413,
+                            detail="Datei ist zu groß (>500 MB). Bitte komprimiere die Aufnahme.")
 
     # Pick a suffix based on what the browser told us (best-effort, only used
     # by ffmpeg as a hint — extraction works regardless).
     raw_suffix = ".webm"
     if file.filename and "." in file.filename:
         ext = file.filename.rsplit(".", 1)[-1].lower()
-        if ext in {"webm", "mp4", "m4a", "mp3", "wav", "ogg", "mpga", "mpeg", "flac"}:
+        if ext in {"webm", "mp4", "m4a", "mp3", "wav", "ogg", "mpga", "mpeg", "flac", "mov", "mkv", "aac"}:
             raw_suffix = f".{ext}"
 
     with tempfile.NamedTemporaryFile(suffix=raw_suffix, delete=False) as raw_tmp:
         raw_tmp.write(contents)
         raw_path = raw_tmp.name
 
-    # Try ffmpeg-normalise to MP3 first. If ffmpeg isn't available or fails on
-    # this specific file, fall back to the raw upload (Whisper used to accept
-    # most webm/mp4 directly).
     mp3_path: str | None = None
+    chunk_dir: str | None = None
     try:
+        # Stage 1: normalise to 64 kbit/s mono MP3
         mp3_path = raw_path.rsplit(".", 1)[0] + ".normalized.mp3"
-        _ffmpeg_extract_audio(raw_path, mp3_path)
-        audio_path = mp3_path
-        logger.info("Whisper: ffmpeg-normalised %s → %s (%d bytes)",
-                    raw_path, mp3_path, os.path.getsize(mp3_path))
-    except Exception as ff_err:
-        logger.warning("ffmpeg unavailable / failed (%s) — falling back to raw upload", ff_err)
-        audio_path = raw_path
+        try:
+            _ffmpeg_extract_audio(raw_path, mp3_path, bitrate="64k")
+            audio_path = mp3_path
+            mp3_size = os.path.getsize(mp3_path)
+            logger.info("Whisper: ffmpeg-normalised %s → %s (%d bytes, raw=%d)",
+                        raw_path, mp3_path, mp3_size, len(contents))
+        except Exception as ff_err:
+            logger.warning("ffmpeg unavailable / failed (%s) — falling back to raw upload", ff_err)
+            audio_path = raw_path
+            mp3_size = len(contents)
 
-    try:
-        with open(audio_path, "rb") as audio_file:
-            response = await stt.transcribe(
-                file=audio_file, model="whisper-1",
-                response_format="json", language="de",
-            )
-        text = (getattr(response, "text", "") or "").strip()
-        if not text:
+        # Stage 2: if still under Whisper limit, single-shot transcribe
+        if mp3_size <= WHISPER_MAX_BYTES:
+            return await _whisper_transcribe_single(stt, audio_path)
+
+        # Stage 3: chunked path — re-encode at 32 kbit/s first to shrink further,
+        # then segment into 10-min slices and transcribe sequentially.
+        logger.info("Whisper: file %d bytes > %d → entering chunked transcription path",
+                    mp3_size, WHISPER_MAX_BYTES)
+        shrunk_path = raw_path.rsplit(".", 1)[0] + ".shrunk.mp3"
+        _ffmpeg_extract_audio(raw_path, shrunk_path, bitrate="32k")
+        if mp3_path and os.path.exists(mp3_path) and mp3_path != shrunk_path:
+            try:
+                os.unlink(mp3_path)
+            except OSError:
+                pass
+        mp3_path = shrunk_path
+
+        chunk_dir = tempfile.mkdtemp(prefix="whisper_chunks_")
+        chunks = _ffmpeg_split_into_chunks(shrunk_path, chunk_dir, seconds=CHUNK_SECONDS)
+        logger.info("Whisper: split into %d chunks for parallel transcription", len(chunks))
+
+        # Pre-flight: ensure no chunk exceeds Whisper's limit (32 kbit/s × 10 min ≈ 2.4 MB,
+        # so this is a safety belt only — practically unreachable).
+        for idx, chunk_path in enumerate(chunks):
+            if os.path.getsize(chunk_path) > WHISPER_MAX_BYTES:
+                raise HTTPException(status_code=413,
+                                    detail=f"Audio-Chunk {idx+1} ist auch nach Kompression noch zu groß. Bitte teile die Aufnahme manuell.")
+
+        # Parallel Whisper calls — caps total wall time at the slowest chunk's latency
+        # instead of summing them. 6 chunks × ~15s sequential → ~15s parallel.
+        async def _safe_transcribe(idx: int, path: str) -> tuple[int, str]:
+            try:
+                text = await _whisper_transcribe_single(stt, path, allow_empty=True)
+                return idx, text
+            except HTTPException as he:
+                if he.status_code == 422:
+                    logger.info("Whisper: chunk %d silent, skipping", idx)
+                    return idx, ""
+                raise
+
+        results = await asyncio.gather(
+            *[_safe_transcribe(i, c) for i, c in enumerate(chunks)],
+            return_exceptions=False,
+        )
+        # Preserve chunk order so the transcript reads chronologically
+        results.sort(key=lambda x: x[0])
+        joined = " ".join(t for _, t in results if t).strip()
+        if not joined:
             raise HTTPException(status_code=422,
                                 detail="Audio konnte nicht transkribiert werden — kein Sprachsignal erkannt.")
-        return text
+        return joined
     finally:
+        if chunk_dir and os.path.isdir(chunk_dir):
+            try:
+                shutil.rmtree(chunk_dir, ignore_errors=True)
+            except OSError:
+                pass
         for p in (raw_path, mp3_path):
             if p and os.path.exists(p):
                 try:
                     os.unlink(p)
                 except OSError:
                     pass
+
+
+async def _whisper_transcribe_single(stt: OpenAISpeechToText, path: str, allow_empty: bool = False) -> str:
+    """Send a single (<=24 MB) audio file to Whisper and return the transcript."""
+    with open(path, "rb") as audio_file:
+        response = await stt.transcribe(
+            file=audio_file, model="whisper-1",
+            response_format="json", language="de",
+        )
+    text = (getattr(response, "text", "") or "").strip()
+    if not text and not allow_empty:
+        raise HTTPException(status_code=422,
+                            detail="Audio konnte nicht transkribiert werden — kein Sprachsignal erkannt.")
+    return text
 
 
 def _build_analysis_prompt(challenge: dict, transcript: str, prev_attempts: list, user_memory: str, rating_context: str) -> str:
@@ -449,6 +550,170 @@ async def analyze_video_challenge(challenge_id: str, request: Request, file: Upl
         if "Invalid file format" in detail or "litellm" in detail.lower():
             detail = "Audio-Format wurde von Whisper abgelehnt. Bitte erneut aufnehmen (Chrome empfohlen) oder ein anderes Mikrofon verwenden."
         raise HTTPException(status_code=500, detail=detail)
+
+
+# ── Async Job Pattern (Iter 92.20) ─────────────────────────────────────────
+# The synchronous /analyze endpoint above hits Cloudflare/ingress edge timeouts
+# (~30s) when Whisper + GPT-5.2 + RAG run end-to-end on longer audio. The async
+# variant below:
+#
+#   POST /api/video-challenges/{id}/analyze-async   → 202 + {job_id}
+#   GET  /api/video-challenges/jobs/{job_id}        → status + analysis when ready
+#
+# Background task processes audio without holding the HTTP connection open.
+# Frontend polls every 2-3s. Works for any audio length the upload survives
+# (capped at 500 MB raw / WHISPER_MAX_BYTES per chunk after normalisation).
+
+async def _video_analyze_background(
+    job_id: str,
+    user_id: str,
+    challenge: dict,
+    file_path: str,
+    file_name: str,
+    rating: dict,
+    rating_context: str,
+    user_memory,
+    prev_attempts: list,
+    used_trial_slot: bool,
+    tier: str,
+) -> None:
+    """Background worker: transcribe → analyse → persist → mark job complete."""
+    try:
+        await db.video_jobs.update_one({"job_id": job_id}, {"$set": {"status": "transcribing"}})
+
+        # Build an UploadFile-like wrapper from disk so _transcribe_audio still works.
+        class _DiskUpload:
+            filename = file_name
+            async def read(self) -> bytes:
+                with open(file_path, "rb") as f:
+                    return f.read()
+
+        transcript = await _transcribe_audio(_DiskUpload())  # type: ignore[arg-type]
+        await db.video_jobs.update_one({"job_id": job_id}, {"$set": {"status": "analyzing", "transcript_preview": transcript[:120]}})
+
+        analysis = await _run_video_ai_analysis(challenge, transcript, prev_attempts, user_memory, rating_context)
+        await _persist_video_analysis(user_id, challenge["challenge_id"], analysis, rating, len(prev_attempts) + 1)
+
+        if used_trial_slot:
+            u = await db.users.find_one({"user_id": user_id}, {"_id": 0}) or {"user_id": user_id}
+            analysis["_trial"] = await get_video_trial_status(u, tier)
+
+        await db.video_jobs.update_one(
+            {"job_id": job_id},
+            {"$set": {
+                "status": "complete",
+                "analysis": analysis,
+                "completed_at": datetime.now(timezone.utc).isoformat(),
+            }},
+        )
+        logger.info("Video job %s complete (user=%s, score=%s)", job_id, user_id, analysis.get("overall_score"))
+    except HTTPException as he:
+        await db.video_jobs.update_one(
+            {"job_id": job_id},
+            {"$set": {"status": "error", "error_code": he.status_code, "error_detail": str(he.detail)}},
+        )
+        logger.warning("Video job %s failed (HTTP %s): %s", job_id, he.status_code, he.detail)
+    except Exception as e:
+        await db.video_jobs.update_one(
+            {"job_id": job_id},
+            {"$set": {"status": "error", "error_code": 500, "error_detail": str(e)[:300]}},
+        )
+        logger.exception("Video job %s crashed", job_id)
+    finally:
+        try:
+            if os.path.exists(file_path):
+                os.unlink(file_path)
+        except OSError:
+            pass
+
+
+@router.post("/video-challenges/{challenge_id}/analyze-async", status_code=202)
+async def analyze_video_challenge_async(challenge_id: str, request: Request, file: UploadFile = File(...)):
+    """Start a video-analysis job and return immediately with a job_id.
+
+    Frontend polls /api/video-challenges/jobs/{job_id} until status == 'complete'
+    (or 'error'). This avoids the Cloudflare/ingress 30s edge timeout for any
+    audio length and gives us room to show real progress states in the UI.
+    """
+    from data import VIDEO_CHALLENGES
+    from routes.credits import check_and_deduct_credit
+    user = await get_current_user(request)
+
+    tier_info = await resolve_user_tier(user)
+    trial = await get_video_trial_status(user, tier_info["tier"])
+    used_trial_slot = False
+    if trial["active"]:
+        await consume_video_trial(user["user_id"])
+        used_trial_slot = True
+    else:
+        await require_feature(user, "video_analysis")
+
+    credit_result = await check_and_deduct_credit(user, "video_mission")
+    if not credit_result["allowed"]:
+        raise HTTPException(status_code=402, detail="no_credits")
+
+    challenge = next((c for c in VIDEO_CHALLENGES if c["challenge_id"] == challenge_id), None)
+    if not challenge:
+        raise HTTPException(status_code=404, detail="Challenge not found")
+
+    rating = _get_rating_params(request, user)
+    rating_context = _build_rating_context(rating["mode"], rating["level"], rating["focus"], rating["audience"])
+    user_memory = await get_user_memory(user["user_id"])
+    prev_attempts = await db.video_challenges.find(
+        {"user_id": user["user_id"], "challenge_id": challenge_id},
+        {"_id": 0, "analysis.overall_score": 1, "created_at": 1}
+    ).sort("created_at", -1).to_list(5)
+
+    # Persist the upload to disk so the background task can read it after we return.
+    contents = await file.read()
+    if not contents:
+        raise HTTPException(status_code=400, detail="Empty audio file received")
+    if len(contents) > 500 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="Datei ist zu groß (>500 MB). Bitte komprimiere die Aufnahme.")
+    suffix = ".webm"
+    if file.filename and "." in file.filename:
+        ext = file.filename.rsplit(".", 1)[-1].lower()
+        if ext in {"webm", "mp4", "m4a", "mp3", "wav", "ogg", "mpga", "mpeg", "flac", "mov", "mkv", "aac"}:
+            suffix = f".{ext}"
+    job_id = f"vidjob_{uuid.uuid4().hex[:14]}"
+    persist_path = os.path.join(tempfile.gettempdir(), f"{job_id}{suffix}")
+    with open(persist_path, "wb") as f:
+        f.write(contents)
+
+    await db.video_jobs.insert_one({
+        "job_id": job_id,
+        "user_id": user["user_id"],
+        "challenge_id": challenge_id,
+        "status": "queued",
+        "file_size": len(contents),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+
+    asyncio.create_task(_video_analyze_background(
+        job_id=job_id,
+        user_id=user["user_id"],
+        challenge=challenge,
+        file_path=persist_path,
+        file_name=file.filename or f"upload{suffix}",
+        rating=rating,
+        rating_context=rating_context,
+        user_memory=user_memory,
+        prev_attempts=prev_attempts,
+        used_trial_slot=used_trial_slot,
+        tier=tier_info["tier"],
+    ))
+
+    return {"job_id": job_id, "status": "queued"}
+
+
+@router.get("/video-challenges/jobs/{job_id}")
+async def get_video_job(job_id: str, request: Request):
+    """Poll endpoint: returns current job status and (when ready) the analysis."""
+    user = await get_current_user(request)
+    job = await db.video_jobs.find_one({"job_id": job_id, "user_id": user["user_id"]}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    return job
 
 
 @router.post("/voice/transcribe")

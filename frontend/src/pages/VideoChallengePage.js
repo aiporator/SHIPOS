@@ -123,18 +123,72 @@ export default function VideoChallengePage() {
       params.set('rating_level', ratingConfig.level);
       if (ratingConfig.focus?.length) params.set('rating_focus', ratingConfig.focus.join(','));
       params.set('rating_audience', ratingConfig.audience);
-      const res = await api.post(
-        `/video-challenges/${activeChallenge.challenge_id}/analyze?${params.toString()}`,
-        formData, { headers: { 'Content-Type': 'multipart/form-data' } }
-      );
-      setAnalysis(res.data);
-      // Refresh trial counter from the response if backend attached it.
-      if (res.data?._trial) setTrial(res.data._trial);
+
+      // Async job pattern — bypasses Cloudflare 30s edge timeout. The backend
+      // returns immediately with a job_id; we poll until status === 'complete'.
+      // Falls back to synchronous /analyze if the async endpoint isn't deployed
+      // yet (defensive: covers Vercel-rollout window).
+      let analysisResult = null;
+      try {
+        const startRes = await api.post(
+          `/video-challenges/${activeChallenge.challenge_id}/analyze-async?${params.toString()}`,
+          formData, { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+        const jobId = startRes.data?.job_id;
+        if (!jobId) throw new Error('no_job_id');
+        // Poll for up to 5 minutes (every 2.5s = 120 attempts). Realistic max for
+        // a 60-min audio with parallel chunked Whisper + GPT-5.2 is ~90s.
+        const POLL_INTERVAL_MS = 2500;
+        const MAX_POLLS = 120;
+        let consecutivePollErrors = 0;
+        for (let i = 0; i < MAX_POLLS; i += 1) {
+          await new Promise(r => setTimeout(r, POLL_INTERVAL_MS));
+          let job;
+          try {
+            const pollRes = await api.get(`/video-challenges/jobs/${jobId}`);
+            job = pollRes.data;
+            consecutivePollErrors = 0;
+          } catch (pollErr) {
+            // Whisper sync-IO can briefly stall the backend event loop —
+            // tolerate up to 5 in a row before giving up.
+            consecutivePollErrors += 1;
+            logger.warn(`poll attempt ${i+1} failed (${consecutivePollErrors}/5):`, pollErr?.message);
+            if (consecutivePollErrors >= 5) throw pollErr;
+            continue;
+          }
+          if (!job || !job.status) continue;  // empty body = transient — keep polling
+          if (job.status === 'complete') {
+            analysisResult = job.analysis;
+            break;
+          }
+          if (job.status === 'error') {
+            const err = new Error(job.error_detail || 'Analyse fehlgeschlagen');
+            err.response = { data: { detail: job.error_detail || 'Analyse fehlgeschlagen' }, status: job.error_code || 500 };
+            throw err;
+          }
+        }
+        if (!analysisResult) throw new Error('Zeitüberschreitung — bitte Aufnahme erneut hochladen');
+      } catch (asyncErr) {
+        // 404 → /analyze-async not deployed yet → fall through to sync endpoint
+        if (asyncErr?.response?.status === 404) {
+          logger.warn('async endpoint missing, falling back to sync /analyze');
+          const res = await api.post(
+            `/video-challenges/${activeChallenge.challenge_id}/analyze?${params.toString()}`,
+            formData, { headers: { 'Content-Type': 'multipart/form-data' } }
+          );
+          analysisResult = res.data;
+        } else {
+          throw asyncErr;
+        }
+      }
+
+      setAnalysis(analysisResult);
+      if (analysisResult?._trial) setTrial(analysisResult._trial);
       if (stream) stream.getTracks().forEach(t => t.stop());
       setStream(null);
     } catch (err) {
       logger.error('Analysis failed:', err);
-      const detail = err?.response?.data?.detail || (lang === 'de'
+      const detail = err?.response?.data?.detail || err?.message || (lang === 'de'
         ? 'Analyse konnte nicht abgeschlossen werden. Bitte erneut aufnehmen.'
         : 'Analysis could not be completed. Please record again.');
       try {
