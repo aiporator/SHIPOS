@@ -11,7 +11,7 @@ import logger from '../lib/logger';
 import {
   Sparkles, Lock, CheckCircle2, ArrowRight, Zap, Crown,
   Star, Shield, Eye, Trophy, Brain, Target, HeartHandshake,
-  MessageSquareText, Video, Flame, Award, FileText, TrendingUp, PlayCircle
+  MessageSquareText, Video, Flame, Award, FileText, TrendingUp
 } from 'lucide-react';
 
 const LEVEL_ICONS = [Shield, HeartHandshake, MessageSquareText, Brain, Eye];
@@ -106,8 +106,6 @@ export default function MyPathPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const initialTab = searchParams.get('tab') === 'videos' ? 'videos' : 'progress';
 
   const loadPath = useCallback(async () => {
     setLoading(true);
@@ -215,7 +213,7 @@ export default function MyPathPage() {
           </p>
         </div>
 
-        <Tabs defaultValue={initialTab} className="w-full">
+        <Tabs defaultValue="progress" className="w-full">
           <TabsList className="mb-8 bg-muted/40 p-1 h-auto w-full sm:w-auto" data-testid="mypath-tabs" data-anim="mypath-tabs">
             <TabsTrigger
               value="progress"
@@ -223,13 +221,6 @@ export default function MyPathPage() {
               data-testid="tab-progress"
             >
               <TrendingUp size={14} /> Mein Fortschritt
-            </TabsTrigger>
-            <TabsTrigger
-              value="videos"
-              className="flex items-center gap-2 px-4 py-2 text-xs font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-card"
-              data-testid="tab-videos"
-            >
-              <PlayCircle size={14} /> Lernvideos
             </TabsTrigger>
           </TabsList>
 
@@ -280,10 +271,6 @@ export default function MyPathPage() {
                 </span>
               </div>
             </div>
-          </TabsContent>
-
-          <TabsContent value="videos" className="mt-0 animate-fade-in" data-testid="tab-content-videos">
-            <LearningVideosTab />
           </TabsContent>
         </Tabs>
       </div>

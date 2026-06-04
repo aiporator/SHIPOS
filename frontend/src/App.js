@@ -31,6 +31,7 @@ const CommunityPage = lazyWithRetry(() => import("./pages/CommunityPage"));
 const AdminPage = lazyWithRetry(() => import("./pages/AdminPage"));
 const ProfilePage = lazyWithRetry(() => import("./pages/ProfilePage"));
 const MyPathPage = lazyWithRetry(() => import("./pages/MyPathPage"));
+const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const ChallengersPage = lazyWithRetry(() => import("./pages/ChallengersPage"));
 const CoachingPage = lazyWithRetry(() => import("./pages/CoachingPage"));
 const ToolsPage = lazyWithRetry(() => import("./pages/ToolsPage"));
@@ -123,6 +124,8 @@ function AppRouter() {
         <Route path="/playbooks" element={<ProtectedRoute><PlaybooksPage /></ProtectedRoute>} />
         <Route path="/events" element={<ProtectedRoute><EventsPage /></ProtectedRoute>} />
         <Route path="/my-path" element={<ProtectedRoute><MyPathPage /></ProtectedRoute>} />
+        <Route path="/lern-videos" element={<ProtectedRoute><LearningVideosPage /></ProtectedRoute>} />
+        <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         <Route path="/progress" element={<Navigate to="/community" replace />} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}

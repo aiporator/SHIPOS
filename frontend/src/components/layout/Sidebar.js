@@ -44,6 +44,7 @@ export const Sidebar = () => {
       id: 'insights', label: t('nav.insights'), badge: SBrain, badgeGrad: 'from-[#FFB800] to-[#FF8C00]',
       items: [
         { path: '/my-path', label: lang === 'de' ? 'Mein Fortschritt' : 'My Progress', icon: IconFlame },
+        { path: '/lern-videos', label: lang === 'de' ? 'Lern-Videos' : 'Learning Videos', icon: IconLayers },
         { path: '/community', label: lang === 'de' ? 'Community' : 'Community', icon: IconGraph },
         { path: '/events', label: t('nav.events'), icon: IconEvent },
       ]

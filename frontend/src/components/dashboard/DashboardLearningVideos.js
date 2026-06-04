@@ -113,7 +113,7 @@ export const DashboardLearningVideos = ({ de = true }) => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/my-path?tab=videos')}
+            onClick={() => navigate('/lern-videos')}
             className="text-[11px] font-bold h-8 gap-1"
             data-testid="dashboard-videos-all-btn"
           >
