@@ -10,7 +10,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from config import db, EMERGENT_LLM_KEY, logger
-from services import get_current_user, update_user_scores, get_user_memory
+from services import get_current_user, update_user_scores, get_user_memory, WLAD_HARD_RULES
 from services_actions import record_user_action
 from services_tier import require_feature, resolve_user_tier
 from services_video_trial import get_video_trial_status, consume_video_trial
@@ -157,7 +157,7 @@ DEINE ANALYSE-FRAMEWORKS (basierend auf Wlads Methodik):
 WICHTIG: Gib dein Feedback IMMER auf DEUTSCH. Sprich den User direkt an ("Du hast...", "Deine Stärke ist...").
 Referenziere IMMER ein spezifisches Wlad-Framework in deinem Feedback.
 
-Antworte NUR mit validem JSON. Kein extra Text."""
+Antworte NUR mit validem JSON. Kein extra Text.""" + WLAD_HARD_RULES
 
 
 async def _transcribe_audio(file: UploadFile) -> str:

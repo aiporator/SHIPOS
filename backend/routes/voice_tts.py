@@ -20,7 +20,7 @@ from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel, Field
 
 from config import db, logger, EMERGENT_LLM_KEY
-from services import get_current_user, get_user_memory
+from services import get_current_user, get_user_memory, WLAD_HARD_RULES
 from services_actions import record_user_action
 from routes.admin import require_admin
 
@@ -284,7 +284,7 @@ WICHTIG für Voice:
 - Stelle gerne Rückfragen, halte den Dialog am Leben.
 - Sprich Deutsch, sei direkt, warm, charismatisch — wie Wlad Jachtchenko persönlich.
 - Wenn der User unklar spricht, frage präzise nach.
-"""
+""" + WLAD_HARD_RULES
 
 
 class VoiceConvoResponse(BaseModel):

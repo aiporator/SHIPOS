@@ -7,7 +7,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from config import db, EMERGENT_LLM_KEY, logger
 from models import DailyCheckinIn
-from services import get_current_user
+from services import get_current_user, WLAD_HARD_RULES
 from services_actions import record_user_action
 
 router = APIRouter(prefix="/api", tags=["checkin"])
@@ -30,7 +30,7 @@ Antworte NUR mit validem JSON:
   "category": "decision/communication/conflict/delegation/growth/eq",
   "micro_tip": "Ein konkreter, umsetzbarer Tipp aus Wlads Methodik für morgen",
   "encouragement": "Ein motivierender Satz auf Deutsch"
-}"""
+}""" + WLAD_HARD_RULES
 
 
 @router.post("/daily-checkin")
