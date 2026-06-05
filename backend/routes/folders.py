@@ -37,7 +37,7 @@ from datetime import datetime, timezone
 from typing import Optional, Literal
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from config import db
 from services import get_current_user
@@ -47,23 +47,23 @@ router = APIRouter(prefix="/api/folders", tags=["folders"])
 
 # ── Schemas ────────────────────────────────────────────────────────────────
 class FolderIn(BaseModel):
-    name: str = Field(..., max_length=120)
-    color: Optional[str] = Field(default="#BFFF00", max_length=12)
-    icon: Optional[str] = Field(default="folder", max_length=40)
-    context_summary: Optional[str] = Field(default="", max_length=2000)
+    name: str
+    color: Optional[str] = "#BFFF00"
+    icon: Optional[str] = "folder"
+    context_summary: Optional[str] = ""
 
 
 class FolderUpdateIn(BaseModel):
-    name: Optional[str] = Field(default=None, max_length=120)
-    color: Optional[str] = Field(default=None, max_length=12)
-    icon: Optional[str] = Field(default=None, max_length=40)
-    context_summary: Optional[str] = Field(default=None, max_length=2000)
+    name: Optional[str] = None
+    color: Optional[str] = None
+    icon: Optional[str] = None
+    context_summary: Optional[str] = None
 
 
 class FolderItemIn(BaseModel):
     item_type: Literal["video_mission", "chat_session", "note"]
-    source_id: str = Field(..., max_length=200)
-    title: Optional[str] = Field(default="", max_length=200)
+    source_id: str
+    title: Optional[str] = ""
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────
