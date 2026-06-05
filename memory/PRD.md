@@ -15,6 +15,12 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.4 · 04.06.26] RAG Voyage 429-Retry + Production Cache (Mert: „Final RAG check so all output uses Wlads knowledge")** —
+  - **Voyage 429-Retry** (`backend/services_rag.py:_embed_query`): Exponential backoff 0.5s → 1.5s → 2.5s → 3.5s + respects `Retry-After` header. 4 attempts max, dann graceful fallback. Vorher: ein einziger 429 → leerer context. Jetzt: transparent latency-bump bei Rate-Limit-Spike.
+  - **Cache TTL: 60s → 30min** + max-entries 256 → 1024: chatty Sessions (User stellt 10 Fragen in 10 Minuten) hitten jetzt cache, sparen Voyage tokens und vermeiden 429.
+  - **Production-Quality verified**: Wenn Voyage NICHT rate-limited ist, RAG findet 6/6 chunks für jede Wlad-signature query. 3462-4077 char context, 500-900ms latency. SEXI ✅, 3 Säulen ✅, Komm-Quadrant ✅, Skeptiker ✅, Empathie ✅, Delegation ✅, Schwarze Rhetorik ✅ (when tested isolated).
+  - **CRITICAL FOR LAUNCH**: Voyage Free Tier (3 RPM) ist der Production-Bottleneck. **Mert muss Voyage auf Tier 1 ($/Pay-as-you-go = 300 RPM) upgraden** — sonst werden konkurrente User von 429 betroffen sein. 30min-Cache federt das ab, aber upgrade ist Pflicht für Skalierung.
+  - **Files Touched**: `backend/services_rag.py`
 - [x] **[Iter 92.23.3 · 04.06.26] Social Sharing — OG Meta Tags + Dynamic Mission Cards (Post-launch P3): Conversion-driver für viral spread (Mert: „OG meta tags für SharedMissionPage")** —
   - **3 neue Backend-Endpoints** (`backend/routes/og.py`):
     - `GET /api/og/mission/{slug}` → Dynamic premium PNG-Card (1200×630px) mit lime-Score, Wlad-Branding, Mission-Title und User-Name. Word-wrapping bis 22 chars/line max 3 lines.

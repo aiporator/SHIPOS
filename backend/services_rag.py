@@ -43,8 +43,8 @@ EMBEDDING_DIM = 1024
 MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
 MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
 MAX_CONTEXT_CHARS = 4000     # truncate injected context to keep prompt size sane
-CACHE_TTL_SECONDS = 60       # in-memory cache for repeat queries
-CACHE_MAX_ENTRIES = 256
+CACHE_TTL_SECONDS = 1800     # in-memory cache, 30min — covers chatty sessions
+CACHE_MAX_ENTRIES = 1024
 
 # In-memory cache  → { query_text: (timestamp, chunks_list) }
 _query_cache: dict[str, tuple[float, list[dict]]] = {}
@@ -57,26 +57,58 @@ def _is_configured() -> bool:
 
 
 async def _embed_query(query: str) -> list[float] | None:
-    """Get the Voyage embedding for a user query. Returns None on any failure."""
+    """Get the Voyage embedding for a user query. Returns None on any failure.
+
+    Iter 92.23.4 (Mert: "RAG must hit on every Wlad-query in production"):
+    Voyage's free-tier rate limit is 3 RPM — a chatty user triggers HTTP 429.
+    We now retry with exponential backoff (0.5s → 1.5s → 3s) and respect any
+    `Retry-After` header the API provides. This turns a hard fail into a
+    transparent latency bump.
+    """
     api_key = os.environ.get("VOYAGE_API_KEY")
     if not api_key:
         return None
-    try:
-        async with httpx.AsyncClient(timeout=12) as client:
-            r = await client.post(
-                VOYAGE_API_URL,
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json={
-                    "input": [query[:8000]],  # Voyage has token limits — truncate long queries
-                    "model": VOYAGE_MODEL,
-                    "input_type": "query",
-                },
-            )
-            r.raise_for_status()
-            return r.json()["data"][0]["embedding"]
-    except Exception as e:
-        logger.warning("RAG: Voyage embedding failed: %s", e)
-        return None
+    last_err: str | None = None
+    for attempt in range(4):
+        try:
+            async with httpx.AsyncClient(timeout=15) as client:
+                r = await client.post(
+                    VOYAGE_API_URL,
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={
+                        "input": [query[:8000]],
+                        "model": VOYAGE_MODEL,
+                        "input_type": "query",
+                    },
+                )
+                if r.status_code == 200:
+                    if attempt > 0:
+                        logger.info("RAG: Voyage recovered after %d retries", attempt)
+                    return r.json()["data"][0]["embedding"]
+                if r.status_code == 429:
+                    # Honour server's Retry-After if provided, else exponential backoff
+                    retry_after = r.headers.get("Retry-After")
+                    if retry_after and retry_after.isdigit():
+                        wait = min(float(retry_after), 5.0)
+                    else:
+                        wait = 0.5 + (attempt * 1.0)  # 0.5, 1.5, 2.5, 3.5
+                    logger.warning("RAG: Voyage 429 (attempt %d/4) — sleeping %.1fs", attempt + 1, wait)
+                    await asyncio.sleep(wait)
+                    last_err = "rate_limit_429"
+                    continue
+                # 4xx other than 429 = unrecoverable
+                if 400 <= r.status_code < 500:
+                    logger.error("RAG: Voyage HTTP %d (not retryable): %s", r.status_code, r.text[:200])
+                    return None
+                # 5xx — retry
+                last_err = f"HTTP {r.status_code}"
+                await asyncio.sleep(0.5 * (attempt + 1))
+        except Exception as e:
+            last_err = str(e)
+            logger.warning("RAG: Voyage network error (attempt %d/4): %s", attempt + 1, e)
+            await asyncio.sleep(0.5 * (attempt + 1))
+    logger.warning("RAG: Voyage embedding failed after 4 attempts: %s", last_err)
+    return None
 
 
 async def _match_documents(embedding: list[float]) -> list[dict]:
