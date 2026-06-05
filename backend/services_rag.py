@@ -19,6 +19,7 @@ on repeat questions.
 """
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import time
@@ -41,9 +42,9 @@ EMBEDDING_DIM = 1024
 # zero context. Iter 92.6 lowered to 0.25 to actually surface relevant chunks.
 MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
 MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
-MAX_CONTEXT_CHARS = 4000     # truncate injected context to keep prompt size sane
-CACHE_TTL_SECONDS = 60       # in-memory cache for repeat queries
-CACHE_MAX_ENTRIES = 256
+MAX_CONTEXT_CHARS = 14000    # Iter 92.23.5: bumped 4k → 14k to fit the new long course transcripts (avg 4000 chars/chunk × 3-4 chunks fits comfortably in GPT-5.2 context).
+CACHE_TTL_SECONDS = 1800     # in-memory cache, 30min — covers chatty sessions
+CACHE_MAX_ENTRIES = 1024
 
 # In-memory cache  → { query_text: (timestamp, chunks_list) }
 _query_cache: dict[str, tuple[float, list[dict]]] = {}
@@ -56,26 +57,58 @@ def _is_configured() -> bool:
 
 
 async def _embed_query(query: str) -> list[float] | None:
-    """Get the Voyage embedding for a user query. Returns None on any failure."""
+    """Get the Voyage embedding for a user query. Returns None on any failure.
+
+    Iter 92.23.4 (Mert: "RAG must hit on every Wlad-query in production"):
+    Voyage's free-tier rate limit is 3 RPM — a chatty user triggers HTTP 429.
+    We now retry with exponential backoff (0.5s → 1.5s → 3s) and respect any
+    `Retry-After` header the API provides. This turns a hard fail into a
+    transparent latency bump.
+    """
     api_key = os.environ.get("VOYAGE_API_KEY")
     if not api_key:
         return None
-    try:
-        async with httpx.AsyncClient(timeout=12) as client:
-            r = await client.post(
-                VOYAGE_API_URL,
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json={
-                    "input": [query[:8000]],  # Voyage has token limits — truncate long queries
-                    "model": VOYAGE_MODEL,
-                    "input_type": "query",
-                },
-            )
-            r.raise_for_status()
-            return r.json()["data"][0]["embedding"]
-    except Exception as e:
-        logger.warning("RAG: Voyage embedding failed: %s", e)
-        return None
+    last_err: str | None = None
+    for attempt in range(4):
+        try:
+            async with httpx.AsyncClient(timeout=15) as client:
+                r = await client.post(
+                    VOYAGE_API_URL,
+                    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                    json={
+                        "input": [query[:8000]],
+                        "model": VOYAGE_MODEL,
+                        "input_type": "query",
+                    },
+                )
+                if r.status_code == 200:
+                    if attempt > 0:
+                        logger.info("RAG: Voyage recovered after %d retries", attempt)
+                    return r.json()["data"][0]["embedding"]
+                if r.status_code == 429:
+                    # Honour server's Retry-After if provided, else exponential backoff
+                    retry_after = r.headers.get("Retry-After")
+                    if retry_after and retry_after.isdigit():
+                        wait = min(float(retry_after), 5.0)
+                    else:
+                        wait = 0.5 + (attempt * 1.0)  # 0.5, 1.5, 2.5, 3.5
+                    logger.warning("RAG: Voyage 429 (attempt %d/4) — sleeping %.1fs", attempt + 1, wait)
+                    await asyncio.sleep(wait)
+                    last_err = "rate_limit_429"
+                    continue
+                # 4xx other than 429 = unrecoverable
+                if 400 <= r.status_code < 500:
+                    logger.error("RAG: Voyage HTTP %d (not retryable): %s", r.status_code, r.text[:200])
+                    return None
+                # 5xx — retry
+                last_err = f"HTTP {r.status_code}"
+                await asyncio.sleep(0.5 * (attempt + 1))
+        except Exception as e:
+            last_err = str(e)
+            logger.warning("RAG: Voyage network error (attempt %d/4): %s", attempt + 1, e)
+            await asyncio.sleep(0.5 * (attempt + 1))
+    logger.warning("RAG: Voyage embedding failed after 4 attempts: %s", last_err)
+    return None
 
 
 async def _match_documents(embedding: list[float]) -> list[dict]:
@@ -91,36 +124,51 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_SERVICE_KEY")
     if not (url and key):
+        logger.error("RAG: SUPABASE_URL or SUPABASE_SERVICE_KEY missing — skipping retrieval")
         return []
-    try:
-        async with httpx.AsyncClient(timeout=8) as client:
-            r = await client.post(
-                f"{url}/rest/v1/rpc/match_wladbot_documents",
-                headers={
-                    "apikey": key,
-                    "Authorization": f"Bearer {key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "query_embedding": embedding,
-                    "match_threshold": MATCH_THRESHOLD,
-                    "match_count": MATCH_COUNT,
-                },
-            )
-            if r.status_code != 200:
-                logger.warning("RAG: Supabase match_documents HTTP %s — %s", r.status_code, r.text[:200])
-                return []
-            data = r.json()
-            chunks = data if isinstance(data, list) else []
-
-            # Backfill missing metadata (RPC bug → metadata is None on every row)
-            missing_ids = [c["id"] for c in chunks if c.get("metadata") in (None, {})]
-            if missing_ids:
-                await _backfill_metadata(client, url, key, chunks, missing_ids)
-            return chunks
-    except Exception as e:
-        logger.warning("RAG: Supabase match_documents call failed: %s", e)
-        return []
+    # Iter 92.16: retry-with-backoff on PGRST002 (Supabase schema cache transient).
+    # Mert reported live "Could not query database for schema cache" → instead of
+    # silently returning [], retry twice with backoff so transient blips self-heal.
+    last_err: str | None = None
+    for attempt in range(3):
+        try:
+            async with httpx.AsyncClient(timeout=8) as client:
+                r = await client.post(
+                    f"{url}/rest/v1/rpc/match_wladbot_documents",
+                    headers={
+                        "apikey": key,
+                        "Authorization": f"Bearer {key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "query_embedding": embedding,
+                        "match_threshold": MATCH_THRESHOLD,
+                        "match_count": MATCH_COUNT,
+                    },
+                )
+                if r.status_code == 200:
+                    data = r.json()
+                    chunks = data if isinstance(data, list) else []
+                    if attempt > 0:
+                        logger.info("RAG: recovered after %d retries", attempt)
+                    # Backfill missing metadata (RPC bug → metadata is None on every row)
+                    missing_ids = [c["id"] for c in chunks if c.get("metadata") in (None, {})]
+                    if missing_ids:
+                        await _backfill_metadata(client, url, key, chunks, missing_ids)
+                    return chunks
+                last_err = f"HTTP {r.status_code}: {r.text[:200]}"
+                # PGRST002 = schema cache; retry. Anything else = unrecoverable.
+                if "PGRST002" not in (r.text or ""):
+                    logger.error("RAG: Supabase match_documents %s — not retryable", last_err)
+                    return []
+                logger.warning("RAG: PGRST002 schema-cache error (attempt %d/3) — retrying", attempt + 1)
+                await asyncio.sleep(0.8 * (attempt + 1))
+        except Exception as e:
+            last_err = str(e)
+            logger.warning("RAG: match_documents network error (attempt %d/3): %s", attempt + 1, e)
+            await asyncio.sleep(0.5 * (attempt + 1))
+    logger.error("RAG: match_documents FAILED after 3 attempts — last error: %s", last_err)
+    return []
 
 
 async def _backfill_metadata(client, url: str, key: str,
@@ -148,7 +196,14 @@ async def _backfill_metadata(client, url: str, key: str,
 
 
 def _format_chunks_for_prompt(chunks: list[dict]) -> str:
-    """Format retrieved chunks into a single context block for the system prompt."""
+    """Format retrieved chunks into a single context block for the system prompt.
+
+    Iter 92.23.5 (Mert 1605-chunk audit): if even the first chunk exceeds the
+    budget, we truncate it instead of returning empty — Wlad's new course
+    transcripts are 4kB each, and dropping all of them silently is much worse
+    than feeding a slightly-clipped first chunk. The budget itself was also
+    bumped (4k → 14k) so the common case is 3-4 full chunks injected.
+    """
     if not chunks:
         return ""
     lines = []
@@ -157,9 +212,15 @@ def _format_chunks_for_prompt(chunks: list[dict]) -> str:
         content = (c.get("content") or "").strip()
         if not content:
             continue
-        snippet = f"[Quelle {i} · Relevanz {c.get('similarity', 0):.2f}]\n{content}"
-        if total + len(snippet) > MAX_CONTEXT_CHARS:
+        header = f"[Quelle {i} · Relevanz {c.get('similarity', 0):.2f}]\n"
+        budget_left = MAX_CONTEXT_CHARS - total - len(header)
+        if budget_left <= 200:
+            # No room for even a meaningful excerpt — stop appending
             break
+        if len(content) > budget_left:
+            # Truncate the chunk to fit; better than dropping it entirely
+            content = content[:budget_left].rsplit(" ", 1)[0] + " […]"
+        snippet = header + content
         lines.append(snippet)
         total += len(snippet)
     if not lines:
