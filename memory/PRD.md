@@ -15,6 +15,25 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.11 · 05.06.26] Folder-Context-Awareness im FAB + Folder-Workspace-Cards auf Dashboard (Mert: „auf /missions/abc schlägt der Drawer automatisch den Folder vor · Mini-Stats + Quick-Briefing-Button pro Folder")** —
+  - **P1 — FAB Drawer Page-Context-Awareness** (`frontend/src/lib/wladbotBus.js` erweitert + `components/shared/FloatingWladBotDrawer.js` + `pages/VideoChallengePage.js` + `pages/ChatPage.js`):
+    - `wladbotBus` bekam einen neuen Event-Channel `EV_PAGE_CONTEXT` mit `setWladBotPageContext({folderId, entryId, entryTitle, pageLabel})`, `subscribeWladBotPageContext(cb)`, `getLastPageContext()` (synchronous accessor für late-subscribers wie den Drawer).
+    - **VideoChallengePage publisht Page-Context** bei jedem Wechsel von `activeFolderId` ODER `activeEntryId` — der Drawer weiß so, an welcher Mission/welchem Folder der User gerade arbeitet. Resolve-Logik: explicit `activeFolderId` (von Rail) > `entry.folder_id` (von gepickter History-Entry) > null.
+    - **ChatPage publisht** ebenfalls bei aktivem Folder (kommt von `?folder=` URL-Param oder explizitem Pick).
+    - **FloatingWladBotDrawer** subscribed beim Mount und nutzt `pageContext.folderId` als initial activeFolderId beim Öffnen — fällt auf "most-recently-updated folder" zurück wenn nichts published wurde.
+    - **AUTO-Pill UI**: wenn die Folder-Selection aus Page-Context kam, erscheint im Picker eine lime "AUTO"-Badge rechts oben + ein Sub-Text „Automatisch gewählt für: [entryTitle]". Macht für den User klar, dass der Agent von selbst seinen Kontext kennt. End-to-end browser-verified: `/missions?folder=fld_xxx` → Rail highlighted Boardroom Q2 → FAB öffnet → Picker zeigt „Kontext: Boardroom Q2" + AUTO-Pill.
+  - **P1 — Dashboard Folder-Workspace-Cards** (`frontend/src/components/dashboard/FolderWorkspaceCards.js` + `pages/DashboardPage.js`):
+    - Neue Section „DEINE WORKSPACES" zwischen QuickActionsGrid und Level Progress mit bis zu 4 Folder-Karten (newest-updated first).
+    - Pro Karte: Folder-Icon mit Accent-Farbe + Aurora-Glow auf Hover, Name (Outfit Display Font), item_count, 2-zeiliger Context-Summary-Excerpt, „Briefing" Lime-Button + „Öffnen" Outline-Button.
+    - **Briefing-Action** ruft direkt `POST /api/folders/{id}/briefing` → öffnet FAB Drawer mit dem 30-Sek-Briefing als initial Message (über wladbotBus). Spinner während LLM-Call.
+    - **Öffnen-Action** navigiert zu `/missions?folder=<id>` — neue URL-Param-Handling in VideoChallengePage setzt activeFolderId aus dem Param.
+    - Empty-State (0 Folders): dashed Border Card mit „+ Ersten Workspace erstellen" → /missions.
+    - Footer-Legend: Mission-Icon · Chat-Icon · „1 Klick — vollkontextiges Briefing" Tagline.
+    - Browser-verified: Dashboard zeigt „Boardroom Q2" Card lime + „+ Neuer Workspace" dashed Card daneben.
+  - **Files** (1 new + 4 modified): NEW: `frontend/src/components/dashboard/FolderWorkspaceCards.js`. MODIFIED: `frontend/src/lib/wladbotBus.js` (+EV_PAGE_CONTEXT channel), `frontend/src/components/shared/FloatingWladBotDrawer.js` (+page-context subscribe + AUTO pill), `frontend/src/pages/VideoChallengePage.js` (+setWladBotPageContext on state change + ?folder= URL param), `frontend/src/pages/ChatPage.js` (+publish on activeFolder), `frontend/src/pages/DashboardPage.js` (+FolderWorkspaceCards mount).
+  - **Backend Regression**: 41/41 Tests GREEN — zero backend changes diese Iteration, alle Iter 92.23.7+8+9+10 Endpoints unverändert.
+  - **Mert's Vision delivered**: Der Agent weiß jetzt VON SELBST, welcher Folder relevant ist, sobald der User auf der Studio-Page ist. Dashboard wird zur Workspace-Übersicht — der User sieht alle aktiven Projekte mit 1-Klick-Briefing-Zugang. Die „Always with you"-UX ist jetzt nicht nur Always-Visible, sondern Always-Contextualized.
+
 - [x] **[Iter 92.23.10 · 05.06.26] Code-Review Hardening: Briefing-Graceful-Degradation, View-Counter Atomicity, Doku der UX-Safety-Catches** —
   - **Briefing Endpoint Resilience** (`backend/routes/folders.py` `folder_briefing`): tries `gpt-4o-mini` → `gpt-4o` → deterministic local fallback (`_deterministic_briefing_fallback`). User bekommt nie mehr 502, sondern immer ein verwertbares Briefing — auch wenn beide Modelle ausfallen. Response trägt zusätzlich `source: 'gpt-4o-mini' | 'gpt-4o' | 'fallback_llm_unavailable' | 'fallback_no_key'` für Telemetrie. Verifiziert: erste Request returnt `source: gpt-4o-mini` mit 552-chars warmem Briefing.
   - **View Counter Race-Condition Fix** (`backend/routes/folders.py` `get_shared_folder`): nutzt jetzt `find_one_and_update` mit `ReturnDocument.AFTER` für atomare increment-and-fetch Operation. Concurrent Requests sehen konsistente Counter-Werte. Verifiziert: 3 sequenzielle GETs returnen `views: 3 → 4 → 5` (vorher hätten zwei parallele Requests beide `4` returnen können). Fallback-Path bleibt vorhanden für non-pymongo-`ReturnDocument` Environments.
