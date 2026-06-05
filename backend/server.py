@@ -110,6 +110,7 @@ from routes.monitoring import router as monitoring_router
 from routes.gdpr import router as gdpr_router
 from routes.oauth import router as oauth_router
 from routes.support import router as support_router
+from routes.folders import router as folders_router
 
 app = FastAPI(title="WladBot API", version="5.0")
 
@@ -142,6 +143,7 @@ app.include_router(voice_tts_router)
 app.include_router(monitoring_router)
 app.include_router(gdpr_router)
 app.include_router(support_router)
+app.include_router(folders_router)
 
 # Internal sync layer (Supabase ↔ Mongo)
 from routes.sync import router as sync_router  # noqa: E402

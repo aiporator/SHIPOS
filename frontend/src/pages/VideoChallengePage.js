@@ -34,12 +34,15 @@ export default function VideoChallengePage() {
   const [archive, setArchive] = useState([]);
   const [archiveLoading, setArchiveLoading] = useState(false);
   const [activeEntryId, setActiveEntryId] = useState(null);
+  const [activeFolderId, setActiveFolderId] = useState(null);
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
   const blobRef = useRef(null);
   const submitVideoRef = useRef(null);  // Iter 92.22: ref so MediaRecorder.onstop can auto-submit
+  // Iter 92.23.7 (Mert): keep the recorded video around for replay on the Analysis page
+  const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
 
   const de = lang === 'de';
   const canAccess = isAccelerator || Boolean(trial?.active);
@@ -98,6 +101,12 @@ export default function VideoChallengePage() {
     mr.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
     mr.onstop = () => {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
+      // Iter 92.23.7: build an object URL so the Analysis page can replay the recording.
+      // We revoke any previous URL first to avoid leaks across multiple attempts.
+      setRecordedVideoUrl((prev) => {
+        if (prev?.startsWith('blob:')) { try { URL.revokeObjectURL(prev); } catch (_) {} }
+        return URL.createObjectURL(blobRef.current);
+      });
       setRecorded(true);
       // Iter 92.22 (Mert): Auto-Submit nach Stop. User soll nicht erst auf
       // "Submit" klicken — die Analyse läuft direkt los.
@@ -251,10 +260,17 @@ export default function VideoChallengePage() {
       description: '',
     };
     setActiveChallenge(challenge);
-    setAnalysis(entry.analysis || null);
+    // Inject entry_id so the AnalysisResults page can show the "Add to folder"
+    // and "Share" CTAs for historical entries too (Iter 92.23.7).
+    setAnalysis(entry.analysis ? { ...entry.analysis, entry_id: entry.entry_id } : null);
     setActiveEntryId(entry.entry_id);
     setRecorded(false);
     setRecording(false);
+    // History entries don't have a local blob → no replay button on those.
+    if (recordedVideoUrl?.startsWith('blob:')) {
+      try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) {}
+    }
+    setRecordedVideoUrl(null);
     if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null); }
   };
 
@@ -311,6 +327,8 @@ export default function VideoChallengePage() {
           onNewMission={handleNewMission}
           onRename={handleRenameEntry}
           onDelete={handleDeleteEntry}
+          activeFolderId={activeFolderId}
+          onPickFolder={(f) => setActiveFolderId(f?.folder_id || null)}
           de={de}
         />
 
@@ -381,6 +399,7 @@ export default function VideoChallengePage() {
               setShowUpsell={setShowUpsell}
               lang={lang}
               isAccelerator={isAccelerator}
+              videoUrl={recordedVideoUrl}
               onReplay={(challenge) => {
                 setAnalysis(null);
                 setRecorded(false);
@@ -388,6 +407,10 @@ export default function VideoChallengePage() {
                 setTimer(0);
                 setActiveEntryId(null);
                 blobRef.current = null;
+                if (recordedVideoUrl?.startsWith('blob:')) {
+                  try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) {}
+                }
+                setRecordedVideoUrl(null);
                 if (challenge) startChallenge(challenge);
               }}
             />

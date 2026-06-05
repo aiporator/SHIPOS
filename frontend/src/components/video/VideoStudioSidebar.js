@@ -21,6 +21,7 @@
  */
 import { useMemo, useState, useEffect } from 'react';
 import { Search, Plus, Pencil, Trash2, Check, X, MessageSquareText, Loader2 } from 'lucide-react';
+import { FolderRail } from './FolderRail';
 
 const scoreColor = (s) => {
   if (s >= 80) return '#BFFF00';
@@ -147,20 +148,27 @@ export const VideoStudioSidebar = ({
   onRename,
   onDelete,
   loading = false,
+  activeFolderId = null,
+  onPickFolder = () => {},
   de = true,
 }) => {
   const [query, setQuery] = useState('');
 
+  const folderFiltered = useMemo(() => {
+    if (!activeFolderId) return entries;
+    return entries.filter(e => e.folder_id === activeFolderId);
+  }, [entries, activeFolderId]);
+
   const filtered = useMemo(() => {
-    if (!query.trim()) return entries;
+    if (!query.trim()) return folderFiltered;
     const q = query.toLowerCase();
-    return entries.filter(e => {
+    return folderFiltered.filter(e => {
       const label = labelFor(e, challenges, de).toLowerCase();
       const transcript = (e.analysis?.transcript || '').toLowerCase();
       const wlad = (e.analysis?.wlad_assessment || '').toLowerCase();
       return label.includes(q) || transcript.includes(q) || wlad.includes(q);
     });
-  }, [entries, challenges, de, query]);
+  }, [folderFiltered, challenges, de, query]);
 
   const groups = useMemo(() => groupByDay(filtered, de), [filtered, de]);
 
@@ -189,6 +197,9 @@ export const VideoStudioSidebar = ({
           <span>{de ? 'Neue Mission' : 'New mission'}</span>
         </button>
       </div>
+
+      {/* Folder Rail — Wingman-style knowledge containers (Iter 92.23.7) */}
+      <FolderRail activeFolderId={activeFolderId} onPickFolder={onPickFolder} de={de} />
 
       {/* Search */}
       <div className="px-3 pt-3 pb-2">
