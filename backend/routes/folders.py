@@ -228,6 +228,36 @@ async def remove_item(folder_id: str, item_id: str, request: Request):
 
 
 # ── Briefing (Iter 92.23.9 P1) ─────────────────────────────────────────────
+def _deterministic_briefing_fallback(folder: dict, items: list) -> str:
+    """Last-resort briefing if every LLM call fails. Deterministic, no PII leak,
+    still warm-and-direct in tone. Used only when both gpt-4o-mini and gpt-4o
+    error out — keeps the UX from showing a hard error."""
+    name = folder.get("name") or "diesem Ordner"
+    if not items:
+        return (
+            f"Du oeffnest gerade '{name}' — der Workspace ist noch leer. Leg deine erste Video-Mission "
+            "oder einen Chat ab, damit ich beim naechsten Mal eine echte Lagebeurteilung geben kann. "
+            "Konkret: starte eine 2-minuetige Mission zum Thema, das dich am meisten beschaeftigt."
+        )
+    latest = items[0]
+    rest = len(items) - 1
+    bits = [f"In '{name}' liegen aktuell {len(items)} Eintrag" + ("e" if len(items) != 1 else "") + "."]
+    if latest.get("type") == "video_mission":
+        score = latest.get("score")
+        bits.append(
+            f"Dein juengster Versuch war '{latest.get('title')}'" +
+            (f" mit Score {score}/100." if score is not None else ".")
+        )
+        if latest.get("improvements"):
+            bits.append(f"Offener Punkt: {latest['improvements'][0]}.")
+    elif latest.get("type") == "chat_session":
+        bits.append(f"Dein letzter Chat war '{latest.get('title')}'.")
+    if rest > 0:
+        bits.append(f"Davor noch {rest} weitere Eintrag" + ("e" if rest != 1 else "") + " im Verlauf.")
+    bits.append("Naechster Schritt: wiederhole die juengste Mission und beobachte, wo dein Score steigt.")
+    return " ".join(bits)
+
+
 @router.post("/{folder_id}/briefing")
 async def folder_briefing(folder_id: str, request: Request):
     """Generate a 30-second 'where you stand' briefing from the folder's items.
@@ -235,6 +265,10 @@ async def folder_briefing(folder_id: str, request: Request):
     Mert: "Klick erstellt 30-Sekunden-Briefing aus den letzten 5 Missionen+
     Chats des Folders". Returns a single flowing summary the user can read
     or listen to via the WladBot drawer.
+
+    Resilience (Iter 92.23.9 code-review): tries gpt-4o-mini first, falls
+    back to gpt-4o, and finally to a deterministic locally-generated briefing
+    so the user never gets a 502.
     """
     user = await get_current_user(request)
     folder = await _own_folder(folder_id, user["user_id"])
@@ -242,29 +276,55 @@ async def folder_briefing(folder_id: str, request: Request):
     items, _timeline = await build_folder_timeline(folder_id, user["user_id"], limit=5)
     prompt = await generate_briefing_prompt(folder, items, lang="de")
 
-    # Use the universal Emergent LLM key (set in backend/.env). Falling back
-    # to OPENAI key keeps local development working if EMERGENT key isn't set.
     api_key = os.environ.get("EMERGENT_LLM_KEY") or os.environ.get("OPENAI_API_KEY")
     if not api_key:
-        raise HTTPException(status_code=500, detail="LLM key fehlt")
+        # No LLM key at all — use deterministic fallback so the feature still works.
+        return {
+            "folder_id": folder_id,
+            "folder_name": folder.get("name"),
+            "briefing": _deterministic_briefing_fallback(folder, items),
+            "items_used": len(items),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "source": "fallback_no_key",
+        }
 
-    session_id = f"briefing_{uuid.uuid4().hex[:10]}"
-    chat = LlmChat(
-        api_key=api_key, session_id=session_id,
-        system_message="Du bist WladBot, Senior Leadership-Coach. Antworte praezise und warm.",
-    ).with_model("openai", "gpt-4o-mini")
+    response_text = None
+    used_model = None
+    for model in ("gpt-4o-mini", "gpt-4o"):
+        session_id = f"briefing_{uuid.uuid4().hex[:10]}"
+        chat = LlmChat(
+            api_key=api_key, session_id=session_id,
+            system_message="Du bist WladBot, Senior Leadership-Coach. Antworte praezise und warm.",
+        ).with_model("openai", model)
+        try:
+            response_text = await chat.send_message(UserMessage(text=prompt))
+            used_model = model
+            if response_text and response_text.strip():
+                break
+        except Exception as e:  # noqa: BLE001
+            import logging
+            logging.getLogger("wladbot").warning("briefing %s failed: %s", model, e)
+            response_text = None
+            continue
 
-    try:
-        response = await chat.send_message(UserMessage(text=prompt))
-    except Exception as e:  # noqa: BLE001
-        raise HTTPException(status_code=502, detail=f"LLM-Briefing fehlgeschlagen: {e}")
+    if not response_text or not response_text.strip():
+        # Both models failed — graceful degradation.
+        return {
+            "folder_id": folder_id,
+            "folder_name": folder.get("name"),
+            "briefing": _deterministic_briefing_fallback(folder, items),
+            "items_used": len(items),
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "source": "fallback_llm_unavailable",
+        }
 
     return {
         "folder_id": folder_id,
         "folder_name": folder.get("name"),
-        "briefing": (response or "").strip(),
+        "briefing": response_text.strip(),
         "items_used": len(items),
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "source": used_model,
     }
 
 
@@ -386,11 +446,26 @@ async def get_shared_folder(slug: str):
                 "created_at": c.get("created_at"),
             })
 
-    # Track views (best-effort, non-blocking).
+    # Atomically increment-and-fetch the view counter so concurrent requests
+    # don't see stale values (Iter 92.23.9 code-review fix). Falls back to
+    # the pre-increment value if pymongo doesn't expose return_document.
+    new_views = None
     try:
-        await db.folder_shares.update_one({"slug": slug}, {"$inc": {"views": 1}})
+        from pymongo import ReturnDocument
+        updated = await db.folder_shares.find_one_and_update(
+            {"slug": slug},
+            {"$inc": {"views": 1}},
+            return_document=ReturnDocument.AFTER,
+        )
+        new_views = (updated or {}).get("views")
     except Exception:  # noqa: BLE001
-        pass
+        # Best-effort fallback: still bump the counter, just report the
+        # client-side estimate as before.
+        try:
+            await db.folder_shares.update_one({"slug": slug}, {"$inc": {"views": 1}})
+            new_views = (share.get("views") or 0) + 1
+        except Exception:  # noqa: BLE001
+            new_views = share.get("views", 0)
 
     return {
         "folder": {
@@ -405,5 +480,5 @@ async def get_shared_folder(slug: str):
             "level": owner.get("level", ""),
         },
         "items": items_safe,
-        "share": {"created_at": share.get("created_at"), "views": share.get("views", 0) + 1},
+        "share": {"created_at": share.get("created_at"), "views": new_views},
     }

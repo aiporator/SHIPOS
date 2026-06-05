@@ -104,7 +104,7 @@ export default function VideoChallengePage() {
       // Iter 92.23.7: build an object URL so the Analysis page can replay the recording.
       // We revoke any previous URL first to avoid leaks across multiple attempts.
       setRecordedVideoUrl((prev) => {
-        if (prev?.startsWith('blob:')) { try { URL.revokeObjectURL(prev); } catch (_) {} }
+        if (prev?.startsWith('blob:')) { try { URL.revokeObjectURL(prev); } catch (_) { /* safe-noop: URL already revoked */ } }
         return URL.createObjectURL(blobRef.current);
       });
       setRecorded(true);
@@ -268,7 +268,7 @@ export default function VideoChallengePage() {
     setRecording(false);
     // History entries don't have a local blob → no replay button on those.
     if (recordedVideoUrl?.startsWith('blob:')) {
-      try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) {}
+      try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) { /* safe-noop: URL already revoked */ }
     }
     setRecordedVideoUrl(null);
     if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null); }
@@ -291,7 +291,7 @@ export default function VideoChallengePage() {
       try {
         const { toast } = await import('sonner');
         toast.error(de ? 'Umbenennen fehlgeschlagen' : 'Rename failed');
-      } catch (_) { /* noop */ }
+      } catch (_) { /* safe-noop: sonner failed to import — primary error already logged above */ }
     }
   };
 
@@ -309,7 +309,7 @@ export default function VideoChallengePage() {
       try {
         const { toast } = await import('sonner');
         toast.error(de ? 'Löschen fehlgeschlagen' : 'Delete failed');
-      } catch (_) { /* noop */ }
+      } catch (_) { /* safe-noop: sonner failed to import — primary error already logged above */ }
     }
   };
 
@@ -408,7 +408,7 @@ export default function VideoChallengePage() {
                 setActiveEntryId(null);
                 blobRef.current = null;
                 if (recordedVideoUrl?.startsWith('blob:')) {
-                  try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) {}
+                  try { URL.revokeObjectURL(recordedVideoUrl); } catch (_) { /* safe-noop: URL already revoked */ }
                 }
                 setRecordedVideoUrl(null);
                 if (challenge) startChallenge(challenge);
