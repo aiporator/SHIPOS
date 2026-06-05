@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import logger from '../lib/logger';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -12,6 +13,7 @@ import { VideoUpsellModal } from '../components/video/VideoUpsellModal';
 import { VideoStudioSidebar } from '../components/video/VideoStudioSidebar';
 import api from '../lib/api';
 import { downloadHTMLReport } from '../lib/reportGenerator';
+import { setWladBotPageContext, clearWladBotPageContext } from '../lib/wladbotBus';
 
 const DEFAULT_RATING = { mode: 'hard', level: 'fortgeschritten', focus: [], audience: 'allgemein' };
 
@@ -35,6 +37,7 @@ export default function VideoChallengePage() {
   const [archiveLoading, setArchiveLoading] = useState(false);
   const [activeEntryId, setActiveEntryId] = useState(null);
   const [activeFolderId, setActiveFolderId] = useState(null);
+  const [searchParams] = useSearchParams();
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
@@ -119,10 +122,36 @@ export default function VideoChallengePage() {
   }, [stream]);
 
   useEffect(() => { loadChallenges(); loadArchive(); }, [loadChallenges, loadArchive]);
+
+  // Iter 92.23.11: deep-link from Dashboard Workspaces — /missions?folder=fld_xxx
+  // pre-selects the folder filter in the studio sidebar.
+  useEffect(() => {
+    const folderParam = searchParams.get('folder');
+    if (folderParam && folderParam !== activeFolderId) {
+      setActiveFolderId(folderParam);
+    }
+  }, [searchParams, activeFolderId]);
   useEffect(() => { return () => { if (stream) stream.getTracks().forEach(t => t.stop()); }; }, [stream]);
   useEffect(() => {
     if (recording && timer >= (activeChallenge?.time_limit || 180)) stopRecording();
   }, [timer, recording, activeChallenge, stopRecording]);
+
+  // Iter 92.23.11: publish page-context so the FAB drawer can pre-select the
+  // user's currently-active folder / entry / page without the user picking it.
+  useEffect(() => {
+    const activeEntry = archive.find(e => e.entry_id === activeEntryId);
+    // Prefer the folder explicitly chosen via the rail; fall back to the
+    // folder of the active entry (so opening a historic mission auto-suggests
+    // its parent folder).
+    const resolvedFolderId = activeFolderId || activeEntry?.folder_id || null;
+    setWladBotPageContext({
+      folderId: resolvedFolderId,
+      entryId: activeEntryId || null,
+      entryTitle: activeEntry?.custom_title || activeChallenge?.title || null,
+      pageLabel: de ? 'Video Studio' : 'Video Studio',
+    });
+    return () => clearWladBotPageContext();
+  }, [activeFolderId, activeEntryId, archive, activeChallenge, de]);
 
   const startChallenge = async (challenge) => {
     setActiveChallenge(challenge);

@@ -15,6 +15,7 @@ import { ChatUpsellModal } from '../components/chat/ChatUpsellModal';
 import { ChatInputBar } from '../components/chat/ChatInputBar';
 import { ChatInlineUpsell } from '../components/chat/ChatInlineUpsell';
 import { VoiceModeOverlay } from '../components/chat/VoiceModeOverlay';
+import { setWladBotPageContext, clearWladBotPageContext } from '../lib/wladbotBus';
 
 const buildFullMessage = ({ text, messages, userContext, attachedPdf }) => {
   let fullMsg = text;
@@ -101,6 +102,18 @@ export default function ChatPage() {
     }).catch(() => {});
     return () => { alive = false; };
   }, [searchParams]);
+
+  // Iter 92.23.11: publish active folder context to the page-context bus so
+  // the FAB drawer pre-selects it.
+  useEffect(() => {
+    if (activeFolder) {
+      setWladBotPageContext({
+        folderId: activeFolder.folder_id,
+        pageLabel: de ? 'Chat' : 'Chat',
+      });
+    }
+    return () => clearWladBotPageContext();
+  }, [activeFolder, de]);
 
   const prefillHandledRef = useRef(false);
   useEffect(() => {

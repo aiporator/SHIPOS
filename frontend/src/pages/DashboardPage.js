@@ -15,6 +15,7 @@ import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
 import { EventReminderBanner } from '../components/dashboard/EventReminder';
 import { WladMotivationCard } from '../components/dashboard/WladMotivationCard';
 import { DashboardLearningVideos } from '../components/dashboard/DashboardLearningVideos';
+import { FolderWorkspaceCards } from '../components/dashboard/FolderWorkspaceCards';
 import api from '../lib/api';
 import { useCredits } from '../contexts/CreditContext';
 import { UpcomingEventsCard } from '../components/dashboard/UpcomingEventsCard';
@@ -184,6 +185,9 @@ export default function DashboardPage() {
 
             {/* Quick Actions */}
             <QuickActionsGrid de={de} navigate={navigate} />
+
+            {/* Workspaces — Iter 92.23.11 (Mert): Folder cards with briefing + open */}
+            <FolderWorkspaceCards de={de} />
 
             {/* XP + Level Progress */}
             <Card className="border-black/[0.04] dark:border-white/[0.06] overflow-hidden relative" data-testid="level-progress" data-anim="dash-widget">

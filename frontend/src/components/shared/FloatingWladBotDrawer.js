@@ -28,7 +28,7 @@ import logger from '../../lib/logger';
 import SmartText from './SmartText';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { subscribeWladBotOpen, subscribeWladBotClose } from '../../lib/wladbotBus';
+import { subscribeWladBotOpen, subscribeWladBotClose, subscribeWladBotPageContext, getLastPageContext } from '../../lib/wladbotBus';
 
 // Hide the FAB on these routes — onboarding, auth, public, etc.
 const HIDDEN_ROUTES = ['/login', '/signup', '/onboarding', '/m/', '/f/', '/leader-os/welcome', '/leader-os/diagnose', '/auth-callback', '/auth/magic', '/chat'];
@@ -53,6 +53,9 @@ export const FloatingWladBotDrawer = () => {
   const [open, setOpen] = useState(false);
   const [folders, setFolders] = useState([]);
   const [activeFolderId, setActiveFolderId] = useState(null);
+  // Iter 92.23.11: page-context published by the current page. When non-null
+  // it overrides the "most-recently-updated" default folder pre-selection.
+  const [pageContext, setPageContext] = useState(() => getLastPageContext());
   const [folderPickerOpen, setFolderPickerOpen] = useState(false);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
@@ -87,6 +90,13 @@ export const FloatingWladBotDrawer = () => {
   // Don't render on hidden routes (and never for unauthenticated users).
   const isHidden = !user || HIDDEN_ROUTES.some(r => location.pathname.startsWith(r));
 
+  // Iter 92.23.11: keep page-context fresh — when the user navigates between
+  // /missions, /chat, etc. the page publishes its active folder/entry/label.
+  useEffect(() => {
+    const off = subscribeWladBotPageContext((ctx) => setPageContext(ctx));
+    return off;
+  }, []);
+
   // Load folders the first time the drawer opens.
   useEffect(() => {
     if (!open || folders.length > 0) return undefined;
@@ -95,11 +105,19 @@ export const FloatingWladBotDrawer = () => {
       if (!alive) return;
       const fs = Array.isArray(res.data) ? res.data : [];
       setFolders(fs);
-      // Auto-pick the most-recently-updated folder so the agent boots with context.
-      if (!activeFolderId && fs.length > 0) setActiveFolderId(fs[0].folder_id);
+      // Iter 92.23.11: prefer page-context folder over generic "most recent".
+      // This is the "FAB knows what you're working on" UX Mert asked for.
+      if (!activeFolderId) {
+        const ctxFolderId = pageContext?.folderId;
+        if (ctxFolderId && fs.some(f => f.folder_id === ctxFolderId)) {
+          setActiveFolderId(ctxFolderId);
+        } else if (fs.length > 0) {
+          setActiveFolderId(fs[0].folder_id);
+        }
+      }
     }).catch(err => logger.warn('drawer folders load failed:', err?.message));
     return () => { alive = false; };
-  }, [open, folders.length, activeFolderId]);
+  }, [open, folders.length, activeFolderId, pageContext]);
 
   // Close folder picker on outside-click
   useEffect(() => {
@@ -122,6 +140,7 @@ export const FloatingWladBotDrawer = () => {
   if (isHidden) return null;
 
   const activeFolder = folders.find(f => f.folder_id === activeFolderId);
+  const isContextSuggested = activeFolderId && pageContext?.folderId === activeFolderId;
 
   const send = async (overrideText) => {
     const text = (overrideText || input).trim();
@@ -211,8 +230,16 @@ export const FloatingWladBotDrawer = () => {
                   <span className="flex-1 text-left truncate">
                     {activeFolder ? `${de ? 'Kontext' : 'Context'}: ${activeFolder.name}` : (de ? 'Kein Ordner-Kontext' : 'No folder context')}
                   </span>
+                  {isContextSuggested && (
+                    <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-[#BFFF00]/15 text-[#BFFF00] font-black tracking-wider" data-testid="wladbot-context-auto-pill">AUTO</span>
+                  )}
                   <ChevronDown size={11} className="opacity-60" />
                 </button>
+                {isContextSuggested && pageContext?.entryTitle && (
+                  <p className="text-[9px] text-white/30 px-1 pt-1.5 leading-tight" data-testid="wladbot-context-hint">
+                    {de ? 'Automatisch gewaehlt fuer:' : 'Auto-picked for:'} <span className="text-white/50 italic">{pageContext.entryTitle}</span>
+                  </p>
+                )}
                 {folderPickerOpen && (
                   <div className="absolute left-0 right-0 top-11 z-10 max-h-64 overflow-y-auto rounded-xl bg-[#0F0F1A] border border-white/[0.08] shadow-2xl py-1.5" data-testid="wladbot-folder-picker-pop">
                     <button
