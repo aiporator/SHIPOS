@@ -1,6 +1,6 @@
 """Video challenge routes with Wlad Jachtchenko methodology feedback."""
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import asyncio
 import uuid
 import json
@@ -538,7 +538,7 @@ async def get_video_archive(request: Request):
 
 
 class RenameVideoEntryIn(BaseModel):
-    title: str
+    title: str = Field(..., max_length=200)
 
 
 @router.patch("/video-archive/{entry_id}")
