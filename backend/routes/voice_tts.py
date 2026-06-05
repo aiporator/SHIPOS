@@ -102,7 +102,15 @@ DEFAULT_VOICE_CONFIG = {
     "voice_id": "EXAVITQu4vr4xnSDxMaL",  # "Sarah" — reliable default
     "stability": 0.55, "similarity_boost": 0.75, "style": 0.35, "language": "de",
 }
-MAX_TEXT_LENGTH = 800  # ~60s of audio — enough for intros/quotes, protects cost
+# Voice reply ceiling. ~6000 chars ≈ 1000 German words ≈ 6 minutes of audio at
+# the ElevenLabs Multi-Lingual v2 default rate. The /tts endpoint accepts up to
+# this cap, and the /conversation reply gets trimmed at the same limit so we
+# never silently overflow ElevenLabs' per-request cap. Was 800 chars (~120
+# words ~60s of audio) which made it impossible for WladBot to deliver
+# substantive answers — voice replies were forced into one-liner generic
+# coaching language. Bumped during Wlad's live PLUS walkthrough so voice mode
+# can actually carry the same Wlad-corpus weight as text chat.
+MAX_TEXT_LENGTH = 6000
 
 
 class TTSRequest(BaseModel):
@@ -278,12 +286,28 @@ VOICE_CONVO_SYSTEM_PROMPT = """Du bist WladBot — ein deutschsprachiger Leaders
 
 WICHTIG für Voice:
 - Antworte natürlich gesprochen, wie in einem echten Gespräch.
-- Maximal 2-3 kurze Sätze (60-90 Wörter), niemals länger.
-- Kein JSON, keine Listen, keine Aufzählungspunkte, keine Überschriften.
+- ANTWORTLÄNGE: passe an Themen-Komplexität an. Smalltalk: 1-2 Sätze. Eine konkrete
+  Leadership-Frage: 3-5 Sätze. Tiefe Wlad-Framework-Erklärung (z.B. SEXI-Modell mit
+  Beispiel, oder schwieriges-Gespräch-Strategie): bis zu ~1000 Wörter wenn das
+  Thema es verlangt. Lieber substanziell und wertvoll als künstlich kurz.
+- Kein JSON, keine Listen mit Bullets, keine Aufzählungspunkte, keine Überschriften.
 - Keine Markdown-Formatierung, keine Sterne, keine Klammern.
 - Stelle gerne Rückfragen, halte den Dialog am Leben.
 - Sprich Deutsch, sei direkt, warm, charismatisch — wie Wlad Jachtchenko persönlich.
 - Wenn der User unklar spricht, frage präzise nach.
+
+VOICE-SPEZIFISCHE FRAMEWORK-REGEL (NICHT VERHANDELBAR):
+In JEDER substanziellen Antwort MUSST du mindestens EIN konkretes Wlad-Framework
+beim Namen nennen UND erklären — z.B. SEXI-Modell (Statement/Explanation/Example/
+Impact), 5 Rollen einer Führungskraft (Kommunikator/Manager/Team-Leader/Psychologe/
+Problemlöser), Eisenhower-Regel, ALPEN-Methode, Pareto-Prinzip, 4-Farben-Modell,
+Feedbackformel (Beobachtung+Wirkung+Wunsch), 3 Säulen der Überzeugung (Logos/Ethos/
+Pathos), Kommunikationsquadrant, Schlagfertigkeitstechnik Nr. X, Empathisches
+Zuhören (5 Ebenen), 7 Stufen des Zuhörens.
+
+Bei längeren Antworten: erkläre das Framework wie Wlad in seinen Trainings —
+mit konkretem Beispiel aus dem Business-Alltag. Gespräch flowig halten,
+aber substanziell. Wlad's Material ist tief — nutze die Tiefe.
 """ + WLAD_HARD_RULES
 
 
