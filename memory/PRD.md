@@ -15,6 +15,33 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.8 · 05.06.26] Wingman-Vision Phase 2: Folder Context Injection + Always-On WladBot Drawer + Chat-Session Folders (Mert: „folder.context_summary als System-Prompt-Snippet · Always-on Floating WladBot-Sidebar · Folders auch für Chat-Sessions")** —
+  - **P0 — Folder Context Injection in Chat** (`backend/routes/chat.py`):
+    - Neue Pydantic-Felder `ChatMessageIn.folder_id` und `ChatSessionCreate.folder_id` in `backend/models.py`.
+    - Neue Helper `_resolve_folder_context(folder_id, user_id) → (text, folder_doc)`: owner-guarded, falls quietly bei foreign/missing/empty-summary (kein Info-Leak).
+    - `_build_system_message` nimmt optionalen `folder_context` Parameter und hängt einen klar gelabelten Block `--- AKTIVER ORDNER-KONTEXT ---` an System-Prompt an.
+    - POST `/api/chat` reagiert auf `folder_id` im Request-Body → AI bekommt den `context_summary` mitgeliefert; Response trägt `folder_context_used: bool` als UX-Signal.
+    - End-to-end verifiziert: ohne folder_id → generische Antwort ("Erfolgsfaktoren allgemein"). Mit folder_id+context_summary "C-Level Pitches Q2 / 5min / KPI-Logik" → AI antwortet spezifisch ("Board-Pitch, 5 Min, Finance-Team, klare KPI") ohne dass der User das nochmal erwähnen muss. Genau das Wingman/OpenClaw "agent-next-to-you" Verhalten.
+  - **P1 — Chat-Sessions in Folders** (`backend/routes/chat.py:155-203`):
+    - POST `/api/chat/sessions` mit `folder_id` für eigenen Folder → stempelt `session.folder_id` + erstellt `db.folder_items` Eintrag mit `item_type='chat_session'`, `source_id=session_id`. Foreign folder_id wird stumm ignoriert (200 mit folder_id=null, kein Item erzeugt).
+    - GET `/api/chat/sessions?folder_id=<f>` → filtert nach Folder, sodass das Sidebar nur Chats dieses Folders zeigt. Ohne Param: alle Chats (Regression OK).
+    - Auto-creation in `_ensure_session` (wenn POST /chat ohne session_id, aber mit folder_id startet) stempelt ebenfalls `folder_id` auf neue Session.
+  - **P1 — Floating WladBot Drawer** (`frontend/src/components/shared/FloatingWladBotDrawer.js`, gemountet in `App.js`):
+    - **Globaler FAB** (Floating Action Button) bottom-24 right-6 z-60 — lime Sparkles-Icon mit rosa Pulse-Notification-Dot. Erscheint auf allen authentifizierten Routes außer Login/Signup/Onboarding/Public-Share/Chat (dort gibt's bereits die volle UI).
+    - **Drawer** öffnet von rechts (440px breit, dark theme, slide-in-right Animation, ESC-to-close, click-outside-to-close).
+    - **Folder-Picker** oben mit Dropdown → User wählt aktiven Folder-Kontext, AI antwortet sofort mit injectem context_summary. Auto-Default: most-recently-updated Folder.
+    - **Empty-State**: "Was beschäftigt dich gerade?" + 3 Quick-Prompts ("Heute fokussieren / Gespräch vorbereiten / Reflektieren") — One-Click-Send.
+    - **Inline AI-Rendering**: SmartText rendert INSIGHT (amber Lightbulb) + STRATEGIE (sky Target) Karten mit nummerierten Badges für Listen — exakt das Premium-Look-and-Feel der Haupt-Chat-UI in einer kompakteren Form.
+    - **"Im vollen Chat fortsetzen →"** Button am unteren Rand übergibt session_id + folder_id an `/chat?folder=<id>` für deep dive.
+    - End-to-end live verifiziert: Klick auf Quick-Prompt "Heute fokussieren" produzierte sofort INSIGHT-Card mit Eisenhower-Prinzip-Erklärung + 3-Punkte-STRATEGIE-Card mit nummerierten Schritten. Vollständiges Wingman-Style "agent always next to you" Pattern realisiert.
+  - **Frontend ChatPage Updates** (`pages/ChatPage.js`):
+    - URL-Param `?folder=<folder_id>` aktiviert Folder-Context für die volle Chat-Session.
+    - Active-Folder-Pill oben im Chat zeigt aktuellen Kontext mit Farbe des Folders + Close-Button.
+    - `handleSend` und `handleNewSession` propagieren `folder_id` durch.
+  - **Test Coverage**: 10/10 Backend-Tests GREEN (`/app/backend/tests/test_iter92_23_8_chat_folder_context.py`). Verifiziert: happy-path Injection, foreign-folder-ignore-no-leak, missing-folder-graceful, multi-turn-injection, chat-session-folder-stamp + folder_item-creation, list-sessions-filter, full regression auf Iter 92.23.7 Folders.
+  - **Files** (3 modified + 1 new + 1 test): MODIFIED: `backend/models.py` (+folder_id fields), `backend/routes/chat.py` (folder context helper + _build_system_message + create/list sessions accept folder_id), `frontend/src/pages/ChatPage.js` (+activeFolder pill + ?folder query param), `frontend/src/App.js` (+FloatingWladBotDrawer mount). NEW: `frontend/src/components/shared/FloatingWladBotDrawer.js`, `backend/tests/test_iter92_23_8_chat_folder_context.py`.
+  - **Mert's vision delivered**: P0 + P1 + P1 alle in einer Iteration. Der Agent steht jetzt LITERAL „immer neben dir" als FAB auf jeder Page und kennt deinen aktuellen Kontext. Folders verbinden Video-Missionen UND Chat-Sessions zu einer kohärenten Knowledge-Domain. Die System-Prompt-Injection ist das technische Fundament für die nächste Phase ("Folder-Briefing-Summary" / "RAG nur über Folder-Items").
+
 - [x] **[Iter 92.23.7 · 05.06.26] Video Studio Reimagined: 3+3 First, Magic-Boxes, Replay, Premium PDF, Wingman-Style Folder System (Mert: „video analyse output starts with 3 Dinge, die du verbessern kannst und 3 gut gemacht hast · detailed PDF · video on dashboard so people can replay · proper system to improve and create folders · which also gives context · like wingman.com but for leaders, like openclaw · magic box for more detailed information")** —
   - **3+3 Stärken & Verbesserungen FIRST**: `components/video/AnalysisResults.js` komplett neu strukturiert. Reihenfolge jetzt: Top-Bar → optionaler **Video-Replay** → Title → **3 Stärken (grün) + 3 Verbesserungen (amber)** in zwei nebeneinanderliegenden Karten mit Number-Badges → Wlad-Assessment mit W-Logo + Voice-Player → **kompakter** Score-Strip (war Hero, jetzt slim) → "TIEFER EINTAUCHEN" Section. Browser-verified: ✅
   - **Video Replay** (`pages/VideoChallengePage.js` + `AnalysisResults.js`): MediaRecorder Blob wird nach Stop in `URL.createObjectURL` umgewandelt und an AnalysisResults durchgereicht. "Aufnahme abspielen"-Button in der Top-Bar toggelt einen premium gerahmten `<video controls>`-Player mit lime ring + "DEINE AUFNAHME"-Badge. Sauberer URL-Lifecycle (revoke beim Unmount / Reset / Pick-History / Replay).
