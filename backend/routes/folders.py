@@ -147,6 +147,9 @@ async def delete_folder(folder_id: str, request: Request):
     await db.folders.delete_one({"folder_id": folder_id, "user_id": user["user_id"]})
     # Best-effort: unlink items (we don't delete the underlying video/chat).
     await db.folder_items.delete_many({"folder_id": folder_id, "user_id": user["user_id"]})
+    # Iter 92.23.9 P2: also tear down any active public share so the slug
+    # doesn't return 404 with a dangling folder_shares row in the DB.
+    await db.folder_shares.delete_many({"folder_id": folder_id, "user_id": user["user_id"]})
     # Also clear folder_id off video_challenges entries pointing here.
     await db.video_challenges.update_many(
         {"folder_id": folder_id, "user_id": user["user_id"]},
