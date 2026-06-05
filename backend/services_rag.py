@@ -42,7 +42,7 @@ EMBEDDING_DIM = 1024
 # zero context. Iter 92.6 lowered to 0.25 to actually surface relevant chunks.
 MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
 MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
-MAX_CONTEXT_CHARS = 4000     # truncate injected context to keep prompt size sane
+MAX_CONTEXT_CHARS = 14000    # Iter 92.23.5: bumped 4k → 14k to fit the new long course transcripts (avg 4000 chars/chunk × 3-4 chunks fits comfortably in GPT-5.2 context).
 CACHE_TTL_SECONDS = 1800     # in-memory cache, 30min — covers chatty sessions
 CACHE_MAX_ENTRIES = 1024
 
@@ -196,7 +196,14 @@ async def _backfill_metadata(client, url: str, key: str,
 
 
 def _format_chunks_for_prompt(chunks: list[dict]) -> str:
-    """Format retrieved chunks into a single context block for the system prompt."""
+    """Format retrieved chunks into a single context block for the system prompt.
+
+    Iter 92.23.5 (Mert 1605-chunk audit): if even the first chunk exceeds the
+    budget, we truncate it instead of returning empty — Wlad's new course
+    transcripts are 4kB each, and dropping all of them silently is much worse
+    than feeding a slightly-clipped first chunk. The budget itself was also
+    bumped (4k → 14k) so the common case is 3-4 full chunks injected.
+    """
     if not chunks:
         return ""
     lines = []
@@ -205,9 +212,15 @@ def _format_chunks_for_prompt(chunks: list[dict]) -> str:
         content = (c.get("content") or "").strip()
         if not content:
             continue
-        snippet = f"[Quelle {i} · Relevanz {c.get('similarity', 0):.2f}]\n{content}"
-        if total + len(snippet) > MAX_CONTEXT_CHARS:
+        header = f"[Quelle {i} · Relevanz {c.get('similarity', 0):.2f}]\n"
+        budget_left = MAX_CONTEXT_CHARS - total - len(header)
+        if budget_left <= 200:
+            # No room for even a meaningful excerpt — stop appending
             break
+        if len(content) > budget_left:
+            # Truncate the chunk to fit; better than dropping it entirely
+            content = content[:budget_left].rsplit(" ", 1)[0] + " […]"
+        snippet = header + content
         lines.append(snippet)
         total += len(snippet)
     if not lines:

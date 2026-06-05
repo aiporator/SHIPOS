@@ -15,6 +15,16 @@ React + Tailwind + Shadcn/UI | FastAPI + MongoDB | GPT-5.2 + Whisper + Stripe + 
 | **Accelerator** 👑 | **€6.970** oder **12× €580,83** | 730 Tage | ✅ EXCLUSIVE | 6× | ✅ |
 
 ## Deployed Features
+- [x] **[Iter 92.23.5 · 05.06.26] CRITICAL FIX: RAG Context Budget für 996-chunk Ingest (Mert: „1605 chunks ingestet, jetzt final check") — silent corpus-dropping detected & fixed** —
+  - **Bug**: Nach dem 609 → 1605 chunk Ingest hat der RAG-Auditer `chunks_count=6` aber `context_block=""` für viele neue Queries (Charisma, Weiße Rhetorik, Motivation, Homeoffice etc.) zurückgegeben. **Symptom**: "RAG findet nichts." **Root-Cause**: Die neuen Course-Transcript-Chunks sind je 4000-4146 Zeichen lang. `MAX_CONTEXT_CHARS=4000` blockierte **schon den ersten Chunk** (`4146 + 30 header = 4176 > 4000 → break`) → leerer Context-Block.
+  - **Fix** (`backend/services_rag.py`):
+    - `MAX_CONTEXT_CHARS: 4000 → 14000` (passt 3-4 volle Course-Chunks gleichzeitig, well within GPT-5.2 128k context window)
+    - **Smart truncate**: wenn auch nach Bump ein Chunk noch zu groß ist, schneiden auf last-word-boundary + `[…]` Marker statt komplett droppen
+    - **Minimum useful excerpt** check (200 chars) — wenn budget nach n Chunks <200 chars hat, stoppen statt useless-trimming
+  - **Pre-fix audit**: 10/17 hits (58%) — alle Original-curated working, alle neuen courses BROKEN
+  - **Post-fix audit**: **17/17 hits (100%)** mit avg 13533 ch Wlad-context per query, 550-1150ms latency
+  - **Verified surfaces**: alle Buckets — Original (SEXI, 3 Säulen, Komm-Quadrant, Schwarze Rhetorik, Eisenhower, ALPEN), NEW courses (Charisma LIVE 2026.02.04, Weiße Rhetorik, Motivation LIVE 2026.01.29, Präsentation, Homeoffice LIVE 2026.02.25, Argumentorik 5-Rollen), Operational (Mitarbeitergespräche, Pitch-Storytelling, Vorstand-Konflikt, Diversity, Empathie+Autorität)
+  - **Files Touched**: `backend/services_rag.py`
 - [x] **[Iter 92.23.4 · 04.06.26] RAG Voyage 429-Retry + Production Cache (Mert: „Final RAG check so all output uses Wlads knowledge")** —
   - **Voyage 429-Retry** (`backend/services_rag.py:_embed_query`): Exponential backoff 0.5s → 1.5s → 2.5s → 3.5s + respects `Retry-After` header. 4 attempts max, dann graceful fallback. Vorher: ein einziger 429 → leerer context. Jetzt: transparent latency-bump bei Rate-Limit-Spike.
   - **Cache TTL: 60s → 30min** + max-entries 256 → 1024: chatty Sessions (User stellt 10 Fragen in 10 Minuten) hitten jetzt cache, sparen Voyage tokens und vermeiden 429.
