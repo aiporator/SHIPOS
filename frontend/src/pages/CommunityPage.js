@@ -5,11 +5,22 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../lib/api';
 import logger from '../lib/logger';
-import { Users, Loader2 } from 'lucide-react';
+import { Users, Loader2, Heart, Flame, User as UserIcon } from 'lucide-react';
 import { CommunityCompose } from '../components/community/CommunityCompose';
 import { CommunityFilters } from '../components/community/CommunityFilters';
 import { CommunityPost } from '../components/community/CommunityPost';
 import { CommunityLeaderboard } from '../components/community/CommunityLeaderboard';
+import { CommunityMeStats } from '../components/community/CommunityMeStats';
+import { CommunityFeedTabs } from '../components/community/CommunityFeedTabs';
+
+const EMPTY_COPY = {
+  all:   { de: 'Noch keine Posts. Sei die Erste, die etwas teilt!',                 en: 'No posts yet. Be the first to share!' },
+  top:   { de: 'Noch keine Top-Posts. Klicke ein Herz und der erste landet hier.',  en: 'No top posts yet. Like a post and one will appear here.' },
+  mine:  { de: 'Du hast noch nichts gepostet. Teile deinen ersten Win!',            en: "You haven't posted yet. Share your first win!" },
+  liked: { de: 'Du hast noch nichts geliked.',                                       en: "You haven't liked anything yet." },
+};
+
+const EMPTY_ICON = { all: Users, top: Flame, mine: UserIcon, liked: Heart };
 
 export default function CommunityPage() {
   const { lang } = useLanguage();
@@ -18,6 +29,7 @@ export default function CommunityPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('all');
+  const [feed, setFeed] = useState('all');
   const [draft, setDraft] = useState('');
   const [draftCategory, setDraftCategory] = useState('general');
   const [posting, setPosting] = useState(false);
@@ -30,14 +42,14 @@ export default function CommunityPage() {
     setLoading(true);
     try {
       const [feedRes, lbRes] = await Promise.all([
-        api.get('/community/feed', { params: { category } }),
+        api.get('/community/feed', { params: { category, feed } }),
         api.get('/admin/community/leaderboard', { params: { limit: 10 } }).catch(() => ({ data: [] })),
       ]);
       setPosts(feedRes.data || []);
       setLeaderboard(lbRes.data || []);
     } catch (err) { logger.error(err); }
     finally { setLoading(false); }
-  }, [category]);
+  }, [category, feed]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -90,6 +102,9 @@ export default function CommunityPage() {
     } catch (err) { logger.error(err); }
   };
 
+  const EmptyIcon = EMPTY_ICON[feed] || Users;
+  const emptyCopy = (EMPTY_COPY[feed] || EMPTY_COPY.all)[de ? 'de' : 'en'];
+
   return (
     <DashboardLayout>
       <div className="p-6 lg:p-10 max-w-6xl mx-auto" data-testid="community-page">
@@ -107,6 +122,10 @@ export default function CommunityPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div className="space-y-5 min-w-0">
+            {/* Personalisierter Stats-Header (Mert Iter 92.23.6): zeigt dem User
+                seinen aktuellen Community-Rang prominent oberhalb des Feeds. */}
+            <CommunityMeStats de={de} />
+
             <CommunityCompose
               me={me} de={de}
               draft={draft} setDraft={setDraft}
@@ -114,14 +133,15 @@ export default function CommunityPage() {
               posting={posting} onSubmit={createPost}
             />
 
+            <CommunityFeedTabs feed={feed} setFeed={setFeed} de={de} />
             <CommunityFilters category={category} setCategory={setCategory} de={de} />
 
             {loading ? (
               <div className="text-center py-16"><Loader2 size={24} className="mx-auto animate-spin text-[#BFFF00]" /></div>
             ) : posts.length === 0 ? (
-              <Card><CardContent className="p-10 text-center space-y-2">
-                <Users size={32} className="mx-auto text-muted-foreground/40" />
-                <p className="text-sm text-muted-foreground">{de ? 'Noch keine Posts. Sei die Erste, die etwas teilt!' : 'No posts yet. Be the first to share!'}</p>
+              <Card data-testid="community-feed-empty"><CardContent className="p-10 text-center space-y-2">
+                <EmptyIcon size={32} className="mx-auto text-muted-foreground/40" />
+                <p className="text-sm text-muted-foreground">{emptyCopy}</p>
               </CardContent></Card>
             ) : (
               <div className="space-y-3">
@@ -145,7 +165,7 @@ export default function CommunityPage() {
             )}
           </div>
 
-          <CommunityLeaderboard leaderboard={leaderboard} postsCount={posts.length} de={de} />
+          <CommunityLeaderboard leaderboard={leaderboard} postsCount={posts.length} de={de} me={me} />
         </div>
       </div>
     </DashboardLayout>

@@ -537,6 +537,44 @@ async def get_video_archive(request: Request):
     return docs
 
 
+class RenameVideoEntryIn(BaseModel):
+    title: str
+
+
+@router.patch("/video-archive/{entry_id}")
+async def rename_video_entry(entry_id: str, payload: RenameVideoEntryIn, request: Request):
+    """Rename a video-mission entry. Owner-only. Used by the Studio View sidebar."""
+    user = await get_current_user(request)
+    title = (payload.title or "").strip()[:160]
+    if not title:
+        raise HTTPException(status_code=400, detail="Titel darf nicht leer sein")
+    result = await db.video_challenges.update_one(
+        {"entry_id": entry_id, "user_id": user["user_id"]},
+        {"$set": {"custom_title": title}},
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Mission-Eintrag nicht gefunden")
+    return {"entry_id": entry_id, "custom_title": title}
+
+
+@router.delete("/video-archive/{entry_id}")
+async def delete_video_entry(entry_id: str, request: Request):
+    """Delete a single video-mission attempt. Owner-only.
+
+    Also cleans up any associated mission_share entries so the public landing
+    page no longer 410s a dangling slug.
+    """
+    user = await get_current_user(request)
+    result = await db.video_challenges.delete_one(
+        {"entry_id": entry_id, "user_id": user["user_id"]},
+    )
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Mission-Eintrag nicht gefunden")
+    # Best-effort cleanup of share-slug.
+    await db.mission_shares.delete_many({"entry_id": entry_id, "user_id": user["user_id"]})
+    return {"deleted": True}
+
+
 # ── Shared Mission Replay Links (Iter 92.23) ──────────────────────────────
 # Mert wants users to share their best video analyses as public landing pages.
 # Use case: "Look — I scored 88/100 on the Boardroom challenge in WladBot!"

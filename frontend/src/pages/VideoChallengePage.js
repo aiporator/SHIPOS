@@ -9,6 +9,7 @@ import { TierLockOverlay } from '../components/shared/TierLockOverlay';
 import { ChallengeList } from '../components/video/ChallengeList';
 import { RecordingStudio } from '../components/video/RecordingStudio';
 import { VideoUpsellModal } from '../components/video/VideoUpsellModal';
+import { VideoStudioSidebar } from '../components/video/VideoStudioSidebar';
 import api from '../lib/api';
 import { downloadHTMLReport } from '../lib/reportGenerator';
 
@@ -29,6 +30,10 @@ export default function VideoChallengePage() {
   const [showUpsell, setShowUpsell] = useState(false);
   const [ratingConfig, setRatingConfig] = useState(DEFAULT_RATING);
   const [trial, setTrial] = useState(null);
+  // Studio: history list + active entry id
+  const [archive, setArchive] = useState([]);
+  const [archiveLoading, setArchiveLoading] = useState(false);
+  const [activeEntryId, setActiveEntryId] = useState(null);
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
@@ -36,13 +41,25 @@ export default function VideoChallengePage() {
   const blobRef = useRef(null);
   const submitVideoRef = useRef(null);  // Iter 92.22: ref so MediaRecorder.onstop can auto-submit
 
-  // Trial-aware access: Accelerator always passes, others get 3 free in first 14 days.
+  const de = lang === 'de';
   const canAccess = isAccelerator || Boolean(trial?.active);
 
   const saveGlobalPrefs = useCallback(async (newConfig) => {
     setRatingConfig(newConfig);
     try { await api.put('/auth/profile', { rating_preferences: newConfig }); }
     catch (err) { logger.error('Failed to save rating preferences:', err); }
+  }, []);
+
+  const loadArchive = useCallback(async () => {
+    setArchiveLoading(true);
+    try {
+      const res = await api.get('/video-archive');
+      setArchive(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      logger.error('Failed to load video archive:', err);
+    } finally {
+      setArchiveLoading(false);
+    }
   }, []);
 
   const loadChallenges = useCallback(async () => {
@@ -83,8 +100,7 @@ export default function VideoChallengePage() {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
       setRecorded(true);
       // Iter 92.22 (Mert): Auto-Submit nach Stop. User soll nicht erst auf
-      // "Submit" klicken — die Analyse läuft direkt los, sobald die Aufnahme
-      // beendet ist (manuell gestoppt ODER Zeitlimit erreicht).
+      // "Submit" klicken — die Analyse läuft direkt los.
       setTimeout(() => { submitVideoRef.current?.(); }, 250);
     };
     mr.start();
@@ -93,7 +109,7 @@ export default function VideoChallengePage() {
     timerRef.current = setInterval(() => setTimer(t => t + 1), 1000);
   }, [stream]);
 
-  useEffect(() => { loadChallenges(); }, [loadChallenges]);
+  useEffect(() => { loadChallenges(); loadArchive(); }, [loadChallenges, loadArchive]);
   useEffect(() => { return () => { if (stream) stream.getTracks().forEach(t => t.stop()); }; }, [stream]);
   useEffect(() => {
     if (recording && timer >= (activeChallenge?.time_limit || 180)) stopRecording();
@@ -102,14 +118,14 @@ export default function VideoChallengePage() {
   const startChallenge = async (challenge) => {
     setActiveChallenge(challenge);
     setAnalysis(null); setRecorded(false); setTimer(0);
+    setActiveEntryId(null);
     try {
       const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       setStream(s);
       if (videoRef.current) { videoRef.current.srcObject = s; videoRef.current.muted = true; }
     } catch (err) {
       logger.error('Camera access denied:', err);
-      // Surface the failure so the user doesn't sit through a countdown that goes nowhere.
-      const msg = lang === 'de'
+      const msg = de
         ? 'Kamera-Zugriff verweigert. Bitte in deinen Browser-Einstellungen erlauben und neu laden.'
         : 'Camera access denied. Please allow it in browser settings and reload.';
       try { (await import('sonner')).toast.error(msg); }
@@ -129,10 +145,6 @@ export default function VideoChallengePage() {
       if (ratingConfig.focus?.length) params.set('rating_focus', ratingConfig.focus.join(','));
       params.set('rating_audience', ratingConfig.audience);
 
-      // Async job pattern — bypasses Cloudflare 30s edge timeout. The backend
-      // returns immediately with a job_id; we poll until status === 'complete'.
-      // Falls back to synchronous /analyze if the async endpoint isn't deployed
-      // yet (defensive: covers Vercel-rollout window).
       let analysisResult = null;
       try {
         const startRes = await api.post(
@@ -141,8 +153,6 @@ export default function VideoChallengePage() {
         );
         const jobId = startRes.data?.job_id;
         if (!jobId) throw new Error('no_job_id');
-        // Poll for up to 5 minutes (every 2.5s = 120 attempts). Realistic max for
-        // a 60-min audio with parallel chunked Whisper + GPT-5.2 is ~90s.
         const POLL_INTERVAL_MS = 2500;
         const MAX_POLLS = 120;
         let consecutivePollErrors = 0;
@@ -154,14 +164,12 @@ export default function VideoChallengePage() {
             job = pollRes.data;
             consecutivePollErrors = 0;
           } catch (pollErr) {
-            // Whisper sync-IO can briefly stall the backend event loop —
-            // tolerate up to 5 in a row before giving up.
             consecutivePollErrors += 1;
             logger.warn(`poll attempt ${i+1} failed (${consecutivePollErrors}/5):`, pollErr?.message);
             if (consecutivePollErrors >= 5) throw pollErr;
             continue;
           }
-          if (!job || !job.status) continue;  // empty body = transient — keep polling
+          if (!job || !job.status) continue;
           if (job.status === 'complete') {
             analysisResult = job.analysis;
             break;
@@ -174,7 +182,6 @@ export default function VideoChallengePage() {
         }
         if (!analysisResult) throw new Error('Zeitüberschreitung — bitte Aufnahme erneut hochladen');
       } catch (asyncErr) {
-        // 404 → /analyze-async not deployed yet → fall through to sync endpoint
         if (asyncErr?.response?.status === 404) {
           logger.warn('async endpoint missing, falling back to sync /analyze');
           const res = await api.post(
@@ -188,12 +195,15 @@ export default function VideoChallengePage() {
       }
 
       setAnalysis(analysisResult);
+      setActiveEntryId(analysisResult?.entry_id || null);
       if (analysisResult?._trial) setTrial(analysisResult._trial);
       if (stream) stream.getTracks().forEach(t => t.stop());
       setStream(null);
+      // Refresh the sidebar so the new mission appears immediately.
+      loadArchive();
     } catch (err) {
       logger.error('Analysis failed:', err);
-      const detail = err?.response?.data?.detail || err?.message || (lang === 'de'
+      const detail = err?.response?.data?.detail || err?.message || (de
         ? 'Analyse konnte nicht abgeschlossen werden. Bitte erneut aufnehmen.'
         : 'Analysis could not be completed. Please record again.');
       try {
@@ -203,12 +213,11 @@ export default function VideoChallengePage() {
     }
     finally { setAnalyzing(false); }
   };
-  // Keep submitVideoRef in sync so auto-submit on MediaRecorder.onstop works.
   submitVideoRef.current = submitVideo;
 
   const resetChallenge = () => {
     setActiveChallenge(null); setAnalysis(null); setRecorded(false);
-    setRecording(false); setTimer(0);
+    setRecording(false); setTimer(0); setActiveEntryId(null);
     if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null); }
   };
 
@@ -234,91 +243,156 @@ export default function VideoChallengePage() {
     });
   };
 
+  // Studio sidebar handlers — pick a historical entry → load its analysis read-only.
+  const handlePickEntry = (entry) => {
+    if (recording) return; // don't yank the user out of a live recording
+    const challenge = challenges.find(c => c.challenge_id === entry.challenge_id) || {
+      title: entry.custom_title || 'Mission',
+      description: '',
+    };
+    setActiveChallenge(challenge);
+    setAnalysis(entry.analysis || null);
+    setActiveEntryId(entry.entry_id);
+    setRecorded(false);
+    setRecording(false);
+    if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null); }
+  };
+
+  const handleNewMission = () => {
+    resetChallenge();
+  };
+
+  const handleRenameEntry = async (entryId, newTitle) => {
+    const title = (newTitle || '').trim();
+    if (!title) return;
+    // Optimistic update for snappy UX
+    setArchive(prev => prev.map(e => e.entry_id === entryId ? { ...e, custom_title: title } : e));
+    try {
+      await api.patch(`/video-archive/${entryId}`, { title });
+    } catch (err) {
+      logger.error('Rename failed:', err);
+      loadArchive();
+      try {
+        const { toast } = await import('sonner');
+        toast.error(de ? 'Umbenennen fehlgeschlagen' : 'Rename failed');
+      } catch (_) { /* noop */ }
+    }
+  };
+
+  const handleDeleteEntry = async (entryId) => {
+    // Optimistic remove
+    setArchive(prev => prev.filter(e => e.entry_id !== entryId));
+    if (activeEntryId === entryId) {
+      setAnalysis(null); setActiveEntryId(null);
+    }
+    try {
+      await api.delete(`/video-archive/${entryId}`);
+    } catch (err) {
+      logger.error('Delete failed:', err);
+      loadArchive();
+      try {
+        const { toast } = await import('sonner');
+        toast.error(de ? 'Löschen fehlgeschlagen' : 'Delete failed');
+      } catch (_) { /* noop */ }
+    }
+  };
+
   return (
     <DashboardLayout>
-      {!canAccess && !tierCtx.loading && <TierLockOverlay feature="video_analysis" requiredTier="accelerator" de={lang === 'de'} />}
-      <LoadingOverlay isOpen={analyzing} flow="video" de={lang === 'de'} />
-      <div className="p-6 lg:p-10 max-w-4xl mx-auto bg-gradient-mesh min-h-screen" data-testid="video-challenge-page">
-        {showUpsell && <VideoUpsellModal onClose={() => setShowUpsell(false)} lang={lang} />}
+      {!canAccess && !tierCtx.loading && <TierLockOverlay feature="video_analysis" requiredTier="accelerator" de={de} />}
+      <LoadingOverlay isOpen={analyzing} flow="video" de={de} />
+      <div className="flex flex-col lg:flex-row min-h-screen" data-testid="video-studio-shell">
+        <VideoStudioSidebar
+          entries={archive}
+          challenges={challenges}
+          activeEntryId={activeEntryId}
+          loading={archiveLoading}
+          onPickEntry={handlePickEntry}
+          onNewMission={handleNewMission}
+          onRename={handleRenameEntry}
+          onDelete={handleDeleteEntry}
+          de={de}
+        />
 
-        {/* Trial banner — visible for Free/Standard users with active trial */}
-        {!isAccelerator && trial?.eligible && (
-          <div className={`mb-5 rounded-2xl border px-4 py-3 flex items-center gap-3 ${trial.active ? 'bg-[#BFFF00]/10 border-[#BFFF00]/30' : 'bg-rose-500/5 border-rose-500/20'}`} data-testid="video-trial-banner">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
-              <span className="text-[13px] font-black">{trial.remaining}</span>
+        <div className="flex-1 min-w-0 p-6 lg:p-10 max-w-4xl mx-auto bg-gradient-mesh" data-testid="video-challenge-page">
+          {showUpsell && <VideoUpsellModal onClose={() => setShowUpsell(false)} lang={lang} />}
+
+          {/* Trial banner — visible for Free/Standard users with active trial */}
+          {!isAccelerator && trial?.eligible && (
+            <div className={`mb-5 rounded-2xl border px-4 py-3 flex items-center gap-3 ${trial.active ? 'bg-[#BFFF00]/10 border-[#BFFF00]/30' : 'bg-rose-500/5 border-rose-500/20'}`} data-testid="video-trial-banner">
+              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
+                <span className="text-[13px] font-black">{trial.remaining}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[12px] font-bold leading-tight" data-testid="video-trial-headline">
+                  {trial.active
+                    ? (de
+                        ? `Du hast ${trial.remaining} von ${trial.total} kostenlosen Video-Analysen übrig`
+                        : `${trial.remaining} of ${trial.total} free video analyses remaining`)
+                    : (de
+                        ? 'Dein gratis Video-Analyse-Kontingent ist aufgebraucht'
+                        : 'Your free video analysis quota is used up')
+                  }
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">
+                  {trial.active
+                    ? (de
+                        ? `Probier-Phase läuft noch ${trial.days_left} Tage — danach exklusiv im Leadership OS PLUS.`
+                        : `Trial ends in ${trial.days_left} days — then PLUS exclusive.`)
+                    : (de
+                        ? 'Upgrade auf Leadership OS PLUS für unbegrenzte Analysen.'
+                        : 'Upgrade to Leadership OS PLUS for unlimited analyses.')
+                  }
+                </p>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[12px] font-bold leading-tight" data-testid="video-trial-headline">
-                {trial.active
-                  ? (lang === 'de'
-                      ? `Du hast ${trial.remaining} von ${trial.total} kostenlosen Video-Analysen übrig`
-                      : `${trial.remaining} of ${trial.total} free video analyses remaining`)
-                  : (lang === 'de'
-                      ? 'Dein gratis Video-Analyse-Kontingent ist aufgebraucht'
-                      : 'Your free video analysis quota is used up')
-                }
-              </p>
-              <p className="text-[10px] text-muted-foreground mt-0.5">
-                {trial.active
-                  ? (lang === 'de'
-                      ? `Probier-Phase läuft noch ${trial.days_left} Tage — danach exklusiv im Leadership OS PLUS.`
-                      : `Trial ends in ${trial.days_left} days — then PLUS exclusive.`)
-                  : (lang === 'de'
-                      ? 'Upgrade auf Leadership OS PLUS für unbegrenzte Analysen.'
-                      : 'Upgrade to Leadership OS PLUS for unlimited analyses.')
-                }
-              </p>
-            </div>
-          </div>
-        )}
+          )}
 
-        {!activeChallenge && !analysis && (
-          <ChallengeList
-            challenges={challenges}
-            ratingConfig={ratingConfig}
-            onSaveRatingConfig={saveGlobalPrefs}
-            onStartChallenge={startChallenge}
-            lang={lang}
-          />
-        )}
+          {!activeChallenge && !analysis && (
+            <ChallengeList
+              challenges={challenges}
+              ratingConfig={ratingConfig}
+              onSaveRatingConfig={saveGlobalPrefs}
+              onStartChallenge={startChallenge}
+              lang={lang}
+            />
+          )}
 
-        {activeChallenge && !analysis && (
-          <RecordingStudio
-            activeChallenge={activeChallenge}
-            recording={recording} recorded={recorded} analyzing={analyzing}
-            timer={timer} videoRef={videoRef}
-            ratingConfig={ratingConfig} onSaveRatingConfig={saveGlobalPrefs}
-            onCancel={resetChallenge}
-            onStartRecording={startRecording} onStopRecording={stopRecording}
-            onReset={() => { setRecorded(false); setTimer(0); }}
-            onSubmit={submitVideo}
-            lang={lang}
-          />
-        )}
+          {activeChallenge && !analysis && (
+            <RecordingStudio
+              activeChallenge={activeChallenge}
+              recording={recording} recorded={recorded} analyzing={analyzing}
+              timer={timer} videoRef={videoRef}
+              ratingConfig={ratingConfig} onSaveRatingConfig={saveGlobalPrefs}
+              onCancel={resetChallenge}
+              onStartRecording={startRecording} onStopRecording={stopRecording}
+              onReset={() => { setRecorded(false); setTimer(0); }}
+              onSubmit={submitVideo}
+              lang={lang}
+            />
+          )}
 
-        {analysis && (
-          <AnalysisResults
-            analysis={analysis}
-            activeChallenge={activeChallenge}
-            resetChallenge={resetChallenge}
-            handleDownloadReport={handleDownloadReport}
-            setShowUpsell={setShowUpsell}
-            lang={lang}
-            isAccelerator={isAccelerator}
-            onReplay={(challenge) => {
-              // Iter 92.23: "Mission wiederholen" — clear analysis state and
-              // restart camera with the same challenge so the user can record
-              // a second attempt immediately. Previous attempts remain in
-              // /missions/archive for side-by-side comparison.
-              setAnalysis(null);
-              setRecorded(false);
-              setRecording(false);
-              setTimer(0);
-              blobRef.current = null;
-              if (challenge) startChallenge(challenge);
-            }}
-          />
-        )}
+          {analysis && (
+            <AnalysisResults
+              analysis={analysis}
+              activeChallenge={activeChallenge}
+              resetChallenge={resetChallenge}
+              handleDownloadReport={handleDownloadReport}
+              setShowUpsell={setShowUpsell}
+              lang={lang}
+              isAccelerator={isAccelerator}
+              onReplay={(challenge) => {
+                setAnalysis(null);
+                setRecorded(false);
+                setRecording(false);
+                setTimer(0);
+                setActiveEntryId(null);
+                blobRef.current = null;
+                if (challenge) startChallenge(challenge);
+              }}
+            />
+          )}
+        </div>
       </div>
     </DashboardLayout>
   );

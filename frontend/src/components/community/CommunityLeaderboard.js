@@ -9,7 +9,7 @@ const medalFor = (idx) => {
   return `${idx + 1}.`;
 };
 
-export const CommunityLeaderboard = ({ leaderboard, postsCount, de }) => (
+export const CommunityLeaderboard = ({ leaderboard, postsCount, de, me }) => (
   <aside className="space-y-4">
     <Card className="border-black/[0.06] dark:border-white/[0.06] sticky top-6" data-testid="leaderboard-card">
       <CardContent className="p-5">
@@ -21,24 +21,31 @@ export const CommunityLeaderboard = ({ leaderboard, postsCount, de }) => (
           <p className="text-[10px] text-muted-foreground/50">{de ? 'Noch keine Daten.' : 'No data yet.'}</p>
         ) : (
           <div className="space-y-2.5">
-            {leaderboard.map((lb, i) => (
-              <div key={lb.user_id} className="flex items-center gap-2.5" data-testid={`lb-row-${i}`}>
-                <span className="text-[11px] font-black w-6 text-center shrink-0">{medalFor(i)}</span>
-                <Avatar className="w-7 h-7 shrink-0">
-                  {lb.picture && <AvatarImage src={lb.picture} />}
-                  <AvatarFallback className="text-[9px] font-bold bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] text-[#0A0A0A]">
-                    {(lb.name || 'L')[0].toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1">
-                    <p className="text-[11px] font-bold truncate">{lb.name}</p>
-                    {lb.tier === 'accelerator' && <Crown size={8} className="text-[#BFFF00] shrink-0" />}
+            {leaderboard.map((lb, i) => {
+              const isMe = me?.user_id && lb.user_id === me.user_id;
+              return (
+                <div
+                  key={lb.user_id}
+                  className={`flex items-center gap-2.5 rounded-lg px-1.5 py-1 ${isMe ? 'bg-[#BFFF00]/10 ring-1 ring-[#BFFF00]/30' : ''}`}
+                  data-testid={`lb-row-${i}`}
+                >
+                  <span className="text-[11px] font-black w-6 text-center shrink-0">{medalFor(i)}</span>
+                  <Avatar className="w-7 h-7 shrink-0">
+                    {lb.picture && <AvatarImage src={lb.picture} />}
+                    <AvatarFallback className="text-[9px] font-bold bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] text-[#0A0A0A]">
+                      {(lb.name || 'L')[0].toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1">
+                      <p className="text-[11px] font-bold truncate">{isMe ? (de ? 'Du' : 'You') : lb.name}</p>
+                      {lb.tier === 'accelerator' && <Crown size={8} className="text-[#BFFF00] shrink-0" />}
+                    </div>
+                    <p className="text-[9px] text-muted-foreground truncate">{lb.post_count} · {lb.total_likes} ♥ · {lb.xp} XP</p>
                   </div>
-                  <p className="text-[9px] text-muted-foreground truncate">{lb.post_count} · {lb.total_likes} ♥ · {lb.xp} XP</p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </CardContent>

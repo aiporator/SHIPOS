@@ -1,5 +1,6 @@
 import { Badge } from '../ui/badge';
 import { Lightbulb, Target, ListChecks, CheckCircle2 } from 'lucide-react';
+import SmartText from '../shared/SmartText';
 
 const UserMessage = ({ content }) => (
   <div className="flex justify-end mb-4 animate-fade-in" data-testid="chat-user-message">
@@ -12,7 +13,7 @@ const UserMessage = ({ content }) => (
 const PlainAssistantMessage = ({ content }) => (
   <div className="flex mb-4 animate-fade-in" data-testid="chat-ai-message">
     <div className="max-w-[80%] bg-white dark:bg-card border border-black/[0.06] dark:border-white/[0.06] rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
-      <p className="text-sm whitespace-pre-wrap">{content}</p>
+      <SmartText text={content} variant="inline" accent="#BFFF00" icon={Lightbulb} />
     </div>
   </div>
 );
@@ -40,7 +41,7 @@ export const ChatMessage = ({ msg, de }) => {
               <Lightbulb size={14} className="text-amber-500" />
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{de ? 'Leadership-Erkenntnis' : 'Leadership Insight'}</span>
             </div>
-            <p className="text-sm">{parsed.insight}</p>
+            <SmartText text={parsed.insight} variant="inline" accent="#F59E0B" icon={Lightbulb} />
           </div>
         )}
         {parsed.strategy && (
@@ -49,7 +50,7 @@ export const ChatMessage = ({ msg, de }) => {
               <Target size={14} className="text-sky-600" />
               <span className="text-[10px] font-bold text-sky-600/70 uppercase tracking-wider">{de ? 'Strategie' : 'Strategy'}</span>
             </div>
-            <p className="text-sm">{parsed.strategy}</p>
+            <SmartText text={parsed.strategy} variant="inline" accent="#0EA5E9" icon={Target} />
           </div>
         )}
         {parsed.action_steps?.length > 0 && (

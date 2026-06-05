@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
 import VoicePlayButton from '../shared/VoicePlayButton';
+import SmartText from '../shared/SmartText';
 
 export const AnalysisResults = ({
   analysis, activeChallenge, resetChallenge, handleDownloadReport,
@@ -174,7 +175,9 @@ export const AnalysisResults = ({
                     showWave
                   />
                 </div>
-                <p className="text-sm leading-relaxed text-white/90 mt-2">{analysis.wlad_assessment}</p>
+                <div className="text-white/90 mt-2 [&_*]:!text-white/90 [&_.text-foreground]:!text-white [&_strong]:!text-white">
+                  <SmartText text={analysis.wlad_assessment} accent="#BFFF00" icon={Lightbulb} />
+                </div>
               </div>
             </div>
           </CardContent>
@@ -190,7 +193,7 @@ export const AnalysisResults = ({
                 <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#4A6200] dark:text-[#BFFF00] mb-2">
                   {de ? '3 Säulen Analyse' : '3 Pillars Analysis'}
                 </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{analysis.framework_feedback.drei_saeulen}</p>
+                <SmartText text={analysis.framework_feedback.drei_saeulen} accent="#BFFF00" icon={Lightbulb} />
               </CardContent>
             </Card>
           )}
@@ -200,7 +203,7 @@ export const AnalysisResults = ({
                 <h4 className="text-[11px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
                   {de ? 'Kommunikationsquadrant' : 'Communication Quadrant'}
                 </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{analysis.framework_feedback.kommunikationsquadrant}</p>
+                <SmartText text={analysis.framework_feedback.kommunikationsquadrant} accent="#10B981" icon={Target} />
               </CardContent>
             </Card>
           )}
@@ -354,7 +357,7 @@ export const AnalysisResults = ({
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-2">
               <TrendingUp size={11} className="inline mr-1" /> {de ? 'Vergleich mit vorherigen Versuchen' : 'Compared to Previous Attempts'}
             </h4>
-            <p className="text-sm leading-relaxed">{analysis.improvement_vs_previous}</p>
+            <SmartText text={analysis.improvement_vs_previous} accent="#0EA5E9" icon={TrendingUp} />
           </CardContent>
         </Card>
       )}

@@ -3,6 +3,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { User, Briefcase, Users, Target, TrendingUp, ShieldCheck, Download, Video, Star, ArrowRight } from 'lucide-react';
 import { ResultCards } from './ResultCards';
+import SmartText from '../shared/SmartText';
 
 const PersonaSummary = ({ persona, de }) => (
   <Card className="bg-gradient-to-r from-[#BFFF00]/[0.06] to-[#BFFF00]/[0.04] dark:from-[#BFFF00]/[0.04] dark:to-[#BFFF00]/[0.03] border-[#BFFF00]/20 dark:border-[#BFFF00]/10">
@@ -28,7 +29,7 @@ const CounterCheckCard = ({ text, de }) => (
         <ShieldCheck size={16} className="text-amber-600" />
         <h4 className="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">{de ? 'Gegencheck — Devil\'s Advocate' : 'Counter-Check — Devil\'s Advocate'}</h4>
       </div>
-      <p className="text-sm leading-relaxed">{text}</p>
+      <SmartText text={text} accent="#F59E0B" icon={ShieldCheck} />
     </CardContent>
   </Card>
 );
