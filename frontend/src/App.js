@@ -33,6 +33,7 @@ const ProfilePage = lazyWithRetry(() => import("./pages/ProfilePage"));
 const MyPathPage = lazyWithRetry(() => import("./pages/MyPathPage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
+const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 const ChallengersPage = lazyWithRetry(() => import("./pages/ChallengersPage"));
 const CoachingPage = lazyWithRetry(() => import("./pages/CoachingPage"));
 const ToolsPage = lazyWithRetry(() => import("./pages/ToolsPage"));
@@ -130,6 +131,7 @@ function AppRouter() {
         <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         {/* PUBLIC route — Mission Replay Showcase (no auth required) */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
+        <Route path="/f/:slug" element={<SharedFolderPage />} />
         <Route path="/progress" element={<Navigate to="/community" replace />} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}

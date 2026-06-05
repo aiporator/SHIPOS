@@ -237,9 +237,9 @@ def _build_system_message(agent: str, user_memory: str, folder_context: str = ""
 async def _resolve_folder_context(folder_id: Optional[str], user_id: str) -> tuple[str, Optional[dict]]:
     """Return (context_summary_text, folder_doc) — owner-guarded.
 
-    Falls quietly to empty if the folder is foreign, missing, or has no
-    summary. Returning the doc as well lets the route stamp folder_id on the
-    chat session for sidebar grouping (P1, Iter 92.23.8).
+    Iter 92.23.9 (Mert P1 Folder-Knowledge-RAG): now also appends a
+    deterministic timeline of the folder's most-recent items so the agent
+    "kennt die Geschichte deines Themas" without needing a vector store.
     """
     if not folder_id:
         return "", None
@@ -248,10 +248,22 @@ async def _resolve_folder_context(folder_id: Optional[str], user_id: str) -> tup
         return "", None
     summary = (folder.get("context_summary") or "").strip()
     name = folder.get("name") or ""
-    pretty = f"Ordner: {name}"
+    pretty_parts = [f"Ordner: {name}"]
     if summary:
-        pretty += f"\nZusammenfassung: {summary}"
-    return pretty, folder
+        pretty_parts.append(f"Zusammenfassung: {summary}")
+
+    # P1 Folder-Knowledge-RAG: append item timeline.
+    try:
+        from services_folder_knowledge import build_folder_timeline
+        _items, timeline_text = await build_folder_timeline(folder_id, user_id)
+        if timeline_text:
+            pretty_parts.append(timeline_text)
+    except Exception as e:  # noqa: BLE001
+        # Knowledge enrichment is best-effort — never block the chat on it.
+        import logging
+        logging.getLogger("wladbot").warning("folder_timeline failed: %s", e)
+
+    return "\n\n".join(pretty_parts), folder
 
 
 async def _ensure_session(session_id: str, user_id: str, message: str, agent: str, folder_id: Optional[str] = None) -> str:

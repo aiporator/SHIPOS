@@ -32,6 +32,7 @@ Public endpoints (all owner-only):
 """
 from __future__ import annotations
 
+import os
 import uuid
 from datetime import datetime, timezone
 from typing import Optional, Literal
@@ -41,6 +42,8 @@ from pydantic import BaseModel
 
 from config import db
 from services import get_current_user
+from services_folder_knowledge import build_folder_timeline, generate_briefing_prompt
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 router = APIRouter(prefix="/api/folders", tags=["folders"])
 
@@ -219,3 +222,185 @@ async def remove_item(folder_id: str, item_id: str, request: Request):
             {"$unset": {"folder_id": ""}},
         )
     return {"removed": True}
+
+
+# ── Briefing (Iter 92.23.9 P1) ─────────────────────────────────────────────
+@router.post("/{folder_id}/briefing")
+async def folder_briefing(folder_id: str, request: Request):
+    """Generate a 30-second 'where you stand' briefing from the folder's items.
+
+    Mert: "Klick erstellt 30-Sekunden-Briefing aus den letzten 5 Missionen+
+    Chats des Folders". Returns a single flowing summary the user can read
+    or listen to via the WladBot drawer.
+    """
+    user = await get_current_user(request)
+    folder = await _own_folder(folder_id, user["user_id"])
+
+    items, _timeline = await build_folder_timeline(folder_id, user["user_id"], limit=5)
+    prompt = await generate_briefing_prompt(folder, items, lang="de")
+
+    # Use the universal Emergent LLM key (set in backend/.env). Falling back
+    # to OPENAI key keeps local development working if EMERGENT key isn't set.
+    api_key = os.environ.get("EMERGENT_LLM_KEY") or os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="LLM key fehlt")
+
+    session_id = f"briefing_{uuid.uuid4().hex[:10]}"
+    chat = LlmChat(
+        api_key=api_key, session_id=session_id,
+        system_message="Du bist WladBot, Senior Leadership-Coach. Antworte praezise und warm.",
+    ).with_model("openai", "gpt-4o-mini")
+
+    try:
+        response = await chat.send_message(UserMessage(text=prompt))
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=f"LLM-Briefing fehlgeschlagen: {e}")
+
+    return {
+        "folder_id": folder_id,
+        "folder_name": folder.get("name"),
+        "briefing": (response or "").strip(),
+        "items_used": len(items),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+# ── Sharing (Iter 92.23.9 P2) ──────────────────────────────────────────────
+def _gen_slug() -> str:
+    return uuid.uuid4().hex[:10]
+
+
+@router.post("/{folder_id}/share")
+async def share_folder(folder_id: str, request: Request):
+    """Create (or reuse) a public read-only share-slug for the folder.
+
+    Returns {share_url, slug, expires_at: null}. The slug is stable per
+    folder — calling share twice yields the same URL.
+    """
+    user = await get_current_user(request)
+    folder = await _own_folder(folder_id, user["user_id"])
+
+    existing = await db.folder_shares.find_one(
+        {"folder_id": folder_id, "user_id": user["user_id"]},
+        {"_id": 0},
+    )
+    if existing:
+        return {
+            "slug": existing["slug"],
+            "share_url": f"/f/{existing['slug']}",
+            "folder_name": folder.get("name"),
+            "created_at": existing.get("created_at"),
+        }
+
+    slug = _gen_slug()
+    # Extra dedupe: ensure slug is unique (collision is ~0 but defensive).
+    while await db.folder_shares.find_one({"slug": slug}):
+        slug = _gen_slug()
+
+    now = datetime.now(timezone.utc).isoformat()
+    doc = {
+        "share_id": f"fsh_{uuid.uuid4().hex[:10]}",
+        "slug": slug,
+        "folder_id": folder_id,
+        "user_id": user["user_id"],
+        "created_at": now,
+        "views": 0,
+    }
+    await db.folder_shares.insert_one(dict(doc))
+    return {
+        "slug": slug,
+        "share_url": f"/f/{slug}",
+        "folder_name": folder.get("name"),
+        "created_at": now,
+    }
+
+
+@router.delete("/{folder_id}/share")
+async def unshare_folder(folder_id: str, request: Request):
+    user = await get_current_user(request)
+    await _own_folder(folder_id, user["user_id"])
+    r = await db.folder_shares.delete_many(
+        {"folder_id": folder_id, "user_id": user["user_id"]},
+    )
+    return {"deleted": r.deleted_count}
+
+
+# Public — no auth. Mounted under /api/folders/share to keep CORS/path config simple.
+@router.get("/share/{slug}")
+async def get_shared_folder(slug: str):
+    """Public read-only view of a shared folder.
+
+    Returns: folder name + context_summary + items (titles + scores + dates)
+    WITHOUT user PII and WITHOUT full transcripts/AI text. The point is to
+    convey progress, not to expose private analyses.
+    """
+    share = await db.folder_shares.find_one({"slug": slug}, {"_id": 0})
+    if not share:
+        raise HTTPException(status_code=404, detail="Geteilter Ordner nicht gefunden")
+    folder = await db.folders.find_one(
+        {"folder_id": share["folder_id"]},
+        {"_id": 0, "folder_id": 1, "name": 1, "color": 1, "icon": 1, "context_summary": 1, "created_at": 1},
+    )
+    if not folder:
+        raise HTTPException(status_code=404, detail="Ordner wurde geloescht")
+
+    # Owner-author meta — name only (no email/avatar).
+    owner = await db.users.find_one(
+        {"user_id": share["user_id"]},
+        {"_id": 0, "name": 1, "picture": 1, "level": 1, "tier": 1},
+    ) or {}
+
+    items_raw = await db.folder_items.find(
+        {"folder_id": share["folder_id"]},
+        {"_id": 0},
+    ).sort("created_at", -1).to_list(20)
+
+    items_safe = []
+    for it in items_raw:
+        if it["item_type"] == "video_mission":
+            v = await db.video_challenges.find_one(
+                {"entry_id": it["source_id"]},
+                {"_id": 0, "custom_title": 1, "challenge_id": 1, "analysis.overall_score": 1, "created_at": 1},
+            )
+            if not v:
+                continue
+            items_safe.append({
+                "item_type": "video_mission",
+                "title": v.get("custom_title") or it.get("title") or "Video-Mission",
+                "score": (v.get("analysis") or {}).get("overall_score"),
+                "created_at": v.get("created_at"),
+            })
+        elif it["item_type"] == "chat_session":
+            c = await db.chat_sessions.find_one(
+                {"session_id": it["source_id"]},
+                {"_id": 0, "title": 1, "created_at": 1},
+            )
+            if not c:
+                continue
+            items_safe.append({
+                "item_type": "chat_session",
+                "title": c.get("title") or it.get("title") or "Chat",
+                "created_at": c.get("created_at"),
+            })
+
+    # Track views (best-effort, non-blocking).
+    try:
+        await db.folder_shares.update_one({"slug": slug}, {"$inc": {"views": 1}})
+    except Exception:  # noqa: BLE001
+        pass
+
+    return {
+        "folder": {
+            "name": folder.get("name"),
+            "color": folder.get("color"),
+            "context_summary": folder.get("context_summary"),
+            "created_at": folder.get("created_at"),
+        },
+        "owner": {
+            "name": owner.get("name", "Leader"),
+            "picture": owner.get("picture"),
+            "level": owner.get("level", ""),
+        },
+        "items": items_safe,
+        "share": {"created_at": share.get("created_at"), "views": share.get("views", 0) + 1},
+    }

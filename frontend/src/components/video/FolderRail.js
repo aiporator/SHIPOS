@@ -15,9 +15,10 @@
  *   de              bool
  */
 import { useEffect, useState } from 'react';
-import { Folder, Plus, Pencil, Trash2, Check, X, Layers, Loader2 } from 'lucide-react';
+import { Folder, Plus, Pencil, Trash2, Check, X, Layers, Loader2, Sparkles, Share2, Copy } from 'lucide-react';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
+import { openWladBotDrawer } from '../../lib/wladbotBus';
 
 const COLORS = ['#BFFF00', '#60A5FA', '#A78BFA', '#F472B6', '#FBBF24', '#4ADE80', '#F87171', '#94A3B8'];
 
@@ -73,9 +74,11 @@ const NewFolderInline = ({ onCancel, onCreated, de }) => {
   );
 };
 
-const FolderRow = ({ folder, isActive, onPick, onRename, onDelete, de }) => {
+const FolderRow = ({ folder, isActive, onPick, onRename, onDelete, onBriefing, onShare, de }) => {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(folder.name);
+  const [busyBriefing, setBusyBriefing] = useState(false);
+  const [busyShare, setBusyShare] = useState(false);
   useEffect(() => { setDraft(folder.name); }, [folder.name]);
 
   if (editing) {
@@ -108,8 +111,37 @@ const FolderRow = ({ folder, isActive, onPick, onRename, onDelete, de }) => {
         <Folder size={11} />
       </div>
       <span className="text-[11.5px] font-bold flex-1 truncate">{folder.name}</span>
-      <span className="text-[9px] text-white/30 tabular-nums">{folder.item_count || 0}</span>
+      <span className="text-[9px] text-white/30 tabular-nums group-hover:hidden">{folder.item_count || 0}</span>
       <div className="hidden group-hover:flex items-center gap-0.5 shrink-0">
+        {/* Briefing CTA — Mert P1 Iter 92.23.9 */}
+        <button
+          onClick={async (e) => {
+            e.stopPropagation();
+            if (busyBriefing) return;
+            setBusyBriefing(true);
+            await onBriefing(folder);
+            setBusyBriefing(false);
+          }}
+          className="text-white/40 hover:text-[#BFFF00] p-0.5 rounded hover:bg-white/10"
+          data-testid="folder-briefing-btn"
+          title={de ? '30-Sek-Briefing' : '30s Briefing'}
+        >
+          {busyBriefing ? <Loader2 size={11} className="animate-spin" /> : <Sparkles size={11} />}
+        </button>
+        <button
+          onClick={async (e) => {
+            e.stopPropagation();
+            if (busyShare) return;
+            setBusyShare(true);
+            await onShare(folder);
+            setBusyShare(false);
+          }}
+          className="text-white/40 hover:text-sky-400 p-0.5 rounded hover:bg-white/10"
+          data-testid="folder-share-btn"
+          title={de ? 'Teilen' : 'Share'}
+        >
+          {busyShare ? <Loader2 size={11} className="animate-spin" /> : <Share2 size={11} />}
+        </button>
         <button
           onClick={(e) => { e.stopPropagation(); setEditing(true); }}
           className="text-white/40 hover:text-white p-0.5 rounded hover:bg-white/10"
@@ -170,6 +202,41 @@ export const FolderRail = ({ activeFolderId, onPickFolder, de = true }) => {
     catch (err) { logger.error('delete failed:', err); load(); }
   };
 
+  const onBriefing = async (folder) => {
+    try {
+      const res = await api.post(`/folders/${folder.folder_id}/briefing`);
+      const briefing = (res.data?.briefing || '').trim()
+        || (de ? 'Noch keine Daten für ein Briefing.' : 'Not enough data for a briefing yet.');
+      openWladBotDrawer({ folderId: folder.folder_id, briefingMessage: briefing });
+    } catch (err) {
+      logger.error('briefing failed:', err);
+      try {
+        const { toast } = await import('sonner');
+        toast.error(de ? 'Briefing konnte nicht erstellt werden' : 'Could not generate briefing');
+      } catch (_) { /* noop */ }
+    }
+  };
+
+  const onShare = async (folder) => {
+    try {
+      const res = await api.post(`/folders/${folder.folder_id}/share`);
+      const url = `${window.location.origin}${res.data.share_url}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        const { toast } = await import('sonner');
+        toast.success(de ? `Share-Link in Zwischenablage: ${folder.name}` : `Share link copied: ${folder.name}`);
+      } catch (_) {
+        window.prompt(de ? 'Share-Link kopieren:' : 'Copy share link:', url);
+      }
+    } catch (err) {
+      logger.error('share failed:', err);
+      try {
+        const { toast } = await import('sonner');
+        toast.error(de ? 'Share-Link fehlgeschlagen' : 'Share failed');
+      } catch (_) { /* noop */ }
+    }
+  };
+
   return (
     <div className="px-3 pt-3 pb-2 border-b border-white/[0.04]" data-testid="folder-rail">
       <div className="flex items-center justify-between px-1 mb-2">
@@ -209,6 +276,8 @@ export const FolderRail = ({ activeFolderId, onPickFolder, de = true }) => {
               onPick={onPickFolder}
               onRename={onRename}
               onDelete={onDelete}
+              onBriefing={onBriefing}
+              onShare={onShare}
               de={de}
             />
           ))

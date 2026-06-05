@@ -28,9 +28,10 @@ import logger from '../../lib/logger';
 import SmartText from './SmartText';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { subscribeWladBotOpen, subscribeWladBotClose } from '../../lib/wladbotBus';
 
 // Hide the FAB on these routes — onboarding, auth, public, etc.
-const HIDDEN_ROUTES = ['/login', '/signup', '/onboarding', '/m/', '/leader-os/welcome', '/leader-os/diagnose', '/auth-callback', '/auth/magic', '/chat'];
+const HIDDEN_ROUTES = ['/login', '/signup', '/onboarding', '/m/', '/f/', '/leader-os/welcome', '/leader-os/diagnose', '/auth-callback', '/auth/magic', '/chat'];
 
 const QUICK_PROMPTS_DE = [
   { label: 'Heute fokussieren', q: 'Was sollte ich heute als Priorität angehen, gegeben mein aktueller Kontext?' },
@@ -59,6 +60,29 @@ export const FloatingWladBotDrawer = () => {
   const [sessionId, setSessionId] = useState(null);
   const scrollRef = useRef(null);
   const folderPickRef = useRef(null);
+
+  // Iter 92.23.9: external open events (e.g. "Briefing"-Button in FolderRail).
+  // Subscribers can pass {folderId, briefingMessage} → drawer opens, sets
+  // activeFolderId, and seeds the first assistant message with a server-
+  // generated briefing so the user immediately sees "where they stand".
+  useEffect(() => {
+    const offOpen = subscribeWladBotOpen(({ folderId, briefingMessage } = {}) => {
+      setOpen(true);
+      if (folderId) {
+        setActiveFolderId(folderId);
+        // Reset transient state so the briefing reads as a clean conversation.
+        setSessionId(null);
+      }
+      if (briefingMessage) {
+        // Render as an assistant turn with an insight bubble so the SmartText
+        // styling already in the drawer applies. We do NOT round-trip to LLM —
+        // the message is the briefing the parent computed.
+        setMessages([{ role: 'assistant', parsed: { insight: briefingMessage } }]);
+      }
+    });
+    const offClose = subscribeWladBotClose(() => setOpen(false));
+    return () => { offOpen(); offClose(); };
+  }, []);
 
   // Don't render on hidden routes (and never for unauthenticated users).
   const isHidden = !user || HIDDEN_ROUTES.some(r => location.pathname.startsWith(r));
