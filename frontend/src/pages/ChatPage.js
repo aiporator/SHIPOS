@@ -58,6 +58,8 @@ export default function ChatPage() {
   const [attachedPdf, setAttachedPdf] = useState(null);
   const [uploadingPdf, setUploadingPdf] = useState(false);
   const [audioMode, setAudioMode] = useState(false);
+  // Iter 92.23.8 (Mert): folder context — chat injected with folder.context_summary
+  const [activeFolder, setActiveFolder] = useState(null);
   const { isPremium, totalUsed, reload: reloadCredits } = useCredits();
   const scrollRef = useRef(null);
   const navigate = useNavigate();
@@ -86,6 +88,20 @@ export default function ChatPage() {
   // and other contextual entry-points. Auto-creates a fresh session AND
   // auto-sends the prefilled message so the user lands on a streaming reply,
   // not an empty input field.
+  // Iter 92.23.8 (Mert): if ?folder= is set, the chat is scoped to that folder
+  // and the folder's context_summary is injected into every system prompt.
+  useEffect(() => {
+    const folderParam = searchParams.get('folder');
+    if (!folderParam) return;
+    let alive = true;
+    api.get('/folders').then((res) => {
+      if (!alive) return;
+      const found = (res.data || []).find(f => f.folder_id === folderParam);
+      if (found) setActiveFolder(found);
+    }).catch(() => {});
+    return () => { alive = false; };
+  }, [searchParams]);
+
   const prefillHandledRef = useRef(false);
   useEffect(() => {
     if (prefillHandledRef.current) return;
@@ -106,7 +122,9 @@ export default function ChatPage() {
 
   const handleNewSession = async () => {
     try {
-      const res = await api.post('/chat/sessions', { title: de ? 'Neues Gespräch' : 'New Conversation' });
+      const payload = { title: de ? 'Neues Gespräch' : 'New Conversation' };
+      if (activeFolder?.folder_id) payload.folder_id = activeFolder.folder_id;
+      const res = await api.post('/chat/sessions', payload);
       setCurrentSession(res.data.session_id);
       setMessages([]);
       loadSessions();
@@ -125,7 +143,9 @@ export default function ChatPage() {
     setAttachedPdf(null);
     setLoading(true);
     try {
-      const res = await api.post('/chat', { message: fullMsg, session_id: currentSession });
+      const body = { message: fullMsg, session_id: currentSession };
+      if (activeFolder?.folder_id) body.folder_id = activeFolder.folder_id;
+      const res = await api.post('/chat', body);
       if (!currentSession) { setCurrentSession(res.data.session_id); loadSessions(); }
       setMessages(prev => [...prev, { role: 'assistant', content: JSON.stringify(res.data.response), parsed: res.data.response }]);
       reloadCredits();
@@ -179,6 +199,27 @@ export default function ChatPage() {
           lang={lang}
           de={de}
         />
+
+        {/* Iter 92.23.8: active folder context pill */}
+        {activeFolder && (
+          <div className="px-6 pt-2 pb-1 flex items-center gap-2" data-testid="chat-folder-context-pill">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold border" style={{
+              background: `${activeFolder.color || '#BFFF00'}14`,
+              borderColor: `${activeFolder.color || '#BFFF00'}40`,
+              color: activeFolder.color || '#BFFF00',
+            }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: activeFolder.color || '#BFFF00' }} />
+              <span>{de ? 'Kontext' : 'Context'}: {activeFolder.name}</span>
+              <button
+                onClick={() => { setActiveFolder(null); navigate('/chat', { replace: true }); }}
+                className="ml-1 opacity-60 hover:opacity-100"
+                title={de ? 'Kontext entfernen' : 'Remove context'}
+                data-testid="chat-folder-clear-btn"
+              >×</button>
+            </div>
+            <span className="text-[10px] text-muted-foreground hidden sm:inline">{de ? 'WladBot kennt deinen Ordner-Kontext.' : 'WladBot knows your folder context.'}</span>
+          </div>
+        )}
 
         <ScrollArea className="flex-1 px-6 py-4 bg-gradient-mesh">
           {messages.length === 0 && (

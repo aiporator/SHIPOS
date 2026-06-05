@@ -57,6 +57,7 @@ import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 import { FakeWladCall } from "./components/calls/FakeWladCall";
 import { WladHelpButton } from "./components/support/WladHelpButton";
+import { FloatingWladBotDrawer } from "./components/shared/FloatingWladBotDrawer";
 import { AppErrorBoundary } from "./components/AppErrorBoundary";
 
 import { CreditProvider } from "./contexts/CreditContext";
@@ -174,6 +175,7 @@ function App() {
                     <AppRouter />
                     <FakeWladCall />
                     <WladHelpButton />
+                    <FloatingWladBotDrawer />
                     <Toaster position="bottom-right" />
                     <CookieConsent />
                     <ReAuthModal />
