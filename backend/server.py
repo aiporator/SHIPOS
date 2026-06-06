@@ -104,6 +104,7 @@ from routes.ki_news import router as ki_news_router
 from routes.my_path import router as my_path_router
 from routes.community import router as community_router
 from routes.admin import router as admin_router
+from routes.admin_quality import router as admin_quality_router
 from routes.profile import router as profile_router
 from routes.voice_tts import router as voice_tts_router
 from routes.monitoring import router as monitoring_router
@@ -138,6 +139,7 @@ app.include_router(my_path_router)
 app.include_router(community_router)
 app.include_router(folders_router)
 app.include_router(admin_router)
+app.include_router(admin_quality_router)
 app.include_router(profile_router)
 app.include_router(voice_tts_router)
 app.include_router(monitoring_router)
