@@ -4,6 +4,7 @@ import uuid
 import json
 import io
 import base64
+from typing import Optional
 from datetime import datetime, timezone
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 import pypdf
@@ -162,14 +163,42 @@ async def create_chat_session(data: ChatSessionCreate, request: Request):
         "created_at": datetime.now(timezone.utc).isoformat(),
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
+    if data.folder_id:
+        # Owner-guard: only stamp folder_id if the user actually owns that folder.
+        # Foreign folder_id is silently ignored (no info leak).
+        own = await db.folders.find_one(
+            {"folder_id": data.folder_id, "user_id": user["user_id"]},
+            {"_id": 0, "folder_id": 1},
+        )
+        if own:
+            doc["folder_id"] = data.folder_id
+            # Auto-link the new chat session into the folder so it shows up in
+            # the folder's item list — mirrors the video-mission behavior.
+            await db.folder_items.insert_one({
+                "item_id": f"fi_{uuid.uuid4().hex[:12]}",
+                "folder_id": data.folder_id,
+                "user_id": user["user_id"],
+                "item_type": "chat_session",
+                "source_id": session_id,
+                "title": (data.title or "")[:200],
+                "created_at": doc["created_at"],
+            })
     await db.chat_sessions.insert_one(doc)
-    return {"session_id": session_id, "title": data.title, "agent": data.agent, "created_at": doc["created_at"]}
+    return {"session_id": session_id, "title": data.title, "agent": data.agent, "folder_id": doc.get("folder_id"), "created_at": doc["created_at"]}
 
 
 @router.get("/chat/sessions")
-async def list_chat_sessions(request: Request):
+async def list_chat_sessions(request: Request, folder_id: Optional[str] = None):
+    """List my chat sessions, optionally filtered by folder.
+
+    Iter 92.23.8: when ?folder_id= is set we only return sessions tagged with
+    that folder — used by the folder-scoped chat sidebar in the new UX.
+    """
     user = await get_current_user(request)
-    return await db.chat_sessions.find({"user_id": user["user_id"]}, {"_id": 0, "session_id": 1, "title": 1, "agent": 1, "created_at": 1, "updated_at": 1, "message_count": 1}).sort("updated_at", -1).to_list(50)
+    query: dict = {"user_id": user["user_id"]}
+    if folder_id:
+        query["folder_id"] = folder_id
+    return await db.chat_sessions.find(query, {"_id": 0, "session_id": 1, "title": 1, "agent": 1, "folder_id": 1, "created_at": 1, "updated_at": 1, "message_count": 1}).sort("updated_at", -1).to_list(50)
 
 
 ROLE_MAP = {
@@ -181,26 +210,64 @@ ROLE_MAP = {
 }
 
 
-def _build_system_message(agent: str, user_memory: str) -> str:
-    """Build AI system message with agent role and user memory."""
+def _build_system_message(agent: str, user_memory: str, folder_context: str = "") -> str:
+    """Build AI system message with agent role, user memory, and folder context."""
     agent_context = ""
     if agent and agent != "auto":
         agent_context = f"\n{ROLE_MAP.get(agent, f'Der User hat die Rolle {agent} gewählt. Fokussiere deine Antwort auf die Spezialität dieser Rolle.')}"
     memory_context = f"\n\n--- USER MEMORY (nutze dies fuer personalisierte Antworten) ---\n{user_memory}\n---" if user_memory else ""
-    return WLADBOT_SYSTEM_PROMPT + agent_context + memory_context
+    folder_block = ""
+    if folder_context:
+        folder_block = (
+            "\n\n--- AKTIVER ORDNER-KONTEXT (der User arbeitet gerade in diesem Themenbereich — "
+            "alle Antworten sollen diesen Kontext beruecksichtigen) ---\n"
+            f"{folder_context}\n---"
+        )
+    return WLADBOT_SYSTEM_PROMPT + agent_context + memory_context + folder_block
 
 
-async def _ensure_session(session_id: str, user_id: str, message: str, agent: str) -> str:
+async def _resolve_folder_context(folder_id: Optional[str], user_id: str) -> str:
+    """Return the folder's context_summary + recent-item timeline — owner-guarded.
+
+    Iter 92.23.9 (Folder-Knowledge): appends a deterministic timeline of the
+    folder's most-recent items so the agent "kennt die Geschichte deines Themas"
+    without needing a separate vector store. Foreign folder_id → "" (no leak).
+    """
+    if not folder_id:
+        return ""
+    folder = await db.folders.find_one({"folder_id": folder_id, "user_id": user_id}, {"_id": 0})
+    if not folder:
+        return ""
+    summary = (folder.get("context_summary") or "").strip()
+    name = folder.get("name") or ""
+    parts = [f"Ordner: {name}"]
+    if summary:
+        parts.append(f"Zusammenfassung: {summary}")
+    # Folder-Knowledge: append item timeline (best-effort — never block chat).
+    try:
+        from services_folder_knowledge import build_folder_timeline
+        _items, timeline_text = await build_folder_timeline(folder_id, user_id)
+        if timeline_text:
+            parts.append(timeline_text)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("folder_timeline failed: %s", e)
+    return "\n\n".join(parts)
+
+
+async def _ensure_session(session_id: str, user_id: str, message: str, agent: str, folder_id: Optional[str] = None) -> str:
     """Create chat session if needed, return session_id."""
     if session_id:
         return session_id
     new_id = f"chat_{uuid.uuid4().hex[:12]}"
-    await db.chat_sessions.insert_one({
+    doc = {
         "session_id": new_id, "user_id": user_id,
         "title": message[:50], "agent": agent,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "updated_at": datetime.now(timezone.utc).isoformat(),
-    })
+    }
+    if folder_id:
+        doc["folder_id"] = folder_id
+    await db.chat_sessions.insert_one(doc)
     return new_id
 
 
@@ -225,7 +292,10 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
     if not credit_result["allowed"]:
         raise HTTPException(status_code=402, detail="no_credits")
 
-    session_id = await _ensure_session(data.session_id, user["user_id"], data.message, data.agent)
+    # Owner-guarded folder context — foreign/absent folder_id resolves to "".
+    folder_context = await _resolve_folder_context(data.folder_id, user["user_id"])
+
+    session_id = await _ensure_session(data.session_id, user["user_id"], data.message, data.agent, data.folder_id if folder_context else None)
 
     await db.chat_messages.insert_one({
         "message_id": f"msg_{uuid.uuid4().hex[:12]}", "session_id": session_id,
@@ -235,7 +305,7 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
 
     history = await db.chat_messages.find({"session_id": session_id}, {"_id": 0}).sort("created_at", 1).to_list(20)
     user_memory = await get_user_memory(user["user_id"])
-    system_msg = _build_system_message(data.agent, user_memory)
+    system_msg = _build_system_message(data.agent, user_memory, folder_context)
 
     # RAG: retrieve Wlad-specific knowledge chunks based on the user's question.
     # Graceful — if Voyage/Supabase keys are missing or fail, chat continues

@@ -49,8 +49,12 @@ const DatenschutzPage = lazyWithRetry(() => import("./pages/DatenschutzPage"));
 const WiderrufPage = lazyWithRetry(() => import("./pages/WiderrufPage"));
 const AGBPage = lazyWithRetry(() => import("./pages/AGBPage"));
 const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscribePage"));
+const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
+const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
+const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 
 import { WladMark } from "./components/brand/WladMark";
+import { FloatingWladBotDrawer } from "./components/shared/FloatingWladBotDrawer";
 import { CookieConsent } from "./components/legal/CookieConsent";
 import { ReAuthModal } from "./components/auth/ReAuthModal";
 import { FakeWladCall } from "./components/calls/FakeWladCall";
@@ -124,6 +128,8 @@ function AppRouter() {
         <Route path="/my-path" element={<ProtectedRoute><MyPathPage /></ProtectedRoute>} />
         <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+        <Route path="/lern-videos" element={<ProtectedRoute><LearningVideosPage /></ProtectedRoute>} />
+        <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
         <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
         <Route path="/progress-old" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
@@ -146,6 +152,9 @@ function AppRouter() {
         <Route path="/agb" element={<AGBPage />} />
         {/* Public — opens via signed token in lifecycle drip emails */}
         <Route path="/email/unsubscribe" element={<EmailUnsubscribePage />} />
+        {/* Public share routes — read-only showcase, no auth required */}
+        <Route path="/m/:slug" element={<SharedMissionPage />} />
+        <Route path="/f/:slug" element={<SharedFolderPage />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
@@ -166,6 +175,7 @@ function App() {
                     <NetworkStatusBanner />
                     <AppRouter />
                     <FakeWladCall />
+                    <FloatingWladBotDrawer />
                     <Toaster position="bottom-right" />
                     <CookieConsent />
                     <ReAuthModal />

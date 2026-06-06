@@ -81,11 +81,16 @@ class ChatMessageIn(BaseModel):
     message: str
     session_id: Optional[str] = None
     agent: Optional[str] = None
+    # Iter 92.23.8: when a chat is started from inside a folder, the frontend
+    # forwards the folder_id so the backend can prepend the folder's
+    # context_summary + item timeline to the system prompt ("agent next to you").
+    folder_id: Optional[str] = None
 
 
 class ChatSessionCreate(BaseModel):
     title: Optional[str] = "New Conversation"
     agent: Optional[str] = None
+    folder_id: Optional[str] = None
 
 
 class TaskCreate(BaseModel):
