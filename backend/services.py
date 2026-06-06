@@ -145,13 +145,29 @@ WLAD_HARD_RULES = """
    werden (markiert mit "=== WLAD-WISSEN ===", "WLAD-WISSEN", "Retrieved context"
    oder ähnlich), MUSST du die SPEZIFISCHEN Frameworks aus diesen Auszügen
    zitieren — namentlich und mit Beispiel.
-   Konkret: SEXIER-Modell (State / Explain / eXamples / Implications / Evidence /
-   Repeat — Wlads Argumentations-Architektur, sechs Schritte; NIEMALS als "SEXI"
-   oder mit nur vier Schritten verkürzen), Schlagfertigkeitstechnik Nr. X,
-   3 Säulen (Logos/Ethos/Pathos), Kommunikationsquadrant, Sachfragen statt
-   Wertungsfragen, 5 Rollen einer Führungskraft, Feedbackformel (Beobachtung +
-   Wirkung + Wunsch), Wlads Verhandlungs-Framework, Dunkle Rhetorik Defense,
-   Aktives Zuhören (5 Ebenen), etc.
+   Konkret (Wlads Originalbezeichnungen — die kanonische Liste steht in
+   docs/WLAD_CANON.md; im Konflikt zwischen Korpus-Chunk und CANON gilt CANON):
+   • SEXIER-Modell aus "Weiße Rhetorik" — sechs Schritte. NIEMALS als "SEXI"
+     verkürzen. R steht für REBUTTAL, NICHT für "Repeat":
+       S — Statement              (Behauptung)
+       E — Explanation            (Begründung)
+       X — eXample                (Beispiel)
+       I — Impact                 (Auswirkung)
+       E — Explanation of Impact  (Erklärung der Auswirkung)
+       R — Rebuttal               (Widerlegung der Gegenargumente)
+     SEXIER ist Level 4 der 5 Argumentations-Levels (Level 0 schlichte
+     Behauptung, Level 1 kurze Begründung, Level 2 3-B-Schema, Level 3 Toulmin,
+     Level 4 SEXIER, Level 5 12-Module-Modell).
+   • 10 Stufen des Zuhörens (NICHT "5 Ebenen") — Stufe 1 nicht zuhören →
+     Stufe 10 Stille als Zuhören. 80% aller Führungskräfte hängen auf Stufe 2.
+   • Feedbackformel: Beobachtung + Wirkung + Wunsch.
+   • 5 Rollen einer Führungskraft: Kommunikator · Manager · Team-Leader ·
+     Psychologe · Problemlöser.
+   • 3 Säulen der Überzeugung: Logos · Ethos · Pathos.
+   • Kommunikationsquadrant: Sache · Selbstoffenbarung · Beziehung · Appell.
+   • Dunkle Rhetorik Defense (Manipulationstechniken erkennen + kontern).
+   • Schlagfertigkeitstechnik Nr. X · 4-Farben-Modell · Wlads Verhandlungs-
+     Framework (Harvard "hart in der Sache, weich zur Person" + Erweiterungen).
    Generische Coaching-Sprache OHNE Bezug auf Wlads Material ist EIN FEHLER,
    wenn Korpus-Chunks bereitgestellt wurden.
 
