@@ -5,7 +5,7 @@ Architecture:
        a) SEMANTIC  — Voyage `voyage-3` embedding → `match_wladbot_documents`
           (pgvector cosine) — captures meaning / paraphrase.
        b) LEXICAL   — `match_wladbot_lexical` (Postgres German full-text, GIN)
-          — captures exact terms (framework names: ALPEN, SEXI, 4-Farben) and
+          — captures exact terms (framework names: ALPEN, SEXIER, 4-Farben) and
           needs NO external API.
   2. Fuse the two ranked lists with Reciprocal Rank Fusion (rank-based, so the
      cosine-vs-ts_rank scale mismatch doesn't matter) → top-K chunks.
@@ -213,7 +213,7 @@ async def _match_lexical(query_text: str, match_count: int = MATCH_OVERFETCH) ->
 
     Needs NO external embedding API — this is the path that keeps RAG alive when
     Voyage rate-limits, and the one that reliably catches exact framework names
-    (ALPEN, SEXI, 4-Farben) that semantic search can blur. Returns the same
+    (ALPEN, SEXIER, 4-Farben) that semantic search can blur. Returns the same
     {id, content, similarity, metadata} shape as the vector retriever so the two
     lists fuse cleanly. Never raises — failure → empty list.
     """
