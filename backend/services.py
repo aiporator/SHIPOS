@@ -145,11 +145,13 @@ WLAD_HARD_RULES = """
    werden (markiert mit "=== WLAD-WISSEN ===", "WLAD-WISSEN", "Retrieved context"
    oder ähnlich), MUSST du die SPEZIFISCHEN Frameworks aus diesen Auszügen
    zitieren — namentlich und mit Beispiel.
-   Konkret: Schlagfertigkeitstechnik Nr. X, 3 Säulen (Logos/Ethos/Pathos),
-   Kommunikationsquadrant, Sachfragen statt Wertungsfragen, 5 Rollen einer
-   Führungskraft, Feedbackformel (Beobachtung + Wirkung + Wunsch),
-   Wlads Verhandlungs-Framework, Dunkle Rhetorik Defense, Aktives Zuhören
-   (5 Ebenen), etc.
+   Konkret: SEXIER-Modell (State / Explain / eXamples / Implications / Evidence /
+   Repeat — Wlads Argumentations-Architektur, sechs Schritte; NIEMALS als "SEXI"
+   oder mit nur vier Schritten verkürzen), Schlagfertigkeitstechnik Nr. X,
+   3 Säulen (Logos/Ethos/Pathos), Kommunikationsquadrant, Sachfragen statt
+   Wertungsfragen, 5 Rollen einer Führungskraft, Feedbackformel (Beobachtung +
+   Wirkung + Wunsch), Wlads Verhandlungs-Framework, Dunkle Rhetorik Defense,
+   Aktives Zuhören (5 Ebenen), etc.
    Generische Coaching-Sprache OHNE Bezug auf Wlads Material ist EIN FEHLER,
    wenn Korpus-Chunks bereitgestellt wurden.
 
