@@ -1,6 +1,9 @@
-// stripe-webhook v3
+// stripe-webhook v7
 // Receives Stripe events, verifies signature, upserts public.subscriptions.
 // Handles both one-time payments (mode=payment) and recurring subscriptions.
+// v7: one-time payments now activate even when Stripe skips the Customer object
+//     (Payment Link customer_creation:"if_required") — the buyer is identified
+//     by session.customer_details.email instead of bailing on payment_no_customer.
 // Installment plans automatically get a Stripe Subscription Schedule with
 // end_behavior=cancel after N iterations.
 //
@@ -35,29 +38,43 @@ async function logSystem(level: string, event: string, payload: unknown) {
   });
 }
 
+// Resolve the buyer to a users row. `customerId` may be null for Payment Links
+// that skip Customer creation (customer_creation:"if_required"); in that case we
+// identify by email — the cross-platform identity key (users.email_lower).
 async function findOrCreateUserByCustomer(
-  customerId: string, email?: string | null, fullName?: string | null
+  customerId: string | null, email?: string | null, fullName?: string | null
 ) {
-  const { data: byCustomer } = await admin
-    .from("users").select("id").eq("stripe_customer_id", customerId).maybeSingle();
-  if (byCustomer) return byCustomer.id;
+  // 1. Match by Stripe customer id, when we have one.
+  if (customerId) {
+    const { data: byCustomer } = await admin
+      .from("users").select("id").eq("stripe_customer_id", customerId).maybeSingle();
+    if (byCustomer) return byCustomer.id;
+  }
 
+  // 2. Match by email. Backfill the customer id onto an existing row if we now
+  //    have one (links a leader-check/leader-os user to their Stripe customer).
   if (email) {
     const { data: byEmail } = await admin
       .from("users").select("id").eq("email_lower", email.toLowerCase()).maybeSingle();
     if (byEmail) {
-      await admin.from("users").update({ stripe_customer_id: customerId }).eq("id", byEmail.id);
+      if (customerId) {
+        await admin.from("users").update({ stripe_customer_id: customerId }).eq("id", byEmail.id);
+      }
       return byEmail.id;
     }
   }
 
+  // 3. Create. We need at least an email OR a customer id to identify the buyer.
+  if (!email && !customerId) {
+    throw new Error("cannot_identify_buyer: no stripe customer id and no email");
+  }
   const { data: created, error } = await admin
     .from("users")
     .insert({
       email: email ?? `${customerId}@stripe.unknown`,
       full_name: fullName ?? null,
       source_platform: "manual",
-      stripe_customer_id: customerId,
+      stripe_customer_id: customerId ?? null,
     })
     .select("id").single();
   if (error) throw new Error(`failed_to_create_user: ${error.message}`);
@@ -121,16 +138,38 @@ async function upsertSubscription(sub: Stripe.Subscription) {
 // One-time payment handler (mode=payment).
 // For full-price plans (€997, €4.447) where Stripe has no subscription object.
 async function handleOneTimePayment(session: Stripe.Checkout.Session) {
+  // Payment Links with customer_creation:"if_required" skip the Customer object
+  // for low-value one-off payments — this is exactly what dropped Wlad's €1
+  // activation (logged as "payment_no_customer"). Stripe Checkout ALWAYS
+  // captures the buyer in session.customer_details, so we fall back to that
+  // instead of bailing out.
   const customerId = typeof session.customer === "string"
     ? session.customer
-    : session.customer?.id;
-  if (!customerId) {
-    await logSystem("warn", "payment_no_customer", { session_id: session.id });
+    : session.customer?.id ?? null;
+
+  let email: string | null = session.customer_details?.email ?? null;
+  let fullName: string | null = session.customer_details?.name ?? null;
+
+  // When a Customer does exist, prefer its canonical email/name.
+  if (customerId) {
+    try {
+      const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+      email = customer.email ?? email;
+      fullName = customer.name ?? fullName;
+    } catch (e) {
+      await logSystem("warn", "customer_retrieve_failed", {
+        session_id: session.id, customer_id: customerId,
+        error: e instanceof Error ? e.message : String(e),
+      });
+    }
+  }
+
+  if (!customerId && !email) {
+    await logSystem("warn", "payment_unidentifiable", { session_id: session.id });
     return;
   }
 
-  const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-  const userId = await findOrCreateUserByCustomer(customerId, customer.email, customer.name);
+  const userId = await findOrCreateUserByCustomer(customerId, email, fullName);
 
   const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
     limit: 1, expand: ["data.price"],
@@ -166,8 +205,8 @@ async function handleOneTimePayment(session: Stripe.Checkout.Session) {
     amount_paid_eur_cents: session.amount_total ?? price.unit_amount ?? 0,
     payment_method: "stripe_card",
     stripe_subscription_id: `pay_${paymentIntentId}`,
-    stripe_customer_id: customerId,
-    metadata: { ...(session.metadata as object), one_time: true },
+    stripe_customer_id: customerId ?? null,
+    metadata: { ...(session.metadata as object), one_time: true, buyer_email: email },
   };
 
   const { error } = await admin
@@ -238,6 +277,12 @@ Deno.serve(async (req: Request) => {
   if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SECRET) {
     await logSystem("error", "stripe_secrets_missing", {});
     return new Response(JSON.stringify({ error: "stripe_not_configured" }), { status: 503 });
+  }
+  if (!STRIPE_SECRET_KEY.startsWith("sk_")) {
+    await logSystem("error", "wrong_key_type", {
+      prefix: STRIPE_SECRET_KEY.substring(0, 7), expected: "sk_live_ or sk_test_",
+    });
+    return new Response(JSON.stringify({ error: "stripe_key_misconfigured" }), { status: 503 });
   }
 
   const sig = req.headers.get("stripe-signature");
