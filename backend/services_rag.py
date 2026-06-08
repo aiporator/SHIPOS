@@ -1,20 +1,28 @@
-"""WladBot RAG — retrieval-augmented generation using Voyage embeddings + Supabase pgvector.
+"""WladBot RAG — HYBRID retrieval (semantic + lexical) over Supabase.
 
 Architecture:
-  1. User query → Voyage `voyage-3-large` embedding (1024-dim)
-  2. Supabase RPC `match_documents` → top-k similar chunks from `wladbot_documents`
-  3. Inject top chunks as additional context into the WladBot system prompt
-  4. GPT-5.2 answers using Wlad's actual content, not just base knowledge
+  1. User query → run two retrievers concurrently:
+       a) SEMANTIC  — Voyage `voyage-3` embedding → `match_wladbot_documents`
+          (pgvector cosine) — captures meaning / paraphrase.
+       b) LEXICAL   — `match_wladbot_lexical` (Postgres German full-text, GIN)
+          — captures exact terms (framework names: ALPEN, SEXIER, 4-Farben) and
+          needs NO external API.
+  2. Fuse the two ranked lists with Reciprocal Rank Fusion (rank-based, so the
+     cosine-vs-ts_rank scale mismatch doesn't matter) → top-K chunks.
+  3. Inject top chunks into the WladBot system prompt.
+  4. GPT-5.2 answers using Wlad's actual content, not just base knowledge.
 
-Graceful degradation:
-  - Voyage key missing      → no retrieval, chat still works with base prompt
-  - Supabase key invalid    → no retrieval, chat still works
-  - match_documents fails   → no retrieval, chat still works
-  - Empty/low-quality match → no retrieval, chat still works
+Why hybrid: pure vector silently missed exact framework names; pure lexical
+misses paraphrase. Together they cover each other — and lexical keeps RAG alive
+through a Voyage rate-limit (the common 429), instead of returning zero context.
 
-  Every failure path logs a warning. Chat NEVER breaks because of RAG.
+Graceful degradation (chat NEVER breaks because of RAG):
+  - Voyage down/rate-limited → lexical-only retrieval
+  - Lexical RPC fails        → vector-only retrieval
+  - Supabase keys missing    → no retrieval, base prompt
+  Every failure path logs a warning.
 
-Cache: in-memory LRU keyed by query text (60s TTL) — saves Voyage tokens
+Cache: in-memory LRU keyed by query text (30min TTL) — saves a round-trip
 on repeat questions.
 """
 from __future__ import annotations
@@ -42,6 +50,11 @@ EMBEDDING_DIM = 1024
 # zero context. Iter 92.6 lowered to 0.25 to actually surface relevant chunks.
 MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
 MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
+# Hybrid retrieval: over-fetch from EACH retriever (vector + lexical), then fuse
+# down to MATCH_COUNT via Reciprocal Rank Fusion. Over-fetching gives RRF enough
+# candidates to reward chunks that BOTH retrievers surface.
+MATCH_OVERFETCH = int(os.environ.get("RAG_MATCH_OVERFETCH", "12"))
+RRF_K = 60                   # standard RRF damping constant (Cormack et al. 2009)
 MAX_CONTEXT_CHARS = 14000    # Iter 92.23.5: bumped 4k → 14k to fit the new long course transcripts (avg 4000 chars/chunk × 3-4 chunks fits comfortably in GPT-5.2 context).
 CACHE_TTL_SECONDS = 1800     # in-memory cache, 30min — covers chatty sessions
 CACHE_MAX_ENTRIES = 1024
@@ -111,7 +124,7 @@ async def _embed_query(query: str) -> list[float] | None:
     return None
 
 
-async def _match_documents(embedding: list[float]) -> list[dict]:
+async def _match_documents(embedding: list[float], match_count: int = MATCH_COUNT) -> list[dict]:
     """Call Supabase RPC `match_documents` to find similar chunks.
 
     The RPC must accept: query_embedding (vector), match_threshold (float),
@@ -143,7 +156,7 @@ async def _match_documents(embedding: list[float]) -> list[dict]:
                     json={
                         "query_embedding": embedding,
                         "match_threshold": MATCH_THRESHOLD,
-                        "match_count": MATCH_COUNT,
+                        "match_count": match_count,
                     },
                 )
                 if r.status_code == 200:
@@ -193,6 +206,68 @@ async def _backfill_metadata(client, url: str, key: str,
                     chunk["metadata"] = m
     except Exception as e:
         logger.debug("RAG: metadata backfill failed (non-fatal): %s", e)
+
+
+async def _match_lexical(query_text: str, match_count: int = MATCH_OVERFETCH) -> list[dict]:
+    """Lexical retrieval via the `match_wladbot_lexical` RPC (German full-text).
+
+    Needs NO external embedding API — this is the path that keeps RAG alive when
+    Voyage rate-limits, and the one that reliably catches exact framework names
+    (ALPEN, SEXIER, 4-Farben) that semantic search can blur. Returns the same
+    {id, content, similarity, metadata} shape as the vector retriever so the two
+    lists fuse cleanly. Never raises — failure → empty list.
+    """
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not (url and key):
+        return []
+    try:
+        async with httpx.AsyncClient(timeout=8) as client:
+            r = await client.post(
+                f"{url}/rest/v1/rpc/match_wladbot_lexical",
+                headers={
+                    "apikey": key,
+                    "Authorization": f"Bearer {key}",
+                    "Content-Type": "application/json",
+                },
+                json={"query_text": query_text[:1000], "match_count": match_count},
+            )
+            if r.status_code != 200:
+                logger.warning("RAG: lexical match HTTP %s — %s", r.status_code, r.text[:160])
+                return []
+            data = r.json()
+            return data if isinstance(data, list) else []
+    except Exception as e:
+        logger.warning("RAG: lexical match failed (non-fatal): %s", e)
+        return []
+
+
+def _rrf_fuse(vector_hits: list[dict], lexical_hits: list[dict],
+              top_k: int = MATCH_COUNT) -> list[dict]:
+    """Reciprocal Rank Fusion of two ranked lists, deduped by chunk id.
+
+    RRF score for a doc = Σ 1 / (RRF_K + rank) across the lists it appears in
+    (rank is 1-based). It uses only RANK, not raw scores, so the cosine-vs-ts_rank
+    scale mismatch is irrelevant — and a chunk that BOTH retrievers surface rises
+    to the top. Chunks carry a `retrievers` tag for observability.
+    """
+    fused: dict[str, dict] = {}
+    for source, hits in (("vector", vector_hits), ("lexical", lexical_hits)):
+        for rank, hit in enumerate(hits, start=1):
+            doc_id = hit.get("id")
+            if not doc_id:
+                continue
+            entry = fused.get(doc_id)
+            if entry is None:
+                entry = {**hit, "rrf_score": 0.0, "retrievers": []}
+                fused[doc_id] = entry
+            entry["rrf_score"] += 1.0 / (RRF_K + rank)
+            entry["retrievers"].append(source)
+            # Keep the strongest cosine similarity we've seen for display.
+            if source == "vector":
+                entry["similarity"] = hit.get("similarity", entry.get("similarity", 0))
+    ranked = sorted(fused.values(), key=lambda d: d["rrf_score"], reverse=True)
+    return ranked[:top_k]
 
 
 def _format_chunks_for_prompt(chunks: list[dict]) -> str:
@@ -278,15 +353,32 @@ async def retrieve_context(query: str) -> dict[str, Any]:
         ctx_block = _format_chunks_for_prompt(cached)
         return {"context_block": ctx_block, "chunks_count": len(cached), "rag_active": bool(ctx_block)}
 
+    # Hybrid retrieval — run the semantic (vector) and lexical (full-text) paths
+    # concurrently, then fuse by Reciprocal Rank Fusion. Either path failing is
+    # survivable: lexical covers a Voyage outage, vector covers a lexical miss.
     embedding = await _embed_query(query)
-    if not embedding:
-        return empty
-    chunks = await _match_documents(embedding)
+    vector_task = _match_documents(embedding, MATCH_OVERFETCH) if embedding else _noop_hits()
+    lexical_task = _match_lexical(query, MATCH_OVERFETCH)
+    vector_hits, lexical_hits = await asyncio.gather(vector_task, lexical_task)
+
+    if vector_hits and lexical_hits:
+        chunks = _rrf_fuse(vector_hits, lexical_hits, MATCH_COUNT)
+        mode = "hybrid"
+    else:
+        # One retriever returned nothing — use whichever has results, trimmed to K.
+        chunks = (vector_hits or lexical_hits)[:MATCH_COUNT]
+        mode = "vector_only" if vector_hits else ("lexical_only" if lexical_hits else "none")
+
     _cache_put(query, chunks)
     ctx_block = _format_chunks_for_prompt(chunks)
     if ctx_block:
-        logger.info("RAG: injected %d chunks for query (len=%d)", len(chunks), len(query))
+        logger.info("RAG: injected %d chunks (%s) for query (len=%d)", len(chunks), mode, len(query))
     return {"context_block": ctx_block, "chunks_count": len(chunks), "rag_active": bool(ctx_block)}
+
+
+async def _noop_hits() -> list[dict]:
+    """Awaitable that yields no hits — lets gather() run when Voyage is down."""
+    return []
 
 
 def rag_status() -> dict[str, Any]:
@@ -299,6 +391,8 @@ def rag_status() -> dict[str, Any]:
         "cache_size": len(_query_cache),
         "model": VOYAGE_MODEL,
         "dim": EMBEDDING_DIM,
+        "retrieval": "hybrid (vector + lexical RRF)",
         "match_threshold": MATCH_THRESHOLD,
         "match_count": MATCH_COUNT,
+        "match_overfetch": MATCH_OVERFETCH,
     }
