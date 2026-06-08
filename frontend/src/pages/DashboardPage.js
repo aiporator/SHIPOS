@@ -12,6 +12,7 @@ import { StatCardsRow, QuickActionsGrid } from '../components/dashboard/StatCard
 import { WladHubDiagnosisCard } from '../components/dashboard/WladHubCard';
 import { EventReminderBanner } from '../components/dashboard/EventReminder';
 import { WladMotivationCard } from '../components/dashboard/WladMotivationCard';
+import { FolderWorkspaceCards } from '../components/dashboard/FolderWorkspaceCards';
 import api from '../lib/api';
 import { useCredits } from '../contexts/CreditContext';
 import { WeekCalendarCard } from '../components/dashboard/WeekCalendarCard';
@@ -172,6 +173,11 @@ export default function DashboardPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* ── Workspaces ── briefing + open for each folder the user has built. */}
+        <div className="mb-8" data-anim="dash-widget">
+          <FolderWorkspaceCards de={de} />
+        </div>
 
         {/* ── Main Grid ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
