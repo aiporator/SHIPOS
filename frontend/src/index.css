@@ -582,3 +582,154 @@
   .btn-shine::after, .card-lift, .glow-lime { transition: none !important; }
   .card-lift:hover, .glow-lime:hover { transform: none !important; }
 }
+
+/* ══════════════════════════════════════════════════
+   PREMIUM POLISH — Iter 93 ("godmode" push)
+   Light + dark parity primitives for the four flagship
+   surfaces (Login, Dashboard, Chat, Pricing). Everything
+   here is opt-in via class names; no global side-effects.
+   ══════════════════════════════════════════════════ */
+
+/* display-hero — Revolut/Linear-grade hero typography.
+   Scales 3.5rem → 6rem fluidly. Use on the single
+   highest-altitude H1 of a surface, never twice on one page.
+   Paired with Outfit (already the heading font). */
+.display-hero {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.display-hero-script {
+  font-family: 'Instrument Serif', 'Outfit', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.5vw + 1rem, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* gradient-border-anim — animated lime→cyan→lime ring
+   for hero cards. Pairs with .card-revolut. Self-positions
+   over the element it's applied to. */
+.gradient-border-anim {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border-anim::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(191, 255, 0, 0.0) 0%,
+    rgba(191, 255, 0, 0.55) 25%,
+    rgba(0, 212, 170, 0.45) 50%,
+    rgba(191, 255, 0, 0.55) 75%,
+    rgba(191, 255, 0, 0.0) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradBorderSlide 8s ease-in-out infinite;
+  opacity: 0.65;
+}
+.dark .gradient-border-anim::before { opacity: 0.85; }
+@keyframes gradBorderSlide {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* kpi-glow — soft halo behind hero KPI numbers. Apply to
+   the wrapper of a tabular-nums stat element. */
+.kpi-glow {
+  position: relative;
+}
+.kpi-glow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(191, 255, 0, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(20px);
+}
+:root .kpi-glow::after { opacity: 0.5; }
+
+/* hairline — premium accent line. Use as section dividers
+   or "WELCOME BACK"-style eyebrow underlines. */
+.hairline {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, hsl(var(--brand)) 0%, transparent 100%);
+  vertical-align: middle;
+}
+.hairline-wide { width: 3.5rem; }
+
+/* premium-bg — subtle radial gradient backdrop for hero
+   sections. Already-set in dark via .bg-gradient-mesh, this
+   ports the same feel to light mode and amps it 30%. */
+.premium-bg {
+  background:
+    radial-gradient(at 18% 8%,  rgba(191, 255, 0, 0.06) 0px, transparent 45%),
+    radial-gradient(at 82% 12%, rgba(0, 212, 170, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(191, 255, 0, 0.04) 0px, transparent 55%);
+}
+.dark .premium-bg {
+  background:
+    radial-gradient(at 18% 8%,  rgba(191, 255, 0, 0.05) 0px, transparent 45%),
+    radial-gradient(at 82% 12%, rgba(0, 212, 170, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(191, 255, 0, 0.025) 0px, transparent 55%);
+}
+
+/* surface-card — theme-aware replacement for the legacy
+   `bg-white/[0.02] border-white/[0.07]` pattern that only
+   reads on dark mode. Looks correct on both. */
+.surface-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.surface-card:hover {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+}
+.dark .surface-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+.dark .surface-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* brand-pill — the lime CTA pill used across CTAs. Now
+   theme-calibrated (darker lime on light bg for WCAG AA). */
+.brand-pill {
+  background: hsl(var(--brand));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.brand-pill:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px hsl(var(--brand) / 0.55);
+}
+.dark .brand-pill { background: #BFFF00; color: #0A0A0A; }
+.dark .brand-pill:hover { background: #D4FF4D; }
+
+/* text-brand — the eyebrow/accent text. WCAG-safe across modes. */
+.text-brand { color: hsl(var(--brand)); }
+.dark .text-brand { color: #BFFF00; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-border-anim::before { animation: none !important; }
+}

@@ -165,7 +165,7 @@ export default function ChatPage() {
           de={de}
         />
 
-        <ScrollArea className="flex-1 px-6 py-4 bg-gradient-mesh">
+        <ScrollArea className="flex-1 px-6 py-4 premium-bg">
           {messages.length === 0 && (
             <ChatEmpty setInput={setInput} lang={lang} de={de} />
           )}
@@ -179,10 +179,10 @@ export default function ChatPage() {
           ))}
           {loading && (
             <div className="flex mb-4">
-              <div className="bg-white dark:bg-card border border-black/[0.06] dark:border-white/[0.06] rounded-2xl px-4 py-3 flex gap-1 shadow-sm">
-                <div className="w-2 h-2 rounded-full bg-sky-50 dark:bg-sky-500/100 typing-dot" />
-                <div className="w-2 h-2 rounded-full bg-sky-50 dark:bg-sky-500/100 typing-dot" />
-                <div className="w-2 h-2 rounded-full bg-sky-50 dark:bg-sky-500/100 typing-dot" />
+              <div className="surface-card rounded-2xl px-4 py-3 flex gap-1 shadow-sm">
+                <div className="w-2 h-2 rounded-full bg-brand typing-dot" />
+                <div className="w-2 h-2 rounded-full bg-brand typing-dot" />
+                <div className="w-2 h-2 rounded-full bg-brand typing-dot" />
               </div>
             </div>
           )}
