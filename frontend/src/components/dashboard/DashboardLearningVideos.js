@@ -30,10 +30,10 @@ const VideoTile = ({ video, onPlay }) => {
         <div className={`relative z-10 w-11 h-11 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
           unlocked ? 'bg-white/95' : 'bg-black/40 backdrop-blur'
         }`}>
-          {unlocked ? <Play size={18} className="text-black ml-0.5" fill="black" /> : <Lock size={16} className="text-white/90" />}
+          {unlocked ? <Play size={18} className="text-black ml-0.5" fill="black" /> : <Lock size={16} className="text-foreground/90" />}
         </div>
         {unlocked && (
-          <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-500 text-white text-[8px] font-black uppercase tracking-wider">
+          <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full bg-emerald-500 text-foreground text-[8px] font-black uppercase tracking-wider">
             Verfügbar
           </div>
         )}
@@ -99,7 +99,7 @@ export const DashboardLearningVideos = ({ de = true }) => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-[#BFFF00]/15 flex items-center justify-center">
-              <Sparkles size={13} className="text-[#BFFF00]" />
+              <Sparkles size={13} className="text-brand" />
             </div>
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
@@ -138,10 +138,10 @@ export const DashboardLearningVideos = ({ de = true }) => {
         >
           <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-white font-bold text-lg" style={{ fontFamily: 'Outfit, sans-serif' }}>{playerOpen.title}</h3>
+              <h3 className="text-foreground font-bold text-lg" style={{ fontFamily: 'Outfit, sans-serif' }}>{playerOpen.title}</h3>
               <button
                 onClick={() => setPlayerOpen(null)}
-                className="text-white/40 hover:text-white p-2 -mr-2"
+                className="text-muted-foreground hover:text-foreground p-2 -mr-2"
                 aria-label="close"
                 data-testid="dashboard-video-close"
               >
@@ -155,7 +155,7 @@ export const DashboardLearningVideos = ({ de = true }) => {
               autoplay
             />
             {playerOpen.description && (
-              <p className="text-sm text-white/60 mt-4 leading-relaxed">{playerOpen.description}</p>
+              <p className="text-sm text-foreground/60 mt-4 leading-relaxed">{playerOpen.description}</p>
             )}
           </div>
         </div>
