@@ -104,12 +104,12 @@ export default function DashboardPage() {
         <div className="flex items-end justify-between mb-12 lg:mb-16 gap-6" data-anim="dash-header">
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <span className="h-px w-8 bg-[#BFFF00]/60" />
+              <span className="hairline-wide" />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 {de ? 'WILLKOMMEN ZURÜCK' : 'WELCOME BACK'}
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
+            <h1 className="display-hero-script">
               {getGreeting()}, <em className="not-italic text-brand">{ud.name || 'Leader'}</em>
             </h1>
             <div className="flex items-center gap-2 mt-6">
@@ -210,9 +210,9 @@ export default function DashboardPage() {
                     <p className="text-2xl tracking-tight truncate" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>{levelName}</p>
                     <p className="text-[12px] text-muted-foreground font-light truncate mt-0.5">{levelLabel}</p>
                   </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-3xl leading-none" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}><AnimatedNumber value={xpCurrent} /></p>
-                    <p className="text-[10px] text-muted-foreground font-medium mt-1 uppercase tracking-[0.15em]">XP</p>
+                  <div className="text-right shrink-0 kpi-glow">
+                    <p className="text-3xl leading-none num-ticker" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}><AnimatedNumber value={xpCurrent} /></p>
+                    <p className="text-[10px] text-muted-foreground/70 font-medium mt-1 uppercase tracking-[0.15em]">XP</p>
                   </div>
                 </div>
 

@@ -2,7 +2,7 @@ import { Card, CardContent } from '../ui/card';
 import { Calendar } from 'lucide-react';
 
 // Accessible lime token: dark enough on white, bright on dark.
-const LIME_TXT = 'text-[#6B8A00] dark:text-[#BFFF00]';
+const LIME_TXT = 'text-[#6B8A00] dark:text-brand';
 
 export const WeekCalendarCard = ({ de, onNavigate }) => {
   const today = new Date();
@@ -33,7 +33,7 @@ export const WeekCalendarCard = ({ de, onNavigate }) => {
             );
           })}
         </div>
-        <div className="space-y-2 border-t border-black/[0.04] pt-3">
+        <div className="space-y-2 border-t border-border pt-3">
           <div className="flex items-center gap-2">
             <div className="w-1 h-8 rounded-full bg-[#BFFF00]" />
             <div className="flex-1 min-w-0">
@@ -51,7 +51,7 @@ export const WeekCalendarCard = ({ de, onNavigate }) => {
             <button className={`text-[9px] ${LIME_TXT} font-semibold`}>+ Cal</button>
           </div>
         </div>
-        <div className="flex gap-3 mt-3 pt-2 border-t border-black/[0.04]">
+        <div className="flex gap-3 mt-3 pt-2 border-t border-border">
           {[
             { label: 'Event', color: 'bg-[#BFFF00]' },
             { label: 'Assessment', color: 'bg-amber-500' },

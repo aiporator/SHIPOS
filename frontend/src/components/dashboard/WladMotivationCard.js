@@ -53,14 +53,14 @@ export const WladMotivationCard = ({ de = true }) => {
       <CardContent className="p-5 relative">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 rounded-xl bg-[#BFFF00]/15 flex items-center justify-center shrink-0">
-            <Quote size={14} className="text-[#6B8A00] dark:text-[#BFFF00]" />
+            <Quote size={14} className="text-[#6B8A00] dark:text-brand" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-[9px] font-black uppercase tracking-widest text-[#6B8A00] dark:text-[#BFFF00]">
+              <span className="text-[9px] font-black uppercase tracking-widest text-[#6B8A00] dark:text-brand">
                 {de ? 'Wlads Zitat des Tages' : "Wlad's Quote of the Day"}
               </span>
-              <Sparkles size={10} className="text-[#BFFF00]" />
+              <Sparkles size={10} className="text-brand" />
             </div>
             <p className="text-[13px] font-semibold leading-snug text-foreground">
               &ldquo;{quote}&rdquo;

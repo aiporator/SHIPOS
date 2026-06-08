@@ -92,7 +92,7 @@ const EmptyCreateCard = ({ navigate, de }) => (
     data-testid="workspace-empty-cta"
   >
     <div className="w-10 h-10 rounded-xl bg-[#BFFF00]/15 flex items-center justify-center group-hover:scale-110 transition-transform">
-      <Plus size={18} className="text-[#BFFF00]" />
+      <Plus size={18} className="text-brand" />
     </div>
     <p className="text-[12px] font-black">{de ? 'Ersten Workspace erstellen' : 'Create your first workspace'}</p>
     <p className="text-[10px] text-muted-foreground leading-relaxed max-w-[220px]">
@@ -162,7 +162,7 @@ export const FolderWorkspaceCards = ({ de = true }) => {
           </div>
           <button
             onClick={() => navigate('/missions')}
-            className="text-[10px] font-bold text-muted-foreground hover:text-[#BFFF00] flex items-center gap-1 transition-colors"
+            className="text-[10px] font-bold text-muted-foreground hover:text-brand flex items-center gap-1 transition-colors"
             data-testid="workspace-view-all-btn"
           >
             {de ? 'Alle ansehen' : 'View all'} <ArrowRight size={10} />
@@ -189,7 +189,7 @@ export const FolderWorkspaceCards = ({ de = true }) => {
                 className="group rounded-2xl border-2 border-dashed border-black/[0.06] dark:border-white/[0.06] p-4 flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer hover:border-[#BFFF00]/40 hover:bg-[#BFFF00]/[0.03] transition-colors min-h-[160px]"
                 data-testid="workspace-new-card"
               >
-                <Plus size={16} className="text-muted-foreground/40 group-hover:text-[#BFFF00] transition-colors" />
+                <Plus size={16} className="text-muted-foreground/40 group-hover:text-brand transition-colors" />
                 <p className="text-[10px] font-bold text-muted-foreground">{de ? 'Neuer Workspace' : 'New workspace'}</p>
               </div>
             )}

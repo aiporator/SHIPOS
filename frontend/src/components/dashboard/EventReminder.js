@@ -84,7 +84,7 @@ export const EventReminderCount = () => {
 
   if (count === 0) return null;
   return (
-    <span className="ml-auto w-4 h-4 rounded-full bg-red-500 text-white text-[8px] font-bold flex items-center justify-center" data-testid="event-reminder-badge">
+    <span className="ml-auto w-4 h-4 rounded-full bg-red-500 text-foreground text-[8px] font-bold flex items-center justify-center" data-testid="event-reminder-badge">
       {count}
     </span>
   );
