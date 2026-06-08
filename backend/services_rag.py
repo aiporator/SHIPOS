@@ -49,7 +49,11 @@ EMBEDDING_DIM = 1024
 # 0.60 threshold filtered EVERYTHING out — RAG looked configured but returned
 # zero context. Iter 92.6 lowered to 0.25 to actually surface relevant chunks.
 MATCH_THRESHOLD = float(os.environ.get("RAG_MATCH_THRESHOLD", "0.25"))
-MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "6"))              # top-K chunks
+# Bumped 6 → 8 after hybrid retrieval went live (#53): RRF works better with a
+# slightly wider context pool, and the corpus is now 2212 chunks (up from
+# 1605 after #56), so the LLM benefits from cross-source weaving (book + course
+# transcript + framework spec on the same topic).
+MATCH_COUNT = int(os.environ.get("RAG_MATCH_COUNT", "8"))              # top-K chunks
 # Hybrid retrieval: over-fetch from EACH retriever (vector + lexical), then fuse
 # down to MATCH_COUNT via Reciprocal Rank Fusion. Over-fetching gives RRF enough
 # candidates to reward chunks that BOTH retrievers surface.
