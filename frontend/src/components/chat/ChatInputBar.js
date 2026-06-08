@@ -6,7 +6,7 @@ import { WladTopicChips } from './WladTopicChips';
 
 const AttachedPreview = ({ attachedPdf, onRemove, de }) => (
   <div className="max-w-4xl mx-auto mb-2 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#BFFF00]/8 border border-[#BFFF00]/20" data-testid="pdf-attached">
-    <FileText size={14} className="text-[#6B8A00] dark:text-[#BFFF00] shrink-0" />
+    <FileText size={14} className="text-brand shrink-0" />
     <div className="flex-1 min-w-0">
       <p className="text-[11px] font-bold truncate">{attachedPdf.filename}</p>
       <p className="text-[9px] text-muted-foreground">
@@ -28,7 +28,7 @@ export const ChatInputBar = ({
   attachedPdf, setAttachedPdf, uploadingPdf, onPdfUpload,
   isPremium, onOpenUpsell, onOpenAudioMode, de,
 }) => (
-  <div className="border-t border-black/[0.06] dark:border-white/[0.06] p-4 bg-white/80 dark:bg-card/80 backdrop-blur-xl">
+  <div className="border-t border-border p-4 bg-card/80 backdrop-blur-xl">
     {attachedPdf && <AttachedPreview attachedPdf={attachedPdf} onRemove={() => setAttachedPdf(null)} de={de} />}
     <div className="flex gap-3 max-w-4xl mx-auto">
       <VoiceRecorder onTranscription={onVoice} disabled={loading} />
@@ -49,7 +49,7 @@ export const ChatInputBar = ({
       >
         {uploadingPdf
           ? <Loader2 size={15} className="animate-spin text-[#6B8A00] dark:text-[#BFFF00]" />
-          : <Paperclip size={15} className="text-[#6B8A00] dark:text-[#BFFF00]" />}
+          : <Paperclip size={15} className="text-brand" />}
         <input
           type="file"
           accept=".pdf,.docx,.txt,.md,.csv,.png,.jpg,.jpeg,.webp,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown,image/*"
@@ -62,9 +62,9 @@ export const ChatInputBar = ({
         placeholder={attachedPdf
           ? (de ? 'Was möchtest du zu dem PDF wissen?' : 'What do you want to know about the PDF?')
           : (de ? 'Beschreibe deine Leadership-Herausforderung...' : 'Describe your leadership challenge...')}
-        className="resize-none min-h-[44px] max-h-32 bg-gray-50 dark:bg-muted/30 border-black/[0.06] dark:border-white/[0.06] rounded-xl" rows={1} />
+        className="resize-none min-h-[44px] max-h-32 bg-muted/40 border-border rounded-xl focus-visible:ring-1 focus-visible:ring-brand/40" rows={1} />
       <Button data-testid="chat-send-btn" onClick={onSend} disabled={!input.trim() || loading}
-        className="bg-gradient-to-r from-[#0A0A0A] to-[#1A1A2E] hover:from-blue-700 hover:to-violet-700 text-white px-4 shrink-0 shadow-lg shadow-blue-500/15">
+        className="brand-pill btn-shine rounded-full px-5 shrink-0">
         {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
       </Button>
     </div>
@@ -76,8 +76,8 @@ export const ChatInputBar = ({
 
     {!isPremium && (
       <div className="flex items-center justify-center mt-2">
-        <button onClick={onOpenUpsell} className="text-[10px] text-muted-foreground hover:text-[#BFFF00] transition-colors font-medium" data-testid="upsell-mini-btn">
-          <Zap size={9} className="inline mr-0.5 text-[#BFFF00]" /> Premium ab €997
+        <button onClick={onOpenUpsell} className="text-[10px] text-muted-foreground hover:text-brand transition-colors font-medium" data-testid="upsell-mini-btn">
+          <Zap size={9} className="inline mr-0.5 text-brand" /> Premium ab €997
         </button>
       </div>
     )}

@@ -205,6 +205,8 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
                 type="button"
                 onClick={() => setSelected(pkg.id)}
                 className={`relative text-left p-5 rounded-2xl border-2 transition-all btn-revolut group ${
+                  isVIP ? 'gradient-border-anim' : ''
+                } ${
                   isSelected
                     ? (isVIP
                         ? 'border-brand bg-brand/[0.04] shadow-[0_8px_28px_-12px_rgba(191,255,0,0.5)]'

@@ -11,7 +11,7 @@ const UserMessage = ({ content }) => (
 
 const PlainAssistantMessage = ({ content }) => (
   <div className="flex mb-4 animate-fade-in" data-testid="chat-ai-message">
-    <div className="max-w-[80%] bg-white dark:bg-card border border-black/[0.06] dark:border-white/[0.06] rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+    <div className="max-w-[80%] surface-card rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
       <p className="text-sm whitespace-pre-wrap">{content}</p>
     </div>
   </div>
@@ -35,7 +35,7 @@ export const ChatMessage = ({ msg, de }) => {
           </Badge>
         )}
         {parsed.insight && (
-          <div className="bg-white dark:bg-card border border-black/[0.06] dark:border-white/[0.06] rounded-2xl px-4 py-3 shadow-sm">
+          <div className="surface-card rounded-2xl px-4 py-3 shadow-sm">
             <div className="flex items-center gap-2 mb-2">
               <Lightbulb size={14} className="text-amber-500" />
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{de ? 'Leadership-Erkenntnis' : 'Leadership Insight'}</span>
@@ -53,7 +53,7 @@ export const ChatMessage = ({ msg, de }) => {
           </div>
         )}
         {parsed.action_steps?.length > 0 && (
-          <div className="bg-white dark:bg-card border border-black/[0.06] dark:border-white/[0.06] rounded-2xl px-4 py-3 shadow-sm">
+          <div className="surface-card rounded-2xl px-4 py-3 shadow-sm">
             <div className="flex items-center gap-2 mb-2">
               <ListChecks size={14} className="text-green-500" />
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{de ? 'Nächste Schritte' : 'Action Steps'}</span>
