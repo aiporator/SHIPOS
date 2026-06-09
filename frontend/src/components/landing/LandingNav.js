@@ -36,7 +36,7 @@ export const LandingNav = () => {
               Leader<span className="text-brand mx-0.5">·</span>OS
             </span>
             <span className="text-[8px] text-foreground/55 font-bold tracking-[0.22em] uppercase mt-[2px] font-mono">
-              BIB · 0001
+              Powered by WladBot
             </span>
           </div>
         </Link>

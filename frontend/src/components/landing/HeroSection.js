@@ -82,7 +82,7 @@ export const HeroSection = () => (
         variants={FADE_UP}
         className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-6 font-mono"
       >
-        ▸ Leader-OS · Powered by WladBot
+        ▸ KI-COACH · WLAD-METHODIK · 30-TAGE-SPRINT
       </motion.p>
 
       <motion.h1
@@ -107,9 +107,9 @@ export const HeroSection = () => (
         variants={FADE_UP}
         className="mt-8 md:mt-12 max-w-2xl text-[15px] md:text-[18px] leading-[1.55] text-foreground/70"
       >
-        Das Operating System für die nächste Generation Führungskräfte.
-        Wlad Jachtchenkos Methodik live, jeden Tag, in deiner Tasche.
-        Starte mit der kostenlosen Diagnose auf{' '}
+        Endlich überzeugend auftreten. Klare Skripte statt Theorie-Geschwafel.
+        Wlads Methodik live, ein KI-Coach der dich 24/7 begleitet und ein
+        30-Tage-Plan der wirkt. Starte kostenlos mit der Diagnose auf{' '}
         <a
           href="https://leader-check.de"
           target="_blank"
@@ -125,21 +125,34 @@ export const HeroSection = () => (
         animate="show"
         custom={3}
         variants={FADE_UP}
-        className="mt-10 md:mt-14 flex flex-wrap items-center gap-x-8 gap-y-4"
+        className="mt-10 md:mt-14"
       >
-        <PlusCircleCTA
-          href={LANDING_META.cta.primary.href}
-          testId="hero-cta-primary"
-        >
-          Diagnose starten · 5 Min · kostenlos
-        </PlusCircleCTA>
-        <a
-          href="#how-it-works"
-          className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/50 hover:text-foreground transition-colors"
-          data-testid="hero-cta-scroll"
-        >
-          So funktioniert's ↓
-        </a>
+        <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border border-brand/40 bg-brand/[0.07]">
+          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" aria-hidden />
+          <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground font-mono">
+            Kohorte 0001 · jetzt offen
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+          <PlusCircleCTA
+            href={LANDING_META.cta.primary.href}
+            testId="hero-cta-primary"
+          >
+            Diagnose starten · 5 Min · kostenlos
+          </PlusCircleCTA>
+          <a
+            href="#how-it-works"
+            className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/50 hover:text-foreground transition-colors"
+            data-testid="hero-cta-scroll"
+          >
+            So funktioniert's ↓
+          </a>
+        </div>
+
+        <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/45 font-mono">
+          ▸ Kein Abo · Keine Kreditkarte für die Diagnose · DSGVO-konform
+        </p>
       </motion.div>
 
       {/* BIB-strip footer */}
