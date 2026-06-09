@@ -1,0 +1,44 @@
+{
+  "summary": "Iter 83 full backend + frontend test of login security tracking, Magic Link, /security/overview, revoke-other-sessions. All 12 backend tests PASS. Frontend login E2E PASS (no bounce to /login → deployment crash fix verified). Login page redesign tabs (Password/Magic Link) render correctly. Magic-link request flow renders 'Link verschickt' confirmation. Profile › Security tab shows 20 history rows + 2 session rows with current-session badge. CRITICAL frontend bug found and FIXED: /auth/magic verify page was being intercepted by axios 401→/login redirect because isAuthEndpoint regex did not include /auth/magic-link/* (also missing /auth/google-session). Patched /app/frontend/src/lib/api.js. NOTE: post-fix retest of /auth/magic?token=BADTOKEN still rendered login (likely browser/CDN cache or dev-build delay); main agent should re-verify after a hard reload — backend side returns the expected 401, and the regex fix is the correct RCA. Minor backend issue: pre-iter-83 login_history entries lack the new fields (browser/os/device_type/city/country_code/fingerprint) — endpoint returns them raw, no backfill. Acceptable for now; new entries from iter 83 onward have all fields.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/auth/security/overview", "issue": "Old login_history entries from before iter 83 lack browser/os/device_type/city/country_code/fingerprint fields. Endpoint returns them raw without padding defaults. Frontend should tolerate missing keys, or backend should backfill empty strings."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "lib/api.js axios interceptor", "issue": "isAuthEndpoint regex was missing /auth/magic-link/(request|verify) AND /auth/google-session. On a 401 from /auth/magic-link/verify (bad/expired token), interceptor tried /auth/refresh (401), then force-redirected the browser to /login — so users with a bad magic link never saw the MagicLinkVerifyPage error state. FIXED in this iteration.", "selector": "n/a", "priority": "HIGH"}
+    ],
+    "integration_issues": [
+      {"flow": "Magic link verify (bad token)", "issue": "Even after the isAuthEndpoint regex fix, a follow-up browser test still landed on /login. Likely service-worker / preview-bundle caching of api.js. Needs hard reload / new build to confirm. Backend already returns the correct 401 with 'Link ist ungültig...'.", "affected_selectors": ["[data-testid='magic-link-verify-page']", "[data-testid='magic-verify-error']", "[data-testid='magic-verify-back-to-login']"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration83_security_magic_link.py",
+    "/app/test_reports/pytest/iter83_security_magic.xml"
+  ],
+  "action_items": [
+    "Re-verify /auth/magic?token=BADTOKEN end-to-end after a hard reload (or force a fresh frontend bundle) — the api.js regex fix is in place; main agent can self-test.",
+    "OPTIONAL: backfill empty fields (browser/os/device_type/city/country_code/fingerprint='') in /auth/security/overview for legacy login_history entries so the frontend never sees undefined keys.",
+    "OPTIONAL: ensure send_magic_link_email is awaited correctly even when Resend errors (currently relies on fire-and-forget try/except in service)."
+  ],
+  "critical_code_review_comments": [
+    "isAuthEndpoint regex in /app/frontend/src/lib/api.js was too narrow — any new /auth/* endpoint that legitimately returns 401 (magic-link/verify, google-session) would auto-redirect users to /login and hide the real error. Consider a broader rule like /^\\/auth\\// or a per-endpoint opt-out list to prevent regression next time.",
+    "backend/routes/auth.py is 628 lines — close to the 700-line guideline. Consider splitting magic-link endpoints into routes/auth_magic.py to keep cohesion.",
+    "magic-link rate limit reuses login_attempts collection with a 'magic:' prefix on email. Works, but a dedicated collection or a typed field would be cleaner and easier to monitor.",
+    "Backend services_login_security.fire_and_forget_new_device_alert calls asyncio.get_event_loop() which is deprecated in 3.12+ — use asyncio.get_running_loop() with a fallback."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration83_security_magic_link.py",
+    "/app/frontend/src/lib/api.js"
+  ],
+  "success_rate": {"backend": "100% (12/12)", "frontend": "85% (login E2E, login-page tabs, magic-link request confirmation, profile security tab all PASS; magic-link bad-token verify page UI not yet re-confirmed after fix)"},
+  "test_credentials": "test@test.com / test123 (legacy admin) — used for all auth tests",
+  "seed_data_creation": "Inserted ephemeral magic_links docs directly into Mongo for single-use replay test; cleaned up via expires_at TTL. Created and cleaned up sec-test-{ts}@test.com user. Created throwaway login_attempts under magic:ratelimit-{ts}@example.com (cleaned).",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend pytest file: /app/backend/tests/test_iteration83_security_magic_link.py. Re-run order: wait ≥45s after any heavy auth test run to avoid the global RateLimitMiddleware cap of 20/min on /api/auth/*. The TestRevokeOtherSessions test uses unique X-Forwarded-For headers to bypass. After confirming the api.js regex fix is shipped (hard reload), the /auth/magic?token=BADTOKEN flow should display [data-testid='magic-link-verify-page'] → [data-testid='magic-verify-error'] → [data-testid='magic-verify-back-to-login'].",
+  "rca of the issue": "Frontend redirect bug RCA — root cause: axios response interceptor in /app/frontend/src/lib/api.js had isAuthEndpoint = /\\/(auth\\/login|auth\\/refresh|auth\\/me|auth\\/register)/. Magic-link endpoints not in the allowlist → on 401 the interceptor attempted /auth/refresh, also 401'd, then redirected window.location to /login. Fix applied: broadened regex to include auth/magic-link/(request|verify) and auth/google-session. Repro: visit /auth/magic?token=BADTOKEN unauthenticated → without fix: bounces to /login (Account erstellen); with fix: should render MagicLinkVerifyPage with error state."
+}

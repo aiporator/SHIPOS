@@ -1,0 +1,50 @@
+{
+  "summary": "Iter 59 — Full regression + 2 new features tested. 14/14 backend pytest cases PASS. All frontend flows verified: dashboard WladHubCard (split sub-components), my-path videos tab, Challenge30 week tabs/day cards (helper-function refactor), /payment-success (no 500 with fake session_id), all 5 quick-login buttons. New features (Group Coaching Monthly/Annual checkout + /cron/monthly-scorecard) fully working including idempotency.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": { "ui_bugs": [], "integration_issues": [], "design_issues": [] },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration59_features.py",
+    "/app/test_reports/pytest/pytest_iteration59.xml"
+  ],
+  "backend_test_results": {
+    "my_path_videos_free": "PASS (0 unlocked, 10 total)",
+    "my_path_videos_starter": "PASS (6 unlocked)",
+    "my_path_videos_standard": "PASS (6 unlocked)",
+    "my_path_videos_accelerator": "PASS (10 unlocked)",
+    "wladhub_3layer_starter": "PASS (ki_kompetenz+boardroom_rhetorik+strategisches_eq+strengths+improvements all present)",
+    "wladhub_3layer_standard": "PASS",
+    "wladhub_3layer_accelerator": "PASS",
+    "admin_overview_structure": "PASS (users/tier_distribution/revenue/installments/community/enterprise_leads/referrals all present; revenue.total_eur/per_tier keys correct)",
+    "admin_overview_forbidden_non_admin": "PASS (403 for starter user)",
+    "packages_includes_group_coaching": "PASS (monthly €49, annual €299 present in PACKAGES)",
+    "checkout_group_coaching_monthly": "PASS (returns Stripe URL + session_id for accelerator user)",
+    "checkout_group_coaching_annual": "PASS",
+    "cron_installments_due": "PASS (returns {sent,scanned})",
+    "cron_monthly_scorecard_idempotent": "PASS (first call sent>=2 for 2 accelerator users, second call sent=0 via email_log dedup, month key correct)"
+  },
+  "frontend_test_results": {
+    "quick_login_all_5_buttons": "PASS — testids: quick-login-free/starter/standard/accelerator/raten (NOTE: 5th is quick-login-raten, NOT accelerator-raten)",
+    "dashboard_wladhub_starter": "PASS — WladHubCard renders, score text present",
+    "dashboard_wladhub_accelerator": "PASS — 3 score labels (KI-Kompetenz, Rhetorik, EQ) all visible",
+    "my_path_tabs": "PASS — tab-progress + tab-videos",
+    "my_path_learning_videos_starter": "PASS — 10 cards render, unlock-accelerator-btn CTA present for locked cards",
+    "challenge30_week_tabs": "PASS — 4 week-tab-N testids",
+    "challenge30_day_cards": "PASS — 7 challenge-day-N cards per week, tab switching works (helper functions render correctly)",
+    "payment_success_no_500": "PASS — /payment-success?session_id=test renders 'Zahlung wird überprüft…' loader without JS errors. GroupCoachingUpsell only renders on status==='success' (requires real Stripe session, per spec note)."
+  },
+  "action_items": [],
+  "critical_code_review_comments": [
+    "payments.py get_packages() returns tier_cfg from TIER_CONFIG['free'] when pkg tier is None (group coaching add-ons) — features dict shown is 'free' features which is misleading for add-ons. Consider returning empty features or an add-on-specific feature list.",
+    "admin.py /overview makes 11+ sequential DB queries via helpers. For a 100M-ARR dashboard, consider running them in asyncio.gather() for faster response.",
+    "cron_monthly_scorecard: if send_email fails (r.sent=False) it still inserts into email_log + scorecard_history, which means retries are blocked until next month. Consider only logging + snapshotting on success.",
+    "Quick-login 5th button testid is 'quick-login-raten' but credentials doc refers to 'accelerator-raten@wladbot.test' — for consistency prefer 'quick-login-accelerator-raten' (or document the naming explicitly).",
+    "test_credentials.md smoke-test script still uses 'access_token' key (actual API returns 'token') — unchanged doc typo from iter 58."
+  ],
+  "updated_files": ["/app/backend/tests/test_iteration59_features.py"],
+  "success_rate": { "backend": "100% (14/14)", "frontend": "100% (all flows verified)" },
+  "test_credentials": "5 seeded accounts (free/starter/standard/accelerator/accelerator-raten@wladbot.test) + test@test.com admin — all test123 password. Tokens retrieved via POST /api/auth/login (returns {token, user}).",
+  "seed_data_creation": "cron_monthly_scorecard inserted entries into email_log + scorecard_history for the 2 accelerator users for the current month (2026-01). This means running the monthly cron again this month will return sent=0 — this is the correct idempotent behavior. To re-test, delete email_log entries with type='monthly_scorecard_2026-01'. Also, 2 stripe checkout 'initiated' rows created for accelerator@ user in payment_transactions (group_coaching_monthly + group_coaching_annual) — benign, no payment taken.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 5 iter-59 changes verified working: (1) admin_overview helper-refactor returns same shape, (2) wladhub 3layer returns ki_kompetenz/boardroom_rhetorik/strategisches_eq + overall_score + strengths + improvements, (3) my-path/videos returns dict (starter_videos + accelerator_videos arrays + unlocked_count), (4) Group Coaching add-on packages work (monthly €49, annual €299) — both create Stripe checkout, (5) /api/cron/monthly-scorecard is public+idempotent, scans accelerator users and dedups via email_log by month key. Quick-login 5th button testid is quick-login-raten. GroupCoachingUpsell only renders on status==='success' in PaymentSuccessPage.js — fake session_id keeps it in 'checking' state which is per spec. Challenge30 week-tab/day-card helpers (getWeekTabClass/getDayCardClass/getDayBadgeClass/renderDayIcon/getCtaLabel) all render correctly."
+}

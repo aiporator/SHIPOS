@@ -1,0 +1,54 @@
+{
+  "summary": "Iteration 74: Validated 3-tier pricing restructure (Leadership OS €997 / OS PLUS €4.447 / Enterprise quote-based) + new Downloads PDF page. Backend = 17/17 tests passing on new test_iteration74_pricing.py. Frontend = 3 tier cards + installment modal with both plans + all 4 download cards + Sidebar 'Downloads (PDF)' link all rendering. Enterprise quote+lead endpoints verified end-to-end via backend. Enterprise modal UI flow blocked in Playwright by recurring SmartPopup (WladBot 'incoming call' overlay) — modal element exists & opens on direct CTA click but popup re-intercepts; main agent should verify in real browser or set a flag to suppress popup on /coaching.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/payments/enterprise/lead", "issue": "Admin notification email — ENTERPRISE_LEAD_EMAIL env NOT set; falls back to SENDER_EMAIL (reminders@leader-os.de). Works but consider explicit ENTERPRISE_LEAD_EMAIL for routing leads to sales inbox."},
+      {"endpoint": "/api/auth/login", "issue": "Brute-force rate limit (429) trips quickly during regression-test runs (test_iteration68_auth_enterprise.py first failure). Pre-existing — not introduced this iteration."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Coaching → Enterprise CTA", "issue": "SmartPopup 'WladBot - Bereit für dein nächstes Leadership-Level?' overlay re-appears after dismissal and intercepts clicks on tier-cta-enterprise; in Playwright we could not reach enterprise-quote-modal on /coaching. The CTA element is present and visible (data-testid=tier-cta-enterprise found). Recommend: suppress SmartPopup auto-trigger while on /coaching, or scope it to /dashboard only.", "selector": "[data-testid=\"tier-cta-enterprise\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration74_pricing.py",
+    "/app/test_reports/pytest/pytest_iteration74.xml"
+  ],
+  "action_items": [
+    "[OPTIONAL] Add ENTERPRISE_LEAD_EMAIL=<sales@...> to /app/backend/.env for explicit lead routing (currently fallback to SENDER_EMAIL works).",
+    "[MEDIUM] Suppress SmartPopup (WladBot incoming-call overlay) on /coaching page or add a global 'dismiss all' that survives navigation — it intercepts the Enterprise CTA click flow.",
+    "[INFO] Pre-existing test_mvp_final.py has bad import 'from tests.conftest import ...' — fix to 'from .conftest' or 'from conftest'.",
+    "[INFO] Update /app/memory/test_credentials.md → Stripe Package IDs section now reads: leadership_os, leadership_os_2x, leadership_os_12x, leadership_os_plus (legacy starter/standard/accelerator/accelerator_installment/enterprise still resolved internally for back-compat)."
+  ],
+  "critical_code_review_comments": [
+    "calc_enterprise_quote() correctly walks volume_discount_tiers ascending and picks highest applicable — math validated for 1, 4, 5, 10, 20, 50, 100, 200 seats.",
+    "_resolve_package() cleanly handles new + legacy keys via two-dict lookup. Good back-compat.",
+    "EnterpriseLead model: missing email format validation (Pydantic str, not EmailStr). Consider EmailStr to reject malformed emails server-side.",
+    "/api/payments/enterprise/quote and /lead are public (no auth) — that's intentional for funnel but make sure rate-limiting middleware covers them; today only auth endpoints have brute-force protection.",
+    "TIER_CONFIG comment says Leadership OS Enterprise has duration_days=365 — but no PACKAGES entry, OK since it's quote-based. activate_tier() supports tier='enterprise' but no flow currently calls it (manual sales close).",
+    "New downloads page uses jsPDF + html2canvas async — confirmed click on download-btn-leadership_manifest does not throw any pageerror. Browser file-download itself not asserted (Playwright limitation, expected)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration74_pricing.py (new - 17 tests)"
+  ],
+  "success_rate": {"backend": "100% (17/17 new tests)", "frontend": "85% (5/6 flows verified; enterprise modal blocked by popup overlay)"},
+  "test_credentials": "standard@wladbot.test / test123 used (QA quick-login row).",
+  "seed_data_creation": "Created 1 enterprise lead in db.enterprise_leads via test_lead_create (company=TEST_AcmeCorp, lead_id=lead_*).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend 3-tier pricing structure is fully functional. New PACKAGES dict has 4 entries (leadership_os, leadership_os_2x, leadership_os_12x, leadership_os_plus). Legacy IDs (starter/standard/accelerator/accelerator_installment/enterprise) still resolve via LEGACY_PACKAGES for old webhook compat. Enterprise volume tiers tested: 5/10/20/50/100/200 → 10/15/20/30/40/50% discount. The /coaching page has a recurring SmartPopup that intercepts clicks — when testing UI flows there, dismiss with text='Ablehnen' just before each click, and re-dismiss after navigation. The enterprise-quote-modal data-testid IS implemented (visible in DOM after CTA click in non-popup state). Sidebar 'Downloads (PDF)' link confirmed at /downloads. All 4 download cards (download-card-{leadership_report,30_tage_plan,wlad_book,leadership_manifest}) render. Manifest PDF click does not throw.",
+  "ship_check": {
+    "stripe": "TEST mode key (sk_test_emergent) configured, /payments/checkout returns valid Stripe URL for leadership_os package — OK",
+    "resend": "RESEND_API_KEY set, SENDER_EMAIL=reminders@leader-os.de — OK",
+    "elevenlabs": "ELEVENLABS_API_KEY set — OK (not exercised in this iteration)",
+    "supabase": "SUPABASE_URL + ANON_KEY + SERVICE_KEY all set — OK",
+    "enterprise_lead_email": "ENTERPRISE_LEAD_EMAIL NOT set, fallback to SENDER_EMAIL works — OK but consider explicit",
+    "broken_endpoints": "none in new tests; pre-existing test_mvp_final.py has bad relative import",
+    "missing_env_vars": "ENTERPRISE_LEAD_EMAIL (optional, has fallback)"
+  },
+  "rca of the issue": "Enterprise modal UI block: the global SmartPopup (KI-Coach incoming call) auto-triggers on route changes and renders as a fixed-position overlay covering the viewport. Clicking 'Ablehnen' dismisses it but it re-fires after a few seconds, creating a race condition with the enterprise CTA click. Mitigation: (a) gate the SmartPopup to non-coaching routes, (b) add a 'dismissed_at' session flag that suppresses re-trigger for N minutes, or (c) expose a data-testid on the popup with a stable dismiss button so automation can deterministically clear it."
+}

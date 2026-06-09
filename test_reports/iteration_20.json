@@ -1,0 +1,54 @@
+{
+  "summary": "Iteration 20 - Stripe Payment Integration, WladHub Enhancement, Team Event Location Step, Interactive Events Calendar. All backend tests passed (28/28). All frontend features verified. Fixed remaining iclosed.io links in SalesWidget.js.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "GET /api/payments/packages returns 3 packages (premium=4977, starter=997, enterprise=14977 EUR)",
+    "POST /api/payments/checkout creates Stripe checkout session with URL",
+    "GET /api/wladhub/3layer returns WladHub 3-Layer scores",
+    "POST /api/wladhub/sync returns sync status",
+    "GET /api/wladhub/diagnosis returns diagnosis data",
+    "POST /api/wladhub/import with extended fields (fuehrungsdimensionen, leader_typ) works",
+    "GET /api/payments/history returns payment history list",
+    "Login/logout works",
+    "Dashboard loads correctly",
+    "Chat 5 Rollen works (Auto, Kommunikator, Manager, Team-Leader, Psychologe, Problemlöser)",
+    "Playbooks German loads (5 playbooks with German categories)",
+    "Workflows page: Team-Event Planer shows 5 Schritte (includes location step)",
+    "Workflows page: Clicking a tool opens Persona step first (role, industry, team, goals)",
+    "Events page: Calendar is interactive with date filtering",
+    "Events page: All 12+ events load with correct tabs (Webinare/Workshops/Trainings)",
+    "Events page: Calendar sync buttons (Google/Outlook) visible",
+    "Coaching page: Buy buttons trigger Stripe checkout (not iclosed.io)",
+    "Coaching page: 3-Layer model displayed (KI-Kompetenz, Boardroom-Rhetorik, Strategisches EQ)",
+    "Coaching page: Premium price 4977 EUR displayed",
+    "Payment success page loads at /payment-success",
+    "No iclosed.io references remain anywhere in the app (fixed SalesWidget.js)",
+    "Sidebar navigation works for all pages"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_iteration19_payments_wladhub.py",
+    "/app/test_reports/pytest/pytest_iteration20.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [
+    "/app/frontend/src/components/shared/SalesWidget.js"
+  ],
+  "success_rate": {
+    "backend": "100% (28/28 tests passed)",
+    "frontend": "100% (all features working)"
+  },
+  "test_credentials": "Email: test@test.com, Password: test123",
+  "seed_data_creation": "None - used existing test user",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 20 testing complete. All Stripe payment integration working: 3 packages (premium/starter/enterprise), checkout sessions, payment success page with polling. WladHub 3-Layer endpoint enhanced. Team Event Planer has 5 steps (includes location). Events page has interactive calendar with date filtering. All iclosed.io links replaced with /coaching navigation. Onboarding walkthrough modal appears on first visit - click 'Überspringen' to dismiss."
+}

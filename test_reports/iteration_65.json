@@ -1,0 +1,63 @@
+{
+  "summary": "Regression test of 3 refactored pages (CommunityPage/PlaybooksPage/ChatPage) after split into sub-components. All critical data-testids preserved, UI flows work identically to iteration_64. Zero regressions. Backend skipped per request.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "CommunityPage.js (153 lines), PlaybooksPage.js (196 lines), ChatPage.js (192 lines) — all within target sizes. Clean separation of concerns: orchestrator handles state+API calls, sub-components receive props. No logic duplicated across files.",
+    "ChatPage.js has a buildFullMessage helper extracted at module level — good pattern. Consider moving it to a separate chatHelpers.js if it grows.",
+    "PlaybooksPage.js sendMessage() still inlines the next-step transition with setTimeout(600ms). Not a regression, but could be moved into a usePlaybookChat hook for even cleaner separation.",
+    "CommunityPage.js prop-drills commentDraft/setCommentDraft through CommunityPost. Acceptable for now, but if community grows, consider lifting comments into a useCommunityPosts hook."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "skipped (not requested)", "frontend": "100%"},
+  "test_credentials": "standard@wladbot.test / test123 (primary), free@wladbot.test / test123 (for upsell-mini-btn visibility which only shows for non-premium users)",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iter 65 = pure refactor regression. All 3 pages verified via Playwright. IMPORTANT testid naming reminders for future testers: Community filter testids are SINGULAR: filter-all, filter-win, filter-question, filter-challenge, filter-general (NOT filter-wins/filter-questions). Same for compose-cat-{id}. upsell-mini-btn in ChatInputBar only renders when !isPremium — standard/accelerator users don't see it (verified with free@wladbot.test: shows; standard@wladbot.test: hidden). scenario-btn-{idx} only renders when an agent-tab (other than auto) is selected — activeRole must be truthy.",
+  "detailed_results": {
+    "community": {
+      "page_loads": true,
+      "compose_card_visible": true,
+      "compose_textarea_works": true,
+      "compose_submit_disabled_when_empty": true,
+      "compose_submit_enabled_with_text": true,
+      "compose_cat_chips_clickable": "4 chips: win/question/challenge/general all present and clickable",
+      "filter_tabs_clickable": "all 5 filters (all/win/question/challenge/general) visible and clickable — feed refetches on change",
+      "posts_render": "0 posts currently; empty-state card renders correctly",
+      "leaderboard_card_visible": true,
+      "community_stats_card_visible": true
+    },
+    "playbooks": {
+      "page_loads": true,
+      "playbook_cards_rendered": "8 cards with title/category/steps",
+      "start_btn_opens_chat_view": true,
+      "playbook_chat_input_visible": true,
+      "playbook_send_btn_visible": true,
+      "back_to_playbooks_btn_works": "returns to list"
+    },
+    "chat": {
+      "page_loads": true,
+      "empty_state_5_role_cards": "all 5 role cards visible (role-card-kommunikator/manager/team-leader/psychologe/problemloeser)",
+      "agent_tabs": "6 tabs: auto + 5 roles all clickable",
+      "context_toggle_opens_panel": true,
+      "context_role_company_industry_inputs_visible": true,
+      "new_chat_session_btn_works": true,
+      "scenario_btns": "3 scenarios shown after role selection; click fills chat-input with scenario text",
+      "chat_send_disabled_when_empty": true,
+      "chat_send_enabled_with_text": true,
+      "pdf_upload_btn_visible": true,
+      "book_link_visible": true,
+      "upsell_mini_btn": "visible for free tier, hidden for premium (by design, correct)"
+    }
+  }
+}

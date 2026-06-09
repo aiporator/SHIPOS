@@ -1,0 +1,760 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════
+   WLADHUB / LeaderOS Brand Design System
+   Brand Colors: #BFFF00 (Neon Lime) + #0A0A0A (Black)
+   ══════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* ── Light Mode: Clean White + Warm Gray ── */
+    --background: 0 0% 98.5%;
+    --foreground: 0 0% 6%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6%;
+    --primary: 72 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 6%;
+    --muted: 0 0% 95.5%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 72 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 72 100% 45%;
+    --chart-1: 72 100% 50%;
+    --chart-2: 168 64% 38%;
+    --chart-3: 24 90% 52%;
+    --chart-4: 340 75% 55%;
+    --chart-5: 200 80% 50%;
+    --radius: 0.75rem;
+
+    /* Brand tokens — light mode uses darker lime for WCAG contrast on white */
+    --brand: 72 100% 27%;        /* #6B8A00 — WCAG AA on light bg */
+    --brand-hex: #6B8A00;
+    --brand-dark: #9ACC00;
+    --brand-bg: #0A0A0A;
+    --cyan: #BFFF00;
+  }
+
+  .dark {
+    /* ── Dark Mode: Pure Black + Neon Lime (WLADHUB signature) ── */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 6.5%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 72 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 52%;
+    --accent: 72 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 72 100% 50%;
+    --chart-1: 72 100% 50%;
+    --chart-2: 168 64% 45%;
+    --chart-3: 24 90% 55%;
+    --chart-4: 340 75% 60%;
+    --chart-5: 200 80% 55%;
+    /* Dark mode: full neon lime */
+    --brand: 72 100% 50%;
+    --brand-hex: #BFFF00;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+  }
+  code, pre { font-family: 'JetBrains Mono', monospace; }
+}
+
+@layer base {
+  [data-debug-wrapper="true"] { display: contents !important; }
+  [data-debug-wrapper="true"] > * {
+    margin-left: inherit; margin-right: inherit;
+    margin-top: inherit; margin-bottom: inherit;
+    padding-left: inherit; padding-right: inherit;
+    padding-top: inherit; padding-bottom: inherit;
+    column-gap: inherit; row-gap: inherit; gap: inherit;
+    border-left-width: inherit; border-right-width: inherit;
+    border-top-width: inherit; border-bottom-width: inherit;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--muted-foreground) / 0.15); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.3); }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Glassmorphism ── */
+.glass {
+  backdrop-filter: blur(24px);
+  background: hsl(var(--background) / 0.85);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* ── Brand Gradient Text (Neon Lime) ── */
+.gradient-text {
+  background: linear-gradient(135deg, #BFFF00, #D4FF4D, #BFFF00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-text {
+  background: linear-gradient(135deg, #BFFF00, #E0FF66);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Light mode: lime text needs to be darker for readability ── */
+:root .gradient-text {
+  background: linear-gradient(135deg, #6B8A00, #4A6200);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Background mesh ── */
+.bg-gradient-mesh {
+  background:
+    radial-gradient(at 20% 10%, rgba(191,255,0,0.04) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(0,200,150,0.03) 0px, transparent 50%),
+    radial-gradient(at 0% 60%, rgba(191,255,0,0.02) 0px, transparent 50%);
+}
+.dark .bg-gradient-mesh {
+  background:
+    radial-gradient(at 20% 10%, rgba(191,255,0,0.03) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(0,200,150,0.02) 0px, transparent 50%);
+}
+
+/* ── Agent colors ── */
+.agent-vision { color: #BFFF00; }
+.agent-communication { color: #00D4AA; }
+.agent-eq { color: #FF6B9D; }
+.agent-conflict { color: #FF4444; }
+.agent-delegation { color: #FFB800; }
+.agent-meeting { color: #00CC77; }
+.agent-decision { color: #00AAFF; }
+.agent-growth { color: #BFFF00; }
+
+.stat-number { font-variant-numeric: tabular-nums; }
+
+/* ══════ Animations ══════ */
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 12px 2px rgba(191,255,0,0.1); } 50% { box-shadow: 0 0 24px 6px rgba(191,255,0,0.2); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes orbitSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes typingDot { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+
+.animate-breathe { animation: breathe 3s ease-in-out infinite; }
+.animate-fade-in { animation: fadeIn 0.5s ease-out both; }
+.animate-slide-up { animation: slideUp 0.6s ease-out both; }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+.animate-shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); background-size: 200% 100%; animation: shimmer 2s infinite; }
+.animate-orbit { animation: orbitSlow 20s linear infinite; }
+.typing-dot { animation: typingDot 1.4s infinite both; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* ── Skeleton loading ── */
+.skeleton-pulse {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.08) 50%, hsl(var(--muted)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+/* ── Card effects ── */
+.card-premium { transition: all 0.3s ease; }
+.card-premium:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -8px rgba(0,0,0,0.08); }
+.dark .card-premium:hover { box-shadow: 0 12px 40px -8px rgba(191,255,0,0.04); }
+.card-glow:hover { box-shadow: 0 0 0 1px rgba(191,255,0,0.15), 0 8px 30px -8px rgba(191,255,0,0.08); }
+
+/* ── Upsell premium border ── */
+.upsell-border {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.upsell-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, #BFFF00, #00CC77, #BFFF00);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ── Sidebar active state ── */
+.nav-state-active {
+  background: rgba(191,255,0,0.08) !important;
+  color: #BFFF00 !important;
+  border-left: 2px solid #BFFF00;
+}
+.dark .nav-state-active {
+  background: rgba(191,255,0,0.06) !important;
+  color: #BFFF00 !important;
+}
+:root .nav-state-active {
+  background: rgba(107,138,0,0.08) !important;
+  color: #4A6200 !important;
+  border-left: 2px solid #6B8A00;
+}
+
+/* ── Score ring animation ── */
+.score-ring circle:last-child { animation: fadeIn 1.5s ease-out both; }
+
+/* ── Leader glow ── */
+.leader-score-glow { box-shadow: 0 0 60px 10px rgba(191,255,0,0.06); }
+.dark .leader-score-glow { box-shadow: 0 0 60px 10px rgba(191,255,0,0.04); }
+
+/* ── Smooth progress ── */
+.progress-animated { transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* ── WLADHUB Brand Button Styles ── */
+.btn-brand {
+  background: #BFFF00;
+  color: #000;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+.btn-brand:hover {
+  background: #D4FF4D;
+  box-shadow: 0 0 20px rgba(191,255,0,0.3);
+}
+
+/* ══════════════════════════════════════════════════
+   REVOLUT-INSPIRED POLISH LAYER (Iter 91)
+   - Premium card surfaces with subtle gradient halos
+   - Buttery-smooth motion (cubic-bezier easing)
+   - Light/Dark parity (all values via design tokens)
+   ══════════════════════════════════════════════════ */
+
+/* ── WladMark animations (Iter 92.5 — cool curvy W) ── */
+.wlad-mark-animated .wlad-mark-w {
+  stroke-dasharray: 130;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.wlad-mark-animated .wlad-mark-flick {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s;
+}
+.wlad-mark-animated .wlad-mark-pixel-b,
+.wlad-mark-animated .wlad-mark-pixel-c {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wladPixelTwinkle 3.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.wlad-mark-animated .wlad-mark-pixel-b { animation-delay: 0s; }
+.wlad-mark-animated .wlad-mark-pixel-c { animation-delay: 1.4s; }
+
+.wlad-mark-animated .wlad-mark-glyph {
+  animation: wladIdleSway 6s ease-in-out infinite;
+  transform-origin: center;
+}
+.wlad-mark-animated:hover .wlad-mark-w {
+  animation: wladTrace 0.95s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.wlad-mark-animated:hover .wlad-mark-flick {
+  animation: wladTraceShort 0.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s;
+}
+.wlad-mark-animated:hover .wlad-mark-glyph {
+  animation: wladHoverPop 0.55s ease-out;
+}
+
+/* Scan-line shimmer */
+.wlad-mark-scanline {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%);
+  transform: skewX(-18deg);
+  animation: wladScanline 4.5s cubic-bezier(0.55, 0.05, 0.5, 0.95) infinite;
+}
+
+@keyframes wladTrace {
+  0% { stroke-dashoffset: 130; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes wladTraceShort {
+  0% { stroke-dashoffset: 14; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes wladIdleSway {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  40%      { transform: rotate(-2deg) scale(1.007); }
+  60%      { transform: rotate(2deg) scale(1.007); }
+}
+@keyframes wladPixelTwinkle {
+  0%, 60%, 100% { opacity: 0.92; transform: scale(1); }
+  72%           { opacity: 0.3;  transform: scale(0.7); }
+  84%           { opacity: 1;    transform: scale(1.25); }
+}
+@keyframes wladHoverPop {
+  0%   { transform: scale(1) rotate(0deg); }
+  50%  { transform: scale(1.08) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+@keyframes wladScanline {
+  0%   { left: -100%; }
+  60%  { left: 140%; }
+  100% { left: 140%; }
+}
+
+/* ── Smooth motion: scope to elements that opt in ── */
+@keyframes fadeInUp { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes scaleIn   { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInRight { from { opacity: 0; transform: translate3d(-12px, 0, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+
+.motion-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-scale-in   { animation: scaleIn  0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-slide-in   { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Cascade helpers — apply to a parent and children get staggered entrance */
+.cascade > *:nth-child(1) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.00s both; }
+.cascade > *:nth-child(2) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.05s both; }
+.cascade > *:nth-child(3) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.10s both; }
+.cascade > *:nth-child(4) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+.cascade > *:nth-child(5) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.20s both; }
+.cascade > *:nth-child(6) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.25s both; }
+.cascade > *:nth-child(7) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
+.cascade > *:nth-child(8) { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+
+/* ── Revolut-style premium card surface ── */
+.card-revolut {
+  position: relative;
+  border-radius: 16px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.5);
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+.card-revolut::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(at top left, rgba(191,255,0,0.04), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.card-revolut:hover {
+  transform: translateY(-2px);
+  border-color: hsl(var(--border));
+  box-shadow: 0 12px 32px -16px rgba(0,0,0,0.18);
+}
+.dark .card-revolut:hover {
+  box-shadow: 0 12px 32px -16px rgba(191,255,0,0.06);
+}
+.card-revolut:hover::before { opacity: 1; }
+
+/* ── Premium button with smooth ripple ── */
+.btn-revolut {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.15s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease;
+}
+.btn-revolut:hover { transform: translateY(-1px); }
+.btn-revolut:active { transform: translateY(0); }
+.btn-revolut::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.btn-revolut:hover::after { opacity: 1; }
+
+/* ── Number ticker (Revolut signature stat) ── */
+.num-ticker {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum', 'ss01';
+  letter-spacing: -0.03em;
+}
+
+/* ── Crisp focus ring for keyboard a11y ── */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px rgba(191,255,0,0.55);
+  border-radius: inherit;
+}
+
+/* ── Subtle reveal on scroll (use with IntersectionObserver) ── */
+.reveal-on-scroll { opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal-on-scroll.revealed { opacity: 1; transform: translate3d(0, 0, 0); }
+
+/* ── Light-mode parity for premium cards ── */
+:root .card-revolut::before {
+  background: radial-gradient(at top left, rgba(107,138,0,0.06), transparent 55%);
+}
+
+/* ── Honor reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .motion-fade-in-up, .motion-scale-in, .motion-slide-in,
+  .cascade > *, .wlad-mark-animated .wlad-mark-glyph,
+  .wlad-mark-animated .wlad-mark-pixel-b,
+  .wlad-mark-animated .wlad-mark-pixel-c,
+  .wlad-mark-scanline,
+  .reveal-on-scroll { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+}
+
+/* ══════════════════════════════════════════════════
+   FAKE WLAD CALL — iOS-style incoming call overlay
+   ══════════════════════════════════════════════════ */
+.wlad-call-overlay {
+  background: radial-gradient(circle at 50% 30%, rgba(28,40,18,0.94) 0%, rgba(8,10,6,0.97) 65%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+.wlad-call-fade-in { animation: wladCallFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.wlad-call-slide-up { animation: wladCallSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes wladCallFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes wladCallSlideUp {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.wlad-call-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgba(48, 209, 88, 0.45);
+  animation: wladCallRing 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  pointer-events: none;
+}
+.wlad-call-ring.r2 { animation-delay: 0.7s; }
+.wlad-call-ring.r3 { animation-delay: 1.4s; }
+
+@keyframes wladCallRing {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  80%  { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+.wlad-call-accept-pulse {
+  animation: wladCallAcceptPulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes wladCallAcceptPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.55); }
+  60%      { box-shadow: 0 0 0 18px rgba(48, 209, 88, 0); }
+}
+
+.wlad-call-avatar-glow {
+  box-shadow:
+    0 0 0 4px rgba(191, 255, 0, 0.15),
+    0 0 48px -8px rgba(191, 255, 0, 0.45),
+    0 18px 48px -18px rgba(0, 0, 0, 0.7);
+}
+
+.wlad-call-shimmer { animation: wladCallShimmer 2.4s ease-in-out infinite; }
+@keyframes wladCallShimmer {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wlad-call-ring, .wlad-call-accept-pulse, .wlad-call-shimmer { animation: none !important; }
+}
+
+/* ══════════════════════════════════════════════════
+   Iter 92.7 — Universal premium micro-interactions
+   Reusable utilities applied across CTAs + cards for
+   the launch-day polish layer.
+   ══════════════════════════════════════════════════ */
+
+/* btn-shine — Revolut-style diagonal sheen sweep on hover.
+   Wrap any button: <button class="btn-shine">…</button>
+   Element must have `position: relative` + `overflow: hidden`
+   (we set both here so adding the class is plug-and-play). */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-shine:hover::after {
+  transform: translateX(120%);
+}
+/* Dark-mode-targeted sheen — slightly stronger so it pops on dark buttons */
+.dark .btn-shine::after {
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+}
+
+/* card-lift — subtle hover micro-interaction for clickable cards.
+   Used on Dashboard quick-access pills + MyPath level cards. */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.18),
+              0 2px 6px -2px rgba(0, 0, 0, 0.08);
+}
+.dark .card-lift:hover {
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.55),
+              0 2px 6px -2px rgba(0, 0, 0, 0.4),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* glow-lime — soft lime aura under premium CTAs.
+   Applied to Stripe-Checkout + Booking buttons. */
+.glow-lime {
+  box-shadow: 0 8px 24px -8px rgba(191, 255, 0, 0.55),
+              0 2px 4px -2px rgba(191, 255, 0, 0.35);
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glow-lime:hover {
+  box-shadow: 0 12px 32px -8px rgba(191, 255, 0, 0.75),
+              0 4px 8px -2px rgba(191, 255, 0, 0.45);
+  transform: translateY(-1px);
+}
+.glow-lime:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shine::after, .card-lift, .glow-lime { transition: none !important; }
+  .card-lift:hover, .glow-lime:hover { transform: none !important; }
+}
+
+/* ══════════════════════════════════════════════════
+   PREMIUM POLISH — Iter 93 ("godmode" push)
+   Light + dark parity primitives for the four flagship
+   surfaces (Login, Dashboard, Chat, Pricing). Everything
+   here is opt-in via class names; no global side-effects.
+   ══════════════════════════════════════════════════ */
+
+/* display-hero — Revolut/Linear-grade hero typography.
+   Scales 3.5rem → 6rem fluidly. Use on the single
+   highest-altitude H1 of a surface, never twice on one page.
+   Paired with Outfit (already the heading font). */
+.display-hero {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.display-hero-script {
+  font-family: 'Instrument Serif', 'Outfit', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.5vw + 1rem, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* gradient-border-anim — animated lime→cyan→lime ring
+   for hero cards. Pairs with .card-revolut. Self-positions
+   over the element it's applied to. */
+.gradient-border-anim {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border-anim::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(191, 255, 0, 0.0) 0%,
+    rgba(191, 255, 0, 0.55) 25%,
+    rgba(0, 212, 170, 0.45) 50%,
+    rgba(191, 255, 0, 0.55) 75%,
+    rgba(191, 255, 0, 0.0) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradBorderSlide 8s ease-in-out infinite;
+  opacity: 0.65;
+}
+.dark .gradient-border-anim::before { opacity: 0.85; }
+@keyframes gradBorderSlide {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* kpi-glow — soft halo behind hero KPI numbers. Apply to
+   the wrapper of a tabular-nums stat element. */
+.kpi-glow {
+  position: relative;
+}
+.kpi-glow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(191, 255, 0, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(20px);
+}
+:root .kpi-glow::after { opacity: 0.5; }
+
+/* hairline — premium accent line. Use as section dividers
+   or "WELCOME BACK"-style eyebrow underlines. */
+.hairline {
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, hsl(var(--brand)) 0%, transparent 100%);
+  vertical-align: middle;
+}
+.hairline-wide { width: 3.5rem; }
+
+/* premium-bg — subtle radial gradient backdrop for hero
+   sections. Already-set in dark via .bg-gradient-mesh, this
+   ports the same feel to light mode and amps it 30%. */
+.premium-bg {
+  background:
+    radial-gradient(at 18% 8%,  rgba(191, 255, 0, 0.06) 0px, transparent 45%),
+    radial-gradient(at 82% 12%, rgba(0, 212, 170, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(191, 255, 0, 0.04) 0px, transparent 55%);
+}
+.dark .premium-bg {
+  background:
+    radial-gradient(at 18% 8%,  rgba(191, 255, 0, 0.05) 0px, transparent 45%),
+    radial-gradient(at 82% 12%, rgba(0, 212, 170, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(191, 255, 0, 0.025) 0px, transparent 55%);
+}
+
+/* surface-card — theme-aware replacement for the legacy
+   `bg-white/[0.02] border-white/[0.07]` pattern that only
+   reads on dark mode. Looks correct on both. */
+.surface-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.surface-card:hover {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+}
+.dark .surface-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+.dark .surface-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* brand-pill — the lime CTA pill used across CTAs. Now
+   theme-calibrated (darker lime on light bg for WCAG AA). */
+.brand-pill {
+  background: hsl(var(--brand));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.brand-pill:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px hsl(var(--brand) / 0.55);
+}
+.dark .brand-pill { background: #BFFF00; color: #0A0A0A; }
+.dark .brand-pill:hover { background: #D4FF4D; }
+
+/* text-brand — the eyebrow/accent text. WCAG-safe across modes. */
+.text-brand { color: hsl(var(--brand)); }
+.dark .text-brand { color: #BFFF00; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-border-anim::before { animation: none !important; }
+}
+
+/* ══════════════════════════════════════════════════
+   LANDING-PAGE POLISH (Direction A · Athletic Editorial)
+   Scroll behaviour + scroll-anchor offset for the nav,
+   plus a couple of motion-respect overrides.
+   ══════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Anchor sections compensate for the 64px sticky nav. */
+[id^='benefit-'], #hero, #final-cta {
+  scroll-margin-top: 80px;
+}
+
+/* Disable smooth-scroll inside scrollable widgets so chat lists don't lag. */
+.scroll-auto,
+[data-testid='chat-page'] *,
+[data-testid='dashboard-page'] {
+  scroll-behavior: auto;
+}

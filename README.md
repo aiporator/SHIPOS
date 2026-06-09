@@ -1,64 +1,67 @@
-# Leader-OS — `aiporator/SHIPOS`
+# Leader-OS
 
-Source of truth for the **Leader-OS** product surface. Two front-ends share a
-single Supabase project; this repo holds the schema reference, runbook,
-dashboard catalog, and Claude Code wiring. **No application code lives here** —
-front-end code ships from separate repositories.
+Single repo for the **Leader-OS** product — two surfaces, one React app,
+one FastAPI backend, one Supabase project.
 
-| Surface          | URL              | Purpose                                                  |
-| ---------------- | ---------------- | -------------------------------------------------------- |
-| **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ)         |
-| **leader-os**    | leader-os.de     | Authenticated coaching app + ai-strategist + wladbot RAG |
+| Surface          | URL              | Audience                                         |
+| ---------------- | ---------------- | ------------------------------------------------ |
+| **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ) |
+| **leader-os**    | leader-os.de     | Authenticated coaching app                        |
 
-**Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`, Postgres 17).
+## Repo layout
+
+```
+frontend/    Create React App — Radix UI, React Router, AuthContext
+backend/     FastAPI — auth, payments, chat, dashboard, simulations, …
+docs/        Schema, runbook, dashboard catalog, integrations spec
+.github/     CI + cron workflows
+.claude/     Claude Code skills (Supabase best practices, MCP usage)
+vercel.json  CRA build → frontend/build, /api/* → leader-os.de/api/*
+```
+
+**Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`).
+The MCP server is wired in `.mcp.json`.
+
+## Production branch
+
+**`mvpcode`** is the production branch. Vercel deploys from it on every push.
 
 ## Cross-platform identity
 
 Both surfaces write to the same Postgres tables. The dedup key is
-`public.users.email_lower` (UNIQUE).
+`public.users.email_lower` (UNIQUE). PostHog `identify()` / `alias()` use
+the same lowercased email so a person stays the same across the funnel
+(`leader-check.de`) and the authed app (`leader-os.de`).
 
-```
-┌────────────────────┐                 ┌────────────────────┐
-│  leader-check.de   │                 │   leader-os.de     │
-│  (anonymous)       │                 │   (Supabase Auth)  │
-└─────────┬──────────┘                 └─────────┬──────────┘
-          │ upsert_incomplete_attempt   handle_new_auth_user
-          ▼                                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│              public.users   (email_lower UNIQUE)             │
-│   meta_tags text[]  ←  ['leader-check','leader-os','admin']  │
-│   source_platform   ←  first touch only                      │
-└──────────────────────────────────────────────────────────────┘
+See `CLAUDE.md` for the full contract, `docs/SCHEMA.md` for the database
+shape, and `docs/INTEGRATIONS.md` for the frontend wiring.
+
+## Quick start (local dev)
+
+```bash
+# Backend (FastAPI)
+cd backend
+pip install -r requirements.txt
+uvicorn server:app --reload --port 8001
+
+# Frontend (CRA)
+cd frontend
+yarn install
+yarn start         # http://localhost:3000 → proxies /api/* to :8001
 ```
 
-For analytics, **always use `meta_tags`** (ever-touched) unless you specifically
-want first-touch attribution via `source_platform`.
+Copy `frontend/.env.example` to `frontend/.env.local` and
+`backend/.env.example` to `backend/.env` first.
 
 ## Documentation
 
-| Doc                          | What it covers                                      |
-| ---------------------------- | --------------------------------------------------- |
-| [`CLAUDE.md`](./CLAUDE.md)             | Briefing for Claude Code working in this repo       |
-| [`docs/SCHEMA.md`](./docs/SCHEMA.md)     | Table reference                                      |
-| [`docs/DASHBOARD.md`](./docs/DASHBOARD.md) | Studio dashboard views                              |
-| [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)   | Deploy, secrets, common ops                          |
-| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) | Schema migration history                             |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Working rules for schema changes, advisors, reviews  |
-| [`SECURITY.md`](./SECURITY.md)         | Vulnerability reporting                              |
-
-## Working rules (short form — see `CONTRIBUTING.md` for full)
-
-1. Schema changes go through `apply_migration` via the Supabase MCP. No raw SQL.
-2. Run `get_advisors` after every DDL. One known WARN is intentional
-   (`upsert_incomplete_attempt` callable by `anon`).
-3. All views must be `security_invoker = true`.
-4. Trigger functions must `revoke all from public, anon, authenticated` and grant
-   only `service_role`.
-5. Every write that creates/links a user uses `email_lower` as the dedup key.
-
-## Repository scope
-
-This repo deliberately contains **no front-end code, no Edge Function source**,
-and no Vercel build target. Production deploys happen from the front-end repos
-linked to Vercel; Edge Functions deploy from the bundle described in
-`docs/RUNBOOK.md`.
+| Doc                                          | What it covers                            |
+| -------------------------------------------- | ----------------------------------------- |
+| [`CLAUDE.md`](./CLAUDE.md)                   | Briefing for Claude Code sessions         |
+| [`docs/SCHEMA.md`](./docs/SCHEMA.md)         | Postgres tables, triggers, RPCs           |
+| [`docs/DASHBOARD.md`](./docs/DASHBOARD.md)   | Supabase Studio dashboard views           |
+| [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)       | Deploy, secrets, common ops               |
+| [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) | PostHog EU + Sentry + Supabase wiring |
+| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md)   | Schema migration history                  |
+| [`docs/LAUNCH_FIX.md`](./docs/LAUNCH_FIX.md) | Vercel + GitHub cleanup sequence          |
+| [`docs/GO_LIVE.md`](./docs/GO_LIVE.md)       | Original launch runbook                   |

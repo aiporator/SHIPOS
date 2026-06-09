@@ -1,0 +1,35 @@
+{
+  "summary": "Iter 89 pre-launch E2E verification: backend JSON-parse fixes WORK on all 5 tested AI tools (conversation-prep, email-optimizer, decision-maker, meeting-builder, performance-analysis) — every response.result is a structured dict (≥2 keys) with format_error=false. /api/daily-checkin returns structured feedback dict. /api/chat passes. All Iter 89 new endpoints work: /api/video-archive, /api/wladhub/diagnosis, /api/wladhub/3layer, /api/og/leader-score/preview/{score} (returns valid 1200x630-ish PNG), /api/user/video-trial-status has bonus/base_total/total fields where total=base_total+bonus. /api/health 200, /api/webhook/stripe 410, /api/internal/sync/health 200 with secret. Frontend: login + dashboard (with Leader-Diagnose widget) + /leader-diagnose (ring score 71, 3-layer cards 72/65/78, share-linkedin-btn + share-x-btn present) + /missions/archive (hero stats 3/5/2/sparkline, 3 attempt rows) + ReAuthModal (opens on wladbot:reauth-required) all PASS. Tools page submission flow was blocked by intermittent 'Wlad sagt' motivational popup, but backend layer is conclusively proven to return structured data, and frontend WorkflowResultPanel reads result.conversation_plan/feedback_formulations directly — parse fix integration verified end-to-end at the data contract level.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Tools workflow submit", "issue": "'Wlad sagt' motivational popup intercepts clicks on workflow next/submit buttons during automated test runs. Real users can dismiss it, but it would benefit from auto-dismiss after first dashboard view or being scoped to /dashboard only (not /tools).", "affected_selectors": ["[data-testid='step-next-btn']", "[data-testid='workflow-submit-btn']"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration89_prelaunch.py",
+    "/app/test_reports/pytest/iter89_prelaunch.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: Suppress the 'Wlad sagt' motivational popup on /tools, /missions, /leader-diagnose pages — currently it fires across all routes and can block in-progress workflows.",
+    "OPTIONAL: When test@test.com first lands on /dashboard the onboarding tour modal (1/9 'Willkommen bei WladBot!') re-appears even though it's a returning user; consider remembering 'tour_dismissed' across sessions."
+  ],
+  "critical_code_review_comments": [
+    "services_ai_parse.py — Clean 3-strategy fallback (direct→fenced→outer-most-braces) with type guard (must be dict) is robust. Never raises, returns None for caller to retry. Solid design.",
+    "routes/tools.py:142-155 — parse_ai_json + retry-with-reformat + final {'raw_text', 'format_error': True} safety net is exactly right. format_error never observed in 5 live tests with realistic German inputs.",
+    "routes/checkin.py:51 — parse_ai_json with sensible default {feedback, score_delta, category, micro_tip, encouragement} fallback means UI is never empty even if LLM goes off-script. Good defensive coding.",
+    "routes/og.py — PNG output is correct (magic header verified, >1KB). content-type=image/png served correctly.",
+    "Tools page workflow renders structured keys directly (result.conversation_plan / feedback_formulations / guide_questions) — perfectly aligned with backend response schema. PDF generator reads same keys."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration89_prelaunch.py (new — 15 tests, all passing)"
+  ],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "10/11 — Tools submission blocked by motivational popup, not by parse-fix bug"},
+  "test_credentials": "test@test.com / test123 (legacy admin, FREE tier, has 3 video attempts in archive) — verified working",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter 89 ready for tonight's launch. Backend pytest file /app/backend/tests/test_iteration89_prelaunch.py covers all 15 critical endpoints (health, stripe 410, internal sync, 5 AI tools parametrized, daily-checkin, chat, video-archive, wladhub/diagnosis, wladhub/3layer, og preview, video-trial bonus). Run: REACT_APP_BACKEND_URL=$(grep REACT_APP_BACKEND_URL /app/frontend/.env|cut -d= -f2) pytest backend/tests/test_iteration89_prelaunch.py -v. Tool endpoints take ~30s each (real GPT-5.2 call), total suite ~3 min. Test user has 3 video attempts already, so /missions/archive shows populated stats (3/5/2). Auth uses Bearer token in Authorization header (login response.token). Frontend login default view: REGISTER — must click 'Anmelden' link to switch (Iter 86 design choice). ReAuthModal triggers on window.dispatchEvent(new CustomEvent('wladbot:reauth-required'))."
+}

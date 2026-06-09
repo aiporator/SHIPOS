@@ -28,6 +28,7 @@ Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 | Edge functions: `supabase functions deploy <each of 4>`               | your Mac (commands below) |
 | Edge fn secrets: `ANTHROPIC_API_KEY`, `VOYAGE_API_KEY`                | `supabase secrets set ...` |
 | Vercel env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel project settings |
+| PostHog EU wiring verified (see [Analytics](#analytics--posthog-eu))  | Live in frontend |
 | (Optional) pg_cron schedule for `select trigger_strategist(7|30)`     | Studio → SQL or `pg_cron` |
 
 ## Edge function deploy
@@ -52,6 +53,31 @@ supabase functions deploy wladbot-chat
 The edge function source lives in `supabase/functions/<name>/`. The bundle was
 provided as `ship-os-FINAL.zip`; copy `edge_functions/_shared` and each
 `edge_functions/<name>` into `supabase/functions/` before deploying.
+
+## Analytics — PostHog EU
+
+The frontend ships to the **EU cloud** (`eu.i.posthog.com`) — required so EU
+end-user data never leaves the region, matching our Supabase `eu-north-1`
+posture.
+
+### How it's wired
+
+PostHog is loaded as an inline snippet in `frontend/public/index.html` with
+the EU host and project key `phc_xmMQne...`. Identity helpers in
+`frontend/src/lib/analytics.js` call `posthog.alias()` + `posthog.identify()`
+with `email_lower` from `frontend/src/contexts/AuthContext.js` on login,
+session rehydrate, and logout.
+
+See `docs/INTEGRATIONS.md §1` for the full wiring + optional migration to
+env-driven init with `posthog-js` npm package.
+
+### Verifying region
+
+After deploy, open the network tab on either site and confirm capture
+requests go to `https://eu.i.posthog.com/e/`. Any `us.i.posthog.com` hit
+means the inline snippet drifted — fix in `public/index.html`.
+
+Dashboard UI lives at `https://eu.posthog.com` (note: no `i.`).
 
 ## Common ops
 
