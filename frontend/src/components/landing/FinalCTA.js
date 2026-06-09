@@ -14,7 +14,7 @@ export const FinalCTA = () => (
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Bewerbe dich für Kohorte 0001"
+    aria-label="Bewirb dich für Circle 0001"
     data-testid="landing-final-cta"
   >
     {/* Atmospheric lime mesh — subtle, no distraction */}
@@ -36,7 +36,7 @@ export const FinalCTA = () => (
         className="max-w-4xl"
       >
         <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-          ▸ BIB 0001 · KOHORTE OFFEN
+          ▸ BIB 0001 · CIRCLE OFFEN
         </p>
 
         <h2
@@ -47,7 +47,7 @@ export const FinalCTA = () => (
         </h2>
 
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Elf Frameworks. Ein OS. Dreißig Tage. Bewirb dich für die Kohorte 0001 —
+          Elf Frameworks. Ein OS. Dreißig Tage. Bewirb dich für Circle 0001 —
           Wlads Methodik live, jeden Tag, in deiner Tasche.
         </p>
 

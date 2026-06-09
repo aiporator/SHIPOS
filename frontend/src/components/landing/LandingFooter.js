@@ -37,7 +37,7 @@ export const LandingFooter = () => (
             Leader<span className="text-brand mx-0.5">·</span>OS
           </div>
           <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.22em] text-white/40 font-mono">
-            Powered by WladBot · KOHORTE 0001
+            Powered by WladBot · CIRCLE 0001
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export const LandingFooter = () => (
       {/* BIB strip */}
       <div className="mt-10 pt-6 border-t border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[9.5px] uppercase tracking-[0.22em] font-bold text-white/35 font-mono">
         <span>© {new Date().getFullYear()} LEADER-OS · AIPORATE</span>
-        <span>BIB · 0001 · DREIßIG TAGE · ELF FRAMEWORKS · KOHORTE 01</span>
+        <span>BIB · 0001 · DREIßIG TAGE · ELF FRAMEWORKS · CIRCLE 01</span>
       </div>
     </div>
   </footer>

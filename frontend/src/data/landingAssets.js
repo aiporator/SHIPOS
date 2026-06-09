@@ -151,9 +151,9 @@ export const LANDING_BENEFITS = [
     body:
       'Jeder abgeschlossene Sprint endet mit einem persönlichen Zertifikat. ' +
       'Auf LinkedIn teilen oder dem nächsten Arbeitgeber zeigen. ' +
-      'Kohorten-Nummer als BIB-Code lebenslang.',
+      'Circle-Nummer als BIB-Code lebenslang.',
     detail: [
-      ['ID',    'STARTNUMMER',    'BIB · 0001 · KOHORTE 01'],
+      ['ID',    'STARTNUMMER',    'BIB · 0001 · CIRCLE 01'],
       ['FRAME', 'INHALT',         '11 Frameworks gemeistert'],
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
       ['LNKD',  'TEILBAR',        'Sofort auf LinkedIn'],

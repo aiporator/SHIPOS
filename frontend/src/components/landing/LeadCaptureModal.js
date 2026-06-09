@@ -86,7 +86,7 @@ export const LeadCaptureModal = () => {
         body: JSON.stringify({
           email: trimmed,
           source: 'landing-popup',
-          campaign: 'kohorte-0001',
+          campaign: 'circle-0001',
         }),
         keepalive: true,
       });
@@ -115,7 +115,7 @@ export const LeadCaptureModal = () => {
         {/* Specimen header */}
         <div className="flex items-center justify-between pb-3 mb-6 border-b border-foreground/15">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            BIB · 0001 · KOHORTE OFFEN
+            BIB · 0001 · CIRCLE OFFEN
           </span>
           <button
             onClick={close}
