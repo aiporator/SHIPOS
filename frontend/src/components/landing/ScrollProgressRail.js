@@ -5,12 +5,10 @@ const ITEMS = [
   { id: 'how-it-works', n: '01', label: 'Pfad' },
   { id: 'benefit-01',   n: '02', label: 'Frameworks' },
   { id: 'benefit-02',   n: '03', label: 'Coach' },
-  { id: 'benefit-03',   n: '04', label: 'Sprint' },
-  { id: 'benefit-04',   n: '05', label: 'Wlad' },
-  { id: 'benefit-05',   n: '06', label: 'Trust' },
-  { id: 'benefit-06',   n: '07', label: 'Zertifikat' },
-  { id: 'benefit-07',   n: '08', label: 'WladBot' },
-  { id: 'final-cta',    n: '09', label: 'Start' },
+  { id: 'benefit-03',   n: '04', label: 'Wlad' },
+  { id: 'benefit-04',   n: '05', label: 'Zertifikat' },
+  { id: 'benefit-05',   n: '06', label: 'WladBot' },
+  { id: 'final-cta',    n: '07', label: 'Start' },
 ];
 
 /**

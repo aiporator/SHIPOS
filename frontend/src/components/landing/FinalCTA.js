@@ -35,19 +35,19 @@ export const FinalCTA = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl"
       >
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6">
-          BIB 0001 · KOHORTE OFFEN
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
+          ▸ BIB 0001 · KOHORTE OFFEN
         </p>
 
         <h2
           className="text-[48px] sm:text-[72px] md:text-[104px] lg:text-[128px] leading-[0.88] tracking-[-0.04em] text-white"
           style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Zeit zu führen<span className="text-brand">.</span>
+          Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
         </h2>
 
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Elf Frameworks. Ein OS. Dreißig Tage. Bewerbe dich für die Kohorte 0001 —
+          Elf Frameworks. Ein OS. Dreißig Tage. Bewirb dich für die Kohorte 0001 —
           Wlads Methodik live, jeden Tag, in deiner Tasche.
         </p>
 
