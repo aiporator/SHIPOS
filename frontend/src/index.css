@@ -733,3 +733,28 @@
 @media (prefers-reduced-motion: reduce) {
   .gradient-border-anim::before { animation: none !important; }
 }
+
+/* ══════════════════════════════════════════════════
+   LANDING-PAGE POLISH (Direction A · Athletic Editorial)
+   Scroll behaviour + scroll-anchor offset for the nav,
+   plus a couple of motion-respect overrides.
+   ══════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Anchor sections compensate for the 64px sticky nav. */
+[id^='benefit-'], #hero, #final-cta {
+  scroll-margin-top: 80px;
+}
+
+/* Disable smooth-scroll inside scrollable widgets so chat lists don't lag. */
+.scroll-auto,
+[data-testid='chat-page'] *,
+[data-testid='dashboard-page'] {
+  scroll-behavior: auto;
+}
