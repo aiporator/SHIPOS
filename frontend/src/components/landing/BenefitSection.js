@@ -57,9 +57,15 @@ export const BenefitSection = ({ asset, index, anchor }) => {
         {/* Tech metadata header strip */}
         <div className={`flex items-center justify-between mb-12 md:mb-16 pb-4 border-b ${isDark ? 'border-white/15' : 'border-foreground/15'}`}>
           <div className={`flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
-            <span>§ {asset.nr} / 07</span>
+            <span>§ {asset.nr} / 05</span>
             <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
-            <span className={isDark ? 'text-brand' : 'text-brand'}>{asset.code}</span>
+            <span className="text-brand">{asset.code}</span>
+            {asset.eyebrow && (
+              <>
+                <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
+                <span className="hidden sm:inline">{asset.eyebrow}</span>
+              </>
+            )}
           </div>
           <div className={`hidden md:flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
             <span>BIB · 0001</span>
@@ -115,7 +121,13 @@ export const BenefitSection = ({ asset, index, anchor }) => {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="md:col-span-5 md:pt-8 space-y-5"
           >
-            <BenefitVisual nr={asset.nr} isDark={isDark} />
+            <BenefitVisual
+              nr={asset.nr}
+              code={asset.code}
+              photo={asset.photo}
+              isDark={isDark}
+              total={5}
+            />
 
             <div
               className={`border ${isDark ? 'border-white/15' : 'border-foreground/15'} p-6 md:p-7`}
@@ -151,7 +163,7 @@ export const BenefitSection = ({ asset, index, anchor }) => {
 
               <div className={`mt-6 pt-4 border-t ${isDark ? 'border-white/10' : 'border-foreground/10'} flex items-center justify-between text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/40' : 'text-foreground/40'}`}>
                 <span>LEADER-OS</span>
-                <span>{`No. ${asset.nr}/07`}</span>
+                <span>{`No. ${asset.nr}/05`}</span>
               </div>
             </div>
           </motion.div>

@@ -1,9 +1,15 @@
 // Leader-OS Landing-Page content — Direction A LOCKED.
-//
 // Athletic Editorial × Heron-Preston specimen-sheet aesthetic.
-// PURE TYPOGRAPHY — no external image dependencies. Every visual is
-// rendered with type, BIB-codes, hairline borders, and the lime
-// plus-circle CTA signature. Bulletproof loading, infinite scaling.
+//
+// PHOTOS: served from picsum.photos with stable per-section seeds.
+// They always load (no auth, no rate-limit, served via Fastly CDN)
+// and arrive grayscale so the editorial B&W is enforced at the
+// source, not via CSS. Each photo is content-agnostic — the meaning
+// comes from the SPECIMEN frame around it (BIB code, eyebrow,
+// metadata table). Trade: not topical photos, won topical reliability.
+
+const photo = (seed, w = 1200, h = 1500) =>
+  `https://picsum.photos/seed/${encodeURIComponent('leader-os-' + seed)}/${w}/${h}?grayscale`;
 
 export const LANDING_META = {
   title: 'Leader-OS — Werde KI-nativ. Das OS für Führungskräfte.',
@@ -21,7 +27,7 @@ export const LANDING_META = {
   },
 };
 
-// 3-step flow — the explicit user journey from leader-check.de → OS
+// 3-step path — Diagnose → Sprint → OS. Stays as-is, it's a clear flow.
 export const HOW_IT_WORKS = [
   {
     nr: '01',
@@ -30,7 +36,7 @@ export const HOW_IT_WORKS = [
     title: 'Wo stehst du?',
     body:
       'Starte auf leader-check.de mit der kostenlosen KI-Diagnose. ' +
-      'Drei Dimensionen: KI-Readiness · Rhetorik · Emotionale Intelligenz. ' +
+      'Drei Dimensionen: KI-Readiness, Rhetorik, Emotionale Intelligenz. ' +
       'Du bekommst sofort deinen Score plus konkrete Empfehlung.',
     cta: 'Jetzt diagnostizieren',
     href: 'https://leader-check.de',
@@ -39,7 +45,7 @@ export const HOW_IT_WORKS = [
   {
     nr: '02',
     code: 'SPRINT',
-    duration: '30 TAGE · GEFÜHRT',
+    duration: '30 TAGE · BEGLEITET',
     title: 'Dein personalisierter Plan.',
     body:
       'Basierend auf deiner Diagnose: jeden Tag eine Aufgabe, ' +
@@ -64,21 +70,23 @@ export const HOW_IT_WORKS = [
   },
 ];
 
-// 7 benefits — pure typography sections, specimen-sheet style.
-// Each becomes a Heron-Preston-DNA editorial card.
+// 5 benefits (was 7) — sprint+wlad+trust merged into a single Wlad-block
+// to eliminate overlap with HowItWorks Step 02. Cleaner narrative, each
+// section answers one distinct question.
 export const LANDING_BENEFITS = [
   {
     nr: '01',
     code: 'INHALT',
+    eyebrow: 'BENEFIT 01 · WAS DU LERNST',
     headline: 'Elf Frameworks.',
     headlineAccent: 'Ein OS.',
     body:
       'SEXIER. Fünf Rollen. Feedbackformel. Drei Säulen. Zehn Stufen. ' +
       'Kommunikationsquadrant. Dunkle Rhetorik. Vier-Farben-Modell. ' +
-      'Schlagfertigkeit. ALPEN. Verhandlung.',
+      'Schlagfertigkeit. ALPEN. Verhandlung. Alle in einem System.',
     detail: [
       ['01', 'SEXIER',           'Argumentations-Modell'],
-      ['02', '5 ROLLEN',         'Führungskraft-Identität'],
+      ['02', '5 ROLLEN',         'Identität'],
       ['03', 'FEEDBACK',         'Beobachtung · Wirkung · Wunsch'],
       ['04', '3 SÄULEN',         'Logos · Ethos · Pathos'],
       ['05', '10 STUFEN',        'Zuhör-Hierarchie'],
@@ -91,82 +99,53 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Alle Frameworks ansehen',
     href: 'https://leader-check.de',
+    photo: photo('01-frameworks'),
   },
   {
     nr: '02',
-    code: 'IMMER WACH',
+    code: 'COACH',
+    eyebrow: 'BENEFIT 02 · WANN ER DA IST',
     headline: '24 Stunden.',
     headlineAccent: '7 Tage.',
     body:
       'WladBot kennt Wlads Methodik in- und auswendig. ' +
-      'Für jede Führungs-Situation. Jederzeit. Mit deinem Kontext, ' +
-      'in deinem Ton.',
+      'Für jede Leadership-Situation. Jederzeit. ' +
+      'Mit deinem Kontext, in deinem Ton.',
     detail: [
       ['HRS', 'VERFÜGBARKEIT',  '24 / 7 / 365'],
       ['LNG', 'SPRACHE',        'Deutsch · English'],
       ['LAG', 'ANTWORTZEIT',    '< 3 Sekunden'],
-      ['VOI', 'VOICE-CHAT',     'Live-Telefonat mit Wlad'],
+      ['VOI', 'VOICE-CHAT',     'Live-Telefonat mit WladBot'],
     ],
     cta: 'WladBot starten',
     href: 'https://leader-check.de',
+    photo: photo('02-coach'),
   },
   {
     nr: '03',
-    code: 'SPRINT',
-    headline: 'Dreißig Tage.',
-    headlineAccent: 'Ein neues Du.',
-    body:
-      'Jeden Tag eine Frage. Jeden Tag ein Drill. ' +
-      'Jeden Tag etwas näher an der Führungskraft die du werden willst. ' +
-      'Personalisiert auf deine Diagnose.',
-    detail: [
-      ['D01–10', 'BASIS',     'Frameworks lernen'],
-      ['D11–20', 'DRILL',     'In Simulationen anwenden'],
-      ['D21–30', 'TRANSFER',  'Im echten Alltag testen'],
-      ['D30',    'ZERTIFIKAT','Persönlich · LinkedIn-ready'],
-    ],
-    cta: 'Sprint starten',
-    href: 'https://leader-check.de',
-  },
-  {
-    nr: '04',
-    code: 'AUTHENTIZITÄT',
+    code: 'WLAD',
+    eyebrow: 'BENEFIT 03 · WER DAHINTER STECKT',
     headline: 'Wlads Methodik.',
     headlineAccent: 'Live.',
     body:
       'Wlad Jachtchenko. Vierhunderttausend Kunden weltweit. ' +
-      'Drei SPIEGEL-Bestseller. Vierzehn Millionen Views. ' +
-      'Staatlich zertifizierte Argumentorik-Ausbildung. Jetzt live.',
+      'Drei SPIEGEL-Bestseller. Vierzehn Millionen Views auf ' +
+      'Podcast und YouTube. Staatlich zertifizierte Argumentorik-Ausbildung.',
     detail: [
-      ['BOOKS', 'BESTSELLER',     'Weiße Rhetorik · Dunkle Rhetorik · 5 Rollen'],
-      ['CERT',  'AUSBILDUNG',     'Staatlich · sechs Monate'],
-      ['REACH', 'PUBLIKUM',       '14 Millionen Views · Podcast & YouTube'],
-      ['SCALE', 'KUNDEN',         '400 000 weltweit'],
+      ['400K', 'KUNDEN',          'In 20+ Ländern'],
+      ['14M',  'VIEWS',           'Podcast + YouTube'],
+      ['3×',   'SPIEGEL-BESTS.',  'Weiße Rhetorik · Dunkle Rhetorik · 5 Rollen'],
+      ['12',   'BÜCHER GESAMT',   '250 000+ Verkäufe'],
+      ['ZERT', 'AUSBILDUNG',      'Staatlich · sechs Monate'],
     ],
     cta: 'Mehr über Wlad',
     href: 'https://leader-check.de',
+    photo: photo('03-wlad'),
   },
   {
-    nr: '05',
-    code: 'TRUST',
-    headline: 'Vierhunderttausend.',
-    headlineAccent: 'Vierzehn Millionen.',
-    body:
-      'Kunden weltweit haben Wlads Methode gelernt. ' +
-      'Vierzehn Millionen Views auf seinem Podcast und YouTube. ' +
-      'Europas führender Argumentations-Coach.',
-    detail: [
-      ['400K', 'KUNDEN',          'In 20+ Ländern'],
-      ['14M',  'VIEWS',           'Podcast „Menschen überzeugen" + YouTube'],
-      ['3×',   'SPIEGEL-BESTS.',  'Veröffentlichte Bücher'],
-      ['12',   'BÜCHER GESAMT',   '250K+ Verkäufe'],
-    ],
-    cta: 'Mehr Beweise',
-    href: 'https://leader-check.de',
-  },
-  {
-    nr: '06',
-    code: 'ZERTIFIKAT',
+    nr: '04',
+    code: 'CERT',
+    eyebrow: 'BENEFIT 04 · WAS DU ERHÄLTST',
     headline: 'Zertifikat',
     headlineAccent: '0001.',
     body:
@@ -181,10 +160,12 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Erstes Zertifikat freischalten',
     href: 'https://leader-check.de',
+    photo: photo('04-zertifikat'),
   },
   {
-    nr: '07',
+    nr: '05',
     code: 'TECH',
+    eyebrow: 'BENEFIT 05 · DER MASCHINENRAUM',
     headline: 'Powered by',
     headlineAccent: 'WladBot.',
     body:
@@ -199,6 +180,10 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'WladBot kennenlernen',
     href: 'https://leader-check.de',
+    photo: photo('05-tech'),
     dark: true,
   },
 ];
+
+// Hero photo — large editorial backdrop. Same picsum seed approach.
+export const HERO_PHOTO = photo('hero', 1600, 2000);
