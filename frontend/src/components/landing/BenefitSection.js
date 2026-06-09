@@ -125,6 +125,9 @@ export const BenefitSection = ({ asset, index, anchor }) => {
               nr={asset.nr}
               code={asset.code}
               photo={asset.photo}
+              photoFit={asset.photoFit}
+              variant={asset.variant}
+              trustNumbers={asset.trustNumbers}
               isDark={isDark}
               total={5}
             />
