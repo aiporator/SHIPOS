@@ -36,22 +36,22 @@ export const HeroSection = () => (
       }}
     />
 
-    {/* Technical specimen-sheet callouts (Heron-Preston DNA) */}
+    {/* Brand-metadata callouts — Heron-Preston DNA, real content */}
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40 font-mono"
+      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono"
     >
-      <div>[ a. EYEBROW ]</div>
-      <div className="mt-0.5">[ b. SLOGAN ]</div>
-      <div className="mt-0.5">[ c. SUBLINE ]</div>
+      <div>[ BY WLAD JACHTCHENKO ]</div>
+      <div className="mt-0.5">[ EST. 2026 · BERLIN ]</div>
+      <div className="mt-0.5">[ DE / EN · DSGVO ]</div>
     </div>
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40 font-mono text-right"
+      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono text-right"
     >
-      <div>[ {LANDING_META.bib} ]</div>
-      <div className="mt-0.5">[ K01 · OFFEN ]</div>
-      <div className="mt-0.5">[ EU · DE / EN ]</div>
+      <div>[ KOHORTE 0001 · OFFEN ]</div>
+      <div className="mt-0.5">[ START · KW 28 / 2026 ]</div>
+      <div className="mt-0.5">[ 100 PLÄTZE · 30 TAGE ]</div>
     </div>
 
     {/* Background-W — Heron-Preston editorial ghost letterform */}
