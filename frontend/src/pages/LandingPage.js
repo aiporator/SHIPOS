@@ -5,6 +5,7 @@ import { LandingNav } from '../components/landing/LandingNav';
 import { HeroSection } from '../components/landing/HeroSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
+import { FAQSection } from '../components/landing/FAQSection';
 import { FinalCTA } from '../components/landing/FinalCTA';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { ScrollProgressRail } from '../components/landing/ScrollProgressRail';
@@ -63,6 +64,8 @@ export default function LandingPage() {
             anchor={`benefit-${asset.nr}`}
           />
         ))}
+
+        <FAQSection />
 
         <FinalCTA />
       </main>
