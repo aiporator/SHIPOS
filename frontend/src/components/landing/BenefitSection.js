@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { PlusCircleCTA } from './PlusCircleCTA';
+import { BenefitVisual } from './BenefitVisual';
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -105,15 +106,17 @@ export const BenefitSection = ({ asset, index, anchor }) => {
             </div>
           </motion.div>
 
-          {/* Specimen-table column — Heron-Preston metadata callouts */}
+          {/* Visual + specimen-table column */}
           <motion.div
             style={{ y }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-5 md:pt-8"
+            className="md:col-span-5 md:pt-8 space-y-5"
           >
+            <BenefitVisual nr={asset.nr} isDark={isDark} />
+
             <div
               className={`border ${isDark ? 'border-white/15' : 'border-foreground/15'} p-6 md:p-7`}
               data-testid={`specimen-${asset.nr}`}

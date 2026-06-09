@@ -54,6 +54,26 @@ export const HeroSection = () => (
       <div className="mt-0.5">[ EU · DE / EN ]</div>
     </div>
 
+    {/* Background-W — Heron-Preston editorial ghost letterform */}
+    <motion.div
+      aria-hidden
+      initial={{ opacity: 0, scale: 1.04 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-y-0 right-[-8%] md:right-[-4%] w-[80%] md:w-[58%] flex items-center justify-end pointer-events-none select-none"
+    >
+      <span
+        className="text-[42vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em] text-foreground/[0.04]"
+        style={{
+          fontFamily: 'Outfit, Inter, sans-serif',
+          fontWeight: 900,
+          fontStyle: 'italic',
+        }}
+      >
+        W
+      </span>
+    </motion.div>
+
     <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-20 md:pb-28">
       <motion.p
         initial="hidden"
