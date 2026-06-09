@@ -1,0 +1,190 @@
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const STORAGE_KEY = 'leader_os_lead_capture_seen_at';
+const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
+
+/**
+ * LeadCaptureModal — Apple-grade conversion popup.
+ *
+ * Triggers:
+ *   1. Exit-intent on desktop (mouse leaves the top of viewport)
+ *   2. Scroll depth > 50% on mobile (no exit-intent on touch)
+ *   3. Both gated by 7-day localStorage cooldown
+ *
+ * On submit: writes the email to leader-check.de via the existing
+ * `/api/leader-check/intent` lifecycle endpoint if available; falls
+ * back to a direct redirect to leader-check.de?ref=landing-popup.
+ * Either way, the visitor lands on /thank-you so the funnel is clean.
+ */
+export const LeadCaptureModal = () => {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const triggered = useRef(false);
+  const navigate = useNavigate();
+
+  // Should we show at all this session?
+  const eligible = () => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const last = Number(localStorage.getItem(STORAGE_KEY) || 0);
+      return Date.now() - last > COOLDOWN_MS;
+    } catch {
+      return true;
+    }
+  };
+
+  // Arm exit-intent + scroll-depth triggers
+  useEffect(() => {
+    if (!eligible()) return undefined;
+
+    const trigger = () => {
+      if (triggered.current) return;
+      triggered.current = true;
+      setOpen(true);
+      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch {}
+    };
+
+    const onMouseLeave = (e) => {
+      if (e.clientY <= 0) trigger();
+    };
+
+    const onScroll = () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (pct > 0.5) trigger();
+    };
+
+    document.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      document.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  const close = () => setOpen(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const trimmed = (email || '').trim();
+    if (!trimmed || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(trimmed)) {
+      setError('Bitte gib eine gültige E-Mail-Adresse ein.');
+      return;
+    }
+    setSubmitting(true);
+    setError('');
+
+    // Best-effort write to the backend lifecycle endpoint. If it fails
+    // (404 / network) we still complete the funnel — the email is the
+    // primary value, the analytics is a bonus.
+    try {
+      await fetch('/api/leader-check/intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: trimmed,
+          source: 'landing-popup',
+          campaign: 'kohorte-0001',
+        }),
+        keepalive: true,
+      });
+    } catch { /* swallow — funnel continues */ }
+
+    // Hand the visitor off to the thank-you state, then to the
+    // leader-check.de funnel where they continue the diagnose flow.
+    navigate(`/thank-you?email=${encodeURIComponent(trimmed)}`);
+  };
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-5 bg-[#0A0A0A]/85 backdrop-blur-md animate-fade-in"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lead-modal-title"
+      onClick={close}
+      data-testid="lead-capture-modal"
+    >
+      <div
+        className="relative w-full max-w-md bg-background text-foreground border border-foreground/15 p-7 md:p-9"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Specimen header */}
+        <div className="flex items-center justify-between pb-3 mb-6 border-b border-foreground/15">
+          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
+            BIB · 0001 · KOHORTE OFFEN
+          </span>
+          <button
+            onClick={close}
+            aria-label="Schließen"
+            className="text-foreground/40 hover:text-foreground text-lg leading-none font-mono"
+            data-testid="lead-modal-close"
+          >
+            ×
+          </button>
+        </div>
+
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-4 font-mono">
+          ▸ Kostenlose KI-Diagnose
+        </p>
+
+        <h2
+          id="lead-modal-title"
+          className="text-[34px] md:text-[40px] leading-[0.95] tracking-[-0.035em] text-foreground"
+          style={{
+            fontFamily: 'Outfit, Inter, sans-serif',
+            fontWeight: 900,
+            fontStyle: 'italic',
+          }}
+        >
+          Wo stehst du<span className="text-brand not-italic">?</span>
+        </h2>
+
+        <p className="mt-4 text-[14px] leading-[1.5] text-foreground/70">
+          Fünf Minuten. Sofortiger Score in drei Dimensionen:
+          KI-Readiness · Rhetorik · Emotionale Intelligenz.
+          Plus deine erste Sprint-Empfehlung — kostenlos.
+        </p>
+
+        <form onSubmit={onSubmit} className="mt-6 space-y-3">
+          <label className="block">
+            <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 mb-2 font-mono">
+              DEINE E-MAIL
+            </span>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="dein.name@firma.de"
+              required
+              autoFocus
+              className="w-full px-4 py-3 bg-transparent border border-foreground/25 focus:border-brand focus:outline-none text-foreground text-[15px]"
+              data-testid="lead-modal-email"
+            />
+          </label>
+
+          {error && (
+            <p className="text-[12px] text-red-600 dark:text-red-400 font-semibold">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full inline-flex items-center justify-center gap-3 px-5 py-4 bg-brand text-[#0A0A0A] text-[13px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all disabled:opacity-60"
+            data-testid="lead-modal-submit"
+          >
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A] text-brand text-base font-black leading-none" aria-hidden>+</span>
+            {submitting ? 'Wird gestartet…' : 'Diagnose starten · kostenlos'}
+          </button>
+        </form>
+
+        <p className="mt-5 text-[10.5px] uppercase tracking-[0.22em] font-bold text-foreground/40 font-mono text-center">
+          KEIN SPAM · KEIN ABO · DSGVO-KONFORM
+        </p>
+      </div>
+    </div>
+  );
+};

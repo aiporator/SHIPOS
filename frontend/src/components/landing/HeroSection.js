@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { LANDING_ASSETS, LANDING_META } from '../../data/landingAssets';
+import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
 
 const FADE_UP = {
@@ -12,125 +12,155 @@ const FADE_UP = {
 };
 
 /**
- * Hero — Section §01 · "Elf Frameworks. Ein OS."
+ * Hero — pure typography, zero image dependency.
  *
- * Full-viewport editorial split: left half text (real semantic HTML,
- * scannable by Google + screen-readers), right half a hard-edged
- * full-bleed photo (the generated track-lane image).
- *
- * Designed to feel like the Electric-Hydrogen "Decarbonizing
- * Industry" hero — sober, mission-driven, scrollable beyond.
+ * Heron-Preston specimen-sheet DNA: huge headline, lime period as
+ * the punctuation, BIB-coded eyebrow and footer-strip, technical
+ * metadata callouts at the corners. Nothing here depends on a CDN.
  */
-export const HeroSection = () => {
-  const b = LANDING_ASSETS.benefit01;
+export const HeroSection = () => (
+  <section
+    id="hero"
+    className="relative w-full overflow-hidden bg-background"
+    data-testid="landing-hero"
+    aria-label="Werde KI-nativ — Das OS für Führungskräfte"
+  >
+    {/* Subtle radial mesh, never the focus */}
+    <div
+      aria-hidden
+      className="absolute inset-0 opacity-70"
+      style={{
+        backgroundImage:
+          'radial-gradient(at 85% 20%, rgba(191,255,0,0.08) 0px, transparent 50%), ' +
+          'radial-gradient(at 5% 90%, rgba(191,255,0,0.04) 0px, transparent 55%)',
+      }}
+    />
 
-  return (
-    <section
-      id="hero"
-      className="relative min-h-screen w-full overflow-hidden bg-background pt-24 md:pt-28"
-      data-testid="landing-hero"
-      aria-label="Leader-OS — Elf Frameworks. Ein OS."
+    {/* Technical specimen-sheet callouts (Heron-Preston DNA) */}
+    <div
+      aria-hidden
+      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40 font-mono"
     >
-      {/* Background editorial photo, masked into the right half on desktop */}
-      <div
-        aria-hidden
-        className="absolute inset-y-0 right-0 w-full md:w-[58%] overflow-hidden"
+      <div>[ a. EYEBROW ]</div>
+      <div className="mt-0.5">[ b. SLOGAN ]</div>
+      <div className="mt-0.5">[ c. SUBLINE ]</div>
+    </div>
+    <div
+      aria-hidden
+      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40 font-mono text-right"
+    >
+      <div>[ {LANDING_META.bib} ]</div>
+      <div className="mt-0.5">[ K01 · OFFEN ]</div>
+      <div className="mt-0.5">[ EU · DE / EN ]</div>
+    </div>
+
+    {/* Background-W — Heron-Preston editorial ghost letterform */}
+    <motion.div
+      aria-hidden
+      initial={{ opacity: 0, scale: 1.04 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-y-0 right-[-8%] md:right-[-4%] w-[80%] md:w-[58%] flex items-center justify-end pointer-events-none select-none"
+    >
+      <span
+        className="text-[42vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em] text-foreground/[0.04]"
+        style={{
+          fontFamily: 'Outfit, Inter, sans-serif',
+          fontWeight: 900,
+          fontStyle: 'italic',
+        }}
       >
-        <motion.img
-          src={b.url}
-          alt=""
-          className="w-full h-full object-cover object-center select-none pointer-events-none"
-          initial={{ scale: 1.05, opacity: 0.6 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          loading="eager"
-          fetchpriority="high"
-        />
-        {/* On mobile, soft white fade over the image so headline reads */}
-        <div className="absolute inset-0 md:hidden bg-gradient-to-b from-background/85 via-background/30 to-background/95" />
-      </div>
+        W
+      </span>
+    </motion.div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-5 md:px-10 py-10 md:py-20 grid md:grid-cols-12 gap-8">
-        <div className="md:col-span-7 lg:col-span-6 flex flex-col justify-center">
-          <motion.p
-            initial="hidden"
-            animate="show"
-            custom={0}
-            variants={FADE_UP}
-            className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/55 mb-6"
-          >
-            {b.eyebrow}
-          </motion.p>
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-20 md:pb-28">
+      <motion.p
+        initial="hidden"
+        animate="show"
+        custom={0}
+        variants={FADE_UP}
+        className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-6 font-mono"
+      >
+        ▸ Leader-OS · Powered by WladBot
+      </motion.p>
 
-          <motion.h1
-            initial="hidden"
-            animate="show"
-            custom={1}
-            variants={FADE_UP}
-            className="text-[40px] sm:text-[54px] md:text-[72px] lg:text-[88px] leading-[0.95] tracking-[-0.035em] text-foreground"
-            style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 800 }}
-          >
-            {b.headline}
-          </motion.h1>
+      <motion.h1
+        initial="hidden"
+        animate="show"
+        custom={1}
+        variants={FADE_UP}
+        className="text-[56px] sm:text-[88px] md:text-[128px] lg:text-[168px] leading-[0.86] tracking-[-0.045em] text-foreground"
+        style={{
+          fontFamily: 'Outfit, Inter, system-ui, sans-serif',
+          fontWeight: 900,
+          fontStyle: 'italic',
+        }}
+      >
+        Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
+      </motion.h1>
 
-          <motion.p
-            initial="hidden"
-            animate="show"
-            custom={2}
-            variants={FADE_UP}
-            className="mt-6 md:mt-8 max-w-xl text-[14px] md:text-[15.5px] leading-[1.55] text-foreground/70"
-          >
-            {b.body}
-          </motion.p>
+      <motion.p
+        initial="hidden"
+        animate="show"
+        custom={2}
+        variants={FADE_UP}
+        className="mt-8 md:mt-12 max-w-2xl text-[15px] md:text-[18px] leading-[1.55] text-foreground/70"
+      >
+        Das Operating System für die nächste Generation Führungskräfte.
+        Wlad Jachtchenkos Methodik live, jeden Tag, in deiner Tasche.
+        Starte mit der kostenlosen Diagnose auf{' '}
+        <a
+          href="https://leader-check.de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-foreground underline decoration-brand decoration-2 underline-offset-4 hover:decoration-foreground transition-colors"
+        >
+          leader-check.de
+        </a>.
+      </motion.p>
 
-          <motion.div
-            initial="hidden"
-            animate="show"
-            custom={3}
-            variants={FADE_UP}
-            className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
-          >
-            <PlusCircleCTA
-              href={LANDING_META.cta.primary.href}
-              testId="hero-cta-primary"
-            >
-              {LANDING_META.cta.primary.label}
-            </PlusCircleCTA>
-            <a
-              href="#benefit-02"
-              className="text-[12px] font-bold uppercase tracking-[0.18em] text-foreground/50 hover:text-foreground transition-colors"
-              data-testid="hero-cta-scroll"
-            >
-              7 Benefits · scroll ↓
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate="show"
-            custom={4}
-            variants={FADE_UP}
-            className="mt-12 md:mt-16 flex items-center gap-4 text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/50"
-          >
-            <span className="text-brand">▸</span>
-            <span>KOHORTE {LANDING_META.cohort} · OFFEN</span>
-            <span className="h-px w-12 bg-foreground/15" />
-            <span>leader-os.de</span>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Bottom scroll-hint */}
       <motion.div
-        aria-hidden
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2 text-[9px] font-bold uppercase tracking-[0.3em] text-foreground/40"
+        initial="hidden"
+        animate="show"
+        custom={3}
+        variants={FADE_UP}
+        className="mt-10 md:mt-14 flex flex-wrap items-center gap-x-8 gap-y-4"
       >
-        <span>SCROLL</span>
-        <span className="h-8 w-px bg-foreground/30 animate-pulse" />
+        <PlusCircleCTA
+          href={LANDING_META.cta.primary.href}
+          testId="hero-cta-primary"
+        >
+          Diagnose starten · 5 Min · kostenlos
+        </PlusCircleCTA>
+        <a
+          href="#how-it-works"
+          className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/50 hover:text-foreground transition-colors"
+          data-testid="hero-cta-scroll"
+        >
+          So funktioniert's ↓
+        </a>
       </motion.div>
-    </section>
-  );
-};
+
+      {/* BIB-strip footer */}
+      <motion.div
+        initial="hidden"
+        animate="show"
+        custom={4}
+        variants={FADE_UP}
+        className="mt-20 md:mt-32 pt-6 border-t border-foreground/10 flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/50 font-mono"
+      >
+        <span className="text-brand">▸</span>
+        <span>KOHORTE {LANDING_META.cohort}</span>
+        <span className="text-foreground/20">/</span>
+        <span>DREIßIG TAGE</span>
+        <span className="text-foreground/20">/</span>
+        <span>ELF FRAMEWORKS</span>
+        <span className="text-foreground/20">/</span>
+        <span>WLADBOT 24-7</span>
+        <span className="text-foreground/20">/</span>
+        <span>ZERTIFIKAT</span>
+      </motion.div>
+    </div>
+  </section>
+);
