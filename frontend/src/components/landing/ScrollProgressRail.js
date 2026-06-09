@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 
 const ITEMS = [
-  { id: 'hero', n: '01', label: 'Frameworks' },
-  { id: 'benefit-02', n: '02', label: 'Immer wach' },
-  { id: 'benefit-03', n: '03', label: 'Sprint' },
-  { id: 'benefit-04', n: '04', label: 'Wlad' },
-  { id: 'benefit-05', n: '05', label: 'Trust' },
-  { id: 'benefit-06', n: '06', label: 'Zertifikat' },
-  { id: 'benefit-07', n: '07', label: 'WladBot' },
+  { id: 'hero',         n: '00', label: 'Hero' },
+  { id: 'how-it-works', n: '01', label: 'Pfad' },
+  { id: 'benefit-01',   n: '02', label: 'Frameworks' },
+  { id: 'benefit-02',   n: '03', label: 'Coach' },
+  { id: 'benefit-03',   n: '04', label: 'Sprint' },
+  { id: 'benefit-04',   n: '05', label: 'Wlad' },
+  { id: 'benefit-05',   n: '06', label: 'Trust' },
+  { id: 'benefit-06',   n: '07', label: 'Zertifikat' },
+  { id: 'benefit-07',   n: '08', label: 'WladBot' },
+  { id: 'final-cta',    n: '09', label: 'Start' },
 ];
 
 /**
- * ScrollProgressRail — floating right-side rail showing which §-section
- * is in the viewport. Click a dot to scroll-anchor to it.
- *
- * Hidden on mobile to keep the screen clean.
+ * ScrollProgressRail — floating right-side rail. Lit by
+ * IntersectionObserver, click-to-anchor. Desktop only.
  */
 export const ScrollProgressRail = () => {
   const [activeId, setActiveId] = useState('hero');
@@ -43,7 +44,7 @@ export const ScrollProgressRail = () => {
     <aside
       aria-label="Inhaltsverzeichnis"
       data-testid="landing-progress-rail"
-      className="fixed top-1/2 -translate-y-1/2 right-6 lg:right-8 z-40 hidden lg:flex flex-col gap-3"
+      className="fixed top-1/2 -translate-y-1/2 right-5 lg:right-7 z-40 hidden lg:flex flex-col gap-2.5"
     >
       {ITEMS.map((item) => {
         const active = activeId === item.id;
@@ -55,7 +56,7 @@ export const ScrollProgressRail = () => {
             data-testid={`rail-${item.n}`}
           >
             <span
-              className={`text-[9.5px] font-bold uppercase tracking-[0.2em] transition-all ${
+              className={`text-[9px] font-bold uppercase tracking-[0.2em] font-mono transition-all ${
                 active
                   ? 'text-foreground translate-x-0 opacity-100'
                   : 'text-foreground/30 translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0'
