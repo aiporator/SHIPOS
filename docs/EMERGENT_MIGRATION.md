@@ -18,8 +18,8 @@
 | `routes/admin_quality.py`      | LlmChat                     | ✅ Shim    | Internes Audit-Tool |
 | `routes/simulations.py`        | LlmChat                     | ✅ Shim    | |
 | `routes/checkin.py`            | LlmChat                     | ✅ Shim    | Daily-Checkin |
-| `routes/uploads.py`            | EMERGENT_LLM_KEY als Storage-Token | ⏸ defer | Object-Storage-Migration, eigener Sprint |
-| `routes/payments.py`           | StripeCheckout-Wrapper      | ⏸ defer | Direkte stripe-SDK-Migration nötig |
+| `routes/uploads.py`            | EMERGENT_LLM_KEY als Storage-Token | ✅ Shim | `lib.object_storage` → Supabase wenn `SUPABASE_URL`+`SUPABASE_SERVICE_KEY` |
+| `routes/payments.py`           | StripeCheckout-Wrapper      | ✅ Shim | `lib.stripe_checkout` → native stripe-SDK wenn echter Key |
 
 Nicht-Routen die noch lesen: `services_wladhub_autosync.py` (nutzt nur
 EMERGENT_LLM_KEY, kein LLM-Call) — wird beim Storage-Pass mitabgehandelt.
@@ -29,10 +29,21 @@ EMERGENT_LLM_KEY, kein LLM-Call) — wird beim Storage-Pass mitabgehandelt.
 In **Project Settings → Environment Variables** (Production):
 
 ```
-ANTHROPIC_API_KEY=sk-ant-…       # → Claude Haiku 4.5 (Default ab Migration)
-OPENAI_API_KEY=sk-…              # → GPT-4o-mini (für STT/Voice + Fallback)
-EMERGENT_LLM_KEY=…               # bleibt vorerst drin für payments.py + uploads.py
+ANTHROPIC_API_KEY=sk-ant-…       # → Claude Haiku 4.5 (LLM-Default)
+OPENAI_API_KEY=sk-…              # → GPT-4o-mini + STT (Voice-Mode)
+STRIPE_API_KEY=sk_live_…         # → ECHTER Stripe-Key (oder sk_test_… vom eigenen Konto)
+SUPABASE_URL=https://srujvjjncrszhaaxepxf.supabase.co
+SUPABASE_SERVICE_KEY=eyJ…        # → Storage-Bucket-Zugriff (gleicher Key wie RAG)
+SUPABASE_STORAGE_BUCKET=wladbot-uploads  # Default, muss im Supabase-Dashboard angelegt sein
+EMERGENT_LLM_KEY=…               # darf jetzt LEER bleiben sobald oben alles steht
 ```
+
+**Supabase-Bucket anlegen (einmalig):**
+1. Supabase-Dashboard → Storage → New bucket
+2. Name: `wladbot-uploads`
+3. Public: **Off** (Private — Files werden über uns ausgeliefert via `/api/files/...`)
+4. File-Size-Limit: 5 MB (kontert MAX_FILE_SIZE in uploads.py)
+5. Allowed MIME types: leer lassen (uploads.py validiert das selbst)
 
 Reihenfolge der Auto-Detection im Shim:
 
@@ -51,8 +62,17 @@ ist nur noch Notfall-Backup.
 2. `POST /api/checkin` → Daily-Check funktioniert.
 3. `POST /api/voice/transcribe` (oder Voice-Mode-Overlay im UI) →
    STT muss klappen (nutzt `OpenAISpeechToText`).
-4. Sentry-Tab: keine `llm_provider send failed`-Errors.
-5. PostHog: Chat-Volume bleibt stabil — wenn es einbricht, einzelne
+4. `GET /api/payments/stripe-mode` → muss `mode: "live"` zurückgeben
+   wenn ein echter `sk_live_`-Key drin ist. `sk_test_emergent` würde
+   weiter auf Legacy gehen.
+5. `POST /api/payments/checkout` → Stripe-Checkout-URL kommt zurück,
+   in Stripe-Dashboard ist die Session sichtbar (NICHT in Emergent).
+6. `GET /api/uploads/health` → muss `backend: "supabase"` zurückgeben.
+7. `POST /api/upload/profile-picture` → Bild landet im Supabase-Bucket
+   `wladbot-uploads/wladbot/profiles/<user_id>/…jpg`.
+8. Sentry-Tab: keine `llm_provider send failed`-Errors,
+   keine `stripe_checkout`-Errors, keine `object_storage`-Errors.
+9. PostHog: Chat-Volume bleibt stabil — wenn es einbricht, einzelne
    Routes prüfen.
 
 ## Rollback
@@ -71,47 +91,28 @@ manueller Reload des FastAPI-Workers kann das schneller machen.
 
 ## Was als nächstes raus muss
 
-### a) `routes/payments.py` (Stripe-Wrapper)
+### `requirements.txt` Entfernung
 
-`emergentintegrations.payments.stripe.checkout` kapselt:
-- `StripeCheckout`-Klasse
-- `CheckoutSessionRequest` / `CheckoutSessionResponse`
-- Webhook-Signature-Validierung
+Sobald in Production:
+- Alle LLM-Routes laufen native (Anthropic/OpenAI)
+- `/api/payments/stripe-mode` zeigt einen echten `sk_live_`-Key
+- `/api/uploads/health` zeigt `backend: "supabase"`
+- 1 Woche stabil, keine Sentry-Errors aus den Shims
 
-Migration auf die offizielle `stripe`-Python-SDK:
-
-```python
-import stripe
-stripe.api_key = STRIPE_API_KEY
-session = stripe.checkout.Session.create(
-    line_items=[…],
-    mode="payment",
-    success_url=…,
-    cancel_url=…,
-)
-```
-
-Webhook (bereits ausgelagert in Supabase Edge Function — siehe
-backend/routes/payments.py Kommentar bei `/webhook/stripe`).
-Dauer: 1 Sprint-Day mit sauberem Stripe-Test-Mode.
-
-### b) `routes/uploads.py` + Object-Storage
-
-`emergentagent.com`-CDN durch S3-/R2-/Supabase-Storage ersetzen.
-Storage-Init-Endpoint dort ist ein Emergent-spezifisches Auth-Modell —
-muss komplett ersetzt werden, kein Drop-in. Dauer: 1–2 Sprint-Days.
-
-### c) `requirements.txt` Entfernung
-
-Erst wenn alle 3 Punkte oben durch sind:
-
-```
-# requirements.txt
-- emergentintegrations==0.1.0
-+ stripe>=8.0
-```
+→ kann `emergentintegrations==0.1.0` aus `backend/requirements.txt`
+raus. Die Shims fallen dann beim Build-Step weg (Try-Import-Wrapper
+loggt Warning, raise't aber nicht), bis wir noch den Try-Import-
+Code aus den drei `lib/*`-Files löschen.
 
 Dann auch `EMERGENT_LLM_KEY` aus den ENV-Vars in Vercel löschen.
+
+### Optional aufräumen
+- `backend/data.py` Founder-Avatare (Bezos, Musk, …) liegen noch auf
+  `customer-assets.emergentagent.com`. Reine Anzeige-Avatare, kein
+  Funktionsverlust wenn der Host irgendwann offline geht — aber
+  nicht schön. Bei der nächsten Wlad-Foto-Lieferung mit umziehen.
+- `backend/tests/*` URLs auf `*.preview.emergentagent.com`. Tests
+  laufen ohnehin lokal/in CI, kein Production-Impact.
 
 ## Wieso ein Shim und nicht direkt SDK-Calls überall?
 

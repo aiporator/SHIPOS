@@ -8,7 +8,12 @@ from pydantic import BaseModel, field_validator
 import uuid
 from datetime import datetime, timezone
 
-from emergentintegrations.payments.stripe.checkout import (
+# Migration → lib.stripe_checkout (Drop-in, bit-identische API).
+# Wenn STRIPE_API_KEY mit sk_live_ oder einem eigenen sk_test_ beginnt:
+# native Stripe-SDK. Wenn STRIPE_API_KEY == "sk_test_emergent" (Sandbox-
+# Token aus der Emergent-Welt): Legacy-Wrapper, weil das Token nur dort
+# funktioniert.
+from lib.stripe_checkout import (
     StripeCheckout, CheckoutSessionRequest, CheckoutSessionResponse, CheckoutStatusResponse
 )
 
