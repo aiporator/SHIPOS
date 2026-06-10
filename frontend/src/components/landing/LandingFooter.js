@@ -26,7 +26,8 @@ const COL_LEARN = [
 ];
 
 const COL_ABOUT = [
-  { label: 'Demo buchen', href: 'https://cal.com/leader-os/demo', external: true },
+  { label: 'Demo · 20 Min', href: 'https://cal.com/leaderos/demo', external: true },
+  { label: 'Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung', external: true },
   { label: 'Login', to: '/login' },
   { label: 'leader-check.de', href: 'https://leader-check.de', external: true },
   { label: 'Impressum', to: '/impressum' },

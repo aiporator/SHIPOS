@@ -14,6 +14,7 @@ import { LandingFooter } from '../components/landing/LandingFooter';
 import { ScrollProgressRail } from '../components/landing/ScrollProgressRail';
 import { LeadCaptureModal } from '../components/landing/LeadCaptureModal';
 import { ConversionBand } from '../components/landing/ConversionBand';
+import { LandingChatPod } from '../components/landing/LandingChatPod';
 import LeaderCheckLanding from './LeaderCheckLanding';
 import { LANDING_BENEFITS, LANDING_META } from '../data/landingAssets';
 
@@ -91,9 +92,11 @@ export default function LandingPage() {
 
       <LandingFooter />
 
-      {/* Conversion accessories — always-on band + exit-intent popup */}
+      {/* Conversion accessories — always-on band + exit-intent popup +
+          editorial WladBot-Mini-Funnel (rechts unten). */}
       <ConversionBand />
       <LeadCaptureModal />
+      <LandingChatPod mode="lead" />
     </div>
   );
 }

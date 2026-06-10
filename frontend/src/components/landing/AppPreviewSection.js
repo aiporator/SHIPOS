@@ -250,7 +250,7 @@ export const AppPreviewSection = () => (
           dein Use-Case.
         </p>
         <PlusCircleCTA
-          href="https://cal.com/leader-os/demo"
+          href="https://cal.com/leaderos/demo"
           testId="app-preview-demo"
         >
           Demo buchen · 20 Min

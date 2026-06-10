@@ -62,11 +62,18 @@ export const FinalCTA = () => (
             {LANDING_META.cta.primary.label}
           </PlusCircleCTA>
           <PlusCircleCTA
-            href="https://cal.com/leader-os/demo"
+            href="https://cal.com/leaderos/demo"
             testId="final-cta-demo"
             className="text-white/85 hover:text-white"
           >
             Demo buchen · 20 Min
+          </PlusCircleCTA>
+          <PlusCircleCTA
+            href="https://cal.com/leaderos/beratung"
+            testId="final-cta-beratung"
+            className="text-white/85 hover:text-white"
+          >
+            Beratung · 30 Min
           </PlusCircleCTA>
           <PlusCircleCTA
             to={LANDING_META.cta.secondary.href}

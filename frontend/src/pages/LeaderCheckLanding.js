@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LandingFooter } from '../components/landing/LandingFooter';
+import { LandingChatPod } from '../components/landing/LandingChatPod';
 
 /**
  * LeaderCheckLanding — die Diagnostic-First-Variante.
@@ -370,6 +371,11 @@ export default function LeaderCheckLanding() {
       </main>
 
       <LandingFooter />
+
+      {/* Readiness-Vorprüfung als WladBot-Mini-Funnel rechts unten —
+          erkundet KI / Rhetorik / EQ / Feedback in 4 Mikro-Fragen
+          und routet in die volle 21-Fragen-Diagnose. */}
+      <LandingChatPod mode="readiness" />
     </div>
   );
 }
