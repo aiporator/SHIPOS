@@ -330,7 +330,7 @@ class VoiceConvoResponse(BaseModel):
 
 async def _transcribe_webm(audio_bytes: bytes) -> str:
     """Whisper transcription. Auto-detects language but biases to DE."""
-    from emergentintegrations.llm.openai import OpenAISpeechToText
+    from lib.llm_provider import OpenAISpeechToText
     stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
     with tempfile.NamedTemporaryFile(suffix=".webm", delete=False) as tmp:
         tmp.write(audio_bytes)
@@ -356,7 +356,8 @@ async def _voice_llm_reply(session_id: str, user_id: str, transcript: str, user_
     coaching language that never cited Wlad's frameworks. Now Wlad's Killerphrasen,
     3 Säulen, Kommunikationsquadrant, etc. surface in voice answers too.
     """
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    # Migration → lib.llm_provider (bit-identische API, Provider per ENV).
+    from lib.llm_provider import LlmChat, UserMessage
 
     history = await db.chat_messages.find(
         {"session_id": session_id}, {"_id": 0, "role": 1, "content": 1}

@@ -240,3 +240,69 @@ class LlmChat:
             logger.error("llm_provider send failed (provider=%s model=%s): %s",
                          self._provider, self._model, e)
             raise
+
+
+# ─── OpenAISpeechToText — Drop-in für emergentintegrations STT ─────
+#
+# Emergent stellt eine kleine STT-Klasse bereit, video.py und voice_tts.py
+# nutzen sie. Die OpenAI-API spricht das direkt — wir kapseln es so dass
+# der Callsite identisch bleibt:
+#
+#     stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
+#     text = await stt.transcribe(file_path) | .transcribe_bytes(b)
+#
+# Wenn OPENAI_API_KEY in der ENV ist, geht das direkt zu OpenAI. Sonst
+# fällt es auf emergentintegrations zurück (übergangsweise).
+
+class OpenAISpeechToText:
+    """Drop-in für `emergentintegrations.llm.openai.OpenAISpeechToText`."""
+
+    def __init__(self, api_key: Optional[str] = None, model: str = "whisper-1"):
+        self._legacy_key = api_key
+        self._model = model
+        # ENV gewinnt — eigener OpenAI-Key überschreibt den Emergent-Key.
+        self._openai_key = os.environ.get("OPENAI_API_KEY")
+
+    async def transcribe(self, file_path: str, language: Optional[str] = None) -> str:
+        """STT aus einem File-Pfad. Kompatibel mit der Emergent-Signatur."""
+        if self._openai_key:
+            return await self._native(open(file_path, "rb"), language)
+        return await self._legacy(file_path, language)
+
+    async def transcribe_bytes(self, data: bytes, filename: str = "audio.webm",
+                               language: Optional[str] = None) -> str:
+        """STT aus rohen Bytes (Voice-Mode-Recording)."""
+        import io
+        if self._openai_key:
+            f = io.BytesIO(data); f.name = filename
+            return await self._native(f, language)
+        # Legacy-Pfad braucht ein File — temporär schreiben.
+        import tempfile, os as _os
+        with tempfile.NamedTemporaryFile(delete=False, suffix=_os.path.splitext(filename)[1] or ".webm") as tf:
+            tf.write(data); path = tf.name
+        try:
+            return await self._legacy(path, language)
+        finally:
+            try: _os.unlink(path)
+            except OSError: pass
+
+    async def _native(self, file_obj, language: Optional[str]) -> str:
+        try:
+            from openai import AsyncOpenAI
+        except ImportError as e:  # pragma: no cover
+            raise RuntimeError("openai SDK not installed.") from e
+        client = AsyncOpenAI(api_key=self._openai_key)
+        kwargs = {"model": self._model, "file": file_obj}
+        if language:
+            kwargs["language"] = language
+        resp = await client.audio.transcriptions.create(**kwargs)
+        return getattr(resp, "text", "") or ""
+
+    async def _legacy(self, file_path: str, language: Optional[str]) -> str:
+        from emergentintegrations.llm.openai import (  # type: ignore
+            OpenAISpeechToText as _EmSTT,
+        )
+        em = _EmSTT(api_key=self._legacy_key or os.environ.get("EMERGENT_LLM_KEY", ""))
+        # Emergent-Signatur war .transcribe(path) ohne language-Flag — wir
+        # ignorieren `language` hier, falls die Lib es nicht akzeptiert.
+        return await em.transcribe(file_path)

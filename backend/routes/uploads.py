@@ -19,6 +19,13 @@ MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 
 def init_storage():
+    """Init Emergent-Object-Storage.
+
+    NOTE: Diese Route nutzt EMERGENT_LLM_KEY NICHT als LLM-Key, sondern
+    als Auth-Token gegen den Emergent-Object-Storage-Endpoint. Bleibt
+    unverändert solange wir die Storage-Migration nicht angepackt
+    haben (eigene Sprint-Aufgabe — S3/R2/Supabase-Storage als Ersatz).
+    """
     global storage_key
     if storage_key:
         return storage_key
