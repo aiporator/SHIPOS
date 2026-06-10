@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { LandingChatPod } from '../components/landing/LandingChatPod';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 /**
  * LeaderCheckLanding — die Diagnostic-First-Variante.
@@ -124,52 +125,71 @@ export default function LeaderCheckLanding() {
           />
 
           <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-20 md:pt-28 pb-20 md:pb-28">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
+            {/* Warmer Grüß-Strip mit Wlad-Foto links — keine Schreierei,
+                eine Einladung. Das setzt den Ton bevor die Headline kommt. */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono"
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-4 mb-8"
             >
-              ▸ BIB · 0001 · DIAGNOSE OFFEN
-            </motion.p>
+              <img
+                src={WLAD_AVATAR}
+                onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                alt="Wlad Jachtchenko"
+                className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/40"
+              />
+              <div>
+                <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
+                  ▸ Hallo, ich bin Wlad
+                </p>
+                <p className="text-[12px] text-white/55 mt-0.5">
+                  Schön, dass du da bist. Lass uns kurz schauen wo du stehst.
+                </p>
+              </div>
+            </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[56px] sm:text-[88px] md:text-[120px] lg:text-[156px] leading-[0.88] tracking-[-0.045em] text-white max-w-5xl"
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[52px] sm:text-[80px] md:text-[112px] lg:text-[144px] leading-[0.9] tracking-[-0.045em] text-white max-w-5xl"
               style={{
                 fontFamily: 'Outfit, Inter, system-ui, sans-serif',
                 fontWeight: 900,
                 fontStyle: 'italic',
               }}
             >
-              Wo stehst du<span className="text-brand not-italic">.</span>
+              Finden wir<br />
+              <span className="text-white/55">deinen Startpunkt</span>
+              <span className="text-brand not-italic">.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 md:mt-12 max-w-3xl text-[20px] sm:text-[26px] md:text-[32px] leading-[1.15] tracking-[-0.02em] text-white"
-              style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 800 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 md:mt-10 max-w-3xl text-[18px] sm:text-[22px] md:text-[26px] leading-[1.25] tracking-[-0.015em] text-white"
+              style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 700 }}
             >
-              KI bestimmt das Tempo.{' '}
+              Kein Test, der dich abprüft.{' '}
               <span className="text-white/55">
-                Du bestimmst den Kurs<span className="text-brand">.</span>
+                Ein Gespräch, das dir zeigt, wo dein nächster Hebel liegt
+                <span className="text-brand">.</span>
               </span>
             </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/70"
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-white/75"
             >
-              5 Minuten. 21 Fragen. Drei Dimensionen: KI-Readiness,
-              Rhetorik, Emotionale Intelligenz. Du bekommst sofort
-              deinen Score plus eine konkrete Empfehlung — ohne
-              Kreditkarte, ohne Anmeldung.
+              21 Fragen, ehrlich beantwortet, dauern etwa 5 Minuten. Du
+              bekommst sofort einen Score über drei Dimensionen — KI,
+              Rhetorik, EQ — plus eine konkrete Empfehlung, was dein
+              nächster Schritt sein könnte. Kostenlos. Keine Kreditkarte.
+              Kein Newsletter, der dich verfolgt.
             </motion.p>
 
             <motion.div
@@ -221,57 +241,76 @@ export default function LeaderCheckLanding() {
           </div>
         </section>
 
-        {/* ───────── E-Mail-Bridge ───────── */}
+        {/* ───────── E-Mail-Bridge ─────────
+            Bewusst warm formuliert. Kein "WICHTIG! TUE DAS!" Schreierei.
+            Eine Bitte unter Freunden mit klarer Begründung. */}
         <section
-          className="border-t border-white/[0.08]"
+          className="border-t border-white/[0.08] bg-gradient-to-b from-white/[0.03] to-transparent"
           aria-label="Nutze die gleiche E-Mail wie auf leader-os.de"
         >
           <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
             <div className="md:col-span-7">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
-                ▸ WICHTIG · NUTZUNG DERSELBEN E-MAIL
+                ▸ EIN KLEINER TIPP · BEVOR DU STARTEST
               </p>
               <h2
                 className="text-[36px] sm:text-[52px] md:text-[68px] leading-[0.95] tracking-[-0.035em] text-white"
                 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
               >
-                Eine E-Mail.<br />
-                <span className="text-white/55">Ein Profil.</span>
+                Nimm die E-Mail,<br />
+                <span className="text-white/55">die dir am liebsten ist</span>
                 <span className="text-brand not-italic">.</span>
               </h2>
-              <p className="mt-8 max-w-xl text-[15px] md:text-[17px] leading-[1.6] text-white/75">
-                Wenn du später auf <a className="underline decoration-brand decoration-2 underline-offset-4" href="https://leader-os.de">leader-os.de</a> in den
-                Sprint einsteigst, sollte dort dieselbe E-Mail liegen, mit
-                der du hier deine Diagnose machst. Sonst sieht WladBot dich
-                als zwei verschiedene Menschen — und deine Personalisierung
-                fängt bei Null an.
+              <p className="mt-8 max-w-xl text-[15px] md:text-[17px] leading-[1.6] text-white/85">
+                Wenn du später auf{' '}
+                <a className="underline decoration-brand decoration-2 underline-offset-4 hover:text-brand transition-colors" href="https://leader-os.de">
+                  leader-os.de
+                </a>{' '}
+                weitermachen willst, nimm dort einfach die gleiche E-Mail
+                wie hier. Dann erkennt dich WladBot wieder, kennt deine
+                Scores schon und sagt dir vom ersten Tag an: „Hey, das hier
+                ist genau dein Hebel."
               </p>
               <p className="mt-5 max-w-xl text-[15px] leading-[1.6] text-white/65">
-                Gleiche E-Mail = WladBot kennt deine Scores ab Tag 1,
-                weiß wo deine Schwächen liegen, schlägt dir die richtigen
-                Frameworks vor. Andere E-Mail = zwei getrennte Welten.
+                Andere E-Mail? Auch okay — dann fängt die Personalisierung
+                eben nochmal bei Null an. Du verlierst nichts, aber wir
+                sparen uns beide ein paar Minuten Wiederholung.
               </p>
+
+              <div className="mt-7 inline-flex items-start gap-3 px-4 py-3 border border-brand/30 bg-brand/[0.06]">
+                <span className="text-brand text-xl leading-none font-black mt-0.5">✓</span>
+                <div className="text-[13px] leading-[1.5] text-white/85">
+                  <strong className="font-bold">Versprochen:</strong> Wir
+                  schicken dir keinen Newsletter ohne dass du den willst.
+                  Keine Werbe-Mails von Dritten. Du kannst dein Profil
+                  jederzeit komplett löschen — ein Klick, weg.
+                </div>
+              </div>
             </div>
-            <ul className="md:col-span-5 border border-white/[0.10] p-6 md:p-7 space-y-4">
+
+            <ul className="md:col-span-5 border border-white/[0.10] p-6 md:p-7 space-y-4 bg-[#0A0A0A]/60 backdrop-blur-sm">
               <li className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45 font-mono pb-3 border-b border-white/[0.06]">
-                ▸ WAS BLEIBT VERBUNDEN
+                ▸ WAS WIR DABEI VERBINDEN
               </li>
               {[
                 ['SCORE',    'Deine drei Diagnose-Scores'],
-                ['CONTEXT',  'Rolle · Team-Größe · Branche'],
-                ['HISTORIE', 'Welche Drills du gemacht hast'],
+                ['ROLLE',    'Deine Rolle · Team-Größe · Branche'],
+                ['DRILLS',   'Welche Übungen du gemacht hast'],
                 ['TON',      'Wie der Bot mit dir spricht'],
-                ['FOLDER',   'Notizen die du speicherst'],
+                ['NOTIZEN',  'Was du dir gespeichert hast'],
               ].map(([tag, value]) => (
                 <li key={tag} className="grid grid-cols-12 gap-3 items-baseline">
-                  <span className="col-span-3 text-[10px] font-bold uppercase tracking-[0.16em] text-brand font-mono">
+                  <span className="col-span-4 text-[10px] font-bold uppercase tracking-[0.16em] text-brand font-mono">
                     {tag}
                   </span>
-                  <span className="col-span-9 text-[13.5px] leading-[1.4] text-white/80">
+                  <span className="col-span-8 text-[13.5px] leading-[1.4] text-white/80">
                     {value}
                   </span>
                 </li>
               ))}
+              <li className="pt-3 border-t border-white/[0.06] text-[11px] leading-[1.5] text-white/50">
+                Alles auf EU-Servern. DSGVO-konform. Nichts geht an Dritte.
+              </li>
             </ul>
           </div>
         </section>
@@ -283,14 +322,21 @@ export default function LeaderCheckLanding() {
         >
           <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
-              ▸ DREI DIMENSIONEN · 21 FRAGEN
+              ▸ DREI DIMENSIONEN · DREI EHRLICHE FRAGEN-BLÖCKE
             </p>
             <h2
               className="text-[36px] sm:text-[52px] md:text-[68px] leading-[0.95] tracking-[-0.035em] text-white max-w-3xl"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              Was wir messen<span className="text-brand not-italic">.</span>
+              Worauf wir<br />
+              <span className="text-white/55">gemeinsam schauen</span>
+              <span className="text-brand not-italic">.</span>
             </h2>
+            <p className="mt-6 max-w-2xl text-[15px] leading-[1.6] text-white/65">
+              Keine Bullshit-Persönlichkeitstests. Drei Bereiche, die in
+              jeder echten Führungs-Situation entscheiden — leicht zu
+              messen, leicht zu trainieren.
+            </p>
 
             <div className="mt-14 grid md:grid-cols-3 gap-8 md:gap-12">
               {DIMENSIONS.map((d, i) => (
@@ -333,39 +379,38 @@ export default function LeaderCheckLanding() {
         >
           <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-24 md:py-36 text-center">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-              ▸ DIAGNOSE STARTEN
+              ▸ BEREIT WENN DU ES BIST
             </p>
             <h2
-              className="text-[52px] sm:text-[80px] md:text-[112px] leading-[0.92] tracking-[-0.04em] text-white max-w-5xl mx-auto"
+              className="text-[48px] sm:text-[72px] md:text-[104px] leading-[0.94] tracking-[-0.035em] text-white max-w-5xl mx-auto"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              5 Minuten.<br />
-              <span className="text-white/55">Ein Score.</span>
-              <span className="text-brand not-italic">.</span>
+              Lass uns starten<span className="text-brand not-italic">.</span>
             </h2>
-            <p className="mt-10 max-w-xl mx-auto text-[15px] md:text-[17px] leading-[1.55] text-white/70">
-              Keine Kreditkarte. Keine Anmeldung. Du beantwortest 21
-              Fragen — wir geben dir sofort deinen BIB-Score und eine
-              ehrliche Empfehlung, was dein nächster Schritt ist.
+            <p className="mt-10 max-w-xl mx-auto text-[15px] md:text-[17px] leading-[1.6] text-white/80">
+              5 Minuten deiner Zeit. Keine Kreditkarte. Keine
+              Anmeldung. Am Ende weißt du genauer wo du stehst — und
+              das ist schon mehr als die meisten haben.
             </p>
-            <div className="mt-14 inline-flex items-center gap-5">
+            <div className="mt-14 inline-flex flex-col items-center gap-4">
               <a
                 href="/leader-diagnose"
                 data-testid="check-cta-final"
                 className="group inline-flex items-center gap-4"
               >
-                <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand text-black text-3xl font-black group-hover:scale-105 transition-transform">
+                <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand text-black text-3xl font-black group-hover:scale-105 transition-transform shadow-[0_10px_40px_-10px_rgba(191,255,0,0.5)]">
                   +
                 </span>
                 <span className="text-[16px] font-bold uppercase tracking-[0.18em] text-white border-b-2 border-brand pb-1">
-                  Jetzt starten · 5 Min
+                  Diagnose starten · 5 Min
                 </span>
               </a>
+              <p className="text-[11px] text-white/45 italic max-w-md text-center">
+                Wenn du dann später Leader-OS ausprobieren willst —
+                nimm dort die gleiche E-Mail. Dann erkennen wir dich
+                und können vom ersten Tag persönlich werden.
+              </p>
             </div>
-            <p className="mt-8 text-[10.5px] font-bold uppercase tracking-[0.22em] text-white/40 font-mono">
-              ▸ TIPP · NUTZE DIESELBE E-MAIL, MIT DER DU LATER LEADER-OS.DE
-              VERWENDEN WILLST
-            </p>
           </div>
         </section>
       </main>

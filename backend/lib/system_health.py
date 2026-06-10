@@ -100,15 +100,20 @@ def _supabase_db_status() -> dict:
 
 
 def _sentry_status() -> dict:
+    # Sentry ist Ops-Observability — App läuft auch ohne, daher
+    # `optional: True`. Pulls den Overall nicht runter wenn DOWN.
     leader_os = _present("REACT_APP_SENTRY_DSN_LEADER_OS") or _present("SENTRY_DSN")
     leader_check = _present("REACT_APP_SENTRY_DSN_LEADER_CHECK")
     if leader_os and leader_check:
         return {"status": "go", "note": "Both Sentry projects configured"}
     if leader_os or leader_check:
         return {"status": "degraded",
+                "optional": True,
                 "note": "Only one Sentry DSN set — errors from the "
                         "other surface will not be captured"}
-    return {"status": "down", "note": "No Sentry DSN configured"}
+    return {"status": "down",
+            "optional": True,
+            "note": "No Sentry DSN configured"}
 
 
 def collect() -> dict:
