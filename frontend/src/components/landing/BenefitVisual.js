@@ -54,7 +54,7 @@ const SpecimenFrame = ({ children, code, nr, isDark, total = 5 }) => (
   </div>
 );
 
-const PhotoBody = ({ photo, isDark, photoFit }) => (
+const PhotoBody = ({ photo, photoFallback, isDark, photoFit }) => (
   <>
     {photo ? (
       <img
@@ -66,6 +66,11 @@ const PhotoBody = ({ photo, isDark, photoFit }) => (
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
+        onError={(e) => {
+          if (photoFallback && e.currentTarget.src !== photoFallback) {
+            e.currentTarget.src = photoFallback;
+          }
+        }}
       />
     ) : (
       <div
@@ -188,23 +193,138 @@ const TrustBody = ({ photo, isDark, trustNumbers = [] }) => {
   );
 };
 
+// Zertifikat-Plate — Goldsiegel-Anmutung + Schreibschrift-Signature.
+const CertBody = ({ isDark }) => (
+  <div className="absolute inset-0 flex items-center justify-center px-6 pt-12 pb-12">
+    <div
+      className={`relative w-[88%] max-w-[300px] aspect-[4/5] ${
+        isDark ? 'bg-white/[0.97] text-black' : 'bg-background border border-foreground/85'
+      } shadow-[0_30px_60px_-30px_rgba(0,0,0,0.35)] flex flex-col items-center justify-between py-7 px-5`}
+    >
+      {/* Eckornamente — typografisch dezent */}
+      {['top-2 left-2', 'top-2 right-2', 'bottom-2 left-2', 'bottom-2 right-2'].map((pos) => (
+        <span
+          key={pos}
+          aria-hidden
+          className={`absolute ${pos} text-brand text-[14px] font-bold leading-none`}
+        >
+          ✦
+        </span>
+      ))}
+
+      <div className="text-center">
+        <p className="text-[9px] font-bold uppercase tracking-[0.32em] text-black/60 font-mono">
+          ZERTIFIKAT
+        </p>
+        <p className="mt-1 text-[7.5px] font-bold uppercase tracking-[0.24em] text-black/40 font-mono">
+          Certificate of Completion
+        </p>
+      </div>
+
+      <div className="text-center">
+        <p
+          className="text-[20px] text-black"
+          style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontStyle: 'italic' }}
+        >
+          Anna Schmidt
+        </p>
+        <p className="mt-3 text-[8.5px] leading-[1.45] text-black/65 px-2">
+          hat den 30-Tage-Führungs-Sprint abgeschlossen und alle elf
+          Wlad-Frameworks gemeistert.
+        </p>
+      </div>
+
+      {/* Goldsiegel-Andeutung */}
+      <div className="flex items-end justify-between w-full mt-1">
+        <div className="text-[7.5px] font-bold uppercase tracking-[0.22em] text-black/55 font-mono leading-tight">
+          KOHORTE 01<br />NR · 0001
+        </div>
+        <div
+          className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-black font-black text-[13px]"
+          style={{ fontFamily: 'Outfit, sans-serif' }}
+        >
+          W
+        </div>
+        <div
+          className="text-[13px] text-black"
+          style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic' }}
+        >
+          Wlad J.
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Voxel-Kopf-Hint — typografische W-Skulptur in Lime, dunkler Hintergrund.
+const VoxelBody = ({ isDark }) => (
+  <div className="absolute inset-0 bg-[#0A0A0A] overflow-hidden">
+    {/* Voxel-Grid als Hintergrund */}
+    <div
+      aria-hidden
+      className="absolute inset-0 opacity-30"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(191,255,0,0.18) 1px, transparent 1px), ' +
+          'linear-gradient(90deg, rgba(191,255,0,0.18) 1px, transparent 1px)',
+        backgroundSize: '14px 14px',
+        maskImage: 'radial-gradient(circle at 50% 55%, black 0%, transparent 70%)',
+        WebkitMaskImage: 'radial-gradient(circle at 50% 55%, black 0%, transparent 70%)',
+      }}
+    />
+    <div className="absolute inset-0 flex items-center justify-center">
+      <span
+        className="text-brand leading-none select-none"
+        style={{
+          fontFamily: 'Outfit, Inter, system-ui, sans-serif',
+          fontWeight: 900,
+          fontStyle: 'italic',
+          fontSize: 'clamp(140px, 30vw, 280px)',
+          letterSpacing: '-0.06em',
+          textShadow: '0 0 60px rgba(191,255,0,0.4)',
+        }}
+      >
+        W
+      </span>
+    </div>
+    {/* Floating-Framework-Labels — Voxel-Hint aus dem Mockup */}
+    <div className="absolute top-[18%] right-[14%] text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
+      SEXIER
+    </div>
+    <div className="absolute top-[44%] right-[8%] text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
+      FEEDBACK
+    </div>
+    <div className="absolute bottom-[22%] left-[12%] text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
+      5 ROLLEN
+    </div>
+  </div>
+);
+
 export const BenefitVisual = ({
   nr,
   code,
   photo,
+  photoFallback,
   photoFit,
   variant = 'photo',
   trustNumbers,
   isDark = false,
-  total = 5,
+  total = 7,
 }) => (
   <SpecimenFrame nr={nr} code={code} isDark={isDark} total={total}>
     {variant === 'bib' && <BibBody isDark={isDark} />}
+    {variant === 'cert' && <CertBody isDark={isDark} />}
+    {variant === 'voxel' && <VoxelBody isDark={isDark} />}
     {variant === 'trust' && (
       <TrustBody photo={photo} isDark={isDark} trustNumbers={trustNumbers} />
     )}
     {(variant === 'photo' || !variant) && (
-      <PhotoBody photo={photo} isDark={isDark} photoFit={photoFit} />
+      <PhotoBody
+        photo={photo}
+        photoFallback={photoFallback}
+        isDark={isDark}
+        photoFit={photoFit}
+      />
     )}
   </SpecimenFrame>
 );

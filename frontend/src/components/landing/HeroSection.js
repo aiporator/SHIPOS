@@ -100,12 +100,28 @@ export const HeroSection = () => (
         Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
       </motion.h1>
 
+      {/* Dichotomie-Kicker — der eigentliche Claim unter dem ATF-Wort. */}
       <motion.p
         initial="hidden"
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-8 md:mt-12 max-w-2xl text-[15px] md:text-[18px] leading-[1.55] text-foreground/70"
+        className="mt-7 md:mt-10 max-w-3xl text-[20px] sm:text-[26px] md:text-[34px] lg:text-[40px] leading-[1.15] tracking-[-0.02em] text-foreground"
+        style={{
+          fontFamily: 'Outfit, Inter, system-ui, sans-serif',
+          fontWeight: 800,
+        }}
+      >
+        KI bestimmt die Geschwindigkeit.{' '}
+        <span className="text-foreground/55">Leadership die Richtung<span className="text-brand">.</span></span>
+      </motion.p>
+
+      <motion.p
+        initial="hidden"
+        animate="show"
+        custom={3}
+        variants={FADE_UP}
+        className="mt-7 md:mt-9 max-w-2xl text-[15px] md:text-[18px] leading-[1.55] text-foreground/70"
       >
         Endlich überzeugend auftreten. Klare Skripte statt Theorie-Geschwafel.
         Wlads Methodik live, ein KI-Coach der dich 24/7 begleitet und ein
@@ -123,7 +139,7 @@ export const HeroSection = () => (
       <motion.div
         initial="hidden"
         animate="show"
-        custom={3}
+        custom={4}
         variants={FADE_UP}
         className="mt-10 md:mt-14"
       >
@@ -159,7 +175,7 @@ export const HeroSection = () => (
       <motion.div
         initial="hidden"
         animate="show"
-        custom={4}
+        custom={5}
         variants={FADE_UP}
         className="mt-20 md:mt-32 pt-6 border-t border-foreground/10 flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/50 font-mono"
       >

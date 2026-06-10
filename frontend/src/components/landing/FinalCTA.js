@@ -40,13 +40,15 @@ export const FinalCTA = () => (
         </p>
 
         <h2
-          className="text-[48px] sm:text-[72px] md:text-[104px] lg:text-[128px] leading-[0.88] tracking-[-0.04em] text-white"
+          className="text-[44px] sm:text-[64px] md:text-[88px] lg:text-[112px] leading-[0.92] tracking-[-0.04em] text-white"
           style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
+          Wer heute zögert,<br />
+          <span className="text-white/55">führt morgen unter jemandem,</span><br />
+          der nicht gezögert hat<span className="text-brand not-italic">.</span>
         </h2>
 
-        <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
+        <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
           Elf Frameworks. Ein OS. Dreißig Tage. Bewirb dich für die Kohorte 0001 —
           Wlads Methodik live, jeden Tag, in deiner Tasche.
         </p>

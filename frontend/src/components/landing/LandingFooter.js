@@ -1,34 +1,20 @@
 import { Link } from 'react-router-dom';
-import { LANDING_META } from '../../data/landingAssets';
 
 /**
- * LandingFooter — swiss editorial. Slogan + nav + legal + BIB strip.
+ * LandingFooter — swiss editorial. Nur Brand + Nav + Legal + BIB-Strip.
+ *
+ * Bewusst KEIN Wiederholungs-Slogan — die Closing-Wall macht FinalCTA.
+ * Sonst wäre "Werde KI-nativ." dreimal auf der Seite (Hero, FinalCTA,
+ * Footer-Motto) — visuelle Inflation.
  */
 export const LandingFooter = () => (
   <footer
     className="bg-[#0A0A0A] text-white/60 border-t border-white/[0.06]"
     data-testid="landing-footer"
   >
-    <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-14 md:py-20">
-      {/* Slogan band */}
-      <div className="pb-12 md:pb-16 border-b border-white/[0.06]">
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-          ▸ DAS MOTTO
-        </p>
-        <p
-          className="text-[44px] sm:text-[64px] md:text-[88px] lg:text-[112px] leading-[0.92] tracking-[-0.045em] text-white"
-          style={{
-            fontFamily: 'Outfit, Inter, system-ui, sans-serif',
-            fontWeight: 900,
-            fontStyle: 'italic',
-          }}
-        >
-          {LANDING_META.slogan.replace(/\.$/, '')}<span className="text-brand not-italic">.</span>
-        </p>
-      </div>
-
+    <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-12 md:py-16">
       {/* Brand + nav */}
-      <div className="pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <div>
           <div
             className="text-[20px] font-black tracking-tight text-white"

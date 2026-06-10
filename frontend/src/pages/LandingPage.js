@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
 import { HeroSection } from '../components/landing/HeroSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
+import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { FAQSection } from '../components/landing/FAQSection';
 import { FinalCTA } from '../components/landing/FinalCTA';
@@ -55,6 +56,7 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <HowItWorksSection />
+        <ManifestoSection />
 
         {LANDING_BENEFITS.map((asset, idx) => (
           <BenefitSection
@@ -62,6 +64,7 @@ export default function LandingPage() {
             asset={asset}
             index={idx}
             anchor={`benefit-${asset.nr}`}
+            total={LANDING_BENEFITS.length}
           />
         ))}
 
