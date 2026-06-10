@@ -43,6 +43,7 @@ const PaymentSuccessPage = lazyWithRetry(() => import("./pages/PaymentSuccessPag
 const ReferralPage = lazyWithRetry(() => import("./pages/ReferralPage"));
 const EnterprisePage = lazyWithRetry(() => import("./pages/EnterprisePage"));
 const LandingPage = lazyWithRetry(() => import("./pages/LandingPage"));
+const SpecimenStudio = lazyWithRetry(() => import("./pages/SpecimenStudio"));
 const ThankYouPage = lazyWithRetry(() => import("./pages/ThankYouPage"));
 const Challenge30Page = lazyWithRetry(() => import("./pages/Challenge30Page"));
 const DownloadsPage = lazyWithRetry(() => import("./pages/DownloadsPage"));
@@ -158,6 +159,7 @@ function AppRouter() {
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/specimens" element={<SpecimenStudio />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

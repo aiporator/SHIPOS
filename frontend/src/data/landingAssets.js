@@ -180,7 +180,7 @@ export const LANDING_BENEFITS = [
       'näher an der Führungskraft, die du werden willst. ' +
       'Am Ende: dein persönliches Zertifikat 0001.',
     detail: [
-      ['ID',    'STARTNUMMER',    'BIB · 0001 · KOHORTE 01'],
+      ['ID',    'STARTNUMMER',    'BIB · 0001 · CREW 01'],
       ['DAY',   'TÄGLICH',        '1 Frage · 1 Drill · 1 Reflexion'],
       ['END',   'ABSCHLUSS',      'Zertifikat 0001 · LinkedIn-ready'],
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
@@ -253,7 +253,7 @@ export const LANDING_BENEFITS = [
       'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
       ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
-      ['BIB', 'STARTNUMMER',   '0001 · Kohorte 01'],
+      ['BIB', 'STARTNUMMER',   '0001 · Crew 01'],
       ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
@@ -266,24 +266,24 @@ export const LANDING_BENEFITS = [
     code: 'KOMPLETT',
     eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
     headline: 'Powered by WladBot.',
-    headlineAccent: 'Getragen von der Kohorte.',
+    headlineAccent: 'Getragen von der Crew.',
     subline: 'Du lernst nicht allein. Du wirst Teil von etwas.',
     dark: true,
     body:
       'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
       'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
-      'die Kohorte 0001 im geschlossenen Channel, monatliche ' +
+      'die Crew 0001 im geschlossenen Channel, monatliche ' +
       'Strategie-Calls und ein Zertifikat, das zeigt, wer du geworden bist.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
-      ['COM',  'KOHORTE 0001',   'Privater Channel · 100 Plätze'],
+      ['CRW',  'CREW 0001',      'Privater Channel · 100 Plätze'],
       ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
       ['ZRT',  'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
-    cta: 'Teil der Kohorte werden',
+    cta: 'Teil der Crew werden',
     href: 'https://leader-check.de',
     variant: 'voxel',
   },

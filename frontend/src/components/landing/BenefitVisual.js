@@ -121,7 +121,7 @@ const BibBody = ({ isDark }) => (
           isDark ? 'text-white/75' : 'text-foreground/75'
         }`}
       >
-        LEADER-OS &nbsp;·&nbsp; KOHORTE 01
+        LEADER-OS &nbsp;·&nbsp; CREW 01
       </span>
 
       <span
@@ -237,7 +237,7 @@ const CertBody = ({ isDark }) => (
       {/* Goldsiegel-Andeutung */}
       <div className="flex items-end justify-between w-full mt-1">
         <div className="text-[7.5px] font-bold uppercase tracking-[0.22em] text-black/55 font-mono leading-tight">
-          KOHORTE 01<br />NR · 0001
+          CREW 01<br />NR · 0001
         </div>
         <div
           className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-black font-black text-[13px]"
