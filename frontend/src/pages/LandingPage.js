@@ -14,7 +14,15 @@ import { LandingFooter } from '../components/landing/LandingFooter';
 import { ScrollProgressRail } from '../components/landing/ScrollProgressRail';
 import { LeadCaptureModal } from '../components/landing/LeadCaptureModal';
 import { ConversionBand } from '../components/landing/ConversionBand';
+import LeaderCheckLanding from './LeaderCheckLanding';
 import { LANDING_BENEFITS, LANDING_META } from '../data/landingAssets';
+
+// Host-Branch: leader-check.de bekommt die fokussierte Diagnostic-Landing.
+// Subdomains (www., preview-*) zählen mit, lokale Dev-Hosts nicht.
+const isLeaderCheckHost = () => {
+  if (typeof window === 'undefined') return false;
+  return /(^|\.)leader-check\.de$/i.test(window.location.hostname);
+};
 
 /**
  * LandingPage — the public face of leader-os.de.
@@ -49,6 +57,10 @@ export default function LandingPage() {
     return <div className="min-h-screen bg-background" data-testid="landing-loading" />;
   }
   if (user) return <Navigate to="/dashboard" replace />;
+
+  // leader-check.de → fokussierte Diagnostic-Landing.
+  // Gleicher CRA-Build, andere Identität, anderer Funnel-Zweck.
+  if (isLeaderCheckHost()) return <LeaderCheckLanding />;
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="landing-page">
