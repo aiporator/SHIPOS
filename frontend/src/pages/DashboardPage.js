@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePricing } from '../contexts/PricingContext';
 import { toast } from 'sonner';
 
-const WLAD_AVATAR = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -151,23 +151,37 @@ export default function DashboardPage() {
         {/* ── Stat Cards Row ── */}
         <StatCardsRow aiReadiness={aiReadiness} learningPct={learningPct} c30={c30} de={de} />
 
-        {/* ── YOUR NEXT STEP (DOMINANT) ── */}
+        {/* ── YOUR NEXT STEP (DOMINANT) — editorial Specimen-Card ── */}
         <Card className="surface-card card-lift mb-8 overflow-hidden" data-testid="next-step-cta" data-anim="dash-cta">
+          <div className="flex items-center justify-between px-5 py-2.5 border-b border-border/40 text-[9.5px] font-bold uppercase tracking-[0.22em] text-muted-foreground font-mono">
+            <span>▸ HEUTE · TAG {c30.current_day || '01'} / 30</span>
+            <span className="text-[#BFFF00]">BIB · 0001</span>
+          </div>
           <CardContent className="p-6">
             <div className="flex items-center gap-5">
-              <img src={WLAD_AVATAR} alt="Wlad" className="w-14 h-14 rounded-full object-cover ring-1 ring-white/10 shrink-0" />
+              <img
+                src={WLAD_AVATAR}
+                onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                alt="Wlad"
+                className="w-14 h-14 rounded-full object-cover ring-1 ring-white/10 shrink-0"
+              />
               <div className="flex-1">
-                <h3 className="text-2xl tracking-tight" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 400 }}>
-                  {de ? 'Dein nächster Schritt' : 'Your Next Step'}
+                <h3
+                  className="text-[28px] sm:text-[32px] leading-[1.02] tracking-[-0.025em] text-foreground"
+                  style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                >
+                  {de ? 'Dein nächster' : 'Your next'}{' '}
+                  <span className="text-muted-foreground">{de ? 'Schritt' : 'step'}</span>
+                  <span className="text-[#BFFF00] not-italic">.</span>
                 </h3>
-                <p className="text-sm text-muted-foreground mt-1 font-light leading-relaxed">
+                <p className="text-[14px] text-muted-foreground mt-1.5 leading-relaxed">
                   {!c30.started
                     ? (de ? 'Starte deinen 30-Tage KI-Leadership Sprint und lerne die Grundlagen.' : 'Start your 30-day AI Leadership sprint and learn the fundamentals.')
                     : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge — 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge — 10 interactive questions await.`)
                   }
                 </p>
               </div>
-              <Button onClick={() => navigate('/challenge')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold h-11 px-5 shrink-0" data-testid="next-step-btn">
+              <Button onClick={() => navigate('/challenge')} className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold h-11 px-5 shrink-0 uppercase tracking-[0.14em] text-[12px]" data-testid="next-step-btn">
                 <Play size={14} strokeWidth={1.5} className="mr-1.5" /> {!c30.started ? (de ? 'Challenge starten' : 'Start Challenge') : (de ? 'Weitermachen' : 'Continue')}
               </Button>
             </div>

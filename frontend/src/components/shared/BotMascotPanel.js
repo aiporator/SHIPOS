@@ -3,7 +3,7 @@ import {
   HeadphonesIcon, Loader2
 } from 'lucide-react';
 
-const WLAD_IMG = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
+import { WLAD_AVATAR as WLAD_IMG, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 export const BotMascotPanel = ({ de, onClose, onNavigate, onCheckout, checkoutLoading }) => (
   <>

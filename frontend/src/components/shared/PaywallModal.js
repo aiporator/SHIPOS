@@ -3,8 +3,7 @@ import { Card, CardContent } from '../ui/card';
 import { X, CheckCircle2, Flame, Brain, Video, Target, Calendar, Sparkles } from 'lucide-react';
 import { PricingModal } from './PricingModal';
 import { useBookConsultation } from '../brand/BookConsultationButton';
-
-const WLAD = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
+import { WLAD_AVATAR as WLAD, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 // Accessible lime color for text/icons on light surfaces
 const LIME_ACCENT = 'text-[#6B8A00] dark:text-[#BFFF00]';
@@ -36,7 +35,7 @@ export const PaywallModal = ({ onClose, creditsUsed = 10, isSoftPause = false })
               <X size={16} />
             </button>
             <div className="flex items-center gap-2.5 mb-3">
-              <img src={WLAD} alt="Wlad" className="w-9 h-9 rounded-full object-cover ring-2 ring-[#BFFF00]/20 shrink-0" />
+              <img src={WLAD} onError={withFallback(WLAD_AVATAR_FALLBACKS)} alt="Wlad" className="w-9 h-9 rounded-full object-cover ring-2 ring-[#BFFF00]/20 shrink-0" />
               <div className="min-w-0">
                 <p className="text-[9px] font-bold text-[#BFFF00]/80 uppercase tracking-wider">Wlad Jachtchenko</p>
                 <p className="text-[12px] font-bold text-white/95 leading-tight">
