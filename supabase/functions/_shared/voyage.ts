@@ -1,5 +1,9 @@
 const VOYAGE_API_KEY = Deno.env.get("VOYAGE_API_KEY")!;
-const VOYAGE_MODEL = Deno.env.get("VOYAGE_MODEL") ?? "voyage-3";
+// Voyage-Modell-Name lebt canonical in backend/services_rag.py
+// (VOYAGE_MODEL Konstante). Hier nur über env, KEIN String-Fallback —
+// siehe .github/workflows/constants-drift.yml. Sonst entstehen wieder
+// Doppel-Wahrheiten zwischen Python und Edge-Functions.
+const VOYAGE_MODEL = Deno.env.get("VOYAGE_MODEL");
 
 export async function embed(
   texts: string[],
@@ -7,6 +11,12 @@ export async function embed(
 ): Promise<number[][]> {
   if (!VOYAGE_API_KEY) {
     throw new Error("VOYAGE_API_KEY not configured");
+  }
+  if (!VOYAGE_MODEL) {
+    throw new Error(
+      "VOYAGE_MODEL env var is required. Set it in Supabase Edge-Function-Secrets " +
+        "to the same value as VOYAGE_MODEL in backend/services_rag.py.",
+    );
   }
   const res = await fetch("https://api.voyageai.com/v1/embeddings", {
     method: "POST",
