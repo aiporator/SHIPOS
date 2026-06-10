@@ -189,7 +189,7 @@ const BibVariant = ({ post }) => (
         />
       ))}
       <span className="text-[14px] font-bold uppercase tracking-[0.28em] text-black/75 font-mono">
-        LEADER·OS &nbsp;·&nbsp; CREW 01
+        LEADER·OS &nbsp;·&nbsp; CLASS 01
       </span>
       <span
         className="text-black leading-none"

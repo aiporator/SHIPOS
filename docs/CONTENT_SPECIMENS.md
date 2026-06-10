@@ -21,7 +21,7 @@
 
 ## Wording-Regeln (für alle Specimens)
 
-1. **Kein "Kohorte".** Stattdessen `Crew 0001` oder `BIB · 0001`.
+1. **Kein "Kohorte".** Stattdessen `Class 0001` oder `BIB · 0001`.
 2. **Dichotomie-Headline**: zweiteilig im "X. Y."-Pattern. Erste Zeile
    schwarz, zweite Zeile grau (45 %), Lime-Punkt zum Schluss.
 3. **Kein "wir bauen", kein "wir launchen"** — der Leser ist im Zentrum,

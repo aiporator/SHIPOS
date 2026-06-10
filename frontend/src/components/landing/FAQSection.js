@@ -3,34 +3,44 @@ import { motion } from 'framer-motion';
 
 const FAQS = [
   {
-    q: 'Was kostet Leader-OS?',
+    q: 'Was bekomme ich am Ende von 30 Tagen — konkret?',
     a:
-      'Die Diagnose auf leader-check.de ist kostenlos. Danach gibt es drei Pakete — Sprint, OS und OS Plus. Konkrete Preise siehst du nach der Diagnose, weil wir dir das passende Paket empfehlen. Faustregel: deutlich günstiger als ein einziges 1-zu-1-Coaching beim Top-Coach. Bezahlung einmalig oder in Raten, keine Abo-Falle.',
+      'Ein klareres Bild davon, wie du führst — geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner BIB · 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast — nicht nur was du abgehakt hast.',
   },
   {
-    q: 'Wie unterscheidet sich WladBot von ChatGPT?',
+    q: 'Wie hilft mir der WladBot in einer realen Situation?',
     a:
-      'ChatGPT kennt das halbe Internet, aber nicht Wlads Methodik. WladBot antwortet ausschließlich auf Basis von 2 212 authentischen Wlad-Chunks aus seinen Büchern, Kursen und Vorträgen. Du bekommst SEXIER mit allen sechs Schritten, die 5 Rollen exakt wie sie Wlad lehrt — kein generic Tipp-Salat. Plus: WladBot kennt deinen Kontext und deine Sprint-Historie.',
+      'Beispiel Dienstag 22:47 Uhr: morgen früh musst du einem Senior-Mitarbeiter zum dritten Mal das gleiche Feedback geben. Du tippst die Situation in den Bot. Er gibt dir nicht "10 Tipps", sondern den nächsten Satz — aus der Feedback-Formel (Beobachtung · Wirkung · Wunsch), abgestimmt auf das, was er über deinen Stil aus deinem Sprint weiß. Du gehst mit einem Skript ins Gespräch, nicht mit Bauchschmerzen.',
   },
   {
-    q: 'Wer ist Wlad Jachtchenko?',
+    q: 'Was passiert nach den 30 Tagen — bleibt das System?',
     a:
-      'Wlad ist Europas bekanntester Argumentations-Coach. 400 000 Kunden in 20+ Ländern. Drei SPIEGEL-Bestseller (Weiße Rhetorik, Dunkle Rhetorik, 5 Rollen). Vierzehn Millionen Views auf seinem Podcast „Menschen überzeugen" und YouTube. Staatlich zertifizierte Argumentorik-Ausbildung. Seine Methodik ist die DNA von Leader-OS.',
+      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche, die Lernvideo-Bibliothek und die Class 0001 im geschlossenen Channel. Plus monatliche Live-Sessions mit Wlad und einen kleinen Strategie-Call. Der Sprint ist das Onboarding — das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
   },
   {
-    q: 'Was passiert nach dem 30-Tage-Sprint?',
+    q: 'Was kostet das genau?',
     a:
-      'Du behältst lebenslang Zugriff auf alle 11 Frameworks, WladBot 24/7 und das Leader-OS-Netzwerk. Plus monatliche Live-Sessions mit Wlad. Dein Sprint ist der Onboarding — das OS bleibt dein Werkzeug für die nächsten Jahre.',
+      'Die Diagnose auf leader-check.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Das OS-Jahr (Sprint + 12 Monate Komplettbegleitung mit Live-Sessions, Class-Channel und Strategie-Call) kostet 4 797 € einmalig oder in drei Raten. Beides ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
+  },
+  {
+    q: 'Warum sollte ich für leader-check.de dieselbe Email nutzen?',
+    a:
+      'Weil leader-check.de und leader-os.de dieselbe Identität sehen, sobald du die gleiche Email-Adresse benutzt. Deine Diagnose-Scores aus dem Check fließen in deinen Sprint-Plan ein. Der WladBot weiß ab Tag 1, wo deine Schwächen liegen. Du musst nichts nochmal angeben. Andere Email = zwei getrennte Profile = keine Personalisierung.',
+  },
+  {
+    q: 'Wie unterscheidet sich das von ChatGPT oder einem normalen Coaching?',
+    a:
+      'ChatGPT kennt das halbe Internet, aber nicht dich und nicht die Methodik. Ein 1-zu-1-Coach kennt dich, ist aber nicht um 22:47 Uhr verfügbar und kostet pro Stunde, was bei Leader-OS einen ganzen Sprint kostet. WladBot ist beides zusammen: trainiert auf 2 212 authentische Wlad-Chunks und einer Context-Schicht, die deinen Sprint, deine Frameworks-Historie und deine letzten Drills kennt.',
   },
   {
     q: 'Wie sicher sind meine Daten?',
     a:
-      'DSGVO-konform. Server in der EU (Frankfurt). Deine Chats sind Ende-zu-Ende verschlüsselt und gehören dir — kein Training auf deinen Daten, kein Verkauf an Dritte. Du kannst alles jederzeit löschen.',
+      'DSGVO-konform, Server in der EU (Frankfurt). Deine Chats sind verschlüsselt und gehören dir — kein Training auf deinen Daten, kein Verkauf an Dritte. Du kannst dein Konto und alle Daten jederzeit mit einem Klick löschen.',
   },
   {
-    q: 'Was ist wenn es mir nichts bringt?',
+    q: 'Was, wenn ich merke, das ist nichts für mich?',
     a:
-      '14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber. Du sagst Bescheid, wir erstatten. Bisher noch keine Rückforderung — aber die Garantie steht.',
+      '14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Du schreibst kurz, wir erstatten. Bisher hat noch niemand zurückgefordert — aber die Garantie steht, damit du angstfrei starten kannst.',
   },
 ];
 

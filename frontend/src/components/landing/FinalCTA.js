@@ -14,7 +14,7 @@ export const FinalCTA = () => (
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Bewerbe dich für Crew 0001"
+    aria-label="Bewerbe dich für Class 0001"
     data-testid="landing-final-cta"
   >
     {/* Atmospheric lime mesh — subtle, no distraction */}
@@ -62,10 +62,17 @@ export const FinalCTA = () => (
             {LANDING_META.cta.primary.label}
           </PlusCircleCTA>
           <PlusCircleCTA
+            href="https://cal.com/leader-os/demo"
+            testId="final-cta-demo"
+            className="text-white/85 hover:text-white"
+          >
+            Demo buchen · 20 Min
+          </PlusCircleCTA>
+          <PlusCircleCTA
             to={LANDING_META.cta.secondary.href}
             testId="final-cta-secondary"
             external={false}
-            className="text-white/70 hover:text-white"
+            className="text-white/55 hover:text-white"
           >
             Bereits Mitglied? Anmelden
           </PlusCircleCTA>

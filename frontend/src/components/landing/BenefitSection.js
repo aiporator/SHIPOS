@@ -70,7 +70,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           <div className={`hidden md:flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
             <span>BIB · 0001</span>
             <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
-            <span>CREW 01</span>
+            <span>CLASS 01</span>
           </div>
         </div>
 

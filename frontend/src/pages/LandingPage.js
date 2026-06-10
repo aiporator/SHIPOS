@@ -4,8 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
 import { HeroSection } from '../components/landing/HeroSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
+import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
+import { AppPreviewSection } from '../components/landing/AppPreviewSection';
 import { FAQSection } from '../components/landing/FAQSection';
 import { FinalCTA } from '../components/landing/FinalCTA';
 import { LandingFooter } from '../components/landing/LandingFooter';
@@ -56,6 +58,7 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <HowItWorksSection />
+        <VimeoIntroSection />
         <ManifestoSection />
 
         {LANDING_BENEFITS.map((asset, idx) => (
@@ -68,6 +71,7 @@ export default function LandingPage() {
           />
         ))}
 
+        <AppPreviewSection />
         <FAQSection />
 
         <FinalCTA />

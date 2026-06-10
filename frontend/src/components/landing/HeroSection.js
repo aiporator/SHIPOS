@@ -49,7 +49,7 @@ export const HeroSection = () => (
       aria-hidden
       className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono text-right"
     >
-      <div>[ CREW 0001 · OFFEN ]</div>
+      <div>[ CLASS 0001 · OFFEN ]</div>
       <div className="mt-0.5">[ START · KW 28 / 2026 ]</div>
       <div className="mt-0.5">[ 100 PLÄTZE · 30 TAGE ]</div>
       <div className="mt-0.5 text-foreground/30">[ SPRINT · 997 € · DIAGNOSE FREE ]</div>
@@ -147,7 +147,7 @@ export const HeroSection = () => (
         <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border border-brand/40 bg-brand/[0.07]">
           <span className="w-2 h-2 rounded-full bg-brand animate-pulse" aria-hidden />
           <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground font-mono">
-            Crew 0001 · jetzt offen
+            Class 0001 · jetzt offen
           </span>
         </div>
 
@@ -181,7 +181,7 @@ export const HeroSection = () => (
         className="mt-20 md:mt-32 pt-6 border-t border-foreground/10 flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/50 font-mono"
       >
         <span className="text-brand">▸</span>
-        <span>CREW {LANDING_META.cohort}</span>
+        <span>CLASS {LANDING_META.cohort}</span>
         <span className="text-foreground/20">/</span>
         <span>DREIßIG TAGE</span>
         <span className="text-foreground/20">/</span>

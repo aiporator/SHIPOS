@@ -86,7 +86,7 @@ export const LeadCaptureModal = () => {
         body: JSON.stringify({
           email: trimmed,
           source: 'landing-popup',
-          campaign: 'crew-0001',
+          campaign: 'class-0001',
         }),
         keepalive: true,
       });

@@ -294,7 +294,7 @@ export const POST_SERIES = [
       ['BOT', 'WLADBOT',        '24/7 Coach in Wlads Stimme'],
       ['VID', 'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV', 'LIVE MIT WLAD',  'Monatlich · live · ungeschnitten'],
-      ['CRW', 'CREW 0001',      'Privater Channel · 100 Plätze'],
+      ['CLS', 'CLASS 0001',      'Privater Channel · 100 Plätze'],
       ['CAL', 'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
       ['ZRT', 'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
     ],
@@ -302,7 +302,7 @@ export const POST_SERIES = [
     caption:
       'Du lernst nicht allein. Du wirst Teil von etwas.\n\n' +
       'WladBot ist der Anfang. Dahinter: tägliche Lernvideos, Live-' +
-      'Sessions mit Wlad, die Crew 0001 im geschlossenen Channel, ' +
+      'Sessions mit Wlad, die Class 0001 im geschlossenen Channel, ' +
       'monatliche Strategie-Calls — und ein Zertifikat, das zeigt, ' +
       'wer du geworden bist.\n\n' +
       '→ leader-os.de',
