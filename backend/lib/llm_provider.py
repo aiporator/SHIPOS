@@ -299,10 +299,20 @@ class OpenAISpeechToText:
         return getattr(resp, "text", "") or ""
 
     async def _legacy(self, file_path: str, language: Optional[str]) -> str:
+        # Explizite Fehlermeldung wenn weder OpenAI noch Emergent
+        # verfügbar — sonst kracht's später irgendwo in der Emergent-
+        # Library mit unverständlichem Stack-Trace.
+        em_key = self._legacy_key or os.environ.get("EMERGENT_LLM_KEY", "")
+        if not em_key:
+            raise RuntimeError(
+                "Voice-Mode (STT) requires OPENAI_API_KEY for native Whisper, "
+                "or EMERGENT_LLM_KEY for the legacy wrapper. Neither is set — "
+                "disable Voice-Mode in the UI or set one of the keys."
+            )
         from emergentintegrations.llm.openai import (  # type: ignore
             OpenAISpeechToText as _EmSTT,
         )
-        em = _EmSTT(api_key=self._legacy_key or os.environ.get("EMERGENT_LLM_KEY", ""))
+        em = _EmSTT(api_key=em_key)
         # Emergent-Signatur war .transcribe(path) ohne language-Flag — wir
         # ignorieren `language` hier, falls die Lib es nicht akzeptiert.
         return await em.transcribe(file_path)
