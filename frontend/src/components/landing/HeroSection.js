@@ -52,6 +52,7 @@ export const HeroSection = () => (
       <div>[ KOHORTE 0001 · OFFEN ]</div>
       <div className="mt-0.5">[ START · KW 28 / 2026 ]</div>
       <div className="mt-0.5">[ 100 PLÄTZE · 30 TAGE ]</div>
+      <div className="mt-0.5 text-foreground/30">[ SPRINT · 997 € · DIAGNOSE FREE ]</div>
     </div>
 
     {/* Background-W — Heron-Preston editorial ghost letterform */}

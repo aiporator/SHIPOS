@@ -77,6 +77,18 @@ export const FinalCTA = () => (
           <span>▸ 24/7 Coach</span>
           <span>▸ Zertifikat 0001</span>
         </div>
+
+        {/* Investment-Strip — leise, ein dezenter Specimen-Tape unter
+            den Pills. Wer den Preis sucht, findet ihn. Wer nicht, wird
+            nicht angeschrien. */}
+        <div className="mt-10 pt-5 border-t border-white/10 max-w-3xl flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] font-mono text-white/40">
+          <span className="text-brand">▸ INVESTITION</span>
+          <span>DIAGNOSE · KOSTENLOS</span>
+          <span className="text-white/20">/</span>
+          <span>30-TAGE-SPRINT · 997 €</span>
+          <span className="text-white/20">/</span>
+          <span>OS · JAHR · 4 797 €</span>
+        </div>
       </motion.div>
     </div>
   </section>

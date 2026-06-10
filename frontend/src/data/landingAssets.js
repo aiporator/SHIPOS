@@ -44,6 +44,14 @@ export const LANDING_META = {
     primary: { label: 'Diagnose starten', href: 'https://leader-check.de' },
     secondary: { label: 'Login', href: '/login' },
   },
+  // Pricing — bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
+  // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
+  // Headline, nirgends als Riesen-Zahl. Der Wert soll vor dem Preis kommen.
+  pricing: {
+    sprint: { amount: '997', currency: '€', label: '30-TAGE-SPRINT' },
+    os:     { amount: '4 797', currency: '€', label: 'OS · JAHR' },
+    note:   'Diagnose bleibt kostenlos.',
+  },
 };
 
 // MANIFESTO — Dichotomie-Slogans im "X. Y."-Pattern. Wandert in einen
@@ -255,24 +263,27 @@ export const LANDING_BENEFITS = [
   },
   {
     nr: '07',
-    code: 'TECH-STACK',
-    eyebrow: 'BENEFIT 07 · TECH-STACK',
+    code: 'KOMPLETT',
+    eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
     headline: 'Powered by WladBot.',
-    headlineAccent: 'Echte Wlad-Methodik.',
-    subline: 'Generic GPT? Wir wollten mehr.',
+    headlineAccent: 'Getragen von der Kohorte.',
+    subline: 'Du lernst nicht allein. Du wirst Teil von etwas.',
     dark: true,
     body:
-      'Voyage-3 Embeddings auf 2 212 authentischen Wlad-Chunks. ' +
-      'Hybrid Retrieval. GPT-5.2. Antwortet in Wlads Stimme, mit ' +
-      'Wlads Frameworks, auf deine konkrete Situation.',
+      'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
+      'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
+      'die Kohorte 0001 im geschlossenen Channel, monatliche ' +
+      'Strategie-Calls und ein Zertifikat, das zeigt, wer du geworden bist.',
     detail: [
-      ['EMB', 'EMBEDDINGS',    'Voyage-3 · 2 212 Wlad-Chunks'],
-      ['RET', 'RETRIEVAL',     'Hybrid · semantisch + Keyword'],
-      ['LLM', 'GENERATOR',     'GPT-5.2 · Wlad-Persona'],
-      ['LNG', 'SPRACHE',       'Deutsch · English'],
-      ['SAF', 'GUARDRAILS',    'Kein generic GPT-Output'],
+      ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
+      ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
+      ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
+      ['COM',  'KOHORTE 0001',   'Privater Channel · 100 Plätze'],
+      ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
+      ['ZRT',  'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
+      ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
-    cta: 'WladBot kennenlernen',
+    cta: 'Teil der Kohorte werden',
     href: 'https://leader-check.de',
     variant: 'voxel',
   },
