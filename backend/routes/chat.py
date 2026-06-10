@@ -6,7 +6,13 @@ import io
 import base64
 from typing import Optional
 from datetime import datetime, timezone
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+# Migration: weg von emergentintegrations, hin zu nativer Anthropic-/OpenAI-
+# SDK via Compat-Shim. API ist bit-identisch mit der Emergent-Klasse, der
+# Shim wählt anhand der ENV-Keys den Provider:
+#   ANTHROPIC_API_KEY → Claude (Default ab dieser Migration)
+#   OPENAI_API_KEY    → GPT
+#   sonst EMERGENT_LLM_KEY → Legacy-Wrapper (übergangsweise)
+from lib.llm_provider import LlmChat, UserMessage
 import pypdf
 import docx
 
@@ -316,8 +322,10 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
         system_msg = system_msg + rag_ctx["context_block"]
 
     try:
+        # Shim wählt Provider via ENV — wenn ANTHROPIC_API_KEY gesetzt ist,
+        # läuft das auf Claude Haiku 4.5, sonst GPT, sonst Emergent (Legacy).
         chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"wladbot_{session_id}", system_message=system_msg)
-        chat.with_model("openai", "gpt-5.2")
+        chat.with_model("openai", "gpt-5.2")  # nur als Hint; Shim override't mit ENV-Preferenz
 
         context = "".join(f"{'User' if m['role'] == 'user' else 'Assistant'}: {m['content']}\n" for m in history[-10:])
         ai_response = await chat.send_message(UserMessage(text=f"{context}\nUser: {data.message}"))

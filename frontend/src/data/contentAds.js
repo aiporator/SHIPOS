@@ -160,6 +160,146 @@ export const AD_SERIES = [
       'Keine Slide-Deck-Show. 20 Min live, deine Frage zuerst, das ' +
       'Tool danach. cal.com/leaderos/demo',
   },
+
+  // ─── E · KI-Native Hooks ────────────────────────────────────────
+  {
+    id: 'AD-E-01',
+    slug: 'chatgpt-vs-wladbot',
+    format: '1x1',
+    platform: 'meta',
+    palette: 'spark',
+    topText: 'CHATGPT KENNT\nDAS INTERNET.',
+    titleText: 'WLADBOT KENNT\nDICH.',
+    bottomText: '2 212 WLAD-CHUNKS · CONTEXT-LAYER',
+    cta: 'LEADER-OS.DE',
+    photo: stock('phone-chat-night', 1080, 1080),
+    photoFit: 'cover',
+    caption:
+      'ChatGPT kennt das halbe Internet. WladBot kennt deinen Sprint, ' +
+      'deine Frameworks-Historie, deinen Ton. Der Unterschied zwischen ' +
+      'einem Tipp und der nächsten Antwort.',
+  },
+  {
+    id: 'AD-E-02',
+    slug: 'tools-werden-schneller',
+    format: '4x5',
+    platform: 'meta',
+    palette: 'heat',
+    topText: 'TOOLS WERDEN\nSCHNELLER.',
+    titleText: 'FÜHRUNG MUSS\nKLARER WERDEN.',
+    bottomText: 'KI-NATIVE LEADERSHIP · 30 TAGE',
+    cta: 'DIAGNOSE STARTEN',
+    photo: stock('boardroom-look', 1080, 1350),
+    photoFit: 'cover',
+    caption:
+      'Jeder hat dieselben Tools. Niemand hat deine Klarheit. ' +
+      '5 Min Diagnose auf leader-check.de.',
+  },
+
+  // ─── F · Drill-Carousel-Hooks ───────────────────────────────────
+  {
+    id: 'AD-F-01',
+    slug: 'sexier-drill',
+    format: '1x1',
+    platform: 'meta',
+    palette: 'rally',
+    topText: '6 SCHRITTE.\n1 ARGUMENT.',
+    titleText: 'STATEMENT.\nEXPLANATION.\nEXAMPLE.',
+    bottomText: 'SEXIER · 1 VON 11 FRAMEWORKS',
+    cta: 'LEADER-OS.DE',
+    photo: stock('whiteboard-talk', 1080, 1080),
+    photoFit: 'cover',
+    caption:
+      'SEXIER — Statement, Explanation, Example, Impact, Exception, ' +
+      'Resolution. Das Argumentations-Modell, das in jeder Verhandlung ' +
+      'trägt. Eines von 11 Frameworks im Leader-OS.',
+  },
+  {
+    id: 'AD-F-02',
+    slug: 'dunkle-rhetorik',
+    format: '9x16',
+    platform: 'stories',
+    palette: 'midnight',
+    topText: 'ERKENNE SIE.',
+    titleText: 'NUTZE SIE NIE.',
+    bottomText: 'DUNKLE RHETORIK · 3 KONTER',
+    cta: 'LEADER-OS.DE',
+    photo: stock('shadow-portrait', 1080, 1920),
+    photoFit: 'cover',
+    caption:
+      'Straw Man. Ad Hominem. Falsches Wir. Drei der häufigsten Tricks ' +
+      'in Diskussionen — und der einfache Konter dazu. Du musst nicht ' +
+      'aggressiver werden. Du musst nur sehen, was gespielt wird.',
+  },
+
+  // ─── G · Beratung & Enterprise ──────────────────────────────────
+  {
+    id: 'AD-G-01',
+    slug: 'beratung-30min',
+    format: '4x5',
+    platform: 'linkedin',
+    palette: 'paper',
+    topText: '30 MINUTEN.\nKEIN PITCH.',
+    titleText: 'DEIN FALL.\nUNSER PLAN.',
+    bottomText: 'CAL.COM/LEADEROS/BERATUNG',
+    cta: 'TERMIN BUCHEN',
+    photo: stock('1on1-coffee', 1080, 1350),
+    photoFit: 'cover',
+    caption:
+      'Du beschreibst die Situation, wir setzen einen klaren nächsten ' +
+      'Schritt. Keine Verkaufs-Show. cal.com/leaderos/beratung',
+  },
+  {
+    id: 'AD-G-02',
+    slug: 'enterprise-team',
+    format: '1x1',
+    platform: 'linkedin',
+    palette: 'blaze',
+    topText: 'DEIN TEAM\nGEMEINSAM.',
+    titleText: 'EIN OS.\nEINE METHODIK.',
+    bottomText: 'ENTERPRISE · AB 10 PLÄTZE',
+    cta: 'ANFRAGE STELLEN',
+    photo: stock('team-circle', 1080, 1080),
+    photoFit: 'cover',
+    caption:
+      'Wenn alle in deinem Team denselben Frameworks-Stack haben, ' +
+      'reden sie dieselbe Sprache. Enterprise-Tarife ab 10 Plätze.',
+  },
+
+  // ─── H · Zertifikat & Class ─────────────────────────────────────
+  {
+    id: 'AD-H-01',
+    slug: 'class-0001',
+    format: '9x16',
+    platform: 'stories',
+    palette: 'rally',
+    topText: 'CLASS 0001\n100 PLÄTZE',
+    titleText: 'BIB 0001\nSICHERN.',
+    bottomText: 'START · KW 28 · 2026',
+    cta: 'JETZT DABEI',
+    photo: stock('marathon-bib', 1080, 1920),
+    photoFit: 'cover',
+    caption:
+      'Die erste Class hat 100 Startnummern. Wer dabei ist, bekommt das ' +
+      'Zertifikat 0001 — handschriftlich von Wlad, mit dem Original-Siegel.',
+  },
+  {
+    id: 'AD-H-02',
+    slug: 'zertifikat-linkedin',
+    format: '1x1',
+    platform: 'linkedin',
+    palette: 'paper',
+    topText: 'PDF? NEIN.',
+    titleText: 'ZERTIFIKAT\n0001.',
+    bottomText: 'WLAD JACHTCHENKO · HANDSIGNIERT',
+    cta: 'LEADER-OS.DE',
+    photo: stock('certificate-flat', 1080, 1080),
+    photoFit: 'cover',
+    caption:
+      'Kein generisches Kurs-PDF. Eine LinkedIn-ready Urkunde mit ' +
+      'deiner BIB 0001, Goldfolie-Siegel und Wlads handschriftlicher ' +
+      'Unterschrift. Trägst du, oder lässt du.',
+  },
 ];
 
 export const AD_BY_SLUG = Object.fromEntries(AD_SERIES.map((a) => [a.slug, a]));
