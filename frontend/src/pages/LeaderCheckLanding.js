@@ -203,7 +203,7 @@ export default function LeaderCheckLanding() {
                 data-testid="check-cta-primary"
                 className="group inline-flex items-center gap-4"
               >
-                <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-black text-2xl font-black group-hover:scale-105 transition-transform">
+                <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-black text-2xl font-black group-hover:scale-105 transition-transform shadow-[0_12px_40px_-12px_rgba(191,255,0,0.55)]">
                   +
                 </span>
                 <span className="text-[15px] font-bold uppercase tracking-[0.18em] text-white border-b border-brand pb-1">
@@ -212,6 +212,26 @@ export default function LeaderCheckLanding() {
               </a>
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/45 font-mono">
                 ▸ Kein Abo · keine Kreditkarte · DSGVO-konform
+              </span>
+            </motion.div>
+
+            {/* Live-Trust-Strip — schlicht, glaubhaft, anonymisiert. */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-10 inline-flex items-center gap-3 px-3 py-2 border border-white/10 bg-white/[0.03] text-[11px] font-mono uppercase tracking-[0.18em] text-white/55"
+            >
+              <span className="relative inline-flex w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
+                <span className="relative w-2 h-2 rounded-full bg-brand" />
+              </span>
+              <span>
+                Heute schon{' '}
+                <span className="text-white font-bold">
+                  {37 + Math.floor((Date.now() / 60000) % 13)}
+                </span>{' '}
+                Diagnosen · 4.7/5 Sterne · DACH-Region
               </span>
             </motion.div>
           </div>
@@ -366,6 +386,145 @@ export default function LeaderCheckLanding() {
                     {d.body}
                   </p>
                 </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ───────── Result-Preview · "So sieht dein Ergebnis aus" ─────────
+            Visuelle Garantie: hier ist genau was du am Ende kriegst. Senkt
+            die Abbruch-Quote massiv weil die Person das Outcome schon sieht. */}
+        <section
+          className="border-t border-white/[0.08] bg-gradient-to-b from-transparent via-brand/[0.03] to-transparent"
+          aria-label="Beispiel-Ergebnis"
+        >
+          <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28 grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+            <div className="md:col-span-5">
+              <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
+                ▸ DAS BEKOMMST DU NACH 5 MINUTEN
+              </p>
+              <h2
+                className="text-[36px] sm:text-[52px] md:text-[64px] leading-[0.95] tracking-[-0.035em] text-white"
+                style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+              >
+                Ein Score.<br />
+                <span className="text-white/55">Eine Empfehlung</span>
+                <span className="text-brand not-italic">.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-white/75">
+                Keine generische PDF mit Allgemeinplätzen. Ein konkretes,
+                persönliches Profil mit drei Werten, einer ehrlichen
+                Einordnung und einem klaren ersten Schritt — gemacht für
+                deine Realität, nicht für ein Lehrbuch.
+              </p>
+              <ul className="mt-7 space-y-2 text-[13px] leading-[1.55] text-white/70">
+                {[
+                  'Sofort sichtbar · kein Email-Warten',
+                  'Anonym speicherbar oder löschbar',
+                  'Teilbar mit deinem Team oder Coach',
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-2.5">
+                    <span className="text-brand text-base leading-none mt-0.5">✓</span>
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Mock-Result-Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-7"
+            >
+              <div className="relative bg-[#0A0A0A] border border-white/[0.12] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.08] text-[9px] font-bold uppercase tracking-[0.22em] text-white/55 font-mono">
+                  <span>LEADER-CHECK · ERGEBNIS · ANONYM</span>
+                  <span className="text-brand">BIB · 0001</span>
+                </div>
+                <div className="p-6 md:p-8">
+                  {/* 3 Score-Kreise */}
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    {[
+                      { label: 'KI', val: 78, color: '#BFFF00' },
+                      { label: 'RHETORIK', val: 64, color: '#FBBF24' },
+                      { label: 'EQ', val: 81, color: '#BFFF00' },
+                    ].map(({ label, val, color }) => (
+                      <div key={label} className="border border-white/[0.08] p-4">
+                        <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/45 font-mono mb-2">
+                          ▸ {label}
+                        </div>
+                        <div
+                          className="leading-none tracking-[-0.04em]"
+                          style={{
+                            fontFamily: 'Outfit, sans-serif',
+                            fontWeight: 900,
+                            fontStyle: 'italic',
+                            fontSize: 56,
+                            color,
+                          }}
+                        >
+                          {val}
+                        </div>
+                        <div className="mt-2 h-1 bg-white/[0.08]">
+                          <div className="h-1" style={{ width: `${val}%`, backgroundColor: color }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border-t border-white/[0.08] pt-5">
+                    <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand mb-2 font-mono">
+                      ▸ DEINE PERSÖNLICHE EMPFEHLUNG
+                    </div>
+                    <p
+                      className="text-[20px] sm:text-[22px] leading-[1.2] text-white"
+                      style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontStyle: 'italic' }}
+                    >
+                      Deine größte Lücke: <span className="text-brand">Rhetorik</span>.
+                      Starte mit dem 3-Säulen-Drill.
+                    </p>
+                    <p className="mt-3 text-[13px] leading-[1.5] text-white/65">
+                      Du hast bereits ein starkes KI- und EQ-Profil. Was fehlt
+                      ist die klare Argumentations-Struktur in Townhalls und
+                      schwierigen 1:1s. Wlads 3-Säulen-Framework (Logos · Ethos
+                      · Pathos) schließt das in ~3 Wochen.
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.18em] text-white/45">
+                    <span>13.06.2026 · 14:32</span>
+                    <span>↗ TEILEN · DOWNLOAD · LÖSCHEN</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ───────── Trust-Strip mit Verlagen + Press ───────── */}
+        <section className="border-t border-white/[0.08]">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-12 md:py-16">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-white/45 mb-6 font-mono text-center">
+              ▸ WLADS METHODIK ERSCHEINT BEI
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 md:gap-x-16 gap-y-4 text-white/70">
+              {[
+                'SPIEGEL-Bestseller',
+                'manager magazin',
+                'WirtschaftsWoche',
+                'Süddeutsche Zeitung',
+                '400 000 Kunden weltweit',
+              ].map((label) => (
+                <span
+                  key={label}
+                  className="text-[14px] font-bold tracking-[0.04em]"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontStyle: 'italic' }}
+                >
+                  {label}
+                </span>
               ))}
             </div>
           </div>
