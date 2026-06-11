@@ -86,9 +86,9 @@ export default function LandingPage() {
 
       <main>
         <WladIntroVideo />
+        <MiniChallenge />
         <HeroSection />
         <TrackFieldSection />
-        <MiniChallenge />
         <HowItWorksSection />
         <VimeoIntroSection />
         <ManifestoSection />
