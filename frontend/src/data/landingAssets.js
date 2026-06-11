@@ -143,8 +143,7 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Alle Frameworks ansehen',
     href: 'https://leader-check.de',
-    variant: 'photo',
-    photo: local('hf-01.png'),
+    variant: 'list',
   },
   {
     nr: '02',
@@ -165,8 +164,7 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'WladBot starten',
     href: 'https://leader-check.de',
-    variant: 'photo',
-    photo: local('hf-02.png'),
+    variant: 'list',
   },
   {
     nr: '03',
@@ -180,7 +178,7 @@ export const LANDING_BENEFITS = [
       'näher an der Führungskraft, die du werden willst. ' +
       'Am Ende: dein persönliches Zertifikat 0001.',
     detail: [
-      ['ID',    'STARTNUMMER',    'BIB · 0001 · CLASS 01'],
+      ['ID',    'STARTNUMMER',    'Deine Leadership-Evolution'],
       ['DAY',   'TÄGLICH',        '1 Frage · 1 Drill · 1 Reflexion'],
       ['END',   'ABSCHLUSS',      'Zertifikat 0001 · LinkedIn-ready'],
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
@@ -253,7 +251,7 @@ export const LANDING_BENEFITS = [
       'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
       ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
-      ['BIB', 'STARTNUMMER',   '0001 · Class 01'],
+      ['BIB', 'STARTNUMMER',   '0001 · Individuell'],
       ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
@@ -266,24 +264,23 @@ export const LANDING_BENEFITS = [
     code: 'KOMPLETT',
     eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
     headline: 'Powered by WladBot.',
-    headlineAccent: 'Getragen von der Class.',
-    subline: 'Du lernst nicht allein. Du wirst Teil von etwas.',
+    headlineAccent: 'Persönlich von Wlad.',
+    subline: 'Du lernst nicht allein. Wlad ist mit dabei.',
     dark: true,
     body:
       'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
       'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
-      'die Class 0001 im geschlossenen Channel, monatliche ' +
-      'Strategie-Calls und ein Zertifikat, das zeigt, wer du geworden bist.',
+      'monatliche Strategie-Calls und ein Zertifikat, das zeigt, ' +
+      'wer du geworden bist.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
-      ['CLS',  'CLASS 0001',      'Privater Channel · 100 Plätze'],
       ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
-      ['ZRT',  'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
+      ['ZRT',  'ZERTIFIKAT',     'Mit deiner persönlichen Startnummer'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
-    cta: 'Teil der Class werden',
+    cta: 'Mit Wlad starten',
     href: 'https://leader-check.de',
     variant: 'voxel',
   },

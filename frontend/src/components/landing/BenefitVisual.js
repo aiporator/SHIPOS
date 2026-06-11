@@ -121,7 +121,7 @@ const BibBody = ({ isDark }) => (
           isDark ? 'text-white/75' : 'text-foreground/75'
         }`}
       >
-        LEADER-OS &nbsp;·&nbsp; CLASS 01
+        LEADER-OS &nbsp;·&nbsp; INDIVIDUELL
       </span>
 
       <span
@@ -237,7 +237,7 @@ const CertBody = ({ isDark }) => (
       {/* Goldsiegel-Andeutung */}
       <div className="flex items-end justify-between w-full mt-1">
         <div className="text-[7.5px] font-bold uppercase tracking-[0.22em] text-black/55 font-mono leading-tight">
-          CLASS 01<br />NR · 0001
+          LEADER<br />OS
         </div>
         <div
           className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-black font-black text-[13px]"
@@ -300,6 +300,37 @@ const VoxelBody = ({ isDark }) => (
   </div>
 );
 
+// ListBody — typographic-only specimen for benefits where no image
+// fits. Uses the asset's detail array as the visible body so there's
+// no AI-generated mockup competing for attention.
+const ListBody = ({ isDark, listItems = [], headline }) => (
+  <div className={`absolute inset-0 ${isDark ? 'bg-[#0A0A0A]' : 'bg-white'} px-6 sm:px-10 md:px-14 flex flex-col justify-center`}>
+    {headline && (
+      <div
+        className={`mb-6 md:mb-8 leading-[0.92] tracking-[-0.04em] ${isDark ? 'text-white' : 'text-black'}`}
+        style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(28px, 4.5vw, 56px)' }}
+      >
+        {headline}<span className="text-brand">.</span>
+      </div>
+    )}
+    <ul className={`space-y-2.5 md:space-y-3 ${isDark ? 'border-t border-white/15' : 'border-t border-black/15'} pt-4`}>
+      {listItems.slice(0, 8).map((row) => (
+        <li key={row[0]} className="grid grid-cols-12 gap-3 items-baseline">
+          <span className={`col-span-2 sm:col-span-1 text-[9.5px] font-bold uppercase tracking-[0.18em] font-mono pt-0.5 ${isDark ? 'text-brand' : 'text-brand-strong'}`}>
+            {row[0]}
+          </span>
+          <span className={`col-span-4 sm:col-span-4 text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.12em] font-mono ${isDark ? 'text-white' : 'text-black'}`}>
+            {row[1]}
+          </span>
+          <span className={`col-span-6 sm:col-span-7 text-[12px] sm:text-[13.5px] leading-[1.35] ${isDark ? 'text-white/65' : 'text-black/65'}`}>
+            {row[2]}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 export const BenefitVisual = ({
   nr,
   code,
@@ -308,6 +339,8 @@ export const BenefitVisual = ({
   photoFit,
   variant = 'photo',
   trustNumbers,
+  listItems,
+  listHeadline,
   isDark = false,
   total = 7,
 }) => (
@@ -315,6 +348,9 @@ export const BenefitVisual = ({
     {variant === 'bib' && <BibBody isDark={isDark} />}
     {variant === 'cert' && <CertBody isDark={isDark} />}
     {variant === 'voxel' && <VoxelBody isDark={isDark} />}
+    {variant === 'list' && (
+      <ListBody isDark={isDark} listItems={listItems} headline={listHeadline} />
+    )}
     {variant === 'trust' && (
       <TrustBody photo={photo} isDark={isDark} trustNumbers={trustNumbers} />
     )}

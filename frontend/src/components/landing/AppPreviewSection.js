@@ -103,7 +103,7 @@ const VideoMissionMock = () => (
           </div>
         </div>
         <div className="mt-auto text-[9px] font-mono uppercase tracking-[0.18em] text-white/40">
-          BIB · 0001 · CLASS 01
+          LEADER · OS · INDIVIDUELL
         </div>
       </div>
     </div>

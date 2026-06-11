@@ -14,7 +14,7 @@ export const FinalCTA = () => (
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Bewerbe dich für Class 0001"
+    aria-label="Starte deine Leader-OS Reise"
     data-testid="landing-final-cta"
   >
     {/* Atmospheric lime mesh — subtle, no distraction */}

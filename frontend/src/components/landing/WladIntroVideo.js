@@ -166,7 +166,7 @@ export const WladIntroVideo = () => {
           </button>
         </div>
 
-        <div className="relative aspect-video border-2 border-black overflow-hidden shadow-[10px_10px_0_0_#000] bg-black">
+        <div className="relative aspect-[4/3] sm:aspect-video border-2 border-black overflow-hidden shadow-[4px_4px_0_0_#000] sm:shadow-[10px_10px_0_0_#000] bg-black">
           <video
             ref={ref}
             src="/videos/wlad-intro.mp4"
@@ -175,7 +175,8 @@ export const WladIntroVideo = () => {
             playsInline
             loop={false}
             preload="metadata"
-            className="w-full h-full object-cover"
+            poster="/landing/hf-04.png"
+            className="w-full h-full object-cover object-center"
             data-testid="wlad-intro-video"
           />
 

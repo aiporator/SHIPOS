@@ -16,7 +16,6 @@ import { FinalCTA } from '../components/landing/FinalCTA';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { ScrollProgressRail } from '../components/landing/ScrollProgressRail';
 import { LeadCaptureModal } from '../components/landing/LeadCaptureModal';
-import { ConversionBand } from '../components/landing/ConversionBand';
 import { LandingChatPod } from '../components/landing/LandingChatPod';
 import { WladSignGuy } from '../components/landing/WladSignGuy';
 import LeaderCheckLanding from './LeaderCheckLanding';
@@ -111,8 +110,9 @@ export default function LandingPage() {
 
       <LandingFooter />
 
-      {/* Conversion accessories — always-on band + exit-intent popup. */}
-      <ConversionBand />
+      {/* Lead-capture exit-intent popup — ConversionBand removed per
+          editorial decision: the black sticky bottom bar competed with
+          the WladSignGuy mascot and clipped content on mobile. */}
       <LeadCaptureModal />
 
       {/* Wlad-Sign-Guy (Pixel-Wlad mit Sign-Brett) rechts unten.

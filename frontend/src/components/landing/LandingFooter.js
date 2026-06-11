@@ -89,13 +89,13 @@ export const LandingFooter = () => (
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
             Das Operating System für Führungskräfte, die KI-nativ
-            werden — gebaut auf Wlad Jachtchenkos Methodik. Powered by
-            WladBot · BIB · 0001 · CLASS 01.
+            werden — gebaut auf Wlad Jachtchenkos Methodik.
+            Powered by WladBot.
           </p>
 
           <div className="mt-7 inline-flex items-center gap-2 px-3 py-1.5 border border-brand/40 bg-brand/[0.08] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
-            CLASS 0001 · JETZT OFFEN
+            JETZT STARTEN
           </div>
         </div>
 
@@ -139,7 +139,7 @@ export const LandingFooter = () => (
       {/* BIB strip */}
       <div className="mt-10 pt-5 border-t border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[9.5px] uppercase tracking-[0.22em] font-bold text-white/35 font-mono">
         <span>© {new Date().getFullYear()} LEADER-OS · AIPORATE</span>
-        <span>BIB · 0001 · DREIßIG TAGE · ELF FRAMEWORKS · CLASS 01</span>
+        <span>DREIßIG TAGE · ELF FRAMEWORKS · EIN OS</span>
       </div>
     </div>
   </footer>

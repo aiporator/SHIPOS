@@ -86,7 +86,7 @@ export const LeadCaptureModal = () => {
         window.posthog.capture('lead_captured', {
           email: trimmed,
           source: 'landing-popup',
-          campaign: 'class-0001',
+          campaign: 'leader-os-launch',
           surface: 'leader-os',
         });
       } catch { /* posthog errors never block UX */ }
@@ -99,7 +99,7 @@ export const LeadCaptureModal = () => {
         body: JSON.stringify({
           email: trimmed,
           source: 'landing-popup',
-          campaign: 'class-0001',
+          campaign: 'leader-os-launch',
         }),
         keepalive: true,
       });

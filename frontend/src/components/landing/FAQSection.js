@@ -15,12 +15,12 @@ const FAQS = [
   {
     q: 'Was passiert nach den 30 Tagen — bleibt das System?',
     a:
-      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche, die Lernvideo-Bibliothek und die Class 0001 im geschlossenen Channel. Plus monatliche Live-Sessions mit Wlad und einen kleinen Strategie-Call. Der Sprint ist das Onboarding — das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
+      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Plus monatliche Live-Sessions mit Wlad und einen kleinen Strategie-Call. Der Sprint ist das Onboarding — das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
   },
   {
     q: 'Was kostet das genau?',
     a:
-      'Die Diagnose auf leader-check.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Das OS-Jahr (Sprint + 12 Monate Komplettbegleitung mit Live-Sessions, Class-Channel und Strategie-Call) kostet 4 797 € einmalig oder in drei Raten. Beides ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
+      'Die Diagnose auf leader-check.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Das OS-Jahr (Sprint + 12 Monate Komplettbegleitung mit Live-Sessions und Strategie-Call) kostet 4 797 € einmalig oder in drei Raten. Beides ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
   },
   {
     q: 'Warum sollte ich für leader-check.de dieselbe Email nutzen?',
