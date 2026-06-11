@@ -1,164 +1,141 @@
-# Launch Tomorrow — Emergent stays, shipos parks on preview
+# Launch Tomorrow — zwei saubere Vercel-Projekte
 
-> Entscheidung 2026-06-11: Wir gehen morgen **auf Emergent** live (das ist
-> wo der funktionierende Backend + die Production-DB liegt). Die ganze
-> Nike-DNA-Arbeit im shipos-Repo (Landing-Redesign, MiniChallenge,
-> WladSignGuy, Light-Mode-LeaderCheck, Login) parkt auf
-> `preview.leader-os.de` und wird Stück für Stück nach Production
-> übertragen — kein Big-Bang.
+> Entscheidung 2026-06-11: Beide Domains bleiben auf Vercel, aber als
+> **zwei getrennte Vercel-Projekte**, jeweils nur eine Domain. Das alte
+> `shipos-vuml`-Projekt wird gestrippt und als Preview-Sandbox
+> umfunktioniert.
 
-## Warum nicht Vercel morgen
+## Ziel-Topologie
 
-1. **Backend lebt auf Emergent.** `frontend/` ruft `/api/*` auf, das in
-   `vercel.json` zu `command-center-229.preview.emergentagent.com`
-   gerewritet wird. Emergent gibt aktuell `403 host_not_allowed` zurück,
-   weil die Custom-Domain-Mapping für `leader-os.de` dort entfernt
-   wurde, als wir DNS auf Vercel geflippt haben.
-2. **Vercel-Project-Settings ERROR** (Build 762ms, leere Logs). Das ist
-   ein UI-Reset im Vercel-Dashboard, kein Code-Fix.
-3. **Datenbank.** Auth-User, Quiz-Attempts, Stripe-Customers leben in
-   der Emergent-MongoDB **und** Supabase. Switch zu Vercel ohne saubere
-   Daten-Migration verliert User-State.
+| Vercel-Projekt   | Repo / Branch         | Domain(s)                             | Zweck                          |
+|------------------|-----------------------|---------------------------------------|--------------------------------|
+| `leader-os`      | aiporator/shipos@mvpcode | leader-os.de · www.leader-os.de     | Produktion: Landing + App      |
+| `leader-check`   | aiporator/shipos@mvpcode | leader-check.de · www.leader-check.de | Produktion: Diagnostic-Funnel  |
+| `shipos-vuml`    | aiporator/shipos@feature | shipos-vuml.vercel.app              | Preview-Sandbox für Branches   |
+
+Beide neuen Projekte bauen **denselben Code** (`frontend/`). Die
+Domain-Differenzierung passiert zur Laufzeit über
+`isLeaderCheckHost()` in `frontend/src/pages/LandingPage.js` — das
+funktioniert bereits, kein Refactor nötig.
+
+Warum das sauber ist:
+- Jedes Projekt hat seine eigene SSL-Claim, Env-Vars, Deploy-History
+- Ein Projekt kann gepausiert/rolled-back werden ohne das andere zu treffen
+- Status-Pages und PostHog-Project-IDs trennbar pro Surface
+- Später Code-Split möglich (`frontend/` für leader-os, `leader-check-app/` für leader-check) ohne nochmal Vercel-Setup zu touchen
 
 ## ROOT CAUSE — verifiziert via Vercel-API
 
-Vercel-Projekt `shipos-vuml` (`prj_j9cp8ln8HCzWWTmz6YAnsCLW5hYw`, Team
-`INHALE`) hat **alle 4 Production-Domains attached**:
+Aktuell hält `shipos-vuml` alle 4 Domains gefangen:
 
 ```
-domains: [
-  "leader-os.de", "www.leader-os.de",
-  "leader-check.de", "www.leader-check.de",
-  "shipos-vuml.vercel.app", ...
-]
+project: shipos-vuml (prj_j9cp8ln8HCzWWTmz6YAnsCLW5hYw)
+domains: [leader-os.de, www.leader-os.de, leader-check.de, www.leader-check.de, ...]
 framework: null               // SOLL: "create-react-app"
-nodeVersion: "24.x"           // SOLL: "22.x" (Vercel max)
+nodeVersion: "24.x"           // SOLL: "22.x"
+latestDeployment: ERROR (762ms build)
 ```
 
-Das ist warum DNS auf Vercel "funktioniert" (Vercel beansprucht die
-Domains) aber nichts serviert (Build crasht in 762ms). Solange diese
-Domains in Vercel attached sind, klappt selbst ein DNS-Flip zu
-Emergent nicht sauber — Vercel hält die SSL-Zertifikate und Emergent
-gibt 403.
+DNS auf `76.76.21.21` ist OK — Vercel routet pro Host-Header. Wir müssen
+nur die Domains vom kaputten Projekt **ab**hängen und an die neuen
+Projekte **an**hängen. **Keine GoDaddy-Änderung.**
 
-## Morgen — Sequenz (≈45 Min Arbeit)
+## Morgen — Sequenz (≈25 Min, alles im Vercel-Dashboard)
 
-### Schritt 0: Vercel-Projekt entclaimen (NEU, MUSS ZUERST)
+### Schritt 1: Domains von shipos-vuml entfernen (5 Min)
 
-1. https://vercel.com/aiporators-projects/shipos-vuml/settings/domains
-2. Pro Domain: **3-Punkte-Menü → Remove**
-   - `leader-os.de` → remove
-   - `www.leader-os.de` → remove
-   - `leader-check.de` → remove
-   - `www.leader-check.de` → remove
-3. `shipos-vuml.vercel.app` und git-branch-URLs **behalten**.
-4. **Optional aber gut**: Settings → General → Framework auf
-   "Create React App" setzen, Node auf "22.x". Damit das Projekt
-   später für `preview.leader-os.de` auch baut.
+https://vercel.com/aiporators-projects/shipos-vuml/settings/domains
 
-### Schritt 1: Emergent re-aktivieren
+Pro Domain: **3-Punkte-Menü → Remove**
+- `leader-os.de`
+- `www.leader-os.de`
+- `leader-check.de`
+- `www.leader-check.de`
 
-1. Login Emergent Dashboard
-2. Projekt → Settings → Custom Domains
-3. **Re-add** alle 4 Hostnames:
-   - `leader-os.de`
-   - `www.leader-os.de`
-   - `leader-check.de`
-   - `www.leader-check.de`
-4. Emergent zeigt jetzt das Target an. Vermutlich entweder:
-   - **CNAME-Target** wie `<projektslug>.emergentagent.com`, oder
-   - **A-Record IPs** (Cloudflare-Range `172.66.x.x` oder `162.159.x.x`)
+`shipos-vuml.vercel.app` und git-branch-URLs **behalten**.
 
-   Notier dir was Emergent sagt — das brauchst du in Schritt 2.
+### Schritt 2: Projekt `leader-os` neu anlegen (8 Min)
 
-### Schritt 2: GoDaddy DNS flippen
+https://vercel.com/new → Import Git Repository → `aiporator/shipos`
 
-In GoDaddy → leader-os.de → DNS:
+Einstellungen:
+- **Project Name:** `leader-os`
+- **Framework Preset:** `Create React App`
+- **Root Directory:** `.` (NICHT `frontend/` — `vercel.json` lebt im Root)
+- **Build Command:** *leave default* (übernimmt aus `vercel.json`)
+- **Output Directory:** *leave default* (übernimmt aus `vercel.json`)
+- **Install Command:** *leave default*
+- **Node Version:** `22.x` (Settings → General nach dem ersten Deploy)
+- **Production Branch:** `mvpcode` (Settings → Git nach Import)
 
-| Vorher (Vercel)            | Nachher (Emergent)                                |
-|----------------------------|---------------------------------------------------|
-| `A @ → 76.76.21.21`        | **löschen**                                       |
-| `CNAME www → cname.vercel-dns.com` | **löschen**                               |
-| —                          | Was Emergent in Schritt 1 als Target gegeben hat  |
+Env-Vars aus shipos-vuml kopieren (Settings → Environment Variables des
+alten Projekts öffnen, durchgehen, ins neue kopieren):
+- `REACT_APP_BACKEND_URL` (sollte leer/relativ sein, weil `/api/*` proxied)
+- `REACT_APP_SUPABASE_URL`, `REACT_APP_SUPABASE_ANON_KEY`
+- `REACT_APP_POSTHOG_KEY`, `REACT_APP_POSTHOG_HOST`
+- `REACT_APP_STRIPE_PUBLISHABLE_KEY`
+- `REACT_APP_SENTRY_DSN`
+- alle anderen `REACT_APP_*` die existieren
 
-Wenn Emergent CNAME gibt aber GoDaddy bare `@` CNAME nicht erlaubt:
-ALIAS-Record nutzen falls verfügbar, sonst die A-IPs verwenden die
-Emergent normalerweise auch parallel anbietet.
+Nach erstem Deploy:
+- Settings → Domains → Add `leader-os.de` + `www.leader-os.de`
+- Vercel zeigt grünen Haken (DNS schon korrekt auf 76.76.21.21)
 
-Dasselbe für `leader-check.de`.
+### Schritt 3: Projekt `leader-check` neu anlegen (8 Min)
 
-TTL: 600 (10 Min). DNS-Propagation: meist 5–30 Minuten in DE.
+Gleiches Repo, identisches Setup, nur:
+- **Project Name:** `leader-check`
+- **Domain attach:** `leader-check.de` + `www.leader-check.de`
+- **Env-Vars:** identisch zu `leader-os` (oder eigene PostHog-Projekt-ID für saubere Analytics-Trennung)
 
-### Schritt 3: Verifizieren
+### Schritt 4: Verifizieren (5 Min)
 
-```bash
-curl -I https://leader-os.de/                    # 200, nicht 403
-curl -I https://leader-os.de/login               # 200
-curl -I https://leader-os.de/api/health          # 200
-curl -I https://leader-check.de/                 # 200
-curl -I https://leader-check.de/quiz             # 200
+Im Browser, nicht curl (Sandbox blockt):
+
+```
+https://leader-os.de/              # Nike-DNA Landing
+https://leader-os.de/login         # Login mit Google/Apple/Microsoft
+https://leader-check.de/           # Light-Nike Landing
+https://leader-check.de/quiz       # Quiz-Funnel
 ```
 
-Wenn alles 200 → live. Wenn 403 → DNS hat noch nicht durchpropagiert,
-5 Min warten und nochmal.
+API testen:
+```
+https://leader-os.de/api/health    # JSON-Response, nicht 403
+```
 
-## shipos-Repo — wo parken die neuen Sachen
+## Backend bleibt auf Emergent (vorerst)
 
-Das hier liegt fertig auf Branch `claude/add-vimeo-links-9cL3u` (PR #66):
+`vercel.json` proxied `/api/*` → `command-center-229.preview.emergentagent.com`.
+Das funktioniert weil Vercel Server-Side Rewrite den Host-Header auf den
+Emergent-Host setzt — Emergent's Allowlist-Check trifft also nicht auf
+`leader-os.de` sondern auf seinen eigenen Hostname. Sollte grün sein.
 
-- Nike-DNA Landing-Redesign (HeroSection, TrackField, MiniChallenge,
-  WladSignGuy, WladIntroVideo, ManifestoSection)
-- Light-Nike LeaderCheckLanding mit Methodik-Tiles + Testimonials
-- LoginPage Nike-Redesign mit prominenten OAuth-Buttons
-- Quiz-Redesign (QuizView, QuizResult, QuestionTypes)
-- Compat-Shims für Backend (Anthropic, Stripe, Supabase Storage)
-- Remotion-Video-Doc
+**Falls `/api/*` trotzdem 403 gibt** → Emergent hat den Preview-Host
+geschlossen. Backend-Migration nach Supabase Edge Functions wird dann
+priorisiert (separate Doc, separate Woche).
 
-Diese Arbeit ist **nicht weg**. Wir lassen sie liegen bis
-`preview.leader-os.de` aufgebaut ist, dann mergen wir und testen sie auf
-der Preview-Domain mit echten Usern.
+## shipos-vuml — was passiert mit dem Projekt
 
-## Emergent ablösen — 14-Tage-Plan
+**Behalten als Preview-Sandbox.**
 
-**Phase 1 (Tag 1–3) — preview.leader-os.de live auf Vercel**
+- Production Branch wechseln: `mvpcode` → einer der claude/*-Feature-Branches
+- Custom-Domain optional anhängen: `preview.shipos.dev` oder nichts
+- Hier landet experimentelle Arbeit (PR #66 Nike-DNA), bevor sie nach
+  `leader-os` gemerged wird
 
-1. Vercel-Project-Settings fixen (Production Branch = `mvpcode`,
-   Framework = CRA, kein Override).
-2. `preview.leader-os.de` in Vercel-Project → Domains adden.
-3. GoDaddy: `CNAME preview → cname.vercel-dns.com`.
-4. PR #66 in `mvpcode` mergen — Auto-Deploy auf preview.
-
-**Phase 2 (Tag 4–10) — Backend strangulieren**
-
-Jeden `/api/*`-Endpoint einzeln nach Supabase Edge Functions ziehen.
-Reihenfolge (von risikoarm zu risikoreich):
-
-1. `/api/health` — trivial
-2. `/api/leader-check/*` — anonymous, nur Schreibzugriff auf
-   `incomplete_attempts`
-3. `/api/checkout` — Stripe (Edge Function existiert teilweise schon)
-4. `/api/auth/*` — Supabase Auth ist schon dual-betrieb, nur Cleanup
-5. `/api/chat` — WladBot RAG, der dickste Brocken
-
-Pro Endpoint: erst auf preview testen, dann in `vercel.json` rewrite
-umstellen, dann auf prod schalten.
-
-**Phase 3 (Tag 11–14) — Cutover**
-
-1. Wenn alle `/api/*`-Endpoints auf Vercel/Supabase laufen und
-   preview.leader-os.de mind. 5 Tage stabil ist:
-2. DNS-Flip wie Schritt 2 oben, nur diesmal in die andere Richtung.
-3. Emergent-Projekt einfrieren (nicht löschen — als Backup behalten).
+So bleibt Production sauber, Experimente bleiben sichtbar.
 
 ## Was wir heute Nacht *nicht* mehr machen
 
-- Keine DNS-Änderungen heute (passiert morgen früh, bewusst).
-- Kein Force-Push auf `mvpcode`.
-- Keine Emergent-Settings ändern — du machst das morgen im Dashboard.
+- Keine Vercel-UI-Klicks heute (machst du morgen früh in einem Rutsch)
+- Kein Force-Push auf `mvpcode`
+- Kein Branch-Cleanup (separate Aufgabe, post-launch)
 
-## Was ich heute Nacht aufräume
+## Was ich heute Nacht aufgeräumt habe
 
-- [x] PR #66 stehen lassen, nicht mergen (wartet auf Phase 1)
-- [x] Branch-Cleanup vorbereiten (Liste, nicht ausführen — siehe
-      `docs/BRANCH_CLEANUP.md`)
-- [x] Diese Doc als Single-Source-of-Truth für morgen
+- [x] PR #66 wartet auf Merge in `mvpcode` (nach erfolgreichem
+      Vercel-Setup morgen — kein Blocker für Launch)
+- [x] `docs/LAUNCH_TOMORROW.md` als Single-Source-of-Truth
+- [x] `docs/BRANCH_CLEANUP.md` als Putz-Liste (Vorschlag, post-launch)
+- [x] Vercel-Project-State auditiert und Root-Cause hier dokumentiert
