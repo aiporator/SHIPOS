@@ -85,8 +85,8 @@ export default function LandingPage() {
       <ScrollProgressRail />
 
       <main>
-        <HeroSection />
         <WladIntroVideo />
+        <HeroSection />
         <TrackFieldSection />
         <MiniChallenge />
         <HowItWorksSection />
