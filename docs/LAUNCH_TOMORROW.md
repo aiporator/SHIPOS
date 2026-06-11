@@ -20,7 +20,41 @@
    der Emergent-MongoDB **und** Supabase. Switch zu Vercel ohne saubere
    Daten-Migration verliert User-State.
 
-## Morgen — Sequenz (≈30 Min Arbeit)
+## ROOT CAUSE — verifiziert via Vercel-API
+
+Vercel-Projekt `shipos-vuml` (`prj_j9cp8ln8HCzWWTmz6YAnsCLW5hYw`, Team
+`INHALE`) hat **alle 4 Production-Domains attached**:
+
+```
+domains: [
+  "leader-os.de", "www.leader-os.de",
+  "leader-check.de", "www.leader-check.de",
+  "shipos-vuml.vercel.app", ...
+]
+framework: null               // SOLL: "create-react-app"
+nodeVersion: "24.x"           // SOLL: "22.x" (Vercel max)
+```
+
+Das ist warum DNS auf Vercel "funktioniert" (Vercel beansprucht die
+Domains) aber nichts serviert (Build crasht in 762ms). Solange diese
+Domains in Vercel attached sind, klappt selbst ein DNS-Flip zu
+Emergent nicht sauber — Vercel hält die SSL-Zertifikate und Emergent
+gibt 403.
+
+## Morgen — Sequenz (≈45 Min Arbeit)
+
+### Schritt 0: Vercel-Projekt entclaimen (NEU, MUSS ZUERST)
+
+1. https://vercel.com/aiporators-projects/shipos-vuml/settings/domains
+2. Pro Domain: **3-Punkte-Menü → Remove**
+   - `leader-os.de` → remove
+   - `www.leader-os.de` → remove
+   - `leader-check.de` → remove
+   - `www.leader-check.de` → remove
+3. `shipos-vuml.vercel.app` und git-branch-URLs **behalten**.
+4. **Optional aber gut**: Settings → General → Framework auf
+   "Create React App" setzen, Node auf "22.x". Damit das Projekt
+   später für `preview.leader-os.de` auch baut.
 
 ### Schritt 1: Emergent re-aktivieren
 
