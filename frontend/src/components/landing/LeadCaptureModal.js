@@ -76,9 +76,22 @@ export const LeadCaptureModal = () => {
     setSubmitting(true);
     setError('');
 
-    // Best-effort write to the backend lifecycle endpoint. If it fails
-    // (404 / network) we still complete the funnel — the email is the
-    // primary value, the analytics is a bonus.
+    // Belt-and-braces lead capture: PostHog (always works if loaded) is
+    // the primary store of the email so the lead is never lost; the
+    // backend endpoint is a secondary persistence layer (Supabase
+    // incomplete_attempts) that runs best-effort.
+    if (typeof window !== 'undefined' && window.posthog?.capture) {
+      try {
+        window.posthog.identify(trimmed.toLowerCase());
+        window.posthog.capture('lead_captured', {
+          email: trimmed,
+          source: 'landing-popup',
+          campaign: 'class-0001',
+          surface: 'leader-os',
+        });
+      } catch { /* posthog errors never block UX */ }
+    }
+
     try {
       await fetch('/api/leader-check/intent', {
         method: 'POST',
