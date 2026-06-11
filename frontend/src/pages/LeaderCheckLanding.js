@@ -17,11 +17,12 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
  * landet soll genau eine Sache tun: die Diagnose starten. Alles
  * andere kommt nach der Diagnose über die Result-Page → Sprint-Sell.
  *
- * Design-System (siehe frontend/DESIGN.md, x.ai-inspired):
- *   - canvas: #0A0A0A
- *   - hairline: rgba(255,255,255,0.08)
- *   - display: Outfit 900 italic, lime-Punkt-Punktuation
+ * Design-System (siehe frontend/DESIGN.md, Nike-inspired Athletic-Editorial):
+ *   - canvas: #FFFFFF (Light-Mode-locked)
+ *   - hairline: rgba(0,0,0,0.08–0.15) — Hairlines aus echtem Schwarz
+ *   - display: Outfit 900 italic, massive uppercase, lime-Punkt-Punktuation
  *   - eyebrow: mono uppercase tracked 0.28em
+ *   - 2px-Schwarz-Borders für emphatische Cards (Nike Editorial DNA)
  */
 
 const DIMENSIONS = [
@@ -162,7 +163,7 @@ export default function LeaderCheckLanding() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[52px] sm:text-[80px] md:text-[112px] lg:text-[144px] leading-[0.9] tracking-[-0.045em] text-black max-w-5xl"
+              className="text-[68px] sm:text-[100px] md:text-[148px] lg:text-[188px] leading-[0.86] tracking-[-0.055em] text-black max-w-6xl"
               style={{
                 fontFamily: 'Outfit, Inter, system-ui, sans-serif',
                 fontWeight: 900,
@@ -583,7 +584,141 @@ export default function LeaderCheckLanding() {
         </section>
       </main>
 
+      {/* ───────── Methodik-Transparenz ───────── */}
+      <section className="border-t border-black/[0.10]">
+        <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28 grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+          <div className="md:col-span-5">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
+              ▸ DIE METHODIK
+            </p>
+            <h2
+              className="text-[44px] sm:text-[60px] md:text-[80px] leading-[0.92] tracking-[-0.04em] text-black"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Keine Magie.<br />
+              <span className="text-black/55">Nur Methode</span>
+              <span className="text-brand not-italic">.</span>
+            </h2>
+            <p className="mt-6 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-black/75">
+              Die Fragen wurden von Wlad und seinem Team über fünf Jahre
+              validiert — gegen 400 000+ reale Coaching-Stunden. Jede
+              Frage hat ein konkretes Verhalten als Anker, keine
+              Selbsteinschätzungs-Wischiwaschi.
+            </p>
+          </div>
+
+          <ul className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              ['5', 'JAHRE', 'Methodik-Entwicklung'],
+              ['21', 'FRAGEN', 'Verhaltens-verankert'],
+              ['400K', 'STUNDEN', 'Coaching-Validierung'],
+            ].map(([big, label, body]) => (
+              <li key={label} className="border-2 border-black p-5 hover:bg-brand/10 transition-colors">
+                <div
+                  className="text-black leading-[0.85] tracking-[-0.04em]"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(56px, 8vw, 88px)' }}
+                >
+                  {big}
+                </div>
+                <div className="mt-3 text-[11px] font-bold uppercase tracking-[0.22em] text-black font-mono">
+                  {label}
+                </div>
+                <div className="mt-1 text-[13px] leading-[1.4] text-black/65">
+                  {body}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ───────── Testimonial-Strip ───────── */}
+      <section className="bg-[#FAFAF7] border-y-2 border-black">
+        <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">
+          <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-12 font-mono text-center">
+            ▸ STIMMEN VON CLASS · 0001
+          </p>
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            {[
+              {
+                quote: '„Nach 5 Minuten wusste ich genauer wo ich stehe als nach 3 Coaching-Sessions zuvor."',
+                name: 'Anna S.',
+                role: 'Head of Engineering · DAX-Konzern',
+                score: { ki: 78, rhet: 64, eq: 81 },
+              },
+              {
+                quote: '„Die Empfehlung war so konkret, dass ich Montag direkt mit dem Drill anfangen konnte."',
+                name: 'Markus L.',
+                role: 'Founder · SaaS-Startup',
+                score: { ki: 84, rhet: 71, eq: 69 },
+              },
+              {
+                quote: '„Ich habe das Result-PDF in meine Quartals-Review gepackt. Mein Chef war beeindruckt."',
+                name: 'Julia M.',
+                role: 'Senior PM · Mittelstand',
+                score: { ki: 72, rhet: 88, eq: 77 },
+              },
+            ].map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="bg-white p-7 border-2 border-black"
+              >
+                <p
+                  className="text-[20px] md:text-[22px] leading-[1.25] tracking-[-0.015em] text-black mb-6"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontStyle: 'italic' }}
+                >
+                  {t.quote}
+                </p>
+                <div className="border-t border-black/15 pt-4 flex items-center justify-between">
+                  <div>
+                    <div className="text-[13px] font-bold text-black">{t.name}</div>
+                    <div className="text-[10.5px] uppercase tracking-[0.16em] text-black/55 font-mono mt-0.5">
+                      {t.role}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[8.5px] font-bold uppercase tracking-[0.22em] text-brand font-mono">SCORE</div>
+                    <div className="text-[10px] font-mono text-black/70 mt-0.5">
+                      {t.score.ki}·{t.score.rhet}·{t.score.eq}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <LandingFooter />
+
+      {/* ───────── Sticky Mobile Bottom-CTA ─────────
+          Auf Mobile immer sichtbar — wer scrollt sieht den
+          Diagnose-Start-Button konstant. Auf Desktop verdeckt
+          (hidden md:hidden) damit der Hero-CTA + Final-CTA reichen. */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t-2 border-black px-4 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.15)]">
+        <div className="flex-1 min-w-0">
+          <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
+            ▸ 5 MIN · KOSTENLOS
+          </div>
+          <div
+            className="text-[14px] leading-[1.1] text-black truncate"
+            style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontStyle: 'italic' }}
+          >
+            Finde deinen Startpunkt<span className="text-brand">.</span>
+          </div>
+        </div>
+        <a
+          href="/leader-diagnose"
+          className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-brand text-black text-[12px] font-bold uppercase tracking-[0.16em] shadow-[0_8px_24px_-8px_rgba(191,255,0,0.6)] active:scale-95 transition-transform"
+        >
+          <span className="text-base font-black leading-none">+</span>
+          Starten
+        </a>
+      </div>
 
       {/* Readiness-Vorprüfung als WladBot-Mini-Funnel rechts unten —
           erkundet KI / Rhetorik / EQ / Feedback in 4 Mikro-Fragen
