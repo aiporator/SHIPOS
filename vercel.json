@@ -6,8 +6,9 @@
   "framework": "create-react-app",
   "rewrites": [
     {
+      "comment-for-humans": "Backend FastAPI läuft auf Emergent — gleicher Code-Branch wie hier, aber bei Emergent containerisiert. Sobald wir das Backend auf eigene Infra ziehen (Fly.io / Railway / Render), nur diesen einen Wert tauschen. Same-origin /api/* aus dem Frontend wird hier zur richtigen Backend-Adresse umgeleitet.",
       "source": "/api/:path*",
-      "destination": "https://leader-os.de/api/:path*"
+      "destination": "https://command-center-229.preview.emergentagent.com/api/:path*"
     },
     {
       "source": "/((?!api|static|favicon.ico|manifest.json|robots.txt|asset-manifest.json|.*\\..*).*)",
