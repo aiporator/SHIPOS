@@ -1,120 +1,135 @@
-# Branch Cleanup — proposal, not executed
+# Branch Cleanup — verifizierte Listen
 
-> 68 remote branches → unübersichtlich, aber **kein Launch-Blocker**.
-> Vercel deployt nur den Production-Branch (`mvpcode`), egal wie viele
-> Branches im Repo liegen. Diese Liste ist eine Putz-Empfehlung für
-> nach dem Launch, NICHT für heute Nacht.
+> Stand 2026-06-11, 03:00 UTC. Total **68 remote Branches**. Audit per
+> `git rev-list --count origin/mvpcode..origin/<branch>`.
 
-## Behalten (5 Branches)
+## 1. Behalten (4 Branches)
 
-| Branch                              | Grund                                              |
-|-------------------------------------|----------------------------------------------------|
-| `mvpcode`                           | Production                                         |
-| `backup/mvpcode-pre-emergent-2026-05-17` | Last-known-good vor Emergent-Migration        |
-| `claude/add-vimeo-links-9cL3u`      | Aktive Nike-DNA-Arbeit, PR #66 offen               |
-| `data/wlad-corpus-v3-fill-gaps`     | RAG-Corpus, falls Re-Indexing nötig                |
-| `chore/ci-hardening`                | Falls noch Pending-CI-Fixes drauf liegen — prüfen  |
+| Branch | Grund |
+|--------|-------|
+| `mvpcode` | Production |
+| `backup/mvpcode-pre-emergent-2026-05-17` | Last-known-good Backup |
+| `claude/add-vimeo-links-9cL3u` | Aktive Nike-DNA-Arbeit, PR #66 offen |
+| `data/wlad-corpus-v3-fill-gaps` | RAG-Corpus-Versionierung |
 
-## Löschkandidaten — Iter-Branches (8)
+## 2. SOFORT LÖSCHEN — 19 Branches, alle Commits in mvpcode
 
-Alle `emergent-iter-*` und `iter-*-emergent` sind alte Iterationen von
-Emergent's Auto-Save. Sind alle in `mvpcode` gemergt oder verworfen.
+Diese sind verifiziert leer gegen mvpcode (0 commits ahead). Sicher
+weg, kein Datenverlust.
+
+**Pfad:** https://github.com/aiporator/SHIPOS/branches
+
+Auf der Seite findest du jeden Branch unten in der Liste, rechts gibt
+es einen 🗑-Button. Oder du nutzt das Search-Feld und tickst die
+Checkboxen ab.
 
 ```
+chore/ci-hardening
+claude/csp-allowlist-fix
+claude/godmode-followup
+claude/godmode-launch-prep
+claude/launch-day-prep
+claude/security-hardening-tonight
+docs/system-overview
 emergent-iter-92.13
-emergent-iter-92.18
-emergent-iter-92.21
-emergent-iter-92.23.5
-emergent-iter-92.24-contextfeature
+feat/enterprise-diagnosis-emails
+feat/enterprise-emails
+feature/folder-context-wingman
+fix/lockfile-guard-always-run
+fix/rag-context-budget
+fix/video-upload-size-limit
+fix/voice-prompt-framework-citation
 iter-80-emergent
 iter-82-emergent
 iter-83-emergent
-iter92-emergent
 merge/emergent-iter-92.13
 ```
 
-## Löschkandidaten — alte `claude/*` Spike-Branches (≈18)
+## 3. ÜBERPRÜFEN — 44 Branches mit "ahead" Commits
 
-`claude/*`-Branches sind temporäre Agent-Worktrees. Wenn der Commit in
-`mvpcode` ist → weg damit.
+Diese haben theoretisch noch unmergte Commits, aber bei vielen wurden
+sie via Squash-Merge in `mvpcode` aufgenommen — der Originalcommit
+existiert noch, ist aber inhaltlich drin. Typischer Fall: alle "1
+ahead" Branches.
 
-```
-claude/add-supabase-mcp-server-wVHPR
-claude/auth-race-fixes
-claude/check-status-indicators-MlDyM
-claude/cleanup-ci-workflow-QiBAS
-claude/csp-allowlist-fix
-claude/fix-xss-report-generator-9vIjG
-claude/framer-mcp-relay-Ot1Oh
-claude/godmode-followup
-claude/godmode-launch-prep
-claude/install-supabase-cli-Z8CF9
-claude/integrate-sentry-mcp-BV4Ev
-claude/launch-day-prep
-claude/legal-and-consent
-claude/mcp-server-integration-WWmJL
-claude/rename-default-branch-KQrTc
-claude/security-hardening-tonight
-claude/setup-posthog-eu-Oy6Ly
-```
+### Wahrscheinlich gemergt (Squash-Merge, "1 ahead") — 18 Branches
 
-## Löschkandidaten — gemergte feat/fix (≈30)
-
-Vor dem Löschen prüfen: `git log --oneline mvpcode..<branch>` sollte
-leer sein.
+Pro Branch im GitHub-UI prüfen: gibt es einen gemergten PR? Wenn ja —
+löschen. UI zeigt das oft direkt mit "Merged" Badge.
 
 ```
-docs/app-architecture
-docs/branching-convention
-docs/system-overview
-feat/design-skills
-feat/enterprise-diagnosis-emails
-feat/enterprise-emails
-feat/folder-surfaces
-feat/framework-mastery-quality-audit
-feat/hybrid-rag-fusion
-feat/landing-circle-rename
-feat/landing-cleanup-real-photos
-feat/landing-client-ready
-feat/landing-fixes-typography-svg
-feat/landing-page-direction-a
-feat/landing-real-corner-copy
-feat/output-style-knowledge-transfer
-feat/premium-polish-phase3
-feat/revolut-premium-design-upgrade
-feat/stripe-admin-fn
-feat/taste-skill-mypath
-feat/taste-skill-sprint
-feature/folder-context-wingman
-fix/duplicate-imports
-fix/lockfile-guard-always-run
-fix/lockfile-sync
-fix/rag-context-budget
-fix/rag-everywhere
-fix/rag-simulations
-fix/sexier-framework-correct-name
-fix/stripe-onetime-no-customer
-fix/vercel-build-complete
-fix/vercel-build-final
-fix/vercel-lockfile-emergency
-fix/video-upload-size-limit
-fix/voice-prompt-framework-citation
-railway/fix-deploy-1d4120
+docs/app-architecture                       [1 ahead]
+feat/design-skills                          [1 ahead]
+feat/framework-mastery-quality-audit        [1 ahead]
+feat/landing-circle-rename                  [1 ahead]
+feat/landing-cleanup-real-photos            [1 ahead]
+feat/landing-client-ready                   [1 ahead]
+feat/landing-real-corner-copy               [1 ahead]
+feat/output-style-knowledge-transfer        [1 ahead]
+feat/premium-polish-phase3                  [1 ahead]
+fix/duplicate-imports                       [1 ahead]
+fix/lockfile-sync                           [1 ahead]
+fix/rag-everywhere                          [1 ahead]
+fix/vercel-build-complete                   [1 ahead]
+fix/vercel-build-final                      [1 ahead]
+fix/vercel-lockfile-emergency               [1 ahead]
+iter92-emergent                             [1 ahead]
 ```
 
-## Wie ausführen (POST-LAUNCH, nicht heute)
+### Größere Branches — investigieren bevor löschen (26 Branches)
 
-```bash
-# Pro Branch prüfen ob gemergt:
-git log --oneline mvpcode..<branch>   # leer = sicher zu löschen
+`docs/branching-convention` und `claude/legal-and-consent` haben nur
+2 ahead — schau ob's wertvoll war. Der Rest sind alte Iterationen.
 
-# Bulk-Delete remote:
-git push origin --delete <branch1> <branch2> ...
-
-# Lokal clean:
-git remote prune origin
+```
+claude/add-supabase-mcp-server-wVHPR        [9 ahead]
+claude/auth-race-fixes                      [19 ahead]
+claude/check-status-indicators-MlDyM        [11 ahead]
+claude/cleanup-ci-workflow-QiBAS            [9 ahead]
+claude/fix-xss-report-generator-9vIjG       [8 ahead]
+claude/framer-mcp-relay-Ot1Oh               [9 ahead]
+claude/install-supabase-cli-Z8CF9           [13 ahead]
+claude/integrate-sentry-mcp-BV4Ev           [9 ahead]
+claude/legal-and-consent                    [2 ahead]
+claude/mcp-server-integration-WWmJL         [9 ahead]
+claude/rename-default-branch-KQrTc          [10 ahead]
+claude/setup-posthog-eu-Oy6Ly               [10 ahead]
+docs/branching-convention                   [2 ahead]
+emergent-iter-92.18                         [9 ahead]
+emergent-iter-92.21                         [12 ahead]
+emergent-iter-92.23.5                       [22 ahead]
+emergent-iter-92.24-contextfeature          [38 ahead]
+feat/folder-surfaces                        [2 ahead]
+feat/hybrid-rag-fusion                      [3 ahead]
+feat/landing-fixes-typography-svg           [2 ahead]
+feat/landing-page-direction-a               [2 ahead]
+feat/revolut-premium-design-upgrade         [2 ahead]
+feat/stripe-admin-fn                        [3 ahead]
+feat/taste-skill-mypath                     [2 ahead]
+feat/taste-skill-sprint                     [3 ahead]
+fix/rag-simulations                         [2 ahead]
+fix/sexier-framework-correct-name           [3 ahead]
+fix/stripe-onetime-no-customer              [2 ahead]
+railway/fix-deploy-1d4120                   [14 ahead]
 ```
 
-**Niemals löschen ohne den `git log mvpcode..<branch>`-Check** — auf
-einigen Branches könnten noch unmergte Experimente sein die du
-brauchen willst.
+**Faustregel:** Wenn der Branch ein gemergter PR hat → löschen. Wenn
+nicht und der Name nichts wertvolles andeutet → auch löschen. Die
+alten `emergent-iter-*` und `iter*-emergent` sind alle obsolet
+(Emergent-Auto-Save aus Pre-shipos-Zeit).
+
+## Empfohlene Reihenfolge
+
+1. **Heute Abend / morgen früh:** alle 19 aus Sektion 2 in einem Rutsch
+2. **Diese Woche:** die 18 "1 ahead" durchschauen, ~15 davon werden
+   sich als gemergt herausstellen
+3. **Nächste Woche:** großer Pass durch Sektion 3 — mit dem Ziel auf
+   **<10 lebende Branches** zu kommen
+
+## Ziel-State
+
+| | Heute | Nach Cleanup |
+|---|---|---|
+| Total Branches | 68 | ≈8 |
+| Active (rebased weekly) | ? | 1–3 (current work) |
+| Long-lived (protected) | 1 (`mvpcode`) | 2 (`mvpcode`, `backup/*`) |
