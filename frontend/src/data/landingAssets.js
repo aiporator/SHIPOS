@@ -144,7 +144,7 @@ export const LANDING_BENEFITS = [
     cta: 'Alle Frameworks ansehen',
     href: 'https://leader-check.de',
     variant: 'photo',
-    photo: photo('01-frameworks-track'),
+    photo: local('hf-01.png'),
   },
   {
     nr: '02',
@@ -166,7 +166,7 @@ export const LANDING_BENEFITS = [
     cta: 'WladBot starten',
     href: 'https://leader-check.de',
     variant: 'photo',
-    photo: photo('02-coach-phone'),
+    photo: local('hf-02.png'),
   },
   {
     nr: '03',

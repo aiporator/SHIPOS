@@ -52,6 +52,17 @@ export default function LandingPage() {
       m.content = LANDING_META.description;
       document.head.appendChild(m);
     }
+
+    // Landing-Page läuft IMMER in Light-Mode — egal was der User in
+    // localStorage hatte. Editorial-Direction A ist explizit weiß-auf-
+    // dunkel-akzent, nicht das umgekehrte. Dashboard und App-Surfaces
+    // dürfen weiterhin der Theme-Preference folgen.
+    const root = document.documentElement;
+    const wasDark = root.classList.contains('dark');
+    if (wasDark) root.classList.remove('dark');
+    return () => {
+      if (wasDark) root.classList.add('dark');
+    };
   }, []);
 
   if (loading) {
