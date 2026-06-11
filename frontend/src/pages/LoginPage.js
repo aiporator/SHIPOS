@@ -143,16 +143,16 @@ export default function LoginPage() {
   }, [isMagic, isRegister, de]);
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0A0A0A] relative overflow-hidden" data-testid="login-page">
-      {/* Aurora background */}
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white relative overflow-hidden" data-testid="login-page">
+      {/* Lime accent — Nike DNA, dezent in der rechten Ecke */}
       <div aria-hidden className="pointer-events-none absolute inset-0 lg:left-1/2">
-        <div className="absolute top-1/4 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-[#BFFF00]/[0.045] blur-[140px]" />
-        <div className="absolute bottom-[-10%] left-[10%] h-[28rem] w-[28rem] rounded-full bg-emerald-500/[0.035] blur-[130px]" />
+        <div className="absolute top-1/4 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-brand/[0.18] blur-[140px]" />
+        <div className="absolute bottom-[-10%] left-[10%] h-[28rem] w-[28rem] rounded-full bg-brand/[0.08] blur-[130px]" />
       </div>
 
       <button
         onClick={toggleLang}
-        className="fixed top-4 right-4 lg:top-8 lg:right-10 z-50 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/60 hover:text-white transition-colors text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md"
+        className="fixed top-4 right-4 lg:top-8 lg:right-10 z-50 flex items-center gap-1.5 px-3 py-1.5 bg-white border-2 border-black text-black hover:bg-brand transition-colors text-[10.5px] font-bold uppercase tracking-[0.18em] font-mono"
         data-testid="login-lang-toggle"
       >
         <Globe size={11} /> {de ? 'DE' : 'EN'}
@@ -164,19 +164,25 @@ export default function LoginPage() {
         <div data-testid="login-mobile-header" className="absolute top-4 left-4 flex items-center gap-2 lg:hidden">
           <WladMark size={32} animated />
           <div className="flex flex-col leading-none">
-            <span className="font-black text-[13px] text-white" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}>
-              Leader<span className="opacity-40">·</span>OS
+            <span className="font-black text-[13px] text-black" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}>
+              Leader<span className="text-brand-strong mx-0.5">·</span>OS
             </span>
-            <span className="text-[8px] text-[#BFFF00]/70 font-bold tracking-[0.2em] uppercase mt-[2px]">Powered by WladBot</span>
+            <span className="text-[8.5px] text-brand-strong font-bold tracking-[0.22em] uppercase mt-[2px] font-mono">Powered by WladBot</span>
           </div>
         </div>
 
-        <div className="w-full max-w-md lg:max-w-[400px]">
-          <div className="mb-6 lg:mb-7">
-            <h2 className="text-[28px] sm:text-[32px] leading-[1.1] tracking-tight text-white" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 500 }}>
-              {heading}
+        <div className="w-full max-w-md lg:max-w-[440px]">
+          <div className="mb-7 lg:mb-9">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-3 font-mono">
+              ▸ LOGIN · CLASS 0001
+            </p>
+            <h2
+              className="text-[40px] sm:text-[52px] leading-[0.92] tracking-[-0.035em] text-black"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              {heading.replace(/\.$/, '')}<span className="text-brand not-italic">.</span>
             </h2>
-            <p className="text-sm text-white/45 mt-2.5 leading-relaxed">{subheading}</p>
+            <p className="text-[14px] text-black/65 mt-4 leading-relaxed max-w-sm">{subheading}</p>
           </div>
 
           {/* "Continue as" — only when a previous login is cached */}
@@ -189,12 +195,12 @@ export default function LoginPage() {
                 loading={continueLoading}
                 de={de}
               />
-              <div className="mt-3 flex items-center justify-center gap-2">
-                <span className="h-px flex-1 bg-white/[0.06]" />
-                <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold">
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <span className="h-px flex-1 bg-black/10" />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-black/45 font-bold font-mono">
                   {de ? 'oder anderer Account' : 'or another account'}
                 </span>
-                <span className="h-px flex-1 bg-white/[0.06]" />
+                <span className="h-px flex-1 bg-black/10" />
               </div>
             </div>
           )}
@@ -202,7 +208,7 @@ export default function LoginPage() {
           {/* Auth method tabs (only in non-register mode) */}
           {!isRegister && (
             <div
-              className="mb-4 inline-flex p-1 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+              className="mb-5 inline-flex p-1 bg-black/[0.04] border-2 border-black"
               role="tablist"
               data-testid="auth-mode-tabs"
             >
@@ -211,8 +217,8 @@ export default function LoginPage() {
                 role="tab"
                 aria-selected={mode === 'login'}
                 onClick={() => switchMode('login')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-[12px] font-semibold transition-all ${
-                  mode === 'login' ? 'bg-white/10 text-white shadow-sm' : 'text-white/45 hover:text-white/70'
+                className={`flex items-center gap-1.5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] transition-all ${
+                  mode === 'login' ? 'bg-black text-white' : 'text-black/55 hover:text-black'
                 }`}
                 data-testid="tab-password"
               >
@@ -223,8 +229,8 @@ export default function LoginPage() {
                 role="tab"
                 aria-selected={isMagic}
                 onClick={() => switchMode('magic')}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-[12px] font-semibold transition-all ${
-                  isMagic ? 'bg-[#BFFF00]/12 text-[#BFFF00] shadow-sm' : 'text-white/45 hover:text-white/70'
+                className={`flex items-center gap-1.5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] transition-all ${
+                  isMagic ? 'bg-brand text-black' : 'text-black/55 hover:text-black'
                 }`}
                 data-testid="tab-magic-link"
               >
@@ -233,30 +239,35 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* OAuth providers (only show if any configured AND we're not in magic mode) */}
+          {/* OAuth providers — PROMINENT first thing wenn nicht magic */}
           {!isMagic && providers && (
-            <OAuthProviderStack
-              providers={providers}
-              onSuccess={handleOAuthSuccess}
-              onError={handleOAuthError}
-              de={de}
-            />
+            <div className="mb-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-black/55 mb-3 font-mono">
+                ▸ SCHNELL-LOGIN · 1 KLICK
+              </p>
+              <OAuthProviderStack
+                providers={providers}
+                onSuccess={handleOAuthSuccess}
+                onError={handleOAuthError}
+                de={de}
+              />
+            </div>
           )}
 
           {!isMagic && providers?.providers && (providers.providers.google || providers.providers.apple || providers.providers.microsoft) && (
-            <div className="relative my-5">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/[0.08]" /></div>
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center"><div className="w-full border-t-2 border-black/[0.10]" /></div>
               <div className="relative flex justify-center">
-                <span className="bg-[#0A0A0A] px-3 text-[10px] text-white/30 uppercase tracking-widest font-semibold">
-                  {de ? 'oder per E-Mail' : 'or with email'}
+                <span className="bg-white px-4 text-[10px] text-black/55 uppercase tracking-[0.22em] font-bold font-mono">
+                  {de ? '— oder per E-Mail —' : '— or with email —'}
                 </span>
               </div>
             </div>
           )}
 
           {error && (
-            <div data-testid="auth-error" className="mb-5 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-[13px] font-medium flex items-start gap-2">
-              <WifiOff size={14} className="mt-0.5 shrink-0 opacity-60" />
+            <div data-testid="auth-error" className="mb-5 p-3 bg-red-50 border-2 border-red-600 text-red-700 text-[13px] font-medium flex items-start gap-2">
+              <WifiOff size={14} className="mt-0.5 shrink-0 opacity-70" />
               <span>{error}</span>
             </div>
           )}
@@ -274,7 +285,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => switchMode('magic')}
-                  className="mt-3 w-full text-center text-[11px] font-semibold uppercase tracking-wider text-white/35 hover:text-[#BFFF00] transition-colors"
+                  className="mt-3 w-full text-center text-[11px] font-bold uppercase tracking-[0.18em] text-black/55 hover:text-brand-strong transition-colors font-mono"
                   data-testid="switch-to-magic-link"
                 >
                   {de ? 'Passwort vergessen? · Magic Link nutzen' : 'Forgot password? · Use a Magic Link'}
@@ -283,7 +294,7 @@ export default function LoginPage() {
             </>
           )}
 
-          <div className="mt-6 lg:mt-7 text-center">
+          <div className="mt-7 lg:mt-9 text-center">
             <ModeSwitch
               mode={isMagic ? 'login' : mode}
               onSwitchMode={switchMode}
@@ -292,14 +303,14 @@ export default function LoginPage() {
           </div>
 
           <TrustBadges />
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] text-muted-foreground" data-testid="legal-footer">
-            <a href="/impressum" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-impressum">Impressum</a>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10px] font-bold uppercase tracking-[0.18em] text-black/55 font-mono" data-testid="legal-footer">
+            <a href="/impressum" className="hover:text-brand-strong transition-colors" data-testid="footer-impressum">Impressum</a>
             <span className="opacity-30">·</span>
-            <a href="/datenschutz" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-datenschutz">{de ? 'Datenschutz' : 'Privacy'}</a>
+            <a href="/datenschutz" className="hover:text-brand-strong transition-colors" data-testid="footer-datenschutz">{de ? 'Datenschutz' : 'Privacy'}</a>
             <span className="opacity-30">·</span>
-            <a href="/agb" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-agb">AGB</a>
+            <a href="/agb" className="hover:text-brand-strong transition-colors" data-testid="footer-agb">AGB</a>
             <span className="opacity-30">·</span>
-            <a href="/widerruf" className="hover:text-[#BFFF00] hover:underline" data-testid="footer-widerruf">{de ? 'Widerruf' : 'Withdrawal'}</a>
+            <a href="/widerruf" className="hover:text-brand-strong transition-colors" data-testid="footer-widerruf">{de ? 'Widerruf' : 'Withdrawal'}</a>
           </div>
         </div>
       </div>
