@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "ios-design-system": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/ios-design-system/SKILL.md",
+      "computedHash": "d1ea5b022366efe09471a5fc92fd7d62a979ba5eba4b422d43c8b1c6a1f98549"
+    },
     "supabase": {
       "source": "supabase/agent-skills",
       "sourceType": "github",
