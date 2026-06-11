@@ -45,7 +45,7 @@ export default function VideoChallengePage() {
     setRatingConfig(newConfig);
     try { await api.put('/auth/profile', { rating_preferences: newConfig }); }
     catch (err) { logger.error('Failed to save rating preferences:', err); }
-  }, [api, logger]);
+  }, []);
 
   const loadChallenges = useCallback(async () => {
     try {
@@ -67,7 +67,7 @@ export default function VideoChallengePage() {
         }));
       }
     } catch (err) { logger.error('Failed to load challenges:', err); }
-  }, [api, logger]);
+  }, []);
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current?.state === 'recording') mediaRecorderRef.current.stop();

@@ -31,7 +31,7 @@ export default function TasksPage() {
 
   const loadTasks = useCallback(async () => {
     try { const res = await api.get('/tasks'); setTasks(res.data); } catch (err) { logger.error(err); }
-  }, [api, logger]);
+  }, []);
 
   useEffect(() => { loadTasks(); }, [loadTasks]);
 

@@ -231,7 +231,7 @@ export default function ProfilePage() {
       setActivity(act.data);
     } catch (err) { logger.error(err); toast.error('Profile load failed'); }
     finally { setLoading(false); }
-  }, [lang, api, logger]);
+  }, [lang]);
 
   useEffect(() => { load(); }, [load]);
 
