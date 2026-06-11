@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
 import { HeroSection } from '../components/landing/HeroSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
+import { WladIntroVideo } from '../components/landing/WladIntroVideo';
+import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
+import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
@@ -15,6 +18,7 @@ import { ScrollProgressRail } from '../components/landing/ScrollProgressRail';
 import { LeadCaptureModal } from '../components/landing/LeadCaptureModal';
 import { ConversionBand } from '../components/landing/ConversionBand';
 import { LandingChatPod } from '../components/landing/LandingChatPod';
+import { WladSignGuy } from '../components/landing/WladSignGuy';
 import LeaderCheckLanding from './LeaderCheckLanding';
 import { LANDING_BENEFITS, LANDING_META } from '../data/landingAssets';
 
@@ -40,6 +44,7 @@ const isLeaderCheckHost = () => {
  */
 export default function LandingPage() {
   const { user, loading } = useAuth();
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     document.title = LANDING_META.title;
@@ -81,6 +86,9 @@ export default function LandingPage() {
 
       <main>
         <HeroSection />
+        <TrackFieldSection />
+        <MiniChallenge />
+        <WladIntroVideo />
         <HowItWorksSection />
         <VimeoIntroSection />
         <ManifestoSection />
@@ -103,11 +111,21 @@ export default function LandingPage() {
 
       <LandingFooter />
 
-      {/* Conversion accessories — always-on band + exit-intent popup +
-          editorial WladBot-Mini-Funnel (rechts unten). */}
+      {/* Conversion accessories — always-on band + exit-intent popup. */}
       <ConversionBand />
       <LeadCaptureModal />
-      <LandingChatPod mode="lead" />
+
+      {/* Wlad-Sign-Guy (Pixel-Wlad mit Sign-Brett) rechts unten.
+          Klick scrollt zur Mini-Challenge — der eigentliche Funnel-
+          Entry-Point auf der Page. */}
+      <WladSignGuy
+        onOpen={() => {
+          const target = document.getElementById('mini-challenge');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          else setChatOpen(true);
+        }}
+      />
+      {chatOpen && <LandingChatPod mode="lead" />}
     </div>
   );
 }
