@@ -75,7 +75,7 @@ export const HeroSection = () => (
       </span>
     </motion.div>
 
-    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-20 md:pb-28">
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-10 md:pb-14">
       <motion.p
         initial="hidden"
         animate="show"
