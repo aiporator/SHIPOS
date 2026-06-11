@@ -1,15 +1,32 @@
-// Leader-OS Landing-Page content — Direction A LOCKED.
+// Leader-OS Landing-Page content — Mockup-aligned (Direction A v3).
 // Athletic Editorial × Heron-Preston specimen-sheet aesthetic.
 //
-// PHOTOS: served from picsum.photos with stable per-section seeds.
-// They always load (no auth, no rate-limit, served via Fastly CDN)
-// and arrive grayscale so the editorial B&W is enforced at the
-// source, not via CSS. Each photo is content-agnostic — the meaning
-// comes from the SPECIMEN frame around it (BIB code, eyebrow,
-// metadata table). Trade: not topical photos, won topical reliability.
+// SPECIMEN-MAP (7 Mockup-Sheets in /public/landing/):
+//   hf-01  §01 INHALT          Elf Frameworks. Ein OS.
+//   hf-02  §02 IMMER WACH      24 Stunden. 7 Tage.
+//   hf-03  §03 SPRINT          Dreißig Tage. Ein neues Du.   (BIB-Plate)
+//   hf-04  §04 AUTHENTIZITÄT   Wlads Methodik. Live.          (Wlad-Portrait)
+//   hf-05  §05 TRUST           400 Tausend. 14 Millionen.    (Big numbers)
+//   hf-06  §06 ZERTIFIKAT      Zertifikat 0001.              (Urkunde)
+//   hf-07  §07 TECH-STACK      Powered by WladBot.           (3D-Voxel-Kopf)
+//
+// VISUAL VARIANTS (siehe BenefitVisual.js):
+//   'photo' — Editorial-Foto im Specimen-Frame
+//   'bib'   — Marathon-Startnummer 0001 (typografisch, kein Foto)
+//   'trust' — Riesen 400 · 14 mit TAUSEND / MILLIONEN-Caption
+//   'cert'  — Zertifikat-Plate mit Goldsiegel-Hint
+//   'voxel' — WladBot-Voxel-Kopf-Hint (typografisch, lime auf schwarz)
+//
+// WLAD-FOTOS:
+//   /wlad/wlad-portrait.jpg + /wlad/wlad-stage.jpg sollen vom Studio
+//   geliefert werden. Solange sie fehlen, fällt der Code auf die
+//   hf-04-Mockup-Version zurück (siehe BenefitVisual).
 
 const photo = (seed, w = 1200, h = 1500) =>
   `https://picsum.photos/seed/${encodeURIComponent('leader-os-' + seed)}/${w}/${h}?grayscale`;
+
+const local = (file) => `/landing/${file}`;
+const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
   title: 'Leader-OS — Werde KI-nativ. Das OS für Führungskräfte.',
@@ -19,15 +36,42 @@ export const LANDING_META = {
     'der kostenlosen Diagnose auf leader-check.de.',
   url: 'https://leader-os.de',
   slogan: 'Werde KI-nativ.',
+  // Kicker — gehört unter den ATF-Headline-Block.
+  kicker: 'KI bestimmt die Geschwindigkeit. Leadership die Richtung.',
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
     primary: { label: 'Diagnose starten', href: 'https://leader-check.de' },
     secondary: { label: 'Login', href: '/login' },
   },
+  // Pricing — bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
+  // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
+  // Headline, nirgends als Riesen-Zahl. Der Wert soll vor dem Preis kommen.
+  pricing: {
+    sprint: { amount: '997', currency: '€', label: '30-TAGE-SPRINT' },
+    os:     { amount: '4 797', currency: '€', label: 'OS · JAHR' },
+    note:   'Diagnose bleibt kostenlos.',
+  },
 };
 
-// 3-step path — Diagnose → Sprint → OS. Stays as-is, it's a clear flow.
+// MANIFESTO — Dichotomie-Slogans im "X. Y."-Pattern. Wandert in einen
+// eigenen Block zwischen How-It-Works und Benefits.
+export const LANDING_MANIFESTO = {
+  eyebrow: 'MANIFEST · 2026',
+  headline: 'KI bestimmt das Tempo.',
+  headlineAccent: 'Du bestimmst den Kurs.',
+  lines: [
+    ['01', 'Algorithmen führen Prozesse.',  'Menschen führen Menschen.'],
+    ['02', 'Tools werden schneller.',       'Führung muss klarer werden.'],
+    ['03', 'Code skaliert.',                'Leadership entscheidet.'],
+    ['04', 'Die KI wird klüger.',           'Werde du es auch.'],
+    ['05', 'Wer heute zögert,',             'führt morgen unter jemandem, der nicht zögert.'],
+  ],
+  cta: 'Werde KI-nativ',
+  href: 'https://leader-check.de',
+};
+
+// 3-step path — Diagnose → Sprint → OS.
 export const HOW_IT_WORKS = [
   {
     nr: '01',
@@ -70,16 +114,16 @@ export const HOW_IT_WORKS = [
   },
 ];
 
-// 5 benefits (was 7) — sprint+wlad+trust merged into a single Wlad-block
-// to eliminate overlap with HowItWorks Step 02. Cleaner narrative, each
-// section answers one distinct question.
+// 7 Benefits — exakt aus den Mockup-Specimens hf-01 bis hf-07.
+// Jede Section bekommt einen Dichotomie-Subline-Slogan ("X. Y.").
 export const LANDING_BENEFITS = [
   {
     nr: '01',
     code: 'INHALT',
-    eyebrow: 'BENEFIT 01 · WAS DU LERNST',
+    eyebrow: 'BENEFIT 01 · INHALT',
     headline: 'Elf Frameworks.',
     headlineAccent: 'Ein OS.',
+    subline: 'Theorie-Bücher altern. Frameworks bleiben.',
     body:
       'SEXIER. Fünf Rollen. Feedbackformel. Drei Säulen. Zehn Stufen. ' +
       'Kommunikationsquadrant. Dunkle Rhetorik. Vier-Farben-Modell. ' +
@@ -99,14 +143,16 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Alle Frameworks ansehen',
     href: 'https://leader-check.de',
-    photo: photo('01-frameworks'),
+    variant: 'photo',
+    photo: local('hf-01.png'),
   },
   {
     nr: '02',
     code: 'COACH',
-    eyebrow: 'BENEFIT 02 · WANN ER DA IST',
+    eyebrow: 'BENEFIT 02 · IMMER WACH',
     headline: '24 Stunden.',
     headlineAccent: '7 Tage.',
+    subline: 'Andere Coaches schlafen. Deiner nicht.',
     body:
       'WladBot kennt Wlads Methodik in- und auswendig. ' +
       'Für jede Leadership-Situation. Jederzeit. ' +
@@ -119,18 +165,65 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'WladBot starten',
     href: 'https://leader-check.de',
-    photo: photo('02-coach'),
+    variant: 'photo',
+    photo: local('hf-02.png'),
   },
   {
     nr: '03',
+    code: 'SPRINT',
+    eyebrow: 'BENEFIT 03 · SPRINT',
+    headline: 'Dreißig Tage.',
+    headlineAccent: 'Ein neues Du.',
+    subline: 'Andere Sprints enden mit einem Zertifikat. Deiner mit einem System.',
+    body:
+      'Jeden Tag eine Frage. Jeden Tag ein Drill. Jeden Tag etwas ' +
+      'näher an der Führungskraft, die du werden willst. ' +
+      'Am Ende: dein persönliches Zertifikat 0001.',
+    detail: [
+      ['ID',    'STARTNUMMER',    'BIB · 0001 · CLASS 01'],
+      ['DAY',   'TÄGLICH',        '1 Frage · 1 Drill · 1 Reflexion'],
+      ['END',   'ABSCHLUSS',      'Zertifikat 0001 · LinkedIn-ready'],
+      ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
+    ],
+    cta: 'Sprint starten',
+    href: 'https://leader-check.de',
+    variant: 'bib',
+  },
+  {
+    nr: '04',
     code: 'WLAD',
-    eyebrow: 'BENEFIT 03 · WER DAHINTER STECKT',
+    eyebrow: 'BENEFIT 04 · AUTHENTIZITÄT',
     headline: 'Wlads Methodik.',
     headlineAccent: 'Live.',
+    subline: 'KI-Hype ist überall. Echte Methodik selten.',
     body:
-      'Wlad Jachtchenko. Vierhunderttausend Kunden weltweit. ' +
-      'Drei SPIEGEL-Bestseller. Vierzehn Millionen Views auf ' +
-      'Podcast und YouTube. Staatlich zertifizierte Argumentorik-Ausbildung.',
+      'Fünfhunderttausend Kunden haben seine Methode gelernt. ' +
+      'Drei SPIEGEL-Bestseller. Vierzehn Millionen Views. ' +
+      'Jetzt direkt in deiner Tasche.',
+    detail: [
+      ['NAM', 'WLAD JACHTCHENKO', 'Europas führender Argumentations-Coach'],
+      ['MAT', 'METHODIK',         'Authentische Wlad-Frameworks'],
+      ['VOI', 'STIMME',           'Antwortet in Wlads Ton'],
+      ['CTX', 'KONTEXT',          'Deine Situation, sein Wissen'],
+    ],
+    cta: 'Mehr über Wlad',
+    href: 'https://leader-check.de',
+    variant: 'photo',
+    photo: wlad('wlad-portrait.jpg'),
+    photoFallback: local('hf-04.png'),
+    photoFit: 'portrait',
+  },
+  {
+    nr: '05',
+    code: 'TRUST',
+    eyebrow: 'BENEFIT 05 · TRUST',
+    headline: '400 Tausend.',
+    headlineAccent: '14 Millionen.',
+    subline: 'Andere zeigen Logos. Wir zeigen Zahlen.',
+    body:
+      'Kunden weltweit haben seine Methode gelernt. ' +
+      'Vierzehn Millionen Views auf seinem Podcast und YouTube. ' +
+      'Drei SPIEGEL-Bestseller. Zwölf Bücher gesamt.',
     detail: [
       ['400K', 'KUNDEN',          'In 20+ Ländern'],
       ['14M',  'VIEWS',           'Podcast + YouTube'],
@@ -138,52 +231,63 @@ export const LANDING_BENEFITS = [
       ['12',   'BÜCHER GESAMT',   '250 000+ Verkäufe'],
       ['ZERT', 'AUSBILDUNG',      'Staatlich · sechs Monate'],
     ],
-    cta: 'Mehr über Wlad',
+    cta: 'Mehr Beweise',
     href: 'https://leader-check.de',
-    photo: photo('03-wlad'),
+    variant: 'trust',
+    photo: local('hf-05.png'),
+    trustNumbers: [
+      { big: '400', suffix: 'TAUSEND', caption: 'Kunden weltweit' },
+      { big: '14',  suffix: 'MILLIONEN', caption: 'Views Podcast + YouTube' },
+    ],
   },
   {
-    nr: '04',
-    code: 'CERT',
-    eyebrow: 'BENEFIT 04 · WAS DU ERHÄLTST',
-    headline: 'Zertifikat',
-    headlineAccent: '0001.',
+    nr: '06',
+    code: 'ZERTIFIKAT',
+    eyebrow: 'BENEFIT 06 · NACHWEIS',
+    headline: 'Zertifikat 0001.',
+    headlineAccent: 'LinkedIn-ready.',
+    subline: 'PDFs vergessen. Dieses Zertifikat trägst du.',
     body:
-      'Jeder abgeschlossene Sprint endet mit einem persönlichen Zertifikat. ' +
-      'Auf LinkedIn teilen oder dem nächsten Arbeitgeber zeigen. ' +
-      'Kohorten-Nummer als BIB-Code lebenslang.',
+      'Jeder Sprint endet mit einem persönlichen Zertifikat — ' +
+      'signiert von Wlad Jachtchenko, mit deiner Startnummer 0001 ' +
+      'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
-      ['ID',    'STARTNUMMER',    'BIB · 0001 · KOHORTE 01'],
-      ['FRAME', 'INHALT',         '11 Frameworks gemeistert'],
-      ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
-      ['LNKD',  'TEILBAR',        'Sofort auf LinkedIn'],
+      ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
+      ['BIB', 'STARTNUMMER',   '0001 · Class 01'],
+      ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
+      ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
     cta: 'Erstes Zertifikat freischalten',
     href: 'https://leader-check.de',
-    photo: photo('04-zertifikat'),
+    variant: 'cert',
   },
   {
-    nr: '05',
-    code: 'TECH',
-    eyebrow: 'BENEFIT 05 · DER MASCHINENRAUM',
-    headline: 'Powered by',
-    headlineAccent: 'WladBot.',
-    body:
-      'Voyage-3 Embeddings auf 2212 authentischen Wlad-Chunks. ' +
-      'Hybrid Retrieval. GPT-5.2. Antwortet in Wlads Stimme, ' +
-      'mit Wlads Frameworks, auf deine konkrete Situation.',
-    detail: [
-      ['MDL', 'LLM',             'GPT-5.2'],
-      ['EMB', 'EMBEDDINGS',      'Voyage-3 · 2212 Chunks'],
-      ['RET', 'RETRIEVAL',       'Vector + Lexical · RRF'],
-      ['RAG', 'AUTHENTIZITÄT',   'Nur Wlads Originalmaterial'],
-    ],
-    cta: 'WladBot kennenlernen',
-    href: 'https://leader-check.de',
-    photo: photo('05-tech'),
+    nr: '07',
+    code: 'KOMPLETT',
+    eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
+    headline: 'Powered by WladBot.',
+    headlineAccent: 'Getragen von der Class.',
+    subline: 'Du lernst nicht allein. Du wirst Teil von etwas.',
     dark: true,
+    body:
+      'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
+      'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
+      'die Class 0001 im geschlossenen Channel, monatliche ' +
+      'Strategie-Calls und ein Zertifikat, das zeigt, wer du geworden bist.',
+    detail: [
+      ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
+      ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
+      ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
+      ['CLS',  'CLASS 0001',      'Privater Channel · 100 Plätze'],
+      ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
+      ['ZRT',  'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
+      ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
+    ],
+    cta: 'Teil der Class werden',
+    href: 'https://leader-check.de',
+    variant: 'voxel',
   },
 ];
 
-// Hero photo — large editorial backdrop. Same picsum seed approach.
+// Hero photo — large editorial backdrop.
 export const HERO_PHOTO = photo('hero', 1600, 2000);

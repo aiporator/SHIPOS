@@ -6,8 +6,9 @@ import os
 import tempfile
 import subprocess
 from datetime import datetime, timezone
-from emergentintegrations.llm.chat import LlmChat, UserMessage
-from emergentintegrations.llm.openai import OpenAISpeechToText
+# Migration → lib.llm_provider (bit-identische API, Provider per ENV).
+from lib.llm_provider import LlmChat, UserMessage
+from lib.llm_provider import OpenAISpeechToText
 
 from config import db, EMERGENT_LLM_KEY, logger
 from services import get_current_user, update_user_scores, get_user_memory, WLAD_HARD_RULES

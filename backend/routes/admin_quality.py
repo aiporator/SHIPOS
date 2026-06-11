@@ -24,7 +24,8 @@ from typing import Any, Optional
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+# Migration → lib.llm_provider (bit-identische API, Provider per ENV).
+from lib.llm_provider import LlmChat, UserMessage
 
 from config import db, EMERGENT_LLM_KEY, logger
 from services import WLADBOT_SYSTEM_PROMPT

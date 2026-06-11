@@ -91,3 +91,11 @@ PostHog identity stitching must use the same `email_lower` key — see
    Vercel uses `--frozen-lockfile`, so a drift breaks the build.
 7. **Production branch is `mvpcode`.** All other long-lived branches are
    either history (`backup/*`) or stale (`claude/*` — most should be deleted).
+8. **Read `frontend/DESIGN.md` BEFORE writing any UI.** Nike-inspired
+   Athletic-Editorial DNA: pure black/white canvas, massive uppercase
+   display lockups, full-bleed editorial photography, pill-shaped CTAs
+   over neutral chrome. We layer a lime accent (`--brand`) and BIB-code
+   monospace metadata on top — that's our signature. Don't reach for
+   generic Tailwind defaults or random lucide-react icons — derive tokens
+   from DESIGN.md and prefer typographic markers (mono BIB-codes, lime
+   period punctuation) over icon-soup.

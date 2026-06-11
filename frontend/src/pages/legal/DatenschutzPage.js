@@ -100,7 +100,7 @@ export default function DatenschutzPage() {
             <tr className="border-b border-white/5"><td className="py-2 pr-4">PostHog Inc.</td><td className="py-2 pr-4">Nutzungsanalyse (nach Einwilligung)</td><td className="py-2">EU</td></tr>
             <tr className="border-b border-white/5"><td className="py-2 pr-4">Functional Software, Inc. (Sentry)</td><td className="py-2 pr-4">Fehler-Monitoring</td><td className="py-2">EU (Frankfurt)</td></tr>
             <tr className="border-b border-white/5"><td className="py-2 pr-4">Resend (Drei Eichen Capital LLC)</td><td className="py-2 pr-4">Transaktions-E-Mails</td><td className="py-2">EU/USA mit SCCs</td></tr>
-            <tr className="border-b border-white/5"><td className="py-2 pr-4">Anthropic, OpenAI, Google (via Emergent)</td><td className="py-2 pr-4">KI-gestützte Coaching-Antworten</td><td className="py-2">EU/USA mit SCCs</td></tr>
+            <tr className="border-b border-white/5"><td className="py-2 pr-4">Anthropic, OpenAI, Google</td><td className="py-2 pr-4">KI-gestützte Coaching-Antworten</td><td className="py-2">EU/USA mit SCCs</td></tr>
             <tr><td className="py-2 pr-4">ElevenLabs Inc.</td><td className="py-2 pr-4">Sprachsynthese (Voice)</td><td className="py-2">EU/USA mit SCCs</td></tr>
           </tbody>
         </table>

@@ -2,49 +2,31 @@
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Query
 from fastapi.responses import Response
 import uuid
-import requests
 from datetime import datetime, timezone
 
-from config import db, EMERGENT_LLM_KEY, logger
+from config import db, logger
 from services import get_current_user
+
+# Migration → lib.object_storage. Native Backend: Supabase-Storage
+# (Bucket `wladbot-uploads`) wenn SUPABASE_URL + SUPABASE_SERVICE_KEY
+# in ENV. Sonst Legacy Emergent-Objstore. API ist identisch zum
+# alten put_object/get_object — nur der Import schwenkt.
+from lib.object_storage import put_object, get_object
 
 router = APIRouter(prefix="/api", tags=["uploads"])
 
-STORAGE_URL = "https://integrations.emergentagent.com/objstore/api/v1/storage"
 APP_NAME = "wladbot"
-storage_key = None
 
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 
-def init_storage():
-    global storage_key
-    if storage_key:
-        return storage_key
-    resp = requests.post(f"{STORAGE_URL}/init", json={"emergent_key": EMERGENT_LLM_KEY}, timeout=30)
-    resp.raise_for_status()
-    storage_key = resp.json()["storage_key"]
-    logger.info("Object storage initialized")
-    return storage_key
-
-
-def put_object(path: str, data: bytes, content_type: str) -> dict:
-    key = init_storage()
-    resp = requests.put(
-        f"{STORAGE_URL}/objects/{path}",
-        headers={"X-Storage-Key": key, "Content-Type": content_type},
-        data=data, timeout=120,
-    )
-    resp.raise_for_status()
-    return resp.json()
-
-
-def get_object(path: str):
-    key = init_storage()
-    resp = requests.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key}, timeout=60)
-    resp.raise_for_status()
-    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
+@router.get("/uploads/health")
+async def uploads_health():
+    """Diagnostik — welcher Storage-Backend ist aktuell aktiv?
+    Public, gibt keine Keys oder Bucket-Inhalte aus."""
+    from lib.object_storage import health
+    return health()
 
 
 @router.post("/upload/profile-picture")

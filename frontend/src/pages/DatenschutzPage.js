@@ -69,7 +69,7 @@ export default function DatenschutzPage() {
           <ProcessorRow name="PostHog (analytics)" country="EU (Frankfurt)" purpose="Produkt-Analytics" basis="Art. 6(1)(a) DSGVO (Einwilligung)" data="Event-Logs, anonymisiert" />
           <ProcessorRow name="Resend" country="USA (DPF-zertifiziert)" purpose="Transaktions-E-Mails" basis="Art. 6(1)(b) DSGVO" data="E-Mail, Name, Inhalt" />
           <ProcessorRow name="ElevenLabs Inc." country="USA" purpose="Voice-Mode (Sprachausgabe)" basis="Art. 6(1)(a) DSGVO (Einwilligung)" data="Text-Inhalte, kein Stimm-Material" />
-          <ProcessorRow name="OpenAI / Anthropic / Google (via Emergent LLM)" country="USA (DPF-zertifiziert)" purpose="KI-Coaching-Antworten" basis="Art. 6(1)(b) DSGVO" data="Chat-Anfragen, Daily-Check-Ins" />
+          <ProcessorRow name="Anthropic, OpenAI, Google" country="USA (DPF-zertifiziert)" purpose="KI-Coaching-Antworten" basis="Art. 6(1)(b) DSGVO" data="Chat-Anfragen, Daily-Check-Ins" />
         </Section>
 
         <Section title={de ? '4. Cookies & Tracking' : '4. Cookies & tracking'}>

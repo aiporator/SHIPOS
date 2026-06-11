@@ -39,7 +39,10 @@ const MicrosoftBrand = ({ size = 18 }) => (
   </svg>
 );
 
-const buttonClass = "group relative flex items-center justify-center gap-3 h-12 w-full rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-white/[0.15] transition-all font-semibold text-sm text-white disabled:opacity-50 disabled:cursor-not-allowed";
+// Nike-DNA: weiß-mit-2px-Schwarz-Border, kein Shadow-Soup,
+// Hover→Lime-Tint, Touch→active-translate. h-14 macht Google/Apple/MS
+// klick-einladend prominent.
+const buttonClass = "group relative flex items-center justify-center gap-3 h-14 w-full bg-white hover:bg-brand/15 border-2 border-black transition-all font-bold text-[13px] tracking-[0.04em] text-black active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed";
 
 // ────────────────────────────────────────────────────────────────────────────
 // Google — Sign in with Google JS, rendered as our own button

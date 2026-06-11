@@ -1,6 +1,5 @@
 import { Brain, Target, HeartHandshake, Star } from 'lucide-react';
-
-export const WLAD_AVATAR = 'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
+export { WLAD_AVATAR } from '../../lib/brandAssets';
 
 export const getLayers = (de) => [
   { number: '01', title: de ? 'KI-Kompetenz' : 'AI Competency', description: de ? 'KI als strategischen Hebel nutzen, um schnellere und bessere Entscheidungen zu treffen.' : 'Use AI as a strategic lever for faster, better decisions.', features: de ? ['Entscheidungen beschleunigen', 'Prozesse automatisieren', 'Wettbewerbsvorteile schaffen'] : ['Accelerate decisions', 'Automate processes', 'Create competitive edge'], gradient: '#6366F1, #8B5CF6', icon: Brain },

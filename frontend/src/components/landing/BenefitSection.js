@@ -25,7 +25,7 @@ const FADE_UP = {
  *
  * Dark variant for §07 — the counter-punch wall.
  */
-export const BenefitSection = ({ asset, index, anchor }) => {
+export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
   const ref = useRef(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -57,7 +57,7 @@ export const BenefitSection = ({ asset, index, anchor }) => {
         {/* Tech metadata header strip */}
         <div className={`flex items-center justify-between mb-12 md:mb-16 pb-4 border-b ${isDark ? 'border-white/15' : 'border-foreground/15'}`}>
           <div className={`flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
-            <span>§ {asset.nr} / 05</span>
+            <span>§ {asset.nr} / {String(total).padStart(2, '0')}</span>
             <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
             <span className="text-brand">{asset.code}</span>
             {asset.eyebrow && (
@@ -70,7 +70,7 @@ export const BenefitSection = ({ asset, index, anchor }) => {
           <div className={`hidden md:flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
             <span>BIB · 0001</span>
             <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
-            <span>KOHORTE 01</span>
+            <span>CLASS 01</span>
           </div>
         </div>
 
@@ -95,8 +95,19 @@ export const BenefitSection = ({ asset, index, anchor }) => {
               {asset.headlineAccent.replace(/\.$/, '')}<span className="text-brand not-italic">.</span>
             </h2>
 
+            {asset.subline && (
+              <p
+                className={`mt-6 md:mt-8 max-w-xl text-[16px] md:text-[20px] lg:text-[22px] leading-[1.25] tracking-[-0.015em] ${
+                  isDark ? 'text-white/85' : 'text-foreground/85'
+                }`}
+                style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 700, fontStyle: 'italic' }}
+              >
+                {asset.subline}
+              </p>
+            )}
+
             <p
-              className={`mt-8 md:mt-10 max-w-xl text-[15px] md:text-[17px] leading-[1.55] ${isDark ? 'text-white/70' : 'text-foreground/70'}`}
+              className={`mt-6 md:mt-7 max-w-xl text-[15px] md:text-[17px] leading-[1.55] ${isDark ? 'text-white/70' : 'text-foreground/70'}`}
             >
               {asset.body}
             </p>
@@ -125,8 +136,12 @@ export const BenefitSection = ({ asset, index, anchor }) => {
               nr={asset.nr}
               code={asset.code}
               photo={asset.photo}
+              photoFallback={asset.photoFallback}
+              photoFit={asset.photoFit}
+              variant={asset.variant}
+              trustNumbers={asset.trustNumbers}
               isDark={isDark}
-              total={5}
+              total={total}
             />
 
             <div
@@ -163,7 +178,7 @@ export const BenefitSection = ({ asset, index, anchor }) => {
 
               <div className={`mt-6 pt-4 border-t ${isDark ? 'border-white/10' : 'border-foreground/10'} flex items-center justify-between text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/40' : 'text-foreground/40'}`}>
                 <span>LEADER-OS</span>
-                <span>{`No. ${asset.nr}/05`}</span>
+                <span>{`No. ${asset.nr}/${String(total).padStart(2, '0')}`}</span>
               </div>
             </div>
           </motion.div>
