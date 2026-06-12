@@ -2,167 +2,209 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
-<title>Leader · OS — Editorial Spread · Issue 0001</title>
+<title>LEADER·OS · ISSUE 0001 · KI-NATIVES OPERATING SYSTEM</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,500;0,700;0,900;1,800;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,500;0,700;0,900;1,800;1,900&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"/>
 <style>
 :root{
-  --bg:#F2EFE6;
-  --paper:#EDE9DC;
+  --paper:#E8E2D0;
+  --paper-d:#D8D0BB;
   --ink:#0A0A0A;
   --lime:#BFFF00;
-  --grain:#1A1813;
+  --rust:#A53D1F;
+  --denim:#1B3A52;
+  --cream:#F5EFDD;
   --mono:'JetBrains Mono',Menlo,Consolas,monospace;
-  --display:'Outfit','Inter',system-ui,sans-serif;
+  --display:'Outfit',system-ui,sans-serif;
+  --serif:'DM Serif Display',serif;
 }
 *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
-html,body{margin:0;background:#1A1813;color:var(--ink);font-family:var(--display)}
-.viewport{padding:40px 24px 80px}
+html,body{margin:0;background:#15110A;color:var(--ink);font-family:var(--display)}
+.viewport{padding:48px 24px 100px}
 .poster{
   width:min(100%,1200px);
   aspect-ratio:1/1.414;
   margin:0 auto;
-  background:var(--bg);
+  background:var(--paper);
   position:relative;
   overflow:hidden;
-  box-shadow:0 40px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.15);
+  box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.2);
+  font-feature-settings:'ss01' 1,'liga' 1;
 }
-.grain{
-  position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.12;
-  background-image:radial-gradient(rgba(10,10,10,.7) 0.5px,transparent 0.5px);
-  background-size:4px 4px;
+/* Paper noise + creases */
+.paper-grain{
+  position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.18;
+  background:
+    radial-gradient(rgba(20,15,5,.4) 0.5px,transparent 0.7px) 0 0/3px 3px,
+    radial-gradient(rgba(165,61,31,.05) 1px,transparent 1.5px) 7px 11px/12px 12px;
 }
-.crop-mark{position:absolute;width:14px;height:14px;border:1.2px solid var(--ink)}
+.paper-stain{
+  position:absolute;pointer-events:none;mix-blend-mode:multiply;opacity:.10;
+  border-radius:50%;background:radial-gradient(circle,#5b3a1f 0,transparent 70%);
+}
+.stain-1{top:8%;right:6%;width:280px;height:280px}
+.stain-2{bottom:14%;left:4%;width:200px;height:200px;opacity:.07}
+
+.crop-mark{position:absolute;width:18px;height:18px;border:1.4px solid var(--ink);z-index:5}
 .crop-tl{top:14px;left:14px;border-right:none;border-bottom:none}
 .crop-tr{top:14px;right:14px;border-left:none;border-bottom:none}
 .crop-bl{bottom:14px;left:14px;border-right:none;border-top:none}
 .crop-br{bottom:14px;right:14px;border-left:none;border-top:none}
 
-.spread{position:relative;height:100%;padding:46px 56px 56px}
+.spread{position:relative;height:100%;padding:46px 50px 50px;z-index:2;display:grid;grid-template-rows:auto auto 1fr auto auto;gap:14px}
 
-/* MASTHEAD */
-.masthead{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:0}
-.masthead-left{display:flex;align-items:center;gap:14px}
-.mark{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--lime)}
-.mark-w{font-family:var(--display);font-weight:900;font-style:italic;font-size:24px;line-height:1;color:var(--ink);transform:translateY(-1px)}
-.wordmark{font-family:var(--display);font-weight:900;font-style:italic;font-size:18px;letter-spacing:-.025em;color:var(--ink)}
-.wordmark .dot{color:var(--lime)}
-.masthead-meta{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(10,10,10,.55);text-align:right;line-height:1.7}
+/* ─────────── MASTHEAD ─────────── */
+.masthead{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;border-bottom:2.5px solid var(--ink);padding-bottom:12px}
+.mh-left{display:flex;align-items:center;gap:12px}
+.mh-mark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:var(--lime);transform:rotate(-2deg)}
+.mh-mark span{font-family:var(--display);font-weight:900;font-style:italic;font-size:26px;color:var(--ink);transform:rotate(2deg)}
+.mh-wm{font-family:var(--display);font-weight:900;font-style:italic;font-size:22px;letter-spacing:-.03em;line-height:1}
+.mh-wm .dot{color:var(--lime)}
+.mh-wm small{display:block;font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;opacity:.55;margin-top:3px}
 
-/* SUBHEADER */
-.subheader{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--ink);padding:8px 0;margin-bottom:18px}
-.sh-eyebrow{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--ink)}
-.sh-center{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;text-align:center;color:var(--lime);background:var(--ink);padding:5px 14px}
-.sh-right{text-align:right;font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.mh-center{text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--ink)}
+.mh-center .jp{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.05em;margin-top:3px;color:rgba(10,10,10,.65)}
 
-/* HERO */
-.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:32px;align-items:start;margin-bottom:32px}
-.hero h1{font-family:var(--display);font-weight:900;font-style:italic;font-size:clamp(72px,9vw,128px);letter-spacing:-.045em;line-height:.86;margin:8px 0 0;color:var(--ink)}
-.hero h1 .accent{color:var(--lime)}
-.hero h1 .muted{color:rgba(10,10,10,.4)}
-.hero-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--ink);margin:0 0 0}
-.hero-deck{margin-top:18px;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.35;letter-spacing:-.012em;max-width:540px;color:var(--ink)}
-.hero-deck .lead{color:var(--lime);font-style:italic;font-weight:900}
+.mh-right{text-align:right;font-family:var(--mono);font-size:8px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;line-height:1.7;color:rgba(10,10,10,.65)}
+.mh-right strong{color:var(--ink);font-weight:700}
 
-.hero-right{position:relative;border:2px solid var(--ink);background:#0A0A0A;color:#fff;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px}
-.hero-right .figure{position:relative;background:#FFF;aspect-ratio:1/1.25;overflow:hidden}
-.hero-right .figure img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);display:block}
-.hero-right .figure::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45));pointer-events:none}
-.hero-right .figure-tag{position:absolute;left:10px;top:10px;background:var(--lime);color:#0A0A0A;font-family:var(--mono);font-size:7.5px;letter-spacing:.22em;font-weight:700;padding:3px 8px;text-transform:uppercase}
-.hero-right .figure-caption{position:absolute;left:10px;bottom:10px;right:10px;color:#fff;font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
-.hero-right .figure-caption strong{font-family:var(--display);font-weight:900;font-style:italic;font-size:16px;letter-spacing:-.02em;text-transform:none;display:block;letter-spacing:-.02em}
+/* ─────────── BAND ─────────── */
+.band{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:14px;padding:6px 0;border-bottom:1px solid var(--ink)}
+.band .b-ey{font-family:var(--mono);font-size:8px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
+.band .b-c{font-family:var(--mono);font-size:8px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;text-align:center;background:var(--ink);color:var(--lime);padding:4px 12px;letter-spacing:.32em}
+.band .b-pill{display:inline-flex;align-items:center;gap:6px;border:1.4px solid var(--ink);padding:3px 10px;font-family:var(--mono);font-size:8px;letter-spacing:.28em;text-transform:uppercase;font-weight:700}
+.band .b-pill::before{content:'';width:6px;height:6px;background:var(--lime);border-radius:50%}
 
-.spec-table{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.85)}
-.spec-table .row{display:grid;grid-template-columns:60px 1fr;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.12)}
-.spec-table .row:last-child{border-bottom:none}
-.spec-table .row .lbl{color:var(--lime);font-weight:700}
+/* ─────────── HERO GRID ─────────── */
+.hero{display:grid;grid-template-columns:1.05fr 1fr 0.6fr;gap:18px;align-items:stretch;min-height:0}
 
-/* THREE COLUMN STORY */
-.story{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;border-top:2px solid var(--ink);padding-top:18px;margin-bottom:30px}
-.story .col p{margin:0;font-family:var(--display);font-size:11.5px;line-height:1.55;color:var(--ink);font-weight:500}
-.story .col p+p{margin-top:8px}
-.story .col-head{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--lime);background:var(--ink);padding:5px 8px;margin:0 0 10px;display:inline-block}
-.story .col-title{font-family:var(--display);font-weight:900;font-style:italic;font-size:24px;line-height:1;letter-spacing:-.03em;margin:0 0 10px}
-.story .col-title .dot{color:var(--lime)}
-.story .pulled{font-family:var(--display);font-weight:900;font-style:italic;font-size:34px;line-height:1;letter-spacing:-.035em;color:var(--ink);margin:14px 0 6px}
-.story .pulled .dot{color:var(--lime)}
+/* Cover-left huge headline */
+.cover{position:relative;display:flex;flex-direction:column;justify-content:space-between}
+.cover-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.cover h1{font-family:var(--display);font-weight:900;font-style:italic;font-size:clamp(72px,8.6vw,118px);letter-spacing:-.05em;line-height:.84;margin:0;color:var(--ink)}
+.cover h1 .accent{color:var(--lime)}
+.cover h1 .muted{color:rgba(10,10,10,.32)}
+.cover h1 .underlined{position:relative;display:inline-block}
+.cover h1 .underlined::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:14px;background:var(--lime);z-index:-1;transform:skewY(-1.5deg)}
 
-/* FRAMEWORKS BAR */
-.fw{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:14px 0;margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
-.fw-title{font-family:var(--display);font-weight:900;font-style:italic;font-size:42px;letter-spacing:-.04em;line-height:.94;color:var(--ink);margin:0;max-width:220px}
-.fw-title .dot{color:var(--lime)}
-.fw-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.fw-cell{border:1.2px solid var(--ink);padding:8px 8px 8px;background:transparent;display:flex;flex-direction:column;gap:2px}
-.fw-cell .nr{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--ink);font-weight:700;opacity:.55}
-.fw-cell .nm{font-family:var(--display);font-weight:900;font-style:italic;font-size:13px;line-height:1;letter-spacing:-.025em;color:var(--ink)}
-.fw-cell .sub{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,10,.55);font-weight:600;line-height:1.2;margin-top:2px}
+.cover-deck{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1.5px solid var(--ink);padding-top:14px}
+.cover-deck .dk-eb{font-family:var(--mono);font-size:8px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--ink);opacity:.65;margin:0 0 6px}
+.cover-deck p{font-family:var(--display);font-weight:500;font-size:11.5px;line-height:1.45;color:var(--ink);margin:0;text-align:justify;hyphens:auto}
+.cover-deck p .hi{background:var(--lime);padding:0 3px;display:inline}
+.cover-pull{font-family:var(--serif);font-style:italic;font-size:30px;line-height:1.08;letter-spacing:-.015em;color:var(--ink);margin:14px 0 0;padding:14px 0 10px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);position:relative}
+.cover-pull::before{content:'\201C';position:absolute;left:0;top:-2px;font-family:var(--serif);font-size:40px;line-height:1;color:var(--lime)}
+.cover-pull{padding-left:34px}
+.cover-pull cite{display:block;font-family:var(--mono);font-style:normal;font-size:8px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:rgba(10,10,10,.55);margin-top:8px}
 
-/* PEOPLE STRIP */
-.people{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.person{border:2px solid var(--ink);background:#FFF;overflow:hidden;display:flex;flex-direction:column}
-.person .ph{aspect-ratio:1/1.2;background:#1A1813;position:relative;overflow:hidden}
-.person .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);display:block}
-.person .ph .num{position:absolute;left:8px;top:8px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-size:7.5px;letter-spacing:.22em;font-weight:700;padding:2px 6px}
-.person .info{padding:8px 10px 10px}
-.person .info .role{font-family:var(--mono);font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:rgba(10,10,10,.55);margin:0 0 3px}
-.person .info .quote{font-family:var(--display);font-weight:900;font-style:italic;font-size:13px;line-height:1.15;letter-spacing:-.018em;margin:0;color:var(--ink)}
-.person .info .quote .dot{color:var(--lime)}
+/* Hero portrait centerpiece */
+.portrait{position:relative;display:flex;flex-direction:column;gap:10px}
+.portrait .ph{position:relative;border:2.5px solid var(--ink);background:var(--cream);aspect-ratio:1/1.32;overflow:hidden;transform:rotate(-1.2deg)}
+.portrait .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(.95);display:block;mix-blend-mode:multiply}
+.portrait .ph::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(191,255,0,.15) 0%,transparent 35%);mix-blend-mode:screen;pointer-events:none}
+.portrait .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,10,10,.6));pointer-events:none}
+.portrait .tag-tl{position:absolute;top:10px;left:10px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:3px 8px;transform:rotate(-1deg)}
+.portrait .tag-tr{position:absolute;top:10px;right:10px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:3px 8px}
+.portrait .cap{position:absolute;left:12px;right:12px;bottom:12px;color:#fff}
+.portrait .cap-name{font-family:var(--display);font-weight:900;font-style:italic;font-size:24px;line-height:.9;letter-spacing:-.025em}
+.portrait .cap-name .dot{color:var(--lime)}
+.portrait .cap-role{font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;margin-top:4px;opacity:.85}
 
-/* PRICING LADDER STRIP */
-.ladder{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:16px 0;margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:24px}
-.ladder-title{font-family:var(--display);font-weight:900;font-style:italic;font-size:36px;letter-spacing:-.035em;line-height:.95;color:var(--ink);margin:0;max-width:200px}
-.ladder-title .dot{color:var(--lime)}
-.ladder-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.tier{border:1.5px solid var(--ink);padding:10px 10px 11px;display:flex;flex-direction:column;gap:4px}
-.tier.active{background:var(--ink);color:#fff}
-.tier .stage{font-family:var(--mono);font-size:8px;letter-spacing:.22em;font-weight:700;color:var(--lime);text-transform:uppercase}
-.tier .name{font-family:var(--display);font-weight:900;font-style:italic;font-size:16px;line-height:1;letter-spacing:-.025em;color:var(--ink)}
-.tier.active .name{color:#fff}
-.tier .price{font-family:var(--display);font-weight:900;font-style:italic;font-size:18px;letter-spacing:-.025em;line-height:1;margin-top:auto;color:var(--ink)}
-.tier.active .price{color:var(--lime)}
-.tier .price .sub{font-family:var(--mono);font-size:7.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(10,10,10,.55);font-weight:600;display:block;margin-top:2px}
-.tier.active .price .sub{color:rgba(255,255,255,.55)}
+.portrait .scribbles{position:absolute;pointer-events:none}
+.portrait .arrow{top:-8px;right:-22px;width:80px;transform:rotate(15deg)}
+.portrait .star{bottom:-14px;left:-18px;width:46px;transform:rotate(-12deg)}
 
-/* SCAN BLOCK */
-.scan{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;background:var(--ink);color:#fff;padding:26px 28px;border:2px solid var(--ink);margin-bottom:22px;position:relative;overflow:hidden}
-.scan::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--lime)}
-.scan-left{padding-left:14px}
-.scan-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--lime);margin:0 0 10px}
-.scan-headline{font-family:var(--display);font-weight:900;font-style:italic;font-size:52px;line-height:.92;letter-spacing:-.035em;color:#fff;margin:0}
-.scan-headline .dot{color:var(--lime)}
-.scan-deck{margin-top:14px;font-family:var(--display);font-weight:500;font-size:14.5px;line-height:1.45;color:rgba(255,255,255,.82);max-width:480px}
-.scan-bullets{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
-.scan-bullets li{list-style:none;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.85);padding-left:14px;position:relative}
-.scan-bullets li::before{content:'▸';position:absolute;left:0;color:var(--lime)}
-.scan-bullets ul{padding:0;margin:0}
-.scan-right{display:flex;flex-direction:column;align-items:center;gap:10px}
-.qr-frame{background:#fff;padding:14px;width:210px;height:210px;display:flex;align-items:center;justify-content:center;position:relative}
-.qr-frame svg{display:block}
-.qr-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;font-weight:700;color:var(--lime);text-align:center}
-.qr-tag .big{display:block;font-family:var(--display);font-weight:900;font-style:italic;font-size:20px;letter-spacing:-.025em;color:#fff;text-transform:none;margin:4px 0 2px}
+.portrait-spec{border:2px solid var(--ink);background:var(--ink);color:#fff;padding:10px 11px 11px;display:flex;flex-direction:column;gap:5px;transform:rotate(.6deg)}
+.portrait-spec .row{display:grid;grid-template-columns:54px 1fr;gap:6px;font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;line-height:1.3}
+.portrait-spec .row .lbl{color:var(--lime);font-weight:700}
+.portrait-spec .row .v{color:rgba(255,255,255,.85)}
+
+/* Side column: catalog cards */
+.side{display:flex;flex-direction:column;gap:10px}
+.side .ttl{font-family:var(--mono);font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--ink);margin-bottom:2px}
+
+.catalog-card{border:2px solid var(--ink);background:var(--cream);padding:10px 11px 11px;position:relative;overflow:hidden}
+.catalog-card.dark{background:var(--ink);color:#fff}
+.catalog-card .num{position:absolute;top:6px;right:8px;font-family:var(--mono);font-size:7.5px;letter-spacing:.22em;font-weight:700;opacity:.55}
+.catalog-card .nm{font-family:var(--display);font-weight:900;font-style:italic;font-size:18px;line-height:.95;letter-spacing:-.025em;margin:0}
+.catalog-card .nm .dot{color:var(--lime)}
+.catalog-card .sub{font-family:var(--mono);font-size:7px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.7;margin:3px 0 7px}
+.catalog-card .price{font-family:var(--display);font-weight:900;font-style:italic;font-size:24px;letter-spacing:-.025em;line-height:1;color:var(--ink)}
+.catalog-card.dark .price{color:var(--lime)}
+.catalog-card .out{font-family:var(--mono);font-size:7px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:.65;margin-top:5px;line-height:1.4}
+.catalog-card.active{background:var(--lime);border-color:var(--ink)}
+.catalog-card.active .price{color:var(--ink)}
+.catalog-card.active .num{opacity:.7}
+
+/* ─────────── FRAMEWORKS MID-PAGE ─────────── */
+.mid{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:10px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.mid-l{font-family:var(--display);font-weight:900;font-style:italic;font-size:30px;letter-spacing:-.035em;line-height:.95;max-width:200px}
+.mid-l .dot{color:var(--lime)}
+.mid-l small{font-family:var(--mono);font-style:normal;font-weight:700;font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;display:block;margin-top:6px;opacity:.55}
+.fw-row{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
+.fw-chip{border:1.2px solid var(--ink);padding:6px 5px;text-align:center;background:var(--cream);position:relative}
+.fw-chip .n{font-family:var(--mono);font-size:7px;letter-spacing:.18em;font-weight:700;opacity:.5;display:block}
+.fw-chip .t{font-family:var(--display);font-weight:900;font-style:italic;font-size:10px;line-height:1;letter-spacing:-.02em;display:block;margin-top:2px}
+.fw-chip.lime{background:var(--lime);border-color:var(--ink)}
+.mid-r{font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;text-align:right;line-height:1.6;color:rgba(10,10,10,.6)}
+.mid-r strong{color:var(--ink)}
+
+/* ─────────── BOTTOM ROW ─────────── */
+.bottom{display:grid;grid-template-columns:1.05fr 1fr 0.85fr;gap:18px;align-items:stretch}
+
+/* Color palette */
+.palette{border:2px solid var(--ink);background:var(--cream);padding:11px 12px 12px;display:flex;flex-direction:column}
+.palette .pl-title{font-family:var(--display);font-weight:900;font-style:italic;font-size:20px;letter-spacing:-.03em;line-height:1;margin:0 0 4px}
+.palette .pl-title .dot{color:var(--lime)}
+.palette .pl-sub{font-family:var(--mono);font-size:7px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;opacity:.6;margin-bottom:9px}
+.palette .pl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;flex:1}
+.palette .sw{display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-height:62px;border:1.2px solid var(--ink);padding:4px 5px 5px}
+.palette .sw .hex{font-family:var(--mono);font-size:7px;letter-spacing:.12em;font-weight:700;color:#fff;text-shadow:0 0 1px rgba(0,0,0,.5)}
+.palette .sw .nm{font-family:var(--mono);font-size:6.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#fff;opacity:.85}
+.palette .sw.lt .hex,.palette .sw.lt .nm{color:var(--ink);text-shadow:none}
+.palette .pl-foot{font-family:var(--mono);font-size:7px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;opacity:.55;margin-top:8px;line-height:1.45}
+
+/* People column */
+.people-col{display:flex;flex-direction:column;gap:7px}
+.people-col .pc-head{font-family:var(--mono);font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
+.people-col .pc-h2{font-family:var(--display);font-weight:900;font-style:italic;font-size:20px;letter-spacing:-.03em;line-height:1;margin:0 0 6px}
+.people-col .pc-h2 .dot{color:var(--lime)}
+.testi{display:grid;grid-template-columns:auto 1fr;gap:8px;border-bottom:1px solid rgba(10,10,10,.18);padding-bottom:6px}
+.testi:last-child{border-bottom:none;padding-bottom:0}
+.testi .ph{width:54px;height:54px;background:var(--ink);border:1.5px solid var(--ink);overflow:hidden;flex-shrink:0}
+.testi .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15)}
+.testi .info{display:flex;flex-direction:column;justify-content:center}
+.testi .info .q{font-family:var(--display);font-weight:900;font-style:italic;font-size:14px;line-height:1.05;letter-spacing:-.02em;margin:0}
+.testi .info .q .dot{color:var(--lime)}
+.testi .info .who{font-family:var(--mono);font-size:7px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;opacity:.6;margin-top:4px}
+
+/* SCAN block */
+.scan{position:relative;border:2.5px solid var(--ink);background:var(--ink);color:#fff;padding:14px 14px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;overflow:hidden;transform:rotate(.4deg)}
+.scan::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--lime)}
+.scan-head{padding-left:10px}
+.scan-ey{font-family:var(--mono);font-size:8px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--lime);margin:0 0 4px}
+.scan h2{font-family:var(--display);font-weight:900;font-style:italic;font-size:32px;letter-spacing:-.035em;line-height:.9;margin:0;color:#fff}
+.scan h2 .dot{color:var(--lime)}
+.scan .qr-frame{margin:6px auto 4px;background:#fff;padding:10px;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
+.scan .qr-frame svg{display:block}
+.scan .scan-foot{padding-left:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--lime);text-align:center}
+.scan .scan-foot .big{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:18px;letter-spacing:-.02em;color:#fff;text-transform:none;margin:2px 0 2px}
 
 /* FOOTER */
-.footer{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:end;border-top:2px solid var(--ink);padding-top:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:rgba(10,10,10,.6)}
-.footer .barcode{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--ink)}
-.footer .barcode .bars{display:inline-block;margin-right:8px;background-image:repeating-linear-gradient(90deg,#0A0A0A 0 2px,transparent 2px 3px,#0A0A0A 3px 4px,transparent 4px 6px,#0A0A0A 6px 7px,transparent 7px 10px);width:110px;height:24px;vertical-align:middle}
-.footer .center{text-align:center}
-.footer .right{text-align:right}
+.foot{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;border-top:2px solid var(--ink);padding-top:10px;font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:rgba(10,10,10,.6)}
+.foot .bars{display:inline-block;background-image:repeating-linear-gradient(90deg,#0A0A0A 0 1.6px,transparent 1.6px 2.6px,#0A0A0A 2.6px 3.4px,transparent 3.4px 5.4px,#0A0A0A 5.4px 6.4px,transparent 6.4px 9px);width:78px;height:22px;vertical-align:middle;margin-right:6px;border:1px solid var(--ink)}
+.foot .c{text-align:center}
+.foot .r{text-align:right}
+.foot strong{color:var(--ink)}
+.foot .jp{font-family:var(--mono);font-weight:500;letter-spacing:.05em;color:rgba(10,10,10,.5)}
 
-/* Stamp / cutout effect on hero img background */
-.bg-watermark{position:absolute;right:-90px;bottom:80px;font-family:var(--display);font-weight:900;font-style:italic;font-size:600px;letter-spacing:-.06em;line-height:.8;color:rgba(10,10,10,.04);pointer-events:none;user-select:none;z-index:0}
-
-/* Make sure all section content sits above watermark */
-.spread > *{position:relative;z-index:1}
-
-/* DOWNLOAD / EXPORT helper */
-.helper-bar{max-width:1200px;margin:0 auto 18px;color:#EDE9DC;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:14px 8px;border-bottom:1px solid rgba(237,233,220,.18)}
-.helper-bar a{color:var(--lime);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.helper{max-width:1200px;margin:0 auto 16px;color:#E8E2D0;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:14px 8px;border-bottom:1px solid rgba(232,226,208,.18)}
+.helper a{color:var(--lime);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
 
 @media print{
   body{background:#fff}
-  .helper-bar{display:none}
+  .helper{display:none}
   .viewport{padding:0}
   .poster{box-shadow:none;width:100%;aspect-ratio:auto}
 }
@@ -171,208 +213,252 @@ html,body{margin:0;background:#1A1813;color:var(--ink);font-family:var(--display
 <body>
 <div class="viewport">
 
-  <div class="helper-bar">
-    <span>▸ LEADER · OS EDITORIAL · ISSUE 0001</span>
-    <span><a href="javascript:window.print()">Print / Save as PDF →</a></span>
+  <div class="helper">
+    <span>▸ LEADER · OS EDITORIAL · ISSUE 0001 · v2 GODMODE</span>
+    <span><a href="javascript:window.print()">Save as PDF →</a></span>
   </div>
 
   <div class="poster">
-    <div class="grain"></div>
+    <div class="paper-grain"></div>
+    <div class="paper-stain stain-1"></div>
+    <div class="paper-stain stain-2"></div>
     <div class="crop-mark crop-tl"></div>
     <div class="crop-mark crop-tr"></div>
     <div class="crop-mark crop-bl"></div>
     <div class="crop-mark crop-br"></div>
 
-    <div class="bg-watermark">OS</div>
-
     <div class="spread">
 
       <!-- MASTHEAD -->
       <header class="masthead">
-        <div class="masthead-left">
-          <div class="mark"><span class="mark-w">W</span></div>
-          <div class="wordmark">Leader<span class="dot">·</span>OS<span class="dot">.</span></div>
+        <div class="mh-left">
+          <div class="mh-mark"><span>W</span></div>
+          <div class="mh-wm">Leader<span class="dot">·</span>OS<span class="dot">.</span><small>ISSUE 0001 · KI-NATIVES OPERATING SYSTEM</small></div>
         </div>
-        <div class="masthead-meta">
-          ISSUE 0001 · 2026<br/>
-          OPERATING-SYSTEM FÜR FÜHRUNGSKRÄFTE<br/>
-          BY WLAD JACHTCHENKO · KÖLN · MÜNCHEN
+        <div class="mh-center">
+          ▸ DAS BETRIEBSSYSTEM FÜR FÜHRUNGSKRÄFTE ◂
+          <span class="jp">未来は AI ネイティブに属する</span>
+        </div>
+        <div class="mh-right">
+          <strong>BY WLAD JACHTCHENKO</strong><br/>
+          KÖLN · MÜNCHEN · BERLIN<br/>
+          EST · 2026 · DE · EN · FR · ES · RU
         </div>
       </header>
 
-      <div class="subheader">
-        <span class="sh-eyebrow">▸ ESSAY · 01 / 04</span>
-        <span class="sh-center">DAS NEUE BETRIEBSSYSTEM FÜR FÜHRUNG</span>
-        <span class="sh-right">SCAN ↘ START IN 5 MIN</span>
+      <!-- BAND -->
+      <div class="band">
+        <span class="b-ey">▸ COVER · 01 / 01</span>
+        <span class="b-c">DAS NEUE BS FÜR FÜHRUNG · KI NATIVE</span>
+        <span class="b-pill">SCAN · 5 MIN</span>
+        <span class="b-pill">DIAGNOSE FREE</span>
       </div>
 
-      <!-- HERO -->
+      <!-- HERO 3-COL -->
       <section class="hero">
-        <div>
-          <p class="hero-eyebrow">▸ AUSGABE 0001 · DAS COVER-ESSAY</p>
-          <h1>Werde<br/>KI-nativ<span class="accent">.</span></h1>
-          <p class="hero-deck">
-            <span class="lead">Werde mit KI 10× produktiver. Oder 10× zu einer Persönlichkeit.</span>
-            Während die Welt darüber streitet, ob KI Jobs ersetzt, baust du das System mit dem du beides kannst — schneller liefern <em>und</em> klarer führen. Leader<span style="color:var(--lime);font-weight:900">·</span>OS ist die operative Schicht zwischen Wlad Jachtchenkos Methodik und deinem Kalender.
-          </p>
+
+        <!-- Cover headline + deck + pull-quote -->
+        <div class="cover">
+          <div>
+            <p class="cover-eyebrow">▸ Coverstory · Ausgabe 0001</p>
+            <h1>
+              Werde<br/>
+              <span class="underlined">KI-nativ</span><span class="accent">.</span><br/>
+              <span class="muted" style="font-size:.74em">Werde 10×.</span>
+            </h1>
+
+            <div class="cover-deck">
+              <div>
+                <p class="dk-eb">▸ ABSCHNITT 01 · WAS</p>
+                <p>Während die Welt streitet ob KI Jobs ersetzt, baust du das System mit dem du beides kannst: <span class="hi">schneller liefern</span> und klarer führen. Leader-OS ist die operative Schicht zwischen Wlad Jachtchenkos Methodik und deinem Kalender.</p>
+              </div>
+              <div>
+                <p class="dk-eb">▸ ABSCHNITT 02 · WIE</p>
+                <p>Elf Frameworks. Ein KI-Coach der dich beim Namen kennt. Ein 30-Tage-Trainingsplan. Eine 12-Monate-Begleitung. Und für die echten Top-Picks: Wlad persönlich. Sprint zuerst. <span class="hi">Immer.</span></p>
+              </div>
+            </div>
+          </div>
+
+          <blockquote class="cover-pull">
+            Du lernst nicht elf Bücher. Du lernst ein System das du täglich anwendest<span class="dot" style="color:var(--lime)">.</span>
+            <cite>— LEADER · OS MANIFESTO · I</cite>
+          </blockquote>
         </div>
 
-        <aside class="hero-right">
-          <figure class="figure">
-            <span class="figure-tag">PORTRAIT · 01</span>
-            <img src="landing/hf-04.png" alt="Portrait" onerror="this.style.display='none'"/>
-            <figcaption class="figure-caption">
-              <strong>Wlad Jachtchenko<span style="color:var(--lime)">.</span></strong>
-              ARGUMENTORIK · KÖLN · EST 2008
-            </figcaption>
-          </figure>
-          <div class="spec-table">
-            <div class="row"><span class="lbl">PERS</span><span>500 000+ Kunden weltweit</span></div>
-            <div class="row"><span class="lbl">VIEWS</span><span>14 Millionen · YouTube · Podcast</span></div>
-            <div class="row"><span class="lbl">BÜCHER</span><span>3 SPIEGEL-Bestseller</span></div>
-            <div class="row"><span class="lbl">SPRACHEN</span><span>DE · EN · FR · ES · RU</span></div>
+        <!-- Center: Portrait with cutout-style framing -->
+        <div class="portrait">
+          <div class="ph">
+            <span class="tag-tl">PORTRAIT · 01</span>
+            <span class="tag-tr">CUT · 01</span>
+            <img src="landing/hf-04.png" alt="" onerror="this.style.display='none'"/>
+            <svg class="scribbles arrow" viewBox="0 0 80 32" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 22 C 20 8, 40 2, 70 14"/>
+              <path d="M62 8 L 70 14 L 64 22"/>
+            </svg>
+            <svg class="scribbles star" viewBox="0 0 46 46" fill="#BFFF00" stroke="#0A0A0A" stroke-width="2.4" stroke-linejoin="round">
+              <path d="M23 2 L 28 18 L 44 18 L 31 28 L 36 44 L 23 34 L 10 44 L 15 28 L 2 18 L 18 18 Z"/>
+            </svg>
+            <div class="cap">
+              <div class="cap-name">Wlad Jachtchenko<span class="dot">.</span></div>
+              <div class="cap-role">ARGUMENTORIK · KÖLN · EST 2008</div>
+            </div>
           </div>
-        </aside>
+
+          <div class="portrait-spec">
+            <div class="row"><span class="lbl">KUND</span><span class="v">500 000+ weltweit</span></div>
+            <div class="row"><span class="lbl">VIEWS</span><span class="v">14 Mio · YouTube · Podcast</span></div>
+            <div class="row"><span class="lbl">BUCH</span><span class="v">3 × SPIEGEL-Bestseller</span></div>
+            <div class="row"><span class="lbl">LANG</span><span class="v">DE EN FR ES RU</span></div>
+            <div class="row"><span class="lbl">FOCUS</span><span class="v">Rhetorik · Leadership · KI</span></div>
+          </div>
+        </div>
+
+        <!-- Side: catalog cards (Sprint highlighted) -->
+        <div class="side">
+          <p class="ttl">▸ DEINE STUFE · WÄHLE</p>
+
+          <div class="catalog-card">
+            <span class="num">01</span>
+            <p class="nm">Diagnose<span class="dot">.</span></p>
+            <p class="sub">5 MIN · KOSTENLOS</p>
+            <p class="price">0 €</p>
+            <p class="out">Score · Empfehlung · Sofort</p>
+          </div>
+
+          <div class="catalog-card active">
+            <span class="num">02 · EINSTIEG</span>
+            <p class="nm">Sprint<span class="dot">.</span></p>
+            <p class="sub">30 TAGE · TRAININGSPLAN</p>
+            <p class="price">997 €</p>
+            <p class="out">11 Frameworks · BIB · LinkedIn-Cert</p>
+          </div>
+
+          <div class="catalog-card dark">
+            <span class="num">03 · MARATHON</span>
+            <p class="nm">Plus-Plus<span class="dot">.</span></p>
+            <p class="sub">12 MONATE · ENABLEMENT</p>
+            <p class="price">4 797 €</p>
+            <p class="out">Live mit Wlad · Drill-Channel</p>
+          </div>
+
+          <div class="catalog-card">
+            <span class="num">04 · MENTORING</span>
+            <p class="nm">1 : 1<span class="dot">.</span></p>
+            <p class="sub">WARTELISTE · BEGRENZT</p>
+            <p class="price">14 800 € ↑</p>
+            <p class="out">6 × 90 Min mit Wlad direkt</p>
+          </div>
+        </div>
+
       </section>
 
-      <!-- THREE COL STORY -->
-      <section class="story">
-        <div class="col">
-          <span class="col-head">▸ KAPITEL 01 · METHODE</span>
-          <h3 class="col-title">Elf Frameworks. Ein OS<span class="dot">.</span></h3>
-          <p>Theorie-Bücher altern. Frameworks bleiben. SEXIER für Argumentation. Fünf Rollen einer Führungskraft. Die Feedback-Formel. Drei Säulen der Überzeugung. Zehn Stufen des Zuhörens. Dunkle Rhetorik — damit du Manipulation erkennst. ALPEN für Zeit. Harvard für Verhandlung.</p>
-          <div class="pulled">Du lernst nicht 11 Bücher. Du lernst ein System<span class="dot">.</span></div>
+      <!-- MID: FRAMEWORKS -->
+      <section class="mid">
+        <div class="mid-l">
+          Elf Frameworks<span class="dot">.</span><br/>
+          Ein OS<span class="dot">.</span>
+          <small>METHODIK · WLAD JACHTCHENKO</small>
         </div>
-        <div class="col">
-          <span class="col-head">▸ KAPITEL 02 · MASCHINE</span>
-          <h3 class="col-title">WladBot. 24/7<span class="dot">.</span></h3>
-          <p>Trainiert auf 2 200 echten Wlad-Lektionen plus einer Context-Schicht die deine letzten dreißig Tage kennt. Du fragst "Wie eröffne ich diese schwierige Konversation?" — Antwort in unter drei Sekunden. In Wlads Ton. Mit deinem Kontext.</p>
-          <p>Kein Generic-GPT. Ein Coach der dich beim Namen nennt und deinen Sprint kennt.</p>
+        <div class="fw-row">
+          <div class="fw-chip"><span class="n">01</span><span class="t">SEXIER</span></div>
+          <div class="fw-chip"><span class="n">02</span><span class="t">5 Rollen</span></div>
+          <div class="fw-chip"><span class="n">03</span><span class="t">Feedback</span></div>
+          <div class="fw-chip"><span class="n">04</span><span class="t">3 Säulen</span></div>
+          <div class="fw-chip"><span class="n">05</span><span class="t">10 Stufen</span></div>
+          <div class="fw-chip"><span class="n">06</span><span class="t">Komm-Q</span></div>
+          <div class="fw-chip"><span class="n">07</span><span class="t">Dunkel</span></div>
+          <div class="fw-chip"><span class="n">08</span><span class="t">4 Farben</span></div>
+          <div class="fw-chip"><span class="n">09</span><span class="t">Schlagf.</span></div>
+          <div class="fw-chip"><span class="n">10</span><span class="t">ALPEN</span></div>
+          <div class="fw-chip lime"><span class="n">11</span><span class="t">Harvard</span></div>
         </div>
-        <div class="col">
-          <span class="col-head">▸ KAPITEL 03 · STRUKTUR</span>
-          <h3 class="col-title">Sprint zuerst<span class="dot">.</span> Immer<span class="dot">.</span></h3>
-          <p>Dreißig Tage Trainingsplan. Jeden Tag eine Frage. Jeden Tag ein Drill. Jeden Tag etwas näher an der Führungskraft die du werden willst. Nach dem Sprint kommt der Marathon — Plus-Plus Enablement, 12 Monate. Und wenn du wirklich bereit bist: AI Ownership für deine Firma.</p>
-          <div class="pulled">Niemand startet bei Stufe 4<span class="dot">.</span></div>
-        </div>
-      </section>
-
-      <!-- FRAMEWORKS GRID -->
-      <section class="fw">
-        <h2 class="fw-title">Die elf<br/>Frameworks<span class="dot">.</span></h2>
-        <div class="fw-grid">
-          <div class="fw-cell"><span class="nr">01</span><span class="nm">SEXIER</span><span class="sub">Argumentations-Modell</span></div>
-          <div class="fw-cell"><span class="nr">02</span><span class="nm">5 ROLLEN</span><span class="sub">Identität</span></div>
-          <div class="fw-cell"><span class="nr">03</span><span class="nm">FEEDBACK</span><span class="sub">Beob · Wirk · Wunsch</span></div>
-          <div class="fw-cell"><span class="nr">04</span><span class="nm">3 SÄULEN</span><span class="sub">Logos · Ethos · Pathos</span></div>
-          <div class="fw-cell"><span class="nr">05</span><span class="nm">10 STUFEN</span><span class="sub">Zuhör-Hierarchie</span></div>
-          <div class="fw-cell"><span class="nr">06</span><span class="nm">KOMM-QUAD</span><span class="sub">Schulz von Thun</span></div>
-          <div class="fw-cell"><span class="nr">07</span><span class="nm">DUNKEL</span><span class="sub">Manipulation erkennen</span></div>
-          <div class="fw-cell"><span class="nr">08</span><span class="nm">4-FARBEN</span><span class="sub">Persönlichkeits-Typen</span></div>
-          <div class="fw-cell"><span class="nr">09</span><span class="nm">SCHLAG-FERTIG</span><span class="sub">30 Reflexe</span></div>
-          <div class="fw-cell"><span class="nr">10</span><span class="nm">ALPEN</span><span class="sub">Zeit-Methodik</span></div>
-          <div class="fw-cell"><span class="nr">11</span><span class="nm">VERHAND-LUNG</span><span class="sub">Harvard-Methode</span></div>
-          <div class="fw-cell" style="background:var(--lime);border-color:var(--ink)"><span class="nr">∞</span><span class="nm">+ WladBot</span><span class="sub">deine Context-Schicht</span></div>
-        </div>
-      </section>
-
-      <!-- PEOPLE STRIP -->
-      <section class="people">
-        <article class="person">
-          <div class="ph"><span class="num">01</span><img src="landing/hf-01.png" alt="" onerror="this.style.display='none'"/></div>
-          <div class="info">
-            <p class="role">CEO · MITTELSTAND · 240 MA</p>
-            <p class="quote">Ich verhandle nicht mehr aus dem Bauch<span class="dot">.</span></p>
-          </div>
-        </article>
-        <article class="person">
-          <div class="ph"><span class="num">02</span><img src="landing/hf-02.png" alt="" onerror="this.style.display='none'"/></div>
-          <div class="info">
-            <p class="role">SOLO-FOUNDER · SERIES A</p>
-            <p class="quote">Mein Investor-Update braucht 20 Min statt 4 h<span class="dot">.</span></p>
-          </div>
-        </article>
-        <article class="person">
-          <div class="ph"><span class="num">03</span><img src="landing/hf-03.png" alt="" onerror="this.style.display='none'"/></div>
-          <div class="info">
-            <p class="role">TEAMLEAD · DAX · 28 MA</p>
-            <p class="quote">Schwere Gespräche schiebe ich nicht mehr auf<span class="dot">.</span></p>
-          </div>
-        </article>
-        <article class="person">
-          <div class="ph"><span class="num">04</span><img src="landing/hf-05.png" alt="" onerror="this.style.display='none'"/></div>
-          <div class="info">
-            <p class="role">PERSONAL-LEITUNG · GLOBAL</p>
-            <p class="quote">Wir hosten WladBot inhouse. AI Ownership<span class="dot">.</span></p>
-          </div>
-        </article>
-      </section>
-
-      <!-- PRICING LADDER STRIP -->
-      <section class="ladder">
-        <h2 class="ladder-title">Sechs Stufen<span class="dot">.</span><br/>Eine Reise<span class="dot">.</span></h2>
-        <div class="ladder-grid">
-          <div class="tier">
-            <span class="stage">▸ STUFE 0</span>
-            <span class="name">Diagnose<span class="dot" style="color:var(--lime)">.</span></span>
-            <span class="price">0 €<span class="sub">5 MIN · KEIN ABO</span></span>
-          </div>
-          <div class="tier active">
-            <span class="stage">▸ STUFE 1 · ENTRY</span>
-            <span class="name">Sprint<span class="dot" style="color:var(--lime)">.</span></span>
-            <span class="price">997 €<span class="sub">30 TAGE TRAININGSPLAN</span></span>
-          </div>
-          <div class="tier">
-            <span class="stage">▸ STUFE 2 · MARATHON</span>
-            <span class="name">Plus-Plus<span class="dot" style="color:var(--lime)">.</span></span>
-            <span class="price">4 797 €<span class="sub">12 MONATE ENABLEMENT</span></span>
-          </div>
-          <div class="tier">
-            <span class="stage">▸ STUFE 3 · WARTELISTE</span>
-            <span class="name">Mentoring<span class="dot" style="color:var(--lime)">.</span></span>
-            <span class="price">14 800 €<span class="sub">6 × 90 MIN MIT WLAD</span></span>
-          </div>
-          <div class="tier">
-            <span class="stage">▸ STUFE 5 · ENTERPRISE</span>
-            <span class="name">AI Ownership<span class="dot" style="color:var(--lime)">.</span></span>
-            <span class="price">ab 44 000 €<span class="sub">DEINE INFRA · DEIN BOT</span></span>
-          </div>
+        <div class="mid-r">
+          <strong>+ WLADBOT</strong><br/>
+          KI-COACH · 24/7<br/>
+          <span style="color:rgba(10,10,10,.45)">CONTEXT-LAYER</span>
         </div>
       </section>
 
-      <!-- SCAN BLOCK -->
-      <section class="scan">
-        <div class="scan-left">
-          <p class="scan-eyebrow">▸ SCAN · KOSTENLOSE DIAGNOSE · 5 MIN</p>
-          <h2 class="scan-headline">Finde<br/>deinen Startpunkt<span class="dot">.</span></h2>
-          <p class="scan-deck">Fünf Minuten. Drei Dimensionen — KI · Rhetorik · EQ. Sofort dein BIB-Score plus eine ehrliche Empfehlung was dein nächster Schritt ist.</p>
-          <ul class="scan-bullets">
-            <li>Keine Email-Pflicht</li>
-            <li>14 Tage Geld-zurück</li>
-            <li>Sofort dein Score</li>
-            <li>Sprint optional</li>
-          </ul>
+      <!-- BOTTOM ROW -->
+      <section class="bottom">
+
+        <!-- Palette + Story -->
+        <div class="palette">
+          <p class="pl-title">Palette<span class="dot">.</span></p>
+          <p class="pl-sub">2026 · LEADER-OS COLOR SYSTEM</p>
+          <div class="pl-grid">
+            <div class="sw" style="background:#0A0A0A"><span class="hex">#0A0A0A</span><span class="nm">INK</span></div>
+            <div class="sw lt" style="background:#BFFF00"><span class="hex">#BFFF00</span><span class="nm">LIME</span></div>
+            <div class="sw lt" style="background:#E8E2D0"><span class="hex">#E8E2D0</span><span class="nm">PAPER</span></div>
+            <div class="sw" style="background:#A53D1F"><span class="hex">#A53D1F</span><span class="nm">RUST</span></div>
+            <div class="sw" style="background:#1B3A52"><span class="hex">#1B3A52</span><span class="nm">DENIM</span></div>
+          </div>
+          <p class="pl-foot">▸ INK · STRUKTUR · LIME · AKZENT · PAPER · BODY · RUST · UNDERLINE · DENIM · TRUST</p>
         </div>
-        <div class="scan-right">
+
+        <!-- People testimonials column -->
+        <div class="people-col">
+          <p class="pc-head">▸ STIMMEN AUS DEM CLASS-CHANNEL</p>
+          <h3 class="pc-h2">Was Leader sagen<span class="dot">.</span></h3>
+
+          <div class="testi">
+            <div class="ph"><img src="landing/hf-01.png" alt="" onerror="this.style.display='none'"/></div>
+            <div class="info">
+              <p class="q">Ich verhandle nicht mehr aus dem Bauch<span class="dot">.</span></p>
+              <p class="who">CEO · MITTELSTAND · 240 MITARBEITER</p>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="ph"><img src="landing/hf-02.png" alt="" onerror="this.style.display='none'"/></div>
+            <div class="info">
+              <p class="q">Investor-Update braucht 20 Min statt 4 h<span class="dot">.</span></p>
+              <p class="who">SOLO-FOUNDER · SERIES A</p>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="ph"><img src="landing/hf-03.png" alt="" onerror="this.style.display='none'"/></div>
+            <div class="info">
+              <p class="q">Schwere Gespräche schiebe ich nicht mehr auf<span class="dot">.</span></p>
+              <p class="who">TEAMLEAD · DAX · 28 MITARBEITER</p>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="ph"><img src="landing/hf-05.png" alt="" onerror="this.style.display='none'"/></div>
+            <div class="info">
+              <p class="q">Wir hosten WladBot inhouse<span class="dot">.</span></p>
+              <p class="who">PERSONAL-LEITUNG · GLOBAL · 12K MA</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCAN -->
+        <div class="scan">
+          <div class="scan-head">
+            <p class="scan-ey">▸ SCAN · STARTE JETZT</p>
+            <h2>Finde<br/>deinen Start<span class="dot">.</span></h2>
+          </div>
           <div class="qr-frame">
-            <svg viewBox="0 0 29 29" width="180" height="180" aria-label="QR-Code zu leader-os.de" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 29 29" width="150" height="150" aria-label="QR-Code zu leader-os.de" xmlns="http://www.w3.org/2000/svg">
               <g fill="#0A0A0A"><rect x="0" y="0" width="1.04" height="1.04"/><rect x="1" y="0" width="1.04" height="1.04"/><rect x="2" y="0" width="1.04" height="1.04"/><rect x="3" y="0" width="1.04" height="1.04"/><rect x="4" y="0" width="1.04" height="1.04"/><rect x="5" y="0" width="1.04" height="1.04"/><rect x="6" y="0" width="1.04" height="1.04"/><rect x="8" y="0" width="1.04" height="1.04"/><rect x="11" y="0" width="1.04" height="1.04"/><rect x="15" y="0" width="1.04" height="1.04"/><rect x="18" y="0" width="1.04" height="1.04"/><rect x="20" y="0" width="1.04" height="1.04"/><rect x="22" y="0" width="1.04" height="1.04"/><rect x="23" y="0" width="1.04" height="1.04"/><rect x="24" y="0" width="1.04" height="1.04"/><rect x="25" y="0" width="1.04" height="1.04"/><rect x="26" y="0" width="1.04" height="1.04"/><rect x="27" y="0" width="1.04" height="1.04"/><rect x="28" y="0" width="1.04" height="1.04"/><rect x="0" y="1" width="1.04" height="1.04"/><rect x="6" y="1" width="1.04" height="1.04"/><rect x="8" y="1" width="1.04" height="1.04"/><rect x="10" y="1" width="1.04" height="1.04"/><rect x="11" y="1" width="1.04" height="1.04"/><rect x="13" y="1" width="1.04" height="1.04"/><rect x="15" y="1" width="1.04" height="1.04"/><rect x="18" y="1" width="1.04" height="1.04"/><rect x="19" y="1" width="1.04" height="1.04"/><rect x="22" y="1" width="1.04" height="1.04"/><rect x="28" y="1" width="1.04" height="1.04"/><rect x="0" y="2" width="1.04" height="1.04"/><rect x="2" y="2" width="1.04" height="1.04"/><rect x="3" y="2" width="1.04" height="1.04"/><rect x="4" y="2" width="1.04" height="1.04"/><rect x="6" y="2" width="1.04" height="1.04"/><rect x="8" y="2" width="1.04" height="1.04"/><rect x="9" y="2" width="1.04" height="1.04"/><rect x="11" y="2" width="1.04" height="1.04"/><rect x="12" y="2" width="1.04" height="1.04"/><rect x="14" y="2" width="1.04" height="1.04"/><rect x="16" y="2" width="1.04" height="1.04"/><rect x="19" y="2" width="1.04" height="1.04"/><rect x="20" y="2" width="1.04" height="1.04"/><rect x="22" y="2" width="1.04" height="1.04"/><rect x="24" y="2" width="1.04" height="1.04"/><rect x="25" y="2" width="1.04" height="1.04"/><rect x="26" y="2" width="1.04" height="1.04"/><rect x="28" y="2" width="1.04" height="1.04"/><rect x="0" y="3" width="1.04" height="1.04"/><rect x="2" y="3" width="1.04" height="1.04"/><rect x="3" y="3" width="1.04" height="1.04"/><rect x="4" y="3" width="1.04" height="1.04"/><rect x="6" y="3" width="1.04" height="1.04"/><rect x="10" y="3" width="1.04" height="1.04"/><rect x="13" y="3" width="1.04" height="1.04"/><rect x="14" y="3" width="1.04" height="1.04"/><rect x="17" y="3" width="1.04" height="1.04"/><rect x="19" y="3" width="1.04" height="1.04"/><rect x="22" y="3" width="1.04" height="1.04"/><rect x="24" y="3" width="1.04" height="1.04"/><rect x="25" y="3" width="1.04" height="1.04"/><rect x="26" y="3" width="1.04" height="1.04"/><rect x="28" y="3" width="1.04" height="1.04"/><rect x="0" y="4" width="1.04" height="1.04"/><rect x="2" y="4" width="1.04" height="1.04"/><rect x="3" y="4" width="1.04" height="1.04"/><rect x="4" y="4" width="1.04" height="1.04"/><rect x="6" y="4" width="1.04" height="1.04"/><rect x="9" y="4" width="1.04" height="1.04"/><rect x="11" y="4" width="1.04" height="1.04"/><rect x="12" y="4" width="1.04" height="1.04"/><rect x="13" y="4" width="1.04" height="1.04"/><rect x="14" y="4" width="1.04" height="1.04"/><rect x="15" y="4" width="1.04" height="1.04"/><rect x="16" y="4" width="1.04" height="1.04"/><rect x="18" y="4" width="1.04" height="1.04"/><rect x="19" y="4" width="1.04" height="1.04"/><rect x="20" y="4" width="1.04" height="1.04"/><rect x="22" y="4" width="1.04" height="1.04"/><rect x="24" y="4" width="1.04" height="1.04"/><rect x="25" y="4" width="1.04" height="1.04"/><rect x="26" y="4" width="1.04" height="1.04"/><rect x="28" y="4" width="1.04" height="1.04"/><rect x="0" y="5" width="1.04" height="1.04"/><rect x="6" y="5" width="1.04" height="1.04"/><rect x="8" y="5" width="1.04" height="1.04"/><rect x="11" y="5" width="1.04" height="1.04"/><rect x="13" y="5" width="1.04" height="1.04"/><rect x="15" y="5" width="1.04" height="1.04"/><rect x="18" y="5" width="1.04" height="1.04"/><rect x="20" y="5" width="1.04" height="1.04"/><rect x="22" y="5" width="1.04" height="1.04"/><rect x="28" y="5" width="1.04" height="1.04"/><rect x="0" y="6" width="1.04" height="1.04"/><rect x="1" y="6" width="1.04" height="1.04"/><rect x="2" y="6" width="1.04" height="1.04"/><rect x="3" y="6" width="1.04" height="1.04"/><rect x="4" y="6" width="1.04" height="1.04"/><rect x="5" y="6" width="1.04" height="1.04"/><rect x="6" y="6" width="1.04" height="1.04"/><rect x="8" y="6" width="1.04" height="1.04"/><rect x="10" y="6" width="1.04" height="1.04"/><rect x="12" y="6" width="1.04" height="1.04"/><rect x="14" y="6" width="1.04" height="1.04"/><rect x="16" y="6" width="1.04" height="1.04"/><rect x="18" y="6" width="1.04" height="1.04"/><rect x="20" y="6" width="1.04" height="1.04"/><rect x="22" y="6" width="1.04" height="1.04"/><rect x="23" y="6" width="1.04" height="1.04"/><rect x="24" y="6" width="1.04" height="1.04"/><rect x="25" y="6" width="1.04" height="1.04"/><rect x="26" y="6" width="1.04" height="1.04"/><rect x="27" y="6" width="1.04" height="1.04"/><rect x="28" y="6" width="1.04" height="1.04"/><rect x="8" y="7" width="1.04" height="1.04"/><rect x="9" y="7" width="1.04" height="1.04"/><rect x="12" y="7" width="1.04" height="1.04"/><rect x="14" y="7" width="1.04" height="1.04"/><rect x="20" y="7" width="1.04" height="1.04"/><rect x="2" y="8" width="1.04" height="1.04"/><rect x="3" y="8" width="1.04" height="1.04"/><rect x="4" y="8" width="1.04" height="1.04"/><rect x="6" y="8" width="1.04" height="1.04"/><rect x="8" y="8" width="1.04" height="1.04"/><rect x="11" y="8" width="1.04" height="1.04"/><rect x="13" y="8" width="1.04" height="1.04"/><rect x="15" y="8" width="1.04" height="1.04"/><rect x="18" y="8" width="1.04" height="1.04"/><rect x="20" y="8" width="1.04" height="1.04"/><rect x="21" y="8" width="1.04" height="1.04"/><rect x="22" y="8" width="1.04" height="1.04"/><rect x="23" y="8" width="1.04" height="1.04"/><rect x="26" y="8" width="1.04" height="1.04"/><rect x="27" y="8" width="1.04" height="1.04"/><rect x="28" y="8" width="1.04" height="1.04"/><rect x="0" y="9" width="1.04" height="1.04"/><rect x="1" y="9" width="1.04" height="1.04"/><rect x="2" y="9" width="1.04" height="1.04"/><rect x="3" y="9" width="1.04" height="1.04"/><rect x="12" y="9" width="1.04" height="1.04"/><rect x="14" y="9" width="1.04" height="1.04"/><rect x="16" y="9" width="1.04" height="1.04"/><rect x="21" y="9" width="1.04" height="1.04"/><rect x="22" y="9" width="1.04" height="1.04"/><rect x="23" y="9" width="1.04" height="1.04"/><rect x="24" y="9" width="1.04" height="1.04"/><rect x="28" y="9" width="1.04" height="1.04"/><rect x="0" y="10" width="1.04" height="1.04"/><rect x="2" y="10" width="1.04" height="1.04"/><rect x="3" y="10" width="1.04" height="1.04"/><rect x="4" y="10" width="1.04" height="1.04"/><rect x="6" y="10" width="1.04" height="1.04"/><rect x="9" y="10" width="1.04" height="1.04"/><rect x="13" y="10" width="1.04" height="1.04"/><rect x="18" y="10" width="1.04" height="1.04"/><rect x="20" y="10" width="1.04" height="1.04"/><rect x="21" y="10" width="1.04" height="1.04"/><rect x="22" y="10" width="1.04" height="1.04"/><rect x="26" y="10" width="1.04" height="1.04"/><rect x="0" y="11" width="1.04" height="1.04"/><rect x="2" y="11" width="1.04" height="1.04"/><rect x="4" y="11" width="1.04" height="1.04"/><rect x="5" y="11" width="1.04" height="1.04"/><rect x="9" y="11" width="1.04" height="1.04"/><rect x="11" y="11" width="1.04" height="1.04"/><rect x="12" y="11" width="1.04" height="1.04"/><rect x="17" y="11" width="1.04" height="1.04"/><rect x="21" y="11" width="1.04" height="1.04"/><rect x="22" y="11" width="1.04" height="1.04"/><rect x="23" y="11" width="1.04" height="1.04"/><rect x="27" y="11" width="1.04" height="1.04"/><rect x="3" y="12" width="1.04" height="1.04"/><rect x="4" y="12" width="1.04" height="1.04"/><rect x="5" y="12" width="1.04" height="1.04"/><rect x="6" y="12" width="1.04" height="1.04"/><rect x="7" y="12" width="1.04" height="1.04"/><rect x="8" y="12" width="1.04" height="1.04"/><rect x="9" y="12" width="1.04" height="1.04"/><rect x="10" y="12" width="1.04" height="1.04"/><rect x="16" y="12" width="1.04" height="1.04"/><rect x="17" y="12" width="1.04" height="1.04"/><rect x="18" y="12" width="1.04" height="1.04"/><rect x="21" y="12" width="1.04" height="1.04"/><rect x="23" y="12" width="1.04" height="1.04"/><rect x="26" y="12" width="1.04" height="1.04"/><rect x="27" y="12" width="1.04" height="1.04"/><rect x="28" y="12" width="1.04" height="1.04"/><rect x="0" y="13" width="1.04" height="1.04"/><rect x="2" y="13" width="1.04" height="1.04"/><rect x="3" y="13" width="1.04" height="1.04"/><rect x="4" y="13" width="1.04" height="1.04"/><rect x="7" y="13" width="1.04" height="1.04"/><rect x="8" y="13" width="1.04" height="1.04"/><rect x="9" y="13" width="1.04" height="1.04"/><rect x="11" y="13" width="1.04" height="1.04"/><rect x="15" y="13" width="1.04" height="1.04"/><rect x="16" y="13" width="1.04" height="1.04"/><rect x="18" y="13" width="1.04" height="1.04"/><rect x="19" y="13" width="1.04" height="1.04"/><rect x="20" y="13" width="1.04" height="1.04"/><rect x="21" y="13" width="1.04" height="1.04"/><rect x="22" y="13" width="1.04" height="1.04"/><rect x="24" y="13" width="1.04" height="1.04"/><rect x="25" y="13" width="1.04" height="1.04"/><rect x="28" y="13" width="1.04" height="1.04"/><rect x="0" y="14" width="1.04" height="1.04"/><rect x="2" y="14" width="1.04" height="1.04"/><rect x="3" y="14" width="1.04" height="1.04"/><rect x="4" y="14" width="1.04" height="1.04"/><rect x="5" y="14" width="1.04" height="1.04"/><rect x="6" y="14" width="1.04" height="1.04"/><rect x="8" y="14" width="1.04" height="1.04"/><rect x="12" y="14" width="1.04" height="1.04"/><rect x="17" y="14" width="1.04" height="1.04"/><rect x="23" y="14" width="1.04" height="1.04"/><rect x="5" y="15" width="1.04" height="1.04"/><rect x="7" y="15" width="1.04" height="1.04"/><rect x="9" y="15" width="1.04" height="1.04"/><rect x="11" y="15" width="1.04" height="1.04"/><rect x="14" y="15" width="1.04" height="1.04"/><rect x="15" y="15" width="1.04" height="1.04"/><rect x="16" y="15" width="1.04" height="1.04"/><rect x="20" y="15" width="1.04" height="1.04"/><rect x="21" y="15" width="1.04" height="1.04"/><rect x="24" y="15" width="1.04" height="1.04"/><rect x="25" y="15" width="1.04" height="1.04"/><rect x="2" y="16" width="1.04" height="1.04"/><rect x="4" y="16" width="1.04" height="1.04"/><rect x="5" y="16" width="1.04" height="1.04"/><rect x="6" y="16" width="1.04" height="1.04"/><rect x="8" y="16" width="1.04" height="1.04"/><rect x="11" y="16" width="1.04" height="1.04"/><rect x="12" y="16" width="1.04" height="1.04"/><rect x="17" y="16" width="1.04" height="1.04"/><rect x="18" y="16" width="1.04" height="1.04"/><rect x="19" y="16" width="1.04" height="1.04"/><rect x="25" y="16" width="1.04" height="1.04"/><rect x="26" y="16" width="1.04" height="1.04"/><rect x="0" y="17" width="1.04" height="1.04"/><rect x="2" y="17" width="1.04" height="1.04"/><rect x="4" y="17" width="1.04" height="1.04"/><rect x="7" y="17" width="1.04" height="1.04"/><rect x="8" y="17" width="1.04" height="1.04"/><rect x="11" y="17" width="1.04" height="1.04"/><rect x="12" y="17" width="1.04" height="1.04"/><rect x="14" y="17" width="1.04" height="1.04"/><rect x="16" y="17" width="1.04" height="1.04"/><rect x="18" y="17" width="1.04" height="1.04"/><rect x="20" y="17" width="1.04" height="1.04"/><rect x="21" y="17" width="1.04" height="1.04"/><rect x="22" y="17" width="1.04" height="1.04"/><rect x="24" y="17" width="1.04" height="1.04"/><rect x="25" y="17" width="1.04" height="1.04"/><rect x="26" y="17" width="1.04" height="1.04"/><rect x="27" y="17" width="1.04" height="1.04"/><rect x="28" y="17" width="1.04" height="1.04"/><rect x="0" y="18" width="1.04" height="1.04"/><rect x="2" y="18" width="1.04" height="1.04"/><rect x="3" y="18" width="1.04" height="1.04"/><rect x="4" y="18" width="1.04" height="1.04"/><rect x="5" y="18" width="1.04" height="1.04"/><rect x="6" y="18" width="1.04" height="1.04"/><rect x="9" y="18" width="1.04" height="1.04"/><rect x="12" y="18" width="1.04" height="1.04"/><rect x="13" y="18" width="1.04" height="1.04"/><rect x="15" y="18" width="1.04" height="1.04"/><rect x="17" y="18" width="1.04" height="1.04"/><rect x="18" y="18" width="1.04" height="1.04"/><rect x="19" y="18" width="1.04" height="1.04"/><rect x="22" y="18" width="1.04" height="1.04"/><rect x="23" y="18" width="1.04" height="1.04"/><rect x="25" y="18" width="1.04" height="1.04"/><rect x="0" y="19" width="1.04" height="1.04"/><rect x="4" y="19" width="1.04" height="1.04"/><rect x="7" y="19" width="1.04" height="1.04"/><rect x="8" y="19" width="1.04" height="1.04"/><rect x="9" y="19" width="1.04" height="1.04"/><rect x="17" y="19" width="1.04" height="1.04"/><rect x="19" y="19" width="1.04" height="1.04"/><rect x="20" y="19" width="1.04" height="1.04"/><rect x="22" y="19" width="1.04" height="1.04"/><rect x="24" y="19" width="1.04" height="1.04"/><rect x="25" y="19" width="1.04" height="1.04"/><rect x="27" y="19" width="1.04" height="1.04"/><rect x="0" y="20" width="1.04" height="1.04"/><rect x="3" y="20" width="1.04" height="1.04"/><rect x="6" y="20" width="1.04" height="1.04"/><rect x="7" y="20" width="1.04" height="1.04"/><rect x="8" y="20" width="1.04" height="1.04"/><rect x="9" y="20" width="1.04" height="1.04"/><rect x="11" y="20" width="1.04" height="1.04"/><rect x="15" y="20" width="1.04" height="1.04"/><rect x="16" y="20" width="1.04" height="1.04"/><rect x="18" y="20" width="1.04" height="1.04"/><rect x="19" y="20" width="1.04" height="1.04"/><rect x="20" y="20" width="1.04" height="1.04"/><rect x="21" y="20" width="1.04" height="1.04"/><rect x="22" y="20" width="1.04" height="1.04"/><rect x="23" y="20" width="1.04" height="1.04"/><rect x="24" y="20" width="1.04" height="1.04"/><rect x="26" y="20" width="1.04" height="1.04"/><rect x="8" y="21" width="1.04" height="1.04"/><rect x="9" y="21" width="1.04" height="1.04"/><rect x="10" y="21" width="1.04" height="1.04"/><rect x="12" y="21" width="1.04" height="1.04"/><rect x="13" y="21" width="1.04" height="1.04"/><rect x="17" y="21" width="1.04" height="1.04"/><rect x="18" y="21" width="1.04" height="1.04"/><rect x="20" y="21" width="1.04" height="1.04"/><rect x="24" y="21" width="1.04" height="1.04"/><rect x="25" y="21" width="1.04" height="1.04"/><rect x="27" y="21" width="1.04" height="1.04"/><rect x="28" y="21" width="1.04" height="1.04"/><rect x="0" y="22" width="1.04" height="1.04"/><rect x="1" y="22" width="1.04" height="1.04"/><rect x="2" y="22" width="1.04" height="1.04"/><rect x="3" y="22" width="1.04" height="1.04"/><rect x="4" y="22" width="1.04" height="1.04"/><rect x="5" y="22" width="1.04" height="1.04"/><rect x="6" y="22" width="1.04" height="1.04"/><rect x="9" y="22" width="1.04" height="1.04"/><rect x="11" y="22" width="1.04" height="1.04"/><rect x="12" y="22" width="1.04" height="1.04"/><rect x="13" y="22" width="1.04" height="1.04"/><rect x="18" y="22" width="1.04" height="1.04"/><rect x="19" y="22" width="1.04" height="1.04"/><rect x="20" y="22" width="1.04" height="1.04"/><rect x="22" y="22" width="1.04" height="1.04"/><rect x="24" y="22" width="1.04" height="1.04"/><rect x="0" y="23" width="1.04" height="1.04"/><rect x="6" y="23" width="1.04" height="1.04"/><rect x="9" y="23" width="1.04" height="1.04"/><rect x="10" y="23" width="1.04" height="1.04"/><rect x="11" y="23" width="1.04" height="1.04"/><rect x="12" y="23" width="1.04" height="1.04"/><rect x="13" y="23" width="1.04" height="1.04"/><rect x="15" y="23" width="1.04" height="1.04"/><rect x="16" y="23" width="1.04" height="1.04"/><rect x="17" y="23" width="1.04" height="1.04"/><rect x="18" y="23" width="1.04" height="1.04"/><rect x="19" y="23" width="1.04" height="1.04"/><rect x="20" y="23" width="1.04" height="1.04"/><rect x="24" y="23" width="1.04" height="1.04"/><rect x="25" y="23" width="1.04" height="1.04"/><rect x="27" y="23" width="1.04" height="1.04"/><rect x="0" y="24" width="1.04" height="1.04"/><rect x="2" y="24" width="1.04" height="1.04"/><rect x="3" y="24" width="1.04" height="1.04"/><rect x="4" y="24" width="1.04" height="1.04"/><rect x="6" y="24" width="1.04" height="1.04"/><rect x="8" y="24" width="1.04" height="1.04"/><rect x="9" y="24" width="1.04" height="1.04"/><rect x="12" y="24" width="1.04" height="1.04"/><rect x="17" y="24" width="1.04" height="1.04"/><rect x="20" y="24" width="1.04" height="1.04"/><rect x="21" y="24" width="1.04" height="1.04"/><rect x="22" y="24" width="1.04" height="1.04"/><rect x="23" y="24" width="1.04" height="1.04"/><rect x="24" y="24" width="1.04" height="1.04"/><rect x="25" y="24" width="1.04" height="1.04"/><rect x="26" y="24" width="1.04" height="1.04"/><rect x="0" y="25" width="1.04" height="1.04"/><rect x="2" y="25" width="1.04" height="1.04"/><rect x="3" y="25" width="1.04" height="1.04"/><rect x="4" y="25" width="1.04" height="1.04"/><rect x="6" y="25" width="1.04" height="1.04"/><rect x="8" y="25" width="1.04" height="1.04"/><rect x="11" y="25" width="1.04" height="1.04"/><rect x="12" y="25" width="1.04" height="1.04"/><rect x="13" y="25" width="1.04" height="1.04"/><rect x="16" y="25" width="1.04" height="1.04"/><rect x="18" y="25" width="1.04" height="1.04"/><rect x="19" y="25" width="1.04" height="1.04"/><rect x="20" y="25" width="1.04" height="1.04"/><rect x="21" y="25" width="1.04" height="1.04"/><rect x="23" y="25" width="1.04" height="1.04"/><rect x="25" y="25" width="1.04" height="1.04"/><rect x="26" y="25" width="1.04" height="1.04"/><rect x="0" y="26" width="1.04" height="1.04"/><rect x="2" y="26" width="1.04" height="1.04"/><rect x="3" y="26" width="1.04" height="1.04"/><rect x="4" y="26" width="1.04" height="1.04"/><rect x="6" y="26" width="1.04" height="1.04"/><rect x="8" y="26" width="1.04" height="1.04"/><rect x="9" y="26" width="1.04" height="1.04"/><rect x="10" y="26" width="1.04" height="1.04"/><rect x="11" y="26" width="1.04" height="1.04"/><rect x="13" y="26" width="1.04" height="1.04"/><rect x="14" y="26" width="1.04" height="1.04"/><rect x="15" y="26" width="1.04" height="1.04"/><rect x="16" y="26" width="1.04" height="1.04"/><rect x="18" y="26" width="1.04" height="1.04"/><rect x="19" y="26" width="1.04" height="1.04"/><rect x="20" y="26" width="1.04" height="1.04"/><rect x="21" y="26" width="1.04" height="1.04"/><rect x="22" y="26" width="1.04" height="1.04"/><rect x="23" y="26" width="1.04" height="1.04"/><rect x="24" y="26" width="1.04" height="1.04"/><rect x="25" y="26" width="1.04" height="1.04"/><rect x="26" y="26" width="1.04" height="1.04"/><rect x="27" y="26" width="1.04" height="1.04"/><rect x="0" y="27" width="1.04" height="1.04"/><rect x="6" y="27" width="1.04" height="1.04"/><rect x="10" y="27" width="1.04" height="1.04"/><rect x="14" y="27" width="1.04" height="1.04"/><rect x="16" y="27" width="1.04" height="1.04"/><rect x="24" y="27" width="1.04" height="1.04"/><rect x="25" y="27" width="1.04" height="1.04"/><rect x="27" y="27" width="1.04" height="1.04"/><rect x="0" y="28" width="1.04" height="1.04"/><rect x="1" y="28" width="1.04" height="1.04"/><rect x="2" y="28" width="1.04" height="1.04"/><rect x="3" y="28" width="1.04" height="1.04"/><rect x="4" y="28" width="1.04" height="1.04"/><rect x="5" y="28" width="1.04" height="1.04"/><rect x="6" y="28" width="1.04" height="1.04"/><rect x="10" y="28" width="1.04" height="1.04"/><rect x="15" y="28" width="1.04" height="1.04"/><rect x="17" y="28" width="1.04" height="1.04"/><rect x="18" y="28" width="1.04" height="1.04"/><rect x="24" y="28" width="1.04" height="1.04"/><rect x="25" y="28" width="1.04" height="1.04"/><rect x="26" y="28" width="1.04" height="1.04"/></g>
-              <rect x="11.5" y="11.5" width="6" height="6" fill="#BFFF00"/>
-              <text x="14.5" y="15.8" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="900" font-style="italic" font-size="5" fill="#0A0A0A">W</text>
+              <rect x="11.4" y="11.4" width="6.2" height="6.2" fill="#BFFF00" stroke="#0A0A0A" stroke-width="0.4"/>
+              <text x="14.5" y="15.9" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="900" font-style="italic" font-size="5" fill="#0A0A0A">W</text>
             </svg>
           </div>
-          <div class="qr-tag">
-            ▸ SCAN<span class="big">leader-os.de<span style="color:var(--lime)">.</span></span>
-            DAUER · 5 MIN
+          <div class="scan-foot">
+            ▸ SCAN
+            <span class="big">leader-os.de<span style="color:var(--lime)">.</span></span>
+            5 MIN · KEIN ABO
           </div>
         </div>
+
       </section>
 
       <!-- FOOTER -->
-      <footer class="footer">
-        <span class="barcode"><span class="bars"></span>BIB · 0001</span>
-        <span class="center">© LEADER · OS · 2026 · OPERATING-SYSTEM FÜR FÜHRUNGSKRÄFTE · WLAD JACHTCHENKO · KÖLN</span>
-        <span class="right">PAGE 01 / 01</span>
+      <footer class="foot">
+        <span><span class="bars"></span><strong>BIB · 0001</strong></span>
+        <span class="c">© LEADER · OS · 2026 · WLAD JACHTCHENKO · BY ARGUMENTORIK · KÖLN <span class="jp" style="margin-left:8px">日本語版近日公開</span></span>
+        <span>ISSUE 01 / 0001</span>
+        <span class="r">PAGE 01 / 01</span>
       </footer>
 
     </div>
