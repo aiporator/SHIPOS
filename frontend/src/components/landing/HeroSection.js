@@ -101,7 +101,7 @@ export const HeroSection = () => (
         Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* Dichotomie-Kicker — der eigentliche Claim unter dem ATF-Wort. */}
+      {/* Wlad's Doppel-Claim — zwei konkrete Outcomes statt eines abstrakten Slogans. */}
       <motion.p
         initial="hidden"
         animate="show"
@@ -113,8 +113,8 @@ export const HeroSection = () => (
           fontWeight: 800,
         }}
       >
-        KI bestimmt die Geschwindigkeit.{' '}
-        <span className="text-foreground/55">Leadership die Richtung<span className="text-brand">.</span></span>
+        Werde mit KI <span className="text-brand">10×</span> produktiver.{' '}
+        <span className="text-foreground/55">Oder <span className="text-brand">10×</span> zu einer Persönlichkeit<span className="text-brand">.</span></span>
       </motion.p>
 
       <motion.p

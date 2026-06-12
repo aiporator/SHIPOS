@@ -216,8 +216,20 @@ ROLE_MAP = {
 }
 
 
-def _build_system_message(agent: str, user_memory: str, folder_context: str = "") -> str:
-    """Build AI system message with agent role, user memory, and folder context."""
+def _build_system_message(
+    agent: str,
+    user_memory: str,
+    folder_context: str = "",
+    base_prompt: str | None = None,
+) -> str:
+    """Build AI system message with agent role, user memory, and folder context.
+
+    `base_prompt` lets the prompt-router (services_prompt_router) inject a
+    speech-feedback vs theory prompt based on the user's message. When
+    None, the legacy WLADBOT_SYSTEM_PROMPT is used so any caller that
+    hasn't yet been ported keeps working.
+    """
+    root = base_prompt if base_prompt else WLADBOT_SYSTEM_PROMPT
     agent_context = ""
     if agent and agent != "auto":
         agent_context = f"\n{ROLE_MAP.get(agent, f'Der User hat die Rolle {agent} gewählt. Fokussiere deine Antwort auf die Spezialität dieser Rolle.')}"
@@ -229,7 +241,7 @@ def _build_system_message(agent: str, user_memory: str, folder_context: str = ""
             "alle Antworten sollen diesen Kontext beruecksichtigen) ---\n"
             f"{folder_context}\n---"
         )
-    return WLADBOT_SYSTEM_PROMPT + agent_context + memory_context + folder_block
+    return root + agent_context + memory_context + folder_block
 
 
 async def _resolve_folder_context(folder_id: Optional[str], user_id: str) -> str:
@@ -311,7 +323,24 @@ async def send_chat_message(data: ChatMessageIn, request: Request):
 
     history = await db.chat_messages.find({"session_id": session_id}, {"_id": 0}).sort("created_at", 1).to_list(20)
     user_memory = await get_user_memory(user["user_id"])
-    system_msg = _build_system_message(data.agent, user_memory, folder_context)
+
+    # Prompt router: pick speech-feedback vs theory base prompt by classifying
+    # the user's current message. Brand+language come from the request payload
+    # so future personal-brand bots can use the same engine.
+    routed_prompt: str | None = None
+    try:
+        from services_prompt_router import get_system_prompt as _route_prompt
+        routed_prompt, route_decision, route_lang = await _route_prompt(
+            data.message, brand=(data.brand or "wlad"), lang_in=data.lang,
+        )
+        logger.info("prompt-router decision=%s lang=%s brand=%s",
+                    route_decision, route_lang, data.brand)
+    except Exception as _exc:
+        logger.warning("prompt-router unavailable (%s) — using legacy system prompt", _exc)
+
+    system_msg = _build_system_message(
+        data.agent, user_memory, folder_context, base_prompt=routed_prompt,
+    )
 
     # RAG: retrieve Wlad-specific knowledge chunks based on the user's question.
     # Graceful — if Voyage/Supabase keys are missing or fail, chat continues
