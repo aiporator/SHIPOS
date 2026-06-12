@@ -98,12 +98,18 @@ html,body{margin:0;background:#15110A;color:var(--ink);font-family:var(--display
 .cover-pull{padding-left:34px}
 .cover-pull cite{display:block;font-family:var(--mono);font-style:normal;font-size:8px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:rgba(10,10,10,.55);margin-top:8px}
 
-/* Hero portrait centerpiece */
+/* Hero portrait centerpiece — tuned for Wlad's green-velvet studio
+   portrait (white background, chest-up). The img sits on a cream
+   plate (matches paper), gets desaturated and contrast-boosted, then
+   a multiply blend renders the white studio bg invisible — leaving
+   only the subject visible like a true cutout. */
 .portrait{position:relative;display:flex;flex-direction:column;gap:10px}
-.portrait .ph{position:relative;border:2.5px solid var(--ink);background:var(--cream);aspect-ratio:1/1.32;overflow:hidden;transform:rotate(-1.2deg)}
-.portrait .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(.95);display:block;mix-blend-mode:multiply}
-.portrait .ph::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(191,255,0,.15) 0%,transparent 35%);mix-blend-mode:screen;pointer-events:none}
-.portrait .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,10,10,.6));pointer-events:none}
+.portrait .ph{position:relative;border:2.5px solid var(--ink);background:var(--cream);aspect-ratio:1/1.18;overflow:hidden;transform:rotate(-1.2deg)}
+.portrait .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.32) brightness(1.04);display:block;mix-blend-mode:multiply}
+/* Lime accent wash picks up the velvet jacket tones */
+.portrait .ph::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(191,255,0,.20) 0%,transparent 40%);mix-blend-mode:soft-light;pointer-events:none}
+/* Bottom vignette for caption legibility */
+.portrait .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,10,.78));pointer-events:none}
 .portrait .tag-tl{position:absolute;top:10px;left:10px;background:var(--lime);color:var(--ink);font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:3px 8px;transform:rotate(-1deg)}
 .portrait .tag-tr{position:absolute;top:10px;right:10px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;padding:3px 8px}
 .portrait .cap{position:absolute;left:12px;right:12px;bottom:12px;color:#fff}
@@ -290,7 +296,12 @@ html,body{margin:0;background:#15110A;color:var(--ink);font-family:var(--display
           <div class="ph">
             <span class="tag-tl">PORTRAIT · 01</span>
             <span class="tag-tr">CUT · 01</span>
-            <img src="landing/hf-04.png" alt="" onerror="this.style.display='none'"/>
+            <!-- Primary src is the real Wlad portrait once uploaded to
+                 frontend/public/wlad/wlad-portrait.jpg. Until then,
+                 onerror swaps to the hf-04 placeholder so the editorial
+                 keeps rendering during preview. -->
+            <img src="wlad/wlad-portrait.jpg" alt="Wlad Jachtchenko"
+                 onerror="this.onerror=null;this.src='landing/hf-04.png';"/>
             <svg class="scribbles arrow" viewBox="0 0 80 32" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 22 C 20 8, 40 2, 70 14"/>
               <path d="M62 8 L 70 14 L 64 22"/>
