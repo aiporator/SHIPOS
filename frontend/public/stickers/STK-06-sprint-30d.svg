@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280" aria-labelledby="t06">
+  <title id="t06">STK-06 — SPRINT START 30D Countdown · 70×70mm</title>
+  <defs>
+    <style>
+      .bg{fill:#BFFF00}
+      .ink{fill:#0A0A0A}
+      .mono{font-family:'SF Mono','Menlo','Consolas',monospace;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;fill:#0A0A0A}
+      .display{font-family:'Outfit','Inter',system-ui,sans-serif;font-weight:900;font-style:italic;letter-spacing:-0.05em;fill:#0A0A0A}
+    </style>
+  </defs>
+
+  <!-- Lime canvas + thick black border -->
+  <rect class="bg" x="0" y="0" width="280" height="280"/>
+  <rect fill="none" stroke="#0A0A0A" stroke-width="4" x="2" y="2" width="276" height="276"/>
+
+  <!-- Eyebrow -->
+  <text class="mono" x="14" y="30" font-size="9.5">▸ SPRINT · 30 TAGE</text>
+  <text class="mono" x="266" y="30" text-anchor="end" font-size="9.5">LEADER · OS</text>
+
+  <!-- Top divider -->
+  <line x1="14" y1="38" x2="266" y2="38" stroke="#0A0A0A" stroke-width="2"/>
+
+  <!-- Massive 30 -->
+  <text class="display" x="140" y="170" text-anchor="middle" font-size="200">30</text>
+
+  <!-- D label -->
+  <text class="display" x="226" y="170" font-size="64">D<tspan>.</tspan></text>
+
+  <!-- Tachymeter ticks around bottom arc -->
+  <g stroke="#0A0A0A" stroke-width="2">
+    <line x1="40"  y1="195" x2="40"  y2="205"/>
+    <line x1="70"  y1="195" x2="70"  y2="205"/>
+    <line x1="100" y1="195" x2="100" y2="205"/>
+    <line x1="130" y1="195" x2="130" y2="205"/>
+    <line x1="160" y1="195" x2="160" y2="205"/>
+    <line x1="190" y1="195" x2="190" y2="205"/>
+    <line x1="220" y1="195" x2="220" y2="205"/>
+    <line x1="240" y1="195" x2="240" y2="205"/>
+  </g>
+
+  <!-- Tagline strip -->
+  <text class="display" x="140" y="226" text-anchor="middle" font-size="20">Trainings-plan komplett.</text>
+
+  <!-- Bottom dark stripe -->
+  <rect fill="#0A0A0A" x="14" y="240" width="252" height="28"/>
+  <text x="140" y="258" text-anchor="middle" font-family="'Outfit',sans-serif" font-weight="900" font-style="italic" font-size="14" fill="#BFFF00" letter-spacing="0.04em">11 FRAMEWORKS · 1 SYSTEM · 997 €</text>
+</svg>

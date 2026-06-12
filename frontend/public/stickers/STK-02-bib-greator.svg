@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280" aria-labelledby="t02">
+  <title id="t02">STK-02 — BIB 0001 Greator Limited · 70×70mm</title>
+  <defs>
+    <style>
+      .bg{fill:#FFFFFF}
+      .ink{fill:#0A0A0A}
+      .lime{fill:#BFFF00}
+      .mono{font-family:'SF Mono','Menlo','Consolas',monospace;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;fill:#0A0A0A}
+      .display{font-family:'Outfit','Inter',system-ui,sans-serif;font-weight:900;font-style:italic;letter-spacing:-0.05em;fill:#0A0A0A}
+    </style>
+    <path id="ringPath" d="M 140 140 m -118 0 a 118 118 0 1 1 236 0 a 118 118 0 1 1 -236 0"/>
+  </defs>
+
+  <!-- White canvas + 2px black border -->
+  <rect class="bg" x="0" y="0" width="280" height="280"/>
+  <rect fill="none" stroke="#0A0A0A" stroke-width="3" x="1.5" y="1.5" width="277" height="277"/>
+
+  <!-- Tachymeter outer ring -->
+  <circle cx="140" cy="140" r="124" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <circle cx="140" cy="140" r="112" fill="none" stroke="#0A0A0A" stroke-width="1" stroke-dasharray="2 6"/>
+
+  <!-- Lime mid ring -->
+  <circle cx="140" cy="140" r="102" fill="none" stroke="#BFFF00" stroke-width="6"/>
+
+  <!-- Inner BIB block -->
+  <rect class="ink" x="48" y="86" width="184" height="108" rx="0"/>
+  <text class="display lime" x="140" y="172" text-anchor="middle" font-size="100">0001</text>
+
+  <!-- Text along upper arc -->
+  <text class="mono" font-size="9.5">
+    <textPath href="#ringPath" startOffset="0%" text-anchor="middle">
+      ▸ GREATOR FESTIVAL 2026 · LANXESS ARENA · 26.–27. JUNI · LIMITED 100 ·
+    </textPath>
+  </text>
+
+  <!-- BIB label small chip -->
+  <rect class="ink" x="120" y="60" width="40" height="14"/>
+  <text class="mono" x="140" y="70" text-anchor="middle" font-size="7.5" fill="#BFFF00">BIB</text>
+
+  <!-- Bottom corner labels -->
+  <text class="mono" x="60" y="220" font-size="7" opacity="0.7">STK · 02</text>
+  <text class="mono" x="220" y="220" text-anchor="end" font-size="7" opacity="0.7">LEADER-OS</text>
+</svg>
