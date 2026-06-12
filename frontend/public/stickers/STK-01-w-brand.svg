@@ -1,31 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280" aria-labelledby="t01">
-  <title id="t01">STK-01 — W Brand Master · 70×70mm</title>
+  <title id="t01">STK-01 — Werde KI-nativ · v2 Nike Editorial · 70×70mm</title>
   <defs>
     <style>
-      .bg{fill:#0A0A0A}
+      .bg{fill:#FFFFFF}
+      .ink{fill:#0A0A0A}
       .lime{fill:#BFFF00}
-      .white{fill:#FFFFFF}
       .mono{font-family:'SF Mono','Menlo','Consolas',monospace;font-weight:700;letter-spacing:0.22em;text-transform:uppercase}
-      .display{font-family:'Outfit','Inter',system-ui,sans-serif;font-weight:900;font-style:italic;letter-spacing:-0.04em}
+      .display{font-family:'Outfit','Inter',system-ui,sans-serif;font-weight:900;font-style:italic;letter-spacing:-0.05em}
     </style>
   </defs>
 
-  <!-- Black canvas with 2px black border that extends to bleed -->
   <rect class="bg" x="0" y="0" width="280" height="280"/>
 
   <!-- Top eyebrow rail -->
-  <line x1="14" y1="34" x2="266" y2="34" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/>
-  <text class="mono lime" x="14" y="26" font-size="9.5">▸ AI · NATIVE</text>
-  <text class="mono white" text-anchor="end" x="266" y="26" font-size="9.5" opacity="0.55">EST · 2026</text>
+  <text class="mono ink" x="16" y="24" font-size="8.5">▸ STK · 01 / 06</text>
+  <text class="mono ink" text-anchor="end" x="264" y="24" font-size="8.5" opacity="0.45">EST · 2026</text>
 
-  <!-- Massive lime W centered -->
-  <text class="display lime" x="140" y="190" text-anchor="middle" font-size="220">W</text>
+  <!-- Massive 4-line statement -->
+  <text class="display ink" x="16" y="92" font-size="58">Werde</text>
+  <text class="display ink" x="16" y="148" font-size="58">KI-nativ<tspan class="lime">.</tspan></text>
 
-  <!-- Brand wordmark -->
-  <text class="display white" x="14" y="232" font-size="22">Leader<tspan class="lime">·</tspan>OS<tspan class="lime">.</tspan></text>
+  <!-- Body sub -->
+  <text class="display ink" x="16" y="186" font-size="22">Werde 10× produktiver<tspan class="lime">.</tspan></text>
 
-  <!-- Bottom rail -->
-  <line x1="14" y1="246" x2="266" y2="246" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1"/>
-  <text class="mono white" x="14" y="262" font-size="8.5" opacity="0.55">▸ STK · 01 / 06</text>
-  <text class="mono white" text-anchor="end" x="266" y="262" font-size="8.5" opacity="0.55">LEADER-OS.DE</text>
+  <!-- Bottom wordmark with W mark -->
+  <g transform="translate(16 232)">
+    <rect class="lime" x="0" y="0" width="22" height="22"/>
+    <text class="display ink" x="11" y="18" text-anchor="middle" font-size="20">W</text>
+    <text class="display ink" x="30" y="16" font-size="15">Leader<tspan class="lime">·</tspan>OS</text>
+  </g>
+
+  <text class="mono ink" text-anchor="end" x="264" y="248" font-size="8" opacity="0.55">LEADER-OS.DE</text>
 </svg>
