@@ -9,6 +9,7 @@ import { WladIntroVideo } from '../components/landing/WladIntroVideo';
 import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
+import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
 import { FAQSection } from '../components/landing/FAQSection';
@@ -103,6 +104,7 @@ export default function LandingPage() {
         ))}
 
         <AppPreviewSection />
+        <CoachingWaitlist />
         <FAQSection />
 
         <FinalCTA />

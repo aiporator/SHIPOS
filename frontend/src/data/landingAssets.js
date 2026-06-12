@@ -274,18 +274,21 @@ export const LANDING_BENEFITS = [
     eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
     headline: 'Powered by WladBot.',
     headlineAccent: 'Persönlich von Wlad.',
-    subline: 'Du lernst nicht allein. Wlad ist mit dabei.',
+    subline: 'Lernen ist nicht genug. Umsetzen entscheidet.',
     dark: true,
     body:
-      'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
-      'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
-      'monatliche Strategie-Calls und ein Zertifikat, das zeigt, ' +
-      'wer du geworden bist.',
+      'Plus-Plus ist kein Online-Kurs den du wegklickst. Es ist ' +
+      'echtes Enablement: tägliche Lernvideos, Live-Sessions mit Wlad ' +
+      'persönlich, der Drill-Channel in dem du das Gelernte sofort ' +
+      'auf deinen echten Führungsalltag anwendest, und WladBot der ' +
+      'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher — du ' +
+      'setzt sie um.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
-      ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
+      ['DRL',  'DRILL-CHANNEL',  'Theorie sofort am echten Fall umsetzen'],
+      ['ENB',  'ENABLEMENT',     '12 Monate — bis es sitzt'],
       ['ZRT',  'ZERTIFIKAT',     'Mit deiner persönlichen Startnummer'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
