@@ -125,9 +125,15 @@ export const LANDING_BENEFITS = [
     headlineAccent: 'Ein OS.',
     subline: 'Theorie-Bücher altern. Frameworks bleiben.',
     body:
-      'SEXIER. Fünf Rollen. Feedbackformel. Drei Säulen. Zehn Stufen. ' +
-      'Kommunikationsquadrant. Dunkle Rhetorik. Vier-Farben-Modell. ' +
-      'Schlagfertigkeit. ALPEN. Verhandlung. Alle in einem System.',
+      'Elf bewährte Wlad-Frameworks für jede Führungs-Situation — '+
+      'in einem System. Vom Argumentations-Modell SEXIER über die ' +
+      'Fünf Rollen der Führung, die Feedback-Formel, Drei Säulen ' +
+      'der Überzeugung, Zehn Stufen des Zuhörens, den ' +
+      'Kommunikationsquadrant nach Schulz von Thun, Dunkle Rhetorik ' +
+      '(damit du Manipulation erkennst), das Vier-Farben-Modell für ' +
+      'Persönlichkeits-Typen, Schlagfertigkeit, die ALPEN-Methode für ' +
+      'Zeitmanagement bis zur Harvard-Verhandlungsmethode. Du lernst ' +
+      'nicht 11 Bücher — du lernst ein System das du täglich anwendest.',
     detail: [
       ['01', 'SEXIER',           'Argumentations-Modell'],
       ['02', '5 ROLLEN',         'Identität'],
@@ -153,9 +159,12 @@ export const LANDING_BENEFITS = [
     headlineAccent: '7 Tage.',
     subline: 'Andere Coaches schlafen. Deiner nicht.',
     body:
-      'WladBot kennt Wlads Methodik in- und auswendig. ' +
-      'Für jede Leadership-Situation. Jederzeit. ' +
-      'Mit deinem Kontext, in deinem Ton.',
+      'WladBot ist dein persönlicher KI-Coach — trainiert auf 15 ' +
+      'Jahren Wlad-Methodik, 600+ Lektionen, drei SPIEGEL-Bestseller. ' +
+      'Du fragst ihn was du sonst Wlad selbst fragen würdest: ' +
+      '"Wie eröffne ich diese schwierige Konversation?", "Wie ' +
+      'argumentiere ich gegen meinen CFO?", "Wie führe ich dieses ' +
+      'Feedback-Gespräch?". Antwort in unter 3 Sekunden. In Wlads Ton.',
     detail: [
       ['HRS', 'VERFÜGBARKEIT',  '24 / 7 / 365'],
       ['LNG', 'SPRACHE',        'Deutsch · English'],
