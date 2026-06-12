@@ -10,6 +10,8 @@ import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
+import { PricingLadder } from '../components/landing/PricingLadder';
+import { GreatorBanner } from '../components/landing/GreatorBanner';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
 import { FAQSection } from '../components/landing/FAQSection';
@@ -81,6 +83,7 @@ export default function LandingPage() {
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="landing-page">
+      <GreatorBanner />
       <LandingNav />
       <ScrollProgressRail />
 
@@ -104,6 +107,7 @@ export default function LandingPage() {
         ))}
 
         <AppPreviewSection />
+        <PricingLadder />
         <CoachingWaitlist />
         <FAQSection />
 
