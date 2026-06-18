@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://command-center-229.preview.emergentagent.com/api/:path*"
+      "destination": "https://command-center-229.emergent.host/api/:path*"
     },
     {
       "source": "/((?!api|static|favicon.ico|manifest.json|robots.txt|asset-manifest.json|.*\\..*).*)",

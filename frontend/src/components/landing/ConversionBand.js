@@ -40,7 +40,7 @@ export const ConversionBand = () => {
       aria-label="Nächster Schritt"
     >
       <div className="bg-[#0A0A0A] text-white border-t border-white/10 shadow-[0_-12px_40px_-12px_rgba(0,0,0,0.45)]">
-        <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-3 md:py-3.5 flex items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto pl-5 pr-32 md:pl-10 md:pr-44 py-3 md:py-3.5 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 md:gap-4 min-w-0">
             <span className="hidden sm:inline-block text-[9.5px] font-bold uppercase tracking-[0.22em] text-brand font-mono shrink-0">
               ▸ BIB · 0001
@@ -52,7 +52,7 @@ export const ConversionBand = () => {
 
           <div className="flex items-center gap-2 md:gap-3 shrink-0">
             <a
-              href="https://leader-check.de"
+              href="https://leadercheck.de"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-brand text-[#0A0A0A] text-[11px] md:text-[12px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all"

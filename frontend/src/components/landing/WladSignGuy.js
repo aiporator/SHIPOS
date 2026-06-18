@@ -94,6 +94,9 @@ const SignBoard = ({ msg }) => (
 export const WladSignGuy = ({ onOpen }) => {
   const [idx, setIdx] = useState(0);
   const [visible, setVisible] = useState(false);
+  // ConversionBand erscheint bei scrollY > 60vh und ist ~60px hoch. WladSignGuy
+  // muss dann nach oben ausweichen damit er nicht auf der Band sitzt.
+  const [bandActive, setBandActive] = useState(false);
 
   useEffect(() => {
     // Erscheint mit Delay damit der Above-Fold-Hero atmen kann.
@@ -101,9 +104,19 @@ export const WladSignGuy = ({ onOpen }) => {
     const rotateTimer = setInterval(() => {
       setIdx((i) => (i + 1) % MESSAGES.length);
     }, 6000);
+
+    const onScroll = () => {
+      if (typeof window === 'undefined') return;
+      const dismissed = sessionStorage.getItem('leader_os_band_dismissed') === '1';
+      setBandActive(!dismissed && window.scrollY > window.innerHeight * 0.6);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
     return () => {
       clearTimeout(showTimer);
       clearInterval(rotateTimer);
+      window.removeEventListener('scroll', onScroll);
     };
   }, []);
 
@@ -120,14 +133,18 @@ export const WladSignGuy = ({ onOpen }) => {
           initial={{ opacity: 0, y: 24, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 inline-flex items-end gap-2 group cursor-pointer"
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            bottom: bandActive ? 88 : 16,
+            transition: 'bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+          className="fixed right-4 md:right-6 z-30 inline-flex items-end gap-2 group cursor-pointer"
         >
-          {/* Wlad bobt sanft im Stand */}
+          {/* Wlad bobt sanft im Stand — kompakter als vorher (-25% Footprint) */}
           <motion.div
-            animate={{ y: [0, -4, 0] }}
+            animate={{ y: [0, -3, 0] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-16 h-24 md:w-20 md:h-28 shrink-0"
+            className="w-12 h-[4.5rem] md:w-14 md:h-[5rem] shrink-0"
           >
             <PixelWlad />
           </motion.div>
@@ -139,13 +156,13 @@ export const WladSignGuy = ({ onOpen }) => {
             animate={{ opacity: 1, y: 0, rotate: -4 }}
             exit={{ opacity: 0, rotate: -10 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-2 md:mb-3"
+            className="mb-1.5 md:mb-2"
           >
             <SignBoard msg={msg} />
           </motion.div>
 
           {/* Hover-Tooltip */}
-          <div className="hidden md:block absolute -top-8 right-0 bg-black text-white text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity font-mono whitespace-nowrap pointer-events-none">
+          <div className="hidden md:block absolute -top-7 right-0 bg-black text-white text-[9px] font-bold uppercase tracking-[0.18em] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity font-mono whitespace-nowrap pointer-events-none">
             ▸ KLICK · CHAT
           </div>
         </motion.button>

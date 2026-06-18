@@ -47,7 +47,7 @@ export default function PaymentSuccessPage() {
       }
     };
     poll();
-  }, [sessionId, reloadCredits, checkAuth, api]);
+  }, [sessionId, reloadCredits, checkAuth]);
 
   return (
     <DashboardLayout>

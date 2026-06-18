@@ -62,31 +62,55 @@ async def send_email(
 
 # ── Email Templates ─────────────────────────────────────────────
 
-def _base_layout(body_html: str, preheader: str = "") -> str:
-    """Wrap content in WladBot branded email shell."""
+def _base_layout(body_html: str, preheader: str = "", bib_code: str = "0001") -> str:
+    """Wrap content in Leader-OS Nike-DNA email shell.
+
+    Sharp corners (no border-radius), 2px borders, Outfit-Italic-Black
+    headlines, BIB-code monospace metadata bar, lime accent on black
+    canvas. Matches the landing-page DNA so transactional emails feel
+    like the same brand.
+    """
     return f"""<!DOCTYPE html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WladBot</title></head>
-<body style="margin:0;padding:0;background:#F4F4F4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
-<div style="display:none;max-height:0;overflow:hidden;">{preheader}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F4F4F4;padding:40px 16px;">
+<meta name="color-scheme" content="dark only">
+<title>Leader-OS</title></head>
+<body style="margin:0;padding:0;background:#EDEDED;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">{preheader}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDED;padding:32px 16px;">
 <tr><td align="center">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:{BRAND_DARK};border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);">
-  <tr><td style="padding:28px 32px 0;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:{BRAND_DARK};border:2px solid #000000;">
+  <!-- BIB-code metadata bar -->
+  <tr><td style="padding:18px 28px 16px;border-bottom:1px solid rgba(255,255,255,0.10);">
     <table role="presentation" width="100%"><tr>
       <td style="vertical-align:middle;">
-        <div style="display:inline-block;width:42px;height:42px;border-radius:12px;background:{BRAND_COLOR};text-align:center;line-height:42px;font-weight:900;font-size:20px;color:{BRAND_DARK};">W</div>
-        <span style="font-weight:900;color:#fff;font-size:16px;margin-left:10px;letter-spacing:-0.02em;">WladBot</span>
+        <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;">▸ BIB · {bib_code}</span>
       </td>
-      <td style="text-align:right;font-size:10px;color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">Leadership OS</td>
+      <td style="text-align:right;vertical-align:middle;">
+        <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;">LEADER · OS</span>
+      </td>
     </tr></table>
   </td></tr>
-  <tr><td style="padding:24px 32px 32px;color:#fff;">{body_html}</td></tr>
-  <tr><td style="padding:20px 32px 28px;border-top:1px solid rgba(255,255,255,0.06);">
-    <p style="font-size:10px;color:rgba(255,255,255,0.35);margin:0;line-height:1.6;">
-      Du erhältst diese Email, weil du dich für ein WladBot-Event registriert hast.<br>
-      WladBot · Leadership Operating System · Powered by Wlad Jachtchenko's methods.
+  <!-- W mark + label -->
+  <tr><td style="padding:24px 28px 8px;">
+    <table role="presentation"><tr>
+      <td style="vertical-align:middle;">
+        <div style="display:inline-block;width:36px;height:36px;background:{BRAND_COLOR};text-align:center;line-height:36px;font-weight:900;font-style:italic;font-size:20px;color:{BRAND_DARK};">W</div>
+      </td>
+      <td style="vertical-align:middle;padding-left:12px;">
+        <div style="font-weight:900;color:#ffffff;font-size:14px;letter-spacing:-0.02em;">Leader<span style="color:{BRAND_COLOR};">·</span>OS</div>
+        <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:700;text-transform:uppercase;margin-top:2px;">▸ Powered by WladBot</div>
+      </td>
+    </tr></table>
+  </td></tr>
+  <!-- Body -->
+  <tr><td style="padding:8px 28px 32px;color:#ffffff;">{body_html}</td></tr>
+  <!-- Footer -->
+  <tr><td style="padding:20px 28px 24px;border-top:1px solid rgba(255,255,255,0.10);">
+    <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin-bottom:8px;">▸ CLASS · 0001</div>
+    <p style="font-size:10px;color:rgba(255,255,255,0.40);margin:0;line-height:1.65;">
+      Du erhältst diese Email weil du Teil von Leader-OS bist.<br>
+      Wlad Jachtchenko · 2 500+ Führungskräfte · Startups bis DAX.
     </p>
   </td></tr>
 </table></td></tr></table></body></html>"""
@@ -212,20 +236,25 @@ den ersten Meilenstein. Wir melden uns in 3 Tagen wieder.""",
 
 
 def tier_welcome_email(tier: str, name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+    """Sent after successful tier purchase. Nike-DNA editorial."""
     cfg = TIER_WELCOME.get(tier, TIER_WELCOME["standard"])
     subject = cfg["subject"].format(name=name)
     cta_url = f"{app_url.rstrip('/')}{cfg['cta_path']}"
     body = f"""
-<div style="background:linear-gradient(135deg,rgba(191,255,0,0.12),rgba(154,204,0,0.04));border:1px solid rgba(191,255,0,0.2);border-radius:14px;padding:16px 20px;margin-bottom:24px;">
-  <div style="font-size:10px;letter-spacing:0.2em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">Tier: {tier.upper()}</div>
-  <div style="font-size:22px;font-weight:900;line-height:1.25;letter-spacing:-0.02em;">{cfg['headline']}</div>
-</div>
-<p style="font-size:14px;color:rgba(255,255,255,0.75);line-height:1.65;margin:0 0 24px;">{cfg['body']}</p>
-<div style="text-align:center;padding:8px 0 4px;">
-  <a href="{cta_url}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px;">{cfg['cta_label']}</a>
-</div>
+<div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin:12px 0 14px;">▸ TIER · {tier.upper()} · AKTIV</div>
+
+<div style="font-weight:900;font-style:italic;font-size:36px;line-height:0.98;letter-spacing:-0.03em;color:#ffffff;margin:0 0 26px;">{cfg['headline']}<span style="color:{BRAND_COLOR};">.</span></div>
+
+<div style="font-size:14px;color:rgba(255,255,255,0.78);line-height:1.65;margin:0 0 28px;">{cfg['body']}</div>
+
+<!-- CTA — sharp pill -->
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 8px;"><tr>
+  <td style="background:{BRAND_COLOR};padding:0;">
+    <a href="{cta_url}" style="display:inline-block;padding:16px 28px;color:{BRAND_DARK};text-decoration:none;font-weight:900;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">+  {cfg['cta_label']}</a>
+  </td>
+</tr></table>
 """
-    return subject, _base_layout(body, preheader=cfg["headline"])
+    return subject, _base_layout(body, preheader=cfg["headline"], bib_code=f"T-{tier[:3].upper()}")
 
 
 def installment_due_email(name: str, installment_num: int, total: int, amount: float,
@@ -256,42 +285,73 @@ Danke, dass du den Accelerator-Weg gehst. Deine heutige Rate ist fällig:
 # ── Signup Welcome (every new user, BEFORE any purchase) ─────────────────────
 
 def signup_welcome_email(name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
-    """Sent right after a user creates their account (free tier)."""
-    subject = f"Willkommen bei Leader-OS, {name} ⚡"
+    """Sent right after a user creates their account (free tier). Nike-DNA."""
+    subject = f"Willkommen bei Leader-OS, {name}."
     dashboard_url = f"{app_url.rstrip('/')}/dashboard"
     coaching_url = f"{app_url.rstrip('/')}/coaching"
     body = f"""
-<div style="background:linear-gradient(135deg,rgba(191,255,0,0.14),rgba(154,204,0,0.04));border:1px solid rgba(191,255,0,0.22);border-radius:14px;padding:18px 22px;margin-bottom:24px;">
-  <div style="font-size:10px;letter-spacing:0.2em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">Account aktiv · Free Zugang</div>
-  <div style="font-size:24px;font-weight:900;line-height:1.2;letter-spacing:-0.02em;">Willkommen an Bord, {name}.</div>
-</div>
-<p style="font-size:14px;color:rgba(255,255,255,0.78);line-height:1.65;margin:0 0 20px;">
-Du hast gerade dein <b>Leadership Operating System</b> aktiviert — die KI-Plattform, die auf Wlad Jachtchenkos Frameworks basiert. Ab jetzt führst du nicht mehr aus dem Bauch, sondern mit System.
+<div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin:12px 0 14px;">▸ ACCOUNT AKTIV · FREE</div>
+
+<div style="font-weight:900;font-style:italic;font-size:40px;line-height:0.96;letter-spacing:-0.03em;color:#ffffff;margin:0 0 4px;">Willkommen,</div>
+<div style="font-weight:900;font-style:italic;font-size:40px;line-height:0.96;letter-spacing:-0.03em;color:#ffffff;margin:0 0 28px;">{name}<span style="color:{BRAND_COLOR};">.</span></div>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.78);line-height:1.6;margin:0 0 28px;">
+Du hast gerade dein Leadership-Operating-System aktiviert — die KI-Plattform, die auf Wlad Jachtchenkos Frameworks basiert. Ab jetzt führst du nicht mehr aus dem Bauch, sondern mit System.
 </p>
 
-<h3 style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:24px 0 12px;">Dein erster Schritt heute (5 Minuten)</h3>
-<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:18px 22px;margin-bottom:20px;">
-  <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;margin:0 0 14px;">
-    <b>1.</b> Mache deinen Leader-Diagnose-Check (3 Minuten)<br>
-    <b>2.</b> Stelle WladBot deine erste Führungsfrage<br>
-    <b>3.</b> Starte den Daily Check-in für deine XP-Streak
-  </p>
-  <div style="text-align:center;padding-top:6px;">
-    <a href="{dashboard_url}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:-0.01em;">Jetzt Dashboard öffnen</a>
-  </div>
+<!-- Step list — typographic spec table -->
+<div style="border-top:2px solid rgba(255,255,255,0.15);border-bottom:2px solid rgba(255,255,255,0.15);padding:20px 0;margin-bottom:28px;">
+  <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin-bottom:14px;">▸ DEIN START · 5 MIN</div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="padding:6px 0;vertical-align:top;width:32px;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§01</span>
+    </td><td style="padding:6px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      Leader-Diagnose-Check  <span style="color:rgba(255,255,255,0.45);font-weight:400;font-size:13px;"> · 3 Min</span>
+    </td></tr>
+    <tr><td style="padding:6px 0;vertical-align:top;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§02</span>
+    </td><td style="padding:6px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      Erste Führungsfrage an WladBot  <span style="color:rgba(255,255,255,0.45);font-weight:400;font-size:13px;"> · 60 Sek</span>
+    </td></tr>
+    <tr><td style="padding:6px 0;vertical-align:top;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§03</span>
+    </td><td style="padding:6px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      Daily Check-in für XP-Streak
+    </td></tr>
+  </table>
 </div>
 
-<h3 style="font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin:28px 0 12px;">Was du als Free-User schon bekommst</h3>
-<table role="presentation" width="100%" style="margin-bottom:20px;"><tr>
-<td valign="top" style="padding:6px 12px 6px 0;width:50%;"><div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;height:100%;"><div style="font-size:10px;letter-spacing:0.15em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:4px;">WladBot</div><div style="font-size:13px;color:#fff;line-height:1.45;">Dein KI-Coach. 24/7 erreichbar. Trainiert auf 600+ Wlad-Lektionen.</div></div></td>
-<td valign="top" style="padding:6px 0 6px 12px;width:50%;"><div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;height:100%;"><div style="font-size:10px;letter-spacing:0.15em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:4px;">3 Gratis Analysen</div><div style="font-size:13px;color:#fff;line-height:1.45;">14 Tage lang: 3 kostenlose Video-Analysen für dein Selbst-Feedback.</div></div></td>
+<!-- Primary CTA — square pill, Nike-style -->
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 32px;"><tr>
+  <td style="background:{BRAND_COLOR};padding:0;">
+    <a href="{dashboard_url}" style="display:inline-block;padding:16px 28px;color:{BRAND_DARK};text-decoration:none;font-weight:900;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">+  Dashboard öffnen</a>
+  </td>
 </tr></table>
 
-<p style="font-size:12px;color:rgba(255,255,255,0.45);margin:24px 0 0;line-height:1.6;text-align:center;">
-Bereit für den nächsten Schritt? <a href="{coaching_url}" style="color:{BRAND_COLOR};font-weight:700;text-decoration:none;">Leadership OS freischalten →</a>
+<!-- Free-tier spec -->
+<div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin:0 0 14px;">▸ SPEC · FREE-TIER</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid rgba(255,255,255,0.12);margin-bottom:28px;">
+  <tr>
+    <td style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.10);border-right:1px solid rgba(255,255,255,0.10);width:50%;vertical-align:top;">
+      <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">BOT</div>
+      <div style="font-size:13px;color:#ffffff;font-weight:700;line-height:1.3;margin-bottom:4px;">WladBot</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">24/7 KI-Coach. Trainiert auf 600+ Wlad-Lektionen.</div>
+    </td>
+    <td style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.10);width:50%;vertical-align:top;">
+      <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">3× ANALYSE</div>
+      <div style="font-size:13px;color:#ffffff;font-weight:700;line-height:1.3;margin-bottom:4px;">14 Tage gratis</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">Drei Video-Analysen für echtes Selbst-Feedback.</div>
+    </td>
+  </tr>
+</table>
+
+<p style="font-size:12px;color:rgba(255,255,255,0.55);margin:0;line-height:1.6;text-align:center;">
+Bereit für mehr? <a href="{coaching_url}" style="color:{BRAND_COLOR};font-weight:700;text-decoration:none;">Class 0001 freischalten ▸</a>
 </p>
 """
-    return subject, _base_layout(body, preheader=f"Dein Leadership-OS Account ist live. Starte hier, {name}.")
+    return subject, _base_layout(body, preheader=f"Dein Leader-OS-Account ist live, {name}. Erster Schritt: 5 Minuten.")
 
 
 # ── Stripe Receipt (after successful payment, in addition to tier_welcome) ───

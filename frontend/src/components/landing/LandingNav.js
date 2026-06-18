@@ -49,15 +49,17 @@ export const LandingNav = () => {
           >
             So funktioniert's
           </a>
-          <Link
-            to="/login"
+          <a
+            href="https://leaderos.de/login"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/60 hover:text-foreground transition-colors"
             data-testid="landing-nav-login"
           >
             Login
-          </Link>
+          </a>
           <a
-            href="https://leader-check.de"
+            href="https://leadercheck.de"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-3.5 py-2 bg-brand text-[#0A0A0A] text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all"

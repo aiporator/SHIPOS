@@ -85,6 +85,15 @@ class ChatMessageIn(BaseModel):
     # forwards the folder_id so the backend can prepend the folder's
     # context_summary + item timeline to the system prompt ("agent next to you").
     folder_id: Optional[str] = None
+    # Language hint from the frontend (e.g. LanguageContext). Used by the
+    # prompt-router service to pick the DE vs EN base prompt. Defaults to
+    # German if missing — Wlad's audience is DE-first.
+    lang: Optional[str] = None
+    # Brand selector for the prompt router. Default "wlad". Enables the
+    # same engine to host other personal-brand bots later by switching
+    # this value (and dropping a matching folder under
+    # backend/data/prompts/<brand>/).
+    brand: Optional[str] = "wlad"
 
 
 class ChatSessionCreate(BaseModel):

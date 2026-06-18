@@ -113,7 +113,7 @@ export const VimeoIntroSection = () => (
             {/* Tech-strip footer */}
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/10 text-[9px] font-bold uppercase tracking-[0.22em] text-white/55 font-mono">
               <span>LEADER·OS</span>
-              <span>BIB · 0001 · CLASS 01</span>
+              <span>WLAD JACHTCHENKO</span>
             </div>
           </div>
         </motion.div>

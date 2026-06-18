@@ -41,8 +41,8 @@ export const LANDING_META = {
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
-    primary: { label: 'Diagnose starten', href: 'https://leader-check.de' },
-    secondary: { label: 'Login', href: '/login' },
+    primary: { label: 'Diagnose starten', href: 'https://leadercheck.de' },
+    secondary: { label: 'Login', href: 'https://leaderos.de/login' },
   },
   // Pricing — bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
   // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
@@ -68,7 +68,7 @@ export const LANDING_MANIFESTO = {
     ['05', 'Wer heute zögert,',             'führt morgen unter jemandem, der nicht zögert.'],
   ],
   cta: 'Werde KI-nativ',
-  href: 'https://leader-check.de',
+  href: 'https://leadercheck.de',
 };
 
 // 3-step path — Diagnose → Sprint → OS.
@@ -83,7 +83,7 @@ export const HOW_IT_WORKS = [
       'Drei Dimensionen: KI-Readiness, Rhetorik, Emotionale Intelligenz. ' +
       'Du bekommst sofort deinen Score plus konkrete Empfehlung.',
     cta: 'Jetzt diagnostizieren',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     external: true,
   },
   {
@@ -96,7 +96,7 @@ export const HOW_IT_WORKS = [
       'ein Framework, ein Drill. WladBot begleitet dich mit Wlads ' +
       'Methodik. Am Ende: dein Zertifikat.',
     cta: 'Sprint kennenlernen',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     external: true,
   },
   {
@@ -109,8 +109,8 @@ export const HOW_IT_WORKS = [
       'WladBot 24/7, monatliche Live-Sessions mit Wlad und das ' +
       'Leader-OS-Netzwerk.',
     cta: 'OS erkunden',
-    href: '/login',
-    external: false,
+    href: 'https://leaderos.de/login',
+    external: true,
   },
 ];
 
@@ -125,9 +125,15 @@ export const LANDING_BENEFITS = [
     headlineAccent: 'Ein OS.',
     subline: 'Theorie-Bücher altern. Frameworks bleiben.',
     body:
-      'SEXIER. Fünf Rollen. Feedbackformel. Drei Säulen. Zehn Stufen. ' +
-      'Kommunikationsquadrant. Dunkle Rhetorik. Vier-Farben-Modell. ' +
-      'Schlagfertigkeit. ALPEN. Verhandlung. Alle in einem System.',
+      'Elf bewährte Wlad-Frameworks für jede Führungs-Situation — '+
+      'in einem System. Vom Argumentations-Modell SEXIER über die ' +
+      'Fünf Rollen der Führung, die Feedback-Formel, Drei Säulen ' +
+      'der Überzeugung, Zehn Stufen des Zuhörens, den ' +
+      'Kommunikationsquadrant nach Schulz von Thun, Dunkle Rhetorik ' +
+      '(damit du Manipulation erkennst), das Vier-Farben-Modell für ' +
+      'Persönlichkeits-Typen, Schlagfertigkeit, die ALPEN-Methode für ' +
+      'Zeitmanagement bis zur Harvard-Verhandlungsmethode. Du lernst ' +
+      'nicht 11 Bücher — du lernst ein System das du täglich anwendest.',
     detail: [
       ['01', 'SEXIER',           'Argumentations-Modell'],
       ['02', '5 ROLLEN',         'Identität'],
@@ -142,9 +148,8 @@ export const LANDING_BENEFITS = [
       ['11', 'VERHANDLUNG',      'Harvard-Methode'],
     ],
     cta: 'Alle Frameworks ansehen',
-    href: 'https://leader-check.de',
-    variant: 'photo',
-    photo: local('hf-01.png'),
+    href: 'https://leadercheck.de',
+    variant: 'list',
   },
   {
     nr: '02',
@@ -154,9 +159,12 @@ export const LANDING_BENEFITS = [
     headlineAccent: '7 Tage.',
     subline: 'Andere Coaches schlafen. Deiner nicht.',
     body:
-      'WladBot kennt Wlads Methodik in- und auswendig. ' +
-      'Für jede Leadership-Situation. Jederzeit. ' +
-      'Mit deinem Kontext, in deinem Ton.',
+      'WladBot ist dein persönlicher KI-Coach — trainiert auf 15 ' +
+      'Jahren Wlad-Methodik, 600+ Lektionen, drei SPIEGEL-Bestseller. ' +
+      'Du fragst ihn was du sonst Wlad selbst fragen würdest: ' +
+      '"Wie eröffne ich diese schwierige Konversation?", "Wie ' +
+      'argumentiere ich gegen meinen CFO?", "Wie führe ich dieses ' +
+      'Feedback-Gespräch?". Antwort in unter 3 Sekunden. In Wlads Ton.',
     detail: [
       ['HRS', 'VERFÜGBARKEIT',  '24 / 7 / 365'],
       ['LNG', 'SPRACHE',        'Deutsch · English'],
@@ -164,9 +172,8 @@ export const LANDING_BENEFITS = [
       ['VOI', 'VOICE-CHAT',     'Live-Telefonat mit WladBot'],
     ],
     cta: 'WladBot starten',
-    href: 'https://leader-check.de',
-    variant: 'photo',
-    photo: local('hf-02.png'),
+    href: 'https://leadercheck.de',
+    variant: 'list',
   },
   {
     nr: '03',
@@ -180,13 +187,13 @@ export const LANDING_BENEFITS = [
       'näher an der Führungskraft, die du werden willst. ' +
       'Am Ende: dein persönliches Zertifikat 0001.',
     detail: [
-      ['ID',    'STARTNUMMER',    'BIB · 0001 · CLASS 01'],
+      ['ID',    'STARTNUMMER',    'Deine Leadership-Evolution'],
       ['DAY',   'TÄGLICH',        '1 Frage · 1 Drill · 1 Reflexion'],
       ['END',   'ABSCHLUSS',      'Zertifikat 0001 · LinkedIn-ready'],
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
     ],
     cta: 'Sprint starten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'bib',
   },
   {
@@ -207,7 +214,7 @@ export const LANDING_BENEFITS = [
       ['CTX', 'KONTEXT',          'Deine Situation, sein Wissen'],
     ],
     cta: 'Mehr über Wlad',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'photo',
     photo: wlad('wlad-portrait.jpg'),
     photoFallback: local('hf-04.png'),
@@ -232,7 +239,7 @@ export const LANDING_BENEFITS = [
       ['ZERT', 'AUSBILDUNG',      'Staatlich · sechs Monate'],
     ],
     cta: 'Mehr Beweise',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'trust',
     photo: local('hf-05.png'),
     trustNumbers: [
@@ -253,12 +260,12 @@ export const LANDING_BENEFITS = [
       'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
       ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
-      ['BIB', 'STARTNUMMER',   '0001 · Class 01'],
+      ['BIB', 'STARTNUMMER',   '0001 · Individuell'],
       ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
     cta: 'Erstes Zertifikat freischalten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'cert',
   },
   {
@@ -266,25 +273,27 @@ export const LANDING_BENEFITS = [
     code: 'KOMPLETT',
     eyebrow: 'BENEFIT 07 · KOMPLETTBEGLEITUNG',
     headline: 'Powered by WladBot.',
-    headlineAccent: 'Getragen von der Class.',
-    subline: 'Du lernst nicht allein. Du wirst Teil von etwas.',
+    headlineAccent: 'Persönlich von Wlad.',
+    subline: 'Lernen ist nicht genug. Umsetzen entscheidet.',
     dark: true,
     body:
-      'WladBot ist nur der Anfang. Dahinter steht die komplette ' +
-      'Begleitung: tägliche Lernvideos, Live-Sessions mit Wlad, ' +
-      'die Class 0001 im geschlossenen Channel, monatliche ' +
-      'Strategie-Calls und ein Zertifikat, das zeigt, wer du geworden bist.',
+      'Plus-Plus ist kein Online-Kurs den du wegklickst. Es ist ' +
+      'echtes Enablement: tägliche Lernvideos, Live-Sessions mit Wlad ' +
+      'persönlich, der Drill-Channel in dem du das Gelernte sofort ' +
+      'auf deinen echten Führungsalltag anwendest, und WladBot der ' +
+      'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher — du ' +
+      'setzt sie um.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
-      ['CLS',  'CLASS 0001',      'Privater Channel · 100 Plätze'],
-      ['CAL',  'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
-      ['ZRT',  'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
+      ['DRL',  'DRILL-CHANNEL',  'Theorie sofort am echten Fall umsetzen'],
+      ['ENB',  'ENABLEMENT',     '12 Monate — bis es sitzt'],
+      ['ZRT',  'ZERTIFIKAT',     'Mit deiner persönlichen Startnummer'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
-    cta: 'Teil der Class werden',
-    href: 'https://leader-check.de',
+    cta: 'Mit Wlad starten',
+    href: 'https://leadercheck.de',
     variant: 'voxel',
   },
 ];

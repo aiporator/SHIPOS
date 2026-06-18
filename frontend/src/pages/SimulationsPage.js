@@ -169,7 +169,7 @@ export default function SimulationsPage() {
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
-  const loadScenarios = useCallback(async () => { try { const res = await api.get('/simulations/scenarios'); setScenarios(res.data); } catch (err) { logger.error('Failed to load scenarios:', err); } }, [api, logger]);
+  const loadScenarios = useCallback(async () => { try { const res = await api.get('/simulations/scenarios'); setScenarios(res.data); } catch (err) { logger.error('Failed to load scenarios:', err); } }, []);
   useEffect(() => { loadScenarios(); }, [loadScenarios]);
   useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, scrollRef]);
 

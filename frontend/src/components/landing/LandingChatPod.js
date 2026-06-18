@@ -99,7 +99,7 @@ const FLOWS = {
           'Du kennst deine Baustelle — schau dir Leader-OS am eigenen Use-Case an. ' +
           '20 Minuten, Live, mit dem Team.',
         primary: { label: 'Demo buchen · 20 Min', href: 'https://cal.com/leaderos/demo' },
-        secondary: { label: 'Erst Diagnose machen', href: 'https://leader-check.de' },
+        secondary: { label: 'Erst Diagnose machen', href: 'https://leadercheck.de' },
       },
       {
         min: 0,
@@ -107,7 +107,7 @@ const FLOWS = {
         body:
           'Genau für deinen Punkt gemacht: 5 Minuten, 21 Fragen, sofort dein Score und ' +
           'eine konkrete Empfehlung. Kostenlos, ohne Kreditkarte.',
-        primary: { label: 'Diagnose starten · 5 Min', href: 'https://leader-check.de' },
+        primary: { label: 'Diagnose starten · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Trotzdem Demo · 20 Min', href: 'https://cal.com/leaderos/demo' },
       },
     ],

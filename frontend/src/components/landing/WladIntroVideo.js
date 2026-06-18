@@ -139,15 +139,20 @@ export const WladIntroVideo = () => {
       className="relative w-full bg-white border-y-2 border-black"
       aria-label="Wlad Intro Video"
     >
-      <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-12 md:py-20">
-        <div className="mb-6 md:mb-8 flex items-end justify-between flex-wrap gap-3">
-          <div>
-            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-3 font-mono">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-24 sm:pt-28 md:pt-32 pb-10 md:pb-16">
+        <div className="mb-5 md:mb-7 flex items-end justify-between flex-wrap gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2.5 md:mb-3 font-mono">
               ▸ INTRO · WLAD IN 90 SEK
             </p>
             <h2
-              className="text-[40px] sm:text-[60px] md:text-[80px] leading-[0.92] tracking-[-0.04em] text-black"
-              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+              className="leading-[0.92] tracking-[-0.04em] text-black"
+              style={{
+                fontFamily: 'Outfit, sans-serif',
+                fontWeight: 900,
+                fontStyle: 'italic',
+                fontSize: 'clamp(34px, 7vw, 80px)',
+              }}
             >
               Bevor du startest<span className="text-brand">.</span>
             </h2>
@@ -155,13 +160,13 @@ export const WladIntroVideo = () => {
           <button
             type="button"
             onClick={toggleMute}
-            className="text-[11px] font-bold uppercase tracking-[0.18em] text-black/55 hover:text-black transition-colors border border-black/15 px-3 py-2 font-mono"
+            className="shrink-0 text-[10.5px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-black/55 hover:text-black transition-colors border border-black/15 px-3 py-2 font-mono"
           >
             {muted ? '▸ TON AN' : '▸ TON AUS'}
           </button>
         </div>
 
-        <div className="relative aspect-video border-2 border-black overflow-hidden shadow-[10px_10px_0_0_#000] bg-black">
+        <div className="relative aspect-[4/3] sm:aspect-video border-2 border-black overflow-hidden shadow-[4px_4px_0_0_#000] sm:shadow-[10px_10px_0_0_#000] bg-black">
           <video
             ref={ref}
             src="/videos/wlad-intro.mp4"
@@ -170,7 +175,8 @@ export const WladIntroVideo = () => {
             playsInline
             loop={false}
             preload="metadata"
-            className="w-full h-full object-cover"
+            poster="/landing/hf-04.png"
+            className="w-full h-full object-cover object-center"
             data-testid="wlad-intro-video"
           />
 

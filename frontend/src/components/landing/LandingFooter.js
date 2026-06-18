@@ -10,15 +10,15 @@ import { Link } from 'react-router-dom';
  */
 
 const COL_PRODUCT = [
-  { label: 'Sprint · 30 Tage', href: 'https://leader-check.de', external: true },
-  { label: 'OS · Jahr', href: 'https://leader-check.de', external: true },
+  { label: 'Sprint · 30 Tage', href: 'https://leadercheck.de', external: true },
+  { label: 'OS · Jahr', href: 'https://leadercheck.de', external: true },
   { label: 'WladBot · 24/7', href: '#benefit-02' },
   { label: '11 Frameworks', href: '#benefit-01' },
   { label: 'Zertifikat 0001', href: '#benefit-06' },
 ];
 
 const COL_LEARN = [
-  { label: 'Diagnose · kostenlos', href: 'https://leader-check.de', external: true },
+  { label: 'Diagnose · kostenlos', href: 'https://leadercheck.de', external: true },
   { label: '90-Sek-Intro mit Wlad', href: '#wlad-intro' },
   { label: 'Innen-Ansicht', href: '#app-preview' },
   { label: 'Manifest', href: '#manifesto' },
@@ -28,8 +28,8 @@ const COL_LEARN = [
 const COL_ABOUT = [
   { label: 'Demo · 20 Min', href: 'https://cal.com/leaderos/demo', external: true },
   { label: 'Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung', external: true },
-  { label: 'Login', to: '/login' },
-  { label: 'leader-check.de', href: 'https://leader-check.de', external: true },
+  { label: 'Login', href: 'https://leaderos.de/login', external: true },
+  { label: 'leader-check.de', href: 'https://leadercheck.de', external: true },
   { label: 'Impressum', to: '/impressum' },
   { label: 'Datenschutz', to: '/datenschutz' },
   { label: 'AGB', to: '/agb' },
@@ -89,13 +89,13 @@ export const LandingFooter = () => (
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
             Das Operating System für Führungskräfte, die KI-nativ
-            werden — gebaut auf Wlad Jachtchenkos Methodik. Powered by
-            WladBot · BIB · 0001 · CLASS 01.
+            werden — gebaut auf Wlad Jachtchenkos Methodik.
+            Powered by WladBot.
           </p>
 
           <div className="mt-7 inline-flex items-center gap-2 px-3 py-1.5 border border-brand/40 bg-brand/[0.08] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
-            CLASS 0001 · JETZT OFFEN
+            JETZT STARTEN
           </div>
         </div>
 
@@ -139,7 +139,7 @@ export const LandingFooter = () => (
       {/* BIB strip */}
       <div className="mt-10 pt-5 border-t border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[9.5px] uppercase tracking-[0.22em] font-bold text-white/35 font-mono">
         <span>© {new Date().getFullYear()} LEADER-OS · AIPORATE</span>
-        <span>BIB · 0001 · DREIßIG TAGE · ELF FRAMEWORKS · CLASS 01</span>
+        <span>DREIßIG TAGE · ELF FRAMEWORKS · EIN OS</span>
       </div>
     </div>
   </footer>
