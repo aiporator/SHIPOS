@@ -1,0 +1,81 @@
+{
+  "theme": "LIGHT",
+  "archetype": "4 (Swiss & High-Contrast) + E1 Glassmorphism Twist",
+  "mood": "Premium, structured, execution-driven, clear, focused",
+  "colors": {
+    "background_primary": "#FAFAFA",
+    "background_secondary": "#FFFFFF",
+    "text_primary": "#0A0A0A",
+    "text_secondary": "#52525B",
+    "border_subtle": "#E4E4E7",
+    "primary_action": "#000000",
+    "primary_action_text": "#FFFFFF",
+    "tier_free": {
+      "bg": "#F1F5F9",
+      "text": "#475569"
+    },
+    "tier_standard": {
+      "bg": "#EFF6FF",
+      "text": "#2563EB"
+    },
+    "tier_accelerator": {
+      "bg": "#FAF5FF",
+      "text": "#9333EA"
+    },
+    "event_live": "#FFF1F2",
+    "event_focus": "#F0FDF4"
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk",
+    "body_font": "Satoshi",
+    "scale": {
+      "h1": "text-4xl sm:text-5xl tracking-tighter font-bold",
+      "h2": "text-2xl sm:text-3xl tracking-tight font-semibold",
+      "h3": "text-xl font-semibold",
+      "body": "text-base leading-relaxed",
+      "small_label": "text-xs tracking-[0.2em] uppercase font-bold text-gray-500"
+    }
+  },
+  "layout_spacing": {
+    "philosophy": "Generous spacing. Use p-8 and p-12 for section breathing room.",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "event_cards": "rounded-2xl p-6 bg-white border border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gray-300",
+    "focus_grid": "grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch"
+  },
+  "components": {
+    "header": "Crystal Glass: backdrop-blur-xl bg-white/70 border-b border-gray-200/50 sticky top-0 z-50 py-4",
+    "tabs": "Floating pill style. Override standard Shadcn tabs. Use rounded-full bg-gray-100 p-1, active tab gets bg-white shadow-sm rounded-full.",
+    "buttons": "rounded-xl font-medium px-6 py-3 transition-colors. Primary is black, Secondary is bg-gray-100 hover:bg-gray-200 text-black.",
+    "badges": "rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+  },
+  "interactions": {
+    "hover": "Smooth transform translations and soft ambient shadow increases.",
+    "click": "Scale down slightly (scale-95) active state.",
+    "transitions": "transition-all duration-300 ease-out"
+  },
+  "media": {
+    "icons_library": "@phosphor-icons/react",
+    "images": [
+      {
+        "category": "hero_background",
+        "url": "https://images.unsplash.com/photo-1765370847579-70d5d83401d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMG1pbmltYWxpc3QlMjB0ZXh0dXJlJTIwbGlnaHR8ZW58MHx8fHwxNzc2MzM2ODIyfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Minimalist light square texture for subtle hero banner background to give premium feel."
+      },
+      {
+        "category": "focus_session_thumbnail",
+        "url": "https://images.unsplash.com/photo-1749545849681-37e7b302fdb6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjB3b3Jrc3BhY2UlMjBmb2N1c3xlbnwwfHx8fDE3NzYzMzY4MTR8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Black notebooks and pen on white surface for Focus Time / Execution sessions."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Implement the event platform using React, Tailwind CSS, and customized Shadcn components.",
+    "Use Cabinet Grotesk for headings and Satoshi for body fonts. Add them via Google Fonts or standard @font-face imports.",
+    "Do NOT use standard boring list views. Render events as premium cards (rounded-2xl) with clean typography, clear date/time blocks, and tiered badges (Free, Standard, Accelerator).",
+    "Build a custom Focus Time System widget mimicking a 'Control Room' dense grid, allowing users to define weekly focus times.",
+    "Add Phosphor icons (e.g., CalendarPlus, CalendarBlank, VideoCamera) for 1-click Google/Outlook calendar integration.",
+    "Include data-testid on all interactive elements.",
+    "Use a tabbed interface (Live Events, Replays, Focus Sessions) utilizing custom pill-shaped tabs rather than standard underlines.",
+    "Header must use Crystal Glass effect (backdrop-blur-xl bg-white/70)."
+  ]
+}

@@ -1,0 +1,124 @@
+"""Challenger routes."""
+from fastapi import APIRouter, HTTPException, Request
+import uuid
+import json
+import re
+from datetime import datetime, timezone
+# Migration → lib.llm_provider (bit-identische API, Provider per ENV).
+from lib.llm_provider import LlmChat, UserMessage
+
+from config import db, EMERGENT_LLM_KEY, logger
+from services import get_current_user, clean_ai_text
+from services_actions import record_user_action
+from data import LEADERSHIP_CHALLENGERS
+
+router = APIRouter(prefix="/api", tags=["challengers"])
+
+
+@router.get("/challengers")
+async def get_challengers():
+    return LEADERSHIP_CHALLENGERS
+
+
+@router.post("/challengers/{challenger_id}/start")
+async def start_challenge(challenger_id: str, request: Request):
+    user = await get_current_user(request)
+    challenger = next((c for c in LEADERSHIP_CHALLENGERS if c["challenger_id"] == challenger_id), None)
+    if not challenger:
+        raise HTTPException(status_code=404, detail="Challenger not found")
+    challenge_id = f"chal_{uuid.uuid4().hex[:12]}"
+    doc = {
+        "challenge_id": challenge_id, "user_id": user["user_id"], "challenger_id": challenger_id,
+        "messages": [], "status": "active", "result": None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.challenges.insert_one(doc)
+    try:
+        chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"chal_{challenge_id}", system_message=challenger["test_prompt"])
+        chat.with_model("openai", "gpt-5.2")
+        ai_response = await chat.send_message(UserMessage(text="Start the interview. Introduce yourself briefly and ask the first question."))
+        await db.challenges.update_one(
+            {"challenge_id": challenge_id},
+            {"$push": {"messages": {"role": "assistant", "content": ai_response, "timestamp": datetime.now(timezone.utc).isoformat()}}},
+        )
+        return {"challenge_id": challenge_id, "challenger": challenger, "initial_message": clean_ai_text(ai_response)}
+    except Exception as e:
+        logger.error(f"Challenge start error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+def _parse_challenge_result(ai_response: str) -> dict | None:
+    """Extract challenge result JSON from AI response."""
+    if '"hired"' not in ai_response:
+        return None
+    try:
+        from services_ai_parse import parse_ai_json
+        # Try strict parse first (covers fenced/prose-wrapped)
+        parsed = parse_ai_json(ai_response)
+        if isinstance(parsed, dict) and "hired" in parsed:
+            return parsed
+        # Legacy fallback: regex extract single-line JSON containing "hired"
+        json_match = re.search(r'\{[^{}]*"hired"[^{}]*\}', ai_response)
+        if json_match:
+            return json.loads(json_match.group())
+    except (json.JSONDecodeError, Exception):
+        pass
+    return None
+
+
+@router.post("/challengers/{challenger_id}/message")
+async def challenge_message(challenger_id: str, request: Request):
+    from routes.credits import check_and_deduct_credit
+    body = await request.json()
+    message = body.get("message", "")
+    challenge_id = body.get("challenge_id", "")
+    user = await get_current_user(request)
+
+    credit_result = await check_and_deduct_credit(user, "roleplay")
+    if not credit_result["allowed"]:
+        raise HTTPException(status_code=402, detail="no_credits")
+
+    challenger = next((c for c in LEADERSHIP_CHALLENGERS if c["challenger_id"] == challenger_id), None)
+    if not challenger:
+        raise HTTPException(status_code=404, detail="Challenger not found")
+    chal = await db.challenges.find_one({"challenge_id": challenge_id, "user_id": user["user_id"]}, {"_id": 0})
+    if not chal:
+        raise HTTPException(status_code=404, detail="Challenge session not found")
+
+    await db.challenges.update_one(
+        {"challenge_id": challenge_id},
+        {"$push": {"messages": {"role": "user", "content": message, "timestamp": datetime.now(timezone.utc).isoformat()}}},
+    )
+    try:
+        chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"chal_{challenge_id}", system_message=challenger["test_prompt"])
+        chat.with_model("openai", "gpt-5.2")
+        msgs = chal.get("messages", [])
+        context = "\n".join(f"{'Interviewer' if m['role'] == 'assistant' else 'Candidate'}: {m['content']}" for m in msgs[-10:])
+        ai_response = await chat.send_message(UserMessage(text=f"{context}\nCandidate: {message}"))
+
+        await db.challenges.update_one(
+            {"challenge_id": challenge_id},
+            {"$push": {"messages": {"role": "assistant", "content": ai_response, "timestamp": datetime.now(timezone.utc).isoformat()}}},
+        )
+
+        result = _parse_challenge_result(ai_response)
+        if result:
+            await db.challenges.update_one({"challenge_id": challenge_id}, {"$set": {"status": "completed", "result": result}})
+            score = result.get("score", 0)
+            await record_user_action(
+                user["user_id"],
+                "challenge_completed",
+                leadership_bonus=max(1, score // 20),
+                metadata={"challenge_id": challenge_id, "challenger": challenger_id, "score": score},
+            )
+
+        return {"response": clean_ai_text(ai_response), "result": result}
+    except Exception as e:
+        logger.error(f"Challenge message error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/challengers/history")
+async def get_challenge_history(request: Request):
+    user = await get_current_user(request)
+    return await db.challenges.find({"user_id": user["user_id"]}, {"_id": 0, "messages": 0}).sort("created_at", -1).to_list(50)

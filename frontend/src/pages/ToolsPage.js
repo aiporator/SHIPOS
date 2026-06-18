@@ -1,0 +1,166 @@
+import { useState } from 'react';
+import logger from '../lib/logger';
+import { DashboardLayout } from '../components/layout/DashboardLayout';
+import { Button } from '../components/ui/button';
+import { useLanguage } from '../contexts/LanguageContext';
+import api from '../lib/api';
+import { generatePDF } from '../lib/pdfGenerator';
+import { toolsDe, toolsEn } from '../lib/toolsData';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LoadingOverlay } from '../components/shared/LoadingOverlay';
+import { PersonaStep, StepContent } from '../components/tools/WorkflowSteps';
+import { DeepAssistModal } from '../components/tools/DeepAssistModal';
+import { ToolsUpsellModal } from '../components/tools/ToolsUpsellModal';
+import { ToolsGrid } from '../components/tools/ToolsGrid';
+import { StepIndicator } from '../components/tools/StepIndicator';
+import { WorkflowResultPanel } from '../components/tools/WorkflowResultPanel';
+
+const buildPersonaText = (persona) => {
+  const parts = [];
+  if (persona.role) parts.push(`Rolle: ${persona.role}`);
+  if (persona.industry) parts.push(`Branche: ${persona.industry}`);
+  if (persona.team) parts.push(`Team: ${persona.team}`);
+  if (persona.goals) parts.push(`Persönliche Ziele: ${persona.goals}`);
+  if (persona.employeeGoals) parts.push(`Mitarbeiter-Ziele: ${persona.employeeGoals}`);
+  return parts.join('\n');
+};
+
+const EMPTY_PERSONA = { role: '', industry: '', team: '', goals: '', employeeGoals: '' };
+
+export default function ToolsPage() {
+  const { lang } = useLanguage();
+  const de = lang === 'de';
+  const tools = de ? toolsDe : toolsEn;
+  const [activeTool, setActiveTool] = useState(null);
+  const [currentStep, setCurrentStep] = useState(-1);
+  const [answers, setAnswers] = useState({});
+  const [persona, setPersona] = useState(EMPTY_PERSONA);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [showDeepAssist, setShowDeepAssist] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmitWorkflow = async () => {
+    if (loading || !activeTool) return;
+    setLoading(true);
+    setResult(null);
+    const inputText = activeTool.steps.map((step, i) => `${step.q}: ${answers[i] || 'Nicht angegeben'}`).join('\n');
+    try {
+      const res = await api.post(`/tools/${activeTool.id}`, { input: inputText, persona: buildPersonaText(persona) });
+      setResult(res.data.result);
+      setCurrentStep(activeTool.steps.length);
+    } catch (err) { logger.error('Workflow error:', err); }
+    finally { setLoading(false); }
+  };
+
+  const handleDownloadPDF = async () => {
+    if (!result || !activeTool) return;
+    await generatePDF({
+      title: `${de ? 'Workflow-Report' : 'Workflow Report'}: ${activeTool.title}`,
+      overall_assessment: result.event_concept || result.decision_summary || result.result || '',
+      conversation_plan: result.conversation_plan,
+      feedback_formulations: result.feedback_formulations,
+      guide_questions: result.guide_questions,
+      optimized_text: result.optimized_text,
+      pros: result.pros, cons: result.cons,
+      recommendation: result.recommendation, counter_check: result.counter_check,
+      high_impact: result.high_impact, development_plan: result.development_plan,
+      agenda: result.agenda, next_steps: result.next_steps,
+      strengths: result.strengths, improvements: result.improvements || result.weaknesses,
+    }, `WladBot-${activeTool.title.replace(/\s+/g, '-')}`);
+  };
+
+  const resetTool = () => {
+    setActiveTool(null); setCurrentStep(-1); setAnswers({}); setResult(null);
+    setPersona(EMPTY_PERSONA);
+  };
+
+  const selectTool = (t) => {
+    setActiveTool(t); setCurrentStep(-1); setAnswers({}); setResult(null);
+    setPersona(EMPTY_PERSONA);
+  };
+
+  const totalSteps = activeTool ? activeTool.steps.length + 1 : 0;
+  const isPersonaStep = currentStep === -1;
+  const currentStepData = activeTool?.steps[currentStep];
+  const isLastStep = activeTool && currentStep === activeTool.steps.length - 1;
+  const isComplete = activeTool && currentStep >= activeTool.steps.length;
+  const personaComplete = persona.role.trim().length > 0;
+
+  return (
+    <DashboardLayout>
+      <div className="p-6 lg:p-10 max-w-4xl mx-auto bg-gradient-mesh min-h-screen" data-testid="tools-page">
+        {showUpsell && <ToolsUpsellModal onClose={() => setShowUpsell(false)} de={de} />}
+
+        {!activeTool && (
+          <ToolsGrid
+            tools={tools}
+            onSelectTool={selectTool}
+            onOpenDeepAssist={() => setShowDeepAssist(true)}
+            de={de}
+          />
+        )}
+
+        {activeTool && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="sm" onClick={resetTool} className="font-semibold" data-testid="back-to-tools-btn">
+                <ArrowLeft size={16} className="mr-1" /> {de ? 'Zurück' : 'Back'}
+              </Button>
+            </div>
+
+            <div className="text-center space-y-3">
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${activeTool.gradient} flex items-center justify-center mx-auto shadow-lg`}>
+                <activeTool.icon size={24} className="text-white" />
+              </div>
+              <h2 className="text-xl font-black">{activeTool.title}</h2>
+              <StepIndicator currentStep={currentStep + 1} totalSteps={totalSteps} toolGradient={activeTool.gradient} />
+            </div>
+
+            {isPersonaStep && !isComplete && (
+              <PersonaStep
+                persona={persona} setPersona={setPersona}
+                activeTool={activeTool} personaComplete={personaComplete}
+                onNext={() => setCurrentStep(0)} de={de}
+              />
+            )}
+
+            {!isComplete && !isPersonaStep && currentStepData && (
+              <StepContent
+                activeTool={activeTool} currentStep={currentStep}
+                currentStepData={currentStepData} answers={answers}
+                setAnswers={setAnswers} isLastStep={isLastStep}
+                loading={loading}
+                onPrev={() => setCurrentStep(currentStep === 0 ? -1 : currentStep - 1)}
+                onNext={() => setCurrentStep(currentStep + 1)}
+                onSubmit={handleSubmitWorkflow} de={de}
+              />
+            )}
+
+            {loading && <LoadingOverlay isOpen={loading} de={de} title={de ? 'Dein Leadership-Muster wird analysiert' : 'Analyzing your leadership pattern'} />}
+
+            {isComplete && result && !loading && (
+              <WorkflowResultPanel
+                result={result}
+                persona={persona}
+                onDownloadPDF={handleDownloadPDF}
+                onNavigateVideo={() => navigate('/missions')}
+                onOpenUpsell={() => setShowUpsell(true)}
+                de={de}
+              />
+            )}
+          </div>
+        )}
+
+        <DeepAssistModal
+          open={showDeepAssist}
+          onClose={() => setShowDeepAssist(false)}
+          toolId={activeTool?.id}
+          de={de}
+        />
+      </div>
+    </DashboardLayout>
+  );
+}

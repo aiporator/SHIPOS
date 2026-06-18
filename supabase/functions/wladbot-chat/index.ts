@@ -22,7 +22,18 @@ const CLASSIFIER_FALLBACK_MODEL = "claude-haiku-4-5-20251001";
 const ANSWER_FALLBACK_MODEL = "claude-opus-4-7";
 const MATCH_COUNT = 6;
 const NEIGHBOR_RADIUS = 1;
-const MATCH_THRESHOLD = 0.55;
+// RAG-Match-Threshold ist Pflicht-Env. Canonical-Wert lebt in
+// backend/services_rag.py — siehe .github/workflows/constants-drift.yml.
+// Drift-Prävention: keine Default-Zahl, harter Throw wenn ungesetzt.
+const _ragThresholdEnv = Deno.env.get("RAG_MATCH_THRESHOLD");
+if (!_ragThresholdEnv) {
+  throw new Error(
+    "RAG_MATCH_THRESHOLD env var is required for wladbot-chat. " +
+      "Set it in Supabase Edge-Function-Secrets to the same value as " +
+      "MATCH_THRESHOLD in backend/services_rag.py."
+  );
+}
+const RAG_THRESHOLD_VALUE = Number(_ragThresholdEnv);
 
 async function loadActivePrompt(
   sb: ReturnType<typeof serviceClient>,
@@ -80,7 +91,7 @@ Deno.serve(async (req) => {
       query_embedding: queryVec as unknown as string,
       match_count: MATCH_COUNT,
       neighbor_radius: NEIGHBOR_RADIUS,
-      match_threshold: MATCH_THRESHOLD,
+      match_threshold: RAG_THRESHOLD_VALUE,
       filter_source: body.documentSet ?? null,
     });
     if (matchErr) throw matchErr;

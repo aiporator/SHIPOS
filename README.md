@@ -1,64 +1,102 @@
-# Leader-OS — `aiporator/SHIPOS`
+# Leader-OS
 
-Source of truth for the **Leader-OS** product surface. Two front-ends share a
-single Supabase project; this repo holds the schema reference, runbook,
-dashboard catalog, and Claude Code wiring. **No application code lives here** —
-front-end code ships from separate repositories.
+Single repo, **two production domains, two Vercel projects, one React
+app**. Host-based routing inside `frontend/` decides which surface to
+render at runtime.
 
-| Surface          | URL              | Purpose                                                  |
-| ---------------- | ---------------- | -------------------------------------------------------- |
-| **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ)         |
-| **leader-os**    | leader-os.de     | Authenticated coaching app + ai-strategist + wladbot RAG |
+## Topology
 
-**Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`, Postgres 17).
+```
+                  GoDaddy DNS (A → 76.76.21.21)
+                              │
+                              ▼
+                  Vercel routes by Host header
+            ┌─────────────────┴─────────────────┐
+            ▼                                   ▼
+  Vercel project: leader-os         Vercel project: leader-check
+    Domains:                          Domains:
+      leader-os.de                      leader-check.de
+      www.leader-os.de                  www.leader-check.de
+    Production branch: mvpcode        Production branch: mvpcode
+    Root: ./   Framework: CRA         Root: ./   Framework: CRA
+            └─────────────────┬─────────────────┘
+                              ▼
+                  Both build `frontend/` from same repo
+                  Same code, different runtime host →
+                  isLeaderCheckHost() switches the routes
+                              │
+                              ▼
+                  /api/* → Emergent backend (vercel.json rewrite)
+```
+
+| Surface          | URL              | Audience                                         |
+| ---------------- | ---------------- | ------------------------------------------------ |
+| **leader-os**    | leader-os.de     | Authenticated coaching app + Landing             |
+| **leader-check** | leader-check.de  | Anonymous diagnostic funnel (KI / Rhetoric / EQ) |
+
+## Repo layout
+
+```
+frontend/    Create React App — builds for BOTH surfaces
+backend/     FastAPI — currently hosted on Emergent
+docs/        Schema, runbook, launch playbook
+.github/     CI + cron workflows
+.claude/     Claude Code skills
+vercel.json  CRA build → frontend/build, /api/* → emergent rewrite
+```
+
+**Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`).
+The MCP server is wired in `.mcp.json`.
+
+## Production branch
+
+**`mvpcode`** is production. Both Vercel projects auto-deploy from it
+on every push.
+
+## Launch / deploy
+
+- **First-time Vercel setup** (or rebuilding from scratch):
+  see [`docs/LAUNCH_TOMORROW.md`](./docs/LAUNCH_TOMORROW.md)
+- **Required env vars per Vercel project:** none.
+  All env vars in [`frontend/.env.example`](./frontend/.env.example) are
+  optional and only activate observability (PostHog / Sentry) — the
+  app builds and runs without them.
 
 ## Cross-platform identity
 
 Both surfaces write to the same Postgres tables. The dedup key is
-`public.users.email_lower` (UNIQUE).
+`public.users.email_lower` (UNIQUE). PostHog `identify()` / `alias()`
+use the same lowercased email so a person stays the same across the
+funnel (`leader-check.de`) and the authed app (`leader-os.de`).
 
-```
-┌────────────────────┐                 ┌────────────────────┐
-│  leader-check.de   │                 │   leader-os.de     │
-│  (anonymous)       │                 │   (Supabase Auth)  │
-└─────────┬──────────┘                 └─────────┬──────────┘
-          │ upsert_incomplete_attempt   handle_new_auth_user
-          ▼                                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│              public.users   (email_lower UNIQUE)             │
-│   meta_tags text[]  ←  ['leader-check','leader-os','admin']  │
-│   source_platform   ←  first touch only                      │
-└──────────────────────────────────────────────────────────────┘
+See `CLAUDE.md` for the full contract, `docs/SCHEMA.md` for the
+database shape, and `docs/INTEGRATIONS.md` for the frontend wiring.
+
+## Quick start (local dev)
+
+```bash
+# Backend (FastAPI)
+cd backend
+pip install -r requirements.txt
+uvicorn server:app --reload --port 8001
+
+# Frontend (CRA)
+cd frontend
+yarn install
+yarn start         # http://localhost:3000 → proxies /api/* to :8001
 ```
 
-For analytics, **always use `meta_tags`** (ever-touched) unless you specifically
-want first-touch attribution via `source_platform`.
+Copy `frontend/.env.example` to `frontend/.env.local` for local dev.
 
 ## Documentation
 
-| Doc                          | What it covers                                      |
-| ---------------------------- | --------------------------------------------------- |
-| [`CLAUDE.md`](./CLAUDE.md)             | Briefing for Claude Code working in this repo       |
-| [`docs/SCHEMA.md`](./docs/SCHEMA.md)     | Table reference                                      |
-| [`docs/DASHBOARD.md`](./docs/DASHBOARD.md) | Studio dashboard views                              |
-| [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)   | Deploy, secrets, common ops                          |
-| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) | Schema migration history                             |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Working rules for schema changes, advisors, reviews  |
-| [`SECURITY.md`](./SECURITY.md)         | Vulnerability reporting                              |
-
-## Working rules (short form — see `CONTRIBUTING.md` for full)
-
-1. Schema changes go through `apply_migration` via the Supabase MCP. No raw SQL.
-2. Run `get_advisors` after every DDL. One known WARN is intentional
-   (`upsert_incomplete_attempt` callable by `anon`).
-3. All views must be `security_invoker = true`.
-4. Trigger functions must `revoke all from public, anon, authenticated` and grant
-   only `service_role`.
-5. Every write that creates/links a user uses `email_lower` as the dedup key.
-
-## Repository scope
-
-This repo deliberately contains **no front-end code, no Edge Function source**,
-and no Vercel build target. Production deploys happen from the front-end repos
-linked to Vercel; Edge Functions deploy from the bundle described in
-`docs/RUNBOOK.md`.
+| Doc                                              | What it covers                                |
+| ------------------------------------------------ | --------------------------------------------- |
+| [`CLAUDE.md`](./CLAUDE.md)                       | Briefing for Claude Code sessions             |
+| [`docs/LAUNCH_TOMORROW.md`](./docs/LAUNCH_TOMORROW.md) | Step-by-step Vercel dual-project setup   |
+| [`docs/SCHEMA.md`](./docs/SCHEMA.md)             | Postgres tables, triggers, RPCs               |
+| [`docs/DASHBOARD.md`](./docs/DASHBOARD.md)       | Supabase Studio dashboard views               |
+| [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)           | Deploy, secrets, common ops                   |
+| [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) | PostHog EU + Sentry + Supabase wiring         |
+| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md)       | Schema migration history                      |
+| [`docs/BRANCH_CLEANUP.md`](./docs/BRANCH_CLEANUP.md) | Branch audit (proposal, not executed)     |

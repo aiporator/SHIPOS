@@ -13,11 +13,14 @@ Migrations are recorded by name in the Supabase project's migration history.
 | 4 | `cross_platform_views`                             | Added `v_user_360`, `v_dashboard_cross_platform`, `v_dashboard_platform_journey`, `v_dashboard_user_360_recent`, `v_dashboard_health`. |
 | 5 | `harden_trigger_function_grants`                   | Revoked `public/anon/authenticated` execute on 4 trigger functions; granted only `service_role`. |
 | 6 | `tighten_anon_rpc_grants`                          | Revoked anon execute on `match_wladbot_documents`, `match_wladbot_with_neighbors`, `user_context`. |
+| 7 | `lock_ops_dashboard_views_to_service_role` (20260517195842) | Revoked `anon`/`authenticated` on `dash_rag` + `dash_activity_feed` and set both to `security_invoker = true`. Cleared the two remaining advisor ERRORs (2 → 0). Mirrored in `supabase/migrations/`. |
 
-After migration 6 the security advisor reports two WARNs:
+After migration 7 the security advisor reports three WARNs, all reviewed and
+non-blocking — see `docs/LAUNCH_FIX.md §6`:
 
-1. `upsert_incomplete_attempt` callable by `anon` — **intentional** (leader-check landing page).
-2. `Leaked Password Protection Disabled` — fix in **Studio → Auth → Policies** (toggle, not DDL).
+1. `upsert_incomplete_attempt` callable by `anon` — **intentional** (funnel capture).
+2. `is_admin()` callable by `authenticated` — **safe** (boolean-returning, no escalation surface).
+3. Leaked password protection disabled — Studio toggle, not DDL.
 
 ## Repo changes
 

@@ -1,0 +1,52 @@
+{
+  "summary": "Iter 76 — Sidebar cleanup + Boardroom clipping fix + Profile Konto tab + Password change endpoint. ALL review items PASSED (backend 6/6 pytest + 14/14 frontend assertions).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iteration76_password_change.py",
+    "/app/test_reports/pytest/iter76_password.xml"
+  ],
+  "verified_review_items": {
+    "sidebar_no_empfehlungen": true,
+    "sidebar_no_downloads": true,
+    "sidebar_no_enterprise": true,
+    "sidebar_has_all_required": "Verified: Dashboard, 30-Tage Challenge, Täglicher Check-in (de label for Daily Check-in), Aufgaben (de label for Tasks), WladBot, Simulationen, Challengers, Playbooks, Video Analyse, Workflows, My Path, Community, Events, Admin Panel, Coaching",
+    "route_referral_accessible": true,
+    "route_downloads_accessible": true,
+    "route_enterprise_accessible": true,
+    "boardroom_rhetorik_full_text_visible": "Heading reads exactly 'Boardroom-Rhetorik' (no clipping to 'Boardroom-Rhetoril'); scrollWidth<=clientWidth so no overflow",
+    "profile_tab_account_exists": true,
+    "password_form_visible_after_tab_click": true,
+    "profile_link_enterprise_exists": true,
+    "profile_link_referral_exists": true,
+    "profile_link_downloads_exists": true,
+    "profile_link_downloads_navigates_to_downloads": true,
+    "all_4_download_buttons_present": "download-btn-leadership_report, download-btn-30_tage_plan, download-btn-wlad_book, download-btn-leadership_manifest",
+    "pdf_leadership_manifest_click_no_errors": "Toast 'PDF wird heruntergeladen…' shown, 0 relevant console errors after click",
+    "pw_mismatch_shows_toast_no_api_call": "Toast='Passwörter stimmen nicht überein.', 0 calls to /auth/password/change",
+    "backend_pw_change_wrong_current_returns_401_with_de_message": true,
+    "backend_pw_change_short_returns_400": true,
+    "backend_pw_change_same_as_current_returns_400": true,
+    "backend_pw_change_success_returns_200_and_relogin_works": true,
+    "backend_pw_change_unauthenticated_returns_401_or_403": true,
+    "test_user_password_reset_to_test123_after_test": "Verified — final login with original test123 succeeds in test_password_change_success_and_relogin_and_reset"
+  },
+  "action_items": [],
+  "critical_code_review_comments": [
+    "auth.py POST /api/auth/password/change is well-designed: requires current_password verify, min-length check, same-as-current rejection, invalidates OTHER sessions only (keeps current cookie alive) — exactly the documented intent.",
+    "ProfileAccountTab.js: client-side validation runs BEFORE the API call (mismatch + min-6-char) → confirmed via request listener: 0 API calls on mismatch toast.",
+    "LayerCard.js fix uses min-w-0 + break-words + hyphens-auto + lang='de' on h3 → text wraps correctly, no overflow clipping. Solid CSS fix.",
+    "Sidebar.js cleanup is clean: 4 nav sections (today/growth/insights/admin) — no dangling references to /referral, /downloads, /enterprise. App.js routes still registered (verified by direct GET to all three URLs returning 200 with content).",
+    "PDF generation flow on /downloads still works after sidebar removal — leadership_manifest button triggers download toast with no JS errors. Toast text 'PDF wird heruntergeladen…' confirms client-side blob generation succeeded."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration76_password_change.py (NEW — 6 pytest cases for /api/auth/password/change)"
+  ],
+  "success_rate": {"backend": "100% (6/6)", "frontend": "100% (all review items)"},
+  "test_credentials": "standard@wladbot.test / test123 — RESET back to test123 in the success test (verified by final relogin).",
+  "seed_data_creation": "None — used existing seed users.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter 76 is fully GREEN. Sidebar has been trimmed to exclude Empfehlungen / Downloads / Enterprise but the underlying routes /referral, /downloads, /enterprise REMAIN registered in App.js and are reachable. Profile→Konto tab (data-testid='profile-tab-account') is the new home for password-change form (data-testid='password-form') and 3 quick-links (profile-link-enterprise/referral/downloads). Password change endpoint POST /api/auth/password/change works correctly — requires current_password match, rejects <6 chars, rejects same-as-current, invalidates only OTHER sessions on success. PDF download flow on /downloads is intact: all 4 buttons (leadership_report, 30_tage_plan, wlad_book, leadership_manifest) trigger the 'PDF wird heruntergeladen…' toast without console errors. The standard@wladbot.test password is restored to test123 at end of pytest module.",
+  "rca of the issue": "No issues found. The 'Boardroom-Rhetoril' clip bug is resolved by adding min-w-0 to the flex child + break-words/hyphens-auto on the h3, allowing the title to wrap when the icon column reduces available width."
+}

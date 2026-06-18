@@ -1,0 +1,85 @@
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
+import { VoiceRecorder } from '../shared/VoiceRecorder';
+import { Send, Loader2, Paperclip, FileText, X, Zap, Headphones } from 'lucide-react';
+import { WladTopicChips } from './WladTopicChips';
+
+const AttachedPreview = ({ attachedPdf, onRemove, de }) => (
+  <div className="max-w-4xl mx-auto mb-2 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#BFFF00]/8 border border-[#BFFF00]/20" data-testid="pdf-attached">
+    <FileText size={14} className="text-brand shrink-0" />
+    <div className="flex-1 min-w-0">
+      <p className="text-[11px] font-bold truncate">{attachedPdf.filename}</p>
+      <p className="text-[9px] text-muted-foreground">
+        {attachedPdf.type === 'pdf' && `${attachedPdf.pages_read}/${attachedPdf.pages} Seiten · ${(attachedPdf.chars / 1000).toFixed(1)}k Zeichen`}
+        {attachedPdf.type === 'docx' && `Word · ${(attachedPdf.chars / 1000).toFixed(1)}k Zeichen`}
+        {['txt','md','csv'].includes(attachedPdf.type) && `${attachedPdf.type.toUpperCase()} · ${(attachedPdf.chars / 1000).toFixed(1)}k Zeichen`}
+        {attachedPdf.type === 'image' && `Bild · ${(attachedPdf.bytes / 1024).toFixed(0)} KB`}
+        {' · '}{de ? 'wird mitgesendet' : 'will be sent'}
+      </p>
+    </div>
+    <button onClick={onRemove} className="p-1 text-muted-foreground hover:text-rose-500 transition-colors shrink-0" data-testid="pdf-remove">
+      <X size={12} />
+    </button>
+  </div>
+);
+
+export const ChatInputBar = ({
+  input, setInput, loading, onSend, onVoice,
+  attachedPdf, setAttachedPdf, uploadingPdf, onPdfUpload,
+  isPremium, onOpenUpsell, onOpenAudioMode, de,
+}) => (
+  <div className="border-t border-border p-4 bg-card/80 backdrop-blur-xl">
+    {attachedPdf && <AttachedPreview attachedPdf={attachedPdf} onRemove={() => setAttachedPdf(null)} de={de} />}
+    <div className="flex gap-3 max-w-4xl mx-auto">
+      <VoiceRecorder onTranscription={onVoice} disabled={loading} />
+      <button
+        type="button"
+        onClick={onOpenAudioMode}
+        disabled={loading}
+        data-testid="audio-mode-btn"
+        title={de ? 'Audio-Modus (Hands-free Voice Chat)' : 'Audio Mode (Hands-free Voice Chat)'}
+        className={`flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#BFFF00] to-[#9FE000] text-[#0A0A0A] hover:shadow-lg hover:shadow-[#BFFF00]/30 transition-all shrink-0 ${loading ? 'opacity-50 pointer-events-none' : ''}`}
+      >
+        <Headphones size={15} strokeWidth={2.5} />
+      </button>
+      <label
+        className={`cursor-pointer flex items-center justify-center w-10 h-10 rounded-full bg-[#BFFF00]/10 hover:bg-[#BFFF00]/20 border border-[#BFFF00]/20 transition-colors shrink-0 ${(loading || uploadingPdf) ? 'opacity-50 pointer-events-none' : ''}`}
+        data-testid="pdf-upload-btn"
+        title={de ? 'Dokument anhängen (PDF, Word, TXT, Bild)' : 'Attach document (PDF, Word, TXT, image)'}
+      >
+        {uploadingPdf
+          ? <Loader2 size={15} className="animate-spin text-[#6B8A00] dark:text-[#BFFF00]" />
+          : <Paperclip size={15} className="text-brand" />}
+        <input
+          type="file"
+          accept=".pdf,.docx,.txt,.md,.csv,.png,.jpg,.jpeg,.webp,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown,image/*"
+          className="hidden"
+          onChange={onPdfUpload}
+        />
+      </label>
+      <Textarea data-testid="chat-input" value={input} onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); } }}
+        placeholder={attachedPdf
+          ? (de ? 'Was möchtest du zu dem PDF wissen?' : 'What do you want to know about the PDF?')
+          : (de ? 'Beschreibe deine Leadership-Herausforderung...' : 'Describe your leadership challenge...')}
+        className="resize-none min-h-[44px] max-h-32 bg-muted/40 border-border rounded-xl focus-visible:ring-1 focus-visible:ring-brand/40" rows={1} />
+      <Button data-testid="chat-send-btn" onClick={onSend} disabled={!input.trim() || loading}
+        className="brand-pill btn-shine rounded-full px-5 shrink-0">
+        {loading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+      </Button>
+    </div>
+
+    <WladTopicChips
+      onPickPrompt={(text) => setInput(text)}
+      lang={de ? 'de' : 'en'}
+    />
+
+    {!isPremium && (
+      <div className="flex items-center justify-center mt-2">
+        <button onClick={onOpenUpsell} className="text-[10px] text-muted-foreground hover:text-brand transition-colors font-medium" data-testid="upsell-mini-btn">
+          <Zap size={9} className="inline mr-0.5 text-brand" /> Premium ab €997
+        </button>
+      </div>
+    )}
+  </div>
+);

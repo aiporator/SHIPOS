@@ -1,0 +1,62 @@
+{
+  "summary": "Iter 68 Auth-Stress: 5/20 pass. CRITICAL BLOCKER found — Pydantic EmailStr rejects .test TLD as reserved special-use domain (email_validator default behavior). Result: ALL 5 seeded tier accounts (free/starter/standard/accelerator/accelerator-raten@wladbot.test) + legacy admin test@test.com return HTTP 422 on /auth/login and /auth/register. Quick-login buttons on /login page are 100% broken. Regression suite couldn't run (auth fixture failed). Stopped frontend Playwright since quick-login is the primary entry point. Passed: case-insensitive register+login happy-path, duplicate-CI 400, invalid-email 422, weak-password 422, no-cookie→401, brute-force partial (got 429 but via global RateLimitMiddleware, not the dedicated _check_rate_limit — see note).",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "POST /api/auth/login and /api/auth/register",
+        "issue": "Pydantic EmailStr (via email-validator lib) blocks .test TLD with 'part after @-sign is a special-use or reserved name'. ALL seeded tier accounts (@wladbot.test) + legacy admin (test@test.com) return 422 on login/register. This is a regression introduced by switching to EmailStr in models.py. Verified via curl: {\"email\":\"standard@wladbot.test\",\"password\":\"test123\"} → 422. Frontend quick-login buttons 100% broken.",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": [
+      {
+        "endpoint": "RateLimitMiddleware (global) vs _check_rate_limit (brute-force)",
+        "issue": "Global RateLimitMiddleware kicks in BEFORE the dedicated _check_rate_limit (10/15min) for the same email. Rapid sequential login attempts return 429 'Too many requests. Bitte warte einen Moment.' (middleware) instead of the intended 'Zu viele fehlgeschlagene Login-Versuche. Bitte warte 15 Minuten...' (auth.py). The enterprise-specific brute-force message + 15-min window is shadowed by the global IP rate-limit. Brute-force protection technically works, but the UX message and semantic intent differ from the PRD."
+      },
+      {
+        "endpoint": "POST /api/auth/register (race test)",
+        "issue": "Could not verify race-condition uniqueness via @example.com addresses because all 5 parallel threads used the same blocked .test email → 422s. Needs retest with valid TLD after EmailStr fix. Unique case-insensitive index on users.email IS correctly built per server.py startup log, so parallel register race is structurally protected — but E2E assertion pending."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Quick-Login buttons (data-testid=quick-login-{free,starter,standard,accelerator,accelerator-raten})",
+        "issue": "All 5 tier quick-login POSTs will fail with 422 due to .test TLD rejection at backend. Frontend will show the Pydantic error array in the auth-error banner (unfriendly). E2E playwright skipped because this is a backend-blocker — no point testing UI until login works.",
+        "affected_selectors": ["quick-login-free", "quick-login-starter", "quick-login-standard", "quick-login-accelerator", "quick-login-accelerator-raten"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration68_auth_enterprise.py",
+    "/app/test_reports/pytest/pytest_iteration68.xml"
+  ],
+  "action_items": [
+    "CRITICAL: Fix EmailStr → allow .test TLD. Two options: (a) In models.py, replace `EmailStr` with a custom validator that calls email_validator.validate_email(v, check_deliverability=False, allow_special_use_domains=False→True). Official fix: `from pydantic import BeforeValidator; from email_validator import validate_email; EmailType = Annotated[str, BeforeValidator(lambda v: validate_email(v, check_deliverability=False, allow_special_use_domains=True).normalized)]`. Or (b) re-seed all 5 tier accounts with a non-reserved TLD (e.g., @wladbot.io) and update /app/memory/test_credentials.md + LoginPage.js quick-login list. Option (a) is preferred (no churn to docs/scripts/frontend).",
+    "Re-order middleware so the per-email+IP _check_rate_limit in routes/auth.py wins over the global RateLimitMiddleware for /auth/login, OR raise the global RateLimitMiddleware threshold for auth endpoints so the enterprise brute-force message + 15-min window surfaces. Currently global IP rate-limit shadows the dedicated protection.",
+    "After fix, re-run /app/backend/tests/test_iteration68_auth_enterprise.py to confirm all 20 tests green, then run full Playwright (quick-login x5 tiers, re-login loop x3, cross-tab session, logout state-clear, Pydantic error display, protected-route redirect)."
+  ],
+  "critical_code_review_comments": [
+    "models.py line 1: `from pydantic import ...EmailStr` — EmailStr's underlying email-validator lib blocks reserved TLDs (.test, .example, .invalid, .localhost) by default. This is a breaking change vs. the prior plain `str` field. Since the seed_test_users.py + test_credentials.md + LoginPage.js quick-login hardcode @wladbot.test, this breaks the entire test harness + local dev flow. Must allow special-use domains or migrate seed emails.",
+    "routes/auth.py _check_rate_limit: designed for 10 failed attempts / 15 min (enterprise-grade). But the global RateLimitMiddleware in middleware.py triggers 429 much earlier (~5-10 requests/min per IP). Net effect: _check_rate_limit never fires in practice; brute-force returns a generic 'Too many requests' instead of the enterprise message. Either whitelist /auth/login from global middleware or raise its threshold for auth paths.",
+    "routes/auth.py: register returns `{token, user}` with a JWT even though the frontend uses cookie-only auth. Dead field? Consider removing to reduce surface (or document it as 'backwards-compat for API clients').",
+    "server.py startup: `async for user in db.users.find({'email': {'$regex': '[A-Z]'}})` migration runs on EVERY startup — fine for small user tables, but add a one-shot flag (or check on a marker doc) to avoid a full scan on large deployments.",
+    "models.py: UserLogin also uses EmailStr — login of legacy users with case-odd or special-TLD emails will fail with 422 even if their record exists in DB. Login validation should be more lenient than register (trim+lowercase+simple '@' check) so old accounts aren't locked out post-migration."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration68_auth_enterprise.py (new — 20 tests, 5 pass, 9 fail, 6 errors, all failures traceable to EmailStr .test blocker)"
+  ],
+  "success_rate": {
+    "backend": "25% (5/20) — blocked by EmailStr .test TLD rejection affecting all 5 tier accounts",
+    "frontend": "skipped — backend blocker makes quick-login E2E useless until fixed"
+  },
+  "test_credentials": "free/starter/standard/accelerator/accelerator-raten@wladbot.test / test123 — CURRENTLY BROKEN due to .test TLD rejection. Also test@test.com (legacy admin) broken.",
+  "seed_data_creation": "test_iteration68_auth_enterprise.py creates TEST_*@wladbot.test and TEST_*@example.com users during run. @example.com works; @wladbot.test is blocked. No manual cleanup needed (login_attempts TTL cleans itself; users with TEST_ prefix accumulate — suggest periodic cleanup script).",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "After main agent fixes EmailStr to allow .test TLD (or renames seed emails), re-run `pytest /app/backend/tests/test_iteration68_auth_enterprise.py -v`. All 20 tests should pass. THEN run Playwright E2E for: (1) quick-login x5 tiers redirect to /dashboard, (2) register→logout→login cycle x3 with sessionStorage.wladbot_user verified empty after logout, (3) cross-tab: login in tab A, check /dashboard accessible in tab B via same httpOnly cookie, (4) logout in tab A → tab B next API call → /auth/refresh fails → redirect to /login (iter 66 interceptor), (5) Pydantic 422 for 'not-an-email' and '3-char-pw' must surface a readable message in [data-testid=auth-error] (currently shows raw Pydantic array — consider fixing frontend error extraction). Happy-path register with @example.com + session_token cookie + /auth/me flow all confirmed green via curl in this run.",
+  "rca of the issue": "ROOT CAUSE: pydantic v2 EmailStr delegates to email-validator lib which, by default, has `allow_special_use_domains=False`. The .test TLD (RFC 2606 reserved) triggers validation error before reaching the register/login logic. REPRODUCTION: `curl -X POST $API/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"standard@wladbot.test\",\"password\":\"test123\"}'` → HTTP 422 with 'The part after the @-sign is a special-use or reserved name that cannot be used with email.' MITIGATION (preferred): use email_validator with allow_special_use_domains=True via a custom Annotated validator in models.py — one-line fix, no churn. ALTERNATIVE: re-seed with a non-reserved TLD like @wladbot.io + update test_credentials.md + LoginPage QuickLoginList + seed_test_users.py (multiple touchpoints, more risk). CONFIRMED NOT A TEST HARNESS ISSUE: curl from a clean shell reproduces the 422 on all 5 tier emails."
+}

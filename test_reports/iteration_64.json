@@ -1,0 +1,68 @@
+{
+  "summary": "Iter 64 refactor regression — 17/17 backend pytest PASS + 6/6 frontend flows PASS on /coaching. One CRITICAL compile-blocking import typo found & fixed in TierCardParts.js (blocked the whole app). One minor string mismatch: Standard-card badge reads 'POPULAR' instead of spec-requested 'BELIEBT'. All 4 refactored functions preserve contract.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "coaching/tier/TierCardParts.js", "issue": "Broken import path '../ui/button' after file was moved into subfolder — webpack compile failed with 'Module not found', bringing whole frontend down with overlay 'Compiled with problems'. FIXED by testing agent to '../../ui/button' so compilation succeeds.", "selector": "N/A (build-time)", "priority": "CRITICAL (was blocking)"},
+      {"component": "TierPricingGrid / TierCardParts", "issue": "Standard tier badge label renders 'POPULAR' but the review-request spec explicitly requires 'BELIEBT' (German). Pre-existing? Either way, mismatch with requested copy.", "selector": "[data-testid='tier-card-standard'] .badge", "priority": "MINOR"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration64_refactor.py",
+    "/app/test_reports/pytest/pytest_iteration64.xml"
+  ],
+  "backend_test_results": {
+    "chat_upload_document_txt_valid": "PASS (200, filename/type/chars/full_text returned)",
+    "chat_upload_document_md_valid": "PASS (200, type='md')",
+    "chat_upload_document_exe_invalid_ext": "PASS (400 with 'nicht unterstützt' in detail)",
+    "chat_upload_document_no_ext": "PASS (400)",
+    "chat_upload_document_empty_txt": "PASS (200, chars=0)",
+    "chat_upload_document_no_auth": "PASS (401/403)",
+    "cron_event_reminders_shape": "PASS (keys 24h/1h/enabled; each has sent+skipped; label='24h' and '1h' when enabled)",
+    "deep_assist_contract": "PASS (argumentation string len>20, tips = list of 5 strings, action_plan = list of 5 objects with step/action/deadline/why) — real LLM response ~8s",
+    "deep_assist_missing_situation_400": "PASS",
+    "regression_profile_me": "PASS",
+    "regression_auth_me": "PASS",
+    "regression_voice_personas": "PASS",
+    "regression_mypath_videos": "PASS",
+    "regression_community_feed": "PASS",
+    "regression_admin_overview": "PASS (200 or 403 tolerated)",
+    "regression_cron_monthly_scorecard": "PASS",
+    "regression_payments_checkout": "PASS (<500)"
+  },
+  "frontend_test_results": {
+    "tier_cards_starter_standard_accelerator_render": "PASS (all 3 data-testid='tier-card-{id}' visible)",
+    "tier_ctas_all_render": "PASS (all 3 data-testid='tier-cta-{id}' visible)",
+    "accelerator_vip_badge": "PASS (VIP visible)",
+    "standard_popular_badge": "RENDERS 'POPULAR' — spec requested 'BELIEBT' (minor mismatch)",
+    "prices_997_and_6970_visible": "PASS",
+    "standard_user_current_tier_cta": "PASS (label='Dein aktueller Tier', disabled=true)",
+    "installment_modal_flow": "PASS (installment trigger in Accelerator card opens data-testid='installment-modal' and confirm-installment-btn is present)"
+  },
+  "action_items": [
+    "OPTIONAL: Decide canonical label for Standard badge — spec says 'BELIEBT', code shipped with 'POPULAR'. Either update spec or change copy in TierCardParts.js / TierPricingGrid.js.",
+    "VERIFY: Accept the TierCardParts.js import-path fix ('../ui/button' → '../../ui/button') committed by the testing agent. Without it the entire SPA fails to compile."
+  ],
+  "critical_code_review_comments": [
+    "Refactor moved TierCardParts.js into coaching/tier/ subfolder but did not update relative import to ui/button. This broke the entire frontend build. Add a smoke compile step (yarn build or CI webpack check) to the refactor pipeline.",
+    "chat.py _DOC_HANDLERS dispatcher is clean, but _handle_plaintext does not reject truly empty uploads (chars=0 still returns 200). Consider adding a 400 for empty files for UX consistency with PDF/DOCX which raise 'enthält keinen Text'.",
+    "events.py _send_reminders_for_window: when window window_hours=0 or negative, target_lo computation would allow past events. Not currently called with those, but a defensive guard is cheap.",
+    "tools.py _run_deep_assist_ai: second json.loads(clean) after markdown-strip will raise if the model returned non-JSON; currently bubbles up as generic 500. Wrap in try/except with a 422 fallback message for clearer client handling."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration64_refactor.py",
+    "/app/frontend/src/components/coaching/tier/TierCardParts.js"
+  ],
+  "success_rate": {"backend": "100% (17/17)", "frontend": "100% core flows; 1 minor copy mismatch"},
+  "test_credentials": "standard@wladbot.test / test123 (frontend tier CTA check); accelerator@wladbot.test / test123 (backend upload/deep-assist); test@test.com / test123 (admin overview)",
+  "seed_data_creation": "Real LLM call for deep-assist (1 pair situation+goal, ~8s, logged to db.deep_assist_log).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iter 64 pure-refactor sprint. Backend contracts fully preserved. Key gotcha: TierCardParts.js was MOVED to coaching/tier/ subfolder during refactor but its 'Button' import path was not updated — caused whole frontend to fail compile. Test agent fixed relative path to '../../ui/button'. If you see 'Module not found' compilation errors after future refactors, always check whether moved files updated their ../ui/* imports. Standard-card badge renders 'POPULAR' not 'BELIEBT' (review-request discrepancy, may be pre-existing).",
+  "rca_of_the_issue": "TierPricingGrid.js was split into 3 files (TierPricingGrid, tier/TierCardParts, InstallmentModal). The Button import inside TierCardParts used '../ui/button', which was correct when the file lived at components/coaching/, but after being moved into components/coaching/tier/ it now resolves to components/coaching/ui/button (which doesn't exist). Correct path is '../../ui/button'. This was caught immediately on first frontend page load (webpack overlay 'Compiled with problems'). Fix applied by test agent."
+}

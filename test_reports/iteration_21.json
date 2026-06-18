@@ -1,0 +1,48 @@
+{
+  "summary": "Iteration 21 - Referral System, Enterprise Funnel, Profile Updates. All 17 backend tests passed. All frontend features verified working correctly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "GET /api/referral/code returns referral code with WLAD- prefix (WLAD-90A6F9) and tier info",
+    "GET /api/referral/leaderboard returns array",
+    "GET /api/referral/certificate returns user certificate data with name, level, scores",
+    "POST /api/referral/share tracks social share and awards 15 XP (linkedin, twitter, whatsapp)",
+    "GET /api/enterprise/questions?lang=de returns 12 German questions",
+    "GET /api/enterprise/questions?lang=en returns 12 English questions",
+    "POST /api/enterprise/submit with 12 answers returns lead_id and score",
+    "PUT /api/auth/profile updates position, company, industry fields",
+    "Referral page loads with share URL, social buttons (LinkedIn/X/WhatsApp), tier display, certificate download",
+    "Enterprise page loads with company input, team size, 'Diagnose starten' button",
+    "Enterprise funnel: entering company name enables start button",
+    "Enterprise funnel: 12 questions with progress indicator working",
+    "Sidebar shows Empfehlen and Enterprise nav links",
+    "Wlad profile picture appears on Coaching page",
+    "Wlad profile picture appears in floating widget on Playbooks and other pages",
+    "Login/logout works correctly",
+    "Chat 5 Rollen (Auto, Kommunikator, Manager, Team-Leader, Psychologe, Problemlöser) working",
+    "Playbooks page loads with German content"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_iteration21_referral_enterprise.py",
+    "/app/test_reports/pytest/pytest_iteration21.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (17/17 tests passed)",
+    "frontend": "100% (all features working)"
+  },
+  "test_credentials": "Email: test@test.com, Password: test123",
+  "seed_data_creation": "None - used existing test user",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 21 testing complete. Referral system working: WLAD- prefix codes, 5 tiers (Starter/Connector/Influencer/Ambassador/Legend), social sharing (LinkedIn/X/WhatsApp), leader score sharing, PDF certificate download. Enterprise funnel working: 12 German/English questions, lead scoring (hot/warm/cold), company input enables start. Profile update endpoint working for position/company/industry. Wlad's real profile picture visible on Coaching page and floating widget. Walkthrough modal appears on first visit - click 'Überspringen' to dismiss."
+}
