@@ -128,7 +128,7 @@ export const HeroSection = () => (
         Wlads Methodik live, ein KI-Coach der dich 24/7 begleitet und ein
         30-Tage-Plan der wirkt. Starte kostenlos mit der Diagnose auf{' '}
         <a
-          href="https://leader-check.de"
+          href="https://leadercheck.de"
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground underline decoration-brand decoration-2 underline-offset-4 hover:decoration-foreground transition-colors"

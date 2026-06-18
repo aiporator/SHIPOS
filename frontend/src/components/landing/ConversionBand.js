@@ -52,7 +52,7 @@ export const ConversionBand = () => {
 
           <div className="flex items-center gap-2 md:gap-3 shrink-0">
             <a
-              href="https://leader-check.de"
+              href="https://leadercheck.de"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-brand text-[#0A0A0A] text-[11px] md:text-[12px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all"

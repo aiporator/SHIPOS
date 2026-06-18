@@ -139,7 +139,7 @@ export const HowItWorksSection = () => (
           Sie ist kostenlos, dauert fünf Minuten und sagt dir ehrlich wo du stehst.
         </p>
         <PlusCircleCTA
-          href="https://leader-check.de"
+          href="https://leadercheck.de"
           testId="how-cta-primary"
         >
           Diagnose starten · leader-check.de

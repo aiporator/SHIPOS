@@ -61,7 +61,7 @@ export default function ThankYouPage() {
 
         <div className="mt-10 md:mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
           <PlusCircleCTA
-            href="https://leader-check.de"
+            href="https://leadercheck.de"
             testId="thank-you-cta-primary"
           >
             Weiter zu leader-check.de

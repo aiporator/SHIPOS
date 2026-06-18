@@ -10,15 +10,15 @@ import { Link } from 'react-router-dom';
  */
 
 const COL_PRODUCT = [
-  { label: 'Sprint · 30 Tage', href: 'https://leader-check.de', external: true },
-  { label: 'OS · Jahr', href: 'https://leader-check.de', external: true },
+  { label: 'Sprint · 30 Tage', href: 'https://leadercheck.de', external: true },
+  { label: 'OS · Jahr', href: 'https://leadercheck.de', external: true },
   { label: 'WladBot · 24/7', href: '#benefit-02' },
   { label: '11 Frameworks', href: '#benefit-01' },
   { label: 'Zertifikat 0001', href: '#benefit-06' },
 ];
 
 const COL_LEARN = [
-  { label: 'Diagnose · kostenlos', href: 'https://leader-check.de', external: true },
+  { label: 'Diagnose · kostenlos', href: 'https://leadercheck.de', external: true },
   { label: '90-Sek-Intro mit Wlad', href: '#wlad-intro' },
   { label: 'Innen-Ansicht', href: '#app-preview' },
   { label: 'Manifest', href: '#manifesto' },
@@ -28,8 +28,8 @@ const COL_LEARN = [
 const COL_ABOUT = [
   { label: 'Demo · 20 Min', href: 'https://cal.com/leaderos/demo', external: true },
   { label: 'Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung', external: true },
-  { label: 'Login', to: '/login' },
-  { label: 'leader-check.de', href: 'https://leader-check.de', external: true },
+  { label: 'Login', href: 'https://leaderos.de/login', external: true },
+  { label: 'leader-check.de', href: 'https://leadercheck.de', external: true },
   { label: 'Impressum', to: '/impressum' },
   { label: 'Datenschutz', to: '/datenschutz' },
   { label: 'AGB', to: '/agb' },

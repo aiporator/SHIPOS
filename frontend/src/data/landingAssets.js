@@ -41,8 +41,8 @@ export const LANDING_META = {
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
-    primary: { label: 'Diagnose starten', href: 'https://leader-check.de' },
-    secondary: { label: 'Login', href: '/login' },
+    primary: { label: 'Diagnose starten', href: 'https://leadercheck.de' },
+    secondary: { label: 'Login', href: 'https://leaderos.de/login' },
   },
   // Pricing — bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
   // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
@@ -68,7 +68,7 @@ export const LANDING_MANIFESTO = {
     ['05', 'Wer heute zögert,',             'führt morgen unter jemandem, der nicht zögert.'],
   ],
   cta: 'Werde KI-nativ',
-  href: 'https://leader-check.de',
+  href: 'https://leadercheck.de',
 };
 
 // 3-step path — Diagnose → Sprint → OS.
@@ -83,7 +83,7 @@ export const HOW_IT_WORKS = [
       'Drei Dimensionen: KI-Readiness, Rhetorik, Emotionale Intelligenz. ' +
       'Du bekommst sofort deinen Score plus konkrete Empfehlung.',
     cta: 'Jetzt diagnostizieren',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     external: true,
   },
   {
@@ -96,7 +96,7 @@ export const HOW_IT_WORKS = [
       'ein Framework, ein Drill. WladBot begleitet dich mit Wlads ' +
       'Methodik. Am Ende: dein Zertifikat.',
     cta: 'Sprint kennenlernen',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     external: true,
   },
   {
@@ -109,8 +109,8 @@ export const HOW_IT_WORKS = [
       'WladBot 24/7, monatliche Live-Sessions mit Wlad und das ' +
       'Leader-OS-Netzwerk.',
     cta: 'OS erkunden',
-    href: '/login',
-    external: false,
+    href: 'https://leaderos.de/login',
+    external: true,
   },
 ];
 
@@ -148,7 +148,7 @@ export const LANDING_BENEFITS = [
       ['11', 'VERHANDLUNG',      'Harvard-Methode'],
     ],
     cta: 'Alle Frameworks ansehen',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'list',
   },
   {
@@ -172,7 +172,7 @@ export const LANDING_BENEFITS = [
       ['VOI', 'VOICE-CHAT',     'Live-Telefonat mit WladBot'],
     ],
     cta: 'WladBot starten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'list',
   },
   {
@@ -193,7 +193,7 @@ export const LANDING_BENEFITS = [
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
     ],
     cta: 'Sprint starten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'bib',
   },
   {
@@ -214,7 +214,7 @@ export const LANDING_BENEFITS = [
       ['CTX', 'KONTEXT',          'Deine Situation, sein Wissen'],
     ],
     cta: 'Mehr über Wlad',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'photo',
     photo: wlad('wlad-portrait.jpg'),
     photoFallback: local('hf-04.png'),
@@ -239,7 +239,7 @@ export const LANDING_BENEFITS = [
       ['ZERT', 'AUSBILDUNG',      'Staatlich · sechs Monate'],
     ],
     cta: 'Mehr Beweise',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'trust',
     photo: local('hf-05.png'),
     trustNumbers: [
@@ -265,7 +265,7 @@ export const LANDING_BENEFITS = [
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
     cta: 'Erstes Zertifikat freischalten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'cert',
   },
   {
@@ -293,7 +293,7 @@ export const LANDING_BENEFITS = [
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
     cta: 'Mit Wlad starten',
-    href: 'https://leader-check.de',
+    href: 'https://leadercheck.de',
     variant: 'voxel',
   },
 ];
