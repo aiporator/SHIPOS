@@ -149,7 +149,10 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Alle Frameworks ansehen',
     href: 'https://leadercheck.de',
-    variant: 'list',
+    variant: 'photo',
+    photo: local('wlad-frameworks.jpg'),
+    photoFallback: local('hf-01.png'),
+    photoFit: 'portrait',
   },
   {
     nr: '02',
@@ -173,7 +176,10 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'WladBot starten',
     href: 'https://leadercheck.de',
-    variant: 'list',
+    variant: 'photo',
+    photo: local('wlad-phone.jpg'),
+    photoFallback: local('hf-02.png'),
+    photoFit: 'portrait',
   },
   {
     nr: '03',
