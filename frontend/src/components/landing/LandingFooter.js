@@ -100,9 +100,9 @@ export const LandingFooter = () => (
             </div>
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
-            Das Operating System für Führungskräfte, die KI-nativ
-            werden — gebaut auf Wlad Jachtchenkos Methodik.
-            Powered by WladBot.
+            Das Operating System für Führungskräfte — gebaut auf
+            Wlad Jachtchenkos Methodik. 30 Tage Sprint, ein Jahr
+            Begleitung, ein KI-Coach der dich kennt.
           </p>
 
           {/* Scarcity Pill — Klasse 0001 mit Live-Plätzen */}
