@@ -29,15 +29,15 @@ const local = (file) => `/landing/${file}`;
 const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
-  title: 'Leader-OS — Werde KI-nativ. Das OS für Führungskräfte.',
+  title: 'Leader-OS — Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
   description:
-    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint. ' +
-    'Wlad Jachtchenkos Methodik live in deiner Tasche. Starte mit ' +
+    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint mit ' +
+    'Wlad Jachtchenko. Klasse 0001 jetzt offen — nur 50 Plätze. Starte mit ' +
     'der kostenlosen Diagnose auf leadercheck.de.',
   url: 'https://leader-os.de',
-  slogan: 'Werde KI-nativ.',
+  slogan: 'Sprint mit Wlad.',
   // Kicker — gehört unter den ATF-Headline-Block.
-  kicker: 'KI bestimmt die Geschwindigkeit. Leadership die Richtung.',
+  kicker: 'Dreißig Tage. Elf Frameworks. Ein System, das wirkt.',
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
@@ -67,7 +67,7 @@ export const LANDING_MANIFESTO = {
     ['04', 'Die KI wird klüger.',           'Werde du es auch.'],
     ['05', 'Wer heute zögert,',             'führt morgen unter jemandem, der nicht zögert.'],
   ],
-  cta: 'Werde KI-nativ',
+  cta: 'Sprint sichern',
   href: 'https://leadercheck.de',
 };
 

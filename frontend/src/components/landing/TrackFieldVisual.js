@@ -14,7 +14,7 @@
 export const TrackFieldVisual = ({ className = '' }) => (
   <svg
     viewBox="0 0 800 320"
-    aria-label="Wer KI-nativ wird, läuft vorneweg"
+    aria-label="Wer Wlads System hat, führt vorneweg"
     className={`w-full h-auto ${className}`}
     role="img"
   >
@@ -163,15 +163,15 @@ export const TrackFieldSection = () => (
           className="text-[44px] sm:text-[64px] md:text-[84px] leading-[0.92] tracking-[-0.04em] text-black"
           style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Wer KI-nativ wird,<br />
-          <span className="text-black/55">läuft vorneweg</span>
+          Wer Wlads System hat,<br />
+          <span className="text-black/55">führt vorneweg</span>
           <span className="text-brand">.</span>
         </h2>
         <p className="mt-7 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-black/70">
           Während die anderen noch im Anzug am Start stehen,
-          ist die KI-native Führungskraft schon am Ziel. Kein
-          Wunderwerk — nur die richtigen Werkzeuge, das richtige
-          Mindset und ein Coach der mitläuft.
+          ist die Führungskraft mit System schon am Ziel. Kein
+          Wunderwerk — die richtigen Werkzeuge, das richtige
+          Mindset, ein Coach der mitläuft.
         </p>
       </div>
       <div className="md:col-span-7 border-2 border-black bg-white p-3 md:p-5 shadow-[8px_8px_0_0_#000]">

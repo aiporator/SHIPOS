@@ -35,10 +35,6 @@ export const FinalCTA = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-4xl"
       >
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-          ▸ BIB 0001 · JETZT OFFEN
-        </p>
-
         <h2
           className="text-[44px] sm:text-[64px] md:text-[88px] lg:text-[112px] leading-[0.92] tracking-[-0.04em] text-white"
           style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
@@ -49,8 +45,8 @@ export const FinalCTA = () => (
         </h2>
 
         <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Elf Frameworks. Ein OS. Dreißig Tage. Sichere dir BIB 0001 —
-          Wlads Methodik live, jeden Tag, in deiner Tasche.
+          Klasse 0001. Nur 50 Plätze. 30 Tage mit Wlad direkt — danach
+          ein ganzes Jahr Begleitung mit Plus-Plus, wenn du willst.
         </p>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
