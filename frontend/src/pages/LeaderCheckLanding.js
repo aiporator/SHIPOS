@@ -563,7 +563,9 @@ export default function LeaderCheckLanding() {
             </p>
             <div className="mt-14 inline-flex flex-col items-center gap-4">
               <a
-                href="/leader-diagnose"
+                href="https://leadercheck.de"
+                target="_blank"
+                rel="noopener noreferrer"
                 data-testid="check-cta-final"
                 className="group inline-flex items-center gap-4"
               >
@@ -712,7 +714,9 @@ export default function LeaderCheckLanding() {
           </div>
         </div>
         <a
-          href="/leader-diagnose"
+          href="https://leadercheck.de"
+          target="_blank"
+          rel="noopener noreferrer"
           className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-brand text-black text-[12px] font-bold uppercase tracking-[0.16em] shadow-[0_8px_24px_-8px_rgba(191,255,0,0.6)] active:scale-95 transition-transform"
         >
           <span className="text-base font-black leading-none">+</span>

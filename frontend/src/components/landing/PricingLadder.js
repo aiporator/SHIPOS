@@ -42,10 +42,10 @@ const TIERS = [
       'Tägliche Lernvideos · Wöchen-Drills',
       'BIB-Zertifikat für LinkedIn',
     ],
-    cta: 'Sprint kaufen',
+    cta: 'Sprint kaufen · 30 Tage',
     href: 'https://leaderos.de/checkout?tier=sprint',
     accent: true,
-    badge: 'EINSTIEG',
+    badge: '★ BELIEBT',
   },
   {
     id: 'plusplus',
@@ -142,10 +142,19 @@ const TierCard = ({ tier }) => {
     ? 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-brand before:content-[\'\']'
     : '';
 
+  // Sprint = primary conversion target: starts already lifted with a soft
+  // lime shadow + scale, hover boosts both. Other cards lift on hover only.
+  const sprintLift = tier.accent
+    ? 'shadow-[0_20px_50px_-20px_rgba(191,255,0,0.4)] md:scale-[1.02]'
+    : 'shadow-[0_4px_12px_-6px_rgba(0,0,0,0.08)]';
+  const hoverLift = tier.accent
+    ? 'hover:-translate-y-2 hover:shadow-[0_28px_60px_-20px_rgba(191,255,0,0.55)] hover:md:scale-[1.04]'
+    : 'hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.15)]';
+
   return (
     <article
       data-testid={`tier-${tier.id}`}
-      className={`relative ${bgClass} ${accentLine} flex flex-col h-full`}
+      className={`relative ${bgClass} ${accentLine} ${sprintLift} ${hoverLift} flex flex-col h-full transition-all duration-300 ease-out`}
     >
       {tier.badge && (
         <div className={`absolute -top-3 right-4 px-3 py-1 font-mono text-[9px] font-bold tracking-[0.22em] uppercase ${tier.accent || tier.id === 'plusplus' ? 'bg-brand text-black' : 'bg-black text-brand'}`}>

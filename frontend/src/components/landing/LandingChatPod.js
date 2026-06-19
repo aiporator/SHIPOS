@@ -165,7 +165,7 @@ const FLOWS = {
         body:
           'Du hast Basics drin. Die 21-Fragen-Diagnose zeigt dir die feinen ' +
           'Lücken — und Leader-OS schließt sie systematisch in 30 Tagen.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Direkt Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung' },
       },
       {
@@ -174,7 +174,7 @@ const FLOWS = {
         body:
           'Du arbeitest schon bewusst — aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
       {
@@ -183,7 +183,7 @@ const FLOWS = {
         body:
           'Du fängst quasi bei Null an — das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
     ],

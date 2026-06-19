@@ -83,6 +83,7 @@ export const ManifestoSection = () => (
         <PlusCircleCTA
           href={LANDING_MANIFESTO.href}
           testId="manifesto-cta"
+          halo={false}
           className="text-white"
         >
           {LANDING_MANIFESTO.cta}

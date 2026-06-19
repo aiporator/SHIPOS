@@ -54,6 +54,7 @@ export const FinalCTA = () => (
         </p>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+          {/* Primary — der einzige mit Halo-Pulse damit die Hierarchie klar ist */}
           <PlusCircleCTA
             href={LANDING_META.cta.primary.href}
             testId="final-cta-primary"
@@ -64,6 +65,7 @@ export const FinalCTA = () => (
           <PlusCircleCTA
             href="https://cal.com/leaderos/demo"
             testId="final-cta-demo"
+            halo={false}
             className="text-white/85 hover:text-white"
           >
             Demo buchen · 20 Min
@@ -71,14 +73,15 @@ export const FinalCTA = () => (
           <PlusCircleCTA
             href="https://cal.com/leaderos/beratung"
             testId="final-cta-beratung"
+            halo={false}
             className="text-white/85 hover:text-white"
           >
             Beratung · 30 Min
           </PlusCircleCTA>
           <PlusCircleCTA
-            to={LANDING_META.cta.secondary.href}
+            href={LANDING_META.cta.secondary.href}
             testId="final-cta-secondary"
-            external={false}
+            halo={false}
             className="text-white/55 hover:text-white"
           >
             Bereits Mitglied? Anmelden
