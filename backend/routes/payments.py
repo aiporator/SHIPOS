@@ -78,7 +78,7 @@ async def stripe_mode():
 
 
 # Fixed packages — amounts defined server-side only (security).
-# 3-Tier Structure: Free | Leadership OS €997 | Leadership OS PLUS €4.447 | Enterprise (quote)
+# 3-Tier Structure: Free | Leadership OS €997 | Leadership OS PLUS €4.797 | Enterprise (quote)
 PACKAGES = {
     # Leadership OS (€997/Jahr) — one-time
     "leadership_os": {

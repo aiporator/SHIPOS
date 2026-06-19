@@ -51,7 +51,7 @@ export const BotMascotPanel = ({ de, onClose, onNavigate, onCheckout, checkoutLo
             <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2">{de ? 'Premium Programme' : 'Premium Programs'}</p>
           </div>
           <PriceButton icon={Zap} label="Leadership OS" sub={de ? 'KI-Coach 24/7, 12 Videokurse, Challenges' : 'AI Coach 24/7, 12 video courses, challenges'} price="€997" suffix={de ? '/ Jahr' : '/ year'} loading={checkoutLoading === 'leadership_os'} testId="wlad-checkout-standard" onClick={() => onCheckout('leadership_os')} disabled={!!checkoutLoading} />
-          <PriceButton icon={Rocket} label="Leadership OS PLUS" sub={de ? '+ 12× 1:1 Coaching, Video-Analyse' : '+ 12× 1:1 Coaching, Video Analysis'} price="€4.447" suffix={de ? '/ Jahr' : '/ year'} loading={checkoutLoading === 'leadership_os_plus'} testId="wlad-checkout-fast-track" onClick={() => onCheckout('leadership_os_plus')} disabled={!!checkoutLoading} recommended={de ? 'Empfohlen' : 'Recommended'} />
+          <PriceButton icon={Rocket} label="Leadership OS PLUS" sub={de ? '+ 12× 1:1 Coaching, Video-Analyse' : '+ 12× 1:1 Coaching, Video Analysis'} price="€4.797" suffix={de ? '/ Jahr' : '/ year'} loading={checkoutLoading === 'leadership_os_plus'} testId="wlad-checkout-fast-track" onClick={() => onCheckout('leadership_os_plus')} disabled={!!checkoutLoading} recommended={de ? 'Empfohlen' : 'Recommended'} />
         </div>
 
         <div className="px-4 pb-3 flex items-center justify-center gap-3 text-[9px] text-muted-foreground/30">

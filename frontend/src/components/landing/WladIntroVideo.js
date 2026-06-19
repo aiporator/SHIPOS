@@ -175,7 +175,7 @@ export const WladIntroVideo = () => {
             playsInline
             loop={false}
             preload="metadata"
-            poster="/landing/wlad-thumbnail.jpg"
+            poster="/landing/hf-04.png"
             className="w-full h-full object-cover object-center"
             data-testid="wlad-intro-video"
           />

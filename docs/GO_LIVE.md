@@ -120,7 +120,7 @@ In Stripe Dashboard:
      second)
    - `leadership_os_12x` — €99 EUR (first installment; cron handles 11
      more)
-   - `leadership_os_plus` — €4 447 EUR, one-time
+   - `leadership_os_plus` — €4 797 EUR, one-time
 3. Register webhook → `https://leader-os.de/api/webhook/stripe`
    (or the new sub-domain if you went with option 1 above).
 4. Copy the **live secret key** and **webhook signing secret**.
@@ -216,7 +216,7 @@ Open the production URL (the new domain) and walk through:
    in Stripe → Developers → Events).
 6. **Chat** sends a message → GPT response → no errors.
 7. **Audio Mode** opens, mic permission granted, get a voice reply.
-8. **Coaching** page shows €997 / €4 447 cards; Calendly opens.
+8. **Coaching** page shows €997 / €4 797 cards; Calendly opens.
 9. **Downloads** page renders 4 PDF buttons; download works.
 10. **Mobile** (iPhone or Android, real device): repeat #1, #2, #3, #7.
 

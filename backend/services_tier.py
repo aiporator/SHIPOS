@@ -65,7 +65,7 @@ TIER_CONFIG = {
             "license_key_email": True,
         },
     },
-    # Leadership OS PLUS — €4.447/Jahr, alles aus OS + 12 Einzelcoachings (12 × 299€ = 3.588€).
+    # Leadership OS PLUS — €4.797/Jahr, alles aus OS + 12 Einzelcoachings (12 × 299€ = 3.588€).
     "accelerator": {
         "name": "Leadership OS PLUS",
         "price_eur": 4797.00,

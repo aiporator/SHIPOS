@@ -136,7 +136,7 @@ async function upsertSubscription(sub: Stripe.Subscription) {
 }
 
 // One-time payment handler (mode=payment).
-// For full-price plans (€997, €4.447) where Stripe has no subscription object.
+// For full-price plans (€997, €4.797) where Stripe has no subscription object.
 async function handleOneTimePayment(session: Stripe.Checkout.Session) {
   // Payment Links with customer_creation:"if_required" skip the Customer object
   // for low-value one-off payments — this is exactly what dropped Wlad's €1

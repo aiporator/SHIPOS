@@ -122,7 +122,7 @@ Stripe Dashboard → Webhooks → leader-os.de endpoint:
 
 ### PostHog — Conversion Events
 - `payment_completed` events sollten anfangen zu fließen
-- `package_id` distribution: Leadership OS (€997) vs. Ratenkauf vs. PLUS (€4.447)
+- `package_id` distribution: Leadership OS (€997) vs. Ratenkauf vs. PLUS (€4.797)
 
 ### Resend — Email Delivery
 - `stripe_receipt_email` send rate
