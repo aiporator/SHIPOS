@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "engines": {
-    "node": "22.x",
+    "node": ">=20.0.0",
     "yarn": "1.x"
   },
   "private": true,
