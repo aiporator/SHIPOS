@@ -33,9 +33,10 @@ const TIERS = [
     id: 'sprint',
     eyebrow: '▸ STUFE 1 · TRAININGSPLAN',
     name: 'Sprint',
-    duration: '30 Tage',
+    duration: '30 Tage · Klasse 0001',
     price: '997 €',
     outcome: '11 Frameworks · BIB · LinkedIn-Cert',
+    scarcity: 'Klasse 0001 · 43 von 50 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
@@ -204,6 +205,22 @@ const TierCard = ({ tier }) => {
           {tier.outcome}
         </p>
       </div>
+
+      {/* Scarcity-Strip — nur Sprint zeigt Klasse-0001-Plätze, sonst die echte Knappheit */}
+      {tier.scarcity && (
+        <div
+          className={`mx-6 md:mx-7 mb-2 flex items-center gap-2 px-3 py-2 border ${tier.dark ? 'border-brand/40 bg-brand/[0.08]' : 'border-black bg-black/[0.04]'}`}
+          data-testid={`tier-scarcity-${tier.id}`}
+        >
+          <span className="relative inline-flex w-1.5 h-1.5 shrink-0">
+            <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
+            <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
+          </span>
+          <span className={`text-[10px] font-bold uppercase tracking-[0.18em] font-mono ${tier.dark ? 'text-brand' : 'text-black'}`}>
+            {tier.scarcity}
+          </span>
+        </div>
+      )}
 
       {/* Bullets */}
       <ul className={`p-6 md:p-7 space-y-2.5 flex-1`}>

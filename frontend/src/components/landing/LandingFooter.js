@@ -73,18 +73,30 @@ export const LandingFooter = () => (
       <div className="grid md:grid-cols-12 gap-10 md:gap-14">
         {/* Brand block */}
         <div className="md:col-span-4">
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-4 mb-6">
             <span
-              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-black font-black"
+              className="relative inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-black font-black text-2xl shadow-[0_8px_24px_-8px_rgba(191,255,0,0.5)]"
               style={{ fontFamily: 'Outfit, sans-serif' }}
+              aria-label="Leader-OS Mark"
             >
               W
+              <span
+                aria-hidden
+                className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-black border-2 border-brand flex items-center justify-center text-brand text-[8px] font-bold"
+              >
+                ·
+              </span>
             </span>
-            <div
-              className="text-[22px] font-black tracking-tight text-white"
-              style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}
-            >
-              Leader<span className="text-brand mx-0.5">·</span>OS
+            <div>
+              <div
+                className="text-[26px] font-black tracking-tight text-white leading-none"
+                style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.025em' }}
+              >
+                Leader<span className="text-brand mx-0.5">·</span>OS
+              </div>
+              <div className="mt-1 text-[9.5px] font-bold uppercase tracking-[0.22em] text-white/45 font-mono">
+                POWERED BY WLADBOT
+              </div>
             </div>
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
@@ -93,9 +105,13 @@ export const LandingFooter = () => (
             Powered by WladBot.
           </p>
 
-          <div className="mt-7 inline-flex items-center gap-2 px-3 py-1.5 border border-brand/40 bg-brand/[0.08] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
-            JETZT STARTEN
+          {/* Scarcity Pill — Klasse 0001 mit Live-Plätzen */}
+          <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand/60 bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
+            <span className="relative inline-flex w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
+              <span className="relative w-2 h-2 rounded-full bg-brand" />
+            </span>
+            KLASSE 0001 · 43/50 FREI
           </div>
         </div>
 

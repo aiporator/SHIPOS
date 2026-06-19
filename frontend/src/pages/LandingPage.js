@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
+import { ClassScarcityBanner } from '../components/landing/ClassScarcityBanner';
 import { HeroSection } from '../components/landing/HeroSection';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
@@ -82,6 +83,7 @@ export default function LandingPage() {
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="landing-page">
+      <ClassScarcityBanner />
       <LandingNav />
       <ScrollProgressRail />
 
