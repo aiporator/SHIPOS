@@ -32,7 +32,7 @@ Statt eine Stunde Vercel-Support-Ticket zu öffnen: Fresh start. 8 Min.
 3. Eingabefeld unten:
 
 ```
-Project Name        leader-os-prod
+Project Name        shipos
 Framework Preset    Create React App
 Root Directory      ./      (lassen)
 Build Command       (leer — vercel.json regelt)
@@ -68,9 +68,9 @@ https://vercel.com/aiporators-projects/leaderos/settings/domains
 
 (Wenn keine dieser Domains da steht: war schon nie attached, weiter zu nächstem Schritt.)
 
-### Im neuen `leader-os-prod`-Projekt anhängen:
+### Im neuen `shipos`-Projekt anhängen:
 
-https://vercel.com/aiporators-projects/leader-os-prod/settings/domains
+https://vercel.com/aiporators-projects/shipos/settings/domains
 
 - **Add Domain** → `leader-os.de` → grüner Haken (DNS schon richtig)
 - **Add Domain** → `www.leader-os.de`
@@ -96,7 +96,7 @@ neuer Code deployt automatisch über das neue Projekt.
 
 ## STEP 5 (post-launch) — Altes Projekt löschen
 
-Sobald `leader-os-prod` stabil läuft und Domains umgezogen sind:
+Sobald `shipos` stabil läuft und Domains umgezogen sind:
 
 https://vercel.com/aiporators-projects/leaderos/settings/general → unten:
 **"Delete Project"** → Bestätigen.

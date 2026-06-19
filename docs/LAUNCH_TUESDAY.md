@@ -1,8 +1,8 @@
 # Tuesday-Launch — Production Readiness Checklist
 
 > **Target:** Dienstag, erste 100 User · vier Domains live · Stripe in Production.
-> **Stand:** 2026-06-19 · PR #85 zum Merge bereit (claude/wlad-images).
-> **Vercel:** Aktuelles Projekt blockiert → siehe `docs/VERCEL_RESCUE.md` für 8-Min-Fresh-Project-Pfad.
+> **Stand:** 2026-06-19 · PR #85 GEMERGT (f367e92). Neues Vercel-Projekt `shipos` deploys mvpcode auto.
+> **Vercel-Projekt:** `shipos` (NICHT mehr `leaderos`, der war kaputt + gelöscht).
 
 ## 0. Wo wir gerade stehen (PR-Status sauber)
 
@@ -246,7 +246,7 @@ In dieser Reihenfolge im echten Browser, nicht curl:
 
 **T-90 Min: Vercel fixen** (8 Min selbst-execute)
 
-- [ ] `docs/VERCEL_RESCUE.md` STEP 1 lesen → frisches Projekt `leader-os-prod` anlegen
+- [ ] `docs/VERCEL_RESCUE.md` STEP 1 lesen → frisches Projekt `shipos` anlegen
 - [ ] STEP 2: Production-Branch = `mvpcode`, Framework = CRA, Node = 22
 - [ ] STEP 3: Domains vom alten `leaderos`-Projekt entfernen, am neuen anhängen
 - [ ] STEP 4: Smoke-Test der 3 URLs grün
