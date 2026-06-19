@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 const STORAGE_KEY = 'leader_os_lead_capture_seen_at';
 const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
@@ -136,7 +137,7 @@ export const LeadCaptureModal = () => {
         {/* Specimen header */}
         <div className="flex items-center justify-between px-7 md:px-9 pt-6 pb-3 mb-0 border-b border-foreground/12">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            BIB · 0001 · 30-TAGE SPRINT
+            BIB · 0001 · KLASSE 0001
           </span>
           <button
             onClick={close}
@@ -149,9 +150,23 @@ export const LeadCaptureModal = () => {
         </div>
 
         <div className="px-7 md:px-9 py-7 md:py-8">
-          <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4 font-mono">
-            ▸ DEIN START · 5 MIN DIAGNOSE
-          </p>
+          {/* Wlad-Greeting — gleiche persönliche Anker wie auf leader-check */}
+          <div className="flex items-center gap-3 mb-5">
+            <img
+              src={WLAD_AVATAR}
+              onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+              alt="Wlad Jachtchenko"
+              className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/50 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.4)]"
+            />
+            <div>
+              <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
+                ▸ WLAD JACHTCHENKO
+              </p>
+              <p className="text-[11px] text-foreground/65 mt-0.5">
+                „Lass uns kurz schauen wo du stehst."
+              </p>
+            </div>
+          </div>
 
           <h2
             id="lead-modal-title"
