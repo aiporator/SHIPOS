@@ -1,7 +1,22 @@
 # Tuesday-Launch — Production Readiness Checklist
 
 > **Target:** Dienstag, erste 100 User · vier Domains live · Stripe in Production.
-> **Stand:** 2026-06-18 · ein Branch zum Merge offen (`claude/wlad-images`).
+> **Stand:** 2026-06-19 · PR #85 zum Merge bereit (claude/wlad-images).
+> **Vercel:** Aktuelles Projekt blockiert → siehe `docs/VERCEL_RESCUE.md` für 8-Min-Fresh-Project-Pfad.
+
+## 0. Wo wir gerade stehen (PR-Status sauber)
+
+GitHub PR-Liste ist von **18 → 2** geschrumpft. Was offen ist:
+
+| PR | Was | Status |
+|---|---|---|
+| **#85** Claude/wlad images | DER Launch-PR — Wlad-Bilder, QR-Codes, Email-Template, Pricing-Sync, Asset-Repair, Node-22, VERCEL_RESCUE Doku | **MERGE BLOCKED nur durch Vercel** |
+| #41 (Draft) emergent iter 92.18 | Backend-Hardening (PGRST002-Retry, Brian-Voice, Wingman-CRM) | Post-Launch, nicht Dienstag |
+
+Alles andere (16 PRs: #65, #69, #71-82, #83, #84) wurde als obsolet
+geschlossen am 19.06. — siehe Close-Kommentare auf den jeweiligen PRs.
+
+---
 
 ## 1. Branch-Struktur — der Pfad zur Production
 
@@ -37,13 +52,13 @@
 | Branch | Status | Action |
 |---|---|---|
 | `mvpcode` | Production-Head 1a2a9ac | ✓ stable, nichts tun |
-| `claude/wlad-images` | 7 commits ahead, ready to merge | **Mergen** — siehe Step 3 unten |
-| Restliche 80 Branches | Stale | Putzen via `docs/DEV_TASKS_BRANCHES.md` |
+| `claude/wlad-images` | 9 commits ahead, ready to merge (PR #85) | **Mergen nach Vercel-Rescue** |
+| Restliche ~80 Branches | Stale (history + claude/* iterations) | Putzen via `docs/DEV_TASKS_BRANCHES.md` (post-launch) |
 
 ### Was auf `claude/wlad-images` drauf ist und live geht
 
-1. **Wlad-Bilder** in §01 + §02 (Higgsfield-generated)
-2. **Video-Thumbnail** mit Wlad am Schreibtisch (statt schwacher hf-04)
+1. **Wlad-Bilder** in §01 + §02 (Higgsfield-generated, asset-paths repariert)
+2. **Video-Thumbnail** auf `hf-04.png` (statt totem `wlad-thumbnail.jpg`)
 3. **QR-Codes** für leadercheck.de (`/qr/leadercheck.svg` + `.png`)
 4. **WladBot Overview Doc**
 5. **Launch-Email-Template** (`launch_announcement_email`)
@@ -104,23 +119,26 @@ Da der Emergent-Code in einem getrennten Workspace lebt, hier die
 | Webhook-Endpoint | `POST /api/webhook/stripe` mit Signatur-Validierung | ✓ Code OK |
 | Env-Vars | `STRIPE_API_KEY=sk_test_emergent` | ❌ Noch im Test-Mode |
 
-### Preis-Drift — fertig synchronisiert ✓
+### Preis-Drift — komplett synchronisiert ✓
 
-**Backend war auf 4 447 €, Landing zeigt 4 797 €.** Backend nachgezogen
-auf den kommunizierten Landing-Preis. Geändert:
+**Vor dem Fix:** Backend & 14 Frontend-Surfaces zeigten 4 447 €, Landing 4 797 €.
+**Nach dem Fix:** Alles auf 4 797 €, in 20 Files gesynced (siehe commit `43aa53a`):
 
-- `backend/routes/payments.py` PACKAGES `leadership_os_plus` → 4 797 €
-- `backend/services_tier.py` `accelerator.price_eur` → 4 797 €
-- `backend/tests/test_iteration74_pricing.py` Assertion → 4 797 €
-- `frontend/src/components/coaching/TierPricingGrid.js` price → 4 797
+| Layer | Stellen |
+|---|---|
+| Backend Code | `backend/routes/payments.py`, `backend/services_tier.py` |
+| Backend Tests | `backend/tests/test_iteration74_pricing.py` |
+| Frontend Pricing | `TierPricingGrid`, `PricingModal`, `PaywallModal`, `TierLockOverlay`, `BotMascotPanel`, `ChatInlineUpsell`, `LearningVideosTab`, `CoachingPage`, `AGBPage` |
+| SEO | `frontend/public/index.html` JSON-LD Structured Data |
+| Stripe Webhook | `supabase/functions/stripe-webhook/index.ts` Kommentar |
+| Operative Docs | `SHIP_CHECKLIST`, `DEPLOY`, `GO_LIVE`, `VIMEO_WORKFLOW`, `CLAUDE_CODE_HANDOFF` |
 
-Alle Stellen jetzt deckungsgleich. Stripe-Live-Produkt unter Dashboard
-muss auch 4 797 € sein (nicht 4 447).
+Stripe-Live-Produkt unter Dashboard muss auch 4 797 € sein.
 
-| Tier | Landing | Backend | Stripe Live (todo) |
+| Tier | Landing | Backend | Stripe Live |
 |---|---|---|---|
 | Sprint | 997 € | 997 € ✓ | **anlegen: prod_sprint_997** |
-| Plus-Plus | 4 797 € | 4 797 € ✓ | **anlegen: prod_plus_4797** |
+| Plus-Plus | 4 797 € | 4 797 € ✓ | ✓ **`prod_UZ2P48So6mEBkK` confirmed** (Price-Object auf 4 797 € EUR setzen) |
 | Plus-Plus 3× Rate | 1 599 € × 3 | 99 € × 12 (alt) + 550 € × 2 (alt) | **Raten-Plan aktualisieren** |
 
 ### Stripe Dashboard — Manual Setup (15 Min am Dienstag morgen)
@@ -224,12 +242,58 @@ In dieser Reihenfolge im echten Browser, nicht curl:
 
 ---
 
-## 8. Was du jetzt sofort machen kannst (10 Min)
+## 8. Die genaue Sequenz für Dienstag (in Reihenfolge)
 
-- [ ] PR `claude/wlad-images` mergen (Bypass) → live deployen
-- [ ] Im Stripe-Dashboard schon mal Live-Mode-Products anlegen, **Plus-Plus
-      auf 4 797 € setzen** (matched Landing)
-- [ ] Branch-Cleanup-Doku an Dev geben:
-      `docs/DEV_TASKS_BRANCHES.md`
+**T-90 Min: Vercel fixen** (8 Min selbst-execute)
 
-Den Backend-Preis (4 447 → 4 797) fixe ich gerade im nächsten Push.
+- [ ] `docs/VERCEL_RESCUE.md` STEP 1 lesen → frisches Projekt `leader-os-prod` anlegen
+- [ ] STEP 2: Production-Branch = `mvpcode`, Framework = CRA, Node = 22
+- [ ] STEP 3: Domains vom alten `leaderos`-Projekt entfernen, am neuen anhängen
+- [ ] STEP 4: Smoke-Test der 3 URLs grün
+
+**T-60 Min: PR #85 mergen**
+
+- [ ] https://github.com/aiporator/SHIPOS/pull/85 → Squash + Bypass-merge
+- [ ] Vercel auto-deploy beobachten (~90 Sek)
+- [ ] `https://leader-os.de/qr/leadercheck.png` → QR scant?
+
+**T-30 Min: Stripe Live-Cutover**
+
+- [ ] Stripe Dashboard → Live-Mode oben rechts
+- [ ] Product `prod_UZ2P48So6mEBkK` (Plus-Plus): Price-Object auf `4 797 EUR one-time`
+- [ ] Sprint-Product NEU anlegen: `997 EUR one-time` → ID notieren
+- [ ] Webhook hinzufügen: `https://leaderos.de/api/webhook/stripe` mit Events `checkout.session.completed, invoice.paid, invoice.payment_failed, customer.subscription.deleted`
+- [ ] Webhook-Secret + Live-Secret-Key kopieren
+- [ ] **Emergent → Backend → ENV setzen** (NICHT Vercel):
+  - `STRIPE_API_KEY=sk_live_...`
+  - `STRIPE_WEBHOOK_SECRET=whsec_...`
+  - `STRIPE_PUBLISHABLE_KEY=pk_live_...`
+- [ ] Emergent Backend-Service restart
+- [ ] **1 Test-Kauf mit echter Karte** → Stripe-Webhook fires → User-Tier upgradet
+
+**T-0: Launch**
+
+- [ ] Smoke-Tests aus Section 6 durchgehen
+- [ ] Launch-Email-Versand starten (Resend, max 100/Tag im Free-Tier)
+- [ ] Mobile-Tests (iPhone Safari + Android Chrome)
+
+**Post-Launch (kann auch Mittwoch sein)**
+
+- [ ] Branch-Cleanup via `docs/DEV_TASKS_BRANCHES.md` (~45 Min für Dev)
+- [ ] PR #41 (Draft emergent iter 92.18) reviewen + mergen für Backend-Hardening
+- [ ] Altes `leaderos` Vercel-Projekt löschen (STEP 5 in VERCEL_RESCUE.md)
+
+---
+
+## 9. Was du NICHT mehr machen musst (schon erledigt)
+
+✓ Pricing-Sync: alle 20 Files auf 4 797 € — commit `43aa53a`
+✓ Asset-Pfade: `wlad-frameworks.jpg`, `wlad-phone.jpg`, `wlad-thumbnail.jpg` repariert
+✓ Vercel-Härtung: `.nvmrc` Node 22 + `engines` + `vercel.json` framework — commit `e881c2b`
+✓ PR-Aufräumung: 18 PRs → 2 PRs (#85 live + #41 draft)
+✓ Domain-Topologie: konsistent in Code + Docs
+✓ JSON-LD SEO: Google-Snippet-Preis auf 4 797 €
+✓ AGB: Legal-Disclosure auf 4 797,00 €
+✓ QR-Codes für leadercheck.de erzeugt
+✓ Launch-Email-Template `launch_announcement_email`
+✓ Rescue-Plan dokumentiert für den Vercel-Block
