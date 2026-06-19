@@ -33,7 +33,7 @@ export const LANDING_META = {
   description:
     'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint. ' +
     'Wlad Jachtchenkos Methodik live in deiner Tasche. Starte mit ' +
-    'der kostenlosen Diagnose auf leader-check.de.',
+    'der kostenlosen Diagnose auf leadercheck.de.',
   url: 'https://leader-os.de',
   slogan: 'Werde KI-nativ.',
   // Kicker — gehört unter den ATF-Headline-Block.
@@ -79,7 +79,7 @@ export const HOW_IT_WORKS = [
     duration: '5 MIN · KOSTENLOS',
     title: 'Wo stehst du?',
     body:
-      'Starte auf leader-check.de mit der kostenlosen KI-Diagnose. ' +
+      'Starte auf leadercheck.de mit der kostenlosen KI-Diagnose. ' +
       'Drei Dimensionen: KI-Readiness, Rhetorik, Emotionale Intelligenz. ' +
       'Du bekommst sofort deinen Score plus konkrete Empfehlung.',
     cta: 'Jetzt diagnostizieren',

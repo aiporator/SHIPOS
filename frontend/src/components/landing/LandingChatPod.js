@@ -10,17 +10,22 @@ import { AnimatePresence, motion } from 'framer-motion';
  * ehrlich (kein Fake-AI-Theater), schnell (keine Latenz, keine
  * Token-Kosten) und konsistent (jeder Besucher kommt durch).
  *
- * Zwei Modi via `mode`-Prop:
+ * Zwei Modi via `mode`-Prop (passend zum Landing-Host):
  *
- *   'lead'      — auf leader-os.de. Erkundet Rolle, größte
- *                 Leadership-Baustelle, Zeit-Horizont, Team-Größe.
- *                 Berechnet einen FIT-Score und schlägt vor:
- *                 Diagnose (low fit) · Demo (mid) · Beratung (high).
+ *   'lead'      — fires on leader-os.de (Vercel marketing landing).
+ *                 Erkundet Rolle, größte Leadership-Baustelle,
+ *                 Zeit-Horizont, Team-Größe. Berechnet FIT-Score
+ *                 und schlägt vor: Diagnose (low fit) → leadercheck.de
+ *                 · Demo (mid) → cal.com · Beratung (high) → cal.com.
  *
- *   'readiness' — auf leader-check.de. Erkundet KI-Nutzung,
- *                 Argumentations-Sicherheit, EQ-Reflex.
- *                 Berechnet einen READINESS-Score und routet
- *                 in die volle 21-Fragen-Diagnose.
+ *   'readiness' — fires on leader-check.de (Vercel marketing landing).
+ *                 Erkundet KI-Nutzung, Argumentations-Sicherheit,
+ *                 EQ-Reflex. READINESS-Score routet in die volle
+ *                 21-Fragen-Diagnose auf leadercheck.de (Emergent app).
+ *
+ * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
+ *   leader-os.de + leader-check.de  = Vercel marketing landings (where this pod lives)
+ *   leaderos.de  + leadercheck.de   = Emergent apps (where the actual funnel converts)
  *
  * Look-and-Feel:
  *   - Editorial Specimen-Pod: schwarze Canvas, Hairline-Borders,

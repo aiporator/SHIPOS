@@ -133,7 +133,7 @@ export const HeroSection = () => (
           rel="noopener noreferrer"
           className="text-foreground underline decoration-brand decoration-2 underline-offset-4 hover:decoration-foreground transition-colors"
         >
-          leader-check.de
+          leadercheck.de
         </a>.
       </motion.p>
 

@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * Sticky top nav — action-oriented. Primary CTA is "Diagnose starten"
- * (lime, leader-check.de external), secondary is "Login" (internal).
- * Tiny "So funktioniert's" anchor on desktop.
+ * Sticky top nav — action-oriented.
+ *
+ *  Primary CTA   →  leadercheck.de        (app, Emergent — runs the diagnose)
+ *  Secondary CTA →  leaderos.de/login     (app, Emergent — auth + dashboard)
+ *
+ * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
+ *   leader-os.de + leader-check.de   = Vercel marketing landings (this app)
+ *   leaderos.de  + leadercheck.de    = Emergent apps (where users convert)
+ *
+ * Plus tiny "So funktioniert's" anchor on desktop.
  */
 export const LandingNav = () => {
   const [scrolled, setScrolled] = useState(false);

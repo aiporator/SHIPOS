@@ -12,10 +12,15 @@ const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
  *   2. Scroll depth > 50% on mobile (no exit-intent on touch)
  *   3. Both gated by 7-day localStorage cooldown
  *
- * On submit: writes the email to leader-check.de via the existing
- * `/api/leader-check/intent` lifecycle endpoint if available; falls
- * back to a direct redirect to leader-check.de?ref=landing-popup.
+ * On submit: writes the email via the existing `/api/leader-check/intent`
+ * lifecycle endpoint (proxied to Emergent) and PostHog identify+capture
+ * so the lead is never lost. Then redirects to leadercheck.de (the
+ * Emergent diagnose-app) — that is the actual conversion surface.
  * Either way, the visitor lands on /thank-you so the funnel is clean.
+ *
+ * DOMAIN-TOPOLOGY (see docs/DOMAIN_TOPOLOGY.md):
+ *   leader-check.de    = THIS Vercel marketing landing (where popup fires)
+ *   leadercheck.de     = Emergent app target (where diagnose actually runs)
  */
 export const LeadCaptureModal = () => {
   const [open, setOpen] = useState(false);

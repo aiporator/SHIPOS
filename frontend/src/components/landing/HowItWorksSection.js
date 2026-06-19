@@ -15,7 +15,7 @@ const FADE_UP = {
  * HowItWorksSection — the explicit 3-step conversion path.
  *
  * Why this exists: visitors land confused. We answer "wo fange ich
- * an?" with three crisp cards: DIAGNOSE (leader-check.de) → SPRINT →
+ * an?" with three crisp cards: DIAGNOSE (leadercheck.de app) → SPRINT →
  * OS. Each card is a Heron-Preston-style specimen tag: code, BIB
  * number, headline, body, CTA. The user told us to make this clear,
  * here it is.
@@ -51,7 +51,7 @@ export const HowItWorksSection = () => (
         </h2>
         <p className="mt-6 max-w-xl text-[15px] md:text-[16px] leading-[1.55] text-foreground/70">
           Du startest immer mit der <strong className="text-foreground">kostenlosen Diagnose</strong>{' '}
-          auf leader-check.de. Sie zeigt wo du stehst und schaltet danach den
+          auf leadercheck.de. Sie zeigt wo du stehst und schaltet danach den
           passenden Sprint frei. Erst dann lohnt sich das OS.
         </p>
       </motion.div>
@@ -142,7 +142,7 @@ export const HowItWorksSection = () => (
           href="https://leadercheck.de"
           testId="how-cta-primary"
         >
-          Diagnose starten · leader-check.de
+          Diagnose starten · leadercheck.de
         </PlusCircleCTA>
       </motion.div>
     </div>
