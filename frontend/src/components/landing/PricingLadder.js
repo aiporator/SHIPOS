@@ -42,10 +42,10 @@ const TIERS = [
       'Tägliche Lernvideos · Wöchen-Drills',
       'BIB-Zertifikat für LinkedIn',
     ],
-    cta: 'Sprint kaufen',
+    cta: 'Sprint kaufen · 30 Tage',
     href: 'https://leaderos.de/checkout?tier=sprint',
     accent: true,
-    badge: 'EINSTIEG',
+    badge: '★ BELIEBT',
   },
   {
     id: 'plusplus',
@@ -128,6 +128,12 @@ const TIERS = [
   },
 ];
 
+// Launch-Focus: Sprint + Plus-Plus + Diagnose nur. Mentoring + Enterprise
+// existieren weiter im Code für später (sales-anchor + B2B-pipeline), aber
+// auf der Landing erstmal versteckt — klares Funnel ohne Premium-Distraction.
+const VISIBLE_IDS = new Set(['diagnose', 'sprint', 'plusplus']);
+const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
+
 const TierCard = ({ tier }) => {
   const bgClass = tier.dark
     ? 'bg-[#0A0A0A] text-white border-2 border-black'
@@ -136,10 +142,19 @@ const TierCard = ({ tier }) => {
     ? 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-brand before:content-[\'\']'
     : '';
 
+  // Sprint = primary conversion target: starts already lifted with a soft
+  // lime shadow + scale, hover boosts both. Other cards lift on hover only.
+  const sprintLift = tier.accent
+    ? 'shadow-[0_20px_50px_-20px_rgba(191,255,0,0.4)] md:scale-[1.02]'
+    : 'shadow-[0_4px_12px_-6px_rgba(0,0,0,0.08)]';
+  const hoverLift = tier.accent
+    ? 'hover:-translate-y-2 hover:shadow-[0_28px_60px_-20px_rgba(191,255,0,0.55)] hover:md:scale-[1.04]'
+    : 'hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.15)]';
+
   return (
     <article
       data-testid={`tier-${tier.id}`}
-      className={`relative ${bgClass} ${accentLine} flex flex-col h-full`}
+      className={`relative ${bgClass} ${accentLine} ${sprintLift} ${hoverLift} flex flex-col h-full transition-all duration-300 ease-out`}
     >
       {tier.badge && (
         <div className={`absolute -top-3 right-4 px-3 py-1 font-mono text-[9px] font-bold tracking-[0.22em] uppercase ${tier.accent || tier.id === 'plusplus' ? 'bg-brand text-black' : 'bg-black text-brand'}`}>
@@ -242,29 +257,25 @@ export const PricingLadder = () => (
               fontSize: 'clamp(40px, 5.5vw, 88px)',
             }}
           >
-            Sechs Stufen.<br />
-            <span className="text-black/55">Eine Reise</span>
+            Dein Pfad.<br />
+            <span className="text-black/55">In 30 Tagen</span>
             <span className="text-brand">.</span>
           </h2>
         </div>
         <div className="md:col-span-5 md:pt-6">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
-            Sprint ist der Trainingsplan. Plus-Plus ist der Marathon.
-            Mentoring ist Wlad direkt an deiner Seite. Enterprise ist
-            wenn die ganze Firma rennt. <span className="text-black font-bold">Niemand startet bei Stufe 4.</span> Sprint zuerst, immer.
+            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge — elf Frameworks, tägliche Drills, WladBot 24/7. Plus-Plus geht ein ganzes Jahr — Sprint plus Live-Sessions mit Wlad. <span className="text-black font-bold">Sprint zuerst, immer.</span>
           </p>
         </div>
       </div>
 
-      {/* Grid: 1 col mobile, 2 col tablet, 3 col desktop. AI Ownership spans 2 columns on lg. */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-        {TIERS.slice(0, 5).map((tier) => (
+      {/* Drei-Tier-Fokus: Diagnose · Sprint · Plus-Plus. Mentoring + Enterprise
+          existieren weiter im Code (TIERS array), sind aber für den Launch
+          versteckt. Re-aktivierbar via VISIBLE_IDS oben. */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        {VISIBLE_TIERS.map((tier) => (
           <TierCard key={tier.id} tier={tier} />
         ))}
-        {/* Enterprise spans 2 columns on lg breakpoint */}
-        <div className="lg:col-span-2 sm:col-span-2">
-          <TierCard tier={TIERS[5]} />
-        </div>
       </div>
 
       {/* Footnote */}

@@ -12,10 +12,15 @@ const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
  *   2. Scroll depth > 50% on mobile (no exit-intent on touch)
  *   3. Both gated by 7-day localStorage cooldown
  *
- * On submit: writes the email to leader-check.de via the existing
- * `/api/leader-check/intent` lifecycle endpoint if available; falls
- * back to a direct redirect to leader-check.de?ref=landing-popup.
+ * On submit: writes the email via the existing `/api/leader-check/intent`
+ * lifecycle endpoint (proxied to Emergent) and PostHog identify+capture
+ * so the lead is never lost. Then redirects to leadercheck.de (the
+ * Emergent diagnose-app) — that is the actual conversion surface.
  * Either way, the visitor lands on /thank-you so the funnel is clean.
+ *
+ * DOMAIN-TOPOLOGY (see docs/DOMAIN_TOPOLOGY.md):
+ *   leader-check.de    = THIS Vercel marketing landing (where popup fires)
+ *   leadercheck.de     = Emergent app target (where diagnose actually runs)
  */
 export const LeadCaptureModal = () => {
   const [open, setOpen] = useState(false);
@@ -122,81 +127,108 @@ export const LeadCaptureModal = () => {
       data-testid="lead-capture-modal"
     >
       <div
-        className="relative w-full max-w-md bg-background text-foreground border border-foreground/15 p-7 md:p-9"
+        className="relative w-full max-w-lg bg-background text-foreground border-2 border-foreground/20 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.7)] animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Top accent line — same lime detail as PR #85's tier cards */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-brand" aria-hidden />
+
         {/* Specimen header */}
-        <div className="flex items-center justify-between pb-3 mb-6 border-b border-foreground/15">
+        <div className="flex items-center justify-between px-7 md:px-9 pt-6 pb-3 mb-0 border-b border-foreground/12">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            BIB · 0001 · JETZT OFFEN
+            BIB · 0001 · 30-TAGE SPRINT
           </span>
           <button
             onClick={close}
             aria-label="Schließen"
-            className="text-foreground/40 hover:text-foreground text-lg leading-none font-mono"
+            className="text-foreground/40 hover:text-foreground text-xl leading-none font-mono w-8 h-8 flex items-center justify-center hover:bg-foreground/5 transition-colors"
             data-testid="lead-modal-close"
           >
             ×
           </button>
         </div>
 
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-4 font-mono">
-          ▸ Kostenlose KI-Diagnose
-        </p>
+        <div className="px-7 md:px-9 py-7 md:py-8">
+          <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4 font-mono">
+            ▸ DEIN START · 5 MIN DIAGNOSE
+          </p>
 
-        <h2
-          id="lead-modal-title"
-          className="text-[34px] md:text-[40px] leading-[0.95] tracking-[-0.035em] text-foreground"
-          style={{
-            fontFamily: 'Outfit, Inter, sans-serif',
-            fontWeight: 900,
-            fontStyle: 'italic',
-          }}
-        >
-          Wo stehst du<span className="text-brand not-italic">?</span>
-        </h2>
-
-        <p className="mt-4 text-[14px] leading-[1.5] text-foreground/70">
-          Fünf Minuten. Sofortiger Score in drei Dimensionen:
-          KI-Readiness · Rhetorik · Emotionale Intelligenz.
-          Plus deine erste Sprint-Empfehlung — kostenlos.
-        </p>
-
-        <form onSubmit={onSubmit} className="mt-6 space-y-3">
-          <label className="block">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 mb-2 font-mono">
-              DEINE E-MAIL
-            </span>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="dein.name@firma.de"
-              required
-              autoFocus
-              className="w-full px-4 py-3 bg-transparent border border-foreground/25 focus:border-brand focus:outline-none text-foreground text-[15px]"
-              data-testid="lead-modal-email"
-            />
-          </label>
-
-          {error && (
-            <p className="text-[12px] text-red-600 dark:text-red-400 font-semibold">{error}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full inline-flex items-center justify-center gap-3 px-5 py-4 bg-brand text-[#0A0A0A] text-[13px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all disabled:opacity-60"
-            data-testid="lead-modal-submit"
+          <h2
+            id="lead-modal-title"
+            className="text-[38px] md:text-[48px] leading-[0.92] tracking-[-0.04em] text-foreground"
+            style={{
+              fontFamily: 'Outfit, Inter, sans-serif',
+              fontWeight: 900,
+              fontStyle: 'italic',
+            }}
           >
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A] text-brand text-base font-black leading-none" aria-hidden>+</span>
-            {submitting ? 'Wird gestartet…' : 'Diagnose starten · kostenlos'}
-          </button>
-        </form>
+            30 Tage.<br />
+            <span className="text-foreground/55">Neues Du</span>
+            <span className="text-brand not-italic">.</span>
+          </h2>
 
-        <p className="mt-5 text-[10.5px] uppercase tracking-[0.22em] font-bold text-foreground/40 font-mono text-center">
-          KEIN SPAM · KEIN ABO · DSGVO-KONFORM
-        </p>
+          <p className="mt-5 text-[14.5px] leading-[1.55] text-foreground/75">
+            Erst die kostenlose 5-Min-Diagnose — KI · Rhetorik · EQ.
+            Dann der 30-Tage Sprint, der das verändert was im Score
+            schwach war. <span className="text-foreground font-bold">11 Frameworks. Tägliche Drills. WladBot 24/7.</span>
+          </p>
+
+          {/* 3-Schritt-Mini-Strip */}
+          <div className="mt-6 grid grid-cols-3 gap-2 border-y border-foreground/10 py-3">
+            {[
+              ['01', '5 MIN', 'Diagnose'],
+              ['02', '997 €', '30-T Sprint'],
+              ['03', 'BIB', 'Zertifikat'],
+            ].map(([nr, val, label]) => (
+              <div key={nr} className="text-center">
+                <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">▸ {nr}</div>
+                <div
+                  className="mt-1 text-[14px] leading-none text-foreground"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontStyle: 'italic' }}
+                >
+                  {val}
+                </div>
+                <div className="text-[9px] uppercase tracking-[0.16em] text-foreground/45 font-mono mt-1">{label}</div>
+              </div>
+            ))}
+          </div>
+
+          <form onSubmit={onSubmit} className="mt-6 space-y-3">
+            <label className="block">
+              <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 mb-2 font-mono">
+                DEINE E-MAIL
+              </span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="dein.name@firma.de"
+                required
+                autoFocus
+                className="w-full px-4 py-3.5 bg-transparent border border-foreground/25 focus:border-brand focus:outline-none text-foreground text-[15px] transition-colors"
+                data-testid="lead-modal-email"
+              />
+            </label>
+
+            {error && (
+              <p className="text-[12px] text-red-600 dark:text-red-400 font-semibold">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full inline-flex items-center justify-center gap-3 px-5 py-4 bg-brand text-[#0A0A0A] text-[13px] font-bold uppercase tracking-[0.14em] hover:brightness-105 active:translate-y-px transition-all disabled:opacity-60 shadow-[0_12px_30px_-12px_rgba(191,255,0,0.5)]"
+              data-testid="lead-modal-submit"
+            >
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A] text-brand text-base font-black leading-none" aria-hidden>+</span>
+              {submitting ? 'Wird gestartet…' : 'Diagnose starten · kostenlos'}
+            </button>
+          </form>
+
+          <p className="mt-5 text-[10.5px] uppercase tracking-[0.22em] font-bold text-foreground/45 font-mono text-center">
+            KEIN SPAM · KEIN ABO · 14 TAGE GELD-ZURÜCK
+          </p>
+        </div>
       </div>
     </div>
   );

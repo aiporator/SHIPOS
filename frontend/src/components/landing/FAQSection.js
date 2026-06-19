@@ -20,12 +20,12 @@ const FAQS = [
   {
     q: 'Was kostet das genau?',
     a:
-      'Die Diagnose auf leader-check.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Plus-Plus (Sprint + 12 Monate Enablement-Begleitung mit Live-Sessions und Drill-Channel) kostet 4 797 € einmalig oder in drei Raten. 1:1 mit Wlad gibt es nur als limitierte Warteliste — kein Standard-Produkt, weil seine Zeit der Bottleneck ist. Alles ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
+      'Die Diagnose auf leadercheck.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Plus-Plus (Sprint + 12 Monate Enablement-Begleitung mit Live-Sessions und Drill-Channel) kostet 4 797 € einmalig oder in drei Raten. 1:1 mit Wlad gibt es nur als limitierte Warteliste — kein Standard-Produkt, weil seine Zeit der Bottleneck ist. Alles ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
   },
   {
-    q: 'Warum sollte ich für leader-check.de dieselbe Email nutzen?',
+    q: 'Warum sollte ich für die Diagnose dieselbe Email nutzen?',
     a:
-      'Weil leader-check.de und leader-os.de dieselbe Identität sehen, sobald du die gleiche Email-Adresse benutzt. Deine Diagnose-Scores aus dem Check fließen in deinen Sprint-Plan ein. Der WladBot weiß ab Tag 1, wo deine Schwächen liegen. Du musst nichts nochmal angeben. Andere Email = zwei getrennte Profile = keine Personalisierung.',
+      'Weil die Diagnose-App (leadercheck.de) und die Coaching-App (leaderos.de) dieselbe Identität sehen, sobald du die gleiche Email-Adresse benutzt. Deine Diagnose-Scores aus dem Check fließen in deinen Sprint-Plan ein. Der WladBot weiß ab Tag 1, wo deine Schwächen liegen. Du musst nichts nochmal angeben. Andere Email = zwei getrennte Profile = keine Personalisierung.',
   },
   {
     q: 'Wie unterscheidet sich das von ChatGPT oder einem normalen Coaching?',

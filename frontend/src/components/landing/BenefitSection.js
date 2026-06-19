@@ -116,6 +116,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
               <PlusCircleCTA
                 href={asset.href}
                 testId={`benefit-${asset.nr}-cta`}
+                halo={false}
                 className={isDark ? 'text-white' : 'text-foreground'}
               >
                 {asset.cta}

@@ -276,7 +276,9 @@ export const MiniChallenge = () => {
               {/* Next-Step CTA */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href="/quiz"
+                  href="https://leadercheck.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex-1 px-6 py-4 bg-black text-white text-[12.5px] font-bold uppercase tracking-[0.18em] hover:bg-black/85 text-center transition-colors shadow-[6px_6px_0_0_#BFFF00]"
                 >
                   ▸ VOLLE DIAGNOSE · 21 FRAGEN

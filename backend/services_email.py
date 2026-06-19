@@ -686,3 +686,90 @@ Hallo {name},
 """
     return subject, _base_layout(body, preheader=f"Woche {week}: {subtitle} · {duration}")
 
+
+# ── Launch Announcement (one-shot) ───────────────────────────────
+
+def launch_announcement_email(
+    name: str,
+    quiz_url: str = "https://leadercheck.de",
+    app_url: str = "https://leaderos.de",
+) -> tuple[str, str]:
+    """One-shot announcement to Wlad's existing audience that leader-os.de
+    is live and WladBot is open for testing.
+
+    Voice: direct, premium, no fluff — same Nike-DNA template family as the
+    rest of the lifecycle emails. Funnel: scan QR (or click) → leadercheck.de
+    → 5-min diagnose → leaderos.de app afterward.
+    """
+    subject = f"Du wolltest nicht warten, {name}."
+    body = f"""
+<div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin:12px 0 14px;">▸ LIVE · LEADER · OS · ISSUE 0001</div>
+
+<div style="font-weight:900;font-style:italic;font-size:44px;line-height:0.94;letter-spacing:-0.035em;color:#ffffff;margin:0 0 4px;">Werde</div>
+<div style="font-weight:900;font-style:italic;font-size:44px;line-height:0.94;letter-spacing:-0.035em;color:#ffffff;margin:0 0 28px;">KI-nativ<span style="color:{BRAND_COLOR};">.</span></div>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.6;margin:0 0 18px;">
+Servus {name},
+</p>
+
+<p style="font-size:14.5px;color:rgba(255,255,255,0.78);line-height:1.6;margin:0 0 18px;">
+fünfzehn Jahre Methodik, zweitausendzweihundert Lektionen, drei SPIEGEL-Bestseller. Jetzt erstmals zusammen in einem System — und in deiner Tasche, vierundzwanzig Stunden täglich.
+</p>
+
+<p style="font-size:14.5px;color:rgba(255,255,255,0.78);line-height:1.6;margin:0 0 28px;">
+<strong style="color:#ffffff;">WladBot ist live.</strong> Trainiert auf meiner Methodik, beantwortet dir um zweiundzwanzig Uhr siebenundvierzig was du sonst mich gefragt hättest. In Wlads Ton. Mit deinem Kontext.
+</p>
+
+<!-- Three concrete things -->
+<div style="border-top:2px solid rgba(255,255,255,0.15);border-bottom:2px solid rgba(255,255,255,0.15);padding:20px 0;margin-bottom:28px;">
+  <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin-bottom:16px;">▸ WAS DU SOFORT KANNST</div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="padding:7px 0;vertical-align:top;width:32px;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§01</span>
+    </td><td style="padding:7px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      Fünf-Minuten-Diagnose <span style="color:rgba(255,255,255,0.55);font-weight:400;font-size:13px;">· kostenlos · dein BIB-Score sofort</span>
+    </td></tr>
+    <tr><td style="padding:7px 0;vertical-align:top;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§02</span>
+    </td><td style="padding:7px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      WladBot fragen was du sonst mich fragen würdest
+    </td></tr>
+    <tr><td style="padding:7px 0;vertical-align:top;">
+      <span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§03</span>
+    </td><td style="padding:7px 0;font-size:14px;color:#ffffff;font-weight:700;line-height:1.4;">
+      Erste Empfehlung — wo du heute stehst, wo dein nächster Schritt ist
+    </td></tr>
+  </table>
+</div>
+
+<!-- Primary CTA -->
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;"><tr>
+  <td style="background:{BRAND_COLOR};padding:0;">
+    <a href="{quiz_url}" style="display:inline-block;padding:18px 32px;color:{BRAND_DARK};text-decoration:none;font-weight:900;font-size:13.5px;letter-spacing:0.04em;text-transform:uppercase;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">+&nbsp;&nbsp;Diagnose starten · 5 Min</a>
+  </td>
+</tr></table>
+
+<p style="font-size:13px;color:rgba(255,255,255,0.62);line-height:1.6;margin:0 0 6px;">
+Oder direkt im Browser: <a href="{quiz_url}" style="color:{BRAND_COLOR};font-weight:700;text-decoration:none;">leadercheck.de</a>
+</p>
+
+<p style="font-size:12.5px;color:rgba(255,255,255,0.52);line-height:1.55;margin:0 0 28px;">
+Keine Email-Pflicht. Kein Abo. Kein versteckter Upsell. Bei der Diagnose siehst du sofort wo du stehst — der Rest ist deine Entscheidung.
+</p>
+
+<!-- Wlad signature -->
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.15);">
+  <p style="font-family:'Outfit',sans-serif;font-weight:900;font-style:italic;font-size:24px;letter-spacing:-0.02em;color:#ffffff;margin:0 0 4px;">Wlad<span style="color:{BRAND_COLOR};">.</span></p>
+  <p style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin:0;">WLAD JACHTCHENKO · KÖLN · 2026</p>
+</div>
+
+<p style="font-size:11.5px;color:rgba(255,255,255,0.42);margin:24px 0 0;line-height:1.55;text-align:center;">
+P.S. — Die Diagnose dauert wirklich nur fünf Minuten. Drei Dimensionen: KI, Rhetorik, EQ. Sofort dein Score. <a href="{quiz_url}" style="color:rgba(191,255,0,0.85);font-weight:700;text-decoration:none;">leadercheck.de</a>
+</p>
+"""
+    return subject, _base_layout(
+        body,
+        preheader=f"WladBot ist live, {name}. Fünf-Minuten-Diagnose. Sofort dein Score.",
+        bib_code="LIVE",
+    )

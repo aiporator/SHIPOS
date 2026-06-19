@@ -29,7 +29,7 @@ const COL_ABOUT = [
   { label: 'Demo · 20 Min', href: 'https://cal.com/leaderos/demo', external: true },
   { label: 'Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung', external: true },
   { label: 'Login', href: 'https://leaderos.de/login', external: true },
-  { label: 'leader-check.de', href: 'https://leadercheck.de', external: true },
+  { label: 'leadercheck.de · App', href: 'https://leadercheck.de', external: true },
   { label: 'Impressum', to: '/impressum' },
   { label: 'Datenschutz', to: '/datenschutz' },
   { label: 'AGB', to: '/agb' },

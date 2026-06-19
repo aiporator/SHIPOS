@@ -75,6 +75,7 @@ export const VimeoIntroSection = () => (
             <PlusCircleCTA
               href={LANDING_META.cta.primary.href}
               testId="vimeo-cta"
+              halo={false}
               className="text-white"
             >
               Diagnose starten · kostenlos

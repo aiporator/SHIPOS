@@ -114,7 +114,7 @@ curl -X PATCH $API_URL/api/admin/learning_videos/v1 \
 | `free` | Anonyme + registrierte User ohne Kauf | **v1-v6** (gratis Lead-Magnet) |
 | `starter` | Nicht aktiv (Legacy, ungenutzt) | — |
 | `standard` (= Leadership OS €997/Jahr) | Voll registriert + bezahlt | v1-v6 + spätere Standard-Inhalte |
-| `accelerator` (= Leadership OS PLUS €4.447/Jahr) | Top-Tier | **Alle Videos inkl. v7-v10** |
+| `accelerator` (= Leadership OS PLUS €4.797/Jahr) | Top-Tier | **Alle Videos inkl. v7-v10** |
 
 **Wichtig:** Die ersten 6 Videos (`v1`-`v6`) sind ab Iter 92.3 auf `min_tier: "free"` —
 auch nicht-eingeloggte User können sie theoretisch sehen, sobald Wlad sie hochlädt.

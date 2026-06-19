@@ -252,6 +252,7 @@ export const AppPreviewSection = () => (
         <PlusCircleCTA
           href="https://cal.com/leaderos/demo"
           testId="app-preview-demo"
+          halo={false}
         >
           Demo buchen · 20 Min
         </PlusCircleCTA>

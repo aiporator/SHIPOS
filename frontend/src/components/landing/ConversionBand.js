@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
  * ConversionBand — sticky bottom action-strip.
  *
  * Appears after the visitor has scrolled past the hero. Always-on CTA
- * to leader-check.de. Dismissible per session. Tiny, doesn't fight
+ * to leadercheck.de (the app). Dismissible per session. Tiny, doesn't fight
  * with the main content but constantly reminds the next step.
  */
 export const ConversionBand = () => {

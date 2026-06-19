@@ -72,7 +72,7 @@ JWT_SECRET                 → 64-char urlsafe (set Iter 80, fail-fast on missin
 ### Stripe Live
 - ⚠️ Aktuell **TEST KEY** (`sk_test_...`) in `backend/.env`
 - ❌ `STRIPE_WEBHOOK_SECRET` nicht gesetzt
-- ❌ Live-Produkte im Stripe Dashboard erstellt? (`leadership_os` €997, `leadership_os_2x` 2×€550, `leadership_os_12x` 12×€99, `leadership_os_plus` €4.447)
+- ❌ Live-Produkte im Stripe Dashboard erstellt? (`leadership_os` €997, `leadership_os_2x` 2×€550, `leadership_os_12x` 12×€99, `leadership_os_plus` €4.797)
 - ❌ Webhook Endpoint `https://leader-os.de/api/payments/webhook/stripe` registriert?
 - ❌ `construct_event(...)` Webhook-Verify in `backend/routes/payments.py`? (Vermutlich auf GitHub PR #10/#14/#15 erledigt — Pod hat es nicht)
 

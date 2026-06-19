@@ -10,17 +10,22 @@ import { AnimatePresence, motion } from 'framer-motion';
  * ehrlich (kein Fake-AI-Theater), schnell (keine Latenz, keine
  * Token-Kosten) und konsistent (jeder Besucher kommt durch).
  *
- * Zwei Modi via `mode`-Prop:
+ * Zwei Modi via `mode`-Prop (passend zum Landing-Host):
  *
- *   'lead'      — auf leader-os.de. Erkundet Rolle, größte
- *                 Leadership-Baustelle, Zeit-Horizont, Team-Größe.
- *                 Berechnet einen FIT-Score und schlägt vor:
- *                 Diagnose (low fit) · Demo (mid) · Beratung (high).
+ *   'lead'      — fires on leader-os.de (Vercel marketing landing).
+ *                 Erkundet Rolle, größte Leadership-Baustelle,
+ *                 Zeit-Horizont, Team-Größe. Berechnet FIT-Score
+ *                 und schlägt vor: Diagnose (low fit) → leadercheck.de
+ *                 · Demo (mid) → cal.com · Beratung (high) → cal.com.
  *
- *   'readiness' — auf leader-check.de. Erkundet KI-Nutzung,
- *                 Argumentations-Sicherheit, EQ-Reflex.
- *                 Berechnet einen READINESS-Score und routet
- *                 in die volle 21-Fragen-Diagnose.
+ *   'readiness' — fires on leader-check.de (Vercel marketing landing).
+ *                 Erkundet KI-Nutzung, Argumentations-Sicherheit,
+ *                 EQ-Reflex. READINESS-Score routet in die volle
+ *                 21-Fragen-Diagnose auf leadercheck.de (Emergent app).
+ *
+ * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
+ *   leader-os.de + leader-check.de  = Vercel marketing landings (where this pod lives)
+ *   leaderos.de  + leadercheck.de   = Emergent apps (where the actual funnel converts)
  *
  * Look-and-Feel:
  *   - Editorial Specimen-Pod: schwarze Canvas, Hairline-Borders,
@@ -160,7 +165,7 @@ const FLOWS = {
         body:
           'Du hast Basics drin. Die 21-Fragen-Diagnose zeigt dir die feinen ' +
           'Lücken — und Leader-OS schließt sie systematisch in 30 Tagen.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Direkt Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung' },
       },
       {
@@ -169,7 +174,7 @@ const FLOWS = {
         body:
           'Du arbeitest schon bewusst — aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
       {
@@ -178,7 +183,7 @@ const FLOWS = {
         body:
           'Du fängst quasi bei Null an — das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: '/leader-diagnose' },
+        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
     ],

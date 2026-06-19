@@ -72,7 +72,9 @@ const Outro = ({ onRestart }) => (
       </p>
       <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center">
         <a
-          href="/quiz"
+          href="https://leadercheck.de"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-7 py-4 bg-brand text-black text-[13px] font-bold uppercase tracking-[0.18em] shadow-[6px_6px_0_0_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_#000] transition-all"
         >
           <span className="text-base font-black">+</span>

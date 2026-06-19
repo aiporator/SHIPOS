@@ -12,7 +12,7 @@
 | **Leadership OS** | **€997 / Jahr** | 365 Tage | 12 Videokurse Drip · KI-Coach 24/7 · Audio-Mode · 30-Tage Money-Back |
 | **Leadership OS** · 2× Rate | 2× 550€ = **1.100€** | 365 Tage | +103€ Aufschlag |
 | **Leadership OS** · 12× Rate | 12× 99€ = **1.188€** | 365 Tage | +191€ Aufschlag |
-| **Leadership OS PLUS** | **€4.447 / Jahr** | 365 Tage | Alles aus OS + 12× 1:1 Coaching mit Argumentorik-Coaches (Wert 3.588€) |
+| **Leadership OS PLUS** | **€4.797 / Jahr** | 365 Tage | Alles aus OS + 12× 1:1 Coaching mit Argumentorik-Coaches (Wert 3.588€) |
 | **Leadership OS Enterprise** | Auf Anfrage | 365 Tage | B2B · Volume-Discount 10–50% (5/10/20/50/100/200 MA Schwellen) |
 
 ---
@@ -26,7 +26,7 @@
    - `leadership_os` → 997€ EUR one-time
    - `leadership_os_2x` → 550€ EUR (Rate 1, Folge-Raten via Cron)
    - `leadership_os_12x` → 99€ EUR (Rate 1, Folge-Raten via Cron)
-   - `leadership_os_plus` → 4447€ EUR one-time
+   - `leadership_os_plus` → 4797€ EUR one-time
 2. Live-Key in `/app/backend/.env`: `STRIPE_API_KEY=sk_live_…`
 3. Webhook-URL in Stripe registrieren: `https://leader-os.de/api/webhook/stripe`
 4. Webhook-Signature speichern (für künftige Härtung)

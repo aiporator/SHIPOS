@@ -1,8 +1,34 @@
-# Domain-Topologie — finaler Stand
+# Domain-Topologie — canonical
 
-> Update: 2026-06-14. User-Entscheidung: Bindestriche = Marketing-LP,
-> ohne Bindestriche = Apps. Wer auf einer LP scannt landet auf der
-> LP, klickt "Login"/"Diagnose starten" und wird zur App geleitet.
+> Last updated: 2026-06-18. **Bindestriche = Marketing-Landing-Pages
+> (Vercel). Ohne Bindestriche = Apps (Emergent).** Eselsbrücke:
+> die mit dem Strich ist die Brücke zur App.
+
+## TL;DR — die Eselsbrücke
+
+```
+Mit Bindestrich     →  Landing (Marketing)  →  Vercel    →  shipos/mvpcode
+Ohne Bindestrich    →  App (echte Action)   →  Emergent  →  Emergent-Projekt
+```
+
+| Memo | Vier Hosts |
+|---|---|
+| Landing leader-OS | `leader-os.de`     → Vercel |
+| App     leader-OS | `leaderos.de`      → Emergent |
+| Landing leader-Check | `leader-check.de` → Vercel |
+| App     leader-Check | `leadercheck.de`  → Emergent |
+
+## Wo welcher Name in Code/Copy erscheinen darf
+
+- **Visible user copy + Buttons**: immer die Ziel-URL nennen wo der
+  Klick hingeht. "Diagnose auf leadercheck.de" → User klickt → er
+  ist genau dort. Konsistent.
+- **Code-Kommentare + Docs**: auseinanderhalten. "leader-check.de
+  Vercel landing" vs "leadercheck.de Emergent app". Future-Devs
+  müssen es lesen können.
+- **SEO + Wlad-Audience Erinnerung**: `leader-os.de` und
+  `leader-check.de` sind die merkbaren Markennamen — die werden
+  in Newsletter-Subjects, Visitenkarten, QR-Aufdrucken verwendet.
 
 ## Die vier Hosts
 
