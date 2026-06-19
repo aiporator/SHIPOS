@@ -144,10 +144,10 @@ export const HeroSection = () => (
         variants={FADE_UP}
         className="mt-10 md:mt-14"
       >
-        <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border border-brand/40 bg-brand/[0.07]">
+        <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border-2 border-brand/60 bg-brand/[0.10]">
           <span className="w-2 h-2 rounded-full bg-brand animate-live-dot" aria-hidden />
           <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground font-mono">
-            Jetzt sofort starten
+            ▸ Klasse 0001 · 43 von 50 Plätzen frei
           </span>
         </div>
 
