@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 24 },
@@ -76,15 +77,30 @@ export const HeroSection = () => (
     </motion.div>
 
     <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-10 md:pb-14">
-      <motion.p
+      {/* Wlad-Greeting-Strip — wer hier landet sieht direkt das Gesicht
+          hinter der Methodik. Persönlich, kein "Aboutbox unten". */}
+      <motion.div
         initial="hidden"
         animate="show"
         custom={0}
         variants={FADE_UP}
-        className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-6 font-mono"
+        className="flex items-center gap-3.5 mb-6"
       >
-        ▸ KI-COACH · WLAD-METHODIK · 30-TAGE-SPRINT
-      </motion.p>
+        <img
+          src={WLAD_AVATAR}
+          onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+          alt="Wlad Jachtchenko"
+          className="w-11 h-11 rounded-full object-cover ring-2 ring-brand/40 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.3)]"
+        />
+        <div>
+          <p className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
+            ▸ WLAD JACHTCHENKO · KI-COACH
+          </p>
+          <p className="text-[11.5px] text-foreground/65 mt-0.5">
+            Drei SPIEGEL-Bestseller · 400k Kunden · jetzt als OS.
+          </p>
+        </div>
+      </motion.div>
 
       <motion.h1
         initial="hidden"
