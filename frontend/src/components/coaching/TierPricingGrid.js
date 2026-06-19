@@ -52,7 +52,7 @@ const TIERS = [
     tierKey: 'accelerator',
     name: 'Leadership OS PLUS',
     subtitle: '1 Jahr · mit Coaches',
-    price: 4447,
+    price: 4797,
     priceUnit: 'Jahr',
     icon: Crown,
     accent: 'border-[#BFFF00]/40 bg-gradient-to-b from-[#0A0A0A] to-[#1A1A2E] text-white',
