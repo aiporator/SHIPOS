@@ -26,7 +26,7 @@ export const LandingNav = () => {
   return (
     <header
       data-testid="landing-nav"
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 inset-x-0 z-40 transition-all duration-300 ${
         scrolled
           ? 'bg-background/85 backdrop-blur-xl border-b border-foreground/10'
           : 'bg-transparent'
