@@ -24,7 +24,7 @@ export const HeroSection = () => (
     id="hero"
     className="relative w-full overflow-hidden bg-background"
     data-testid="landing-hero"
-    aria-label="Werde KI-nativ — Das OS für Führungskräfte"
+    aria-label="30 Tage mit Wlad — Sprint zum Führungs-System"
   >
     {/* Subtle radial mesh, never the focus */}
     <div
@@ -37,23 +37,19 @@ export const HeroSection = () => (
       }}
     />
 
-    {/* Brand-metadata callouts — Heron-Preston DNA, real content */}
+    {/* Brand-metadata callouts — minimal. Eine Zeile links, eine rechts.
+        Vorher 3+4 Zeilen — visual noise ohne payoff. */}
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono"
+      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono"
     >
-      <div>[ BY WLAD JACHTCHENKO ]</div>
-      <div className="mt-0.5">[ EST. 2026 · BERLIN ]</div>
-      <div className="mt-0.5">[ DE / EN · DSGVO ]</div>
+      [ EST. 2026 · BERLIN ]
     </div>
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono text-right"
+      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
     >
-      <div>[ JETZT OFFEN ]</div>
-      <div className="mt-0.5">[ START · SOFORT ]</div>
-      <div className="mt-0.5">[ 30 TAGE · INDIVIDUELL ]</div>
-      <div className="mt-0.5 text-foreground/30">[ SPRINT · 997 € · DIAGNOSE FREE ]</div>
+      [ SPRINT · 997 € · DIAGNOSE FREE ]
     </div>
 
     {/* Background-W — Heron-Preston editorial ghost letterform */}
@@ -77,27 +73,26 @@ export const HeroSection = () => (
     </motion.div>
 
     <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-10 md:pb-14">
-      {/* Wlad-Greeting-Strip — wer hier landet sieht direkt das Gesicht
-          hinter der Methodik. Persönlich, kein "Aboutbox unten". */}
+      {/* Wlad-Anker — kompakter, ein Specimen-Tag statt drei Zeilen */}
       <motion.div
         initial="hidden"
         animate="show"
         custom={0}
         variants={FADE_UP}
-        className="flex items-center gap-3.5 mb-6"
+        className="flex items-center gap-3.5 mb-8"
       >
         <img
           src={WLAD_AVATAR}
           onError={withFallback(WLAD_AVATAR_FALLBACKS)}
           alt="Wlad Jachtchenko"
-          className="w-11 h-11 rounded-full object-cover ring-2 ring-brand/40 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.3)]"
+          className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/45 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
         />
-        <div>
-          <p className="text-[10.5px] md:text-[11px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
-            ▸ WLAD JACHTCHENKO · KI-COACH
+        <div className="leading-tight">
+          <p className="text-[13.5px] font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            Wlad Jachtchenko
           </p>
-          <p className="text-[11.5px] text-foreground/65 mt-0.5">
-            Drei SPIEGEL-Bestseller · 400k Kunden · jetzt als OS.
+          <p className="text-[11px] text-foreground/55 mt-0.5">
+            3× SPIEGEL-Bestseller · 400 000 Kunden
           </p>
         </div>
       </motion.div>
@@ -107,30 +102,30 @@ export const HeroSection = () => (
         animate="show"
         custom={1}
         variants={FADE_UP}
-        className="text-[56px] sm:text-[88px] md:text-[128px] lg:text-[168px] leading-[0.86] tracking-[-0.045em] text-foreground"
+        className="text-[64px] sm:text-[96px] md:text-[136px] lg:text-[176px] leading-[0.84] tracking-[-0.048em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 900,
           fontStyle: 'italic',
         }}
       >
-        Werde<br />KI-nativ<span className="text-brand not-italic">.</span>
+        Sprint<br />mit Wlad<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* Wlad's Doppel-Claim — zwei konkrete Outcomes statt eines abstrakten Slogans. */}
+      {/* Konkrete Outcomes statt Buzzwords */}
       <motion.p
         initial="hidden"
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-7 md:mt-10 max-w-3xl text-[20px] sm:text-[26px] md:text-[34px] lg:text-[40px] leading-[1.15] tracking-[-0.02em] text-foreground"
+        className="mt-8 md:mt-12 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 800,
         }}
       >
-        Werde mit KI <span className="text-brand">10×</span> produktiver.{' '}
-        <span className="text-foreground/55">Oder <span className="text-brand">10×</span> zu einer Persönlichkeit<span className="text-brand">.</span></span>
+        Dreißig Tage. <span className="text-brand">Elf</span> Frameworks.{' '}
+        <span className="text-foreground/55">Ein KI-Coach der dich kennt<span className="text-brand">.</span></span>
       </motion.p>
 
       <motion.p
@@ -138,11 +133,10 @@ export const HeroSection = () => (
         animate="show"
         custom={3}
         variants={FADE_UP}
-        className="mt-7 md:mt-9 max-w-2xl text-[15px] md:text-[18px] leading-[1.55] text-foreground/70"
+        className="mt-8 md:mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-foreground/65"
       >
-        Endlich überzeugend auftreten. Klare Skripte statt Theorie-Geschwafel.
-        Wlads Methodik live, ein KI-Coach der dich 24/7 begleitet und ein
-        30-Tage-Plan der wirkt. Starte kostenlos mit der Diagnose auf{' '}
+        Klare Skripte statt Theorie. Tägliche Drills, sofort am echten Fall.
+        Starte kostenlos auf{' '}
         <a
           href="https://leadercheck.de"
           target="_blank"
@@ -183,29 +177,9 @@ export const HeroSection = () => (
           </a>
         </div>
 
-        <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/45 font-mono">
-          ▸ Kein Abo · Keine Kreditkarte für die Diagnose · DSGVO-konform
+        <p className="mt-4 text-[11px] text-foreground/45">
+          Kein Abo · 14 Tage Geld-zurück auf den Sprint
         </p>
-      </motion.div>
-
-      {/* BIB-strip footer */}
-      <motion.div
-        initial="hidden"
-        animate="show"
-        custom={5}
-        variants={FADE_UP}
-        className="mt-20 md:mt-32 pt-6 border-t border-foreground/10 flex flex-wrap items-center gap-x-8 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/50 font-mono"
-      >
-        <span className="text-brand">▸</span>
-        <span>LEADER · OS</span>
-        <span className="text-foreground/20">/</span>
-        <span>DREIßIG TAGE</span>
-        <span className="text-foreground/20">/</span>
-        <span>ELF FRAMEWORKS</span>
-        <span className="text-foreground/20">/</span>
-        <span>WLADBOT 24-7</span>
-        <span className="text-foreground/20">/</span>
-        <span>ZERTIFIKAT</span>
       </motion.div>
 
       {/* Scroll-cue — sanfter Pulse-Pfeil der das Auge nach unten zieht.
