@@ -145,7 +145,7 @@ export const HeroSection = () => (
         className="mt-10 md:mt-14"
       >
         <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border border-brand/40 bg-brand/[0.07]">
-          <span className="w-2 h-2 rounded-full bg-brand animate-pulse" aria-hidden />
+          <span className="w-2 h-2 rounded-full bg-brand animate-live-dot" aria-hidden />
           <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground font-mono">
             Jetzt sofort starten
           </span>
@@ -191,6 +191,19 @@ export const HeroSection = () => (
         <span className="text-foreground/20">/</span>
         <span>ZERTIFIKAT</span>
       </motion.div>
+
+      {/* Scroll-cue — sanfter Pulse-Pfeil der das Auge nach unten zieht.
+          Nur Desktop+ (Mobile-User scrollen sowieso) und nur bei
+          prefers-reduced-motion:none aktiv (via .animate-scroll-cue media query). */}
+      <a
+        href="#how-it-works"
+        aria-label="Weiter scrollen"
+        data-testid="hero-scroll-cue"
+        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-foreground/55 hover:text-foreground transition-colors group"
+      >
+        <span className="text-[9px] font-bold uppercase tracking-[0.28em] font-mono">scroll</span>
+        <span className="animate-scroll-cue text-[16px] leading-none">↓</span>
+      </a>
     </div>
   </section>
 );
