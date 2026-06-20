@@ -156,7 +156,7 @@ export const LeadCaptureModal = () => {
               src={WLAD_AVATAR}
               onError={withFallback(WLAD_AVATAR_FALLBACKS)}
               alt="Wlad Jachtchenko"
-              className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/50 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.4)]"
+              className="w-12 h-12 rounded-full object-cover object-top ring-2 ring-brand/50 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.4)]"
             />
             <div>
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono">

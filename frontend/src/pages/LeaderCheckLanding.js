@@ -147,7 +147,7 @@ export default function LeaderCheckLanding() {
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
                 alt="Wlad Jachtchenko"
-                className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/40"
+                className="w-12 h-12 rounded-full object-cover object-top ring-2 ring-brand/40"
               />
               <div>
                 <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
