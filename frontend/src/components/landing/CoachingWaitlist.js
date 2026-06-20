@@ -87,7 +87,7 @@ export const CoachingWaitlist = () => {
             <p className="mt-7 max-w-xl text-[15px] md:text-[17px] leading-[1.55] text-white/70">
               Wlad coacht persönlich nur eine Handvoll Führungskräfte pro
               Quartal. Sechs Wochen, sechs Sessions, eine Transformation.
-              Kein Standard-Produkt — Bewerbung über die Warteliste.
+              Kein Standard-Produkt. Bewerbung über die Warteliste.
               Plus-Plus ist der direkte Weg dorthin: wer das OS-Jahr
               durchzieht, bekommt Vorrang.
             </p>

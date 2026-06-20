@@ -1,6 +1,15 @@
 import { motion } from 'framer-motion';
 import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
+import { useGsapScrollIn } from './motion/useGsapScrollIn';
+
+// The closing headline as data so the word-reveal motion can target
+// individual word spans without breaking the existing typographic tone.
+const CLOSING_LINES = [
+  { text: 'Wer heute zögert,', tone: 'fg' },
+  { text: 'führt morgen unter jemandem,', tone: 'muted' },
+  { text: 'der nicht gezögert hat.', tone: 'fg' },
+];
 
 /**
  * FinalCTA — closing black wall, "BIB 0001 STARTEN" hero.
@@ -10,7 +19,13 @@ import { PlusCircleCTA } from './PlusCircleCTA';
  * accent, single lime plus-CTA. Two scroll-snap anchors so this is the
  * cleanest exit ramp on the page.
  */
-export const FinalCTA = () => (
+export const FinalCTA = () => {
+  // Word-by-word opacity scrub on the closing headline. The line is
+  // long and rhetorical; scrubbing forces the eye to read it as a
+  // sentence rather than as a typographic block.
+  const headlineRef = useGsapScrollIn('word-reveal', { selector: '[data-word]' });
+
+  return (
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
@@ -36,16 +51,33 @@ export const FinalCTA = () => (
         className="max-w-4xl"
       >
         <h2
+          ref={headlineRef}
           className="text-[44px] sm:text-[64px] md:text-[88px] lg:text-[112px] leading-[0.92] tracking-[-0.04em] text-white"
           style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Wer heute zögert,<br />
-          <span className="text-white/55">führt morgen unter jemandem,</span><br />
-          der nicht gezögert hat<span className="text-brand not-italic">.</span>
+          {CLOSING_LINES.map((line, lineIdx) => (
+            <span key={lineIdx} className={lineIdx > 0 ? 'block' : 'inline-block'}>
+              {line.text.split(/(\s+)/).map((token, tokenIdx) => {
+                if (/^\s+$/.test(token)) return <span key={tokenIdx}>{token}</span>;
+                const isLast = lineIdx === CLOSING_LINES.length - 1 && token.endsWith('.');
+                const display = isLast ? token.replace(/\.$/, '') : token;
+                return (
+                  <span
+                    key={tokenIdx}
+                    data-word
+                    className={`inline-block ${line.tone === 'muted' ? 'text-white/55' : 'text-white'}`}
+                  >
+                    {display}
+                    {isLast && <span className="text-brand not-italic">.</span>}
+                  </span>
+                );
+              })}
+            </span>
+          ))}
         </h2>
 
         <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Klasse 0001. Nur 50 Plätze. 30 Tage mit Wlad direkt — danach
+          Klasse 0001. Nur 50 Plätze. 30 Tage mit Wlad direkt. Danach
           ein ganzes Jahr Begleitung mit Plus-Plus, wenn du willst.
         </p>
 
@@ -105,4 +137,5 @@ export const FinalCTA = () => (
       </motion.div>
     </div>
   </section>
-);
+  );
+};

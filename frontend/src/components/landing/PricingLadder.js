@@ -1,3 +1,5 @@
+import { useGsapScrollIn } from './motion/useGsapScrollIn';
+
 /**
  * PricingLadder — Sprint → Plus-Plus → Mentoring → AI Ownership.
  *
@@ -250,10 +252,16 @@ const TierCard = ({ tier }) => {
   );
 };
 
-export const PricingLadder = () => (
+export const PricingLadder = () => {
+  // Tier-cards rise into place on entry with a short stagger. The motion
+  // is motivated: the reader sees the three tiers as one ladder, not as
+  // three independent cards that happen to share a row.
+  const gridRef = useGsapScrollIn('card-stack', { selector: '[data-tier-card]' });
+
+  return (
   <section
     id="pricing"
-    aria-label="Preise — Sprint bis AI Ownership"
+    aria-label="Preise: Sprint bis AI Ownership"
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black"
     data-testid="pricing-ladder"
   >
@@ -281,7 +289,7 @@ export const PricingLadder = () => (
         </div>
         <div className="md:col-span-5 md:pt-6">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
-            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge — elf Frameworks, tägliche Drills, WladBot 24/7. Plus-Plus geht ein ganzes Jahr — Sprint plus Live-Sessions mit Wlad. <span className="text-black font-bold">Sprint zuerst, immer.</span>
+            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge: elf Frameworks, tägliche Drills, WladBot 24/7. Plus-Plus geht ein ganzes Jahr: Sprint plus Live-Sessions mit Wlad. <span className="text-black font-bold">Sprint zuerst, immer.</span>
           </p>
         </div>
       </div>
@@ -289,9 +297,11 @@ export const PricingLadder = () => (
       {/* Drei-Tier-Fokus: Diagnose · Sprint · Plus-Plus. Mentoring + Enterprise
           existieren weiter im Code (TIERS array), sind aber für den Launch
           versteckt. Re-aktivierbar via VISIBLE_IDS oben. */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
         {VISIBLE_TIERS.map((tier) => (
-          <TierCard key={tier.id} tier={tier} />
+          <div key={tier.id} data-tier-card>
+            <TierCard tier={tier} />
+          </div>
         ))}
       </div>
 
@@ -301,4 +311,5 @@ export const PricingLadder = () => (
       </p>
     </div>
   </section>
-);
+  );
+};

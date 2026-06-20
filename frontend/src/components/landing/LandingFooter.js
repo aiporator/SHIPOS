@@ -101,7 +101,7 @@ export const LandingFooter = () => (
             </div>
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
-            Das Operating System für Führungskräfte — gebaut auf
+            Das Operating System für Führungskräfte, gebaut auf
             Wlad Jachtchenkos Methodik. 30 Tage Sprint, ein Jahr
             Begleitung, ein KI-Coach der dich kennt.
           </p>

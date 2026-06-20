@@ -163,7 +163,7 @@ const TILES = [
   {
     code: 'DASHBOARD',
     label: 'Dein Sprint, jeden Tag.',
-    body: 'Eine Aufgabe pro Tag. Streak-Counter. Fortschritts-Balken. Kein Karussell-Overload — du weißt, was heute dran ist.',
+    body: 'Eine Aufgabe pro Tag. Streak-Counter. Fortschritts-Balken. Kein Karussell-Overload. Du weißt was heute dran ist.',
     Mock: DashboardMock,
   },
   {
@@ -175,7 +175,7 @@ const TILES = [
   {
     code: 'CONTEXT',
     label: 'Der Layer, der dich kennt.',
-    body: 'WladBot antwortet nicht generisch. Er kennt deinen Check-Score, deine Rolle, deine Drills, deinen Ton — und legt jede Antwort auf diese Schicht.',
+    body: 'WladBot antwortet nicht generisch. Er kennt deinen Check-Score, deine Rolle, deine Drills, deinen Ton. Jede Antwort liegt auf dieser Schicht.',
     Mock: ContextLayerMock,
   },
 ];
@@ -207,9 +207,9 @@ export const AppPreviewSection = () => (
           <span className="text-brand not-italic">.</span>
         </h2>
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-foreground/70">
-          Drei Räume — das Dashboard, die Lernmissionen, der Context-
+          Drei Räume: das Dashboard, die Lernmissionen, der Context-
           Layer. Jeder Raum bringt dich näher an die Führungskraft, die
-          du werden willst. Nichts davon ist Show — alles davon
+          du werden willst. Nichts davon ist Show. Alles davon
           arbeitet täglich für dich.
         </p>
       </motion.div>
@@ -245,7 +245,7 @@ export const AppPreviewSection = () => (
 
       <div className="mt-16 md:mt-20 pt-8 border-t border-foreground/10 flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
         <p className="max-w-xl text-[14px] leading-[1.55] text-foreground/65">
-          Wenn du sehen willst wie das in deiner Realität aussieht —
+          Wenn du sehen willst wie das in deiner Realität aussieht,
           buch dir 20 Minuten mit dem Team. Live-Demo, deine Fragen,
           dein Use-Case.
         </p>

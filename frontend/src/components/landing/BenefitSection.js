@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { PlusCircleCTA } from './PlusCircleCTA';
 import { BenefitVisual } from './BenefitVisual';
+import { useGsapScrollIn } from './motion/useGsapScrollIn';
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -38,6 +39,11 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
     reduced ? ['0%', '0%'] : ['-4%', '4%']
   );
 
+  // Giant ghost §-number that scrubs in as the chapter enters viewport.
+  // The motion is motivated: it tells the reader "this is chapter N,
+  // give it weight" without adding a textual label.
+  const numberRef = useGsapScrollIn('big-number');
+
   const reversed = index % 2 === 1;
   const isDark = asset.dark;
 
@@ -53,7 +59,25 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
       data-testid={`landing-${anchor}`}
       aria-label={`Benefit ${asset.nr} — ${asset.headline} ${asset.headlineAccent}`}
     >
-      <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-32">
+      {/* Giant ghost §-numeral that scrubs in on scroll. Decorative,
+          per-chapter weight cue. Sits behind the content, no pointer. */}
+      <div
+        ref={numberRef}
+        aria-hidden
+        className={`absolute top-1/2 -translate-y-1/2 right-[-4%] md:right-[4%] pointer-events-none select-none leading-none tracking-[-0.06em] ${
+          isDark ? 'text-white/[0.06]' : 'text-foreground/[0.05]'
+        }`}
+        style={{
+          fontFamily: 'Outfit, Inter, sans-serif',
+          fontWeight: 900,
+          fontStyle: 'italic',
+          fontSize: 'clamp(140px, 32vw, 520px)',
+        }}
+      >
+        §{asset.nr}
+      </div>
+
+      <div className="relative max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-32">
         {/* Tech metadata header strip */}
         <div className={`flex items-center justify-between mb-12 md:mb-16 pb-4 border-b ${isDark ? 'border-white/15' : 'border-foreground/15'}`}>
           <div className={`flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
