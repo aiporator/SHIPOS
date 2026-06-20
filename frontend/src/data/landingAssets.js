@@ -1,4 +1,4 @@
-// Leader-OS Landing-Page content — Mockup-aligned (Direction A v3).
+// Leader-OS Landing-Page content · Mockup-aligned (Direction A v3).
 // Athletic Editorial × Heron-Preston specimen-sheet aesthetic.
 //
 // SPECIMEN-MAP (7 Mockup-Sheets in /public/landing/):
@@ -11,11 +11,11 @@
 //   hf-07  §07 TECH-STACK      Powered by WladBot.           (3D-Voxel-Kopf)
 //
 // VISUAL VARIANTS (siehe BenefitVisual.js):
-//   'photo' — Editorial-Foto im Specimen-Frame
-//   'bib'   — Marathon-Startnummer 0001 (typografisch, kein Foto)
-//   'trust' — Riesen 400 · 14 mit TAUSEND / MILLIONEN-Caption
-//   'cert'  — Zertifikat-Plate mit Goldsiegel-Hint
-//   'voxel' — WladBot-Voxel-Kopf-Hint (typografisch, lime auf schwarz)
+//   'photo' · Editorial-Foto im Specimen-Frame
+//   'bib'   · Marathon-Startnummer 0001 (typografisch, kein Foto)
+//   'trust' · Riesen 400 · 14 mit TAUSEND / MILLIONEN-Caption
+//   'cert'  · Zertifikat-Plate mit Goldsiegel-Hint
+//   'voxel' · WladBot-Voxel-Kopf-Hint (typografisch, lime auf schwarz)
 //
 // WLAD-FOTOS:
 //   /wlad/wlad-portrait.jpg + /wlad/wlad-stage.jpg sollen vom Studio
@@ -29,14 +29,14 @@ const local = (file) => `/landing/${file}`;
 const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
-  title: 'Leader-OS — Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
+  title: 'Leader-OS · Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
   description:
     'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint mit ' +
-    'Wlad Jachtchenko. Klasse 0001 jetzt offen — nur 50 Plätze. Starte mit ' +
+    'Wlad Jachtchenko. Klasse 0001 jetzt offen, nur 50 Plätze. Starte mit ' +
     'der kostenlosen Diagnose auf leadercheck.de.',
   url: 'https://leader-os.de',
   slogan: 'Sprint mit Wlad.',
-  // Kicker — gehört unter den ATF-Headline-Block.
+  // Kicker, gehört unter den ATF-Headline-Block.
   kicker: 'Dreißig Tage. Elf Frameworks. Ein System, das wirkt.',
   cohort: '0001',
   bib: 'BIB · 0001',
@@ -44,7 +44,7 @@ export const LANDING_META = {
     primary: { label: 'Diagnose starten', href: 'https://leadercheck.de' },
     secondary: { label: 'Login', href: 'https://leaderos.de/login' },
   },
-  // Pricing — bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
+  // Pricing, bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
   // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
   // Headline, nirgends als Riesen-Zahl. Der Wert soll vor dem Preis kommen.
   pricing: {
@@ -54,7 +54,7 @@ export const LANDING_META = {
   },
 };
 
-// MANIFESTO — Dichotomie-Slogans im "X. Y."-Pattern. Wandert in einen
+// MANIFESTO · Dichotomie-Slogans im "X. Y."-Pattern. Wandert in einen
 // eigenen Block zwischen How-It-Works und Benefits.
 export const LANDING_MANIFESTO = {
   eyebrow: 'MANIFEST · 2026',
@@ -71,7 +71,7 @@ export const LANDING_MANIFESTO = {
   href: 'https://leadercheck.de',
 };
 
-// 3-step path — Diagnose → Sprint → OS.
+// 3-step path · Diagnose → Sprint → OS.
 export const HOW_IT_WORKS = [
   {
     nr: '01',
@@ -114,7 +114,7 @@ export const HOW_IT_WORKS = [
   },
 ];
 
-// 7 Benefits — exakt aus den Mockup-Specimens hf-01 bis hf-07.
+// 7 Benefits, exakt aus den Mockup-Specimens hf-01 bis hf-07.
 // Jede Section bekommt einen Dichotomie-Subline-Slogan ("X. Y.").
 export const LANDING_BENEFITS = [
   {
@@ -125,7 +125,7 @@ export const LANDING_BENEFITS = [
     headlineAccent: 'Ein OS.',
     subline: 'Theorie-Bücher altern. Frameworks bleiben.',
     body:
-      'Elf bewährte Wlad-Frameworks für jede Führungs-Situation — '+
+      'Elf bewährte Wlad-Frameworks für jede Führungs-Situation, '+
       'in einem System. Vom Argumentations-Modell SEXIER über die ' +
       'Fünf Rollen der Führung, die Feedback-Formel, Drei Säulen ' +
       'der Überzeugung, Zehn Stufen des Zuhörens, den ' +
@@ -133,7 +133,7 @@ export const LANDING_BENEFITS = [
       '(damit du Manipulation erkennst), das Vier-Farben-Modell für ' +
       'Persönlichkeits-Typen, Schlagfertigkeit, die ALPEN-Methode für ' +
       'Zeitmanagement bis zur Harvard-Verhandlungsmethode. Du lernst ' +
-      'nicht 11 Bücher — du lernst ein System das du täglich anwendest.',
+      'nicht 11 Bücher, du lernst ein System das du täglich anwendest.',
     detail: [
       ['01', 'SEXIER',           'Argumentations-Modell'],
       ['02', '5 ROLLEN',         'Identität'],
@@ -161,7 +161,7 @@ export const LANDING_BENEFITS = [
     headlineAccent: '7 Tage.',
     subline: 'Andere Coaches schlafen. Deiner nicht.',
     body:
-      'WladBot ist dein persönlicher KI-Coach — trainiert auf 15 ' +
+      'WladBot ist dein persönlicher KI-Coach, trainiert auf 15 ' +
       'Jahren Wlad-Methodik, 600+ Lektionen, drei SPIEGEL-Bestseller. ' +
       'Du fragst ihn was du sonst Wlad selbst fragen würdest: ' +
       '"Wie eröffne ich diese schwierige Konversation?", "Wie ' +
@@ -259,7 +259,7 @@ export const LANDING_BENEFITS = [
     headlineAccent: 'LinkedIn-ready.',
     subline: 'PDFs vergessen. Dieses Zertifikat trägst du.',
     body:
-      'Jeder Sprint endet mit einem persönlichen Zertifikat — ' +
+      'Jeder Sprint endet mit einem persönlichen Zertifikat, ' +
       'signiert von Wlad Jachtchenko, mit deiner Startnummer 0001 ' +
       'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
@@ -285,14 +285,14 @@ export const LANDING_BENEFITS = [
       'echtes Enablement: tägliche Lernvideos, Live-Sessions mit Wlad ' +
       'persönlich, der Drill-Channel in dem du das Gelernte sofort ' +
       'auf deinen echten Führungsalltag anwendest, und WladBot der ' +
-      'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher — du ' +
+      'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher, du ' +
       'setzt sie um.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
       ['DRL',  'DRILL-CHANNEL',  'Theorie sofort am echten Fall umsetzen'],
-      ['ENB',  'ENABLEMENT',     '12 Monate — bis es sitzt'],
+      ['ENB',  'ENABLEMENT',     '12 Monate, bis es sitzt'],
       ['ZRT',  'ZERTIFIKAT',     'Mit deiner persönlichen Startnummer'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
@@ -302,5 +302,5 @@ export const LANDING_BENEFITS = [
   },
 ];
 
-// Hero photo — large editorial backdrop.
+// Hero photo, large editorial backdrop.
 export const HERO_PHOTO = photo('hero', 1600, 2000);

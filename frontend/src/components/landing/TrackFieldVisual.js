@@ -170,7 +170,7 @@ export const TrackFieldSection = () => (
         <p className="mt-7 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-black/70">
           Während die anderen noch im Anzug am Start stehen,
           ist die Führungskraft mit System schon am Ziel. Kein
-          Wunderwerk — die richtigen Werkzeuge, das richtige
+          Wunderwerk, sondern die richtigen Werkzeuge, das richtige
           Mindset, ein Coach der mitläuft.
         </p>
       </div>

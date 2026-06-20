@@ -109,6 +109,17 @@ Deno.serve(async (req) => {
       return json({ ok: true, already: true });
     }
 
+    // Anti-bombing guard. Denies if this email had a DOI within the
+    // last 5 minutes or this IP has hit 10 distinct emails / hour.
+    // Returns the same {ok:true} so the surface stays non-committal.
+    const { data: canSend } = await sb.rpc("newsletter_can_send_doi", {
+      p_email_lower: emailLower,
+      p_ip: ip,
+    });
+    if (canSend === false) {
+      return json({ ok: true, throttled: true });
+    }
+
     let confirmToken: string;
     if (existing) {
       // pending / unsubscribed / bounced -> reset to pending, fresh token.

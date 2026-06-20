@@ -136,7 +136,7 @@ export const LandingFooter = () => (
           </h3>
           <p className="mt-3 max-w-sm text-[13.5px] leading-[1.55] text-white/55">
             Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle
-            paar Wochen — Frameworks, Skripte, Beobachtungen. Kein Spam,
+            paar Wochen: Frameworks, Skripte, Beobachtungen. Kein Spam,
             keine Pitches.
           </p>
         </div>
@@ -169,7 +169,7 @@ export const LandingFooter = () => (
             hello@leader-os.de
           </a>
           <p className="mt-1.5 text-[13px] text-white/45">
-            Antwort innerhalb von 24 h · Mo–Fr
+            Antwort innerhalb von 24 h · Mo bis Fr
           </p>
         </div>
       </div>
