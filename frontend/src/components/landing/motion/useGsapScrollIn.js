@@ -59,6 +59,7 @@ export function useGsapScrollIn(kind, options = {}) {
               start: 'top 80%',
               end: 'top 30%',
               scrub: true,
+              invalidateOnRefresh: true,
             },
           },
         );
@@ -85,6 +86,7 @@ export function useGsapScrollIn(kind, options = {}) {
               trigger: root,
               start: 'top 75%',
               toggleActions: 'play none none none',
+              invalidateOnRefresh: true,
             },
           },
         );
@@ -109,13 +111,27 @@ export function useGsapScrollIn(kind, options = {}) {
               start: 'top 70%',
               end: 'bottom 60%',
               scrub: true,
+              invalidateOnRefresh: true,
             },
           },
         );
       }
     }, root);
 
-    return () => ctx.revert();
+    // Font/image loads change layout offsets after triggers were measured.
+    // Refresh once when the page fully loads, and again on viewport resize.
+    const refresh = () => ScrollTrigger.refresh();
+    if (document.readyState === 'complete') {
+      // Defer one frame so any final layout pass settles first.
+      requestAnimationFrame(refresh);
+    } else {
+      window.addEventListener('load', refresh, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener('load', refresh);
+      ctx.revert();
+    };
   }, [kind, selector, enabled]);
 
   return ref;

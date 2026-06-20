@@ -299,7 +299,11 @@ export const PricingLadder = () => {
           versteckt. Re-aktivierbar via VISIBLE_IDS oben. */}
       <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
         {VISIBLE_TIERS.map((tier) => (
-          <div key={tier.id} data-tier-card>
+          // h-full on the wrapper so the inner TierCard's own h-full
+          // resolves against the grid-track height; without this anchor,
+          // the wrapper collapses to content-height and cards stop
+          // matching each other across the row.
+          <div key={tier.id} data-tier-card className="h-full">
             <TierCard tier={tier} />
           </div>
         ))}

@@ -66,12 +66,24 @@ export const EmailCapture = ({
     const result = await subscribe({ email: trimmed, source, campaign });
     setSubmitting(false);
 
-    if (!result.ok && result.error === 'invalid_email') {
-      setError('Bitte gib eine gültige E-Mail-Adresse ein.');
-      return;
+    if (!result.ok) {
+      if (result.error === 'invalid_email') {
+        setError('Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+      }
+      // network_error and request_failed mean the request never reached
+      // the backend. Telling the user "check your inbox" in that case
+      // would be a lie. Surface a retry instead.
+      if (result.error === 'network_error' || result.error === 'request_failed') {
+        setError('Verbindung wackelt. Bitte nochmal versuchen.');
+        return;
+      }
+      // Any other server-side error: fall through to the success state.
+      // Per the engine design, the endpoint is non-committal about
+      // existing addresses (no list-membership leak), so an opaque 5xx
+      // could mean "already on the list and a downstream noop failed";
+      // we mustn't strand a real subscriber on an error screen.
     }
-    // For every other outcome we show success — the endpoint is
-    // intentionally non-committal (GDPR / no list-membership leak).
     setDone(true);
   };
 
