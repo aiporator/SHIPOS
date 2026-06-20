@@ -33,6 +33,16 @@ const isLeaderCheckHost = () => {
   return /(^|\.)leader-check\.de$/i.test(window.location.hostname);
 };
 
+// App-Tier hosts (no hyphen). On these hosts the root `/` is the
+// platform entry — unauthenticated visitors go straight to /login,
+// signed-in visitors are already redirected to /dashboard by the
+// `if (user)` check above. The marketing landing only lives on the
+// Vercel hosts (with hyphen).
+const isAppTierHost = () => {
+  if (typeof window === 'undefined') return false;
+  return /(^|\.)(leaderos\.de|leadercheck\.de)$/i.test(window.location.hostname);
+};
+
 /**
  * LandingPage — the public face of leader-os.de.
  *
@@ -78,6 +88,11 @@ export default function LandingPage() {
     return <div className="min-h-screen bg-background" data-testid="landing-loading" />;
   }
   if (user) return <Navigate to="/dashboard" replace />;
+
+  // App-Tier hosts (leaderos.de / leadercheck.de) — the platform entry,
+  // not the marketing landing. Send unauthenticated visitors straight to
+  // /login. The marketing pages live on the hyphen hosts on Vercel.
+  if (isAppTierHost()) return <Navigate to="/login" replace />;
 
   // leader-check.de → fokussierte Diagnostic-Landing.
   // Gleicher CRA-Build, andere Identität, anderer Funnel-Zweck.

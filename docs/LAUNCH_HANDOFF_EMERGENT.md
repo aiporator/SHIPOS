@@ -20,6 +20,19 @@ Ohne Bindestrich    →  App (echte Action)   →  Emergent  →  Emergent-Proje
 | `leaderos.de`       | App     | **Emergent** | Login + Dashboard + WladBot + Coaching |
 | `leadercheck.de`    | App     | **Emergent** | Diagnose quiz + score + lead-capture |
 
+**Single-build, host-aware routing.** The same CRA build is deployed
+on both Vercel and Emergent. `LandingPage.js` host-detects on mount:
+
+- Host matches `leader-check.de`         → render `LeaderCheckLanding` (Diagnose marketing)
+- Host matches `leaderos.de` / `leadercheck.de` → `Navigate to="/login"` (platform entry, no marketing)
+- Anything else (incl. `leader-os.de`)   → render the main Sprint Landing
+
+So `leaderos.de/` is the Login entry by design — no marketing fluff on
+the App tier. `leader-os.de/` is the full marketing landing. The
+sign-in routes (`/login`, `/auth/magic`, `/auth-callback`) work
+identically on every host because they don't depend on the marketing
+shell.
+
 ---
 
 ## Reference IDs (have these open in a tab)
