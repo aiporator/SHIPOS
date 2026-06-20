@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const FAQS = [
@@ -101,6 +101,28 @@ const Item = ({ faq, isOpen, onToggle, index }) => (
  */
 export const FAQSection = () => {
   const [openIdx, setOpenIdx] = useState(0);
+
+  // FAQPage JSON-LD for AEO + SEO. Injected at mount so the structured
+  // data stays in lockstep with the visible FAQs above. Removed on
+  // unmount so it never lingers on routes that don't show FAQs.
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    };
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.dataset.surface = 'faq-section';
+    el.textContent = JSON.stringify(data);
+    document.head.appendChild(el);
+    return () => el.remove();
+  }, []);
 
   return (
     <section

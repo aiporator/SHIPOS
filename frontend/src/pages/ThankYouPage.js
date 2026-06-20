@@ -49,12 +49,12 @@ export default function ThankYouPage() {
             <>
               Danke — wir haben <strong className="text-foreground">{email}</strong> vorgemerkt.
               Klicke jetzt unten weiter zu leader-check.de und schließ deine
-              KI-Diagnose ab. Fünf Minuten, kostenlos, sofort dein Ergebnis.
+              KI-Diagnose ab. Zehn Minuten, kostenlos, sofort dein Ergebnis.
             </>
           ) : (
             <>
               Danke. Klicke unten weiter zu leader-check.de und schließ deine
-              KI-Diagnose ab. Fünf Minuten, kostenlos, sofort dein Ergebnis.
+              KI-Diagnose ab. Zehn Minuten, kostenlos, sofort dein Ergebnis.
             </>
           )}
         </p>

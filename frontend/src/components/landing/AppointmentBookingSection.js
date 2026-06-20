@@ -74,16 +74,16 @@ const SlotCard = ({ slot, index }) => (
     variants={FADE_UP}
     custom={index + 1}
     data-testid={`appointment-${slot.id}`}
-    className={`relative flex flex-col h-full p-7 md:p-8 border-2 ${
+    className={`group relative flex flex-col h-full p-7 md:p-8 border-2 rounded-3xl transition-all duration-300 ${
       slot.accent
-        ? 'border-foreground bg-foreground text-background'
-        : 'border-foreground/15 bg-background text-foreground hover:border-foreground/40'
-    } transition-colors`}
+        ? 'border-foreground bg-foreground text-background shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] hover:-translate-y-1 hover:shadow-[0_32px_72px_-24px_rgba(0,0,0,0.55)]'
+        : 'border-foreground/15 bg-background text-foreground hover:border-foreground/40 hover:-translate-y-1 hover:shadow-[0_24px_56px_-24px_rgba(0,0,0,0.15)]'
+    }`}
   >
     {slot.accent && (
       <span
         aria-hidden
-        className="absolute -top-3 right-5 px-2.5 py-1 bg-brand text-foreground text-[9.5px] font-black font-mono uppercase tracking-[0.22em]"
+        className="absolute -top-3 right-5 px-3 py-1 bg-brand text-foreground text-[9.5px] font-black font-mono uppercase tracking-[0.22em] rounded-full shadow-[0_6px_18px_-4px_rgba(191,255,0,0.55)]"
       >
         BELIEBT
       </span>
@@ -136,10 +136,10 @@ const SlotCard = ({ slot, index }) => (
       target="_blank"
       rel="noopener noreferrer"
       data-testid={`appointment-${slot.id}-cta`}
-      className={`inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] transition-all border-2 ${
+      className={`inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] rounded-full transition-all border-2 ${
         slot.accent
-          ? 'bg-brand text-foreground border-brand hover:brightness-105 active:translate-y-px'
-          : 'bg-foreground text-background border-foreground hover:bg-background hover:text-foreground'
+          ? 'bg-brand text-foreground border-brand hover:brightness-105 active:scale-[0.98] shadow-[0_14px_36px_-12px_rgba(191,255,0,0.55)]'
+          : 'bg-foreground text-background border-foreground hover:bg-background hover:text-foreground active:scale-[0.98]'
       }`}
     >
       <span

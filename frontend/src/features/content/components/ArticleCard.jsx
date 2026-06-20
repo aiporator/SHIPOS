@@ -25,7 +25,7 @@ export const ArticleCard = ({ article }) => {
   return (
     <article
       data-testid={`article-card-${article.slug}`}
-      className="group relative border border-foreground/12 hover:border-foreground/40 transition-colors p-6 md:p-7 flex flex-col"
+      className="group relative border border-foreground/12 hover:border-foreground/40 rounded-2xl p-6 md:p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-22px_rgba(0,0,0,0.18)] bg-background"
     >
       <div className="flex items-center justify-between mb-5 text-[10px] font-bold uppercase tracking-[0.22em] font-mono">
         <span className="text-brand-strong">{TYPE_LABEL[article.type] || 'ARTICLE'}</span>

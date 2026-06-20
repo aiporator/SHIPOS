@@ -9,7 +9,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
  *
  * Wird ausgeliefert wenn der Hostname leader-check.de ist (siehe
  * Router-Branch in LandingPage.js). Bewusst MAGER: ein einziger
- * Funnel-Zweck — kostenlose 5-Minuten-Diagnose starten — plus die
+ * Funnel-Zweck — kostenlose 10-Minuten-Diagnose starten — plus die
  * kritische Bridge-Message: "Nutze die gleiche Email wie auf
  * leader-os.de damit dein WladBot deinen Score kennt".
  *
@@ -50,7 +50,7 @@ const DIMENSIONS = [
 ];
 
 const PHASES = [
-  ['01', '5 MIN', '21 Fragen · multiple choice'],
+  ['01', '10 MIN', '30 Fragen · multiple choice'],
   ['02', 'SOFORT', 'Drei Scores · Gesamt-Score · Empfehlung'],
   ['03', 'OPTIONAL', 'Wenn du willst: 30-Tage-Sprint starten'],
 ];
@@ -60,7 +60,7 @@ export default function LeaderCheckLanding() {
     document.title = 'Leader-Check — Wo stehst du als Führungskraft?';
     const meta = document.querySelector('meta[name="description"]');
     const desc =
-      'Kostenlose 5-Minuten-Diagnose: KI-Readiness · Rhetorik · ' +
+      'Kostenlose 10-Minuten-Diagnose: KI-Readiness · Rhetorik · ' +
       'Emotionale Intelligenz. Sofortiges Ergebnis. Keine ' +
       'Kreditkarte. Powered by Wlad Jachtchenkos Methodik.';
     if (meta) {
@@ -105,7 +105,7 @@ export default function LeaderCheckLanding() {
                 Leader<span className="text-brand mx-0.5">·</span>Check
               </div>
               <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-black/45 font-mono leading-none mt-0.5">
-                Diagnose · 5 Min · Kostenlos
+                Diagnose · 10 Min · Kostenlos
               </div>
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function LeaderCheckLanding() {
               transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-black/75"
             >
-              21 Fragen, ehrlich beantwortet, dauern etwa 5 Minuten. Du
+              30 Fragen, ehrlich beantwortet, dauern etwa 10 Minuten. Du
               bekommst sofort einen Score über drei Dimensionen — KI,
               Rhetorik, EQ — plus eine konkrete Empfehlung, was dein
               nächster Schritt sein könnte. Kostenlos. Keine Kreditkarte.
@@ -411,7 +411,7 @@ export default function LeaderCheckLanding() {
           <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28 grid md:grid-cols-12 gap-10 md:gap-14 items-center">
             <div className="md:col-span-5">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
-                ▸ DAS BEKOMMST DU NACH 5 MINUTEN
+                ▸ DAS BEKOMMST DU NACH 10 MINUTEN
               </p>
               <h2
                 className="text-[36px] sm:text-[52px] md:text-[64px] leading-[0.95] tracking-[-0.035em] text-black"
@@ -557,7 +557,7 @@ export default function LeaderCheckLanding() {
               Lass uns starten<span className="text-brand not-italic">.</span>
             </h2>
             <p className="mt-10 max-w-xl mx-auto text-[15px] md:text-[17px] leading-[1.6] text-black/80">
-              5 Minuten deiner Zeit. Keine Kreditkarte. Keine
+              10 Minuten deiner Zeit. Keine Kreditkarte. Keine
               Anmeldung. Am Ende weißt du genauer wo du stehst — und
               das ist schon mehr als die meisten haben.
             </p>
@@ -573,7 +573,7 @@ export default function LeaderCheckLanding() {
                   +
                 </span>
                 <span className="text-[16px] font-bold uppercase tracking-[0.18em] text-black border-b-2 border-brand pb-1">
-                  Diagnose starten · 5 Min
+                  Diagnose starten · 10 Min
                 </span>
               </a>
               <p className="text-[11px] text-black/45 italic max-w-md text-center">
@@ -643,7 +643,7 @@ export default function LeaderCheckLanding() {
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {[
               {
-                quote: '„Nach 5 Minuten wusste ich genauer wo ich stehe als nach 3 Coaching-Sessions zuvor."',
+                quote: '„Nach 10 Minuten wusste ich genauer wo ich stehe als nach 3 Coaching-Sessions zuvor."',
                 name: 'Anna S.',
                 role: 'Head of Engineering · DAX-Konzern',
                 score: { ki: 78, rhet: 64, eq: 81 },
@@ -704,7 +704,7 @@ export default function LeaderCheckLanding() {
       <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t-2 border-black px-4 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.15)]">
         <div className="flex-1 min-w-0">
           <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
-            ▸ 5 MIN · KOSTENLOS
+            ▸ 10 MIN · KOSTENLOS
           </div>
           <div
             className="text-[14px] leading-[1.1] text-black truncate"
@@ -726,7 +726,7 @@ export default function LeaderCheckLanding() {
 
       {/* Readiness-Vorprüfung als WladBot-Mini-Funnel rechts unten —
           erkundet KI / Rhetorik / EQ / Feedback in 4 Mikro-Fragen
-          und routet in die volle 21-Fragen-Diagnose. */}
+          und routet in die volle 30-Fragen-Diagnose. */}
       <LandingChatPod mode="readiness" />
     </div>
   );

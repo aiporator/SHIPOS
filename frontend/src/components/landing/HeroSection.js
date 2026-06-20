@@ -155,14 +155,14 @@ export const HeroSection = () => (
           href={LANDING_META.cta.primary.href}
           testId="hero-cta-primary"
         >
-          Diagnose starten · 5 Min · kostenlos
+          Diagnose starten · 10 Min · kostenlos
         </PlusCircleCTA>
         <a
           href="https://leaderos.de/checkout?tier=sprint"
           target="_blank"
           rel="noopener noreferrer"
           data-testid="hero-cta-sprint"
-          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-colors px-5 py-3"
+          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background rounded-full px-5 py-3 active:scale-[0.98] transition-all"
         >
           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
             +

@@ -17,7 +17,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const MESSAGES = [
   { eyebrow: '▸ JETZT', big: '50 FREE', small: 'CREDITS' },
-  { eyebrow: '▸ 5 MIN', big: 'DIAGNOSE', small: 'KOSTENLOS' },
+  { eyebrow: '▸ 10 MIN', big: 'DIAGNOSE', small: 'KOSTENLOS' },
   { eyebrow: '▸ FRAG', big: 'WLADBOT', small: '24 / 7' },
   { eyebrow: '▸ START', big: 'KLASSE', small: '0001' },
 ];

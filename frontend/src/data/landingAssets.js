@@ -76,7 +76,7 @@ export const HOW_IT_WORKS = [
   {
     nr: '01',
     code: 'DIAGNOSE',
-    duration: '5 MIN · KOSTENLOS',
+    duration: '10 MIN · KOSTENLOS',
     title: 'Wo stehst du?',
     body:
       'Starte auf leadercheck.de mit der kostenlosen KI-Diagnose. ' +

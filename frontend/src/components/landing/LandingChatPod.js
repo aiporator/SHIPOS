@@ -21,7 +21,7 @@ import { AnimatePresence, motion } from 'framer-motion';
  *   'readiness' — fires on leader-check.de (Vercel marketing landing).
  *                 Erkundet KI-Nutzung, Argumentations-Sicherheit,
  *                 EQ-Reflex. READINESS-Score routet in die volle
- *                 21-Fragen-Diagnose auf leadercheck.de (Emergent app).
+ *                 30-Fragen-Diagnose auf leadercheck.de (Emergent app).
  *
  * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de  = Vercel marketing landings (where this pod lives)
@@ -110,9 +110,9 @@ const FLOWS = {
         min: 0,
         title: 'Start mit der Diagnose.',
         body:
-          'Genau für deinen Punkt gemacht: 5 Minuten, 21 Fragen, sofort dein Score und ' +
+          'Genau für deinen Punkt gemacht: 10 Minuten, 30 Fragen, sofort dein Score und ' +
           'eine konkrete Empfehlung. Kostenlos, ohne Kreditkarte.',
-        primary: { label: 'Diagnose starten · 5 Min', href: 'https://leadercheck.de' },
+        primary: { label: 'Diagnose starten · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Trotzdem Demo · 20 Min', href: 'https://cal.com/leaderos/demo' },
       },
     ],
@@ -163,9 +163,9 @@ const FLOWS = {
         min: 10,
         title: 'Bist schon weit.',
         body:
-          'Du hast Basics drin. Die 21-Fragen-Diagnose zeigt dir die feinen ' +
+          'Du hast Basics drin. Die 30-Fragen-Diagnose zeigt dir die feinen ' +
           'Lücken — und Leader-OS schließt sie systematisch in 30 Tagen.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
+        primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Direkt Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung' },
       },
       {
@@ -174,7 +174,7 @@ const FLOWS = {
         body:
           'Du arbeitest schon bewusst — aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
+        primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
       {
@@ -183,7 +183,7 @@ const FLOWS = {
         body:
           'Du fängst quasi bei Null an — das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
-        primary: { label: 'Volle Diagnose · 5 Min', href: 'https://leadercheck.de' },
+        primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
       },
     ],

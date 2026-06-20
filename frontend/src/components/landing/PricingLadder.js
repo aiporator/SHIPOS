@@ -17,15 +17,15 @@ import { useGsapScrollIn } from './motion/useGsapScrollIn';
 const TIERS = [
   {
     id: 'diagnose',
-    eyebrow: '▸ KOSTENLOS · 5 MIN',
+    eyebrow: '▸ KOSTENLOS · 10 MIN',
     name: 'Diagnose',
-    duration: '5 Min',
+    duration: '10 Min',
     price: '0 €',
     outcome: 'Score · Empfehlung',
     bullets: [
       'KI-Diagnose in drei Dimensionen',
-      'Persönlicher Score in 5 Minuten',
-      'Sofort-Empfehlung für Sprint-Start',
+      '30 Fragen · 10 Minuten · ehrlich beantwortet',
+      'Sofort dein Score plus Empfehlung für Sprint-Start',
     ],
     cta: 'Diagnose starten',
     href: 'https://leadercheck.de',
@@ -139,10 +139,10 @@ const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
 
 const TierCard = ({ tier }) => {
   const bgClass = tier.dark
-    ? 'bg-[#0A0A0A] text-white border-2 border-black'
-    : 'bg-white text-black border-2 border-black';
+    ? 'bg-[#0A0A0A] text-white border-2 border-black rounded-3xl'
+    : 'bg-white text-black border-2 border-black rounded-3xl';
   const accentLine = tier.accent
-    ? 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-brand before:content-[\'\']'
+    ? 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-brand before:content-[\'\'] before:rounded-t-3xl'
     : '';
 
   // Sprint = primary conversion target: starts already lifted with a soft
@@ -160,7 +160,7 @@ const TierCard = ({ tier }) => {
       className={`relative ${bgClass} ${accentLine} ${sprintLift} ${hoverLift} flex flex-col h-full transition-all duration-300 ease-out`}
     >
       {tier.badge && (
-        <div className={`absolute -top-3 right-4 px-3 py-1 font-mono text-[9px] font-bold tracking-[0.22em] uppercase ${tier.accent || tier.id === 'plusplus' ? 'bg-brand text-black' : 'bg-black text-brand'}`}>
+        <div className={`absolute -top-3 right-4 px-3 py-1 rounded-full font-mono text-[9px] font-bold tracking-[0.22em] uppercase shadow-md ${tier.accent || tier.id === 'plusplus' ? 'bg-brand text-black' : 'bg-black text-brand'}`}>
           {tier.badge}
         </div>
       )}
@@ -238,10 +238,10 @@ const TierCard = ({ tier }) => {
       <div className={`p-6 md:p-7 pt-0`}>
         <a
           href={tier.href}
-          className={`w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 text-[12px] font-black uppercase tracking-[0.18em] transition-all border-2 ${
+          className={`w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 text-[12px] font-black uppercase tracking-[0.18em] rounded-full transition-all border-2 ${
             tier.waitlist
               ? `${tier.dark ? 'bg-transparent text-white border-white/30 hover:bg-white/10' : 'bg-transparent text-black border-black/30 hover:bg-black/5'}`
-              : `bg-brand text-black border-brand hover:brightness-105 active:translate-y-px`
+              : `bg-brand text-black border-brand hover:brightness-105 active:scale-[0.98] shadow-[0_14px_36px_-14px_rgba(191,255,0,0.5)]`
           }`}
           data-testid={`tier-cta-${tier.id}`}
         >
