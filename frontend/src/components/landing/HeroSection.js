@@ -81,7 +81,7 @@ export const HeroSection = () => (
       </span>
     </motion.div>
 
-    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-12 md:pb-20">
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-10 md:pb-12">
       {/* 1 / 4 — Wlad-anker (eyebrow slot) */}
       <motion.div
         initial="hidden"
@@ -128,7 +128,7 @@ export const HeroSection = () => (
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-8 md:mt-12 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
+        className="mt-6 md:mt-8 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 800,
@@ -138,13 +138,18 @@ export const HeroSection = () => (
         <span className="text-foreground/55">Ein KI-Coach der dich kennt<span className="text-brand">.</span></span>
       </motion.p>
 
-      {/* 4 / 4 — CTAs */}
+      {/* 4 / 4 — CTAs. Two primary intents side by side:
+          Diagnose (free, low-friction entry) and Sprint (paid, high
+          intent). They serve different audiences — visitors who want
+          to try-before-buy and visitors who already know what they
+          want — and not having Sprint in the ATF leaves the offer
+          buried below the fold. */}
       <motion.div
         initial="hidden"
         animate="show"
         custom={3}
         variants={FADE_UP}
-        className="mt-10 md:mt-14 flex flex-wrap items-center gap-x-8 gap-y-4"
+        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
       >
         <PlusCircleCTA
           href={LANDING_META.cta.primary.href}
@@ -153,11 +158,18 @@ export const HeroSection = () => (
           Diagnose starten · 5 Min · kostenlos
         </PlusCircleCTA>
         <a
-          href="#how-it-works"
-          className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/50 hover:text-foreground transition-colors"
-          data-testid="hero-cta-scroll"
+          href="https://leaderos.de/checkout?tier=sprint"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid="hero-cta-sprint"
+          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-colors px-5 py-3"
         >
-          So funktioniert's
+          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
+            +
+          </span>
+          <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
+            Sprint sichern · 997 € · 30 Tage
+          </span>
         </a>
       </motion.div>
     </div>
