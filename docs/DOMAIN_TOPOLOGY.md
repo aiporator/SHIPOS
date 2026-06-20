@@ -101,12 +101,52 @@ https://leadercheck.de/**
 http://localhost:3000/**
 ```
 
+## Sitemap- und Robots-Topologie (per-Host)
+
+Beide Marketing-Hosts werden vom selben React-Build serviert, brauchen
+aber unterschiedliche `sitemap.xml` und `robots.txt`. Das wird via
+Vercel host-based rewrites in `vercel.json` gelöst:
+
+| Host | Sitemap → File | Robots → File |
+|---|---|---|
+| `leader-os.de` (default) | `/sitemap.xml` | `/robots.txt` |
+| `leader-check.de` | `/sitemap-leader-check.xml` | `/robots-leader-check.txt` |
+
+Beim Editieren der Routen-Listen: immer **beide** Files anpassen.
+Default ist Leader-OS — Leader-Check ist override.
+
+## Data-Sync — IST-Zustand (Stand 2026-06-20)
+
+Die `public.users`-Tabelle dient als gemeinsame Identity (CLAUDE.md).
+Snapshot der echten Datenlage:
+
+- 28 Users insgesamt
+- **0 Users mit `meta_tags ['leader-check']`** ⚠
+- 2 Users mit `meta_tags ['leader-os']`
+- **0 Users mit `source_platform = 'leader-check'` oder `'leader-os'`** ⚠
+- Alle 28 haben `source_platform = 'emergent'` (Wert nicht in CLAUDE.md-Spec)
+- **Tabelle `public.incomplete_attempts` existiert nicht** — die
+  Postgres-Funktion `upsert_incomplete_attempt` referenziert ein Schema
+  das nie deployed wurde.
+
+Heißt konkret: alle bisherigen Signups gehen über die Emergent-Apps
+(`leaderos.de`, `leadercheck.de`). Die Vercel-Marketing-Landings
+schreiben aktuell **nichts** in Supabase — sie redirecten nur weiter
+auf Emergent. Wer Cross-Platform-Stitching wirklich will, muss in den
+Emergent-Projekten `source_platform` auf `'leader-os'` / `'leader-check'`
+setzen statt `'emergent'`, plus `meta_tags` korrekt vergeben.
+
 ## Was als nächstes
 
 1. **GoDaddy DNS:** A-Records für `leaderos.de` + `leadercheck.de`
    auf Emergent-Target setzen (sobald Emergent die Domain accepted).
 2. **Emergent:** Custom Domains `leaderos.de` und `leadercheck.de`
    adden in den jeweiligen Projekten.
-3. **Supabase:** Allowlist erweitern auf die 6 Patterns oben.
-4. **Frontend:** CTA-Targets nachziehen (LandingNav, Hero, Pricing,
+3. **Emergent:** `source_platform`-Konstante in beiden Projekten
+   umstellen von `'emergent'` → `'leader-os'` bzw. `'leader-check'`.
+4. **Supabase:** Allowlist erweitern auf die 6 Patterns oben.
+5. **Supabase:** Schema-Audit — entweder `public.incomplete_attempts`
+   Tabelle nachziehen oder `upsert_incomplete_attempt` Funktion löschen
+   wenn sie nirgends benutzt wird.
+6. **Frontend:** CTA-Targets nachziehen (LandingNav, Hero, Pricing,
    FinalCTA). Ist ein separater PR sobald die App-Domains live sind.
