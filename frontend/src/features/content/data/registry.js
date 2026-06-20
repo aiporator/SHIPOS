@@ -25,6 +25,32 @@ import leaderOsFuerScaleupGruender from './articles/leader-os-fuer-scaleup-gruen
 import leaderOsImTeamRollout from './articles/leader-os-im-team-rollout';
 import derBusinessCaseFuerLeaderOs from './articles/der-business-case-fuer-leader-os';
 import leaderOsVsKlassischesCoaching from './articles/leader-os-vs-klassisches-coaching';
+// +20 DACH SEO/AEO articles
+import kiLeadershipWasBedeutetDasKonkret from './articles/ki-leadership-was-bedeutet-das-konkret';
+import mitarbeitergespraechVorbereitenMitKi from './articles/mitarbeitergespraech-vorbereiten-mit-ki';
+import feedbackGebenVorlageBwwFramework from './articles/feedback-geben-vorlage-bww-framework';
+import townhallRedeStrukturierenSexier from './articles/townhall-rede-strukturieren-sexier';
+import harvardVerhandlungsmethodeErklaert from './articles/harvard-verhandlungsmethode-erklaert';
+import schulzVonThunKommunikationsquadratFuerFuehrungskraefte from './articles/schulz-von-thun-kommunikationsquadrat-fuer-fuehrungskraefte';
+import alpenMethodeFuerFuehrungskraefte from './articles/alpen-methode-fuer-fuehrungskraefte';
+import fuenfRollenDerFuehrungNachWladJachtchenko from './articles/5-rollen-der-fuehrung-nach-wlad-jachtchenko';
+import dreiSaeulenDerUeberzeugungLogosEthosPathos from './articles/drei-saeulen-der-ueberzeugung-logos-ethos-pathos';
+import vierFarbenModellPersonalities from './articles/vier-farben-modell-personalities';
+import dunkleRhetorikErkennenUndAbwehren from './articles/dunkle-rhetorik-erkennen-und-abwehren';
+import konfliktgespraechFuehrenSkript from './articles/konfliktgespraech-fuehren-skript';
+import kuendigungsgespraechRichtigFuehren from './articles/kuendigungsgespraech-richtig-fuehren';
+import gehaltsgespraechVorbereitenSkript from './articles/gehaltsgespraech-vorbereiten-skript';
+import schlagfertigkeitLernenAlsFuehrungskraft from './articles/schlagfertigkeit-lernen-als-fuehrungskraft';
+import zehnStufenDesZuhoerens from './articles/zehn-stufen-des-zuhoerens';
+import promptEngineeringFuerFuehrungskraefte from './articles/prompt-engineering-fuer-fuehrungskraefte';
+import kiToolsFuerFuehrungskraefte2026 from './articles/ki-tools-fuer-fuehrungskraefte-2026';
+import leaderOsFuerMittelstandCeo from './articles/leader-os-fuer-mittelstand-ceo';
+import leaderOsFuerCtoUndTechVorstand from './articles/leader-os-fuer-cto-und-tech-vorstand';
+import leaderOsFuerVertriebsleitung from './articles/leader-os-fuer-vertriebsleitung';
+import leaderOsFuerNeuBefoerderteLeads from './articles/leader-os-fuer-neu-befoerderte-leads';
+import kiStrategieFuerMittelstand from './articles/ki-strategie-fuer-mittelstand';
+import erste100TageAlsCtoOderVpEngineering from './articles/erste-100-tage-als-cto-oder-vp-engineering';
+import kiCoachingVsTraditionellesCoachingDach from './articles/ki-coaching-vs-traditionelles-coaching-dach';
 
 const ARTICLES = [
   // Plattform-Hub: Why / What / Use-Cases for Leader-OS
@@ -38,6 +64,10 @@ const ARTICLES = [
   leaderOsImTeamRollout,
   derBusinessCaseFuerLeaderOs,
   leaderOsVsKlassischesCoaching,
+  leaderOsFuerMittelstandCeo,
+  leaderOsFuerCtoUndTechVorstand,
+  leaderOsFuerVertriebsleitung,
+  leaderOsFuerNeuBefoerderteLeads,
   // Methodik + KI-Wissens-Hub
   warumFrameworksNichtImKopfBleiben,
   sprintOderMarathon,
@@ -46,6 +76,27 @@ const ARTICLES = [
   deinKalenderFuehrtDich,
   kiImFuehrungsAlltagDreiUseCases,
   chatgptAlsSparringPartnerFuenfSkripte,
+  kiLeadershipWasBedeutetDasKonkret,
+  kiToolsFuerFuehrungskraefte2026,
+  kiStrategieFuerMittelstand,
+  promptEngineeringFuerFuehrungskraefte,
+  kiCoachingVsTraditionellesCoachingDach,
+  mitarbeitergespraechVorbereitenMitKi,
+  feedbackGebenVorlageBwwFramework,
+  townhallRedeStrukturierenSexier,
+  konfliktgespraechFuehrenSkript,
+  kuendigungsgespraechRichtigFuehren,
+  gehaltsgespraechVorbereitenSkript,
+  schlagfertigkeitLernenAlsFuehrungskraft,
+  dunkleRhetorikErkennenUndAbwehren,
+  harvardVerhandlungsmethodeErklaert,
+  schulzVonThunKommunikationsquadratFuerFuehrungskraefte,
+  alpenMethodeFuerFuehrungskraefte,
+  fuenfRollenDerFuehrungNachWladJachtchenko,
+  dreiSaeulenDerUeberzeugungLogosEthosPathos,
+  vierFarbenModellPersonalities,
+  zehnStufenDesZuhoerens,
+  erste100TageAlsCtoOderVpEngineering,
 ];
 
 const BY_SLUG = new Map(ARTICLES.map((a) => [a.slug, a]));

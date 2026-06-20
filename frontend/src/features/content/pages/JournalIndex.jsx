@@ -25,6 +25,10 @@ const PLATFORM_SLUGS = [
   'leader-os-im-team-rollout',
   'der-business-case-fuer-leader-os',
   'leader-os-vs-klassisches-coaching',
+  'leader-os-fuer-mittelstand-ceo',
+  'leader-os-fuer-cto-und-tech-vorstand',
+  'leader-os-fuer-vertriebsleitung',
+  'leader-os-fuer-neu-befoerderte-leads',
 ];
 
 export default function JournalIndex() {
