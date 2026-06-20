@@ -141,7 +141,7 @@ export const WladIntroVideo = () => {
       className="relative w-full bg-white border-y-2 border-black"
       aria-label="Wlad Intro Video"
     >
-      <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-24 sm:pt-28 md:pt-32 pb-10 md:pb-16">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-10 sm:pt-12 md:pt-14 pb-10 md:pb-16">
         <div className="mb-5 md:mb-7 flex items-end justify-between flex-wrap gap-3">
           <div className="min-w-0 flex-1">
             <p className="text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2.5 md:mb-3 font-mono">

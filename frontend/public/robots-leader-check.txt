@@ -1,18 +1,20 @@
-# Default robots = leader-os.de (canonical Vercel landing).
-# leader-check.de is served `robots-leader-check.txt` via host-based
-# rewrite in vercel.json. See docs/DOMAIN_TOPOLOGY.md.
+# Leader-Check robots policy (leader-check.de)
+# Diagnostic Marketing-Landing — Single-funnel. Diagnose-App selbst läuft
+# auf leadercheck.de (Emergent) — diese Domain hier ist nur die Vercel-Bridge.
 
 User-agent: *
 Allow: /
-Allow: /login
 Allow: /impressum
 Allow: /datenschutz
 Allow: /agb
 Allow: /widerruf
 
-# Authenticated areas — never index, never follow
+# Authenticated + coaching-app routes existieren auf diesem Host technisch
+# nicht (anderer Landing-Branch in LandingPage.js), aber wir disallowen sie
+# explizit als Defense-in-Depth falls Routing-Audit irgendwann driftet.
 Disallow: /dashboard
 Disallow: /chat
+Disallow: /login
 Disallow: /tools
 Disallow: /simulations
 Disallow: /missions
@@ -36,10 +38,10 @@ Disallow: /auth/
 # API routes — never index
 Disallow: /api/
 
-# Admin — never index (path is also non-guessable but defense in depth)
+# Admin — never index
 Disallow: /wlad-control-x7k9q2
 
-# Slow down aggressive crawlers (Bing/Yandex)
+# Slow down aggressive crawlers
 User-agent: bingbot
 Crawl-delay: 5
 
@@ -62,5 +64,4 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-# Sitemap reference
-Sitemap: https://leader-os.de/sitemap.xml
+Sitemap: https://leader-check.de/sitemap.xml

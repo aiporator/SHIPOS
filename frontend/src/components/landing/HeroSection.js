@@ -38,16 +38,18 @@ export const HeroSection = () => (
     />
 
     {/* Brand-metadata callouts — minimal. Eine Zeile links, eine rechts.
-        Vorher 3+4 Zeilen — visual noise ohne payoff. */}
+        Vorher 3+4 Zeilen — visual noise ohne payoff.
+        top-3 = direkt unter Nav-Höhe, damit sie nicht in den
+        Wlad-Anker-Bereich reinrutschen. */}
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono"
+      className="hidden md:block absolute top-3 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono"
     >
       [ EST. 2026 · BERLIN ]
     </div>
     <div
       aria-hidden
-      className="hidden md:block absolute top-24 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
+      className="hidden md:block absolute top-3 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
     >
       [ SPRINT · 997 € · DIAGNOSE FREE ]
     </div>
@@ -72,20 +74,20 @@ export const HeroSection = () => (
       </span>
     </motion.div>
 
-    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-10 md:pb-14">
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-10 md:pb-14">
       {/* Wlad-Anker — kompakter, ein Specimen-Tag statt drei Zeilen */}
       <motion.div
         initial="hidden"
         animate="show"
         custom={0}
         variants={FADE_UP}
-        className="flex items-center gap-3.5 mb-8"
+        className="flex items-center gap-3.5 mb-6"
       >
         <img
           src={WLAD_AVATAR}
           onError={withFallback(WLAD_AVATAR_FALLBACKS)}
           alt="Wlad Jachtchenko"
-          className="w-12 h-12 rounded-full object-cover ring-2 ring-brand/45 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
+          className="w-12 h-12 rounded-full object-cover object-top ring-2 ring-brand/45 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
         />
         <div className="leading-tight">
           <p className="text-[13.5px] font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>

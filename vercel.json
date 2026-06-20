@@ -10,6 +10,16 @@
       "destination": "https://command-center-229.emergent.host/api/:path*"
     },
     {
+      "source": "/sitemap.xml",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
+      "destination": "/sitemap-leader-check.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
+      "destination": "/robots-leader-check.txt"
+    },
+    {
       "source": "/((?!api|static|favicon.ico|manifest.json|robots.txt|asset-manifest.json|.*\\..*).*)",
       "destination": "/index.html"
     }
