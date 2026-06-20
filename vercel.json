@@ -6,6 +6,14 @@
   "framework": "create-react-app",
   "rewrites": [
     {
+      "source": "/api/newsletter/subscribe",
+      "destination": "https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/newsletter-subscribe"
+    },
+    {
+      "source": "/api/newsletter/confirm",
+      "destination": "https://srujvjjncrszhaaxepxf.supabase.co/functions/v1/newsletter-confirm"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://command-center-229.emergent.host/api/:path*"
     },

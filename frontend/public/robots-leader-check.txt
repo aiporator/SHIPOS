@@ -38,6 +38,9 @@ Disallow: /auth/
 # API routes — never index
 Disallow: /api/
 
+# Newsletter double-opt-in confirmation surface — never index
+Disallow: /newsletter/
+
 # Admin — never index
 Disallow: /wlad-control-x7k9q2
 
