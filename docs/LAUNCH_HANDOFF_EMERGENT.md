@@ -154,6 +154,66 @@ function is still v1 (without the RPC call). Either:
 Not launch-blocking. Resend's account-level limits cover single-victim
 bombing at 50-spot launch scale.
 
+### 7. Google Sign-In — wire up the OAuth client (10 min, blocks "Login mit Google")
+
+The full Google login stack is already built and tested:
+
+- **Backend**: `backend/services_oauth.py` (verifies the Google ID token via
+  `google-auth`), `backend/routes/oauth.py` (`POST /auth/google/callback`
+  + `GET /auth/providers`).
+- **Frontend**: `frontend/src/components/auth/OAuthButtons.js`
+  (`GoogleSignInButton` — loads Google Identity Services, runs One-Tap with
+  popup fallback), gated by `/auth/providers` so the button only renders
+  when the backend reports Google as configured.
+
+Nothing to code. Three knobs to set:
+
+**7a. Create the OAuth Client in Google Cloud Console** (5 min)
+
+1. https://console.cloud.google.com/apis/credentials → *Create Credentials*
+   → *OAuth client ID* → *Web application*
+2. Authorized JavaScript origins:
+   ```
+   https://leaderos.de
+   https://www.leaderos.de
+   https://leadercheck.de
+   https://www.leadercheck.de
+   https://leader-os.de
+   https://leader-check.de
+   http://localhost:3000
+   ```
+3. Authorized redirect URIs: leave empty — we use the ID-token flow
+   (`g_id_signin` / One-Tap), not the redirect flow.
+4. Copy the **Client ID**. You do NOT need the client secret for the
+   ID-token flow we use.
+
+**7b. Set the env var on Emergent** (1 min)
+
+In each Emergent project that runs the FastAPI backend:
+
+```
+GOOGLE_CLIENT_ID=<the-client-id-from-7a>.apps.googleusercontent.com
+```
+
+That single env var unlocks both the `/auth/providers` response (so the
+frontend renders the Google button) and the token-verification in
+`POST /auth/google/callback`.
+
+**7c. Smoke-test** (2 min)
+
+```bash
+curl -s https://leaderos.de/api/auth/providers | jq
+# Expect: { "providers": { "google": true, ... }, "google_client_id": "<id>...", ... }
+```
+
+Then open `https://leaderos.de/login` in an incognito window → the
+"Mit Google fortfahren" button should render → click → Google popup
+opens → on success you land on `/dashboard`.
+
+> **Note:** there's no Apple/Microsoft setup blocker — same pattern,
+> just set `APPLE_SERVICE_ID` / `MICROSOFT_CLIENT_ID` to enable them.
+> Magic-link login works regardless (no provider config needed).
+
 ---
 
 ## Smoke-test sequence (run after each step)
