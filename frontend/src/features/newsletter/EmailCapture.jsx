@@ -84,6 +84,21 @@ export const EmailCapture = ({
       // could mean "already on the list and a downstream noop failed";
       // we mustn't strand a real subscriber on an error screen.
     }
+
+    // Broadcast so any other lead-capture surface on the page (the
+    // exit-intent modal in particular) can back off for the rest of
+    // the cooldown window.
+    if (typeof window !== 'undefined') {
+      try {
+        window.dispatchEvent(
+          new CustomEvent('newsletter:subscribed', {
+            detail: { source: source || 'unknown', campaign: campaign || null },
+          }),
+        );
+      } catch {
+        /* CustomEvent not supported in this env; ignore */
+      }
+    }
     setDone(true);
   };
 

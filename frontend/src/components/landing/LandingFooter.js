@@ -20,6 +20,7 @@ const COL_PRODUCT = [
 
 const COL_LEARN = [
   { label: 'Diagnose · kostenlos', href: 'https://leadercheck.de', external: true },
+  { label: 'Feldnotizen · Journal', to: '/journal' },
   { label: '90-Sek-Intro mit Wlad', href: '#wlad-intro' },
   { label: 'Innen-Ansicht', href: '#app-preview' },
   { label: 'Manifest', href: '#manifesto' },
@@ -125,8 +126,14 @@ export const LandingFooter = () => (
       </div>
 
       {/* Newsletter — Feldnotizen opt-in. source="footer" attributes
-          every signup to this persistent surface. */}
-      <div className="mt-14 pt-10 border-t border-white/[0.08] grid md:grid-cols-12 gap-8 md:gap-14 items-start">
+          every signup to this persistent surface. The data-newsletter-
+          zone attribute signals the LeadCaptureModal to back off when
+          this block scrolls into view, so the two never compete for
+          the same lead in the same scroll position. */}
+      <div
+        data-newsletter-zone
+        className="mt-14 pt-10 border-t border-white/[0.08] grid md:grid-cols-12 gap-8 md:gap-14 items-start"
+      >
         <div className="md:col-span-5">
           <h3
             className="text-[28px] md:text-[34px] leading-[0.95] tracking-[-0.03em] text-white"

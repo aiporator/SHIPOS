@@ -9,9 +9,22 @@ const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
  * LeadCaptureModal — Apple-grade conversion popup.
  *
  * Triggers:
- *   1. Exit-intent on desktop (mouse leaves the top of viewport)
- *   2. Scroll depth > 50% on mobile (no exit-intent on touch)
- *   3. Both gated by 7-day localStorage cooldown
+ *   1. Exit-intent on desktop (mouse leaves the top of viewport).
+ *
+ * Suppressors (any of these arms the 7-day cooldown without showing
+ * the modal, so we never compete with a closer-to-the-eye CTA):
+ *   - User scrolls a newsletter capture zone into view (the Footer
+ *     EmailCapture marks itself with `data-newsletter-zone`). At that
+ *     point the user has already reached a dedicated subscribe form,
+ *     so popping a second one on top is friction, not conversion.
+ *   - User submits any newsletter form on the page (the EmailCapture
+ *     dispatches a `newsletter:subscribed` window event on success).
+ *
+ * The scroll-depth trigger (popup at 50% scroll) was removed: it
+ * intercepted users between the Hero and the Footer EmailCapture, and
+ * its pointer-events overlay blocked clicks to the lower CTAs while
+ * the user was reading. Exit-intent is the only legitimate auto-fire
+ * left.
  *
  * On submit: writes the email via the existing `/api/leader-check/intent`
  * lifecycle endpoint (proxied to Emergent) and PostHog identify+capture
@@ -42,31 +55,58 @@ export const LeadCaptureModal = () => {
     }
   };
 
-  // Arm exit-intent + scroll-depth triggers
+  const armCooldown = () => {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch {}
+    triggered.current = true;
+  };
+
+  // Arm exit-intent trigger + suppression listeners
   useEffect(() => {
     if (!eligible()) return undefined;
 
     const trigger = () => {
       if (triggered.current) return;
-      triggered.current = true;
+      armCooldown();
       setOpen(true);
-      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch {}
     };
 
     const onMouseLeave = (e) => {
       if (e.clientY <= 0) trigger();
     };
 
-    const onScroll = () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      if (pct > 0.5) trigger();
-    };
+    // Newsletter-zone suppression. If the user scrolls a dedicated
+    // newsletter capture form into view, treat that as a stronger
+    // conversion surface and back off without ever showing the modal.
+    let observer = null;
+    const zones = document.querySelectorAll('[data-newsletter-zone]');
+    if (zones.length > 0 && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              armCooldown();
+              observer.disconnect();
+              observer = null;
+              break;
+            }
+          }
+        },
+        { threshold: 0.25 },
+      );
+      zones.forEach((z) => observer.observe(z));
+    }
+
+    // Direct subscribe-event suppression. EmailCapture dispatches this
+    // on successful submit; we arm the cooldown for a full week so the
+    // user never gets a second opt-in surface popped at them.
+    const onSubscribed = () => armCooldown();
+    window.addEventListener('newsletter:subscribed', onSubscribed);
 
     document.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       document.removeEventListener('mouseleave', onMouseLeave);
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('newsletter:subscribed', onSubscribed);
+      if (observer) observer.disconnect();
     };
   }, []);
 
