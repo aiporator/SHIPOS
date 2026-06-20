@@ -20,10 +20,10 @@ export const SprintSpecimenStrip = () => (
     className="relative w-full bg-background border-y border-foreground/12"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-5 md:py-6 flex flex-wrap md:flex-nowrap items-center gap-y-3 gap-x-6 md:gap-x-8">
-      {/* BIB-mark — the constant that anchors every Sprint mention */}
+      {/* Plain badge — anchors every Sprint mention without arcane symbols */}
       <div className="flex items-center gap-3 shrink-0">
         <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 border-2 border-foreground font-mono text-[11px] font-black tracking-[0.06em] text-foreground">
-          §03
+          03
         </span>
         <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/55 font-mono">
           SPRINT

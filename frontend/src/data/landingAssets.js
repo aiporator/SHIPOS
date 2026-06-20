@@ -32,7 +32,7 @@ export const LANDING_META = {
   title: 'Leader-OS · Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
   description:
     'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint mit ' +
-    'Wlad Jachtchenko. Klasse 0001 jetzt offen, nur 50 Plätze. Starte mit ' +
+    'Wlad Jachtchenko. Erste Gruppe jetzt offen, nur 50 Plätze. Starte mit ' +
     'der kostenlosen Diagnose auf leadercheck.de.',
   url: 'https://leader-os.de',
   slogan: 'Sprint mit Wlad.',
@@ -264,7 +264,7 @@ export const LANDING_BENEFITS = [
       'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
     detail: [
       ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
-      ['BIB', 'STARTNUMMER',   '0001 · Individuell'],
+      ['NR.', 'STARTNUMMER',   '0001 · Individuell'],
       ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],

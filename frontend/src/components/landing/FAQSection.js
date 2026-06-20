@@ -5,7 +5,7 @@ const FAQS = [
   {
     q: 'Was bekomme ich am Ende von 30 Tagen, konkret?',
     a:
-      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner BIB · 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
+      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner Startnummer 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
   },
   {
     q: 'Wie hilft mir der WladBot in einer realen Situation?',

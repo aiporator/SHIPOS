@@ -17,14 +17,14 @@ import { useGsapScrollIn } from './motion/useGsapScrollIn';
 const TIERS = [
   {
     id: 'diagnose',
-    eyebrow: '▸ STUFE 0 · KOSTENLOS',
+    eyebrow: '▸ KOSTENLOS · 5 MIN',
     name: 'Diagnose',
     duration: '5 Min',
     price: '0 €',
     outcome: 'Score · Empfehlung',
     bullets: [
       'KI-Diagnose in drei Dimensionen',
-      'Persönlicher BIB-Score',
+      'Persönlicher Score in 5 Minuten',
       'Sofort-Empfehlung für Sprint-Start',
     ],
     cta: 'Diagnose starten',
@@ -33,17 +33,17 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ STUFE 1 · TRAININGSPLAN',
+    eyebrow: '▸ 30-TAGE-SPRINT',
     name: 'Sprint',
-    duration: '30 Tage · Klasse 0001',
+    duration: '30 Tage · Erste Gruppe',
     price: '997 €',
-    outcome: '11 Frameworks · BIB · LinkedIn-Cert',
-    scarcity: 'Klasse 0001 · 43 von 50 Plätzen frei',
+    outcome: '11 Frameworks · Zertifikat · LinkedIn',
+    scarcity: 'Erste Gruppe · 43 von 50 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
       'Tägliche Lernvideos · Wöchen-Drills',
-      'BIB-Zertifikat für LinkedIn',
+      'Zertifikat für dein LinkedIn',
     ],
     cta: 'Sprint kaufen · 30 Tage',
     href: 'https://leaderos.de/checkout?tier=sprint',
@@ -52,7 +52,7 @@ const TIERS = [
   },
   {
     id: 'plusplus',
-    eyebrow: '▸ STUFE 2 · DER MARATHON',
+    eyebrow: '▸ DAS OS-JAHR',
     name: 'Plus-Plus',
     duration: '12 Monate Enablement',
     price: '4 797 €',
@@ -73,7 +73,7 @@ const TIERS = [
   },
   {
     id: 'mentoring6',
-    eyebrow: '▸ STUFE 3 · COACH-ON-SIDE',
+    eyebrow: '▸ 1:1 MIT WLAD · 6 MONATE',
     name: 'Mentoring 6',
     duration: '6 Monate',
     price: '14 800 €',
@@ -91,7 +91,7 @@ const TIERS = [
   },
   {
     id: 'mentoring12',
-    eyebrow: '▸ STUFE 4 · LANGSTRECKE',
+    eyebrow: '▸ 1:1 MIT WLAD · 12 MONATE',
     name: 'Mentoring 12',
     duration: '12 Monate',
     price: '24 600 €',
@@ -109,7 +109,7 @@ const TIERS = [
   },
   {
     id: 'enterprise',
-    eyebrow: '▸ STUFE 5 · AI OWNERSHIP',
+    eyebrow: '▸ ENTERPRISE · TEAM-LIZENZ',
     name: 'Enterprise',
     duration: 'Custom Track',
     price: 'ab 44 000 €',

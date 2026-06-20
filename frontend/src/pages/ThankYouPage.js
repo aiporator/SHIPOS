@@ -30,7 +30,7 @@ export default function ThankYouPage() {
 
       <main className="max-w-[1280px] mx-auto px-5 md:px-10 pt-32 md:pt-40 pb-24 md:pb-32">
         <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-6 font-mono">
-          ▸ BIB · 0001 · DEIN START
+          ▸ DEIN START · ERSTE GRUPPE
         </p>
 
         <h1

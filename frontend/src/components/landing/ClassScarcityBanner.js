@@ -65,18 +65,18 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Klasse 0001. Plätze begrenzt."
+      aria-label="Erste Gruppe. Plätze begrenzt."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
       <div className="max-w-[1400px] mx-auto pl-5 md:pl-10 pr-2 md:pr-4 h-10 md:h-11 flex items-center gap-4 md:gap-6">
-        {/* Live-dot + BIB-code mark */}
+        {/* Live-dot + plain-language mark */}
         <span className="hidden sm:inline-flex items-center gap-2 font-mono text-[9.5px] font-bold tracking-[0.28em] uppercase shrink-0 text-brand">
           <span className="relative inline-flex w-1.5 h-1.5">
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          KLASSE 0001
+          ERSTE GRUPPE
         </span>
 
         {/* Mono hairline separator */}

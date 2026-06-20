@@ -51,7 +51,7 @@ const DIMENSIONS = [
 
 const PHASES = [
   ['01', '5 MIN', '21 Fragen · multiple choice'],
-  ['02', 'SOFORT', 'Drei Scores · Gesamt-BIB · Empfehlung'],
+  ['02', 'SOFORT', 'Drei Scores · Gesamt-Score · Empfehlung'],
   ['03', 'OPTIONAL', 'Wenn du willst: 30-Tage-Sprint starten'],
 ];
 
@@ -452,7 +452,7 @@ export default function LeaderCheckLanding() {
               <div className="relative bg-white border border-black/[0.15] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
                 <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/[0.10] text-[9px] font-bold uppercase tracking-[0.22em] text-black/55 font-mono">
                   <span>LEADER-CHECK · ERGEBNIS · ANONYM</span>
-                  <span className="text-brand">BIB · 0001</span>
+                  <span className="text-brand">ERSTE GRUPPE</span>
                 </div>
                 <div className="p-6 md:p-8">
                   {/* 3 Score-Kreise */}

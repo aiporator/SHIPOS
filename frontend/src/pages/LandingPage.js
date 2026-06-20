@@ -13,6 +13,7 @@ import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
+import { AppointmentBookingSection } from '../components/landing/AppointmentBookingSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
 import { FAQSection } from '../components/landing/FAQSection';
@@ -110,6 +111,7 @@ export default function LandingPage() {
 
         <AppPreviewSection />
         <PricingLadder />
+        <AppointmentBookingSection />
         <CoachingWaitlist />
         <FAQSection />
 

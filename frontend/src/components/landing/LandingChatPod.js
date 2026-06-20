@@ -541,7 +541,7 @@ export const LandingChatPod = ({ mode = 'lead' }) => {
               {/* Foot-Strip */}
               <div className="px-5 py-2.5 border-t border-white/[0.08] flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.22em] text-white/40 font-mono shrink-0">
                 <span>POWERED BY WLAD-METHODIK</span>
-                <span>BIB · 0001</span>
+                <span>ERSTE GRUPPE</span>
               </div>
             </motion.aside>
           </>

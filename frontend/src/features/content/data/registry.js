@@ -10,10 +10,16 @@
  */
 import warumFrameworksNichtImKopfBleiben from './articles/warum-frameworks-nicht-im-kopf-bleiben';
 import sprintOderMarathon from './articles/sprint-oder-marathon';
+import dieFeedbackFormelBww from './articles/die-feedback-formel-bww';
+import wieLenaIhrTownhallDrehte from './articles/wie-lena-ihr-townhall-drehte';
+import deinKalenderFuehrtDich from './articles/dein-kalender-fuehrt-dich';
 
 const ARTICLES = [
   warumFrameworksNichtImKopfBleiben,
   sprintOderMarathon,
+  dieFeedbackFormelBww,
+  wieLenaIhrTownhallDrehte,
+  deinKalenderFuehrtDich,
 ];
 
 const BY_SLUG = new Map(ARTICLES.map((a) => [a.slug, a]));

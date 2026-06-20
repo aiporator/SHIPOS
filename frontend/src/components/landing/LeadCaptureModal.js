@@ -177,7 +177,7 @@ export const LeadCaptureModal = () => {
         {/* Specimen header */}
         <div className="flex items-center justify-between px-7 md:px-9 pt-6 pb-3 mb-0 border-b border-foreground/12">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            BIB · 0001 · KLASSE 0001
+            ERSTE GRUPPE · NUR 50 PLÄTZE
           </span>
           <button
             onClick={close}
@@ -233,7 +233,7 @@ export const LeadCaptureModal = () => {
             {[
               ['01', '5 MIN', 'Diagnose'],
               ['02', '997 €', '30-T Sprint'],
-              ['03', 'BIB', 'Zertifikat'],
+              ['03', 'CERT', 'Zertifikat'],
             ].map(([nr, val, label]) => (
               <div key={nr} className="text-center">
                 <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">▸ {nr}</div>

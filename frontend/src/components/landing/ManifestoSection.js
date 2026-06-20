@@ -32,7 +32,7 @@ export const ManifestoSection = () => (
       <div className="flex items-center gap-4 mb-10 md:mb-14 text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono">
         <span>▸ {LANDING_MANIFESTO.eyebrow}</span>
         <span className="h-px flex-1 bg-white/15" />
-        <span className="text-white/45">BIB · 0001</span>
+        <span className="text-white/45">EST. 2026</span>
       </div>
 
       <motion.h2
