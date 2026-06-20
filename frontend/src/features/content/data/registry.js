@@ -15,8 +15,30 @@ import wieLenaIhrTownhallDrehte from './articles/wie-lena-ihr-townhall-drehte';
 import deinKalenderFuehrtDich from './articles/dein-kalender-fuehrt-dich';
 import kiImFuehrungsAlltagDreiUseCases from './articles/ki-im-fuehrungs-alltag-drei-use-cases';
 import chatgptAlsSparringPartnerFuenfSkripte from './articles/chatgpt-als-sparring-partner-fuenf-skripte';
+import warumLeaderOs from './articles/warum-leader-os';
+import wasInLeaderOsDrinIst from './articles/was-in-leader-os-drin-ist';
+import deinErsterTagMitLeaderOs from './articles/dein-erster-tag-mit-leader-os';
+import wladbotVsChatgptVsCoach from './articles/wladbot-vs-chatgpt-vs-coach';
+import leaderOsFuerEngineeringLeitung from './articles/leader-os-fuer-engineering-leitung';
+import leaderOsFuerHrUndPeopleOps from './articles/leader-os-fuer-hr-und-people-ops';
+import leaderOsFuerScaleupGruender from './articles/leader-os-fuer-scaleup-gruender';
+import leaderOsImTeamRollout from './articles/leader-os-im-team-rollout';
+import derBusinessCaseFuerLeaderOs from './articles/der-business-case-fuer-leader-os';
+import leaderOsVsKlassischesCoaching from './articles/leader-os-vs-klassisches-coaching';
 
 const ARTICLES = [
+  // Plattform-Hub: Why / What / Use-Cases for Leader-OS
+  warumLeaderOs,
+  wasInLeaderOsDrinIst,
+  deinErsterTagMitLeaderOs,
+  wladbotVsChatgptVsCoach,
+  leaderOsFuerEngineeringLeitung,
+  leaderOsFuerHrUndPeopleOps,
+  leaderOsFuerScaleupGruender,
+  leaderOsImTeamRollout,
+  derBusinessCaseFuerLeaderOs,
+  leaderOsVsKlassischesCoaching,
+  // Methodik + KI-Wissens-Hub
   warumFrameworksNichtImKopfBleiben,
   sprintOderMarathon,
   dieFeedbackFormelBww,

@@ -12,8 +12,25 @@ import { applySeoToDocument } from '../utils/seo';
  * pills underneath the headline let visitors filter without leaving
  * the page (simple in-URL ?tag= filter, no router work yet).
  */
+// Curated buckets so the Knowledge Hub doesn't read as one flat card wall.
+// Slugs are ordered intentionally; anything not listed lands in "Methodik".
+const PLATFORM_SLUGS = [
+  'warum-leader-os',
+  'was-in-leader-os-drin-ist',
+  'dein-erster-tag-mit-leader-os',
+  'wladbot-vs-chatgpt-vs-coach',
+  'leader-os-fuer-engineering-leitung',
+  'leader-os-fuer-hr-und-people-ops',
+  'leader-os-fuer-scaleup-gruender',
+  'leader-os-im-team-rollout',
+  'der-business-case-fuer-leader-os',
+  'leader-os-vs-klassisches-coaching',
+];
+
 export default function JournalIndex() {
-  const articles = listArticles();
+  const platformArticles = listArticles({ slugs: PLATFORM_SLUGS });
+  const platformSet = new Set(PLATFORM_SLUGS);
+  const methodikArticles = listArticles().filter((a) => !platformSet.has(a.slug));
   const tags = listTags();
 
   useEffect(() => {
@@ -72,12 +89,66 @@ export default function JournalIndex() {
           </div>
         )}
 
-        {articles.length === 0 ? (
+        {platformArticles.length === 0 && methodikArticles.length === 0 ? (
           <p className="text-[16px] text-foreground/55">Bald mehr.</p>
         ) : (
-          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-            {articles.map((a) => <ArticleCard key={a.slug} article={a} />)}
-          </div>
+          <>
+            {platformArticles.length > 0 && (
+              <section aria-label="Plattform-Hub" className="mb-16 md:mb-20">
+                <div className="flex items-baseline justify-between flex-wrap gap-3 mb-7">
+                  <div>
+                    <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2 font-mono">
+                      ▸ PLATTFORM · WARUM UND WIE
+                    </p>
+                    <h2
+                      className="text-[28px] sm:text-[36px] md:text-[44px] leading-[0.95] tracking-[-0.03em] text-foreground"
+                      style={{
+                        fontFamily: 'Outfit, Inter, sans-serif',
+                        fontWeight: 900,
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      Leader-OS verstehen<span className="text-brand not-italic">.</span>
+                    </h2>
+                  </div>
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono">
+                    {platformArticles.length} Artikel
+                  </span>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+                  {platformArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}
+                </div>
+              </section>
+            )}
+
+            {methodikArticles.length > 0 && (
+              <section aria-label="Methodik und KI-Wissen">
+                <div className="flex items-baseline justify-between flex-wrap gap-3 mb-7">
+                  <div>
+                    <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2 font-mono">
+                      ▸ METHODIK + KI-WISSEN
+                    </p>
+                    <h2
+                      className="text-[28px] sm:text-[36px] md:text-[44px] leading-[0.95] tracking-[-0.03em] text-foreground"
+                      style={{
+                        fontFamily: 'Outfit, Inter, sans-serif',
+                        fontWeight: 900,
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      Frameworks. Field Notes. Prompts<span className="text-brand not-italic">.</span>
+                    </h2>
+                  </div>
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono">
+                    {methodikArticles.length} Artikel
+                  </span>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+                  {methodikArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}
+                </div>
+              </section>
+            )}
+          </>
         )}
       </main>
 
