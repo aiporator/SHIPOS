@@ -187,17 +187,26 @@ Nothing to code. Three knobs to set:
 4. Copy the **Client ID**. You do NOT need the client secret for the
    ID-token flow we use.
 
-**7b. Set the env var on Emergent** (1 min)
+**7b. Set the env vars on Emergent** (1 min)
 
 In each Emergent project that runs the FastAPI backend:
 
 ```
 GOOGLE_CLIENT_ID=<the-client-id-from-7a>.apps.googleusercontent.com
+FRONTEND_BASE_URL=https://leaderos.de        # leaderos Emergent project
+# FRONTEND_BASE_URL=https://leadercheck.de   # leadercheck Emergent project
 ```
 
-That single env var unlocks both the `/auth/providers` response (so the
+`GOOGLE_CLIENT_ID` unlocks both the `/auth/providers` response (so the
 frontend renders the Google button) and the token-verification in
 `POST /auth/google/callback`.
+
+`FRONTEND_BASE_URL` controls the host that magic-link emails point to.
+Without it, the default is `https://leaderos.de` — fine for the leaderos
+project, **wrong for leadercheck** (where you must override to
+`https://leadercheck.de`). The pre-fix default was `leader-os.de` (the
+Vercel landing, which has no post-login surface), so any magic-link
+mail sent before this commit landed users on the wrong tier.
 
 **7c. Smoke-test** (2 min)
 
