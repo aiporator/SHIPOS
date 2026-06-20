@@ -11,10 +11,11 @@
 --   per email   - one DOI mail every 5 minutes
 --   per IP      - max 10 distinct emails per rolling 1 hour window
 --
--- Pending: this migration is not yet applied to prod (Supabase MCP
--- was disconnected during the security pass). Apply at the start of
--- the next session, then ship the matching newsletter-subscribe
--- Edge Function update that already lives in the function's source.
+-- Applied to prod 2026-06-20 via apply_migration. The matching
+-- newsletter-subscribe Edge Function source in this repo already
+-- calls the RPC; the deployed Edge Function will pick it up on the
+-- next redeploy (Supabase MCP server-side approval gate currently
+-- blocks the redeploy from this session).
 
 create or replace function public.newsletter_can_send_doi(
   p_email_lower text,
