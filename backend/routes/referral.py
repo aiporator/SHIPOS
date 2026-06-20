@@ -58,7 +58,7 @@ async def get_referral_code(request: Request):
 
     return {
         "code": code,
-        "share_url": f"https://leader-check.de?ref={code}",
+        "share_url": f"https://leadercheck.de?ref={code}",
         "referral_count": ref_count,
         "tier": tier,
         "next_tier": next_tier,

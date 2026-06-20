@@ -78,7 +78,7 @@ def verify_unsubscribe_token(token: str) -> dict | None:
         return None
 
 
-def unsubscribe_url(user_id: str, category: str, app_url: str = "https://leader-os.de") -> str:
+def unsubscribe_url(user_id: str, category: str, app_url: str = "https://leaderos.de") -> str:
     """Helper used by email templates to embed one-click unsubscribe links."""
     token = make_unsubscribe_token(user_id, category)
     return f"{app_url.rstrip('/')}/email/unsubscribe?token={token}"

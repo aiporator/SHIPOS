@@ -110,10 +110,10 @@ export default function LeaderCheckLanding() {
             </div>
           </div>
           <a
-            href="https://leader-os.de"
+            href="https://leaderos.de"
             className="text-[11px] font-bold uppercase tracking-[0.22em] text-black/60 hover:text-black font-mono transition-colors"
           >
-            leader-os.de ↗
+            leaderos.de ↗
           </a>
         </div>
       </header>
@@ -276,7 +276,7 @@ export default function LeaderCheckLanding() {
             Eine Bitte unter Freunden mit klarer Begründung. */}
         <section
           className="border-t border-black/[0.10] bg-gradient-to-b from-black/[0.02] to-transparent"
-          aria-label="Nutze die gleiche E-Mail wie auf leader-os.de"
+          aria-label="Nutze die gleiche E-Mail wie auf leaderos.de"
         >
           <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
             <div className="md:col-span-7">
@@ -293,8 +293,8 @@ export default function LeaderCheckLanding() {
               </h2>
               <p className="mt-8 max-w-xl text-[15px] md:text-[17px] leading-[1.6] text-black/85">
                 Wenn du später auf{' '}
-                <a className="underline decoration-brand decoration-2 underline-offset-4 hover:text-brand transition-colors" href="https://leader-os.de">
-                  leader-os.de
+                <a className="underline decoration-brand decoration-2 underline-offset-4 hover:text-brand transition-colors" href="https://leaderos.de">
+                  leaderos.de
                 </a>{' '}
                 weitermachen willst, nimm dort einfach die gleiche E-Mail
                 wie hier. Dann erkennt dich WladBot wieder, kennt deine

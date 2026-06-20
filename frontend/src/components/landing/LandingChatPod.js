@@ -175,7 +175,7 @@ const FLOWS = {
           'Du arbeitest schon bewusst — aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
-        secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
+        secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
       },
       {
         min: 0,
@@ -184,7 +184,7 @@ const FLOWS = {
           'Du fängst quasi bei Null an — das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
-        secondary: { label: 'Leader-OS ansehen', href: 'https://leader-os.de' },
+        secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
       },
     ],
   },
