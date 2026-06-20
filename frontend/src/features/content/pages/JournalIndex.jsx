@@ -14,6 +14,33 @@ import { applySeoToDocument } from '../utils/seo';
  */
 // Curated buckets so the Knowledge Hub doesn't read as one flat card wall.
 // Slugs are ordered intentionally; anything not listed lands in "Methodik".
+const PARADOX_SLUGS = [
+  'das-ki-produktivitaets-paradox',
+  'warum-dein-chatgpt-tab-dich-nicht-effizienter-macht',
+  'wenn-deine-ki-investition-versickert-fuenf-diagnose-fragen',
+  'ki-tool-muedigkeit-was-zu-tun-ist',
+  'output-messen-im-ki-zeitalter',
+  'wenn-ki-dich-verlangsamt',
+  'warum-90-prozent-aller-ki-trainings-scheitern',
+  'ki-ohne-methodik-ist-slop',
+  'ki-wissen-vs-ki-reflex',
+  'das-system-hinter-dem-system',
+  'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie',
+  'mehr-als-eine-transformation',
+  'system-statt-transformation-der-kleine-hebel',
+  'drei-rituale-die-ki-investments-rentabel-machen',
+  'der-lernpfad-vom-ki-nutzer-zum-ki-leader',
+  'mikro-drills-fuenfzehn-minuten-pro-tag',
+  'ki-in-zehn-minuten-pro-tag',
+  'fuer-jeden-mitarbeiter-nicht-nur-fuer-fuehrungskraefte',
+  'vom-einzel-erfolg-zum-team-system',
+  'vom-power-user-zum-multiplikator',
+  'die-leader-os-kurs-architektur',
+  'die-kurs-bibliothek-strukturierte-pfade-durch-leader-os',
+  'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',
+  'das-versprechen-und-die-grenzen',
+];
+
 const PLATFORM_SLUGS = [
   'warum-leader-os',
   'was-in-leader-os-drin-ist',
@@ -32,9 +59,10 @@ const PLATFORM_SLUGS = [
 ];
 
 export default function JournalIndex() {
+  const paradoxArticles = listArticles({ slugs: PARADOX_SLUGS });
   const platformArticles = listArticles({ slugs: PLATFORM_SLUGS });
-  const platformSet = new Set(PLATFORM_SLUGS);
-  const methodikArticles = listArticles().filter((a) => !platformSet.has(a.slug));
+  const excluded = new Set([...PARADOX_SLUGS, ...PLATFORM_SLUGS]);
+  const methodikArticles = listArticles().filter((a) => !excluded.has(a.slug));
   const tags = listTags();
 
   useEffect(() => {
@@ -93,10 +121,38 @@ export default function JournalIndex() {
           </div>
         )}
 
-        {platformArticles.length === 0 && methodikArticles.length === 0 ? (
+        {paradoxArticles.length === 0 && platformArticles.length === 0 && methodikArticles.length === 0 ? (
           <p className="text-[16px] text-foreground/55">Bald mehr.</p>
         ) : (
           <>
+            {paradoxArticles.length > 0 && (
+              <section aria-label="KI-Paradox-Hub" className="mb-16 md:mb-20">
+                <div className="flex items-baseline justify-between flex-wrap gap-3 mb-7">
+                  <div>
+                    <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2 font-mono">
+                      ▸ DAS PARADOX · UND DAS SYSTEM DAHINTER
+                    </p>
+                    <h2
+                      className="text-[28px] sm:text-[36px] md:text-[44px] leading-[0.95] tracking-[-0.03em] text-foreground"
+                      style={{
+                        fontFamily: 'Outfit, Inter, sans-serif',
+                        fontWeight: 900,
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      Wenn KI nichts liefert<span className="text-brand not-italic">.</span>
+                    </h2>
+                  </div>
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono">
+                    {paradoxArticles.length} Artikel
+                  </span>
+                </div>
+                <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+                  {paradoxArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}
+                </div>
+              </section>
+            )}
+
             {platformArticles.length > 0 && (
               <section aria-label="Plattform-Hub" className="mb-16 md:mb-20">
                 <div className="flex items-baseline justify-between flex-wrap gap-3 mb-7">

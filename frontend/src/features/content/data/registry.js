@@ -25,7 +25,6 @@ import leaderOsFuerScaleupGruender from './articles/leader-os-fuer-scaleup-gruen
 import leaderOsImTeamRollout from './articles/leader-os-im-team-rollout';
 import derBusinessCaseFuerLeaderOs from './articles/der-business-case-fuer-leader-os';
 import leaderOsVsKlassischesCoaching from './articles/leader-os-vs-klassisches-coaching';
-// +20 DACH SEO/AEO articles
 import kiLeadershipWasBedeutetDasKonkret from './articles/ki-leadership-was-bedeutet-das-konkret';
 import mitarbeitergespraechVorbereitenMitKi from './articles/mitarbeitergespraech-vorbereiten-mit-ki';
 import feedbackGebenVorlageBwwFramework from './articles/feedback-geben-vorlage-bww-framework';
@@ -51,8 +50,59 @@ import leaderOsFuerNeuBefoerderteLeads from './articles/leader-os-fuer-neu-befoe
 import kiStrategieFuerMittelstand from './articles/ki-strategie-fuer-mittelstand';
 import erste100TageAlsCtoOderVpEngineering from './articles/erste-100-tage-als-cto-oder-vp-engineering';
 import kiCoachingVsTraditionellesCoachingDach from './articles/ki-coaching-vs-traditionelles-coaching-dach';
+// +20 KI-Paradox & System bucket
+import dasKiProduktivitaetsParadox from './articles/das-ki-produktivitaets-paradox';
+import warumDeinChatgptTabDichNichtEffizienterMacht from './articles/warum-dein-chatgpt-tab-dich-nicht-effizienter-macht';
+import wennDeineKiInvestitionVersickertFuenfDiagnoseFragen from './articles/wenn-deine-ki-investition-versickert-fuenf-diagnose-fragen';
+import kiToolMuedigkeitWasZuTunIst from './articles/ki-tool-muedigkeit-was-zu-tun-ist';
+import outputMessenImKiZeitalter from './articles/output-messen-im-ki-zeitalter';
+import warum90ProzentAllerKiTrainingsScheitern from './articles/warum-90-prozent-aller-ki-trainings-scheitern';
+import dasSystemHinterDemSystem from './articles/das-system-hinter-dem-system';
+import damitEsJederSchafftDieZugaenglichkeitsPhilosophie from './articles/damit-es-jeder-schafft-die-zugaenglichkeits-philosophie';
+import mikroDrillsFuenfzehnMinutenProTag from './articles/mikro-drills-fuenfzehn-minuten-pro-tag';
+import dieLeaderOsKursArchitektur from './articles/die-leader-os-kurs-architektur';
+import mehrAlsEineTransformation from './articles/mehr-als-eine-transformation';
+import kiWissenVsKiReflex from './articles/ki-wissen-vs-ki-reflex';
+import vomEinzelErfolgZumTeamSystem from './articles/vom-einzel-erfolg-zum-team-system';
+import wennKiDichVerlangsamt from './articles/wenn-ki-dich-verlangsamt';
+import derLernpfadVomKiNutzerZumKiLeader from './articles/der-lernpfad-vom-ki-nutzer-zum-ki-leader';
+import systemStattTransformationDerKleineHebel from './articles/system-statt-transformation-der-kleine-hebel';
+import dreiRitualeDieKiInvestmentsRentabelMachen from './articles/drei-rituale-die-ki-investments-rentabel-machen';
+import dieKursBibliothekStrukturiertePfadeDurchLeaderOs from './articles/die-kurs-bibliothek-strukturierte-pfade-durch-leader-os';
+import vomPowerUserZumMultiplikator from './articles/vom-power-user-zum-multiplikator';
+import kiInZehnMinutenProTag from './articles/ki-in-zehn-minuten-pro-tag';
+import kiOhneMethodikIstSlop from './articles/ki-ohne-methodik-ist-slop';
+import derKiSprintWasDreissigTageStrukturierteAnwendungVeraendern from './articles/der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern';
+import fuerJedenMitarbeiterNichtNurFuerFuehrungskraefte from './articles/fuer-jeden-mitarbeiter-nicht-nur-fuer-fuehrungskraefte';
+import dasVersprechenUndDieGrenzen from './articles/das-versprechen-und-die-grenzen';
 
 const ARTICLES = [
+  // KI-Paradox & der Hebel-Effekt (Top bucket — diagnostic + solution + accessibility)
+  dasKiProduktivitaetsParadox,
+  warumDeinChatgptTabDichNichtEffizienterMacht,
+  wennDeineKiInvestitionVersickertFuenfDiagnoseFragen,
+  kiToolMuedigkeitWasZuTunIst,
+  outputMessenImKiZeitalter,
+  wennKiDichVerlangsamt,
+  warum90ProzentAllerKiTrainingsScheitern,
+  kiOhneMethodikIstSlop,
+  kiWissenVsKiReflex,
+  dasSystemHinterDemSystem,
+  damitEsJederSchafftDieZugaenglichkeitsPhilosophie,
+  mehrAlsEineTransformation,
+  systemStattTransformationDerKleineHebel,
+  dreiRitualeDieKiInvestmentsRentabelMachen,
+  derLernpfadVomKiNutzerZumKiLeader,
+  mikroDrillsFuenfzehnMinutenProTag,
+  kiInZehnMinutenProTag,
+  fuerJedenMitarbeiterNichtNurFuerFuehrungskraefte,
+  vomEinzelErfolgZumTeamSystem,
+  vomPowerUserZumMultiplikator,
+  dieLeaderOsKursArchitektur,
+  dieKursBibliothekStrukturiertePfadeDurchLeaderOs,
+  derKiSprintWasDreissigTageStrukturierteAnwendungVeraendern,
+  dasVersprechenUndDieGrenzen,
+
   // Plattform-Hub: Why / What / Use-Cases for Leader-OS
   warumLeaderOs,
   wasInLeaderOsDrinIst,
@@ -68,6 +118,7 @@ const ARTICLES = [
   leaderOsFuerCtoUndTechVorstand,
   leaderOsFuerVertriebsleitung,
   leaderOsFuerNeuBefoerderteLeads,
+
   // Methodik + KI-Wissens-Hub
   warumFrameworksNichtImKopfBleiben,
   sprintOderMarathon,
