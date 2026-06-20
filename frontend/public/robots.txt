@@ -36,6 +36,9 @@ Disallow: /auth/
 # API routes — never index
 Disallow: /api/
 
+# Newsletter double-opt-in confirmation surface — never index
+Disallow: /newsletter/
+
 # Admin — never index (path is also non-guessable but defense in depth)
 Disallow: /wlad-control-x7k9q2
 

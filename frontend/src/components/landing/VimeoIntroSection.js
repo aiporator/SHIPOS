@@ -67,7 +67,7 @@ export const VimeoIntroSection = () => (
 
           <p className="mt-8 max-w-md text-[15px] md:text-[17px] leading-[1.55] text-white/70">
             Bevor du dich entscheidest: schau ihm 90 Sekunden zu. Du
-            wirst hören, warum Frameworks für ihn keine Theorie sind —
+            wirst hören, warum Frameworks für ihn keine Theorie sind,
             und warum Leader-OS kein Kurs ist, sondern ein Training.
           </p>
 

@@ -35,27 +35,27 @@ const QUESTIONS = [
     ],
   },
   {
-    q: 'In einer Verhandlung — dein größter Hebel?',
+    q: 'In einer Verhandlung: dein größter Hebel?',
     options: [
       { label: 'Klare Argumentations-Struktur, keine Floskeln.', w: { ki: 2, rhet: 5, eq: 3 } },
-      { label: 'Empathie & Beziehung zum Gegenüber.',            w: { ki: 1, rhet: 3, eq: 5 } },
-      { label: 'Daten, Daten, Daten — Fakten überzeugen.',       w: { ki: 5, rhet: 2, eq: 1 } },
+      { label: 'Empathie und Beziehung zum Gegenüber.',          w: { ki: 1, rhet: 3, eq: 5 } },
+      { label: 'Daten, Daten, Daten. Fakten überzeugen.',        w: { ki: 5, rhet: 2, eq: 1 } },
     ],
   },
   {
     q: 'Wie oft denkst du über KI als Werkzeug nach?',
     options: [
-      { label: 'Täglich — gehört zu meinem Workflow.',           w: { ki: 5, rhet: 2, eq: 2 } },
-      { label: 'Manchmal — wenn ich konkrete Aufgabe habe.',     w: { ki: 3, rhet: 2, eq: 3 } },
-      { label: 'Wenig — ich bevorzuge bewährte Methoden.',       w: { ki: 1, rhet: 4, eq: 4 } },
+      { label: 'Täglich, gehört zu meinem Workflow.',            w: { ki: 5, rhet: 2, eq: 2 } },
+      { label: 'Manchmal, wenn ich konkrete Aufgabe habe.',      w: { ki: 3, rhet: 2, eq: 3 } },
+      { label: 'Wenig, ich bevorzuge bewährte Methoden.',        w: { ki: 1, rhet: 4, eq: 4 } },
     ],
   },
   {
-    q: 'Wenn dich morgen jemand zum Townhall ruft — Gefühl?',
+    q: 'Wenn dich morgen jemand zum Townhall ruft: Gefühl?',
     options: [
-      { label: 'Energie — ich liebe die Bühne.',                w: { ki: 1, rhet: 5, eq: 4 } },
-      { label: 'OK — ich bereite mich gründlich vor.',          w: { ki: 3, rhet: 4, eq: 3 } },
-      { label: 'Nervös — gibt entspanntere Settings.',          w: { ki: 2, rhet: 2, eq: 5 } },
+      { label: 'Energie, ich liebe die Bühne.',                 w: { ki: 1, rhet: 5, eq: 4 } },
+      { label: 'OK, ich bereite mich gründlich vor.',           w: { ki: 3, rhet: 4, eq: 3 } },
+      { label: 'Nervös, gibt entspanntere Settings.',           w: { ki: 2, rhet: 2, eq: 5 } },
     ],
   },
 ];
@@ -236,7 +236,7 @@ export const MiniChallenge = () => {
                 </div>
                 <p className="mt-7 text-[13.5px] leading-[1.55] text-black/70 max-w-xl">
                   Deine größte Lücke: <strong className="text-black">{weakest.name}</strong>.
-                  Starte mit Wlads {weakest.drill}-Drill — und mach die volle 21-Fragen-Diagnose
+                  Starte mit Wlads {weakest.drill}-Drill. Mach danach die volle 21-Fragen-Diagnose
                   für deine persönliche 30-Tage-Roadmap.
                 </p>
               </div>
@@ -261,7 +261,7 @@ export const MiniChallenge = () => {
                   50 FREE<br />CREDITS<span className="text-black not-italic">.</span>
                 </h3>
                 <p className="mt-5 text-[14.5px] leading-[1.5] text-black/85 max-w-md">
-                  Genug für ~25 Sprachen-Sessions mit dem WladBot zu deinem Hebel-Thema —
+                  Genug für ~25 Sprachen-Sessions mit dem WladBot zu deinem Hebel-Thema,
                   oder ein voller 1:1-Drill mit der {weakest.drill}.
                 </p>
                 <button

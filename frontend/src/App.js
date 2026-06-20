@@ -55,6 +55,7 @@ const DatenschutzPage = lazyWithRetry(() => import("./pages/DatenschutzPage"));
 const WiderrufPage = lazyWithRetry(() => import("./pages/WiderrufPage"));
 const AGBPage = lazyWithRetry(() => import("./pages/AGBPage"));
 const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscribePage"));
+const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
@@ -158,6 +159,8 @@ function AppRouter() {
         <Route path="/agb" element={<AGBPage />} />
         {/* Public — opens via signed token in lifecycle drip emails */}
         <Route path="/email/unsubscribe" element={<EmailUnsubscribePage />} />
+        {/* Public — double-opt-in confirmation landing (newsletter-confirm fn redirects here) */}
+        <Route path="/newsletter/confirmed" element={<NewsletterConfirmedPage />} />
         {/* Public share routes — read-only showcase, no auth required */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />

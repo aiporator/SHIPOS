@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
 import { ClassScarcityBanner } from '../components/landing/ClassScarcityBanner';
 import { HeroSection } from '../components/landing/HeroSection';
+import { SprintSpecimenStrip } from '../components/landing/SprintSpecimenStrip';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
 import { WladIntroVideo } from '../components/landing/WladIntroVideo';
@@ -88,9 +89,10 @@ export default function LandingPage() {
       <ScrollProgressRail />
 
       <main>
+        <HeroSection />
+        <SprintSpecimenStrip />
         <WladIntroVideo />
         <MiniChallenge />
-        <HeroSection />
         <TrackFieldSection />
         <HowItWorksSection />
         <VimeoIntroSection />

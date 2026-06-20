@@ -3,24 +3,24 @@ import { motion } from 'framer-motion';
 
 const FAQS = [
   {
-    q: 'Was bekomme ich am Ende von 30 Tagen — konkret?',
+    q: 'Was bekomme ich am Ende von 30 Tagen, konkret?',
     a:
-      'Ein klareres Bild davon, wie du führst — geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner BIB · 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast — nicht nur was du abgehakt hast.',
+      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner BIB · 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
   },
   {
     q: 'Wie hilft mir der WladBot in einer realen Situation?',
     a:
-      'Beispiel Dienstag 22:47 Uhr: morgen früh musst du einem Senior-Mitarbeiter zum dritten Mal das gleiche Feedback geben. Du tippst die Situation in den Bot. Er gibt dir nicht "10 Tipps", sondern den nächsten Satz — aus der Feedback-Formel (Beobachtung · Wirkung · Wunsch), abgestimmt auf das, was er über deinen Stil aus deinem Sprint weiß. Du gehst mit einem Skript ins Gespräch, nicht mit Bauchschmerzen.',
+      'Beispiel Dienstag 22:47 Uhr: morgen früh musst du einem Senior-Mitarbeiter zum dritten Mal das gleiche Feedback geben. Du tippst die Situation in den Bot. Er gibt dir nicht "10 Tipps", sondern den nächsten Satz aus der Feedback-Formel (Beobachtung · Wirkung · Wunsch), abgestimmt auf das, was er über deinen Stil aus deinem Sprint weiß. Du gehst mit einem Skript ins Gespräch, nicht mit Bauchschmerzen.',
   },
   {
-    q: 'Was passiert nach den 30 Tagen — bleibt das System?',
+    q: 'Was passiert nach den 30 Tagen, bleibt das System?',
     a:
-      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions mit Wlad und dem Drill-Channel will, upgradet auf Plus-Plus. Der Sprint ist das Onboarding — das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
+      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions mit Wlad und dem Drill-Channel will, upgradet auf Plus-Plus. Der Sprint ist das Onboarding. Das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
   },
   {
     q: 'Was kostet das genau?',
     a:
-      'Die Diagnose auf leadercheck.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Plus-Plus (Sprint + 12 Monate Enablement-Begleitung mit Live-Sessions und Drill-Channel) kostet 4 797 € einmalig oder in drei Raten. 1:1 mit Wlad gibt es nur als limitierte Warteliste — kein Standard-Produkt, weil seine Zeit der Bottleneck ist. Alles ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
+      'Die Diagnose auf leadercheck.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Plus-Plus (Sprint + 12 Monate Enablement-Begleitung mit Live-Sessions und Drill-Channel) kostet 4 797 € einmalig oder in drei Raten. 1:1 mit Wlad gibt es nur als limitierte Warteliste, kein Standard-Produkt, weil seine Zeit der Bottleneck ist. Alles ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
   },
   {
     q: 'Warum sollte ich für die Diagnose dieselbe Email nutzen?',
@@ -35,12 +35,12 @@ const FAQS = [
   {
     q: 'Wie sicher sind meine Daten?',
     a:
-      'DSGVO-konform, Server in der EU (Frankfurt). Deine Chats sind verschlüsselt und gehören dir — kein Training auf deinen Daten, kein Verkauf an Dritte. Du kannst dein Konto und alle Daten jederzeit mit einem Klick löschen.',
+      'DSGVO-konform, Server in der EU (Frankfurt). Deine Chats sind verschlüsselt und gehören dir. Kein Training auf deinen Daten, kein Verkauf an Dritte. Du kannst dein Konto und alle Daten jederzeit mit einem Klick löschen.',
   },
   {
     q: 'Was, wenn ich merke, das ist nichts für mich?',
     a:
-      '14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Du schreibst kurz, wir erstatten. Bisher hat noch niemand zurückgefordert — aber die Garantie steht, damit du angstfrei starten kannst.',
+      '14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Du schreibst kurz, wir erstatten. Bisher hat noch niemand zurückgefordert. Die Garantie steht trotzdem, damit du angstfrei starten kannst.',
   },
 ];
 

@@ -1,27 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { WladMark } from '../brand/WladMark';
 
 /**
  * Sticky top nav — action-oriented.
  *
- *  Primary CTA   →  leadercheck.de        (app, Emergent — runs the diagnose)
- *  Secondary CTA →  leaderos.de/login     (app, Emergent — auth + dashboard)
+ *  Primary CTA   to  leadercheck.de        (app, Emergent: runs the diagnose)
+ *  Secondary CTA to  leaderos.de/login     (app, Emergent: auth + dashboard)
  *
  * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de   = Vercel marketing landings (this app)
  *   leaderos.de  + leadercheck.de    = Emergent apps (where users convert)
  *
- * Plus tiny "So funktioniert's" anchor on desktop.
+ * The scrolled-state listener uses framer-motion's useScroll() (rAF-batched)
+ * instead of a raw window scroll listener that would re-render on every
+ * frame.
  */
 export const LandingNav = () => {
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setScrolled(latest > 40);
+  });
 
   return (
     <header

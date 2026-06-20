@@ -19,12 +19,12 @@ import { getLastLogin, forgetLogin, displayEmail } from '../lib/recentLogins';
 const getFeatures = (de) => (de ? [
   { t: '30-Tage KI-Leadership Sprint', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
   { t: '16 Video-Missionen mit KI-Analyse', s: 'Kamera an, Rede halten, sofort KI-Bewertung' },
-  { t: 'Persönlicher KI-Coach — 24/7', s: 'Dein WladBot kennt Wlads Methodik in- und auswendig' },
+  { t: 'Persönlicher KI-Coach · 24/7', s: 'Dein WladBot kennt Wlads Methodik in- und auswendig' },
   { t: 'Täglich KI-Business Briefing', s: 'Trends, Leader-Zitate, strategische Insights' },
 ] : [
   { t: '30-Day AI Leadership Sprint', s: '300 questions, daily challenges, AI roleplays' },
   { t: '16 Video Missions with AI Analysis', s: 'Camera on, give speech, instant AI scoring' },
-  { t: 'Personal AI Coach — 24/7', s: 'Your WladBot knows Wlad\'s methodology inside out' },
+  { t: 'Personal AI Coach · 24/7', s: 'Your WladBot knows Wlad\'s methodology inside out' },
   { t: 'Daily AI Business Briefing', s: 'Trends, leader quotes, strategic insights' },
 ]);
 
@@ -32,7 +32,7 @@ export default function LoginPage() {
   const { login } = useAuth();
   const { lang, toggleLang } = useLanguage();
   const navigate = useNavigate();
-  // Default to 'login' — most traffic is returning users in pre-launch phase.
+  // Default to 'login', most traffic is returning users in pre-launch phase.
   // New users see a clear "Account erstellen" link to switch into register mode.
   const [mode, setMode] = useState('login');
   const [loading, setLoading] = useState(false);
@@ -87,7 +87,7 @@ export default function LoginPage() {
   const switchMode = (newMode) => {
     setMode(newMode);
     setError('');
-    // Always clear password — security & avoids browser auto-filling the login
+    // Always clear password, security & avoids browser auto-filling the login
     // password into a register form. Drop `name` when leaving register since
     // it's only collected there.
     setForm(f => ({
@@ -137,14 +137,14 @@ export default function LoginPage() {
   }, [isMagic, isRegister, de]);
 
   const subheading = useMemo(() => {
-    if (isMagic) return de ? 'Gib deine E-Mail ein — wir senden dir einen sicheren 1-Klick-Link.' : 'Enter your email — we\'ll send a secure 1-click link.';
-    if (isRegister) return de ? 'Starte deinen KI-Leadership Sprint — 3 Sessions kostenlos.' : 'Start your AI Leadership sprint — 3 sessions free.';
+    if (isMagic) return de ? 'Gib deine E-Mail ein, wir senden dir einen sicheren 1-Klick-Link.' : 'Enter your email, we\'ll send a secure 1-click link.';
+    if (isRegister) return de ? 'Starte deinen KI-Leadership Sprint · 3 Sessions kostenlos.' : 'Start your AI Leadership sprint · 3 sessions free.';
     return de ? 'Schön dich wiederzusehen.' : 'Good to see you again.';
   }, [isMagic, isRegister, de]);
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white relative overflow-hidden" data-testid="login-page">
-      {/* Lime accent — Nike DNA, dezent in der rechten Ecke */}
+      {/* Lime accent · Nike DNA, dezent in der rechten Ecke */}
       <div aria-hidden className="pointer-events-none absolute inset-0 lg:left-1/2">
         <div className="absolute top-1/4 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-brand/[0.18] blur-[140px]" />
         <div className="absolute bottom-[-10%] left-[10%] h-[28rem] w-[28rem] rounded-full bg-brand/[0.08] blur-[130px]" />
@@ -185,7 +185,7 @@ export default function LoginPage() {
             <p className="text-[14px] text-black/65 mt-4 leading-relaxed max-w-sm">{subheading}</p>
           </div>
 
-          {/* "Continue as" — only when a previous login is cached */}
+          {/* "Continue as", only when a previous login is cached */}
           {showContinueAs && (
             <div className="mb-5">
               <ContinueAsCard
@@ -239,7 +239,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* OAuth providers — PROMINENT first thing wenn nicht magic */}
+          {/* OAuth providers · PROMINENT first thing wenn nicht magic */}
           {!isMagic && providers && (
             <div className="mb-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-black/55 mb-3 font-mono">

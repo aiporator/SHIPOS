@@ -18,13 +18,22 @@ const FADE_UP = {
  * Heron-Preston specimen-sheet DNA: huge headline, lime period as
  * the punctuation, BIB-coded eyebrow and footer-strip, technical
  * metadata callouts at the corners. Nothing here depends on a CDN.
+ *
+ * Stack discipline: four text elements only.
+ *   1. Wlad-anker strip   (eyebrow / trust)
+ *   2. Headline           ("Sprint mit Wlad.")
+ *   3. Subline            ("Dreißig Tage. Elf Frameworks. Ein KI-Coach...")
+ *   4. CTA cluster        (primary + one secondary anchor)
+ *
+ * Anything else (scarcity pill, trust-strip, scroll-cue) moves into a
+ * dedicated band directly below so it doesn't crowd the moment.
  */
 export const HeroSection = () => (
   <section
     id="hero"
     className="relative w-full overflow-hidden bg-background"
     data-testid="landing-hero"
-    aria-label="30 Tage mit Wlad — Sprint zum Führungs-System"
+    aria-label="Sprint mit Wlad. 30 Tage zum Führungs-OS."
   >
     {/* Subtle radial mesh, never the focus */}
     <div
@@ -37,10 +46,8 @@ export const HeroSection = () => (
       }}
     />
 
-    {/* Brand-metadata callouts — minimal. Eine Zeile links, eine rechts.
-        Vorher 3+4 Zeilen — visual noise ohne payoff.
-        top-3 = direkt unter Nav-Höhe, damit sie nicht in den
-        Wlad-Anker-Bereich reinrutschen. */}
+    {/* Brand-metadata callouts pinned just under the nav so they read
+        as page-chrome, not as a competing content element. */}
     <div
       aria-hidden
       className="hidden md:block absolute top-3 left-6 lg:left-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono"
@@ -74,8 +81,8 @@ export const HeroSection = () => (
       </span>
     </motion.div>
 
-    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-10 md:pb-14">
-      {/* Wlad-Anker — kompakter, ein Specimen-Tag statt drei Zeilen */}
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-10 md:pb-12">
+      {/* 1 / 4 — Wlad-anker (eyebrow slot) */}
       <motion.div
         initial="hidden"
         animate="show"
@@ -99,6 +106,7 @@ export const HeroSection = () => (
         </div>
       </motion.div>
 
+      {/* 2 / 4 — Headline */}
       <motion.h1
         initial="hidden"
         animate="show"
@@ -114,13 +122,13 @@ export const HeroSection = () => (
         Sprint<br />mit Wlad<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* Konkrete Outcomes statt Buzzwords */}
+      {/* 3 / 4 — Subline */}
       <motion.p
         initial="hidden"
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-8 md:mt-12 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
+        className="mt-6 md:mt-8 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 800,
@@ -130,72 +138,40 @@ export const HeroSection = () => (
         <span className="text-foreground/55">Ein KI-Coach der dich kennt<span className="text-brand">.</span></span>
       </motion.p>
 
-      <motion.p
+      {/* 4 / 4 — CTAs. Two primary intents side by side:
+          Diagnose (free, low-friction entry) and Sprint (paid, high
+          intent). They serve different audiences — visitors who want
+          to try-before-buy and visitors who already know what they
+          want — and not having Sprint in the ATF leaves the offer
+          buried below the fold. */}
+      <motion.div
         initial="hidden"
         animate="show"
         custom={3}
         variants={FADE_UP}
-        className="mt-8 md:mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-foreground/65"
+        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
       >
-        Klare Skripte statt Theorie. Tägliche Drills, sofort am echten Fall.
-        Starte kostenlos auf{' '}
+        <PlusCircleCTA
+          href={LANDING_META.cta.primary.href}
+          testId="hero-cta-primary"
+        >
+          Diagnose starten · 5 Min · kostenlos
+        </PlusCircleCTA>
         <a
-          href="https://leadercheck.de"
+          href="https://leaderos.de/checkout?tier=sprint"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-foreground underline decoration-brand decoration-2 underline-offset-4 hover:decoration-foreground transition-colors"
+          data-testid="hero-cta-sprint"
+          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-colors px-5 py-3"
         >
-          leadercheck.de
-        </a>.
-      </motion.p>
-
-      <motion.div
-        initial="hidden"
-        animate="show"
-        custom={4}
-        variants={FADE_UP}
-        className="mt-10 md:mt-14"
-      >
-        <div className="inline-flex items-center gap-2.5 mb-5 px-3 py-1.5 border-2 border-brand/60 bg-brand/[0.10]">
-          <span className="w-2 h-2 rounded-full bg-brand animate-live-dot" aria-hidden />
-          <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground font-mono">
-            ▸ Klasse 0001 · 43 von 50 Plätzen frei
+          <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
+            +
           </span>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-          <PlusCircleCTA
-            href={LANDING_META.cta.primary.href}
-            testId="hero-cta-primary"
-          >
-            Diagnose starten · 5 Min · kostenlos
-          </PlusCircleCTA>
-          <a
-            href="#how-it-works"
-            className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/50 hover:text-foreground transition-colors"
-            data-testid="hero-cta-scroll"
-          >
-            So funktioniert's ↓
-          </a>
-        </div>
-
-        <p className="mt-4 text-[11px] text-foreground/45">
-          Kein Abo · 14 Tage Geld-zurück auf den Sprint
-        </p>
+          <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
+            Sprint sichern · 997 € · 30 Tage
+          </span>
+        </a>
       </motion.div>
-
-      {/* Scroll-cue — sanfter Pulse-Pfeil der das Auge nach unten zieht.
-          Nur Desktop+ (Mobile-User scrollen sowieso) und nur bei
-          prefers-reduced-motion:none aktiv (via .animate-scroll-cue media query). */}
-      <a
-        href="#how-it-works"
-        aria-label="Weiter scrollen"
-        data-testid="hero-scroll-cue"
-        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-foreground/55 hover:text-foreground transition-colors group"
-      >
-        <span className="text-[9px] font-bold uppercase tracking-[0.28em] font-mono">scroll</span>
-        <span className="animate-scroll-cue text-[16px] leading-none">↓</span>
-      </a>
     </div>
   </section>
 );

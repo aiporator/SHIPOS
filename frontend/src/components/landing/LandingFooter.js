@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { EmailCapture } from '../../features/newsletter';
 
 /**
  * LandingFooter — editorial sitemap-footer.
@@ -100,7 +101,7 @@ export const LandingFooter = () => (
             </div>
           </div>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
-            Das Operating System für Führungskräfte — gebaut auf
+            Das Operating System für Führungskräfte, gebaut auf
             Wlad Jachtchenkos Methodik. 30 Tage Sprint, ein Jahr
             Begleitung, ein KI-Coach der dich kennt.
           </p>
@@ -120,6 +121,27 @@ export const LandingFooter = () => (
           <Column title="PRODUKT" links={COL_PRODUCT} />
           <Column title="LERNEN" links={COL_LEARN} />
           <Column title="UNTERNEHMEN" links={COL_ABOUT} />
+        </div>
+      </div>
+
+      {/* Newsletter — Feldnotizen opt-in. source="footer" attributes
+          every signup to this persistent surface. */}
+      <div className="mt-14 pt-10 border-t border-white/[0.08] grid md:grid-cols-12 gap-8 md:gap-14 items-start">
+        <div className="md:col-span-5">
+          <h3
+            className="text-[28px] md:text-[34px] leading-[0.95] tracking-[-0.03em] text-white"
+            style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+          >
+            Feldnotizen<span className="text-brand not-italic">.</span>
+          </h3>
+          <p className="mt-3 max-w-sm text-[13.5px] leading-[1.55] text-white/55">
+            Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle
+            paar Wochen: Frameworks, Skripte, Beobachtungen. Kein Spam,
+            keine Pitches.
+          </p>
+        </div>
+        <div className="md:col-span-7">
+          <EmailCapture source="footer" campaign="field-notes" tone="dark" compact />
         </div>
       </div>
 
@@ -147,7 +169,7 @@ export const LandingFooter = () => (
             hello@leader-os.de
           </a>
           <p className="mt-1.5 text-[13px] text-white/45">
-            Antwort innerhalb von 24 h · Mo–Fr
+            Antwort innerhalb von 24 h · Mo bis Fr
           </p>
         </div>
       </div>
