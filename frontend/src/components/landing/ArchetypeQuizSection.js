@@ -89,6 +89,7 @@ const ARCHETYPES = {
   operator: {
     code: 'OP',
     title: 'Der Operator.',
+    roleLabel: 'Operator',
     essence:
       'Du nutzt KI jeden Tag. Prompts tippst du so schnell wie du denkst. ' +
       'Aber dein Tag ist immer noch reaktiv, nicht systemisch — du jagst ' +
@@ -110,6 +111,7 @@ const ARCHETYPES = {
   kreator: {
     code: 'KR',
     title: 'Der Kreator.',
+    roleLabel: 'Kreator',
     essence:
       'Du sprichst klar. Du ziehst Aufmerksamkeit. Deine Stimme ist dein ' +
       'Hebel. Aber die KI hinter den Kulissen ist noch nicht deine zweite ' +
@@ -131,44 +133,48 @@ const ARCHETYPES = {
   visionaer: {
     code: 'VI',
     title: 'Der Visionär.',
+    roleLabel: 'Visionär',
     essence:
       'Du siehst Bilder vor dir die andere noch nicht sehen können. ' +
-      'Strategie ist dein Wohnzimmer. Aber zwischen Vision und der ' +
-      'Donnerstag-Abend-Sprint-Review klafft Tag für Tag eine Lücke.',
+      'Strategie ist dein Wohnzimmer. Aber zwischen Vision und dem was ' +
+      'Donnerstag-Abend wirklich erledigt ist klafft Tag für Tag eine Lücke.',
     gap:
       'Was dir fehlt ist nicht eine bessere Vision. Es ist das System ' +
-      'das deine Vision durchs Team zieht — ohne dass du jeden Schritt selbst managen musst.',
+      'das deine Vision konsistent in tägliches Tun übersetzt — ohne ' +
+      'dass du jeden Morgen wieder von vorne anfängst.',
     diagnose: [
-      { title: 'Vision-zu-Execution-Score', body: 'Zeigt wo zwischen deinem Kopf und der Realität deines Teams die größte Energie verdunstet.' },
-      { title: 'Team-Multiplikator-Index',  body: 'Misst wie weit deine KI-Routine schon dein Team mitnimmt — oder ob du alleine vorne läufst.' },
-      { title: 'Architektur-Standortbestimmung', body: 'Sagt dir ob du erst System brauchst oder direkt skalieren kannst.' },
+      { title: 'Vision-zu-Tag-Score',        body: 'Zeigt wo zwischen deinem Kopf und deinem Tag die meiste Energie verdunstet.' },
+      { title: 'Konsistenz-Index',           body: 'Misst wie stabil deine Vision sich in tatsächlichem Output zeigt — über Wochen, nicht Tage.' },
+      { title: 'Architektur-Standortbestimmung', body: 'Sagt dir ob du erst System brauchst oder bereit bist zu skalieren.' },
     ],
     platform: [
-      { title: 'Visions-Playbooks',       body: 'Vorgefertigte Frameworks für Strategie-Sprints, OKR-Reviews, KI-Roadmaps.' },
-      { title: 'Team-Sprint-Rituale',     body: 'Strukturierte Wochen-Rhythmen die deine Vision in Team-Output übersetzen.' },
-      { title: 'Coaching mit Wlad',       body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
+      { title: 'Visions-Playbooks',          body: 'Frameworks für Strategie-Sprints, Quartalsplanung, KI-Roadmaps die wirklich landen.' },
+      { title: 'Wochen-Sprint-Rituale',      body: 'Strukturierte Rhythmen die deine Vision in tägliche Realität übersetzen — egal ob solo oder mit Team.' },
+      { title: 'Coaching mit Wlad',          body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
     ],
   },
   leader: {
     code: 'LD',
     title: 'Die Leaderin · Der Leader.',
+    roleLabel: 'Leader',
     essence:
-      'Du führst schon vorausschauend. Du hast Mitarbeiter gemacht, nicht ' +
-      'nur gehabt. Deine Entscheidungen sind nicht reaktiv. Was jetzt ' +
+      'Du führst schon vorausschauend — egal ob ein Team, ein Projekt, ' +
+      'eine Audience oder dich selbst. Du wartest nicht auf Klarheit, ' +
+      'du machst sie. Deine Entscheidungen sind nicht reaktiv. Was jetzt ' +
       'zählt ist nicht Aufholen — sondern Beschleunigen.',
     gap:
       'Was dich auf die nächste Stufe bringt ist nicht noch mehr Wissen. ' +
-      'Es ist ein Netzwerk von Leadern auf deinem Level — und ein System ' +
-      'das aus dir einen Multiplikator macht.',
+      'Es ist Austausch auf Augenhöhe — und ein System das deinen Tag ' +
+      'schon kennt bevor du ihn anfängst.',
     diagnose: [
-      { title: 'Multiplikator-Index',      body: 'Misst wie groß dein realer Einfluss auf andere Führungskräfte in deinem Umfeld bereits ist.' },
-      { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und welcher Schritt der nächste ist.' },
-      { title: 'Netzwerk-Empfehlung',      body: 'Sagt dir mit welchem Format (Sprint / Coaching / Klasse 0001) du am schnellsten vorankommst.' },
+      { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt — Kollegen, Klienten, Markt, Umfeld.' },
+      { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
+      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Klasse 0001) du am schnellsten vorankommst.' },
     ],
     platform: [
-      { title: 'Klasse 0001 · Peer-Network', body: '50 ausgewählte Leader, geschlossene Klasse, Senior-Niveau, persönliches Kennenlernen.' },
-      { title: 'Senior-Sprint',              body: 'Beschleunigter 30-Tage-Pfad für Erfahrene — direkt auf Multiplikation, nicht Aufholen.' },
-      { title: '1:1-Coaching mit Wlad',      body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Skalierung, Vermächtnis.' },
+      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen — geschlossene Klasse, Senior-Niveau.' },
+      { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene — direkt auf Wirkung, nicht Aufholen.' },
+      { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
   },
 };
@@ -495,8 +501,8 @@ export const ArchetypeQuizSection = () => {
                       <span className="text-brand not-italic">.</span>
                     </h4>
                     <p className="mt-4 text-[14px] md:text-[15.5px] leading-[1.6] text-white/75 max-w-2xl">
-                      5 Minuten · 30 Fragen · kostenlos · ohne Abo. Speziell zugeschnitten auf
-                      deinen <strong className="text-white">{archetype.code === 'LD' ? 'Leader-Profil' : `${archetype.title.replace(/\.$/, '')}-Profil`}</strong>:
+                      5 Minuten · 30 Fragen · kostenlos · ohne Abo. Zugeschnitten auf
+                      dein Profil als <strong className="text-white">{archetype.roleLabel}</strong>:
                     </p>
                     <ul className="mt-5 grid sm:grid-cols-3 gap-4 md:gap-5">
                       {archetype.diagnose.map((it, i) => (
@@ -528,7 +534,7 @@ export const ArchetypeQuizSection = () => {
                       style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
                     >
                       Leader<span className="text-brand not-italic">·</span>OS<br />
-                      <span className="text-foreground/55">für dich als {archetype.code === 'LD' ? 'Leader' : archetype.title.replace(/\.$/, '')}</span>
+                      <span className="text-foreground/55">für dich als {archetype.roleLabel}</span>
                       <span className="text-brand not-italic">.</span>
                     </h4>
                     <p className="mt-4 text-[14px] md:text-[15.5px] leading-[1.6] text-foreground/70 max-w-2xl">
