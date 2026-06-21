@@ -19,7 +19,7 @@ export default {
       'Zurückgewonnene Deep-Work-Stunden pro Woche: median 4,2 h. Bandbreite 1,8 bis 8,5 h.',
       'Anzahl wiederverwendeter Prompts nach 30 Tagen: median 14, Bandbreite 6 bis 28.',
       '1:1-Stale-Konversations-Quote: median sank von 38 auf 14 Prozent (Konversationen ohne nächste konkrete Aktion).',
-      'Townhall-Alignment-Anfragen: median sank um 51 Prozent in den 30 Tagen nach Sprint-Ende.',
+      'Rückfragen aus Team-Meetings ohne klares Ergebnis: median sank um 51 Prozent in den 30 Tagen nach Sprint-Ende.',
     ] },
     { type: 'heading', level: 2, text: 'Was sich NICHT messbar verändert (und das ist ehrlich).' },
     { type: 'list', style: 'bullet', items: [

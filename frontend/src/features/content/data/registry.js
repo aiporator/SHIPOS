@@ -75,8 +75,16 @@ import kiOhneMethodikIstSlop from './articles/ki-ohne-methodik-ist-slop';
 import derKiSprintWasDreissigTageStrukturierteAnwendungVeraendern from './articles/der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern';
 import fuerJedenMitarbeiterNichtNurFuerFuehrungskraefte from './articles/fuer-jeden-mitarbeiter-nicht-nur-fuer-fuehrungskraefte';
 import dasVersprechenUndDieGrenzen from './articles/das-versprechen-und-die-grenzen';
+import die5RollenEinerKiNativenFuehrungskraft from './articles/die-5-rollen-einer-ki-nativen-fuehrungskraft';
+import in6MonatenZurKiNativenFuehrungskraft from './articles/in-6-monaten-zur-ki-nativen-fuehrungskraft';
+import schlagfertigkeitImKiZeitalter from './articles/schlagfertigkeit-im-ki-zeitalter';
 
 const ARTICLES = [
+  // Brand-new KI-Voice articles (Wlad x KI, signature launch posts).
+  die5RollenEinerKiNativenFuehrungskraft,
+  in6MonatenZurKiNativenFuehrungskraft,
+  schlagfertigkeitImKiZeitalter,
+
   // KI-Paradox & der Hebel-Effekt (Top bucket — diagnostic + solution + accessibility)
   dasKiProduktivitaetsParadox,
   warumDeinChatgptTabDichNichtEffizienterMacht,

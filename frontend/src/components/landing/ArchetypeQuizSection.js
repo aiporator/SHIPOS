@@ -75,31 +75,107 @@ const buildCtaUrl = (base, { archetype }) => {
 // ───────────────────────────────────────────────────────────────────
 // Archetype map — 4 KI-Leadership-Profile.
 // Jede Antwort verteilt 1 Punkt auf einen Archetyp. Höchster Score gewinnt.
+//
+// Jeder Archetyp erzählt eine ganze Geschichte:
+//   essence       — wer du jetzt bist (2-3 Sätze)
+//   gap           — was dich aufhält (Lime-Akzent)
+//   diagnose[3]   — was leadercheck.de dir konkret zeigt
+//   platform[3]   — was Leader-OS dir konkret liefert
+//
+// Ziel: nach dem Quiz hat der User verstanden was BEIDE Produkte sind
+// und warum sie für ihn relevant sind. Nicht generisch.
 // ───────────────────────────────────────────────────────────────────
 const ARCHETYPES = {
   operator: {
     code: 'OP',
     title: 'Der Operator.',
-    essence: 'Du nutzt KI bereits täglich. Was dir fehlt ist das System, das den Hebel multipliziert.',
-    next: 'Dein nächster Schritt ist Methodik — nicht noch ein Tool.',
+    roleLabel: 'Operator',
+    essence:
+      'Du nutzt KI jeden Tag. Prompts tippst du so schnell wie du denkst. ' +
+      'Aber dein Tag ist immer noch reaktiv, nicht systemisch — du jagst ' +
+      'die nächste Aufgabe statt dass das System für dich arbeitet.',
+    gap:
+      'Was dir fehlt ist nicht noch ein Tool. Es ist die Architektur, die ' +
+      'aus deinen tausend KI-Reflexen eine klare Führungs-Routine macht.',
+    diagnose: [
+      { title: 'KI-Reflex-Score',     body: 'Misst wie tief KI bereits in deinen Alltag eingebaut ist — und wo dein System hakt.' },
+      { title: 'Hebel-Mapping',       body: 'Zeigt welche 3 Routinen den größten Multiplikator-Effekt für dich haben würden.' },
+      { title: '30-Tage Sprint-Match', body: 'Sagt dir ob Sprint 0001 für deinen Reifegrad passt oder ob du erst Grundlagen brauchst.' },
+    ],
+    platform: [
+      { title: 'Daily Check-in',          body: 'Strukturiertes 10-Minuten-Ritual jeden Morgen — KI macht deinen Tagesplan, du entscheidest.' },
+      { title: 'WladBot als Sparring',    body: 'Dein persönlicher KI-Coach kennt deine Ziele, deine Themen, deinen Stil.' },
+      { title: 'Sprint 0001 · 30 Tage',   body: 'Strukturierter Pfad vom Reflex-Nutzer zum System-Operator. Klare Tagesziele, klare Drills.' },
+    ],
   },
   kreator: {
     code: 'KR',
     title: 'Der Kreator.',
-    essence: 'Du kommunizierst klar und ziehst Aufmerksamkeit. Jetzt brauchst du Skill-Tiefe in KI um Wirkung zu skalieren.',
-    next: 'Dein nächster Schritt ist KI-Drill, der zu deiner Stimme passt.',
+    roleLabel: 'Kreator',
+    essence:
+      'Du sprichst klar. Du ziehst Aufmerksamkeit. Deine Stimme ist dein ' +
+      'Hebel. Aber die KI hinter den Kulissen ist noch nicht deine zweite ' +
+      'Stimme — sie klingt nach allen anderen.',
+    gap:
+      'Was du brauchst ist KI-Drill der zu DEINER Tonalität passt, nicht ' +
+      'generische Prompts die jeden Creator gleich klingen lassen.',
+    diagnose: [
+      { title: 'Voice-DNA-Mapping',     body: 'Analysiert deinen Schreib- und Sprechstil und sagt wo deine echte Signatur sitzt.' },
+      { title: 'Skill-Tiefen-Score',    body: 'Misst wo du vom 80%-Standard-Output abweichst — dein eigentlicher Wettbewerbsvorteil.' },
+      { title: 'Drill-Empfehlung',      body: 'Zeigt welche 3 Mikro-Drills deine KI-Stimme genau dort vertiefen wo dein Style sitzt.' },
+    ],
+    platform: [
+      { title: '15-Minuten Mikro-Drills', body: 'Tägliche, fokussierte Übungen die hängen bleiben — nicht Theorie, sondern Muskel.' },
+      { title: 'WladBot lernt deine DNA', body: 'Je länger du auf der Plattform bist, desto mehr klingt KI nach dir, nicht nach Standard.' },
+      { title: 'Kreator-Community',       body: 'Klasse 0001: Creator und Solo-Founder die KI als Verstärker ihrer Stimme nutzen.' },
+    ],
   },
   visionaer: {
     code: 'VI',
     title: 'Der Visionär.',
-    essence: 'Du denkst groß. Dir fehlt das Execution-System, das deine Vision durchs Team zieht.',
-    next: 'Dein nächster Schritt ist die Architektur — vom Konzept zur Umsetzung.',
+    roleLabel: 'Visionär',
+    essence:
+      'Du siehst Bilder vor dir die andere noch nicht sehen können. ' +
+      'Strategie ist dein Wohnzimmer. Aber zwischen Vision und dem was ' +
+      'Donnerstag-Abend wirklich erledigt ist klafft Tag für Tag eine Lücke.',
+    gap:
+      'Was dir fehlt ist nicht eine bessere Vision. Es ist das System ' +
+      'das deine Vision konsistent in tägliches Tun übersetzt — ohne ' +
+      'dass du jeden Morgen wieder von vorne anfängst.',
+    diagnose: [
+      { title: 'Vision-zu-Tag-Score',        body: 'Zeigt wo zwischen deinem Kopf und deinem Tag die meiste Energie verdunstet.' },
+      { title: 'Konsistenz-Index',           body: 'Misst wie stabil deine Vision sich in tatsächlichem Output zeigt — über Wochen, nicht Tage.' },
+      { title: 'Architektur-Standortbestimmung', body: 'Sagt dir ob du erst System brauchst oder bereit bist zu skalieren.' },
+    ],
+    platform: [
+      { title: 'Visions-Playbooks',          body: 'Frameworks für Strategie-Sprints, Quartalsplanung, KI-Roadmaps die wirklich landen.' },
+      { title: 'Wochen-Sprint-Rituale',      body: 'Strukturierte Rhythmen die deine Vision in tägliche Realität übersetzen — egal ob solo oder mit Team.' },
+      { title: 'Coaching mit Wlad',          body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
+    ],
   },
   leader: {
     code: 'LD',
-    title: 'Die Leaderin / Der Leader.',
-    essence: 'Du führst schon vorausschauend. Was dich auf die nächste Stufe bringt ist ein Netzwerk Gleichgesinnter.',
-    next: 'Dein nächster Schritt ist Multiplikation — andere Leader mit deinem System.',
+    title: 'Die Leaderin · Der Leader.',
+    roleLabel: 'Leader',
+    essence:
+      'Du führst schon vorausschauend — egal ob ein Team, ein Projekt, ' +
+      'eine Audience oder dich selbst. Du wartest nicht auf Klarheit, ' +
+      'du machst sie. Deine Entscheidungen sind nicht reaktiv. Was jetzt ' +
+      'zählt ist nicht Aufholen — sondern Beschleunigen.',
+    gap:
+      'Was dich auf die nächste Stufe bringt ist nicht noch mehr Wissen. ' +
+      'Es ist Austausch auf Augenhöhe — und ein System das deinen Tag ' +
+      'schon kennt bevor du ihn anfängst.',
+    diagnose: [
+      { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt — Kollegen, Klienten, Markt, Umfeld.' },
+      { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
+      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Klasse 0001) du am schnellsten vorankommst.' },
+    ],
+    platform: [
+      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen — geschlossene Klasse, Senior-Niveau.' },
+      { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene — direkt auf Wirkung, nicht Aufholen.' },
+      { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
+    ],
   },
 };
 
@@ -394,53 +470,94 @@ export const ArchetypeQuizSection = () => {
                     {archetype.title.replace(/\.$/, '')}<span className="text-brand not-italic">.</span>
                   </h3>
 
-                  <p className="mt-7 max-w-2xl text-[18px] md:text-[22px] leading-[1.45] text-foreground/85">
+                  {/* ── Essence: "Das bist du" ── */}
+                  <p className="mt-7 max-w-3xl text-[18px] md:text-[22px] leading-[1.5] text-foreground/85">
                     {archetype.essence}
                   </p>
 
-                  <div className="mt-6 max-w-2xl border-l-2 border-brand pl-5 py-1">
+                  {/* ── Gap: "Hier sitzt dein Hebel" — Lime-akzentuiert ── */}
+                  <div className="mt-7 max-w-3xl border-l-[3px] border-brand pl-5 py-2 bg-brand/5">
                     <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-strong">
-                      ▸ ERSTE INDIKATION
+                      ▸ HIER SITZT DEIN HEBEL
                     </span>
-                    <p className="mt-1.5 text-[15px] md:text-[16.5px] text-foreground/75 leading-[1.5]">
-                      {archetype.next}
+                    <p className="mt-2 text-[16px] md:text-[18px] text-foreground leading-[1.5] font-semibold">
+                      {archetype.gap}
                     </p>
                   </div>
 
-                  {/* ── Übergang zum vollständigen Check ── */}
+                  {/* ── SCHRITT 02 · LEADERCHECK — was die Diagnose dir zeigt ── */}
                   <div className="mt-10 max-w-3xl border-2 border-black bg-black text-white p-6 md:p-8">
                     <div className="flex items-center gap-2 mb-4 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand">
                       <span>▸ SCHRITT 02</span>
                       <span className="opacity-40">·</span>
-                      <span className="text-white/60">DER VOLLSTÄNDIGE CHECK</span>
+                      <span className="text-white/60">LEADERCHECK.DE · DIE DIAGNOSE</span>
                     </div>
                     <h4
-                      className="text-[24px] md:text-[32px] leading-[1.05] tracking-[-0.03em]"
+                      className="text-[26px] md:text-[34px] leading-[1.05] tracking-[-0.03em]"
                       style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
                     >
-                      Das war der Teaser. Jetzt der Check<span className="text-brand not-italic">.</span>
+                      Das war der Teaser.<br />
+                      <span className="text-white/55">Jetzt der echte Check</span>
+                      <span className="text-brand not-italic">.</span>
                     </h4>
-                    <p className="mt-3 text-[14px] md:text-[15.5px] leading-[1.55] text-white/75 max-w-xl">
-                      Auf <span className="font-mono text-brand font-bold">leadercheck.de</span> bekommst
-                      du in 5 Minuten die volle Standortbestimmung — kostenlos, ohne
-                      Abo, ohne Spam:
+                    <p className="mt-4 text-[14px] md:text-[15.5px] leading-[1.6] text-white/75 max-w-2xl">
+                      5 Minuten · 30 Fragen · kostenlos · ohne Abo. Zugeschnitten auf
+                      dein Profil als <strong className="text-white">{archetype.roleLabel}</strong>:
                     </p>
-                    <ul className="mt-5 grid sm:grid-cols-3 gap-3 md:gap-5">
-                      {[
-                        { bib: '01', title: 'Deine KI-Opportunities', body: 'Wo dein größter Hebel liegt — in Strategie, Skill, Kommunikation oder Team.' },
-                        { bib: '02', title: 'Dein KI-Lernpfad', body: 'Wo du anfängst, welche Tools, welche Drills — Schritt für Schritt.' },
-                        { bib: '03', title: 'Dein 30-Tage-Plan', body: 'Konkreter Fahrplan plus Match mit dem Sprint 0001 falls du tiefer willst.' },
-                      ].map((it) => (
-                        <li key={it.bib} className="border-l border-brand/60 pl-3">
+                    <ul className="mt-5 grid sm:grid-cols-3 gap-4 md:gap-5">
+                      {archetype.diagnose.map((it, i) => (
+                        <li key={it.title} className="border-l-2 border-brand/70 pl-4">
                           <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-brand">
-                            {it.bib} · {it.title}
+                            {String(i + 1).padStart(2, '0')} · {it.title}
                           </div>
-                          <p className="mt-1.5 text-[13px] leading-[1.45] text-white/70">
+                          <p className="mt-1.5 text-[13px] leading-[1.5] text-white/75">
                             {it.body}
                           </p>
                         </li>
                       ))}
                     </ul>
+                  </div>
+
+                  {/* ── SCHRITT 03 · LEADER-OS — was die Plattform dir liefert ── */}
+                  <div className="mt-6 max-w-3xl border-2 border-black bg-background text-foreground p-6 md:p-8 relative">
+                    {/* Lime corner tag */}
+                    <div className="absolute -top-[2px] left-6 bg-brand text-black px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.22em]">
+                      ▸ DANACH · LEADER-OS
+                    </div>
+                    <div className="flex items-center gap-2 mb-4 mt-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55">
+                      <span>SCHRITT 03</span>
+                      <span className="opacity-40">·</span>
+                      <span>DIE PLATTFORM · WO ES PASSIERT</span>
+                    </div>
+                    <h4
+                      className="text-[26px] md:text-[34px] leading-[1.05] tracking-[-0.03em] text-foreground"
+                      style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                    >
+                      Leader<span className="text-brand not-italic">·</span>OS<br />
+                      <span className="text-foreground/55">für dich als {archetype.roleLabel}</span>
+                      <span className="text-brand not-italic">.</span>
+                    </h4>
+                    <p className="mt-4 text-[14px] md:text-[15.5px] leading-[1.6] text-foreground/70 max-w-2xl">
+                      Die Plattform die deine Diagnose in tägliche Routine übersetzt.
+                      Was dich konkret erwartet wenn du nach dem Check rein gehst:
+                    </p>
+                    <ul className="mt-5 grid sm:grid-cols-3 gap-4 md:gap-5">
+                      {archetype.platform.map((it, i) => (
+                        <li key={it.title} className="border-l-2 border-foreground/30 pl-4">
+                          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-brand-strong">
+                            {String(i + 1).padStart(2, '0')} · {it.title}
+                          </div>
+                          <p className="mt-1.5 text-[13px] leading-[1.5] text-foreground/75">
+                            {it.body}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-6 pt-5 border-t border-foreground/12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
+                      <span>▸ KLASSE 0001 · 12 / 50 PLÄTZE</span>
+                      <span>▸ 30-TAGE SPRINT</span>
+                      <span>▸ COACHING MIT WLAD</span>
+                    </div>
                   </div>
 
                   {/* ── Optionale Email-Capture vor dem CTA ──
