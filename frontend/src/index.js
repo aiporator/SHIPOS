@@ -46,6 +46,11 @@ if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
     environment: process.env.REACT_APP_SENTRY_ENV || "production",
+    // Release tag for deployment correlation — set REACT_APP_SENTRY_RELEASE
+    // in Vercel build env (e.g. `frontend@${VERCEL_GIT_COMMIT_SHA}`).
+    // Falls back to a stable string so we never accidentally collapse
+    // every release into the same "unknown" bucket.
+    release: process.env.REACT_APP_SENTRY_RELEASE || `leader-os@${process.env.REACT_APP_BUILD_ID || "dev"}`,
     tracesSampleRate: 0.1,
     replaysSessionSampleRate: 0,
     replaysOnErrorSampleRate: replayConsented ? 1.0 : 0,
@@ -68,6 +73,13 @@ const maybeInitPostHog = () => {
       autocapture: false,
       capture_pageview: true,
       persistence: "localStorage+cookie",
+      // No subdomain-shared cookies — the funnel deliberately spans
+      // leader-os.de ↔ leaderos.de (and leader-check.de ↔ leadercheck.de),
+      // which are different root domains. Cross-domain stitching happens
+      // via the ph_did URL param (passed by ArchetypeQuiz CTA) and via
+      // email_lower identify on signup. Sharing across www. subdomains
+      // is not a concern.
+      cross_subdomain_cookie: false,
     });
   }).catch(() => { /* network blocked / extension blocked — silent */ });
 };

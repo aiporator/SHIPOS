@@ -8,15 +8,34 @@
  * one feature is over-altitude.
  */
 
-const SITE_BASE = 'https://leader-os.de';
+// Host-aware base URL so canonicals match the rendering domain.
+// Same CRA bundle runs on leader-os.de (Marketing) and leader-check.de
+// (Diagnose-Marketing). If we hardcode one, the other accidentally
+// publishes wrong canonicals → Google de-indexes either set.
+const SITE_BASES = {
+  'leader-os.de': 'https://leader-os.de',
+  'leader-check.de': 'https://leader-check.de',
+};
+const FALLBACK_BASE = 'https://leader-os.de';
+
+function getSiteBase() {
+  if (typeof window === 'undefined') return FALLBACK_BASE;
+  const host = String(window.location.hostname || '').toLowerCase();
+  for (const key of Object.keys(SITE_BASES)) {
+    if (host === key || host.endsWith(`.${key}`)) return SITE_BASES[key];
+  }
+  return FALLBACK_BASE;
+}
 
 export function buildArticleSeo(article) {
   const explicit = article.seo ?? {};
+  const base = getSiteBase();
   return {
     title: explicit.title ?? `${article.title} · Feldnotizen · Leader-OS`,
     description: explicit.description ?? article.description ?? '',
-    canonical: explicit.canonical ?? `${SITE_BASE}/journal/${article.slug}`,
+    canonical: explicit.canonical ?? `${base}/journal/${article.slug}`,
     ogImage: explicit.ogImage ?? article.cover ?? null,
+    ogImageAlt: explicit.ogImageAlt ?? article.title ?? 'Leader-OS',
     keywords: explicit.keywords ?? article.tags ?? [],
     robots: explicit.robots ?? 'index, follow, max-image-preview:large',
   };
@@ -40,6 +59,15 @@ export function applySeoToDocument(seo) {
     ogUrl: setMeta('property', 'og:url', seo.canonical),
     ogType: setMeta('property', 'og:type', 'article'),
     ogImage: seo.ogImage ? setMeta('property', 'og:image', seo.ogImage) : null,
+    ogImageSecure: seo.ogImage ? setMeta('property', 'og:image:secure_url', seo.ogImage) : null,
+    ogImageAlt: seo.ogImage ? setMeta('property', 'og:image:alt', seo.ogImageAlt || seo.title) : null,
+    ogImageWidth: seo.ogImage ? setMeta('property', 'og:image:width', '1200') : null,
+    ogImageHeight: seo.ogImage ? setMeta('property', 'og:image:height', '630') : null,
+    twitterCard: setMeta('name', 'twitter:card', 'summary_large_image'),
+    twitterTitle: setMeta('name', 'twitter:title', seo.title),
+    twitterDescription: setMeta('name', 'twitter:description', seo.description),
+    twitterImage: seo.ogImage ? setMeta('name', 'twitter:image', seo.ogImage) : null,
+    twitterImageAlt: seo.ogImage ? setMeta('name', 'twitter:image:alt', seo.ogImageAlt || seo.title) : null,
   };
 
   document.title = seo.title;

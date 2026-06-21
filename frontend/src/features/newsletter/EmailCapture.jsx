@@ -57,6 +57,7 @@ export const EmailCapture = ({
         window.posthog.capture('newsletter_signup', {
           source: source || 'unknown',
           campaign: campaign || null,
+          surface: 'leader-os',
         });
       } catch {
         /* never block UX */
@@ -65,6 +66,17 @@ export const EmailCapture = ({
 
     const result = await subscribe({ email: trimmed, source, campaign });
     setSubmitting(false);
+
+    if (result.ok && typeof window !== 'undefined') {
+      // Notify the rest of the page that a newsletter signup just landed
+      // so cross-surface listeners (LeadCaptureModal cooldown, exit-intent
+      // suppressor) can react without polling.
+      try {
+        window.dispatchEvent(
+          new CustomEvent('newsletter:subscribed', { detail: { email: trimmed } }),
+        );
+      } catch { /* old browsers — fine to swallow */ }
+    }
 
     if (!result.ok) {
       if (result.error === 'invalid_email') {
