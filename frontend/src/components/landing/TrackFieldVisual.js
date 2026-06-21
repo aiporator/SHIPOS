@@ -312,10 +312,14 @@ export const TrackFieldVisual = ({ className = '' }) => (
       <rect x="6" y="18" width="16" height="2" fill="#0A0A0A" opacity="0.12" />
 
       {/* ★ WladMark Emblem auf Brust — pulsiert/dreht ★ */}
-      <g transform="translate(10, 9)" className="track-wmark">
-        <rect x="0" y="0" width="8" height="8" fill="#BFFF00" />
-        {/* W-Glyphe (Pixel-Abstraktion des WladMark) */}
-        <path d="M1.4 1.8 L2.4 6 L4 3.4 L5.6 6 L6.6 1.8" stroke="#0A0A0A" strokeWidth="1.1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Outer <g> hält die statische Position, inner <g> bekommt die CSS-Animation
+          (CSS transform-keyframes würden sonst das SVG transform-Attribut überschreiben) */}
+      <g transform="translate(10, 9)">
+        <g className="track-wmark">
+          <rect x="-4" y="-4" width="8" height="8" fill="#BFFF00" />
+          {/* W-Glyphe (Pixel-Abstraktion des WladMark) */}
+          <path d="M-2.6 -2.2 L-1.6 2 L0 -0.6 L1.6 2 L2.6 -2.2" stroke="#0A0A0A" strokeWidth="1.1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
       </g>
 
       {/* Arme — pumpend (Lauf-Pose) */}
@@ -337,23 +341,27 @@ export const TrackFieldVisual = ({ className = '' }) => (
       </g>
     </g>
 
-    {/* "MIT WLADBOT" Pill — sitzt oberhalb des Läufers, sauber freigestellt */}
-    <g transform="translate(744, 200)" className="track-pill">
-      <rect x="0" y="0" width="92" height="26" fill="#0A0A0A" />
-      <rect x="0" y="0" width="6" height="26" fill="#BFFF00" />
-      <text
-        x="49"
-        y="17"
-        fill="#FFFFFF"
-        fontSize="11"
-        fontWeight="900"
-        textAnchor="middle"
-        style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.2em' }}
-      >
-        MIT WLADBOT
-      </text>
-      {/* Pfeil zeigt nach unten auf den Läufer */}
-      <polygon points="42,26 50,26 46,33" fill="#0A0A0A" />
+    {/* "MIT WLADBOT" Pill — sitzt oberhalb des Läufers, sauber freigestellt.
+        Outer <g> hält die Position, inner <g> macht das Bob via CSS-keyframes
+        (sonst überschreibt die CSS-transform-Animation das SVG-transform-Attribut). */}
+    <g transform="translate(744, 200)">
+      <g className="track-pill">
+        <rect x="0" y="0" width="92" height="26" fill="#0A0A0A" />
+        <rect x="0" y="0" width="6" height="26" fill="#BFFF00" />
+        <text
+          x="49"
+          y="17"
+          fill="#FFFFFF"
+          fontSize="11"
+          fontWeight="900"
+          textAnchor="middle"
+          style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.2em' }}
+        >
+          MIT WLADBOT
+        </text>
+        {/* Pfeil zeigt nach unten auf den Läufer */}
+        <polygon points="42,26 50,26 46,33" fill="#0A0A0A" />
+      </g>
     </g>
 
     {/* Footer */}

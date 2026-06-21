@@ -161,11 +161,11 @@ export const ArchetypeQuizSection = () => {
       {/* Scarcity-strip + Eyebrow */}
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-20 md:pt-28 pb-6">
         <div className="flex items-center gap-3 mb-5 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55">
-          <span className="text-brand-strong">▸ ARCHETYP</span>
+          <span className="text-brand-strong">▸ SCHRITT 01 · ARCHETYP-TEASER</span>
           <span className="opacity-30">·</span>
           <span>60 SEKUNDEN · 5 FRAGEN</span>
           <span className="opacity-30 hidden md:inline">·</span>
-          <span className="hidden md:inline text-foreground/40">PLÄTZE 12 / 50 IN KLASSE 0001</span>
+          <span className="hidden md:inline text-foreground/40">FÜHRT ZUM ECHTEN CHECK AUF LEADERCHECK.DE</span>
         </div>
         <h2
           className="text-[40px] sm:text-[64px] md:text-[88px] leading-[0.92] tracking-[-0.04em]"
@@ -176,9 +176,11 @@ export const ArchetypeQuizSection = () => {
           <span className="text-brand not-italic">?</span>
         </h2>
         <p className="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.6] text-foreground/70">
-          In 60 Sekunden zeigen dir 5 Fragen welcher von 4 KI-Leadership-Archetypen
-          du bist — und was dein konkreter nächster Schritt ist. Kein Login, kein
-          Spam, keine Theorie. Nur dein Profil und der Hebel den du heute ziehst.
+          Das ist der <strong className="text-foreground">60-Sekunden-Schnelltest</strong>.
+          Fünf Fragen, ein Archetyp, ein konkreter Hinweis worauf du als nächstes
+          schaust. Der vollständige Check — deine Opportunities, dein Lernpfad
+          in KI, dein 30-Tage-Plan — wartet danach auf{' '}
+          <span className="font-mono text-[15px] text-brand-strong font-bold">leadercheck.de</span>.
         </p>
       </div>
 
@@ -286,35 +288,63 @@ export const ArchetypeQuizSection = () => {
 
                   <div className="mt-6 max-w-2xl border-l-2 border-brand pl-5 py-1">
                     <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-strong">
-                      ▸ DEIN NÄCHSTER SCHRITT
+                      ▸ ERSTE INDIKATION
                     </span>
                     <p className="mt-1.5 text-[15px] md:text-[16.5px] text-foreground/75 leading-[1.5]">
                       {archetype.next}
                     </p>
                   </div>
 
-                  <div className="mt-auto pt-10 flex flex-wrap items-center gap-4">
+                  {/* ── Übergang zum vollständigen Check ── */}
+                  <div className="mt-10 max-w-3xl border-2 border-black bg-black text-white p-6 md:p-8">
+                    <div className="flex items-center gap-2 mb-4 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand">
+                      <span>▸ SCHRITT 02</span>
+                      <span className="opacity-40">·</span>
+                      <span className="text-white/60">DER VOLLSTÄNDIGE CHECK</span>
+                    </div>
+                    <h4
+                      className="text-[24px] md:text-[32px] leading-[1.05] tracking-[-0.03em]"
+                      style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                    >
+                      Das war der Teaser. Jetzt der Check<span className="text-brand not-italic">.</span>
+                    </h4>
+                    <p className="mt-3 text-[14px] md:text-[15.5px] leading-[1.55] text-white/75 max-w-xl">
+                      Auf <span className="font-mono text-brand font-bold">leadercheck.de</span> bekommst
+                      du in 5 Minuten die volle Standortbestimmung — kostenlos, ohne
+                      Abo, ohne Spam:
+                    </p>
+                    <ul className="mt-5 grid sm:grid-cols-3 gap-3 md:gap-5">
+                      {[
+                        { bib: '01', title: 'Deine KI-Opportunities', body: 'Wo dein größter Hebel liegt — in Strategie, Skill, Kommunikation oder Team.' },
+                        { bib: '02', title: 'Dein KI-Lernpfad', body: 'Wo du anfängst, welche Tools, welche Drills — Schritt für Schritt.' },
+                        { bib: '03', title: 'Dein 30-Tage-Plan', body: 'Konkreter Fahrplan plus Match mit dem Sprint 0001 falls du tiefer willst.' },
+                      ].map((it) => (
+                        <li key={it.bib} className="border-l border-brand/60 pl-3">
+                          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-brand">
+                            {it.bib} · {it.title}
+                          </div>
+                          <p className="mt-1.5 text-[13px] leading-[1.45] text-white/70">
+                            {it.body}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
                     <a
                       href="https://leadercheck.de"
                       target="_blank"
                       rel="noopener noreferrer"
                       data-testid="archetype-cta-diagnose"
-                      className="group inline-flex items-center gap-3 px-6 md:px-8 h-14 bg-brand hover:bg-brand-strong text-black font-bold text-[14px] md:text-[15px] tracking-[0.02em] transition-colors"
+                      className="group inline-flex items-center gap-3 px-7 md:px-9 h-16 bg-brand hover:bg-brand-strong text-black font-bold text-[15px] md:text-[16px] tracking-[0.02em] transition-colors shadow-[6px_6px_0_0_#000]"
                     >
-                      Vollständige Diagnose starten
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                    </a>
-                    <a
-                      href="https://leaderos.de"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-testid="archetype-cta-platform"
-                      className="inline-flex items-center gap-2 px-6 h-14 border-2 border-black bg-background hover:bg-brand/15 text-foreground font-bold text-[13px] md:text-[14px] tracking-[0.02em] transition-colors"
-                    >
-                      Plattform ansehen
+                      Vollständigen Check starten
+                      <span className="font-mono text-[11px] font-bold opacity-70">→ LEADERCHECK.DE</span>
+                      <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </a>
                     <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
-                      5 MIN · 30 FRAGEN · KEIN ABO
+                      5 MIN · 30 FRAGEN · KOSTENLOS · KEIN ABO
                     </span>
                   </div>
                 </motion.div>
