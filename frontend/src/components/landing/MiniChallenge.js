@@ -97,15 +97,33 @@ export const MiniChallenge = () => {
   const [done, setDone] = useState(false);
   const [creditsRedeemed, setCreditsRedeemed] = useState(false);
 
+  const trackPH = (event, props = {}) => {
+    if (typeof window !== 'undefined' && window.posthog?.capture) {
+      try { window.posthog.capture(event, { surface: 'leader-os', ...props }); } catch {}
+    }
+  };
+
   const choose = (opt) => {
+    if (step === 0 && scores.ki === 0 && scores.rhet === 0 && scores.eq === 0) {
+      trackPH('mini_challenge_started');
+    }
+    trackPH('mini_challenge_answered', { step: step + 1, total: QUESTIONS.length });
     setScores((s) => ({
       ki:   s.ki + opt.w.ki,
       rhet: s.rhet + opt.w.rhet,
       eq:   s.eq + opt.w.eq,
     }));
     setTimeout(() => {
-      if (step + 1 === QUESTIONS.length) setDone(true);
-      else setStep(step + 1);
+      if (step + 1 === QUESTIONS.length) {
+        setDone(true);
+        // computed in render via norm(...) — recompute here for the event
+        const ki = Math.min(100, Math.round(((scores.ki + opt.w.ki) / 25) * 100));
+        const rhet = Math.min(100, Math.round(((scores.rhet + opt.w.rhet) / 25) * 100));
+        const eq = Math.min(100, Math.round(((scores.eq + opt.w.eq) / 25) * 100));
+        trackPH('mini_challenge_completed', { ki, rhet, eq });
+      } else {
+        setStep(step + 1);
+      }
     }, 360);
   };
 

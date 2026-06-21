@@ -250,16 +250,29 @@
                     }),
                     (e.__SV = 1));
             })(document, window.posthog || []);
-            posthog.init("phc_xmMQneHWug8LVcr94h4vt8pVzDKstBXrYmSgu2moVdE8", {
-                api_host: "https://eu.i.posthog.com",
-                person_profiles: "identified_only",
-                capture_pageview: "history_change",
-                capture_pageleave: true,
-                session_recording: {
-                    recordCrossOriginIframes: true,
-                    capturePerformance: false,
-                },
-            });
+            // GDPR/TTDSG consent gate — DON'T init PostHog until the user
+            // has explicitly accepted analytics in the consent banner.
+            // The React app re-attempts init via maybeInitPostHog() in
+            // index.js whenever consent is granted (and on every reload
+            // if already granted). Defaulting to opt-out avoids fining-
+            // grade non-compliance and matches the Sentry replay gate.
+            try {
+                var __lo_c_raw = window.localStorage && localStorage.getItem("lo_consent_v1");
+                var __lo_c = __lo_c_raw ? JSON.parse(__lo_c_raw) : null;
+                if (__lo_c && __lo_c.analytics === true) {
+                    posthog.init("phc_xmMQneHWug8LVcr94h4vt8pVzDKstBXrYmSgu2moVdE8", {
+                        api_host: "https://eu.i.posthog.com",
+                        person_profiles: "identified_only",
+                        capture_pageview: "history_change",
+                        capture_pageleave: true,
+                        cross_subdomain_cookie: false,
+                        session_recording: {
+                            recordCrossOriginIframes: true,
+                            capturePerformance: false,
+                        },
+                    });
+                }
+            } catch (e) { /* localStorage blocked — stay opted-out */ }
         </script>
     </body>
 </html>

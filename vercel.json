@@ -4,6 +4,32 @@
   "buildCommand": "cd frontend && yarn build",
   "outputDirectory": "frontend/build",
   "framework": "create-react-app",
+  "redirects": [
+    {
+      "source": "/(login|dashboard|onboarding|daily-checkin|chat|tools|simulations|missions|wlad-universe|leader-diagnose|video-challenge|challengers|tasks|playbooks|events|my-path|progress|community|lern-videos|learning-videos|wlad-control-x7k9q2|progress-old|coaching|downloads|payment-success|referral|auth-callback)(/.*)?",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-os\\.de" }],
+      "destination": "https://leaderos.de/$1$2",
+      "permanent": false
+    },
+    {
+      "source": "/auth/magic",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-os\\.de" }],
+      "destination": "https://leaderos.de/auth/magic",
+      "permanent": false
+    },
+    {
+      "source": "/(login|dashboard|onboarding|daily-checkin|chat|tools|simulations|missions|wlad-universe|leader-diagnose|video-challenge|challengers|tasks|playbooks|events|my-path|progress|community|lern-videos|learning-videos|wlad-control-x7k9q2|progress-old|coaching|downloads|payment-success|referral|auth-callback)(/.*)?",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
+      "destination": "https://leadercheck.de/$1$2",
+      "permanent": false
+    },
+    {
+      "source": "/auth/magic",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
+      "destination": "https://leadercheck.de/auth/magic",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/newsletter/subscribe",

@@ -10,6 +10,7 @@ import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
 import { WladIntroVideo } from '../components/landing/WladIntroVideo';
 import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
+import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
@@ -108,7 +109,7 @@ export default function LandingPage() {
         <HeroSection />
         <SprintSpecimenStrip />
         <WladIntroVideo />
-        <MiniChallenge />
+        <ArchetypeQuizSection />
         <TrackFieldSection />
         <HowItWorksSection />
         <VimeoIntroSection />
@@ -125,6 +126,13 @@ export default function LandingPage() {
         ))}
 
         <AppPreviewSection />
+
+        {/* MiniChallenge wandert weit nach unten — am Anfang konkurrierte
+            sie mit dem Archetyp-Quiz. Hier nach AppPreview funktioniert sie
+            als Re-Engagement-Beat: "ok du hast die Plattform gesehen,
+            jetzt ein 60-Sekunden-Selbsttest bevor du auf Preise schaust." */}
+        <MiniChallenge />
+
         <PricingLadder />
         <AppointmentBookingSection />
         <CoachingWaitlist />
