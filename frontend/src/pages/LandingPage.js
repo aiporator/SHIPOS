@@ -13,6 +13,8 @@ import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
 import { JournalTeaserSection } from '../components/landing/JournalTeaserSection';
 import { FreeToolsSection } from '../components/landing/FreeToolsSection';
+import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
+import { ClassesRoadmapSection } from '../components/landing/ClassesRoadmapSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
@@ -119,9 +121,11 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <SprintSpecimenStrip />
+        <WladAuthoritySection />
         <WladIntroVideo />
         <ArchetypeQuizSection />
         <FreeToolsSection />
+        <ClassesRoadmapSection />
         <TrackFieldSection />
         <HowItWorksSection />
         <VimeoIntroSection />
