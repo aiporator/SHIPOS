@@ -439,7 +439,7 @@ const ArchetypTeaserCTA = () => (
 
 const KlasseCTA = () => (
   <section
-    aria-label="Klasse 0001 CTA"
+    aria-label="Dein nächster Schritt"
     className="bg-brand text-black"
     data-testid="journal-cta-klasse"
   >
@@ -447,27 +447,32 @@ const KlasseCTA = () => (
       <div className="grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-8">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-black/60 mb-5">
-            ▸ Klasse 0001 · 30 Charter-Plätze
+            ▸ Dein nächster Schritt · Staatlich anerkannte Führungskräfte-Ausbildung
           </div>
           <h3
             className="text-[36px] md:text-[58px] leading-[1.0]"
             style={serifItalic}
           >
-            Genug gelesen. Zeit es zu machen.
+            In 6 Monaten kann sich alles verändern.
           </h3>
-          <p className="mt-5 max-w-xl text-[15px] md:text-[17px] leading-[1.55] text-black/75">
-            30 Plätze, Charter-Preis, 6 Monate strukturierte Ausbildung mit
-            Wlad persönlich. Lifetime-Zugang + Vorzug für 0002, 0003, 0004.
+          <p className="mt-5 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-black/75">
+            Oder du machst es weiter wie bisher. Beides hat einen Preis.
+            Selbstbewusst dein Team führen, souverän und schlagfertig in
+            herausfordernden Situationen — ohne Selbstzweifel, Gedankenkarussell
+            oder unnötige Überstunden. 400 000+ zufriedene Klienten in 20 Ländern.
           </p>
         </div>
-        <div className="md:col-span-4 md:text-right">
+        <div className="md:col-span-4 md:text-right flex md:block flex-col gap-3">
           <Link
-            to="/#klassen"
-            className="inline-flex items-center gap-3 px-6 h-14 bg-black hover:bg-foreground text-brand font-bold text-[14px] tracking-[0.02em] transition-colors"
+            to="/#beratung"
+            className="inline-flex items-center justify-center gap-3 px-6 h-14 bg-black hover:bg-foreground text-brand font-bold text-[14px] tracking-[0.02em] transition-colors"
           >
-            Charter-Platz sichern
+            Beratungsgespräch buchen
             <ArrowRight size={18} />
           </Link>
+          <div className="mt-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-black/55">
+            ▸ Unverbindlich · 30 Min
+          </div>
         </div>
       </div>
     </div>
