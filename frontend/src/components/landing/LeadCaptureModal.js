@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 const STORAGE_KEY = 'leader_os_lead_capture_seen_at';
@@ -9,9 +10,22 @@ const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
  * LeadCaptureModal — Apple-grade conversion popup.
  *
  * Triggers:
- *   1. Exit-intent on desktop (mouse leaves the top of viewport)
- *   2. Scroll depth > 50% on mobile (no exit-intent on touch)
- *   3. Both gated by 7-day localStorage cooldown
+ *   1. Exit-intent on desktop (mouse leaves the top of viewport).
+ *
+ * Suppressors (any of these arms the 7-day cooldown without showing
+ * the modal, so we never compete with a closer-to-the-eye CTA):
+ *   - User scrolls a newsletter capture zone into view (the Footer
+ *     EmailCapture marks itself with `data-newsletter-zone`). At that
+ *     point the user has already reached a dedicated subscribe form,
+ *     so popping a second one on top is friction, not conversion.
+ *   - User submits any newsletter form on the page (the EmailCapture
+ *     dispatches a `newsletter:subscribed` window event on success).
+ *
+ * The scroll-depth trigger (popup at 50% scroll) was removed: it
+ * intercepted users between the Hero and the Footer EmailCapture, and
+ * its pointer-events overlay blocked clicks to the lower CTAs while
+ * the user was reading. Exit-intent is the only legitimate auto-fire
+ * left.
  *
  * On submit: writes the email via the existing `/api/leader-check/intent`
  * lifecycle endpoint (proxied to Emergent) and PostHog identify+capture
@@ -42,31 +56,58 @@ export const LeadCaptureModal = () => {
     }
   };
 
-  // Arm exit-intent + scroll-depth triggers
+  const armCooldown = () => {
+    try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch {}
+    triggered.current = true;
+  };
+
+  // Arm exit-intent trigger + suppression listeners
   useEffect(() => {
     if (!eligible()) return undefined;
 
     const trigger = () => {
       if (triggered.current) return;
-      triggered.current = true;
+      armCooldown();
       setOpen(true);
-      try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch {}
     };
 
     const onMouseLeave = (e) => {
       if (e.clientY <= 0) trigger();
     };
 
-    const onScroll = () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-      if (pct > 0.5) trigger();
-    };
+    // Newsletter-zone suppression. If the user scrolls a dedicated
+    // newsletter capture form into view, treat that as a stronger
+    // conversion surface and back off without ever showing the modal.
+    let observer = null;
+    const zones = document.querySelectorAll('[data-newsletter-zone]');
+    if (zones.length > 0 && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              armCooldown();
+              observer.disconnect();
+              observer = null;
+              break;
+            }
+          }
+        },
+        { threshold: 0.25 },
+      );
+      zones.forEach((z) => observer.observe(z));
+    }
+
+    // Direct subscribe-event suppression. EmailCapture dispatches this
+    // on successful submit; we arm the cooldown for a full week so the
+    // user never gets a second opt-in surface popped at them.
+    const onSubscribed = () => armCooldown();
+    window.addEventListener('newsletter:subscribed', onSubscribed);
 
     document.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       document.removeEventListener('mouseleave', onMouseLeave);
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('newsletter:subscribed', onSubscribed);
+      if (observer) observer.disconnect();
     };
   }, []);
 
@@ -119,25 +160,45 @@ export const LeadCaptureModal = () => {
   if (!open) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-5 bg-[#0A0A0A]/85 backdrop-blur-md animate-fade-in"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="lead-modal-title"
-      onClick={close}
-      data-testid="lead-capture-modal"
-    >
-      <div
-        className="relative w-full max-w-lg bg-background text-foreground border-2 border-foreground/20 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.7)] animate-fade-in"
-        onClick={(e) => e.stopPropagation()}
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-[100] flex items-center justify-center p-5 bg-[#0A0A0A]/85 backdrop-blur-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lead-modal-title"
+        onClick={close}
+        data-testid="lead-capture-modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Top accent line — same lime detail as PR #85's tier cards */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-brand" aria-hidden />
+        <motion.div
+          className="relative w-full max-w-lg bg-background text-foreground rounded-3xl shadow-[0_40px_140px_-25px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,255,255,0.06)] overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+          initial={{ opacity: 0, scale: 0.94, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.96, y: 8 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.6 }}
+        >
+          {/* Subtle ambient lime glow behind the modal — depth without
+              shouting. Pointer-none so it never blocks clicks. */}
+          <div
+            aria-hidden
+            className="absolute -top-32 -right-32 w-64 h-64 rounded-full pointer-events-none opacity-[0.18]"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(191,255,0,0.9) 0%, transparent 65%)',
+              filter: 'blur(28px)',
+            }}
+          />
+          {/* Top accent hairline — same lime detail as tier cards */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-brand" aria-hidden />
 
         {/* Specimen header */}
         <div className="flex items-center justify-between px-7 md:px-9 pt-6 pb-3 mb-0 border-b border-foreground/12">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            BIB · 0001 · KLASSE 0001
+            ERSTE GRUPPE · NUR 50 PLÄTZE
           </span>
           <button
             onClick={close}
@@ -183,7 +244,7 @@ export const LeadCaptureModal = () => {
           </h2>
 
           <p className="mt-5 text-[14.5px] leading-[1.55] text-foreground/75">
-            Erst die kostenlose 5-Min-Diagnose — KI · Rhetorik · EQ.
+            Erst die kostenlose 10-Min-Diagnose, KI · Rhetorik · EQ.
             Dann der 30-Tage Sprint, der das verändert was im Score
             schwach war. <span className="text-foreground font-bold">11 Frameworks. Tägliche Drills. WladBot 24/7.</span>
           </p>
@@ -191,9 +252,9 @@ export const LeadCaptureModal = () => {
           {/* 3-Schritt-Mini-Strip */}
           <div className="mt-6 grid grid-cols-3 gap-2 border-y border-foreground/10 py-3">
             {[
-              ['01', '5 MIN', 'Diagnose'],
+              ['01', '10 MIN', 'Diagnose'],
               ['02', '997 €', '30-T Sprint'],
-              ['03', 'BIB', 'Zertifikat'],
+              ['03', 'CERT', 'Zertifikat'],
             ].map(([nr, val, label]) => (
               <div key={nr} className="text-center">
                 <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">▸ {nr}</div>
@@ -220,7 +281,7 @@ export const LeadCaptureModal = () => {
                 placeholder="dein.name@firma.de"
                 required
                 autoFocus
-                className="w-full px-4 py-3.5 bg-transparent border border-foreground/25 focus:border-brand focus:outline-none text-foreground text-[15px] transition-colors"
+                className="w-full px-4 py-3.5 bg-foreground/[0.03] border border-foreground/15 rounded-xl focus:border-brand focus:bg-background focus:outline-none focus:ring-4 focus:ring-brand/20 text-foreground text-[15px] transition-all"
                 data-testid="lead-modal-email"
               />
             </label>
@@ -232,10 +293,10 @@ export const LeadCaptureModal = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full inline-flex items-center justify-center gap-3 px-5 py-4 bg-brand text-[#0A0A0A] text-[13px] font-bold uppercase tracking-[0.14em] hover:brightness-105 active:translate-y-px transition-all disabled:opacity-60 shadow-[0_12px_30px_-12px_rgba(191,255,0,0.5)]"
+              className="group w-full inline-flex items-center justify-center gap-3 px-5 py-4 bg-brand text-[#0A0A0A] text-[13px] font-bold uppercase tracking-[0.14em] rounded-xl hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-60 shadow-[0_14px_36px_-12px_rgba(191,255,0,0.55)]"
               data-testid="lead-modal-submit"
             >
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A] text-brand text-base font-black leading-none" aria-hidden>+</span>
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#0A0A0A] text-brand text-base font-black leading-none transition-transform group-hover:scale-110" aria-hidden>+</span>
               {submitting ? 'Wird gestartet…' : 'Diagnose starten · kostenlos'}
             </button>
           </form>
@@ -244,7 +305,8 @@ export const LeadCaptureModal = () => {
             KEIN SPAM · KEIN ABO · 14 TAGE GELD-ZURÜCK
           </p>
         </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

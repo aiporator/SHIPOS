@@ -20,6 +20,7 @@ const COL_PRODUCT = [
 
 const COL_LEARN = [
   { label: 'Diagnose · kostenlos', href: 'https://leadercheck.de', external: true },
+  { label: 'Feldnotizen · Journal', to: '/journal' },
   { label: '90-Sek-Intro mit Wlad', href: '#wlad-intro' },
   { label: 'Innen-Ansicht', href: '#app-preview' },
   { label: 'Manifest', href: '#manifesto' },
@@ -27,8 +28,8 @@ const COL_LEARN = [
 ];
 
 const COL_ABOUT = [
-  { label: 'Demo · 20 Min', href: 'https://cal.com/leaderos/demo', external: true },
-  { label: 'Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung', external: true },
+  { label: 'Termin · 20 Min Demo', href: '#termin' },
+  { label: 'Termin · 30 Min Beratung', href: '#termin' },
   { label: 'Login', href: 'https://leaderos.de/login', external: true },
   { label: 'leadercheck.de · App', href: 'https://leadercheck.de', external: true },
   { label: 'Impressum', to: '/impressum' },
@@ -75,17 +76,24 @@ export const LandingFooter = () => (
         {/* Brand block */}
         <div className="md:col-span-4">
           <div className="flex items-center gap-4 mb-6">
+            {/* App-icon style rounded square tile, lime fill, black W.
+                Matches the brand mark used everywhere else, dropped the
+                corner dot so the mark reads clean at footer scale. */}
             <span
-              className="relative inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand text-black font-black text-2xl shadow-[0_8px_24px_-8px_rgba(191,255,0,0.5)]"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
-              aria-label="Leader-OS Mark"
+              className="inline-flex items-center justify-center w-14 h-14 rounded-[18px] bg-brand text-black shadow-[0_10px_28px_-10px_rgba(191,255,0,0.55)]"
+              aria-label="Leader-OS"
             >
-              W
               <span
                 aria-hidden
-                className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-black border-2 border-brand flex items-center justify-center text-brand text-[8px] font-bold"
+                className="text-[30px] leading-none"
+                style={{
+                  fontFamily: 'Outfit, Inter, sans-serif',
+                  fontWeight: 900,
+                  fontStyle: 'italic',
+                  letterSpacing: '-0.04em',
+                }}
               >
-                ·
+                W
               </span>
             </span>
             <div>
@@ -106,13 +114,13 @@ export const LandingFooter = () => (
             Begleitung, ein KI-Coach der dich kennt.
           </p>
 
-          {/* Scarcity Pill — Klasse 0001 mit Live-Plätzen */}
+          {/* Scarcity Pill — visible-seats only, no jargon mark */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand/60 bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
               <span className="relative w-2 h-2 rounded-full bg-brand" />
             </span>
-            KLASSE 0001 · 43/50 FREI
+            ERSTE GRUPPE · 43 VON 50 FREI
           </div>
         </div>
 
@@ -125,8 +133,14 @@ export const LandingFooter = () => (
       </div>
 
       {/* Newsletter — Feldnotizen opt-in. source="footer" attributes
-          every signup to this persistent surface. */}
-      <div className="mt-14 pt-10 border-t border-white/[0.08] grid md:grid-cols-12 gap-8 md:gap-14 items-start">
+          every signup to this persistent surface. The data-newsletter-
+          zone attribute signals the LeadCaptureModal to back off when
+          this block scrolls into view, so the two never compete for
+          the same lead in the same scroll position. */}
+      <div
+        data-newsletter-zone
+        className="mt-14 pt-10 border-t border-white/[0.08] grid md:grid-cols-12 gap-8 md:gap-14 items-start"
+      >
         <div className="md:col-span-5">
           <h3
             className="text-[28px] md:text-[34px] leading-[0.95] tracking-[-0.03em] text-white"

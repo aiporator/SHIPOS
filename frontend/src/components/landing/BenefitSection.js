@@ -59,8 +59,9 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
       data-testid={`landing-${anchor}`}
       aria-label={`Benefit ${asset.nr} — ${asset.headline} ${asset.headlineAccent}`}
     >
-      {/* Giant ghost §-numeral that scrubs in on scroll. Decorative,
-          per-chapter weight cue. Sits behind the content, no pointer. */}
+      {/* Giant ghost chapter-numeral that scrubs in on scroll.
+          Decorative, per-chapter weight cue. Sits behind the content,
+          no pointer. Drop the technical §, just the number. */}
       <div
         ref={numberRef}
         aria-hidden
@@ -74,14 +75,14 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           fontSize: 'clamp(140px, 32vw, 520px)',
         }}
       >
-        §{asset.nr}
+        {asset.nr}
       </div>
 
       <div className="relative max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-32">
         {/* Tech metadata header strip */}
         <div className={`flex items-center justify-between mb-12 md:mb-16 pb-4 border-b ${isDark ? 'border-white/15' : 'border-foreground/15'}`}>
           <div className={`flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
-            <span>§ {asset.nr} / {String(total).padStart(2, '0')}</span>
+            <span>KAPITEL {asset.nr} VON {String(total).padStart(2, '0')}</span>
             <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
             <span className="text-brand">{asset.code}</span>
             {asset.eyebrow && (
@@ -93,8 +94,6 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           </div>
           <div className={`hidden md:flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/60' : 'text-foreground/55'}`}>
             <span>LEADER · OS</span>
-            <span className={isDark ? 'text-white/20' : 'text-foreground/20'}>/</span>
-            <span>{`§ 0${asset.nr}`}</span>
           </div>
         </div>
 
@@ -177,7 +176,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
             >
               <div className={`flex items-center justify-between pb-4 mb-5 border-b ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
                 <span className={`text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/55' : 'text-foreground/55'}`}>
-                  SPECIMEN · § {asset.nr}
+                  WAS DU BEKOMMST · {asset.nr}
                 </span>
                 <span className={`text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-brand' : 'text-brand'}`}>
                   {asset.code}
@@ -205,7 +204,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
 
               <div className={`mt-6 pt-4 border-t ${isDark ? 'border-white/10' : 'border-foreground/10'} flex items-center justify-between text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/40' : 'text-foreground/40'}`}>
                 <span>LEADER-OS</span>
-                <span>{`No. ${asset.nr}/${String(total).padStart(2, '0')}`}</span>
+                <span>{`Kapitel ${asset.nr} von ${String(total).padStart(2, '0')}`}</span>
               </div>
             </div>
           </motion.div>

@@ -184,11 +184,11 @@ def _format_email_html(user_name: str, browser: str, os_name: str,
     </div>
     <div style="padding:0 32px 24px;color:#cbd5e1;font-size:14px;line-height:1.6;">
       <p style="margin:0 0 12px;">Warst du das <strong>nicht</strong>? Dann ändere sofort dein Passwort:</p>
-      <a href="https://leader-os.de/profile?tab=security" style="display:inline-block;padding:12px 22px;background:#BFFF00;color:#0A0A0A;font-weight:700;text-decoration:none;border-radius:10px;">Konto sichern →</a>
+      <a href="https://leaderos.de/profile?tab=security" style="display:inline-block;padding:12px 22px;background:#BFFF00;color:#0A0A0A;font-weight:700;text-decoration:none;border-radius:10px;">Konto sichern →</a>
     </div>
     <div style="padding:20px 32px;border-top:1px solid #1f2937;color:#64748b;font-size:12px;line-height:1.5;">
       Diese Benachrichtigung wurde automatisch von WladBot · Leader-OS gesendet.<br/>
-      Argumentorik-Akademie GmbH · leader-os.de
+      Argumentorik-Akademie GmbH · leaderos.de
     </div>
   </div>
 </body>

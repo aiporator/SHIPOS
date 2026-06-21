@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const FAQS = [
   {
     q: 'Was bekomme ich am Ende von 30 Tagen, konkret?',
     a:
-      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner BIB · 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
+      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jedem Townhall sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner Startnummer 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
   },
   {
     q: 'Wie hilft mir der WladBot in einer realen Situation?',
@@ -101,6 +101,28 @@ const Item = ({ faq, isOpen, onToggle, index }) => (
  */
 export const FAQSection = () => {
   const [openIdx, setOpenIdx] = useState(0);
+
+  // FAQPage JSON-LD for AEO + SEO. Injected at mount so the structured
+  // data stays in lockstep with the visible FAQs above. Removed on
+  // unmount so it never lingers on routes that don't show FAQs.
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    };
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.dataset.surface = 'faq-section';
+    el.textContent = JSON.stringify(data);
+    document.head.appendChild(el);
+    return () => el.remove();
+  }, []);
 
   return (
     <section

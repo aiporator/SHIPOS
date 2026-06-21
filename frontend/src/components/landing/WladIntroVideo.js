@@ -67,7 +67,7 @@ const Outro = ({ onRestart }) => (
         <span className="text-brand not-italic">.</span>
       </h3>
       <p className="mt-8 text-[14.5px] md:text-[16px] leading-[1.6] text-black/70 max-w-md mx-auto">
-        Fünf Minuten. Drei Dimensionen. Sofort dein BIB-Score plus eine
+        Zehn Minuten. Drei Dimensionen. Sofort dein Score plus eine
         ehrliche Empfehlung was dein nächster Schritt ist.
       </p>
       <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center">

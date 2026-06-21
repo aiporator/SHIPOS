@@ -56,6 +56,8 @@ const WiderrufPage = lazyWithRetry(() => import("./pages/WiderrufPage"));
 const AGBPage = lazyWithRetry(() => import("./pages/AGBPage"));
 const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscribePage"));
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
+const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
+const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
@@ -161,6 +163,9 @@ function AppRouter() {
         <Route path="/email/unsubscribe" element={<EmailUnsubscribePage />} />
         {/* Public — double-opt-in confirmation landing (newsletter-confirm fn redirects here) */}
         <Route path="/newsletter/confirmed" element={<NewsletterConfirmedPage />} />
+        {/* Public — Feldnotizen / content engine */}
+        <Route path="/journal" element={<JournalIndex />} />
+        <Route path="/journal/:slug" element={<ArticlePage />} />
         {/* Public share routes — read-only showcase, no auth required */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />

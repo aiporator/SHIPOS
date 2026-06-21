@@ -236,7 +236,7 @@ export const MiniChallenge = () => {
                 </div>
                 <p className="mt-7 text-[13.5px] leading-[1.55] text-black/70 max-w-xl">
                   Deine größte Lücke: <strong className="text-black">{weakest.name}</strong>.
-                  Starte mit Wlads {weakest.drill}-Drill. Mach danach die volle 21-Fragen-Diagnose
+                  Starte mit Wlads {weakest.drill}-Drill. Mach danach die volle 30-Fragen-Diagnose
                   für deine persönliche 30-Tage-Roadmap.
                 </p>
               </div>
@@ -281,7 +281,7 @@ export const MiniChallenge = () => {
                   rel="noopener noreferrer"
                   className="flex-1 px-6 py-4 bg-black text-white text-[12.5px] font-bold uppercase tracking-[0.18em] hover:bg-black/85 text-center transition-colors shadow-[6px_6px_0_0_#BFFF00]"
                 >
-                  ▸ VOLLE DIAGNOSE · 21 FRAGEN
+                  ▸ VOLLE DIAGNOSE · 30 FRAGEN
                 </a>
                 <button
                   onClick={() => { setStep(0); setScores({ki:0,rhet:0,eq:0}); setDone(false); setCreditsRedeemed(false); }}

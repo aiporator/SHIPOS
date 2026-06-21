@@ -235,7 +235,7 @@ den ersten Meilenstein. Wir melden uns in 3 Tagen wieder.""",
 }
 
 
-def tier_welcome_email(tier: str, name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def tier_welcome_email(tier: str, name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Sent after successful tier purchase. Nike-DNA editorial."""
     cfg = TIER_WELCOME.get(tier, TIER_WELCOME["standard"])
     subject = cfg["subject"].format(name=name)
@@ -284,7 +284,7 @@ Danke, dass du den Accelerator-Weg gehst. Deine heutige Rate ist fällig:
 
 # ── Signup Welcome (every new user, BEFORE any purchase) ─────────────────────
 
-def signup_welcome_email(name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def signup_welcome_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Sent right after a user creates their account (free tier). Nike-DNA."""
     subject = f"Willkommen bei Leader-OS, {name}."
     dashboard_url = f"{app_url.rstrip('/')}/dashboard"
@@ -358,7 +358,7 @@ Bereit für mehr? <a href="{coaching_url}" style="color:{BRAND_COLOR};font-weigh
 
 def stripe_receipt_email(name: str, package_name: str, amount: float, currency: str,
                          tier: str, transaction_id: str,
-                         app_url: str = "https://leader-os.de") -> tuple[str, str]:
+                         app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Receipt email after a successful Stripe payment. Includes tier benefits + receipt info."""
     currency_symbol = "€" if currency.lower() == "eur" else currency.upper() + " "
     subject = f"Zahlung bestätigt · {currency_symbol}{amount:.2f} · Leader-OS"
@@ -395,7 +395,7 @@ Diese Email ist deine offizielle Zahlungsbestätigung. Bei Fragen zur Rechnung: 
 # ── Video-Trial Reminder (3 days before trial deadline) ──────────────────────
 
 def trial_reminder_email(name: str, days_left: int, used: int, total: int,
-                         app_url: str = "https://leader-os.de") -> tuple[str, str]:
+                         app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Reminder when the user's 14-day video-analysis trial is approaching its end."""
     remaining = max(0, total - used)
     subject = f"Noch {days_left} Tage Gratis-Video-Analyse, {name} · {remaining} frei"
@@ -431,7 +431,7 @@ Du hast noch <b style="color:{BRAND_COLOR};">{remaining} von {total} kostenlosen
 
 # ── 7-Tage Drip Sequence (Day 1, Day 3, Day 7) ───────────────────────────────
 
-def drip_day1_email(name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def drip_day1_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Day 1 drip: Education — explain the system."""
     subject = "Tag 1 · Die Wlad-Formel kurz erklärt"
     chat_url = f"{app_url.rstrip('/')}/chat"
@@ -458,7 +458,7 @@ Wlad Jachtchenko hat über 15 Jahre 5.000+ Führungskräfte trainiert. Sein Syst
     return subject, _base_layout(body, preheader="3 Säulen, 1 System: Wie Leader-OS funktioniert.")
 
 
-def drip_day3_email(name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def drip_day3_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Day 3 drip: Quick win — drive an action."""
     subject = f"Tag 3 · Dein erstes Mini-Win, {name}"
     diag_url = f"{app_url.rstrip('/')}/leader-diagnose"
@@ -486,7 +486,7 @@ Danach generiert die KI deinen <b>personalisierten 30-Tage-Aktionsplan</b>. Kein
     return subject, _base_layout(body, preheader="3 Minuten Diagnose · 30 Tage Aktionsplan")
 
 
-def drip_day7_email(name: str, app_url: str = "https://leader-os.de") -> tuple[str, str]:
+def drip_day7_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Day 7 drip: Conversion — pitch Leadership OS Standard."""
     subject = f"Tag 7 · Was sich nach 30 Tagen ändert, {name}"
     coaching_url = f"{app_url.rstrip('/')}/coaching"
@@ -530,7 +530,7 @@ def monthly_scorecard_email(
     overall: int,
     top_insight: str,
     next_focus: str,
-    app_url: str = "https://leader-os.de",
+    app_url: str = "https://leaderos.de",
 ) -> tuple[str, str]:
     """Generate the monthly Accelerator scorecard email."""
     month_label = datetime.now().strftime("%B %Y")
@@ -635,7 +635,7 @@ VIDEO_DRIP_VIDEOS = [
 ]
 
 
-def video_drip_email(name: str, video: dict, app_url: str = "https://leader-os.de", unsubscribe_link: str | None = None) -> tuple[str, str]:
+def video_drip_email(name: str, video: dict, app_url: str = "https://leaderos.de", unsubscribe_link: str | None = None) -> tuple[str, str]:
     """Generate a weekly drip email pointing to a single Lernvideo.
 
     Subject lines are intentionally psychological: a tease + the takeaway,

@@ -144,7 +144,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       LEADER-OS · STADIUM
     </text>
     <text x="750" y="305" fill="#0A0A0A" fontSize="8" fontWeight="700" textAnchor="end" opacity="0.55" style={{ fontFamily: 'monospace', letterSpacing: '0.22em' }}>
-      BIB · 0001
+      ERSTE GRUPPE · 0001
     </text>
   </svg>
 );

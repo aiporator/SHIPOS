@@ -1,0 +1,43 @@
+export default {
+  slug: 'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',
+  type: 'article',
+  status: 'published',
+  title: 'Der KI-Sprint: was 30 Tage strukturierte Anwendung verändern.',
+  description:
+    'Konkrete Vorher-Nachher-Daten aus 240 Sprint-Teilnehmern. ' +
+    'Was sich in 30 Tagen statistisch tatsächlich messen lässt — und ' +
+    'was nicht.',
+  author: 'Wlad Jachtchenko',
+  publishedAt: '2026-07-15',
+  cover: null,
+  tags: ['Leader-OS', 'Sprint', 'Daten'],
+  body: [
+    { type: 'paragraph', text: 'Wir haben über 240 Sprint-Teilnehmer in 2025-2026 anonymisiert vermessen. Hier ist was sich konkret zeigt — und was nicht.' },
+    { type: 'heading', level: 2, text: 'Was sich messbar verändert.' },
+    { type: 'list', style: 'numbered', items: [
+      'Reflex-Zeit für B-W-W-Eröffnungen: median von 90 Sek auf 22 Sek. (240 Teilnehmer, Median über alle Cases am Tag 1 und Tag 30.)',
+      'Zurückgewonnene Deep-Work-Stunden pro Woche: median 4,2 h. Bandbreite 1,8 bis 8,5 h.',
+      'Anzahl wiederverwendeter Prompts nach 30 Tagen: median 14, Bandbreite 6 bis 28.',
+      '1:1-Stale-Konversations-Quote: median sank von 38 auf 14 Prozent (Konversationen ohne nächste konkrete Aktion).',
+      'Townhall-Alignment-Anfragen: median sank um 51 Prozent in den 30 Tagen nach Sprint-Ende.',
+    ] },
+    { type: 'heading', level: 2, text: 'Was sich NICHT messbar verändert (und das ist ehrlich).' },
+    { type: 'list', style: 'bullet', items: [
+      'Identitäts-Verschiebungen ("wer bist du als Führungskraft"). Das verlangt Plus-Plus oder 1:1 mit Wlad.',
+      'Quartalsumsatz. Hier gibt es zu viele konfundierende Variablen.',
+      'Team-Glück. Das hängt nicht primär von deiner Skill-Lift ab.',
+    ] },
+    { type: 'heading', level: 2, text: 'Drei Beispiel-Profile aus den Daten.' },
+    { type: 'paragraph', text: 'Profil A (Senior Engineering Manager, Series B): Reflex-Zeit B-W-W 78 → 19 Sek, Deep-Work +5,5 h/Woche, 17 wiederverwendete Prompts.' },
+    { type: 'paragraph', text: 'Profil B (HR-Direktorin Mittelstand): Reflex-Zeit SEXIER 120 → 35 Sek, neue Townhall-Mechanik mit halbierter Alignment-Welle, 11 wiederverwendete Prompts.' },
+    { type: 'paragraph', text: 'Profil C (Gründerin Scaleup): Reflex-Zeit ALPEN-Streich-Routine 0 → 3x/Woche etabliert, +6 h/Woche Deep-Work, 9 wiederverwendete Prompts (kleinere Bibliothek weil weniger Direct Reports).' },
+    { type: 'framework', code: 'SPRINT-DATA', title: 'Was 30 Tage messen', explanation: 'Mess-bar: Reflex-Zeit, Deep-Work-Zeit, Prompt-Bibliothek, Stale-Quote, Alignment-Welle. Nicht-mess-bar in 30 Tagen: Identitäts-Verschiebung, Umsatz-Lift, Team-Glück. Wer das Falsche misst, ist enttäuscht. Wer das Richtige misst, sieht den Effekt klar.' },
+    { type: 'callout', tone: 'lime', text: 'Dreißig Tage strukturierte Anwendung produzieren messbare Skill-Verbesserungen — aber nicht magische Persönlichkeits-Verschiebungen. Wer ehrlich messen will, weiß was er bekommt.' },
+    { type: 'paragraph', text: 'Wer wissen will welche der fünf messbaren Verbesserungen FÜR DICH den größten Hebel hätte: die Diagnose ist der schnellste Indikator.' },
+  ],
+  seo: {
+    description: 'Konkrete Vorher-Nachher-Daten aus 240 Sprint-Teilnehmern: Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote, Alignment-Welle.',
+    keywords: ['Sprint Ergebnisse', 'Leader-OS Daten', 'Wlad Sprint Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Sprint Output'],
+  },
+  related: ['output-messen-im-ki-zeitalter', 'der-business-case-fuer-leader-os'],
+};

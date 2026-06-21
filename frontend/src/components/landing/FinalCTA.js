@@ -77,7 +77,7 @@ export const FinalCTA = () => {
         </h2>
 
         <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Klasse 0001. Nur 50 Plätze. 30 Tage mit Wlad direkt. Danach
+          Erste Gruppe. Nur 50 Plätze. 30 Tage mit Wlad direkt. Danach
           ein ganzes Jahr Begleitung mit Plus-Plus, wenn du willst.
         </p>
 

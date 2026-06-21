@@ -5,6 +5,8 @@
 User-agent: *
 Allow: /
 Allow: /login
+Allow: /journal
+Allow: /journal/
 Allow: /impressum
 Allow: /datenschutz
 Allow: /agb

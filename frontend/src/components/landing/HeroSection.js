@@ -82,29 +82,49 @@ export const HeroSection = () => (
     </motion.div>
 
     <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-10 md:pb-12">
-      {/* 1 / 4 — Wlad-anker (eyebrow slot) */}
-      <motion.div
-        initial="hidden"
-        animate="show"
-        custom={0}
-        variants={FADE_UP}
-        className="flex items-center gap-3.5 mb-6"
-      >
-        <img
-          src={WLAD_AVATAR}
-          onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-          alt="Wlad Jachtchenko"
-          className="w-12 h-12 rounded-full object-cover object-top ring-2 ring-brand/45 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
-        />
-        <div className="leading-tight">
-          <p className="text-[13.5px] font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
-            Wlad Jachtchenko
-          </p>
-          <p className="text-[11px] text-foreground/55 mt-0.5">
-            3× SPIEGEL-Bestseller · 400 000 Kunden
-          </p>
-        </div>
-      </motion.div>
+      {/* 1 / 4 — Wlad-anker (eyebrow slot).
+          Centered, vertically-stacked, symmetric. Avatar floats on a
+          soft lime halo; name + subline read as one calm trust-line. */}
+      <div className="flex flex-col items-center text-center mb-8 md:mb-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.86 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          {/* Soft lime halo behind the portrait — animates a slow pulse
+              so the anker reads as alive, not static. */}
+          <motion.span
+            aria-hidden
+            className="absolute inset-0 rounded-full bg-brand/25 blur-xl"
+            animate={{ opacity: [0.45, 0.7, 0.45], scale: [1, 1.08, 1] }}
+            transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <img
+            src={WLAD_AVATAR}
+            onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+            alt="Wlad Jachtchenko"
+            className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full object-cover object-top ring-2 ring-brand/55 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)]"
+          />
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-3 text-[14px] md:text-[15px] font-bold text-foreground tracking-[-0.005em]"
+          style={{ fontFamily: 'Outfit, sans-serif' }}
+        >
+          Wlad Jachtchenko
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-1 text-[11px] md:text-[11.5px] uppercase tracking-[0.18em] text-foreground/55 font-mono"
+        >
+          3× SPIEGEL-Bestseller · 400 000 Kunden
+        </motion.p>
+      </div>
 
       {/* 2 / 4 — Headline */}
       <motion.h1
@@ -155,14 +175,14 @@ export const HeroSection = () => (
           href={LANDING_META.cta.primary.href}
           testId="hero-cta-primary"
         >
-          Diagnose starten · 5 Min · kostenlos
+          Diagnose starten · 10 Min · kostenlos
         </PlusCircleCTA>
         <a
           href="https://leaderos.de/checkout?tier=sprint"
           target="_blank"
           rel="noopener noreferrer"
           data-testid="hero-cta-sprint"
-          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background transition-colors px-5 py-3"
+          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background rounded-full px-5 py-3 active:scale-[0.98] transition-all"
         >
           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
             +

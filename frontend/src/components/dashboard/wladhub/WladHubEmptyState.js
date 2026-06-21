@@ -16,7 +16,7 @@ export const WladHubEmptyState = ({ de, onSync, syncing }) => (
         {de ? 'Starte die kostenlose 3-Minuten-Diagnose und erhalte deinen persönlichen Leadership-Score.' : 'Start the free 3-minute diagnosis and get your personal leadership score.'}
       </p>
       <div className="flex gap-2">
-        <Button size="sm" onClick={() => window.open('https://leader-check.de', '_blank', 'noopener,noreferrer')}
+        <Button size="sm" onClick={() => window.open('https://leadercheck.de', '_blank', 'noopener,noreferrer')}
           className="bg-[#BFFF00] text-[#0A0A0A] hover:bg-[#D4FF4D] font-bold text-[10px] h-7 flex-1" data-testid="wladhub-start-btn">
           {de ? 'Jetzt Diagnose starten' : 'Start Diagnosis Now'} <ExternalLink size={10} className="ml-1" />
         </Button>

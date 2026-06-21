@@ -44,7 +44,7 @@ def _build_google_calendar_url(event: dict) -> str:
     end = start + timedelta(minutes=duration)
     fmt = "%Y%m%dT%H%M%SZ"
     dates = f"{start.strftime(fmt)}/{end.strftime(fmt)}"
-    details = f"{desc}\n\nJoin via LeaderOS: https://leader-os.de/events"
+    details = f"{desc}\n\nJoin via LeaderOS: https://leaderos.de/events"
 
     return (
         f"https://www.google.com/calendar/render?action=TEMPLATE"

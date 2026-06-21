@@ -84,6 +84,21 @@ export const EmailCapture = ({
       // could mean "already on the list and a downstream noop failed";
       // we mustn't strand a real subscriber on an error screen.
     }
+
+    // Broadcast so any other lead-capture surface on the page (the
+    // exit-intent modal in particular) can back off for the rest of
+    // the cooldown window.
+    if (typeof window !== 'undefined') {
+      try {
+        window.dispatchEvent(
+          new CustomEvent('newsletter:subscribed', {
+            detail: { source: source || 'unknown', campaign: campaign || null },
+          }),
+        );
+      } catch {
+        /* CustomEvent not supported in this env; ignore */
+      }
+    }
     setDone(true);
   };
 
@@ -155,13 +170,13 @@ export const EmailCapture = ({
           placeholder="dein.name@firma.de"
           autoComplete="email"
           data-testid="email-capture-input"
-          className={`h-12 flex-1 border-2 px-3.5 text-[14px] font-mono outline-none focus:ring-0 transition-colors ${t.inputBg}`}
+          className={`h-12 flex-1 border-2 px-3.5 text-[14px] font-mono outline-none rounded-xl transition-all focus:ring-4 focus:ring-brand/15 ${t.inputBg}`}
         />
         <button
           type="submit"
           disabled={submitting}
           data-testid="email-capture-submit"
-          className="h-12 shrink-0 bg-brand hover:brightness-105 active:translate-y-px text-black text-[12px] font-black uppercase tracking-[0.18em] px-6 transition-all disabled:opacity-60"
+          className="h-12 shrink-0 bg-brand hover:brightness-105 active:scale-[0.98] text-black text-[12px] font-black uppercase tracking-[0.18em] rounded-xl px-6 transition-all disabled:opacity-60 shadow-[0_10px_28px_-10px_rgba(191,255,0,0.5)]"
         >
           {submitting ? '…' : '+  Abonnieren'}
         </button>

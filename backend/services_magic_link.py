@@ -32,7 +32,13 @@ from config import db
 logger = logging.getLogger("wladbot.magic_link")
 
 MAGIC_LINK_TTL_MIN = int(os.environ.get("MAGIC_LINK_TTL_MIN", "15"))
-_BASE_URL_DEFAULT = "https://leader-os.de"
+# App-tier host by default (where /auth/magic resolves to the authenticated
+# React app with a working /dashboard). The hyphen-host `leader-os.de` is the
+# marketing landing on Vercel, which has no post-login surface. Each Emergent
+# project SHOULD set `FRONTEND_BASE_URL` explicitly to its own host
+# (leaderos.de for the main app, leadercheck.de for the diagnose app) so
+# cross-tenant logins return to the right surface.
+_BASE_URL_DEFAULT = "https://leaderos.de"
 
 
 def _hash_token(token: str) -> str:
@@ -122,7 +128,7 @@ def _format_email_html(user_name: str, link: str) -> str:
     </div>
     <div style="padding:20px 32px;border-top:1px solid #1f2937;color:#64748b;font-size:12px;line-height:1.5;">
       Wenn du diesen Link nicht angefordert hast, kannst du diese E-Mail ignorieren — niemand kann ohne sie auf dein Konto zugreifen.<br/>
-      Argumentorik-Akademie GmbH · leader-os.de
+      Argumentorik-Akademie GmbH · leaderos.de
     </div>
   </div>
 </body>

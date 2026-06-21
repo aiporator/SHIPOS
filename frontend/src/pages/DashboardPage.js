@@ -65,7 +65,7 @@ export default function DashboardPage() {
   };
 
   const copyReferral = () => {
-    navigator.clipboard.writeText(`https://leader-check.de?ref=${referralCode}`);
+    navigator.clipboard.writeText(`https://leadercheck.de?ref=${referralCode}`);
     toast.success(de ? 'Referral-Link kopiert!' : 'Referral link copied!');
   };
 
