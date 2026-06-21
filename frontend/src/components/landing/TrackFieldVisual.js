@@ -194,30 +194,95 @@ export const TrackFieldVisual = ({ className = '' }) => (
       </g>
     ))}
 
-    {/* Distanz-Marker am unteren Rand */}
+    {/* Distanz-Marker + Leader-Reise am unteren Rand.
+        Jede Distanz = eine Stufe vom KI-Nutzer zum KI-Leader.
+        Spiegelt die Wlad-Pfad-Sprache aus dem Journal:
+          NUTZER → DRILL → SYSTEM → REFLEX → TEAM → LEADER */}
     <g aria-hidden="true">
+      {/* Reise-Eyebrow links */}
+      <text
+        x="40"
+        y="304"
+        fill="#0A0A0A"
+        opacity="0.55"
+        fontSize="8"
+        fontWeight="700"
+        style={{ fontFamily: 'monospace', letterSpacing: '0.24em' }}
+      >
+        ▸ DER PFAD
+      </text>
+
       {[
-        { x: 100, label: '100M' },
-        { x: 240, label: '80M' },
-        { x: 380, label: '60M' },
-        { x: 520, label: '40M' },
-        { x: 660, label: '20M' },
-        { x: 800, label: '0M' },
-      ].map((m) => (
-        <g key={m.label}>
+        { x: 100, m: '100M', stage: 'NUTZER' },
+        { x: 240, m: '80M', stage: 'DRILL' },
+        { x: 380, m: '60M', stage: 'SYSTEM' },
+        { x: 520, m: '40M', stage: 'REFLEX' },
+        { x: 660, m: '20M', stage: 'TEAM' },
+        { x: 800, m: '0M', stage: 'LEADER', isFinish: true },
+      ].map((m, i, all) => (
+        <g key={m.m}>
+          {/* vertikale Distanz-Linie */}
           <line x1={m.x} y1="92" x2={m.x} y2="288" stroke="#FFFFFF" strokeWidth="1" opacity="0.18" />
+
+          {/* Pfad-Connector zur nächsten Stufe (subtile lime Strichkette) */}
+          {i < all.length - 1 && (
+            <line
+              x1={m.x + 8}
+              y1="318"
+              x2={all[i + 1].x - 8}
+              y2="318"
+              stroke="#BFFF00"
+              strokeWidth="1.5"
+              strokeDasharray="2 3"
+              opacity={m.isFinish ? 0 : 0.55}
+            />
+          )}
+
+          {/* Meter-Code */}
           <text
             x={m.x}
-            y="306"
+            y="304"
             fill="#0A0A0A"
-            opacity="0.45"
+            opacity="0.4"
             fontSize="8"
             fontWeight="700"
             textAnchor="middle"
-            style={{ fontFamily: 'monospace', letterSpacing: '0.2em' }}
+            style={{ fontFamily: 'monospace', letterSpacing: '0.22em' }}
           >
-            {m.label}
+            {m.m}
           </text>
+
+          {/* Stage-Name — die eigentliche Reise */}
+          {m.isFinish ? (
+            <g>
+              {/* Lime Kapsel hinter LEADER */}
+              <rect x={m.x - 28} y="311" width="56" height="14" fill="#BFFF00" />
+              <text
+                x={m.x}
+                y="321"
+                fill="#0A0A0A"
+                fontSize="10.5"
+                fontWeight="900"
+                textAnchor="middle"
+                style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.22em' }}
+              >
+                LEADER
+              </text>
+            </g>
+          ) : (
+            <text
+              x={m.x}
+              y="321"
+              fill="#0A0A0A"
+              opacity="0.78"
+              fontSize="9.5"
+              fontWeight="900"
+              textAnchor="middle"
+              style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.2em' }}
+            >
+              {m.stage}
+            </text>
+          )}
         </g>
       ))}
     </g>
@@ -343,24 +408,27 @@ export const TrackFieldVisual = ({ className = '' }) => (
 
     {/* "MIT WLADBOT" Pill — sitzt oberhalb des Läufers, sauber freigestellt.
         Outer <g> hält die Position, inner <g> macht das Bob via CSS-keyframes
-        (sonst überschreibt die CSS-transform-Animation das SVG-transform-Attribut). */}
-    <g transform="translate(744, 200)">
+        (sonst überschreibt die CSS-transform-Animation das SVG-transform-Attribut).
+        Pille ist absichtlich 112×26 (Text + 0.16em letter-spacing ≈ 86px,
+        plus 5px Lime-Akzent + 12px Padding) damit das "M" nicht in den
+        Akzent läuft. */}
+    <g transform="translate(728, 200)">
       <g className="track-pill">
-        <rect x="0" y="0" width="92" height="26" fill="#0A0A0A" />
-        <rect x="0" y="0" width="6" height="26" fill="#BFFF00" />
+        <rect x="0" y="0" width="112" height="26" fill="#0A0A0A" />
+        <rect x="0" y="0" width="5" height="26" fill="#BFFF00" />
         <text
-          x="49"
+          x="62"
           y="17"
           fill="#FFFFFF"
           fontSize="11"
           fontWeight="900"
           textAnchor="middle"
-          style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.2em' }}
+          style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.16em' }}
         >
           MIT WLADBOT
         </text>
-        {/* Pfeil zeigt nach unten auf den Läufer */}
-        <polygon points="42,26 50,26 46,33" fill="#0A0A0A" />
+        {/* Pfeil zeigt nach unten auf den Läufer (Brust bei x≈790 absolut → 62 relativ) */}
+        <polygon points="58,26 66,26 62,33" fill="#0A0A0A" />
       </g>
     </g>
 

@@ -109,7 +109,6 @@ export default function LandingPage() {
         <HeroSection />
         <SprintSpecimenStrip />
         <WladIntroVideo />
-        <MiniChallenge />
         <ArchetypeQuizSection />
         <TrackFieldSection />
         <HowItWorksSection />
@@ -127,6 +126,13 @@ export default function LandingPage() {
         ))}
 
         <AppPreviewSection />
+
+        {/* MiniChallenge wandert weit nach unten — am Anfang konkurrierte
+            sie mit dem Archetyp-Quiz. Hier nach AppPreview funktioniert sie
+            als Re-Engagement-Beat: "ok du hast die Plattform gesehen,
+            jetzt ein 60-Sekunden-Selbsttest bevor du auf Preise schaust." */}
+        <MiniChallenge />
+
         <PricingLadder />
         <AppointmentBookingSection />
         <CoachingWaitlist />
