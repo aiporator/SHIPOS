@@ -1,5 +1,6 @@
 import "@/App.css";
 import { Suspense, useEffect } from "react";
+import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -105,45 +106,14 @@ function AppRouter() {
     clearChunkReloadGuard();
   }, [location.pathname]);
 
-  // Cross-tier guard: the same CRA build is served on Landing hosts
-  // (leader-os.de, leader-check.de — Vercel) and App hosts (leaderos.de,
-  // leadercheck.de — Emergent). App routes (/login, /dashboard, anything
-  // ProtectedRoute) must only run on the App tier so cookies, auth state,
-  // and post-login navigation stay on a single origin. If a visitor lands
-  // on an App route under a Landing host (typed URL, bookmark, browser
-  // autocomplete) we hard-redirect to the matching App host before the
-  // Routes mount.
+  // Cross-tier guard — belt-and-suspenders for in-SPA navigation.
+  // The synchronous pass in index.js handles initial page loads (typed URL,
+  // bookmark, browser autocomplete). This useEffect catches the edge case
+  // where a Link or programmatic navigate() lands on an App route while
+  // the user is still on the Landing host. Same helper, same allowlist,
+  // so the two layers can never disagree.
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const host = window.location.hostname;
-    const isLeaderOsLanding = /(^|\.)leader-os\.de$/i.test(host);
-    const isLeaderCheckLanding = /(^|\.)leader-check\.de$/i.test(host);
-    if (!isLeaderOsLanding && !isLeaderCheckLanding) return;
-
-    // Routes that are legitimately public on the Landing tier. Everything
-    // else (login, dashboard, onboarding, *protected*, share routes that
-    // need a session) belongs on the App host.
-    const path = location.pathname;
-    const landingAllowed = [
-      '/',
-      '/datenschutz',
-      '/impressum',
-      '/widerruf',
-      '/agb',
-      '/journal',
-      '/newsletter/confirmed',
-      '/email/unsubscribe',
-      '/thank-you',
-      '/m/',
-      '/f/',
-    ];
-    const isLandingRoute = landingAllowed.some((p) =>
-      p.endsWith('/') ? path.startsWith(p) : path === p || path.startsWith(p + '/')
-    );
-    if (isLandingRoute) return;
-
-    const appHost = isLeaderCheckLanding ? 'leadercheck.de' : 'leaderos.de';
-    window.location.replace(`https://${appHost}${path}${location.search}${location.hash}`);
+    redirectAppRoutesToAppTier();
   }, [location.pathname, location.search, location.hash]);
 
   if (location.hash?.includes('session_id=')) {

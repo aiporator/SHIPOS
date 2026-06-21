@@ -4,11 +4,20 @@ import * as Sentry from "@sentry/react";
 import "@/index.css";
 import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
+import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
-// Bootstrap GDPR/TTDSG consent BEFORE any tracking SDK initializes.
-// Normalizes legacy consent shapes and defaults PostHog to opt-out until
-// the user explicitly accepts in the banner.
-bootstrapConsent();
+// Cross-tier guard — runs SYNCHRONOUSLY before anything else mounts.
+// If a visitor hits an App route (e.g. /login, /dashboard, /auth/magic)
+// on a Landing host (leader-os.de, leader-check.de), hard-redirect to
+// the matching App host (leaderos.de, leadercheck.de). Doing this here
+// instead of inside a useEffect avoids the brief flash of a non-functional
+// LoginPage on the wrong origin. Auth, magic-link cookies, and OAuth
+// callbacks must stay on a single origin to work.
+if (redirectAppRoutesToAppTier()) {
+  // Browser is navigating away — abort module init.
+  // (React, Sentry, PostHog all stay un-booted on the wrong origin.)
+} else {
+  bootstrapConsent();
 
 const consent = readConsent();
 const replayConsented = Boolean(consent?.replays);
@@ -72,9 +81,10 @@ if (typeof window !== "undefined") {
   });
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+}
