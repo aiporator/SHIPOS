@@ -10,6 +10,7 @@ import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
 import { WladIntroVideo } from '../components/landing/WladIntroVideo';
 import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
+import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
@@ -109,6 +110,7 @@ export default function LandingPage() {
         <SprintSpecimenStrip />
         <WladIntroVideo />
         <MiniChallenge />
+        <ArchetypeQuizSection />
         <TrackFieldSection />
         <HowItWorksSection />
         <VimeoIntroSection />
