@@ -11,6 +11,8 @@ import { WladIntroVideo } from '../components/landing/WladIntroVideo';
 import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
+import { JournalTeaserSection } from '../components/landing/JournalTeaserSection';
+import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
@@ -61,6 +63,15 @@ export default function LandingPage() {
   const { user, loading } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
 
+  // Custom-event bridge for cross-section "open chat" triggers
+  // (FreeToolsSection's WladBot-Lite tool, future tools, share-targets…).
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const onOpen = () => setChatOpen(true);
+    window.addEventListener('leader-os:open-chat', onOpen);
+    return () => window.removeEventListener('leader-os:open-chat', onOpen);
+  }, []);
+
   useEffect(() => {
     document.title = LANDING_META.title;
     const meta = document.querySelector('meta[name="description"]');
@@ -110,9 +121,11 @@ export default function LandingPage() {
         <SprintSpecimenStrip />
         <WladIntroVideo />
         <ArchetypeQuizSection />
+        <FreeToolsSection />
         <TrackFieldSection />
         <HowItWorksSection />
         <VimeoIntroSection />
+        <JournalTeaserSection />
         <ManifestoSection />
 
         {LANDING_BENEFITS.map((asset, idx) => (
