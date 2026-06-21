@@ -1,6 +1,61 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, RotateCcw } from 'lucide-react';
+import { ArrowRight, RotateCcw, Mail, Check } from 'lucide-react';
+import { capture } from '../../lib/analytics';
+
+// ───────────────────────────────────────────────────────────────────
+// Lead-capture pipeline — mirrors LeadCaptureModal.
+//   1. PostHog identify + capture('archetype_quiz_lead_captured')  (always works, primary store)
+//   2. POST /api/leader-check/intent                                (Emergent → Supabase, best-effort)
+// Never throws — funnel UX always continues.
+// ───────────────────────────────────────────────────────────────────
+const persistLead = async ({ email, archetype, source }) => {
+  const trimmed = (email || '').trim();
+  if (!trimmed) return;
+
+  if (typeof window !== 'undefined' && window.posthog?.capture) {
+    try {
+      window.posthog.identify(trimmed.toLowerCase());
+      window.posthog.capture('archetype_quiz_lead_captured', {
+        email: trimmed,
+        archetype,
+        source,
+        campaign: 'leader-os-launch',
+        surface: 'leader-os',
+      });
+    } catch { /* never block UX */ }
+  }
+
+  try {
+    await fetch('/api/leader-check/intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: trimmed,
+        source,
+        campaign: 'leader-os-launch',
+        archetype,
+      }),
+      keepalive: true,
+    });
+  } catch { /* swallow */ }
+};
+
+// Cross-domain distinct-id passthrough so the leader-os → leadercheck
+// funnel stitches in PostHog without relying on email_lower alone.
+const buildCtaUrl = (base, { archetype }) => {
+  const url = new URL(base);
+  url.searchParams.set('utm_source', 'leader-os-quiz');
+  url.searchParams.set('utm_medium', 'archetype-cta');
+  url.searchParams.set('utm_campaign', 'leader-os-launch');
+  if (archetype) url.searchParams.set('archetype', archetype);
+  try {
+    const ph = typeof window !== 'undefined' ? window.posthog : null;
+    const did = ph?.get_distinct_id?.();
+    if (did) url.searchParams.set('ph_did', did);
+  } catch { /* posthog not ready */ }
+  return url.toString();
+};
 
 /**
  * ArchetypeQuizSection — der "Funnel-Magnet" der Landing.
@@ -135,20 +190,77 @@ const FADE = {
 export const ArchetypeQuizSection = () => {
   const [step, setStep] = useState(0); // 0..TOTAL-1, then TOTAL = result
   const [answers, setAnswers] = useState([]);
+  const [email, setEmail] = useState('');
+  const [leadSent, setLeadSent] = useState(false);
+  const [leadError, setLeadError] = useState('');
+  const completionFired = useRef(false);
 
   const isResult = step >= TOTAL;
   const archetype = useMemo(() => (isResult ? scoreToArchetype(answers) : null), [isResult, answers]);
   const progress = Math.min(step / TOTAL, 1);
 
+  // Fire archetype_quiz_completed exactly once when the result first renders.
+  // useEffect because we need to read the computed archetype, not the raw answers.
+  useEffect(() => {
+    if (!isResult || !archetype || completionFired.current) return;
+    completionFired.current = true;
+    capture('archetype_quiz_completed', {
+      archetype: archetype.code,
+      archetype_title: archetype.title,
+      answers,
+      surface: 'leader-os',
+    });
+  }, [isResult, archetype, answers]);
+
   const pickAnswer = (tag) => {
     const nextAnswers = [...answers, tag];
+    // First answer = quiz_started; every answer = quiz_answered.
+    if (answers.length === 0) {
+      capture('archetype_quiz_started', { surface: 'leader-os' });
+    }
+    capture('archetype_quiz_answered', {
+      step: step + 1,
+      total: TOTAL,
+      archetype_tag: tag,
+      surface: 'leader-os',
+    });
     setAnswers(nextAnswers);
     setStep(step + 1);
   };
 
   const restart = () => {
+    capture('archetype_quiz_restarted', { surface: 'leader-os' });
     setAnswers([]);
     setStep(0);
+    setEmail('');
+    setLeadSent(false);
+    setLeadError('');
+    completionFired.current = false;
+  };
+
+  const submitLead = async (e) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(trimmed)) {
+      setLeadError('Bitte gib eine gültige E-Mail-Adresse ein.');
+      return;
+    }
+    setLeadError('');
+    await persistLead({
+      email: trimmed,
+      archetype: archetype?.code,
+      source: 'leader-os-archetype-quiz',
+    });
+    setLeadSent(true);
+  };
+
+  const handleCtaClick = (destination) => {
+    capture('archetype_quiz_cta_clicked', {
+      destination,
+      archetype: archetype?.code,
+      had_email: leadSent,
+      surface: 'leader-os',
+    });
   };
 
   return (
@@ -331,11 +443,68 @@ export const ArchetypeQuizSection = () => {
                     </ul>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                  {/* ── Optionale Email-Capture vor dem CTA ──
+                      Sanfter Ask AFTER Value-Delivery. Wer einträgt landet sofort
+                      als Lead in PostHog + /api/leader-check/intent. Wer skippt
+                      kann trotzdem den Check starten — dort wird die E-Mail eh
+                      noch erhoben. Doppelte Versicherung gegen Lead-Loss. */}
+                  <div className="mt-8 max-w-2xl border-2 border-black bg-background p-5 md:p-6">
+                    {leadSent ? (
+                      <div
+                        className="flex items-center gap-3 text-foreground"
+                        data-testid="archetype-lead-sent"
+                      >
+                        <span className="inline-flex items-center justify-center w-8 h-8 bg-brand text-black">
+                          <Check size={16} strokeWidth={3} />
+                        </span>
+                        <div>
+                          <div className="font-bold text-[14px] md:text-[15px]">
+                            Notiert. Du kriegst dein Archetyp-Profil per Mail.
+                          </div>
+                          <div className="text-[12px] text-foreground/55 mt-0.5">
+                            Jetzt direkt zum vollständigen Check für deinen Lernpfad.
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <form onSubmit={submitLead} className="flex flex-col gap-3" data-testid="archetype-lead-form">
+                        <label className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/55 flex items-center gap-2">
+                          <Mail size={11} /> OPTIONAL · ARCHETYP-PROFIL PER MAIL
+                        </label>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => { setEmail(e.target.value); setLeadError(''); }}
+                            placeholder="deine@email.de"
+                            data-testid="archetype-lead-email"
+                            className="flex-1 h-12 px-4 border-2 border-black bg-background text-foreground text-[15px] font-semibold focus:outline-none focus:bg-brand/10 placeholder:text-foreground/35"
+                          />
+                          <button
+                            type="submit"
+                            data-testid="archetype-lead-submit"
+                            className="h-12 px-6 border-2 border-black bg-foreground hover:bg-brand text-background hover:text-black font-bold text-[13px] tracking-[0.02em] transition-colors whitespace-nowrap"
+                          >
+                            Profil senden
+                          </button>
+                        </div>
+                        {leadError && (
+                          <p className="text-[12px] text-red-500" data-testid="archetype-lead-error">{leadError}</p>
+                        )}
+                        <p className="text-[11.5px] text-foreground/45 leading-[1.45]">
+                          Nur dein Archetyp-Profil + 1 Mail zum Lernpfad-Start.
+                          Kein Newsletter-Spam, jederzeit abbestellbar.
+                        </p>
+                      </form>
+                    )}
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-4">
                     <a
-                      href="https://leadercheck.de"
+                      href={buildCtaUrl('https://leadercheck.de', { archetype: archetype.code })}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => handleCtaClick('leadercheck.de')}
                       data-testid="archetype-cta-diagnose"
                       className="group inline-flex items-center gap-3 px-7 md:px-9 h-16 bg-brand hover:bg-brand-strong text-black font-bold text-[15px] md:text-[16px] tracking-[0.02em] transition-colors shadow-[6px_6px_0_0_#000]"
                     >
