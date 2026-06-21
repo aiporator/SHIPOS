@@ -64,10 +64,10 @@ const CREDENTIALS = [
   {
     icon: Award,
     bib: '06',
-    headline: 'Erfinder von Leader-OS',
+    headline: '10+ Jahre Wissen verdichtet',
     body:
-      'Erste Plattform die KI-Routine und KI-natives Führen als ein System ' +
-      'denkt — gebaut aus 10+ Jahren echter Klienten-Praxis, nicht aus Theorie.',
+      'Alles aus Wlads Coachings, Frameworks und Büchern — plus vieles mehr ' +
+      'aus über 10 Jahren Praxis — steckt heute in Leader-OS drin.',
   },
 ];
 
@@ -182,17 +182,18 @@ export const WladAuthoritySection = () => {
 
             <p className="mt-7 max-w-2xl text-[17px] md:text-[19px] leading-[1.55] text-white/80">
               3× <strong className="text-white">SPIEGEL-Bestseller-Autor</strong>.
-              Über <strong className="text-white">400 000 Klienten</strong> in Rhetorik,
-              Verhandlung und KI-nativem Führen ausgebildet. Gründer der
+              Über <strong className="text-white">400 000 Klienten</strong> in
+              Rhetorik, Verhandlung und KI ausgebildet. Gründer der
               <strong className="text-white"> Argumentorik-Akademie</strong>,
               Top-Speaker auf über 500 Bühnen, regelmäßiger Gast in ARD, ZDF,
               ntv, Welt und Wirtschaftswoche.
             </p>
 
             <p className="mt-5 max-w-2xl text-[15px] md:text-[16.5px] leading-[1.6] text-white/65">
-              Leader-OS ist seine Antwort auf eine simple Beobachtung: KI ist
-              da. Methodik ist selten. Wer beides zusammenbringt, führt vorne.
-              Wer nur das eine hat, jagt hinterher.
+              Alles was Wlad in über 10 Jahren in Coachings, Frameworks und
+              Büchern entwickelt hat — und noch viel mehr — steckt heute in
+              Leader-OS. Nicht als Kurs-Bibliothek, sondern als tägliches
+              System.
             </p>
           </div>
         </div>

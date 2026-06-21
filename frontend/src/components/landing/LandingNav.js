@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * Sticky top nav — action-oriented.
+ * Sticky top nav — wide editorial.
  *
- *  Primary CTA   to  leadercheck.de        (app, Emergent: runs the diagnose)
- *  Secondary CTA to  leaderos.de/login     (app, Emergent: auth + dashboard)
+ * Edge-to-edge container (px-6 → px-12) so the nav reads as the page
+ * header, not a centered ad-bar floating in the void. Taller default
+ * (h-20) collapses to h-16 on scroll. Brand lockup sits big on the
+ * left, the CTA is a flat editorial button — no rounded +icon, no
+ * pill chrome, no "click here" energy.
+ *
+ *  Primary CTA   to  leadercheck.de        (app, Emergent)
+ *  Secondary CTA to  leaderos.de/login     (app, Emergent)
  *
  * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de   = Vercel marketing landings (this app)
  *   leaderos.de  + leadercheck.de    = Emergent apps (where users convert)
- *
- * The scrolled-state listener uses framer-motion's useScroll() (rAF-batched)
- * instead of a raw window scroll listener that would re-render on every
- * frame.
  */
 export const LandingNav = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,39 +32,57 @@ export const LandingNav = () => {
       data-testid="landing-nav"
       className={`sticky top-0 inset-x-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/85 backdrop-blur-xl border-b border-foreground/10'
-          : 'bg-transparent'
+          ? 'bg-background/90 backdrop-blur-xl border-b-2 border-foreground/10 h-16'
+          : 'bg-background border-b border-foreground/[0.06] h-20'
       }`}
     >
-      <div className="max-w-[1280px] mx-auto px-5 md:px-10 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5 group" aria-label="Leader-OS Startseite">
-          <WladMark size={28} animated />
+      <div className={`w-full px-6 md:px-12 lg:px-16 h-full flex items-center justify-between gap-6`}>
+        <Link
+          to="/"
+          className="flex items-center gap-3 group shrink-0"
+          aria-label="Leader-OS Startseite"
+        >
+          <WladMark size={scrolled ? 32 : 40} animated />
           <div className="flex flex-col leading-none">
             <span
-              className="font-black text-[15px] tracking-tight text-foreground"
-              style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.025em' }}
+              className={`font-black tracking-tight text-foreground transition-all ${scrolled ? 'text-[17px]' : 'text-[22px] md:text-[24px]'}`}
+              style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.03em' }}
             >
               Leader<span className="text-brand mx-0.5">·</span>OS
             </span>
-            <span className="text-[8px] text-foreground/55 font-bold tracking-[0.22em] uppercase mt-[2px] font-mono">
+            <span className={`text-foreground/55 font-bold tracking-[0.24em] uppercase mt-[3px] font-mono transition-all ${scrolled ? 'text-[8px]' : 'text-[9px]'}`}>
               Powered by WladBot
             </span>
           </div>
         </Link>
 
-        <nav className="flex items-center gap-2 md:gap-5">
+        <nav className="flex items-center gap-3 md:gap-7">
+          <a
+            href="#klassen"
+            className="hidden md:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
+            data-testid="landing-nav-klassen"
+          >
+            Klassen
+          </a>
           <a
             href="#how-it-works"
-            className="hidden md:inline-block text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/60 hover:text-foreground transition-colors"
+            className="hidden md:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
             data-testid="landing-nav-how"
           >
             So funktioniert's
           </a>
           <a
+            href="#journal"
+            className="hidden lg:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
+            data-testid="landing-nav-journal"
+          >
+            Journal
+          </a>
+          <a
             href="https://leaderos.de/login"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/60 hover:text-foreground transition-colors"
+            className="hidden sm:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
             data-testid="landing-nav-login"
           >
             Login
@@ -70,11 +91,16 @@ export const LandingNav = () => {
             href="https://leadercheck.de"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-2 bg-brand text-[#0A0A0A] text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-105 active:translate-y-px transition-all"
+            className={`group inline-flex items-center gap-2.5 bg-foreground text-background hover:bg-brand hover:text-black font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-4 text-[11px]' : 'h-12 px-5 text-[12px]'
+            }`}
             data-testid="landing-nav-cta"
           >
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#0A0A0A] text-brand font-black leading-none text-xs" aria-hidden>+</span>
-            <span>Diagnose starten</span>
+            Diagnose starten
+            <ArrowRight
+              size={scrolled ? 14 : 16}
+              className="group-hover:translate-x-0.5 transition-transform"
+            />
           </a>
         </nav>
       </div>
