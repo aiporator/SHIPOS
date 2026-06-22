@@ -153,7 +153,6 @@ export const LANDING_BENEFITS = [
     photo: local('p-01-wer-nicht-fuehrt.png'),
     photoFallback: local('hf-01.png'),
     photoFit: 'cover',
-    posterDesign: true,
   },
   {
     nr: '02',
@@ -181,7 +180,6 @@ export const LANDING_BENEFITS = [
     photo: local('p-02-zeit-zu-fuehren.png'),
     photoFallback: local('hf-02.png'),
     photoFit: 'cover',
-    posterDesign: true,
   },
   {
     nr: '03',
@@ -206,7 +204,6 @@ export const LANDING_BENEFITS = [
     photo: local('p-03-fuehrungs-sprint.png'),
     photoFallback: local('hf-03.png'),
     photoFit: 'cover',
-    posterDesign: true,
   },
   {
     nr: '04',
@@ -282,7 +279,6 @@ export const LANDING_BENEFITS = [
     photo: local('p-06-bib-0001.png'),
     photoFallback: local('hf-06.png'),
     photoFit: 'cover',
-    posterDesign: true,
   },
   {
     nr: '07',
@@ -314,7 +310,6 @@ export const LANDING_BENEFITS = [
     photo: local('p-07-dreibig-tage.png'),
     photoFallback: local('hf-07.png'),
     photoFit: 'cover',
-    posterDesign: true,
   },
 ];
 
