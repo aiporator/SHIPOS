@@ -12,7 +12,7 @@ const FADE_UP = {
 };
 
 /**
- * HowItWorksSection — the explicit 3-step conversion path.
+ * HowItWorksSection · the explicit 3-step conversion path.
  *
  * Why this exists: visitors land confused. We answer "wo fange ich
  * an?" with three crisp cards: DIAGNOSE (leadercheck.de app) → SPRINT →

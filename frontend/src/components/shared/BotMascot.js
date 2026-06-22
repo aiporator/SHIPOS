@@ -47,7 +47,7 @@ export const BotMascot = () => {
     }
   }, []);
 
-  // No idle button — only ringing call and connected panel
+  // No idle button · only ringing call and connected panel
   if (phase === 'idle') return null;
 
   if (phase === 'ringing') {

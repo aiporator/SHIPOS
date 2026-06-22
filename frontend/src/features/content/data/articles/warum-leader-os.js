@@ -1,5 +1,5 @@
 /**
- * Article 1/10 — platform manifesto. Why Leader-OS exists at all.
+ * Article 1/10 · platform manifesto. Why Leader-OS exists at all.
  */
 export default {
   slug: 'warum-leader-os',
@@ -27,7 +27,7 @@ export default {
     ] },
     { type: 'paragraph', text:
       'Jeder der drei Engpässe ist für sich lösbar. Der Punkt ist: niemand hat sie zusammen gelöst. Ein 24/7 ' +
-      'verfügbarer Coach in deiner Tasche, mit Wlads Methodik, der dich beim Drill am echten Fall korrigiert — ' +
+      'verfügbarer Coach in deiner Tasche, mit Wlads Methodik, der dich beim Drill am echten Fall korrigiert · ' +
       'das hat es vorher nicht gegeben.' },
     { type: 'heading', level: 2, text: 'Was Leader-OS ist.' },
     { type: 'paragraph', text:
@@ -43,11 +43,11 @@ export default {
     { type: 'list', style: 'bullet', items: [
       'Kein Selbsthilfe-Kurs mit Videos die du nie öffnest.',
       'Kein Coaching-Marketplace mit anonymen Coaches und schwankender Qualität.',
-      'Kein Chatbot der dir gefällige Antworten gibt — WladBot drillt dich gegen Wlads Methodik, auch wenn es unbequem wird.',
+      'Kein Chatbot der dir gefällige Antworten gibt · WladBot drillt dich gegen Wlads Methodik, auch wenn es unbequem wird.',
       'Kein Tool für Anfänger ohne Verantwortung. Wir bauen für Menschen die heute schon Teams führen und morgen mehr verlangen.',
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Drei Wochen Reflex-Bildung, dreißig Drills am echten Fall, ein KI-Coach der deine Stilhistorie kennt — ' +
+      'Drei Wochen Reflex-Bildung, dreißig Drills am echten Fall, ein KI-Coach der deine Stilhistorie kennt · ' +
       'das ist der Trade, den wir vorschlagen.' },
     { type: 'paragraph', text:
       'Die kostenlose Diagnose auf leadercheck.de zeigt dir in zehn Minuten, ob Leader-OS gerade dein größter ' +

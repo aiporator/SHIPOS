@@ -12,7 +12,7 @@ export default {
   cover: null,
   tags: ['Feedback', 'Framework', 'Skill'],
   body: [
-    { type: 'paragraph', text: 'Die meisten Feedback-Vorlagen scheitern weil sie für genau einen Anlass gebaut sind: das harte Kritik-Gespräch. Aber 80 Prozent deines Feedbacks ist nicht Kritik — es ist Lob, Korrektur, Anerkennung, Onboarding-Hinweis. Die B-W-W-Formel funktioniert für alle sechs, wenn du weißt wie du die drei Bausteine anpasst.' },
+    { type: 'paragraph', text: 'Die meisten Feedback-Vorlagen scheitern weil sie für genau einen Anlass gebaut sind: das harte Kritik-Gespräch. Aber 80 Prozent deines Feedbacks ist nicht Kritik · es ist Lob, Korrektur, Anerkennung, Onboarding-Hinweis. Die B-W-W-Formel funktioniert für alle sechs, wenn du weißt wie du die drei Bausteine anpasst.' },
     { type: 'heading', level: 2, text: 'Anlass 1: Lob.' },
     { type: 'paragraph', text: 'Lob ohne Beobachtung ist wertlos. "Toll gemacht" sagt nichts. Beobachtung: "Im Stand-up Dienstag hast du dem neuen Hire dreimal explizit den Kontext erklärt, bevor er fragen musste." Wirkung: "Er war danach in der Diskussion sichtbar aktiver." Wunsch: "Bitte mach das weiter, auch wenn du Druck spürst."' },
     { type: 'heading', level: 2, text: 'Anlass 2: Kritik.' },
@@ -26,7 +26,7 @@ export default {
     { type: 'heading', level: 2, text: 'Anlass 6: Onboarding-Korrektur.' },
     { type: 'paragraph', text: 'Bei neuen Hires darf der Wunsch detaillierter sein. Sie haben den Kontext noch nicht. Beispiel: "Du hast die Slack-Channel für Engineering-Standups in #general gepostet (Beobachtung). Das hat die Conversation zerfasert und Senior-Engineers haben Updates verpasst (Wirkung). Postet in #eng-standup und ping nur in #general bei wirklich teamübergreifenden Themen (Wunsch)."' },
     { type: 'framework', code: 'B-W-W', title: 'Sechs-Anlässe-Vorlage', explanation: 'Lob: Beobachtung spezifisch · Wirkung positiv · Wunsch "weiter so". Kritik: faktisch · operativ · Zukunft. Beförderung: breit · strategisch · Rolle. Konflikt: Spannungsachse · System · Folge-Termin. Quartals-Review: gebündelt über Zeit. Onboarding: detailliert mit Kontext.' },
-    { type: 'callout', tone: 'lime', text: 'Im Sprint drillst du B-W-W an dreißig deiner echten Anlässe — von Lob bis Konflikt. WladBot kennt deine Cases und passt jede Variante an.' },
+    { type: 'callout', tone: 'lime', text: 'Im Sprint drillst du B-W-W an dreißig deiner echten Anlässe · von Lob bis Konflikt. WladBot kennt deine Cases und passt jede Variante an.' },
   ],
   seo: {
     description: 'B-W-W-Vorlage für sechs Feedback-Anlässe: Lob, Kritik, Beförderung, Konflikt, Quartals-Review, Onboarding. Mit konkreten Beispielen pro Anlass.',

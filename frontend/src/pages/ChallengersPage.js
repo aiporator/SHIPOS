@@ -31,10 +31,10 @@ const browserSpeak = (text, lang = 'de') => {
   window.speechSynthesis.speak(u);
 };
 
-/* Current audio element reference — used to stop in-flight synthesis */
+/* Current audio element reference · used to stop in-flight synthesis */
 let _currentAudio = null;
 
-/* ElevenLabs persona TTS — falls back to browser synthesis if API fails */
+/* ElevenLabs persona TTS · falls back to browser synthesis if API fails */
 const speakPersona = async (text, persona, api, lang = 'de') => {
   stopSpeaking();
   const clean = cleanText(text).slice(0, 800);
@@ -165,7 +165,7 @@ export default function ChallengersPage() {
                             <h3 className="text-base font-bold">{c.name}</h3>
                             <Badge className={`${diff.bg} ${diff.text} text-[9px] font-bold border-0 px-2`}>{diff.label}</Badge>
                           </div>
-                          <p className="text-xs font-semibold mb-0.5" style={{ color: c.color }}>{c.company} — {c.title}</p>
+                          <p className="text-xs font-semibold mb-0.5" style={{ color: c.color }}>{c.company} · {c.title}</p>
                           <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-3 mt-1">{c.description}</p>
                         </div>
                         <div className="flex items-center justify-between mt-3">
@@ -205,7 +205,7 @@ export default function ChallengersPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold truncate">{activeChallengerData.name}</p>
-                  <p className="text-[10px] font-medium truncate" style={{ color: activeChallengerData.color }}>{activeChallengerData.company} — {activeChallengerData.title}</p>
+                  <p className="text-[10px] font-medium truncate" style={{ color: activeChallengerData.color }}>{activeChallengerData.company} · {activeChallengerData.title}</p>
                 </div>
                 <button onClick={() => { setTtsEnabled(!ttsEnabled); if (ttsEnabled) stopSpeaking(); }}
                   className="p-2 rounded-lg hover:bg-muted/50 transition-colors" data-testid="tts-toggle">
@@ -253,13 +253,13 @@ export default function ChallengersPage() {
             </div>
           </ScrollArea>
 
-          {/* Input (no pre-canned answers — open reflection & voice only) */}
+          {/* Input (no pre-canned answers · open reflection & voice only) */}
           <div className="border-t border-border/50 bg-white/80 dark:bg-card/80 backdrop-blur-xl">
             <div className="flex gap-2 p-3 max-w-2xl mx-auto items-end">
               <VoiceRecorder onTranscription={handleVoiceResult} disabled={loading} />
               <Textarea data-testid="challenger-input" value={input} onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-                placeholder={lang === 'de' ? 'Deine Antwort — frei formulieren oder einsprechen...' : 'Your answer — type freely or speak...'}
+                placeholder={lang === 'de' ? 'Deine Antwort · frei formulieren oder einsprechen...' : 'Your answer · type freely or speak...'}
                 className="resize-none min-h-[44px] max-h-32 rounded-xl border-black/[0.08] bg-gray-50 dark:bg-muted/30 focus:bg-white dark:focus:bg-card transition-colors" rows={1} />
               <Button onClick={() => sendMessage()} disabled={!input.trim() || loading} size="icon"
                 className="bg-gradient-to-br from-[#BFFF00] to-[#9ACC00] text-[#0A0A0A] shadow-md shadow-[#BFFF00]/15 shrink-0 w-10 h-10 rounded-xl"
@@ -291,7 +291,7 @@ export default function ChallengersPage() {
               </div>
             )}
             <h2 className="text-2xl font-black mb-1">{result?.hired ? (lang === 'de' ? 'Du bist eingestellt!' : "You're Hired!") : (lang === 'de' ? 'Noch nicht...' : 'Not Yet...')}</h2>
-            <p className="text-sm text-muted-foreground mb-3">{activeChallengerData?.name} — {activeChallengerData?.title}</p>
+            <p className="text-sm text-muted-foreground mb-3">{activeChallengerData?.name} · {activeChallengerData?.title}</p>
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#BFFF00]/[0.06] to-[#BFFF00]/[0.04] dark:from-[#BFFF00]/10 dark:to-purple-500/10">
               <span className="text-3xl font-black gradient-text">{result?.score || 0}</span><span className="text-sm text-muted-foreground">/ 100</span>
             </div>

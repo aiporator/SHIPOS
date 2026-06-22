@@ -1,7 +1,7 @@
 import { Zap } from 'lucide-react';
 
 /**
- * Brand-konsistentes WladBot-Visual — ersetzt das echte Wlad-Foto
+ * Brand-konsistentes WladBot-Visual · ersetzt das echte Wlad-Foto
  * im Chat- und Bot-Kontext (NICHT auf Sales-/Coaching-Seiten).
  */
 export const WladBotAvatar = ({ size = 28, className = '', ringColor = '#BFFF00' }) => (

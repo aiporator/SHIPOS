@@ -12,7 +12,7 @@ const ITEMS = [
 ];
 
 /**
- * ScrollProgressRail — floating right-side rail. Lit by
+ * ScrollProgressRail · floating right-side rail. Lit by
  * IntersectionObserver, click-to-anchor. Desktop only.
  */
 export const ScrollProgressRail = () => {

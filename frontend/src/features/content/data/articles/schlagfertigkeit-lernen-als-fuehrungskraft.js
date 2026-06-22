@@ -5,7 +5,7 @@ export default {
   title: 'Schlagfertigkeit lernen als Führungskraft.',
   description:
     'Drei Techniken die du diese Woche üben kannst. Plus warum echte ' +
-    'Schlagfertigkeit nicht in der Pointe liegt — sondern in der Ruhe ' +
+    'Schlagfertigkeit nicht in der Pointe liegt · sondern in der Ruhe ' +
     'davor.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-02',

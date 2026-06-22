@@ -12,7 +12,7 @@ const CLOSING_LINES = [
 ];
 
 /**
- * FinalCTA — closing black wall, "BIB 0001 STARTEN" hero.
+ * FinalCTA · closing black wall, "BIB 0001 STARTEN" hero.
  *
  * Inspired by the Nike "TIME FOR WORK" poster + Electric Hydrogen's
  * final mission section. Massive Outfit Black headline, lime hairline
@@ -32,7 +32,7 @@ export const FinalCTA = () => {
     aria-label="Starte deine Leader-OS Reise"
     data-testid="landing-final-cta"
   >
-    {/* Atmospheric lime mesh — subtle, no distraction */}
+    {/* Atmospheric lime mesh · subtle, no distraction */}
     <div
       aria-hidden
       className="absolute inset-0 opacity-60"
@@ -83,7 +83,7 @@ export const FinalCTA = () => {
         </p>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
-          {/* Primary — der einzige mit Halo-Pulse damit die Hierarchie klar ist */}
+          {/* Primary · der einzige mit Halo-Pulse damit die Hierarchie klar ist */}
           <PlusCircleCTA
             href={LANDING_META.cta.primary.href}
             testId="final-cta-primary"
@@ -124,7 +124,7 @@ export const FinalCTA = () => {
           <span>▸ Zertifikat 0001</span>
         </div>
 
-        {/* Investment-Strip — leise, ein dezenter Specimen-Tape unter
+        {/* Investment-Strip · leise, ein dezenter Specimen-Tape unter
             den Pills. Wer den Preis sucht, findet ihn. Wer nicht, wird
             nicht angeschrien. */}
         <div className="mt-10 pt-5 border-t border-white/10 max-w-3xl flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] font-mono text-white/40">

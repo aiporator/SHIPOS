@@ -3,10 +3,10 @@ import { LANDING_MANIFESTO } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
 
 /**
- * ManifestoSection — Dichotomie-Slogans im "X. Y."-Pattern.
+ * ManifestoSection · Dichotomie-Slogans im "X. Y."-Pattern.
  *
  * Sitzt zwischen HowItWorks und den Benefits. Liefert den emotionalen
- * Kern des Pitches in fünf gegenüberstellenden Zeilen — links die KI-
+ * Kern des Pitches in fünf gegenüberstellenden Zeilen · links die KI-
  * /Tool-Welt, rechts der Mensch / Leadership. Dunkler Block damit der
  * Bruch zur weißen Seite den Lesefluss neu rhythmisiert.
  */
@@ -14,7 +14,7 @@ export const ManifestoSection = () => (
   <section
     id="manifesto"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Manifest — KI bestimmt das Tempo. Du bestimmst den Kurs."
+    aria-label="Manifest · KI bestimmt das Tempo. Du bestimmst den Kurs."
     data-testid="landing-manifesto"
   >
     {/* Lime mesh, dezent */}

@@ -16,7 +16,7 @@ export default {
     { type: 'heading', level: 2, text: 'Drei häufigste Fehler in den ersten 30 Tagen.' },
     { type: 'list', style: 'numbered', items: [
       'Weiter operativ liefern statt Führung übernehmen. Du erfüllst deine alte Rolle perfekt und deine neue Rolle gar nicht. Klassischer "Beförderung in den Burn-out".',
-      'Mit allem den eigenen Stil durchsetzen. Du hast in 90 Tagen Zeit zu beobachten — nutze sie. Wer am Tag 3 die erste große Umstellung anschiebt, verliert das Team.',
+      'Mit allem den eigenen Stil durchsetzen. Du hast in 90 Tagen Zeit zu beobachten · nutze sie. Wer am Tag 3 die erste große Umstellung anschiebt, verliert das Team.',
       'Senior-Hires vermeiden. Die Senior-ICs unter dir sind oft länger im Team als du in der Rolle. Wer sie übergeht, baut Reibung die ein Jahr lang nachhallt.',
     ] },
     { type: 'heading', level: 2, text: 'Die richtige 90-Tage-Struktur.' },
@@ -26,9 +26,9 @@ export default {
     { type: 'paragraph', text: 'Tag 61-90: Festigung. Deine Routine ist eingespielt. Du machst deinen ersten echten Townhall in der neuen Rolle (SEXIER-vorbereitet). Du hast deinen ersten klaren Quartals-Output zu zeigen.' },
     { type: 'framework', code: '90 TAGE', title: 'Vier Phasen', explanation: 'Tag 1-10: Diagnose (zuhören, nicht entscheiden). Tag 11-30: Stabilisierung (drei Mini-Verbesserungen). Tag 31-60: Strategie (erste Initiative + Feedback-Konversationen). Tag 61-90: Festigung (Townhall + Quartals-Output). Wer eine Phase überspringt, zahlt es im sechsten Monat.' },
     { type: 'heading', level: 2, text: 'Warum genau hier ein Sprint passt.' },
-    { type: 'paragraph', text: 'Die ersten 30 Tage decken sich exakt mit dem Sprint-Format. Du bekommst täglich eine Mikro-Übung an deinen echten Cases. WladBot kennt deine Beförderung-Diagnose und passt die Drills auf "neu in der Rolle"-Modus an. Du lernst nicht generische Theorie — du lernst dich in deiner spezifischen Situation.' },
+    { type: 'paragraph', text: 'Die ersten 30 Tage decken sich exakt mit dem Sprint-Format. Du bekommst täglich eine Mikro-Übung an deinen echten Cases. WladBot kennt deine Beförderung-Diagnose und passt die Drills auf "neu in der Rolle"-Modus an. Du lernst nicht generische Theorie · du lernst dich in deiner spezifischen Situation.' },
     { type: 'callout', tone: 'lime', text: 'Beförderung-Onboarding ist der häufigste B2B-Use-Case für Leader-OS in HR-Sponsorenkonzepten. Eine Investition von 997 EUR pro Person, oft als Teil des Beförderungs-Pakets eingebaut.' },
-    { type: 'paragraph', text: 'Wer gerade befördert wurde oder befördert wird: starte mit der Diagnose. Sie zeigt dir in zehn Minuten welche der drei Lücken deine größte ist — und damit welches Sprint-Profil zu deinen ersten 30 Tagen passt.' },
+    { type: 'paragraph', text: 'Wer gerade befördert wurde oder befördert wird: starte mit der Diagnose. Sie zeigt dir in zehn Minuten welche der drei Lücken deine größte ist · und damit welches Sprint-Profil zu deinen ersten 30 Tagen passt.' },
   ],
   seo: {
     description: 'Die ersten 90 Tage nach einer Beförderung: vier Phasen, drei häufigste Fehler, eine konkrete Struktur die 70 Prozent höhere 2-Jahres-Retention bringt.',

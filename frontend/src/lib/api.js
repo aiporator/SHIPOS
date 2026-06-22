@@ -6,7 +6,7 @@ import axios from 'axios';
 //
 // In deployed environments, the build-time REACT_APP_BACKEND_URL may not match the
 // runtime hostname (e.g. preview URL embedded in a build now serving prod domain).
-// Solution: in deployed contexts, ALWAYS use same-origin — Emergent's ingress routes
+// Solution: in deployed contexts, ALWAYS use same-origin · Emergent's ingress routes
 // /api/* to backend automatically. Cross-origin only happens in local dev.
 const RAW_BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || '').replace(/\/$/, '');
 const CURRENT_ORIGIN = typeof window !== 'undefined' ? window.location.origin : '';
@@ -24,11 +24,11 @@ const api = axios.create({
   timeout: 30000,
 });
 
-// ——— Refresh single-flight (two layers) ———
+// ··· Refresh single-flight (two layers) ···
 //
-// Layer 1 — per-tab: `isRefreshing` + `refreshQueue` so N parallel 401s on this tab
+// Layer 1 · per-tab: `isRefreshing` + `refreshQueue` so N parallel 401s on this tab
 //          collapse into one POST /auth/refresh.
-// Layer 2 — cross-tab: localStorage mutex with TTL. Without this, two tabs that
+// Layer 2 · cross-tab: localStorage mutex with TTL. Without this, two tabs that
 //          hit 401 in the same moment both POST refresh → second one races
 //          ahead of the first, one tab ends up with a stale cookie and the
 //          user gets stuck in a login loop.
@@ -57,7 +57,7 @@ const tryAcquireRefreshLock = () => {
     localStorage.setItem(REFRESH_LOCK_KEY, String(Date.now()));
     return true;
   } catch {
-    return true; // localStorage unavailable (Safari private mode etc.) — single-tab fallback
+    return true; // localStorage unavailable (Safari private mode etc.) · single-tab fallback
   }
 };
 
@@ -143,7 +143,7 @@ api.interceptors.response.use(
       const acquiredLock = tryAcquireRefreshLock();
 
       if (!acquiredLock) {
-        // Another tab is doing the refresh — wait for it, then retry our request.
+        // Another tab is doing the refresh · wait for it, then retry our request.
         // Cookies will be fresh by the time the other tab releases its lock.
         try {
           await waitForOtherTabRefresh();
@@ -151,7 +151,7 @@ api.interceptors.response.use(
           return api(originalRequest);
         } finally {
           isRefreshing = false;
-          // do NOT releaseRefreshLock() — we never acquired it
+          // do NOT releaseRefreshLock() · we never acquired it
         }
       }
 
@@ -167,7 +167,7 @@ api.interceptors.response.use(
 
         // Distinguish "session truly expired" (refresh got 401/403) from "server
         // momentarily down" (5xx / network). For the latter we keep the user
-        // logged in and surface a soft banner — yanking them to /login on a
+        // logged in and surface a soft banner · yanking them to /login on a
         // transient backend hiccup would be brutal.
         const refreshStatus = refreshError?.response?.status;
         const refreshIsAuthFailure = refreshStatus === 401 || refreshStatus === 403;

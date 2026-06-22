@@ -4,7 +4,7 @@ import { EmailCapture } from '../../features/newsletter';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * LandingFooter — comprehensive black sitemap with lime focal accents
+ * LandingFooter · comprehensive black sitemap with lime focal accents
  * and 3 brand image tiles. Built for "godmode" launch: every public
  * route reachable in one click, every Journal category deep-linked,
  * Wlad authority visible.
@@ -13,7 +13,7 @@ import { WladMark } from '../brand/WladMark';
  *    1. Brand block (logo + scarcity pill)
  *    2. Four sitemap columns (SYSTEM · PLATTFORM · EXPLORE · COMPANY)
  *    3. Image-tile strip (Wlad portrait · Intro-Video poster · Brand-W
- *       sticker) — each linking out
+ *       sticker) · each linking out
  *    4. Newsletter capture (Feldnotizen)
  *    5. Investment + contact split
  *    6. BIB closing strip
@@ -254,7 +254,7 @@ export const LandingFooter = () => (
             400 000+ Klienten in 20 Ländern.
           </p>
 
-          {/* Scarcity Pill — Klasse 0001 charter seats */}
+          {/* Scarcity Pill · Klasse 0001 charter seats */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />

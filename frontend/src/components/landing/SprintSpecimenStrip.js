@@ -1,12 +1,12 @@
 /**
- * SprintSpecimenStrip — single-line specimen plate that surfaces the
+ * SprintSpecimenStrip · single-line specimen plate that surfaces the
  * Sprint product directly beneath the Hero so it sits inside the
  * first viewport on desktop.
  *
  * The Hero sells the brand and the moment ("Sprint mit Wlad."). This
  * strip sells the offer in the same scroll position: BIB-code, price,
  * duration, what's included, guarantee, single CTA. No fluff, no
- * gradients, no decorative dots — just typography on a hairline.
+ * gradients, no decorative dots · just typography on a hairline.
  *
  * Layout family: editorial specimen table. Distinct from BenefitSection
  * (§-numbered chapters) and PricingLadder (tier-card grid), so it
@@ -20,7 +20,7 @@ export const SprintSpecimenStrip = () => (
     className="relative w-full bg-background border-y border-foreground/12"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-5 md:py-6 flex flex-wrap md:flex-nowrap items-center gap-y-3 gap-x-6 md:gap-x-8">
-      {/* Plain badge — anchors every Sprint mention without arcane symbols */}
+      {/* Plain badge · anchors every Sprint mention without arcane symbols */}
       <div className="flex items-center gap-3 shrink-0">
         <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 border-2 border-foreground font-mono text-[11px] font-black tracking-[0.06em] text-foreground">
           03
@@ -33,7 +33,7 @@ export const SprintSpecimenStrip = () => (
       {/* Hairline separator, repeated visually as a column rule */}
       <span aria-hidden className="hidden md:inline-block w-px h-8 bg-foreground/15" />
 
-      {/* Specs as a 4-column micro-table — tag above, value below */}
+      {/* Specs as a 4-column micro-table · tag above, value below */}
       <dl className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 min-w-0">
         <div>
           <dt className="text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono mb-0.5">Invest</dt>
@@ -61,7 +61,7 @@ export const SprintSpecimenStrip = () => (
         </div>
       </dl>
 
-      {/* CTA — minimal but visible. Different from the Hero's outlined
+      {/* CTA · minimal but visible. Different from the Hero's outlined
           Sprint CTA so the two don't feel like the same button printed
           twice. */}
       <a

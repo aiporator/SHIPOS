@@ -5,7 +5,7 @@ export default {
   title: 'Die Leader-OS Kurs-Architektur.',
   description:
     'Mehr als ein Sprint: die strukturierten Kurs-Pfade durch das System. ' +
-    'Wie Sprint, Plus-Plus und die Kurs-Bibliothek zusammenhängen — und ' +
+    'Wie Sprint, Plus-Plus und die Kurs-Bibliothek zusammenhängen · und ' +
     'welcher Pfad zu welchem Lern-Ziel passt.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-10',
@@ -30,8 +30,8 @@ export default {
       'CEO-1:1 mit Wlad direkt: Mentoring-Warteliste (auf Anfrage).',
     ] },
     { type: 'framework', code: 'PFADE', title: 'Vier Lern-Pfade plus eins', explanation: 'Sprint (30 Tage Eingang) · Plus-Plus (12 Monate Begleitung) · Spezial-Kurse (Vertiefung) · Team-Rollout (B2B) · Mentoring (Top-Tier). Jeder Pfad hat eine klare Ziel-Definition und einen messbaren Output.' },
-    { type: 'callout', tone: 'lime', text: 'Mehr als eine Transformation: Leader-OS ist eine kontinuierliche Lern-Architektur. Du startest mit Sprint, du verlässt sie nie — du bewegst dich nur in die Pfade die zu deinem Quartal passen.' },
-    { type: 'paragraph', text: 'Wer aktuell unsicher ist welcher Pfad zu ihm passt: 30-Min-Beratung. Wir empfehlen ehrlich — auch wenn das heißt "fang mit der Diagnose an, schau in dreißig Tagen weiter".' },
+    { type: 'callout', tone: 'lime', text: 'Mehr als eine Transformation: Leader-OS ist eine kontinuierliche Lern-Architektur. Du startest mit Sprint, du verlässt sie nie · du bewegst dich nur in die Pfade die zu deinem Quartal passen.' },
+    { type: 'paragraph', text: 'Wer aktuell unsicher ist welcher Pfad zu ihm passt: 30-Min-Beratung. Wir empfehlen ehrlich · auch wenn das heißt "fang mit der Diagnose an, schau in dreißig Tagen weiter".' },
   ],
   seo: {
     description: 'Die Leader-OS Kurs-Architektur: Sprint, Plus-Plus, Spezial-Kurse, Team-Rollout, Mentoring. Fünf Lern-Pfade mit klaren Ziel-Definitionen.',

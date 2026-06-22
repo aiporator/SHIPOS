@@ -3,7 +3,7 @@ import { AdSpecimen } from '../components/ads/AdSpecimen';
 import { AD_SERIES, AD_PALETTES } from '../data/contentAds';
 
 /**
- * AdStudio — internal Paid-Ad-Studio bei /ads.
+ * AdStudio · internal Paid-Ad-Studio bei /ads.
  *
  * Schwester-Seite zum Specimen-Studio: gleiches Workflow-Pattern
  * (Grid → Native-Size-Modal → Screenshot → Copy-Caption), aber für
@@ -108,7 +108,7 @@ export default function AdStudio() {
         <p className="text-[13px] leading-[1.55] text-black/65 mb-12 max-w-2xl">
           Daten leben in <code className="px-1 py-0.5 bg-black/[0.06]">frontend/src/data/contentAds.js</code>.
           Eine Änderung dort, ein <code className="px-1 py-0.5 bg-black/[0.06]">git push</code>,
-          ein Vercel-Rebuild — alle Ads ziehen mit. Kein Figma-Hop, kein
+          ein Vercel-Rebuild · alle Ads ziehen mit. Kein Figma-Hop, kein
           Asset-Versandt. Das Design wird vom Code gemanaged.
         </p>
 

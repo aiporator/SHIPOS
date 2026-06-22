@@ -1,12 +1,12 @@
 /**
- * readingTime — minutes-to-read estimate from a body of structured blocks.
+ * readingTime · minutes-to-read estimate from a body of structured blocks.
  *
  * Uses 220 wpm as the reading rate (German leadership audience, longer
  * sentences than English consumer copy, slight discount on the standard
  * 250 wpm). Counts text content only; image and framework blocks add a
  * flat 6-second cost for visual parsing.
  *
- * @param {Array<Object>} blocks — the article.body array of {type, ...}
+ * @param {Array<Object>} blocks · the article.body array of {type, ...}
  * @returns {number} minutes, rounded up to the nearest whole minute
  */
 export function readingTime(blocks) {

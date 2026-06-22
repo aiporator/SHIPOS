@@ -1,5 +1,5 @@
 /**
- * Article registry — the single source of truth for all published
+ * Article registry · the single source of truth for all published
  * content. Static imports (no dynamic `import('./articles/' + slug)`)
  * because dynamic imports with computed paths are awkward with CRA's
  * webpack and break bundler-side static analysis.
@@ -141,7 +141,7 @@ const ARTICLES = [
   in6MonatenZurKiNativenFuehrungskraft,
   schlagfertigkeitImKiZeitalter,
 
-  // KI-Paradox & der Hebel-Effekt (Top bucket — diagnostic + solution + accessibility)
+  // KI-Paradox & der Hebel-Effekt (Top bucket · diagnostic + solution + accessibility)
   dasKiProduktivitaetsParadox,
   warumDeinChatgptTabDichNichtEffizienterMacht,
   wennDeineKiInvestitionVersickertFuenfDiagnoseFragen,
@@ -230,9 +230,9 @@ export function getArticle(slug) {
  * List articles, newest first.
  *
  * @param {Object} [options]
- * @param {string} [options.type]   — filter by 'article' | 'guide' | 'field-note' | 'case-study'
- * @param {string} [options.tag]    — filter by tag (case-insensitive)
- * @param {string[]} [options.slugs]— preserve given order (used by RelatedArticles)
+ * @param {string} [options.type]   · filter by 'article' | 'guide' | 'field-note' | 'case-study'
+ * @param {string} [options.tag]    · filter by tag (case-insensitive)
+ * @param {string[]} [options.slugs]· preserve given order (used by RelatedArticles)
  * @param {number} [options.limit]
  */
 export function listArticles(options = {}) {

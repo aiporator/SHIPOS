@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 /**
- * GreatorBanner — top-of-page event hook für Greator Festival 2026.
+ * GreatorBanner · top-of-page event hook für Greator Festival 2026.
  *
  * Schwarz auf Lime. SF Mono. Sehr dünn, dismissible per Session.
  * Position: ALLERobersten Edge der Landing, vor LandingNav.
  *
- * CTA: scrollt zu /greator-onsite oder öffnet Cal.com — je nach Stand
+ * CTA: scrollt zu /greator-onsite oder öffnet Cal.com · je nach Stand
  * der Event-Anmelde-Page.
  *
  * Auto-hide nach Event-Datum, falls vergessen abzuschalten:

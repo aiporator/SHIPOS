@@ -1,13 +1,13 @@
 /**
- * "Continue as [user]" persistence — Higgsfield/Linear/Notion style.
+ * "Continue as [user]" persistence · Higgsfield/Linear/Notion style.
  *
  * After a successful login of any kind, we cache a tiny user "card" in
  * localStorage. On next visit, the login screen shows that card with a
- * one-tap "Continue as" CTA — for Google/Microsoft this uses One-Tap to
+ * one-tap "Continue as" CTA · for Google/Microsoft this uses One-Tap to
  * silently re-authenticate; for email/password it prefills the form.
  *
  * SECURITY: We intentionally do NOT store the full email address.
- * Instead we keep only { initial, domain, provider, name, picture } — enough
+ * Instead we keep only { initial, domain, provider, name, picture } · enough
  * to render "Continue as J...@gmail.com" without exposing the full email to
  * any XSS payload that reads localStorage. The full email is never persisted
  * on the client side; re-auth flows that need it (magic link, prefill) will
@@ -58,7 +58,7 @@ const read = () => {
     const arr = JSON.parse(raw);
     return Array.isArray(arr) ? arr : [];
   } catch (err) {
-    // localStorage unavailable (private mode / quota) OR corrupted JSON — start fresh.
+    // localStorage unavailable (private mode / quota) OR corrupted JSON · start fresh.
     if (typeof console !== 'undefined') console.warn('[recentLogins] read failed:', err?.message);
     return [];
   }
@@ -79,7 +79,7 @@ const isStale = (entry) => {
 
 /**
  * Save a successful login to the recent-logins list. Idempotent on
- * initial+domain+provider — if the same combo exists, update + bump to front.
+ * initial+domain+provider · if the same combo exists, update + bump to front.
  */
 export const rememberLogin = (user, method = 'email') => {
   if (!user?.email) return;

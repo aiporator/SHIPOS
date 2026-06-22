@@ -7,7 +7,7 @@ const STORAGE_KEY = 'leader_os_lead_capture_seen_at';
 const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
 
 /**
- * LeadCaptureModal — Exit-intent conversion popup, godmode skin.
+ * LeadCaptureModal · Exit-intent conversion popup, godmode skin.
  *
  *   Layout (desktop):
  *     ┌──────────────────────────────────────────────────────┐
@@ -146,7 +146,7 @@ export const LeadCaptureModal = () => {
         }),
         keepalive: true,
       });
-    } catch { /* swallow — funnel continues */ }
+    } catch { /* swallow · funnel continues */ }
 
     navigate(`/thank-you?email=${encodeURIComponent(trimmed)}`);
   };
@@ -197,9 +197,9 @@ export const LeadCaptureModal = () => {
             </button>
           </div>
 
-          {/* Body — 2-column on desktop, stacked on mobile */}
+          {/* Body · 2-column on desktop, stacked on mobile */}
           <div className="grid md:grid-cols-12">
-            {/* LEFT — halftone-lime Wlad portrait + live scarcity */}
+            {/* LEFT · halftone-lime Wlad portrait + live scarcity */}
             <div className="md:col-span-5 relative bg-foreground/5 overflow-hidden order-1 md:order-1">
               <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[460px] overflow-hidden">
                 <img
@@ -262,7 +262,7 @@ export const LeadCaptureModal = () => {
               </div>
             </div>
 
-            {/* RIGHT — content + form */}
+            {/* RIGHT · content + form */}
             <div className="md:col-span-7 px-5 sm:px-7 md:px-8 py-6 md:py-7 order-2 md:order-2">
               <h2
                 id="lead-modal-title"
@@ -283,13 +283,13 @@ export const LeadCaptureModal = () => {
               </p>
 
               <p className="mt-4 text-[14px] md:text-[14.5px] leading-[1.55] text-foreground/75">
-                Erst die kostenlose <span className="text-foreground font-bold">10-Min-Diagnose</span> —
+                Erst die kostenlose <span className="text-foreground font-bold">10-Min-Diagnose</span> ·
                 KI · Rhetorik · EQ. Dann der 30-Tage Sprint, der genau das verändert
                 was im Score schwach war.{' '}
                 <span className="text-foreground font-bold">Mit 12 Monate Plattform-Mitgliedschaft, WladBot 24/7, 11 Frameworks.</span>
               </p>
 
-              {/* 3-Schritt BIB-Strip — KLAR "30T + 12M" inkl. Membership */}
+              {/* 3-Schritt BIB-Strip · KLAR "30T + 12M" inkl. Membership */}
               <div className="mt-5 grid grid-cols-3 gap-2 border-y-2 border-foreground py-3.5">
                 {[
                   { nr: '01', label: 'DIAGNOSE',   value: '10 MIN',   sub: 'KOSTENLOS' },

@@ -3,7 +3,7 @@
  *
  * Articles carry their own `seo` block (title, description, canonical,
  * ogImage, keywords). This module owns the imperative DOM updates that
- * happen on route entry. No React, no head manager dep — CRA + react-
+ * happen on route entry. No React, no head manager dep · CRA + react-
  * router-v6 means we don't have react-helmet wired and adding it for
  * one feature is over-altitude.
  */

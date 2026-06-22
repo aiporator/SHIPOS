@@ -5,14 +5,14 @@ import { LandingFooter } from '../components/landing/LandingFooter';
 import { PlusCircleCTA } from '../components/landing/PlusCircleCTA';
 
 /**
- * NewsletterConfirmedPage — double-opt-in landing.
+ * NewsletterConfirmedPage · double-opt-in landing.
  *
  * The newsletter-confirm Edge Function 302-redirects here after flipping
  * a subscriber to `active`. It passes ?status= so we can message the
  * three outcomes precisely:
- *   confirmed — first successful confirmation
- *   already   — link clicked again / already active
- *   invalid   — bad or expired token
+ *   confirmed · first successful confirmation
+ *   already   · link clicked again / already active
+ *   invalid   · bad or expired token
  *
  * Lives publicly at /newsletter/confirmed. Marked noindex so the
  * confirmation surface never enters search results.
@@ -24,13 +24,13 @@ const COPY = {
     headline: 'Du bist dabei',
     body:
       'Deine Anmeldung ist bestätigt. Du bekommst Wlads Feldnotizen ab ' +
-      'sofort — Notizen aus 400 000 Coachings, alle paar Wochen, kein Spam.',
+      'sofort · Notizen aus 400 000 Coachings, alle paar Wochen, kein Spam.',
   },
   already: {
     eyebrow: '▸ FELDNOTIZEN · BEREITS AKTIV',
     headline: 'Alles startklar',
     body:
-      'Diese Adresse war schon bestätigt — du bist also längst dabei. ' +
+      'Diese Adresse war schon bestätigt · du bist also längst dabei. ' +
       'Nichts weiter zu tun.',
   },
   invalid: {
@@ -38,7 +38,7 @@ const COPY = {
     headline: 'Link abgelaufen',
     body:
       'Dieser Bestätigungs-Link ist ungültig oder abgelaufen. Trag dich ' +
-      'einfach erneut ein — wir schicken dir einen frischen Link.',
+      'einfach erneut ein · wir schicken dir einen frischen Link.',
   },
 };
 
@@ -50,7 +50,7 @@ export default function NewsletterConfirmedPage() {
   const copy = COPY[status];
 
   useEffect(() => {
-    document.title = 'Feldnotizen — Bestätigung · Leader-OS';
+    document.title = 'Feldnotizen · Bestätigung · Leader-OS';
     // Defensive noindex even though robots.txt + meta cover it.
     const meta = document.createElement('meta');
     meta.name = 'robots';

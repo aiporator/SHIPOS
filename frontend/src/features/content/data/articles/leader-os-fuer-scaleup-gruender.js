@@ -1,5 +1,5 @@
 /**
- * Article 7/10 — persona use case for scaleup founders.
+ * Article 7/10 · persona use case for scaleup founders.
  */
 export default {
   slug: 'leader-os-fuer-scaleup-gruender',
@@ -17,7 +17,7 @@ export default {
   body: [
     { type: 'paragraph', text:
       'Gründer in der Series A bis C teilen ein Muster: ein Jahr früher konntest du dein Team in einer ' +
-      'Tasche tragen. Heute musst du sieben Teams gleichzeitig führen — und du hast nie gelernt wie das in ' +
+      'Tasche tragen. Heute musst du sieben Teams gleichzeitig führen · und du hast nie gelernt wie das in ' +
       'einem strukturierten Format geht. Du improvisierst. Du brennst aus. Das Team merkt es.' },
     { type: 'heading', level: 2, text: 'Was sich genau bricht.' },
     { type: 'list', style: 'numbered', items: [
@@ -39,7 +39,7 @@ export default {
     { type: 'heading', level: 2, text: 'Hebel 02: ALPEN für Gründer-Kalender.' },
     { type: 'paragraph', text:
       'Du wirst dich nicht durch besseres Multitasking retten. Du wirst dich durch konsequentes Streichen ' +
-      'retten. Das E in ALPEN — Entscheidungen treffen, welche Aufgaben NICHT auf deinen Mittwoch landen — ' +
+      'retten. Das E in ALPEN · Entscheidungen treffen, welche Aufgaben NICHT auf deinen Mittwoch landen · ' +
       'ist für Gründer der vermutlich größte Hebel im ganzen System.' },
     { type: 'callout', tone: 'lime', text:
       'Drei Streich-Entscheidungen pro Woche, konsequent durchgezogen, geben dir im Schnitt sechs Stunden ' +
@@ -54,7 +54,7 @@ export default {
     { type: 'paragraph', text:
       'Ehrlich gesagt: wenn du gerade in einer Liquiditäts-Krise steckst, gehört das Investment in einen ' +
       'Sprint nicht ganz oben. Es kostet 997 EUR und dreißig Stunden über vier Wochen. Wenn deine Cash-' +
-      'Reichweite unter zwölf Monaten liegt, ist die kostenlose Diagnose der richtige erste Schritt — sie ' +
+      'Reichweite unter zwölf Monaten liegt, ist die kostenlose Diagnose der richtige erste Schritt · sie ' +
       'sagt dir ehrlich welcher Skill JETZT den größten Hebel auf deine Pipeline hat.' },
     { type: 'paragraph', text:
       'Für eine direkte Tier-Empfehlung: 30-Min-Beratung buchen. Wir hören uns dein Setup an und sagen dir ' +

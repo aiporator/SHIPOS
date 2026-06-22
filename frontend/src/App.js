@@ -16,7 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 
 // ── Lazy routes ─────────────────────────────────────────────────────────
-// Iter 92.11: wrapped in `lazyWithRetry` — survives stale-deploy chunk-404s
+// Iter 92.11: wrapped in `lazyWithRetry` · survives stale-deploy chunk-404s
 // by transparently retrying then forcing a single reload to pick up the
 // fresh index.html (and its new chunk hashes). See lib/lazyWithRetry.js.
 const MagicLinkVerifyPage = lazyWithRetry(() => import("./pages/MagicLinkVerifyPage"));
@@ -59,7 +59,6 @@ const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscrib
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
-const QuickCheckPage = lazyWithRetry(() => import("./pages/QuickCheckPage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
@@ -107,7 +106,7 @@ function AppRouter() {
     clearChunkReloadGuard();
   }, [location.pathname]);
 
-  // Cross-tier guard — belt-and-suspenders for in-SPA navigation.
+  // Cross-tier guard · belt-and-suspenders for in-SPA navigation.
   // The synchronous pass in index.js handles initial page loads (typed URL,
   // bookmark, browser autocomplete). This useEffect catches the edge case
   // where a Link or programmatic navigate() lands on an App route while
@@ -166,20 +165,19 @@ function AppRouter() {
         <Route path="/settings" element={<Navigate to="/profile" replace />} />
         <Route path="/enterprise" element={<ProtectedRoute><EnterprisePage /></ProtectedRoute>} />
         <Route path="/challenge" element={<ProtectedRoute><Challenge30Page /></ProtectedRoute>} />
-        {/* Public legal pages — no auth required (GDPR / German law) */}
+        {/* Public legal pages · no auth required (GDPR / German law) */}
         <Route path="/impressum" element={<ImpressumPage />} />
         <Route path="/datenschutz" element={<DatenschutzPage />} />
         <Route path="/widerruf" element={<WiderrufPage />} />
         <Route path="/agb" element={<AGBPage />} />
-        {/* Public — opens via signed token in lifecycle drip emails */}
+        {/* Public · opens via signed token in lifecycle drip emails */}
         <Route path="/email/unsubscribe" element={<EmailUnsubscribePage />} />
-        {/* Public — double-opt-in confirmation landing (newsletter-confirm fn redirects here) */}
+        {/* Public · double-opt-in confirmation landing (newsletter-confirm fn redirects here) */}
         <Route path="/newsletter/confirmed" element={<NewsletterConfirmedPage />} />
-        {/* Public — Feldnotizen / content engine */}
+        {/* Public · Feldnotizen / content engine */}
         <Route path="/journal" element={<JournalIndex />} />
         <Route path="/journal/:slug" element={<ArticlePage />} />
-        <Route path="/quick-check" element={<QuickCheckPage />} />
-        {/* Public share routes — read-only showcase, no auth required */}
+        {/* Public share routes · read-only showcase, no auth required */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />
         <Route path="/" element={<LandingPage />} />

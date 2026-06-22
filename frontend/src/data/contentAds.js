@@ -1,10 +1,10 @@
-// Paid-Ad-Creatives — Netflix-Bites-DNA für Leader-OS.
+// Paid-Ad-Creatives · Netflix-Bites-DNA für Leader-OS.
 //
 // Look: ein einziger saturierter Farbblock, gecroppter Mensch im
 // Moment der Aktion (lesen · sprechen · entscheiden · zuhören),
 // XXL Tracked-Uppercase-Headline in Kontrast-Neon oben + unten,
 // Bottom-Strip mit Datum / CTA / URL. Keine Frames, keine Hairlines,
-// keine BIB-Codes — Specimen ist editorial, Ads sind laut.
+// keine BIB-Codes · Specimen ist editorial, Ads sind laut.
 //
 // JEDE Ad ist daten-getrieben: hier ändern → /ads sehen → screenshoten.
 // Das ist genau der Punkt: Claude Code edit · Vercel build · live.
@@ -14,28 +14,28 @@
 //   '4x5' → 1080×1350  Meta-Feed-Vertical (mehr Realestate)
 //   '9x16'→ 1080×1920  Stories · Reels · TikTok · YouTube-Shorts
 //
-// Photo-Quelle ist aktuell Picsum-Stock — wenn echte Wlad-Shoots
+// Photo-Quelle ist aktuell Picsum-Stock · wenn echte Wlad-Shoots
 // liegen unter /ads/photos/<slug>.jpg, einfach den Photo-Pfad
 // hier umstellen. Ein File, eine Änderung, alle Tiles ziehen mit.
 
 const stock = (seed, w, h) =>
   `https://picsum.photos/seed/${encodeURIComponent('lo-ad-' + seed)}/${w}/${h}`;
 
-// Brand-Paletten — direkt im Netflix-Bites-Frequenzband, plus
+// Brand-Paletten · direkt im Netflix-Bites-Frequenzband, plus
 // Lime als unser Anker. Jede Palette: bg (riesiger Farbblock),
 // hi (Headline-Neon), lo (kleinere Caption / URL).
 export const AD_PALETTES = {
-  // Lime auf Schwarz — unser Brand-Stamm
+  // Lime auf Schwarz · unser Brand-Stamm
   midnight: { bg: '#0A0A0A', hi: '#BFFF00', lo: '#FAFAF7' },
-  // Heat-Magenta — gegen Stillstand
+  // Heat-Magenta · gegen Stillstand
   heat: { bg: '#E11D74', hi: '#FFE600', lo: '#FFFFFF' },
-  // Electric-Blue — für KI-Headlines
+  // Electric-Blue · für KI-Headlines
   spark: { bg: '#1E40FF', hi: '#BFFF00', lo: '#FFFFFF' },
-  // Acid-Lime auf Tief-Grün — fürs Manifest
+  // Acid-Lime auf Tief-Grün · fürs Manifest
   rally: { bg: '#16632B', hi: '#BFFF00', lo: '#FFFFFF' },
-  // Klares Weiß — Trust-Ads (Bücher, Bestseller)
+  // Klares Weiß · Trust-Ads (Bücher, Bestseller)
   paper: { bg: '#F5F5F2', hi: '#0A0A0A', lo: '#0A0A0A' },
-  // Hot-Orange — für Sprint / Urgency
+  // Hot-Orange · für Sprint / Urgency
   blaze: { bg: '#FF6A2D', hi: '#0A0A0A', lo: '#0A0A0A' },
 };
 
@@ -210,7 +210,7 @@ export const AD_SERIES = [
     photo: stock('whiteboard-talk', 1080, 1080),
     photoFit: 'cover',
     caption:
-      'SEXIER — Statement, Explanation, Example, Impact, Exception, ' +
+      'SEXIER · Statement, Explanation, Example, Impact, Exception, ' +
       'Resolution. Das Argumentations-Modell, das in jeder Verhandlung ' +
       'trägt. Eines von 11 Frameworks im Leader-OS.',
   },
@@ -228,7 +228,7 @@ export const AD_SERIES = [
     photoFit: 'cover',
     caption:
       'Straw Man. Ad Hominem. Falsches Wir. Drei der häufigsten Tricks ' +
-      'in Diskussionen — und der einfache Konter dazu. Du musst nicht ' +
+      'in Diskussionen · und der einfache Konter dazu. Du musst nicht ' +
       'aggressiver werden. Du musst nur sehen, was gespielt wird.',
   },
 
@@ -281,7 +281,7 @@ export const AD_SERIES = [
     photoFit: 'cover',
     caption:
       'Die erste Class hat 100 Startnummern. Wer dabei ist, bekommt das ' +
-      'Zertifikat 0001 — handschriftlich von Wlad, mit dem Original-Siegel.',
+      'Zertifikat 0001 · handschriftlich von Wlad, mit dem Original-Siegel.',
   },
   {
     id: 'AD-H-02',

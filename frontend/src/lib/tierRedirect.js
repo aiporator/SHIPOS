@@ -1,5 +1,5 @@
 /**
- * tierRedirect — single source of truth for the Landing↔App-tier guard.
+ * tierRedirect · single source of truth for the Landing↔App-tier guard.
  *
  * Same CRA bundle is served on two host families:
  *   - Landing (Vercel, marketing):  leader-os.de    + leader-check.de
@@ -10,10 +10,10 @@
  * callbacks, and the post-login navigation all stay on a single origin.
  *
  * We run the check at two layers:
- *   1. Synchronously in index.js BEFORE ReactDOM.createRoot — so a typed
+ *   1. Synchronously in index.js BEFORE ReactDOM.createRoot · so a typed
  *      URL like leader-os.de/login never mounts the LoginPage at all, no
  *      flash of a non-functional form.
- *   2. In App.js inside a useEffect — covers any in-SPA navigation that
+ *   2. In App.js inside a useEffect · covers any in-SPA navigation that
  *      manages to land on an App route while still on the Landing host
  *      (shouldn't happen, but cheap belt-and-suspenders).
  */
@@ -51,7 +51,7 @@ export const isLandingAllowedPath = (path) =>
  * If we're on a Landing host and the current path is an App route, hard-
  * redirect to the matching App host and return true. Returns false otherwise.
  *
- * Safe to call before React mounts — uses only window.location.
+ * Safe to call before React mounts · uses only window.location.
  */
 export const redirectAppRoutesToAppTier = () => {
   if (typeof window === 'undefined') return false;

@@ -1,5 +1,5 @@
 /**
- * QuestionTypes — Nike Athletic-Editorial DNA.
+ * QuestionTypes · Nike Athletic-Editorial DNA.
  *
  * Drei Frage-Typen (Coach · Action · MultipleChoice). Flat black/white,
  * 2px-Borders, Lime-Akzent für aktive States, Mono-Eyebrows statt

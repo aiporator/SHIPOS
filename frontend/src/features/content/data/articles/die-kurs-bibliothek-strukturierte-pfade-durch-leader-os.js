@@ -5,7 +5,7 @@ export default {
   title: 'Die Kurs-Bibliothek: strukturierte Pfade durch Leader-OS.',
   description:
     'Sechs Spezial-Kurse die nach dem Sprint zur Verfügung stehen. ' +
-    'Welcher Kurs für welche konkrete Skill-Vertiefung passt — und ' +
+    'Welcher Kurs für welche konkrete Skill-Vertiefung passt · und ' +
     'wie du sie in deinen Quartals-Rhythmus einbaust.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-13',

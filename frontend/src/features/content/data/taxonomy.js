@@ -1,9 +1,9 @@
 /**
- * Tag-Taxonomy — curated grouping for the Journal index.
+ * Tag-Taxonomy · curated grouping for the Journal index.
  *
  * Article tags in /data/articles/*.js are free-form strings (KI, Frameworks,
  * Rhetorik, Skripte, …). For SEO + discovery the index needs ordered
- * categories — "KI-Praxis", "Methoden", "Rollen", "Karriere", "Plattform" —
+ * categories · "KI-Praxis", "Methoden", "Rollen", "Karriere", "Plattform" ·
  * each with a clear positioning and a curated tag list.
  *
  * The order of TAXONOMY is the order of rendering. Each category captures
@@ -31,7 +31,7 @@ export const TAXONOMY = [
     name: 'Methoden & Frameworks',
     tagline: 'Die elf Modelle die jede Führungskraft beherrschen sollte.',
     description:
-      'B-W-W, Harvard-Verhandlung, Schulz von Thun, Vier-Farben — die ' +
+      'B-W-W, Harvard-Verhandlung, Schulz von Thun, Vier-Farben · die ' +
       'Klassiker richtig erklärt. Plus die KI-Verstärkung dahinter.',
     tagMatches: ['Frameworks', 'Methodik', 'Skripte', 'Feedback'],
     funnelLabel: 'EVERGREEN',
@@ -40,7 +40,7 @@ export const TAXONOMY = [
     code: 'C-03',
     slug: 'rhetorik',
     name: 'Rhetorik & Kommunikation',
-    tagline: 'Schlagfertigkeit, Verhandlung, Konflikt — souverän auflösen.',
+    tagline: 'Schlagfertigkeit, Verhandlung, Konflikt · souverän auflösen.',
     description:
       'Aus Wlads 3 SPIEGEL-Bestsellern: Dunkle Rhetorik erkennen, ' +
       'Schlagfertigkeit trainieren, Verhandlungen führen ohne sich ' +
@@ -54,7 +54,7 @@ export const TAXONOMY = [
     name: 'Rollen & Karriere',
     tagline: 'Vom IC zur Führungskraft. Vom Manager zum Multiplikator.',
     description:
-      'Identitäts-Sprünge zwischen Stufen — was sich ändern muss, ' +
+      'Identitäts-Sprünge zwischen Stufen · was sich ändern muss, ' +
       'was nicht. Speziell für die Übergänge die jeder verpatzt.',
     tagMatches: ['Rollen', 'Karriere', 'Identity', 'Sprint', 'Strategie'],
     funnelLabel: 'IDENTITY-SHIFT',
@@ -74,7 +74,7 @@ export const TAXONOMY = [
 
 /**
  * Bucket an article into the first matching category.
- * Falls back to "C-02 Methoden" if no tag matches — that bucket is generic
+ * Falls back to "C-02 Methoden" if no tag matches · that bucket is generic
  * enough that it never reads as "uncategorized".
  */
 export function categoryForArticle(article, manualOverrides = {}) {

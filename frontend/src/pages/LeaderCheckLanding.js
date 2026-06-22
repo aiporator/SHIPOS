@@ -5,11 +5,11 @@ import { LandingChatPod } from '../components/landing/LandingChatPod';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 /**
- * LeaderCheckLanding — die Diagnostic-First-Variante.
+ * LeaderCheckLanding · die Diagnostic-First-Variante.
  *
  * Wird ausgeliefert wenn der Hostname leader-check.de ist (siehe
  * Router-Branch in LandingPage.js). Bewusst MAGER: ein einziger
- * Funnel-Zweck — kostenlose 10-Minuten-Diagnose starten — plus die
+ * Funnel-Zweck · kostenlose 10-Minuten-Diagnose starten · plus die
  * kritische Bridge-Message: "Nutze die gleiche Email wie auf
  * leader-os.de damit dein WladBot deinen Score kennt".
  *
@@ -19,7 +19,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
  *
  * Design-System (siehe frontend/DESIGN.md, Nike-inspired Athletic-Editorial):
  *   - canvas: #FFFFFF (Light-Mode-locked)
- *   - hairline: rgba(0,0,0,0.08–0.15) — Hairlines aus echtem Schwarz
+ *   - hairline: rgba(0,0,0,0.08–0.15) · Hairlines aus echtem Schwarz
  *   - display: Outfit 900 italic, massive uppercase, lime-Punkt-Punktuation
  *   - eyebrow: mono uppercase tracked 0.28em
  *   - 2px-Schwarz-Borders für emphatische Cards (Nike Editorial DNA)
@@ -30,7 +30,7 @@ const DIMENSIONS = [
     code: '§01',
     name: 'KI-Readiness',
     body:
-      'Wo stehst du in der Nutzung von KI als Führungskraft — vom ' +
+      'Wo stehst du in der Nutzung von KI als Führungskraft · vom ' +
       'bewussten Einsatz bis zum kritischen Hinterfragen?',
   },
   {
@@ -45,7 +45,7 @@ const DIMENSIONS = [
     name: 'Emotionale Intelligenz',
     body:
       'Wie liest du Stimmungen in einem Raum? Wie gibst du Feedback, ' +
-      'das ankommt — ohne das Gegenüber zu verlieren?',
+      'das ankommt · ohne das Gegenüber zu verlieren?',
   },
 ];
 
@@ -57,7 +57,7 @@ const PHASES = [
 
 export default function LeaderCheckLanding() {
   useEffect(() => {
-    document.title = 'Leader-Check — Wo stehst du als Führungskraft?';
+    document.title = 'Leader-Check · Wo stehst du als Führungskraft?';
     const meta = document.querySelector('meta[name="description"]');
     const desc =
       'Kostenlose 10-Minuten-Diagnose: KI-Readiness · Rhetorik · ' +
@@ -135,7 +135,7 @@ export default function LeaderCheckLanding() {
           />
 
           <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-20 md:pt-28 pb-20 md:pb-28">
-            {/* Warmer Grüß-Strip mit Wlad-Foto links — keine Schreierei,
+            {/* Warmer Grüß-Strip mit Wlad-Foto links · keine Schreierei,
                 eine Einladung. Das setzt den Ton bevor die Headline kommt. */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -196,8 +196,8 @@ export default function LeaderCheckLanding() {
               className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-black/75"
             >
               30 Fragen, ehrlich beantwortet, dauern etwa 10 Minuten. Du
-              bekommst sofort einen Score über drei Dimensionen — KI,
-              Rhetorik, EQ — plus eine konkrete Empfehlung, was dein
+              bekommst sofort einen Score über drei Dimensionen · KI,
+              Rhetorik, EQ · plus eine konkrete Empfehlung, was dein
               nächster Schritt sein könnte. Kostenlos. Keine Kreditkarte.
               Kein Newsletter, der dich verfolgt.
             </motion.p>
@@ -225,7 +225,7 @@ export default function LeaderCheckLanding() {
               </span>
             </motion.div>
 
-            {/* Live-Trust-Strip — schlicht, glaubhaft, anonymisiert. */}
+            {/* Live-Trust-Strip · schlicht, glaubhaft, anonymisiert. */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -246,7 +246,7 @@ export default function LeaderCheckLanding() {
             </motion.div>
           </div>
 
-          {/* Hairline strip — phase metadata */}
+          {/* Hairline strip · phase metadata */}
           <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10">
             <div className="border-t border-black/[0.10] grid grid-cols-1 md:grid-cols-3">
               {PHASES.map(([nr, dur, body]) => (
@@ -302,7 +302,7 @@ export default function LeaderCheckLanding() {
                 ist genau dein Hebel."
               </p>
               <p className="mt-5 max-w-xl text-[15px] leading-[1.6] text-black/65">
-                Andere E-Mail? Auch okay — dann fängt die Personalisierung
+                Andere E-Mail? Auch okay · dann fängt die Personalisierung
                 eben nochmal bei Null an. Du verlierst nichts, aber wir
                 sparen uns beide ein paar Minuten Wiederholung.
               </p>
@@ -313,7 +313,7 @@ export default function LeaderCheckLanding() {
                   <strong className="font-bold">Versprochen:</strong> Wir
                   schicken dir keinen Newsletter ohne dass du den willst.
                   Keine Werbe-Mails von Dritten. Du kannst dein Profil
-                  jederzeit komplett löschen — ein Klick, weg.
+                  jederzeit komplett löschen · ein Klick, weg.
                 </div>
               </div>
             </div>
@@ -364,7 +364,7 @@ export default function LeaderCheckLanding() {
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] leading-[1.6] text-black/65">
               Keine Bullshit-Persönlichkeitstests. Drei Bereiche, die in
-              jeder echten Führungs-Situation entscheiden — leicht zu
+              jeder echten Führungs-Situation entscheiden · leicht zu
               messen, leicht zu trainieren.
             </p>
 
@@ -424,7 +424,7 @@ export default function LeaderCheckLanding() {
               <p className="mt-6 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-black/75">
                 Keine generische PDF mit Allgemeinplätzen. Ein konkretes,
                 persönliches Profil mit drei Werten, einer ehrlichen
-                Einordnung und einem klaren ersten Schritt — gemacht für
+                Einordnung und einem klaren ersten Schritt · gemacht für
                 deine Realität, nicht für ein Lehrbuch.
               </p>
               <ul className="mt-7 space-y-2 text-[13px] leading-[1.55] text-black/70">
@@ -558,7 +558,7 @@ export default function LeaderCheckLanding() {
             </h2>
             <p className="mt-10 max-w-xl mx-auto text-[15px] md:text-[17px] leading-[1.6] text-black/80">
               10 Minuten deiner Zeit. Keine Kreditkarte. Keine
-              Anmeldung. Am Ende weißt du genauer wo du stehst — und
+              Anmeldung. Am Ende weißt du genauer wo du stehst · und
               das ist schon mehr als die meisten haben.
             </p>
             <div className="mt-14 inline-flex flex-col items-center gap-4">
@@ -577,7 +577,7 @@ export default function LeaderCheckLanding() {
                 </span>
               </a>
               <p className="text-[11px] text-black/45 italic max-w-md text-center">
-                Wenn du dann später Leader-OS ausprobieren willst —
+                Wenn du dann später Leader-OS ausprobieren willst ·
                 nimm dort die gleiche E-Mail. Dann erkennen wir dich
                 und können vom ersten Tag persönlich werden.
               </p>
@@ -603,7 +603,7 @@ export default function LeaderCheckLanding() {
             </h2>
             <p className="mt-6 max-w-md text-[15px] md:text-[16px] leading-[1.6] text-black/75">
               Die Fragen wurden von Wlad und seinem Team über fünf Jahre
-              validiert — gegen 400 000+ reale Coaching-Stunden. Jede
+              validiert · gegen 400 000+ reale Coaching-Stunden. Jede
               Frage hat ein konkretes Verhalten als Anker, keine
               Selbsteinschätzungs-Wischiwaschi.
             </p>
@@ -698,7 +698,7 @@ export default function LeaderCheckLanding() {
       <LandingFooter />
 
       {/* ───────── Sticky Mobile Bottom-CTA ─────────
-          Auf Mobile immer sichtbar — wer scrollt sieht den
+          Auf Mobile immer sichtbar · wer scrollt sieht den
           Diagnose-Start-Button konstant. Auf Desktop verdeckt
           (hidden md:hidden) damit der Hero-CTA + Final-CTA reichen. */}
       <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t-2 border-black px-4 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.15)]">
@@ -724,7 +724,7 @@ export default function LeaderCheckLanding() {
         </a>
       </div>
 
-      {/* Readiness-Vorprüfung als WladBot-Mini-Funnel rechts unten —
+      {/* Readiness-Vorprüfung als WladBot-Mini-Funnel rechts unten ·
           erkundet KI / Rhetorik / EQ / Feedback in 4 Mikro-Fragen
           und routet in die volle 30-Fragen-Diagnose. */}
       <LandingChatPod mode="readiness" />

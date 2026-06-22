@@ -1,5 +1,5 @@
 /**
- * Cookie & Tracking Consent — GDPR-compliant banner.
+ * Cookie & Tracking Consent · GDPR-compliant banner.
  *
  * Persisted in localStorage under key `lo_consent_v1`. Bump the suffix when
  * the catalog of trackers changes so old consent is re-prompted.
@@ -7,7 +7,7 @@
  * Three options:
  *   - Accept all   → essential + analytics + session-replay
  *   - Essential only → only Sentry error tracking (legitimate interest,
- *     Art. 6(1)(f) — no PII, no replay, no PostHog)
+ *     Art. 6(1)(f) · no PII, no replay, no PostHog)
  *   - Customize    → granular toggles
  */
 import { useState, useEffect } from 'react';
@@ -67,7 +67,7 @@ export const CookieConsent = () => {
           {customizing && (
             <div className="space-y-2 mb-4 bg-white/[0.03] rounded-xl p-3" data-testid="consent-customize-panel">
               {[
-                { k: 'essential', t_de: 'Technisch notwendig', t_en: 'Strictly necessary', desc_de: 'Login, Session — kann nicht deaktiviert werden', desc_en: 'Login, session — cannot be disabled', locked: true },
+                { k: 'essential', t_de: 'Technisch notwendig', t_en: 'Strictly necessary', desc_de: 'Login, Session · kann nicht deaktiviert werden', desc_en: 'Login, session · cannot be disabled', locked: true },
                 { k: 'analytics', t_de: 'Analyse (PostHog)', t_en: 'Analytics (PostHog)', desc_de: 'Anonyme Nutzungs-Statistiken', desc_en: 'Anonymous usage stats' },
                 { k: 'replays', t_de: 'Session-Replay (Sentry)', t_en: 'Session replay (Sentry)', desc_de: 'Für gezielte Fehler-Reproduktion', desc_en: 'For targeted bug repro' },
               ].map(({ k, t_de, t_en, desc_de, desc_en, locked }) => (

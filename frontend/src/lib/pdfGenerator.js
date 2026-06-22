@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 
 /**
- * Premium branded PDF generator — WladBot Leadership OS
+ * Premium branded PDF generator · WladBot Leadership OS
  * Supports all result types from workflows, playbooks, simulations
  */
 export async function generatePDF(reportData, filename = 'WladBot-Report') {
@@ -256,7 +256,7 @@ export async function generatePDF(reportData, filename = 'WladBot-Report') {
   }
 
   // High Impact Tasks
-  addSection('Hoher Impact — Sofort umsetzen', reportData.high_impact, blue);
+  addSection('Hoher Impact · Sofort umsetzen', reportData.high_impact, blue);
 
   // Development Plan
   addSection('Entwicklungsplan', reportData.development_plan, violet);
@@ -289,7 +289,7 @@ export async function generatePDF(reportData, filename = 'WladBot-Report') {
     doc.rect(0, 287, pageWidth, 10, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(7);
-    doc.text('WladBot Leadership OS — Basierend auf Wlad Jachtchenkos Methodik', margin, 293);
+    doc.text('WladBot Leadership OS · Basierend auf Wlad Jachtchenkos Methodik', margin, 293);
     doc.text(`Seite ${i}/${pageCount}`, pageWidth - margin, 293, { align: 'right' });
   }
 

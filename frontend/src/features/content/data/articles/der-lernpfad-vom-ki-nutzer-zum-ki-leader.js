@@ -5,7 +5,7 @@ export default {
   title: 'Der Lern-Pfad vom KI-Nutzer zum KI-Leader.',
   description:
     'Vier Stufen, ein klares Modell, keine Magic. Wo du heute stehst und ' +
-    'welcher Hebel dich auf die nächste Stufe bringt — in zwölf Wochen.',
+    'welcher Hebel dich auf die nächste Stufe bringt · in zwölf Wochen.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-12',
   cover: null,
@@ -19,8 +19,8 @@ export default {
     { type: 'heading', level: 2, text: 'Stufe 03: KI-gestützte Führungskraft.' },
     { type: 'paragraph', text: 'Deine KI-Nutzung folgt einer Methodik (B-W-W, SEXIER, ALPEN). Du teilst Prompts mit deinem Senior-Team. Du kannst quantifizieren wie viel Deep-Work-Zeit du gewinnst. Etwa 10 Prozent der DACH-Führungskräfte. Hebel auf die nächste Stufe: System-Effekt für das Team.' },
     { type: 'heading', level: 2, text: 'Stufe 04: KI-Leader.' },
-    { type: 'paragraph', text: 'Du baust ein Operating Model das KI strukturell einbaut — nicht als Tool, sondern als Schicht. Dein Team kommuniziert messbar klarer, schneller, methodischer. Du wirst zur Referenz für andere Führungskräfte. Etwa 3-5 Prozent. Hebel von hier: Mentor anderer KI-Leader werden.' },
-    { type: 'framework', code: 'STUFEN', title: 'Vier-Stufen-Pfad', explanation: 'Nutzer (60%) → Power-User (25%) → gestützte Führungskraft (10%) → KI-Leader (3-5%). Jede Stufe ist ein anderer Hebel. Niemand überspringt — alle gehen die Stufen durch. Wer Stufe 1 zu lange bleibt, hat einen Methodik-Mangel.' },
+    { type: 'paragraph', text: 'Du baust ein Operating Model das KI strukturell einbaut · nicht als Tool, sondern als Schicht. Dein Team kommuniziert messbar klarer, schneller, methodischer. Du wirst zur Referenz für andere Führungskräfte. Etwa 3-5 Prozent. Hebel von hier: Mentor anderer KI-Leader werden.' },
+    { type: 'framework', code: 'STUFEN', title: 'Vier-Stufen-Pfad', explanation: 'Nutzer (60%) → Power-User (25%) → gestützte Führungskraft (10%) → KI-Leader (3-5%). Jede Stufe ist ein anderer Hebel. Niemand überspringt · alle gehen die Stufen durch. Wer Stufe 1 zu lange bleibt, hat einen Methodik-Mangel.' },
     { type: 'heading', level: 2, text: 'Zwölf-Wochen-Plan für jede Stufe.' },
     { type: 'list', style: 'bullet', items: [
       'Stufe 1 → 2: drei wiederverwendete Prompts bauen, daily-routine etablieren. 4 Wochen.',

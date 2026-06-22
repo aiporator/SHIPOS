@@ -1,5 +1,5 @@
 /**
- * CommunityMeStats — personalized header card for the Community Page.
+ * CommunityMeStats · personalized header card for the Community Page.
  *
  * Shows the requesting user:
  *  - Avatar + name + tier
@@ -8,7 +8,7 @@
  *  - A subtle progression hint ("Du bist auf Platz X von Y · …")
  *
  * Stays visible above the feed regardless of which feed-filter is active so the
- * user always sees their own standing — that's the personalization Mert asked for.
+ * user always sees their own standing · that's the personalization Mert asked for.
  */
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '../ui/card';
@@ -62,8 +62,8 @@ export const CommunityMeStats = ({ de }) => {
   const totalLeaders = stats.total_leaders || 0;
   const nudge = stats.rank
     ? (de
-        ? `Du bist auf Platz ${stats.rank} von ${totalLeaders}. ${stats.rank > 3 ? 'Top 3 sind in Reichweite — poste deinen nächsten Win.' : 'Du bist in den Top 3. Wahnsinn — halte das Tempo.'}`
-        : `You're rank ${stats.rank} of ${totalLeaders}. ${stats.rank > 3 ? 'Top 3 is within reach — post your next win.' : "You're in the Top 3. Hold the pace."}`)
+        ? `Du bist auf Platz ${stats.rank} von ${totalLeaders}. ${stats.rank > 3 ? 'Top 3 sind in Reichweite · poste deinen nächsten Win.' : 'Du bist in den Top 3. Wahnsinn · halte das Tempo.'}`
+        : `You're rank ${stats.rank} of ${totalLeaders}. ${stats.rank > 3 ? 'Top 3 is within reach · post your next win.' : "You're in the Top 3. Hold the pace."}`)
     : (de
         ? 'Poste deinen ersten Win und steige direkt ins Ranking ein.'
         : 'Post your first win and instantly enter the ranking.');

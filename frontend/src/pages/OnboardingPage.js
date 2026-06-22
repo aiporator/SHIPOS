@@ -258,7 +258,7 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 5: Strategy Call CTA — Cal.com (Iter 92.10: no "Free" wording, premium positioning) */}
+        {/* Step 5: Strategy Call CTA · Cal.com (Iter 92.10: no "Free" wording, premium positioning) */}
         {step === 5 && (
           <div className="space-y-5 animate-fade-in" data-testid="onboarding-call-step">
             <div className="text-center">
@@ -268,8 +268,8 @@ export default function OnboardingPage() {
               <h2 className="text-2xl font-black tracking-tight">{de ? 'Sicher den schnellsten Weg.' : 'Lock in the fastest path.'}</h2>
               <p className="text-sm text-muted-foreground mt-1.5 max-w-md mx-auto">
                 {de
-                  ? 'Bevor du loslegst — sichere dir einen Termin mit unserem Argumentorik-Berater. 15 Min, in denen du klar bekommst: wo stehst du, wo blockierst du, was sind deine nächsten 30 Tage.'
-                  : 'Before you dive in — book a slot with our Argumentorik consultant. 15 min to find out where you stand, where you block yourself, what your next 30 days should be.'}
+                  ? 'Bevor du loslegst · sichere dir einen Termin mit unserem Argumentorik-Berater. 15 Min, in denen du klar bekommst: wo stehst du, wo blockierst du, was sind deine nächsten 30 Tage.'
+                  : 'Before you dive in · book a slot with our Argumentorik consultant. 15 min to find out where you stand, where you block yourself, what your next 30 days should be.'}
               </p>
             </div>
 
@@ -319,7 +319,7 @@ export default function OnboardingPage() {
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors font-medium"
                 data-testid="onboarding-skip-call-btn"
               >
-                {de ? 'Überspringen — ich starte direkt' : 'Skip — I want to start now'} →
+                {de ? 'Überspringen · ich starte direkt' : 'Skip · I want to start now'} →
               </button>
             </div>
           </div>

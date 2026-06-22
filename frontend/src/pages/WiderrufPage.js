@@ -1,5 +1,5 @@
 /**
- * Widerrufsbelehrung — Verbraucher-Widerrufsrecht (§ 312g, § 355 BGB).
+ * Widerrufsbelehrung · Verbraucher-Widerrufsrecht (§ 312g, § 355 BGB).
  *
  * Standardtext nach Anlage 1 zu Art. 246a § 1 Abs. 2 Satz 2 EGBGB
  * mit eingesetzten Anbieter-Daten.

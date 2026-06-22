@@ -2,7 +2,7 @@ export default {
   slug: 'fuer-jeden-mitarbeiter-nicht-nur-fuer-fuehrungskraefte',
   type: 'article',
   status: 'published',
-  title: 'Für jeden Mitarbeiter — nicht nur für Führungskräfte.',
+  title: 'Für jeden Mitarbeiter · nicht nur für Führungskräfte.',
   description:
     'Wer KI-Hebel will, muss nicht zwingend Manager sein. Wie Leader-OS ' +
     'auch für Senior-ICs, Tech-Leads ohne formelle Personalverantwortung ' +
@@ -12,7 +12,7 @@ export default {
   cover: null,
   tags: ['Leader-OS', 'Zugang', 'IC'],
   body: [
-    { type: 'paragraph', text: 'Die meisten Leadership-Programme adressieren Führungskräfte mit Personalverantwortung. Das ist ein zu enger Filter. Wer heute in DACH einen Tech-Lead-Titel ohne direct reports hat, oder ein Senior-IC mit Domain-Verantwortung ist, hat dieselben Skill-Lücken — und ähnlich starke Hebel.' },
+    { type: 'paragraph', text: 'Die meisten Leadership-Programme adressieren Führungskräfte mit Personalverantwortung. Das ist ein zu enger Filter. Wer heute in DACH einen Tech-Lead-Titel ohne direct reports hat, oder ein Senior-IC mit Domain-Verantwortung ist, hat dieselben Skill-Lücken · und ähnlich starke Hebel.' },
     { type: 'heading', level: 2, text: 'Drei nicht-Manager-Profile die vom Sprint profitieren.' },
     { type: 'list', style: 'numbered', items: [
       'Senior IC ohne Personalverantwortung: B-W-W und SEXIER drillst du auf Code-Review-Konversationen, Architektur-Vorschläge, Cross-Team-Verhandlungen.',
@@ -23,7 +23,7 @@ export default {
     { type: 'paragraph', text: 'Die elf Frameworks sind dieselben. Was sich anpasst sind die Drill-Cases. Senior-ICs drillst du an Code-Review-Konversationen statt 1:1s. Tech-Leads an Cross-Team-Eskalationen. Solo-Spezialisten an Kunden-Pitches.' },
     { type: 'heading', level: 2, text: 'Warum das wichtig ist.' },
     { type: 'paragraph', text: 'In DACH werden 2026 etwa 38 Prozent aller "Senior IC"-Profile früher oder später in Manager-Rollen rotieren. Wer im Sprint die methodische Substanz aufbaut, bevor die Personalverantwortung kommt, ist im Beförderungs-Moment vorbereitet. Wer nicht, lernt es danach mit doppelter Reibung.' },
-    { type: 'framework', code: 'IC+', title: 'Drei Profile außerhalb des Managers', explanation: 'Senior IC · Tech-Lead ohne direct reports · Solo-Spezialist. Dieselben Frameworks, andere Drill-Cases. Etwa 25 Prozent unserer Sprint-Teilnehmer haben aktuell keine formelle Personalverantwortung — und gewinnen vergleichbar viel.' },
+    { type: 'framework', code: 'IC+', title: 'Drei Profile außerhalb des Managers', explanation: 'Senior IC · Tech-Lead ohne direct reports · Solo-Spezialist. Dieselben Frameworks, andere Drill-Cases. Etwa 25 Prozent unserer Sprint-Teilnehmer haben aktuell keine formelle Personalverantwortung · und gewinnen vergleichbar viel.' },
     { type: 'callout', tone: 'lime', text: 'Wer auf eine Manager-Rolle wartet bevor er Leadership-Skills baut, wartet zu lange. Die Methodik ist auch ohne Personalverantwortung Hebel.' },
     { type: 'paragraph', text: 'Wenn du Senior IC, Tech-Lead oder Solo-Spezialist bist und unsicher bist ob der Sprint zu dir passt: in der 30-Min-Beratung schauen wir auf dein Setup. Wenn er nicht passt, sagen wir das ehrlich.' },
   ],

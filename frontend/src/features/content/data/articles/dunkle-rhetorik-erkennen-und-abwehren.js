@@ -4,7 +4,7 @@ export default {
   status: 'published',
   title: 'Dunkle Rhetorik erkennen und abwehren.',
   description:
-    'Sechs gängige Manipulations-Techniken im Führungs-Alltag — von der ' +
+    'Sechs gängige Manipulations-Techniken im Führungs-Alltag · von der ' +
     'Strohmann-Falle bis zum Whataboutism. Wie du sie erkennst und ' +
     'höflich kontrierst, ohne den Raum zu verlieren.',
   author: 'Wlad Jachtchenko',
@@ -26,11 +26,11 @@ export default {
     { type: 'heading', level: 2, text: '06. Zustimmungs-Falle.' },
     { type: 'paragraph', text: 'Reihe von Mini-Fragen die du alle bejahst, dann die Hauptfrage wird zur Konsequenz-Frage gestellt. "Du willst doch dass das Team wächst? Du willst doch unser Quartalsziel erreichen? Dann müssen wir doch X tun." Konter: "Aus Y und Y folgt nicht automatisch X. Lass uns die Implikation explizit prüfen."' },
     { type: 'framework', code: '6 KONTER', title: 'Erkenne, benenne, lenke', explanation: 'Erste Bewegung: erkennen welche Technik gerade läuft. Zweite Bewegung: höflich benennen ("das ist eine Strohmann-Argumentation"). Dritte Bewegung: zurück zum eigentlichen Punkt lenken. Wer ohne Lenkung kontert, gewinnt das Argument und verliert den Raum.' },
-    { type: 'callout', tone: 'lime', text: 'Wichtig: Dunkle Rhetorik im Führungs-Alltag ist selten böswillig. Oft ist sie unbewusst — der Mitarbeiter weiß nicht dass er gerade Whataboutism nutzt. Behandle es als Lern-Moment, nicht als Angriff.' },
+    { type: 'callout', tone: 'lime', text: 'Wichtig: Dunkle Rhetorik im Führungs-Alltag ist selten böswillig. Oft ist sie unbewusst · der Mitarbeiter weiß nicht dass er gerade Whataboutism nutzt. Behandle es als Lern-Moment, nicht als Angriff.' },
     { type: 'paragraph', text: 'Im Sprint trainierst du Konter-Skripte für alle sechs Techniken an deinen echten Cases. WladBot spielt das Gegenüber mit der wahrscheinlichsten Manipulation und drillt dich auf höfliche, klare Konter.' },
   ],
   seo: {
-    description: 'Sechs gängige Manipulations-Techniken im Führungs-Alltag — Strohmann, Whataboutism, falsche Dichotomie, Ad Hominem, Dringlichkeit, Zustimmungs-Falle — mit konkreten Konter-Skripten.',
+    description: 'Sechs gängige Manipulations-Techniken im Führungs-Alltag · Strohmann, Whataboutism, falsche Dichotomie, Ad Hominem, Dringlichkeit, Zustimmungs-Falle · mit konkreten Konter-Skripten.',
     keywords: ['Dunkle Rhetorik', 'Manipulation erkennen', 'Strohmann Argument', 'Whataboutism', 'Rhetorik abwehren', 'Wlad Jachtchenko Manipulation'],
   },
   related: ['drei-saeulen-der-ueberzeugung-logos-ethos-pathos', 'harvard-verhandlungsmethode-erklaert'],

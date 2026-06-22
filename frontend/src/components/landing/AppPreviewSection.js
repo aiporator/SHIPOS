@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { PlusCircleCTA } from './PlusCircleCTA';
 
 /**
- * AppPreviewSection — "Was siehst du, wenn du drinnen bist?".
+ * AppPreviewSection · "Was siehst du, wenn du drinnen bist?".
  *
  * Drei Specimen-Mockups die das Produkt-Innere zeigen: das
  * Dashboard (heutige Mission + Fortschritt), die Video-Mission
@@ -11,7 +11,7 @@ import { PlusCircleCTA } from './PlusCircleCTA';
  *
  * Echte Screenshots wären besser, sind aber noch nicht
  * launch-ready. Bis dahin rendern wir die Mockups typografisch
- * im selben Athletic-Editorial-Stil wie der Rest der Page —
+ * im selben Athletic-Editorial-Stil wie der Rest der Page ·
  * konsistenter Look ist wichtiger als Foto-Realismus.
  */
 

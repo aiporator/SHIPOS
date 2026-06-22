@@ -3,9 +3,9 @@ import api from '../../lib/api';
 import logger from '../../lib/logger';
 
 /**
- * ChatHistorySidebar — Liste vergangener WladBot-Gespräche.
+ * ChatHistorySidebar · Liste vergangener WladBot-Gespräche.
  *
- * Wird im `rightPanel`-Slot der DashboardLayout angezeigt — sichtbar
+ * Wird im `rightPanel`-Slot der DashboardLayout angezeigt · sichtbar
  * ab Breakpoint `lg` (Desktop). Auf Mobile/Tablet bleibt die alte
  * Top-Bar-Logik (Neues-Gespräch-Button im ChatRolesHeader).
  *
@@ -13,7 +13,7 @@ import logger from '../../lib/logger';
  * Endpoint liefert die letzten 50 Sessions sortiert nach `updated_at`
  * desc inkl. `session_id`, `title`, `message_count`, `updated_at`.
  *
- * Die Komponente lädt selbst und ruft `onSelect(session_id)` auf —
+ * Die Komponente lädt selbst und ruft `onSelect(session_id)` auf ·
  * sie ist daher in jede Chat-Surface drop-in.
  */
 
@@ -66,7 +66,7 @@ export const ChatHistorySidebar = ({
       alive = false;
     };
     // refreshKey wird vom Parent erhöht, wenn neue Session entsteht
-    // oder eine Antwort gespeichert wurde — dann neu laden.
+    // oder eine Antwort gespeichert wurde · dann neu laden.
   }, [refreshKey]);
 
   const labelNew = de ? 'Neues Gespräch' : 'New conversation';
@@ -122,8 +122,8 @@ export const ChatHistorySidebar = ({
             <br />
             <span className="text-foreground/40">
               {de
-                ? 'Stell dem WladBot deine erste Frage — sie taucht hier auf.'
-                : 'Ask WladBot your first question — it shows up here.'}
+                ? 'Stell dem WladBot deine erste Frage · sie taucht hier auf.'
+                : 'Ask WladBot your first question · it shows up here.'}
             </span>
           </div>
         )}

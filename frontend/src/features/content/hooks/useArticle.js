@@ -3,7 +3,7 @@ import { getArticle, listArticles } from '../data/registry';
 import { readingTime } from '../utils/readingTime';
 
 /**
- * useArticle — single-article reader for ArticlePage.
+ * useArticle · single-article reader for ArticlePage.
  *
  * Returns null for missing/unpublished slugs so the page can render a
  * 404 state without crashing.

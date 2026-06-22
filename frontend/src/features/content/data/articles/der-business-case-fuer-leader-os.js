@@ -1,5 +1,5 @@
 /**
- * Article 9/10 — ROI / business case for decision-makers.
+ * Article 9/10 · ROI / business case for decision-makers.
  */
 export default {
   slug: 'der-business-case-fuer-leader-os',
@@ -18,7 +18,7 @@ export default {
     { type: 'paragraph', text:
       'Leadership-Training hat einen schlechten Ruf bei Finanz-Entscheidern, und das aus gutem Grund. Drei ' +
       'Tage Off-Site für 8 000 EUR pro Teilnehmer, gemessen wird "Wohlbefinden", ROI wird nie zurückgekoppelt. ' +
-      'Hier ist warum Leader-OS sich anders rechnet — und wo der Case auch ehrlich Lücken hat.' },
+      'Hier ist warum Leader-OS sich anders rechnet · und wo der Case auch ehrlich Lücken hat.' },
     { type: 'heading', level: 2, text: 'Hebel 01: Eingesparte Coaching-Stunden.' },
     { type: 'paragraph', text:
       'Wenn du heute pro Führungskraft 6 Stunden externes Coaching pro Jahr buchst, kostet das zwischen ' +
@@ -33,7 +33,7 @@ export default {
     { type: 'callout', tone: 'lime', text:
       'Diese 26 000 EUR sind nicht "Cash zurück". Sie sind verschobene Output-Kapazität. Aber für jeden ' +
       'Entscheider mit Hiring-Verantwortung ist die Frage relevant: kostet mich der nächste Senior-Hire 180k ' +
-      'EUR fully-loaded — oder gewinne ich mit Sprint-Rollouts genug Kapazität dass der Hire warten kann?' },
+      'EUR fully-loaded · oder gewinne ich mit Sprint-Rollouts genug Kapazität dass der Hire warten kann?' },
     { type: 'heading', level: 2, text: 'Hebel 03: Reduzierte Senior-Fluktuation.' },
     { type: 'paragraph', text:
       'Lehrlauf nach einer Beförderung ist eine der häufigsten Fluktuations-Ursachen bei Senior-Hires. Ein ' +
@@ -41,7 +41,7 @@ export default {
       'innerhalb der ersten zwölf Monate. Reine Wiederbesetzungs-Kosten: 50-150 Prozent des Jahresgehalts.' },
     { type: 'paragraph', text:
       'Wenn Leader-OS in deiner 60-Personen-Lead-Kohorte ein Prozent weniger Fluktuation produziert, sparen ' +
-      'sich diese 60 000 EUR an Recruiting-Kosten — bei Sprint-Investment von 60 mal 997 EUR = 60 000 EUR. ' +
+      'sich diese 60 000 EUR an Recruiting-Kosten · bei Sprint-Investment von 60 mal 997 EUR = 60 000 EUR. ' +
       'Break-Even bei einem Prozent reduzierter Fluktuation, alles darüber ist Reingewinn.' },
     { type: 'heading', level: 2, text: 'Hebel 04: Vermiedene Eskalations-Kosten.' },
     { type: 'paragraph', text:

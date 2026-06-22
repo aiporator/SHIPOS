@@ -34,7 +34,7 @@ export default function DatenschutzPage() {
           <li>Datenübertragbarkeit zu verlangen (Art. 20 DSGVO)</li>
           <li>Der Verarbeitung zu widersprechen (Art. 21 DSGVO)</li>
           <li>Erteilte Einwilligungen jederzeit zu widerrufen (Art. 7 Abs. 3 DSGVO)</li>
-          <li>Sich bei einer Aufsichtsbehörde zu beschweren — für uns zuständig: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)</li>
+          <li>Sich bei einer Aufsichtsbehörde zu beschweren · für uns zuständig: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)</li>
         </ul>
         <p>
           Anträge zu Auskunft, Berichtigung, Löschung und Export Ihrer Daten
@@ -52,7 +52,7 @@ export default function DatenschutzPage() {
           Browser an unseren Server übermittelt (Server-Logfiles): IP-Adresse,
           Datum und Uhrzeit, Referrer-URL, Browsertyp, Betriebssystem. Diese
           Daten dienen ausschließlich der Sicherstellung des Betriebs und der
-          Sicherheit (Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse).
+          Sicherheit (Art. 6 Abs. 1 lit. f DSGVO · berechtigtes Interesse).
         </p>
 
         <h3>3.2 Bei Registrierung und Nutzung</h3>

@@ -1,5 +1,5 @@
 /**
- * Article 8/10 — B2B rollout guide (10-50 people).
+ * Article 8/10 · B2B rollout guide (10-50 people).
  */
 export default {
   slug: 'leader-os-im-team-rollout',
@@ -23,26 +23,26 @@ export default {
     { type: 'paragraph', text:
       'Drei Führungskräfte aus deiner Senior-Schicht, die für ihr Team als glaubwürdig gelten. Sie machen ' +
       'die Diagnose, danach den Sprint, mit einer einfachen Bitte: ehrliches Feedback nach Tag 7 und Tag 21. ' +
-      'Wenn sie nach Tag 21 sagen "das funktioniert", ist deine Hauptauf­gabe für den Rollout erledigt — sie ' +
+      'Wenn sie nach Tag 21 sagen "das funktioniert", ist deine Hauptauf­gabe für den Rollout erledigt · sie ' +
       'sprechen anders darüber als jedes Marketing-Material.' },
     { type: 'heading', level: 2, text: 'Woche 0: Kickoff in 45 Minuten.' },
     { type: 'list', style: 'numbered', items: [
       '5 Min: einer der Pilot-Teilnehmer beschreibt seine letzten 30 Tage konkret. Kein Demo-Theater, eine echte Stimme.',
       '15 Min: Wlad live (über Cal.com) oder vorab-aufgenommen, Q&A zu Methodik und Erwartungen.',
-      '15 Min: Plattform-Walkthrough vom Team — Login, Sprint-Plan, WladBot in Action.',
+      '15 Min: Plattform-Walkthrough vom Team · Login, Sprint-Plan, WladBot in Action.',
       '10 Min: Diagnose-Aufruf für alle. Jeder macht die Diagnose direkt im Kickoff-Raum, sieht seinen Score live.',
     ] },
     { type: 'callout', tone: 'lime', text:
       'Wichtig: niemand wird gezwungen den Sprint zu starten. Diagnose ist kostenlos. Wer danach sagt "nicht ' +
-      'für mich", ist OK. Wer ja sagt, hat sich selbst entschieden — das ist der Faktor der die Completion-' +
+      'für mich", ist OK. Wer ja sagt, hat sich selbst entschieden · das ist der Faktor der die Completion-' +
       'Rate auf über 80 Prozent treibt.' },
     { type: 'heading', level: 2, text: 'Woche 1 bis 4: Die Kohorte läuft.' },
     { type: 'paragraph', text:
       'Pro Person ein 30-Tage-Sprint, parallel laufend. Drei zusätzliche Anker:' },
     { type: 'list', style: 'bullet', items: [
-      'Wöchentlicher 15-Min-Standup (optional, ohne Pflicht) — drei der Teilnehmer beschreiben ihren größten Drill der Woche.',
-      'Slack-Channel mit WladBot-Snippets — wer einen besonders guten Reflex hatte, postet ihn. Soziales Lernen ohne Performance-Druck.',
-      'Wlad-Live-Session in Woche 3 (Plus-Plus-Tier) — 60 Minuten Q&A zu echten Cases aus deiner Kohorte.',
+      'Wöchentlicher 15-Min-Standup (optional, ohne Pflicht) · drei der Teilnehmer beschreiben ihren größten Drill der Woche.',
+      'Slack-Channel mit WladBot-Snippets · wer einen besonders guten Reflex hatte, postet ihn. Soziales Lernen ohne Performance-Druck.',
+      'Wlad-Live-Session in Woche 3 (Plus-Plus-Tier) · 60 Minuten Q&A zu echten Cases aus deiner Kohorte.',
     ] },
     { type: 'heading', level: 2, text: 'Woche 5: Reflexions-Runde + Plus-Plus-Entscheidung.' },
     { type: 'paragraph', text:

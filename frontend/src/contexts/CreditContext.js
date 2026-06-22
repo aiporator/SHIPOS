@@ -22,7 +22,7 @@ export const CreditProvider = ({ children }) => {
         softPause: res.data.soft_pause || false,
       });
     } catch (err) {
-      // 401 here just means session expired — UI will redirect via ReAuthModal anyway
+      // 401 here just means session expired · UI will redirect via ReAuthModal anyway
       if (err?.response?.status !== 401) logger.error('Credit fetch failed:', err);
     }
   }, [user]);

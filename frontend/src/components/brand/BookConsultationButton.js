@@ -1,5 +1,5 @@
 /**
- * BookConsultationButton — Sexy, prefilled Cal.com booking trigger.
+ * BookConsultationButton · Sexy, prefilled Cal.com booking trigger.
  *
  * Improvements (Iter 92.2):
  *   - PREFILL via AuthContext: name + email auto-passed to Cal so the user
@@ -7,7 +7,7 @@
  *   - Premium visual: animated calendar tick + live availability shimmer
  *     ("Nächster Slot in 2h") + lime glow halo on hover.
  *   - Robust fallback: if Cal didn't load (ad-blocker, slow network), we
- *     open the canonical booking URL in a new tab — UI never breaks.
+ *     open the canonical booking URL in a new tab · UI never breaks.
  *   - Variants: `primary` (lime), `ghost` (subtle), `dark` (for dark heros).
  *
  * Pair with `<BookingTeaserCard />` for landing-section conversion blocks.
@@ -23,7 +23,7 @@ const CAL_NAMESPACE = 'beratung';
 
 /**
  * Hook returning a memoised `openBooking()` function. The user's name + email
- * (when authenticated) are prefilled into the Cal.com modal — frictionless.
+ * (when authenticated) are prefilled into the Cal.com modal · frictionless.
  */
 export const useBookConsultation = () => {
   const { user } = useAuth();
@@ -50,7 +50,7 @@ export const useBookConsultation = () => {
         });
         return;
       } catch (e) {
-        // fall through to canonical URL — never strand the user
+        // fall through to canonical URL · never strand the user
       }
     }
     const tabUrl = prefill
@@ -71,7 +71,7 @@ export const BookConsultationButton = ({
 }) => {
   const open = useBookConsultation();
 
-  // Three visual variants — all share the smooth Revolut hover lift
+  // Three visual variants · all share the smooth Revolut hover lift
   const variantClasses = {
     primary:
       'bg-[#BFFF00] hover:bg-[#D4FF4D] text-[#0A0A0A] font-bold glow-lime',
@@ -92,7 +92,7 @@ export const BookConsultationButton = ({
       {icon && (
         <span className="relative mr-2 inline-flex items-center justify-center">
           <Calendar size={14} className="transition-transform group-hover:scale-110 group-hover:-rotate-6" />
-          {/* Live-availability dot — pulses on the calendar icon */}
+          {/* Live-availability dot · pulses on the calendar icon */}
           {showAvailability && (
             <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-500 ring-2 ring-current/0">
               <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
@@ -107,7 +107,7 @@ export const BookConsultationButton = ({
           className="ml-1.5 relative z-10 transition-transform group-hover:translate-x-1"
         />
       )}
-      {/* Soft sheen sweep on hover — Revolut signature */}
+      {/* Soft sheen sweep on hover · Revolut signature */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12 transition-transform duration-700 group-hover:translate-x-full"

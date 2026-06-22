@@ -5,17 +5,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * useGsapScrollIn — generic scroll-driven entrance.
+ * useGsapScrollIn · generic scroll-driven entrance.
  *
  * Three vocabularies, motivated by what the section is communicating:
  *
- *   'big-number'  — scrubs a giant background numeral as the section
+ *   'big-number'  · scrubs a giant background numeral as the section
  *                   enters viewport. Used in BenefitSection §-numbers,
  *                   the visual story is "this chapter has weight".
- *   'card-stack'  — staggers a row of cards rising into place with a
+ *   'card-stack'  · staggers a row of cards rising into place with a
  *                   slight scale-in. Used in PricingLadder. The story
  *                   is "compare these tiers as a single ladder".
- *   'word-reveal' — opacity-scrubs each word of a headline as the user
+ *   'word-reveal' · opacity-scrubs each word of a headline as the user
  *                   reaches it. Used in FinalCTA. The story is "read
  *                   this slowly, this is the closing line".
  *
@@ -24,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger);
  *
  * @param {('big-number'|'card-stack'|'word-reveal')} kind
  * @param {Object} [options]
- * @param {string} [options.selector]  — child selector for stagger/scrub targets
+ * @param {string} [options.selector]  · child selector for stagger/scrub targets
  * @param {boolean} [options.enabled=true]
  */
 export function useGsapScrollIn(kind, options = {}) {

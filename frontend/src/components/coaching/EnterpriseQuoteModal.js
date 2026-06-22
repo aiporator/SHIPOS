@@ -9,7 +9,7 @@ import api from '../../lib/api';
 import logger from '../../lib/logger';
 
 /**
- * EnterpriseQuoteModal — B2B lead-form with live volume-discount calculator.
+ * EnterpriseQuoteModal · B2B lead-form with live volume-discount calculator.
  *
  * Live-Quote: user enters seats → we POST /api/payments/enterprise/quote → show price.
  * Submit: POST /api/payments/enterprise/lead → backend stores lead + emails admin.

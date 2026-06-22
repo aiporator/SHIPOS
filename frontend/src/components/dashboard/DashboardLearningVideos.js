@@ -1,5 +1,5 @@
 /**
- * DashboardLearningVideos — Kompakte Vorschau der Leadership-Lern-Videos
+ * DashboardLearningVideos · Kompakte Vorschau der Leadership-Lern-Videos
  * direkt im Dashboard, damit User nicht erst in /my-path → Tab klicken müssen.
  *
  * Zeigt die ersten 6 Starter-Kurse als horizontal scrollbare Karten + einen
@@ -106,7 +106,7 @@ export const DashboardLearningVideos = ({ de = true }) => {
                 {de ? 'Lern-Videos' : 'Learning Videos'}
               </p>
               <h3 className="text-base font-black tracking-tight">
-                {de ? 'Leadership-Grundlagen — Sofortstart' : 'Leadership Fundamentals — Quick Start'}
+                {de ? 'Leadership-Grundlagen · Sofortstart' : 'Leadership Fundamentals · Quick Start'}
               </h3>
             </div>
           </div>

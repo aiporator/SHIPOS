@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 /**
- * MiniChallenge — Inline 5-Fragen-Mini-Game als Landing-Funnel.
+ * MiniChallenge · Inline 5-Fragen-Mini-Game als Landing-Funnel.
  *
  * Game-Layout-DNA:
  *   - Riesige Frage-Nummer (01-05) als visueller Anker.
@@ -116,7 +116,7 @@ export const MiniChallenge = () => {
     setTimeout(() => {
       if (step + 1 === QUESTIONS.length) {
         setDone(true);
-        // computed in render via norm(...) — recompute here for the event
+        // computed in render via norm(...) · recompute here for the event
         const ki = Math.min(100, Math.round(((scores.ki + opt.w.ki) / 25) * 100));
         const rhet = Math.min(100, Math.round(((scores.rhet + opt.w.rhet) / 25) * 100));
         const eq = Math.min(100, Math.round(((scores.eq + opt.w.eq) / 25) * 100));

@@ -81,7 +81,7 @@ export default function ReferralPage() {
   const downloadCertificate = async () => {
     if (!certData) return;
     await generatePDF({
-      title: `Leadership Zertifikat — ${certData.name}`,
+      title: `Leadership Zertifikat · ${certData.name}`,
       overall_assessment: `${certData.name} hat das WladBot Leadership Programm erfolgreich durchlaufen und dabei ${certData.simulations_completed} Simulationen und ${certData.challenges_completed} Challenger-Interviews absolviert.`,
       score: certData.leadership_score,
       strengths: [
@@ -189,7 +189,7 @@ export default function ReferralPage() {
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-bold">{certData?.name}</p>
-                  <p className="text-xs text-muted-foreground">{certData?.level} — {certData?.xp || 0} XP</p>
+                  <p className="text-xs text-muted-foreground">{certData?.level} · {certData?.xp || 0} XP</p>
                 </div>
               </div>
               <div className="flex gap-2">

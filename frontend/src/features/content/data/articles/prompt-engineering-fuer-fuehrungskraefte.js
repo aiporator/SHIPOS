@@ -5,7 +5,7 @@ export default {
   title: 'Prompt Engineering für Führungskräfte.',
   description:
     'Vier Prompt-Patterns für deinen Wochenfluss. Keine Token-Optimierung, ' +
-    'kein API-Geschwafel — sondern Strukturen die deine KI-Antworten von ' +
+    'kein API-Geschwafel · sondern Strukturen die deine KI-Antworten von ' +
     'generisch auf einsatzbereit heben.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-03',
@@ -18,7 +18,7 @@ export default {
     { type: 'heading', level: 2, text: 'Pattern 02: Antwort-Form vorgeben.' },
     { type: 'paragraph', text: 'Statt "fasse mir das zusammen", sage "fasse mir das in drei Bullets zusammen, jeweils maximal 12 Wörter". Du sparst dir das Nacharbeiten. Die Form steuert die Substanz.' },
     { type: 'heading', level: 2, text: 'Pattern 03: Anti-Patterns explizit verbieten.' },
-    { type: 'paragraph', text: '"Antworte ohne KI-Buzzwords (synergize, leverage, paradigm shift). Antworte ohne den Satz \'das hängt davon ab\'. Antworte ohne mich zu fragen ob ich mehr Kontext brauche — ich habe oben den vollen Kontext gegeben."' },
+    { type: 'paragraph', text: '"Antworte ohne KI-Buzzwords (synergize, leverage, paradigm shift). Antworte ohne den Satz \'das hängt davon ab\'. Antworte ohne mich zu fragen ob ich mehr Kontext brauche · ich habe oben den vollen Kontext gegeben."' },
     { type: 'heading', level: 2, text: 'Pattern 04: Iteration einbauen.' },
     { type: 'paragraph', text: 'Statt EINE Antwort zu erwarten, fordere drei Varianten an: "Gib mir drei Varianten der Eröffnung. Variante 1: härter und direkter. Variante 2: weicher und einladender. Variante 3: neutral und faktisch. Markiere für jede ihr Risiko."' },
     { type: 'framework', code: 'PROMPT', title: 'Vier Patterns', explanation: 'Rolle + Methodik + Form anweisen · Antwort-Form vorgeben · Anti-Patterns explizit verbieten · Iteration mit drei Varianten anfordern. Wer die vier Patterns beherrscht, bekommt aus jedem Modell brauchbare Antworten.' },
@@ -29,7 +29,7 @@ export default {
       'Keine "schreibe mir 500 Wörter". Du bekommst Füllung, nicht Substanz.',
     ] },
     { type: 'callout', tone: 'lime', text: 'Wer mit den vier Patterns arbeitet, gewinnt typischerweise 60 Prozent Vorbereitungs-Zeit pro Skript. Wer ohne Patterns arbeitet, schreibt drei Versionen bevor er die brauchbare findet.' },
-    { type: 'paragraph', text: 'Im Sprint trainierst du Prompt Engineering an deinen drei häufigsten Konversations-Typen. WladBot ist bereits mit den Patterns vorkonfiguriert — du übst sie an Cases aus deinem Backlog.' },
+    { type: 'paragraph', text: 'Im Sprint trainierst du Prompt Engineering an deinen drei häufigsten Konversations-Typen. WladBot ist bereits mit den Patterns vorkonfiguriert · du übst sie an Cases aus deinem Backlog.' },
   ],
   seo: {
     description: 'Vier Prompt-Patterns für Führungskräfte: Rolle + Methodik + Form, Antwort-Form vorgeben, Anti-Patterns verbieten, drei Varianten anfordern.',
