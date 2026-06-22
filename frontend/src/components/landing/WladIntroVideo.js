@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const CUES = [
   { start: 0.5,  end: 5.0,  eyebrow: '▸ WLAD JACHTCHENKO',           headline: 'Hi, ich bin',       accent: 'Wlad' },
   { start: 5.5,  end: 11,   eyebrow: '▸ WAS WIR LÖSEN',              headline: 'KI bestimmt das Tempo.', accent: 'Du den Kurs.' },
-  { start: 11.5, end: 18,   eyebrow: '▸ ZEHN SEKUNDEN',              headline: 'Diagnose.',         accent: 'Kostenlos.' },
+  { start: 11.5, end: 18,   eyebrow: '▸ ZEHN MINUTEN',               headline: 'Diagnose.',         accent: 'Kostenlos.' },
   { start: 18.5, end: 24,   eyebrow: '▸ POWERED BY',                 headline: 'WladBot.',          accent: '24 / 7' },
 ];
 
@@ -29,15 +29,15 @@ const Cue = ({ cue }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -16 }}
     transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-    className="absolute inset-x-6 md:inset-x-12 bottom-8 md:bottom-14 pointer-events-none"
+    className="absolute inset-x-3 sm:inset-x-6 md:inset-x-12 bottom-3 sm:bottom-6 md:bottom-14 pointer-events-none"
   >
-    <div className="bg-white/95 backdrop-blur-md border-2 border-black p-5 md:p-7 max-w-xl shadow-[8px_8px_0_0_#000]">
-      <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-brand-strong font-mono mb-3">
+    <div className="bg-white/95 backdrop-blur-md border-2 border-black p-3 sm:p-5 md:p-7 max-w-[260px] sm:max-w-md md:max-w-xl shadow-[4px_4px_0_0_#000] md:shadow-[8px_8px_0_0_#000]">
+      <div className="text-[8.5px] sm:text-[9.5px] md:text-[10px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.26em] md:tracking-[0.28em] text-brand-strong font-mono mb-1.5 sm:mb-2 md:mb-3">
         {cue.eyebrow}
       </div>
       <div
-        className="text-black leading-[0.9] tracking-[-0.04em]"
-        style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(36px, 6vw, 64px)' }}
+        className="text-black leading-[0.95] sm:leading-[0.92] md:leading-[0.9] tracking-[-0.025em] sm:tracking-[-0.035em] md:tracking-[-0.04em]"
+        style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(18px, 4.6vw, 64px)' }}
       >
         {cue.headline}<br />
         <span className="text-black/55">{cue.accent.replace(/\.$/, '')}</span>

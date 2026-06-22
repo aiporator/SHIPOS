@@ -33,19 +33,20 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ 30-TAGE-SPRINT',
+    eyebrow: '▸ 30-TAGE-SPRINT + 12-MONATE-MITGLIEDSCHAFT',
     name: 'Sprint',
-    duration: '30 Tage · Erste Gruppe',
+    duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
     price: '997 €',
-    outcome: '11 Frameworks · Zertifikat · LinkedIn',
-    scarcity: 'Erste Gruppe · 43 von 50 Plätzen frei',
+    outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
+    scarcity: 'Klasse 0001 · 12 von 30 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
+      '12 Monate Mitgliedschaft inkludiert · voller Plattform-Zugang',
       'Tägliche Lernvideos · Wöchen-Drills',
       'Zertifikat für dein LinkedIn',
     ],
-    cta: 'Sprint kaufen · 30 Tage',
+    cta: 'Sprint kaufen · 30 Tage + 12 Monate',
     href: 'https://leaderos.de/checkout?tier=sprint',
     accent: true,
     badge: '★ BELIEBT',
@@ -271,7 +272,7 @@ export const PricingLadder = () => {
       <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
         <div className="md:col-span-7">
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-            ▸ DIE LEITER · SPRINT BIS AI OWNERSHIP
+            ▸ DIE LEITER · DIAGNOSE · SPRINT · PLUS-PLUS
           </p>
           <h2
             className="leading-[0.9] tracking-[-0.04em] text-black"
@@ -289,7 +290,10 @@ export const PricingLadder = () => {
         </div>
         <div className="md:col-span-5 md:pt-6">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
-            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge: elf Frameworks, tägliche Drills, WladBot 24/7. Plus-Plus geht ein ganzes Jahr: Sprint plus Live-Sessions mit Wlad. <span className="text-black font-bold">Sprint zuerst, immer.</span>
+            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge plus
+            12 Monate Mitgliedschaft: elf Frameworks, tägliche Drills, WladBot 24/7,
+            voller Plattform-Zugang ein ganzes Jahr. Plus-Plus legt monatliche
+            Live-Sessions mit Wlad obendrauf. <span className="text-black font-bold">Sprint zuerst, immer.</span>
           </p>
         </div>
       </div>

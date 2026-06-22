@@ -77,8 +77,9 @@ export const FinalCTA = () => {
         </h2>
 
         <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Erste Gruppe. Nur 50 Plätze. 30 Tage mit Wlad direkt. Danach
-          ein ganzes Jahr Begleitung mit Plus-Plus, wenn du willst.
+          Klasse 0001. Nur 30 Charter-Plätze. 30 Tage Sprint + 12 Monate
+          Mitgliedschaft inkludiert. Plus-Plus legt monatliche Live-Sessions
+          mit Wlad obendrauf, wenn du willst.
         </p>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">

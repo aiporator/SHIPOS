@@ -554,8 +554,8 @@ export const ArchetypeQuizSection = () => {
                       ))}
                     </ul>
                     <div className="mt-6 pt-5 border-t border-foreground/12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
-                      <span>▸ KLASSE 0001 · 12 / 50 PLÄTZE</span>
-                      <span>▸ 30-TAGE SPRINT</span>
+                      <span>▸ KLASSE 0001 · 12 / 30 PLÄTZE</span>
+                      <span>▸ 30-TAGE SPRINT + 12 MONATE</span>
                       <span>▸ COACHING MIT WLAD</span>
                     </div>
                   </div>
@@ -643,7 +643,7 @@ export const ArchetypeQuizSection = () => {
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
           <span>▸ 400 000 KUNDEN</span>
-          <span>▸ KLASSE 0001 · 38 / 50 PLÄTZE WEG</span>
+          <span>▸ KLASSE 0001 · 18 / 30 PLÄTZE WEG</span>
         </div>
       </div>
     </section>
