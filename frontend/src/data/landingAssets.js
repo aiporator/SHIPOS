@@ -253,7 +253,9 @@ export const LANDING_BENEFITS = [
     cta: 'Mehr Beweise',
     href: 'https://leadercheck.de',
     variant: 'trust',
-    photo: local('hf-05.png'),
+    photo: local('p-05-trust.png'),
+    photoFallback: local('hf-05.png'),
+    posterDesign: true,
     trustNumbers: [
       { big: '400', suffix: 'TAUSEND', caption: 'Kunden weltweit' },
       { big: '14',  suffix: 'MILLIONEN', caption: 'Views Podcast + YouTube' },
