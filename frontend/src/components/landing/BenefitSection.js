@@ -149,12 +149,16 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Photo card — natural 4:5 portrait, contained, GREEN-halftone treatment
-// (matches the modal/popup: grayscale → #2EBC75 multiply → radial-dot screen)
+// Photo card — two modes
+//   1. Default: GREEN-halftone treatment (matches modal/popup)
+//   2. posterDesign: pristine — the image is a pre-designed poster with
+//      burned-in typography, so we DON'T apply any filter/multiply/overlay.
+//      Variant overlays (bib/trust/cert/voxel) are also skipped because the
+//      poster art already carries the variant's message.
 // ─────────────────────────────────────────────────────────────────────────
-const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark }) => (
+const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign }) => (
   <div
-    className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} bg-foreground overflow-hidden`}
+    className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} ${posterDesign ? 'bg-background' : 'bg-foreground'} overflow-hidden`}
     data-testid={`benefit-photo-${nr}`}
   >
     {photo ? (
@@ -165,7 +169,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
         decoding="async"
         referrerPolicy="no-referrer"
         className={`absolute inset-0 w-full h-full ${photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover object-center'}`}
-        style={{ filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
+        style={posterDesign ? undefined : { filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
         onError={(e) => {
           if (photoFallback && e.currentTarget.src !== photoFallback) e.currentTarget.src = photoFallback;
         }}
@@ -174,25 +178,29 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
       <div aria-hidden className="absolute inset-0 bg-foreground/[0.04]" />
     )}
 
-    {/* GREEN halftone — same recipe as the LeadCaptureModal portrait */}
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        background: '#2EBC75',
-        mixBlendMode: 'multiply',
-      }}
-    />
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        backgroundImage: 'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
-        backgroundSize: '3.5px 3.5px',
-        mixBlendMode: 'screen',
-        opacity: 0.32,
-      }}
-    />
+    {/* GREEN halftone — skipped when posterDesign is true (image speaks for itself) */}
+    {!posterDesign && (
+      <>
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: '#2EBC75',
+            mixBlendMode: 'multiply',
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
+            backgroundSize: '3.5px 3.5px',
+            mixBlendMode: 'screen',
+            opacity: 0.32,
+          }}
+        />
+      </>
+    )}
 
     {/* Top strip */}
     <div className={`absolute top-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/70' : 'bg-white/90 text-foreground/70'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-b ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
@@ -200,8 +208,9 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
       <span className="text-brand-strong">{code}</span>
     </div>
 
-    {/* Variant overlay */}
-    <VariantOverlay variant={variant} trustNumbers={trustNumbers} />
+    {/* Variant overlay — skipped when posterDesign is true (the burned-in
+        typography of the poster already carries the variant's identity) */}
+    {!posterDesign && <VariantOverlay variant={variant} trustNumbers={trustNumbers} />}
 
     {/* Bottom strip */}
     <div className={`absolute bottom-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/55' : 'bg-white/90 text-foreground/55'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-t ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
@@ -342,6 +351,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
               nr={asset.nr}
               code={asset.code}
               isDark={isDark}
+              posterDesign={asset.posterDesign}
             />
           </motion.div>
         </div>
