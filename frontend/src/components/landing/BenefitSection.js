@@ -215,7 +215,11 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     </div>
 
     {/* Variant overlay */}
-    <VariantOverlay variant={variant} trustNumbers={trustNumbers} />
+    {/* Variant overlay — skipped when posterDesign is true. The burned-in
+        typography of the poster already conveys the variant's message
+        (bib plate, startnummer, woman speaker), so re-rendering the
+        code-generated graphic on top would duplicate the visual. */}
+    {!posterDesign && <VariantOverlay variant={variant} trustNumbers={trustNumbers} />}
 
     {/* Bottom strip */}
     <div className={`absolute bottom-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/55' : 'bg-white/90 text-foreground/55'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-t ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
