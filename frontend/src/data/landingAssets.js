@@ -255,7 +255,6 @@ export const LANDING_BENEFITS = [
     variant: 'trust',
     photo: local('p-05-trust.png'),
     photoFallback: local('hf-05.png'),
-    posterDesign: true,
     trustNumbers: [
       { big: '400', suffix: 'TAUSEND', caption: 'Kunden weltweit' },
       { big: '14',  suffix: 'MILLIONEN', caption: 'Views Podcast + YouTube' },
