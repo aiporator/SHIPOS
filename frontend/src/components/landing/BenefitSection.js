@@ -149,12 +149,21 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Photo card — natural 4:5 portrait, contained, GREEN-halftone treatment
-// (matches the modal/popup: grayscale → #2EBC75 multiply → radial-dot screen)
+// Photo card — two image-treatment modes, identical CARD LAYOUT.
+//
+//   Default (real photographs): GREEN halftone — grayscale + #2EBC75
+//   multiply + 3.5px dot screen. Matches the modal/popup, gives photos
+//   their newsroom editorial tint.
+//
+//   posterDesign: true (pre-designed brand posters with burned-in
+//   typography): SKIP halftone on the <img> so the source artwork
+//   renders in its true colors (designs already use the lime accent).
+//   Border, top/bottom metadata strips, and VariantOverlay all stay —
+//   the CARD itself looks identical to a photo chapter.
 // ─────────────────────────────────────────────────────────────────────────
-const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark }) => (
+const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign }) => (
   <div
-    className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} bg-foreground overflow-hidden`}
+    className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} ${posterDesign ? 'bg-background' : 'bg-foreground'} overflow-hidden`}
     data-testid={`benefit-photo-${nr}`}
   >
     {photo ? (
@@ -165,7 +174,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
         decoding="async"
         referrerPolicy="no-referrer"
         className={`absolute inset-0 w-full h-full ${photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover object-center'}`}
-        style={{ filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
+        style={posterDesign ? undefined : { filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
         onError={(e) => {
           if (photoFallback && e.currentTarget.src !== photoFallback) e.currentTarget.src = photoFallback;
         }}
@@ -174,25 +183,30 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
       <div aria-hidden className="absolute inset-0 bg-foreground/[0.04]" />
     )}
 
-    {/* GREEN halftone — same recipe as the LeadCaptureModal portrait */}
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        background: '#2EBC75',
-        mixBlendMode: 'multiply',
-      }}
-    />
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        backgroundImage: 'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
-        backgroundSize: '3.5px 3.5px',
-        mixBlendMode: 'screen',
-        opacity: 0.32,
-      }}
-    />
+    {/* GREEN halftone — only for default (photo) mode. Skipped for
+        posterDesign so the source artwork shows through pristine. */}
+    {!posterDesign && (
+      <>
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: '#2EBC75',
+            mixBlendMode: 'multiply',
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
+            backgroundSize: '3.5px 3.5px',
+            mixBlendMode: 'screen',
+            opacity: 0.32,
+          }}
+        />
+      </>
+    )}
 
     {/* Top strip */}
     <div className={`absolute top-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/70' : 'bg-white/90 text-foreground/70'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-b ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
@@ -342,6 +356,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
               nr={asset.nr}
               code={asset.code}
               isDark={isDark}
+              posterDesign={asset.posterDesign}
             />
           </motion.div>
         </div>

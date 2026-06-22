@@ -73,7 +73,7 @@ const FLOWS_DE = {
     title: 'WladHub-Diagnose wird geladen',
     agents: [
       { name: 'Supabase-Sync', status: 'Deine Diagnose wird abgerufen' },
-      { name: '3-Layer Analyse', status: 'KI-Reifegrad, Rhetorik, EQ' },
+      { name: '3-Dimensionen-Analyse', status: 'KI-Reifegrad, Rhetorik, EQ' },
       { name: 'Composite-Score', status: 'Gesamtbewertung wird berechnet' },
       { name: 'Action-Plan Agent', status: 'Personalisierte Empfehlungen' },
     ],
@@ -145,7 +145,7 @@ const FLOWS_EN = {
     title: 'Loading WladHub diagnosis',
     agents: [
       { name: 'Supabase Sync', status: 'Fetching your diagnosis' },
-      { name: '3-Layer Analysis', status: 'AI maturity, Rhetoric, EQ' },
+      { name: '3-Dimension Analysis', status: 'AI maturity, Rhetoric, EQ' },
       { name: 'Composite Score', status: 'Computing overall score' },
       { name: 'Action Plan Agent', status: 'Personalized recommendations' },
     ],

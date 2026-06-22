@@ -63,7 +63,7 @@ const TIERS = [
       'Alles aus dem Sprint',
       'Monatliche Live-Sessions mit Wlad persönlich',
       'Drill-Channel: Theorie sofort am echten Fall',
-      'Sprint-Historie als Context-Layer für WladBot',
+      'Sprint-Historie als Kontext für WladBot',
       'Vorrang für 1:1-Mentoring Warteliste',
     ],
     cta: 'Plus-Plus starten',
