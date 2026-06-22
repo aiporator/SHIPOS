@@ -313,9 +313,9 @@ export const LANDING_BENEFITS = [
     cta: 'Mit Wlad starten',
     href: 'https://leadercheck.de',
     variant: 'voxel',
-    photo: local('p-07-dreibig-tage.png'),
+    photo: local('p-07-wladbot-voxel.png'),
     posterDesign: true,
-    photoFallback: local('hf-07.png'),
+    photoFallback: local('p-07-dreibig-tage.png'),
     photoFit: 'cover',
   },
 ];
