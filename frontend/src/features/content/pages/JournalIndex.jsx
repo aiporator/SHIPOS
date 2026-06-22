@@ -1,12 +1,13 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Search } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Search, Newspaper, Compass, MessagesSquare, Bot, Wrench } from 'lucide-react';
 import { LandingNav } from '../../../components/landing/LandingNav';
 import { LandingFooter } from '../../../components/landing/LandingFooter';
 import { listArticles } from '../data/registry';
 import { groupByTaxonomy } from '../data/taxonomy';
 import { resolveCover } from '../utils/covers';
 import { applySeoToDocument } from '../utils/seo';
+import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
 
 /**
  * JournalIndex — /journal · Newsroom-frontpage layout (godmode).
@@ -599,6 +600,193 @@ const KlasseCTA = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
+// NewsFeedStrip — kuratierte DACH-News (KI · Führung · Jobmarkt)
+// 3 Buckets · 13 Items · wöchentliches Update
+// ─────────────────────────────────────────────────────────────────────────
+const NewsItemRow = ({ item }) => {
+  const dateLabel = new Date(item.date).toLocaleDateString('de-DE', { day: '2-digit', month: 'short' });
+  return (
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block py-3 border-b border-foreground/10 hover:bg-foreground/[0.025] -mx-3 px-3 transition-colors"
+      data-testid={`news-item-${item.bucket}-${item.date}`}
+    >
+      <div className="flex items-center gap-3 mb-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em]">
+        <span className="text-brand-strong">{dateLabel.toUpperCase()}</span>
+        <span className="text-foreground/35">·</span>
+        <span className="text-foreground/55">{item.source}</span>
+        <span className="text-foreground/35">·</span>
+        <span className="text-foreground/65">{item.tag}</span>
+      </div>
+      <h4
+        className="text-[14.5px] md:text-[15.5px] leading-[1.3] text-foreground group-hover:text-brand-strong transition-colors mb-1"
+        style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 800, letterSpacing: '-0.012em' }}
+      >
+        {item.headline}
+      </h4>
+      <p className="text-[12.5px] leading-[1.5] text-foreground/65 line-clamp-2">{item.blurb}</p>
+    </a>
+  );
+};
+
+const NewsFeedStrip = () => (
+  <section
+    id="newsfeed"
+    aria-label="DACH KI- und Führungs-News"
+    className="newsroom-paper border-y border-foreground/15"
+    data-testid="journal-newsfeed"
+  >
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-14 md:py-18">
+      <div className="flex items-end justify-between flex-wrap gap-4 mb-8 pb-4 border-b-[2px] border-foreground">
+        <div className="flex items-baseline gap-2">
+          <span className="text-[28px] md:text-[36px] text-brand-strong" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic' }}>News</span>
+          <span className="text-[22px] md:text-[28px] text-foreground" style={{ fontFamily: 'Outfit', fontWeight: 900, letterSpacing: '-0.02em' }}>FEED</span>
+        </div>
+        <div className="flex items-center gap-2 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/60">
+          <Newspaper size={13} />
+          <span>DACH · KI · FÜHRUNG · JOBMARKT</span>
+          <span className="text-foreground/30">·</span>
+          <span className="text-brand-strong">UPDATE WÖCHENTLICH</span>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8 md:gap-10">
+        {NEWS_BUCKETS.map((bucket) => {
+          const items = NEWS_ITEMS.filter((n) => n.bucket === bucket.code);
+          return (
+            <div key={bucket.code} data-testid={`news-bucket-${bucket.code}`}>
+              <div className="mb-4 pb-3 border-b border-foreground/20">
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-strong mb-1">
+                  ▸ {bucket.eyebrow}
+                </div>
+                <h3
+                  className="text-[20px] md:text-[24px] leading-[1.05] text-foreground"
+                  style={{ fontFamily: 'Outfit', fontWeight: 900, fontStyle: 'italic', letterSpacing: '-0.025em' }}
+                >
+                  {bucket.label}<span className="text-brand-strong not-italic">.</span>
+                </h3>
+              </div>
+              <div>
+                {items.map((item) => <NewsItemRow key={item.headline} item={item} />)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-8 flex items-center justify-between flex-wrap gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
+        <span>▸ {NEWS_ITEMS.length} ITEMS · {NEWS_BUCKETS.length} BUCKETS</span>
+        <span>Hand-picked von Wlad & Team · nicht algorithmisch</span>
+      </div>
+    </div>
+  </section>
+);
+
+// ─────────────────────────────────────────────────────────────────────────
+// FreeToolsStrip — Lead-Magnet Mini-Tools die wirklich Wert liefern
+// ─────────────────────────────────────────────────────────────────────────
+const FREE_TOOLS = [
+  {
+    code: 'T·01',
+    icon: Compass,
+    title: 'Leadership-Diagnose',
+    body: '10 Min · 30 Fragen · Score in 3 Dimensionen (KI · Rhetorik · EQ) plus konkreter Lernpfad.',
+    cta: 'Diagnose starten',
+    href: 'https://leadercheck.de',
+    external: true,
+    badge: 'KOSTENLOS',
+  },
+  {
+    code: 'T·02',
+    icon: MessagesSquare,
+    title: 'B-W-W-Skript-Generator',
+    body: 'Paste deine Situation. Kriegst drei Beobachtung-Wirkung-Wunsch-Varianten in Wlad-Stil. 30 Sek.',
+    cta: 'Skript bauen',
+    href: '/#bww-generator',
+    external: false,
+    badge: 'NEU',
+  },
+  {
+    code: 'T·03',
+    icon: Bot,
+    title: 'WladBot Public Demo',
+    body: '5 freie Fragen an WladBot ohne Login. Stell ihm deine schwierigste Führungs-Frage der Woche.',
+    cta: 'Probieren',
+    href: 'https://leaderos.de/demo',
+    external: true,
+    badge: 'DEMO',
+  },
+  {
+    code: 'T·04',
+    icon: Wrench,
+    title: '30-Tage-Plan-Template',
+    body: 'PDF: Wlad-Methodik als 30-Tage-Plan-Vorlage. Mit Daily-Drill-Slot und Wochen-Reflexions-Block.',
+    cta: 'PDF holen',
+    href: '/#newsletter-footer',
+    external: false,
+    badge: 'GRATIS-PDF',
+  },
+];
+
+const FreeToolsStrip = () => (
+  <section
+    id="free-tools"
+    aria-label="Free Tools von Leader-OS"
+    className="bg-[#0A0A0A] text-white"
+    data-testid="journal-free-tools"
+  >
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-14 md:py-18">
+      <div className="flex items-end justify-between flex-wrap gap-4 mb-8 pb-4 border-b border-white/15">
+        <div className="flex items-baseline gap-2">
+          <span className="text-[28px] md:text-[36px] text-brand" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic' }}>Free</span>
+          <span className="text-[22px] md:text-[28px] text-white" style={{ fontFamily: 'Outfit', fontWeight: 900, letterSpacing: '-0.02em' }}>TOOLS</span>
+        </div>
+        <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-white/55">
+          ▸ KEIN LOGIN · KEIN SPAM · DIREKT NUTZBAR
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {FREE_TOOLS.map((tool) => {
+          const Icon = tool.icon;
+          const inner = (
+            <>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand">▸ {tool.code}</span>
+                <span className="font-mono text-[8.5px] font-bold uppercase tracking-[0.22em] text-black bg-brand px-2 py-1">{tool.badge}</span>
+              </div>
+              <Icon size={26} className="text-brand mb-4" strokeWidth={1.75} />
+              <h3
+                className="text-[18px] md:text-[20px] leading-[1.1] text-white mb-3"
+                style={{ fontFamily: 'Outfit', fontWeight: 900, fontStyle: 'italic', letterSpacing: '-0.02em' }}
+              >
+                {tool.title}<span className="text-brand not-italic">.</span>
+              </h3>
+              <p className="text-[13px] leading-[1.5] text-white/70 mb-5 flex-1">{tool.body}</p>
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand group-hover:translate-x-1 transition-transform inline-flex items-center gap-1.5">
+                {tool.cta} <ArrowRight size={12} />
+              </div>
+            </>
+          );
+          const className = 'group block border border-white/15 bg-white/[0.02] hover:bg-white/[0.05] hover:border-brand transition-colors p-5 md:p-6 flex flex-col h-full';
+          return tool.external ? (
+            <a key={tool.code} href={tool.href} target="_blank" rel="noopener noreferrer" className={className} data-testid={`tool-${tool.code}`}>
+              {inner}
+            </a>
+          ) : (
+            <Link key={tool.code} to={tool.href} className={className} data-testid={`tool-${tool.code}`}>
+              {inner}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+);
+
+// ─────────────────────────────────────────────────────────────────────────
 // Sticky category strip (sub-nav under masthead)
 // ─────────────────────────────────────────────────────────────────────────
 const CategoryStrip = ({ categories, search, setSearch }) => (
@@ -695,6 +883,8 @@ export default function JournalIndex() {
 
       <FromWladStrip />
 
+      <NewsFeedStrip />
+
       <CategoryStrip categories={categories} search={search} setSearch={setSearch} />
 
       <main>
@@ -704,6 +894,7 @@ export default function JournalIndex() {
             <div key={cat.code}>
               <CategorySection category={cat} splitDirection={splitDir} />
               {cat.code === 'C-01' && <ArchetypTeaserCTA />}
+              {cat.code === 'C-02' && <FreeToolsStrip />}
               {cat.code === 'C-03' && <DiagnoseCTA />}
               {cat.code === 'C-04' && <KlasseCTA />}
             </div>
