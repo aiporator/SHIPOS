@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Search } from 'lucide-react';
 import { LandingNav } from '../../../components/landing/LandingNav';
 import { LandingFooter } from '../../../components/landing/LandingFooter';
 import { listArticles } from '../data/registry';
@@ -9,30 +9,25 @@ import { resolveCover } from '../utils/covers';
 import { applySeoToDocument } from '../utils/seo';
 
 /**
- * JournalIndex — /journal · Players'-Tribune-style editorial hub.
+ * JournalIndex — /journal · Newsroom-frontpage layout (godmode).
  *
- *   1. Image-led hero (full-bleed cover of the week's lead article,
- *      classic centered Instrument-Serif italic title — NOT a huge
- *      sans-serif block).
- *   2. "TOP STORIES" 3-up image-overlay grid (title + byline on photo,
- *      Players' Tribune-style).
- *   3. Each category section: header strip → 1 big SPLIT card
- *      (text-left + image-right, ~50/50) → 3 image-first mini cards.
- *   4. Funnel CTA breaks weaved in:
- *        a. After C-01 KI-Praxis     → Archetyp-Quiz teaser (dark)
- *        b. After C-03 Rhetorik      → Diagnose-Test split block
- *        c. After C-04 Rollen        → Klasse 0001 charter block (lime)
- *   5. Sticky tiny category strip so deep-scroll users jump.
+ *   1. Masthead (two-tone serif logo + live ticker + side menu) —
+ *      Off-Crypto / The Players' Tribune lovechild
+ *   2. Front-page lede grid: big halftone-lime feature image (left) +
+ *      dated news column (center) + Hot Stories sidebar (right)
+ *   3. "Aus Wlad's Welt" news strip — Podcast / Bücher / Klasse-0001
+ *      live-counter / Leadership-Summit · 4 quick-access tiles
+ *   4. Funnel CTA breaks weaved in between category sections
+ *   5. Per-category newspaper-style spreads (image + headlines)
  *
- * Every card has an image (resolved via covers.js), and every section
- * funnels to either the article AND/OR the Leadership-Diagnose-Test
- * (`/#archetyp`). No flat all-card grid.
+ * Everything funnels to either an article, the Diagnose-Test, or the
+ * Beratungsgespräch. Newspaper texture + halftone images make it sticky.
  */
 
-const formatDate = (iso) => {
+const formatNewsDate = (iso) => {
   if (!iso) return '';
   const d = new Date(iso);
-  return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'short', year: 'numeric' });
+  return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'long' }).toUpperCase();
 };
 
 const readingMinutes = (article) => {
@@ -45,8 +40,7 @@ const readingMinutes = (article) => {
   return Math.max(2, Math.round(words / 220));
 };
 
-const authorOf = (article) =>
-  article.author?.name || article.author || 'Wlad Jachtchenko';
+const authorOf = (a) => a.author?.name || a.author || 'Wlad Jachtchenko';
 
 const serifItalic = {
   fontFamily: "'Instrument Serif', 'Outfit', Georgia, serif",
@@ -55,186 +49,344 @@ const serifItalic = {
   letterSpacing: '-0.01em',
 };
 
-// ─────────────────────────────────────────────────────────────────────────
-// HERO — image-led, centered serif italic, NOT loud
-// ─────────────────────────────────────────────────────────────────────────
-const Hero = ({ article, totalCount }) => {
-  if (!article) return null;
-  const cover = resolveCover(article, 'lead');
-  return (
-    <header
-      className="relative bg-[#0A0A0A] text-white overflow-hidden"
-      data-testid="journal-hero"
-    >
-      <Link to={`/journal/${article.slug}`} className="block relative group">
-        {/* Background image — sized like Players' Tribune hero */}
-        <div className="relative h-[68vh] min-h-[560px] max-h-[820px] w-full">
-          <img
-            src={cover}
-            alt={article.title}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-[1.015] transition-transform duration-[1200ms] ease-out"
-          />
-          {/* Top vignette + bottom fade to white — TPT signature */}
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.08) 30%, rgba(10,10,10,0.18) 55%, rgba(255,255,255,0.0) 78%, var(--bg-fade,#ffffff) 100%)',
-            }}
-          />
-
-          {/* Title block — centered, classic serif italic, modestly sized */}
-          <div className="absolute inset-x-0 bottom-[14%] flex flex-col items-center text-center px-6">
-            <div className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.32em] text-white/85 mb-5 flex items-center gap-3">
-              <span className="text-brand">▸ Feldnotizen</span>
-              <span className="opacity-50">·</span>
-              <span>Das KI-Leadership Magazin</span>
-            </div>
-            <h1
-              className="text-[44px] sm:text-[64px] md:text-[84px] lg:text-[104px] leading-[0.95] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] max-w-[1100px]"
-              style={serifItalic}
-            >
-              {article.title.replace(/\.$/, '')}
-            </h1>
-            <div className="mt-7 font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.28em] text-white/80">
-              {authorOf(article)}
-            </div>
-          </div>
-        </div>
-      </Link>
-
-      {/* Meta strip immediately below the image */}
-      <div className="bg-white text-foreground border-b border-foreground/10">
-        <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 py-4 flex flex-wrap items-center justify-between gap-4 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/60">
-          <div className="flex items-center gap-x-5 gap-y-1 flex-wrap">
-            <span className="text-brand-strong">▸ Lead-Story</span>
-            <span className="opacity-30">·</span>
-            <span>{formatDate(article.publishedAt)}</span>
-            <span className="opacity-30">·</span>
-            <span>{readingMinutes(article)} Min</span>
-          </div>
-          <div className="flex items-center gap-x-5 gap-y-1 flex-wrap">
-            <span>{totalCount} Artikel im Archiv</span>
-            <Link
-              to="/#archetyp"
-              className="hover:text-brand-strong transition-colors"
-            >
-              ▸ Diagnose-Test starten
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
+const condensed = {
+  fontFamily: "'Outfit', 'Inter', sans-serif",
+  fontWeight: 900,
+  letterSpacing: '-0.02em',
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// TOP STORIES — Players'-Tribune 3-up image-overlay grid
+// MASTHEAD — two-tone logo + live ticker + side menu
 // ─────────────────────────────────────────────────────────────────────────
-const TopStoryCard = ({ article }) => {
-  const cover = resolveCover(article, 'portrait');
-  return (
-    <Link
-      to={`/journal/${article.slug}`}
-      data-testid={`journal-top-${article.slug}`}
-      className="group relative block overflow-hidden aspect-[4/5] bg-foreground"
-    >
-      <img
-        src={cover}
-        alt={article.title}
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[900ms] ease-out"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0.0) 38%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.78) 100%)',
-        }}
-      />
-      <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
-        <h3
-          className="text-[26px] sm:text-[30px] md:text-[34px] leading-[1.02] max-w-[28ch]"
-          style={serifItalic}
-        >
-          {article.title.replace(/\.$/, '')}
-        </h3>
-        <div className="mt-4 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-white/80">
-          {authorOf(article)}
-        </div>
-      </div>
-    </Link>
-  );
-};
+const TICKER = [
+  { label: 'KLIENTEN', value: '400K+', tone: 'up' },
+  { label: 'LÄNDER',   value: '20' },
+  { label: 'BESTSELLER', value: '3 SPIEGEL' },
+  { label: 'BÜCHER',   value: '8 LÄNDER' },
+  { label: 'PODCAST',  value: '10M+',  tone: 'up' },
+  { label: 'KLASSE 0001', value: 'LIVE', tone: 'up' },
+  { label: 'WLADBOT',  value: '24/7' },
+];
 
-const TopStories = ({ articles }) => {
-  if (!articles.length) return null;
+const Masthead = ({ totalArticles }) => (
+  <header
+    aria-label="Feldnotizen Masthead"
+    className="newsroom-paper border-b-[3px] border-foreground"
+    data-testid="journal-masthead"
+  >
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 pt-8 md:pt-10 pb-5">
+      {/* Top row: logo + ticker + side menu */}
+      <div className="grid grid-cols-12 gap-4 md:gap-6 items-start">
+        {/* Logo lockup — two-tone serif+sans  */}
+        <Link to="/" className="col-span-12 md:col-span-5 flex items-baseline gap-0 group" data-testid="journal-logo">
+          <span
+            className="text-[56px] sm:text-[72px] md:text-[84px] lg:text-[96px] leading-[0.85] text-brand-strong"
+            style={serifItalic}
+          >
+            Feld
+          </span>
+          <span
+            className="text-[56px] sm:text-[72px] md:text-[84px] lg:text-[96px] leading-[0.85] text-foreground -ml-1"
+            style={condensed}
+          >
+            NOTIZEN
+          </span>
+        </Link>
+
+        {/* Ticker bar — newsroom data-stats */}
+        <div className="col-span-12 md:col-span-5 grid grid-cols-3 md:grid-cols-3 gap-x-4 gap-y-3 pt-1 md:pt-2 md:pl-4 md:border-l border-foreground/15">
+          {TICKER.slice(0, 6).map((t) => (
+            <div key={t.label} className="leading-tight">
+              <div className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-foreground/55">
+                {t.label}
+              </div>
+              <div className="text-[15px] md:text-[16px] font-extrabold text-foreground flex items-center gap-1">
+                {t.value}
+                {t.tone === 'up' && <span className="text-brand-strong text-[11px]">▲</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Side menu (right column) */}
+        <nav className="col-span-12 md:col-span-2 md:text-right">
+          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-2">
+            MENU
+          </div>
+          <ul className="space-y-1.5 text-[16px] md:text-[18px]" style={serifItalic}>
+            <li><a href="#cat-ki-praxis" className="text-foreground hover:text-brand-strong transition-colors">Kategorien</a></li>
+            <li><Link to="/" className="text-foreground hover:text-brand-strong transition-colors">Wissensbasis</Link></li>
+            <li><Link to="/#beratung" className="text-foreground hover:text-brand-strong transition-colors">Beratung</Link></li>
+            <li><Link to="/#archetyp" className="text-foreground hover:text-brand-strong transition-colors">Diagnose</Link></li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Sub-masthead strap line */}
+      <div className="mt-6 pt-3 border-t border-foreground/15 flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/60">
+        <span>▸ Wlad Jachtchenko · Das KI-Leadership-Magazin</span>
+        <span className="text-foreground/45">{totalArticles} Artikel im Archiv</span>
+        <span className="hidden md:inline">Ausgabe · {new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
+      </div>
+    </div>
+  </header>
+);
+
+// ─────────────────────────────────────────────────────────────────────────
+// FRONT-PAGE LEDE — feature image (left, halftone lime) + dated headlines
+// (center) + Hot Stories sidebar (right)
+// ─────────────────────────────────────────────────────────────────────────
+const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
+  if (!featureArticle) return null;
   return (
     <section
-      aria-label="Top Stories"
-      className="bg-white"
-      data-testid="journal-top-stories"
+      aria-label="Front-Page Lede"
+      className="newsroom-paper"
+      data-testid="journal-frontpage-lede"
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-[2px] bg-foreground/10">
-        {articles.map((a) => (
-          <TopStoryCard key={a.slug} article={a} />
-        ))}
+      <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-10 md:py-14">
+        {/* Section eyebrow */}
+        <div className="mb-5 flex items-center gap-2 font-mono text-[10.5px] font-bold uppercase tracking-[0.32em] text-brand-strong">
+          <span>▸ FELD · LEAD-STORY</span>
+        </div>
+
+        <div className="grid grid-cols-12 gap-6 md:gap-10">
+          {/* LEFT: Feature column — halftone-lime image + headline */}
+          <article className="col-span-12 md:col-span-5">
+            <Link
+              to={`/journal/${featureArticle.slug}`}
+              className="group block"
+              data-testid="journal-feature"
+            >
+              <h2
+                className="text-[34px] sm:text-[42px] md:text-[44px] lg:text-[52px] leading-[0.95] uppercase text-foreground mb-5"
+                style={condensed}
+              >
+                {featureArticle.title.replace(/\.$/, '')}
+              </h2>
+              <div className="newsroom-halftone aspect-[4/5] md:aspect-[5/6] bg-foreground/10 relative">
+                <img
+                  src={resolveCover(featureArticle, 'lead')}
+                  alt={featureArticle.title}
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1100ms] ease-out"
+                />
+              </div>
+              <div className="mt-4 flex items-center justify-between font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/65">
+                <span>{authorOf(featureArticle)}</span>
+                <span className="text-foreground/45">{readingMinutes(featureArticle)} MIN · ARTIKEL LESEN →</span>
+              </div>
+            </Link>
+          </article>
+
+          {/* MIDDLE: Dated news column */}
+          <div className="col-span-12 md:col-span-4">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/60 mb-4 pb-3 border-b border-foreground/20">
+              ▸ Aktuelle Notizen
+            </div>
+            <ul className="divide-y divide-foreground/10">
+              {datedArticles.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    to={`/journal/${a.slug}`}
+                    data-testid={`journal-dated-${a.slug}`}
+                    className="group block py-4 hover:bg-foreground/[0.04] -mx-3 px-3 transition-colors"
+                  >
+                    <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-strong mb-1.5">
+                      {formatNewsDate(a.publishedAt)}
+                    </div>
+                    <h3
+                      className="text-[16px] md:text-[18px] uppercase text-foreground leading-[1.18] group-hover:text-brand-strong transition-colors"
+                      style={{ ...condensed, letterSpacing: '-0.01em', fontWeight: 800 }}
+                    >
+                      {a.title.replace(/\.$/, '')}
+                    </h3>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* RIGHT: Hot Stories sidebar */}
+          <aside className="col-span-12 md:col-span-3">
+            <div className="mb-4 pb-3 border-b border-foreground/20 flex items-baseline gap-1">
+              <span className="text-[26px] md:text-[30px] text-brand-strong" style={serifItalic}>Hot</span>
+              <span className="text-[22px] md:text-[26px] text-foreground" style={condensed}>STORIES</span>
+            </div>
+            <div className="space-y-6">
+              {hotStories.map((h) => (
+                <Link
+                  key={h.article.slug}
+                  to={`/journal/${h.article.slug}`}
+                  data-testid={`journal-hot-${h.article.slug}`}
+                  className="group block"
+                >
+                  <div className={`newsroom-halftone ${h.tone === 'ink' ? 'newsroom-halftone--ink' : ''} aspect-[4/3] bg-foreground/10 relative`}>
+                    <img
+                      src={resolveCover(h.article, 'wide')}
+                      alt={h.article.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[900ms] ease-out"
+                    />
+                  </div>
+                  <div className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-foreground/60">
+                    {h.label}
+                  </div>
+                  <h4
+                    className="mt-1 text-[15px] md:text-[16px] uppercase text-foreground leading-[1.16] group-hover:text-brand-strong transition-colors"
+                    style={{ ...condensed, fontWeight: 800, letterSpacing: '-0.01em' }}
+                  >
+                    {h.article.title.replace(/\.$/, '')}
+                  </h4>
+                </Link>
+              ))}
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   );
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Section header — small mono caps + arrow link
+// AUS WLAD'S WELT — News-strip mit 4 quick-access tiles
+// (Podcast · Bücher · Klasse-0001-Counter · Leadership-Summit)
 // ─────────────────────────────────────────────────────────────────────────
-const SectionHeader = ({ category }) => (
-  <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 pt-14 pb-6">
-    <div className="flex items-center justify-between border-b border-foreground/15 pb-3">
-      <div className="flex items-center gap-3 font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-foreground">
-        <span>{category.name}</span>
-        <span className="opacity-30">·</span>
-        <span className="text-foreground/55">{category.funnelLabel}</span>
+const FROM_WLAD = [
+  {
+    label: 'PODCAST',
+    title: 'Wlad spricht — Folge der Woche.',
+    description: 'KI x Führung. Neue Folge jeden Mittwoch. 10M+ Downloads in 20 Ländern.',
+    cta: 'Podcast hören',
+    to: 'https://podcast.wladjachtchenko.de',
+    external: true,
+    tone: 'lime',
+  },
+  {
+    label: 'BÜCHER',
+    title: '3 SPIEGEL-Bestseller in 8 Ländern.',
+    description: 'Dunkle Rhetorik · Schwarze Rhetorik · KI-Leadership. Das gesammelte Wlad-System.',
+    cta: 'Bücher entdecken',
+    to: 'https://wladjachtchenko.de/buecher',
+    external: true,
+    tone: 'ink',
+  },
+  {
+    label: 'KLASSE 0001',
+    title: '12 / 30 Charter-Plätze noch offen.',
+    description: 'Staatlich anerkannte Führungskräfte-Ausbildung. 6 Monate. Start in 14 Tagen.',
+    cta: 'Beratungsgespräch buchen',
+    to: '/#beratung',
+    external: false,
+    tone: 'lime',
+    highlight: true,
+  },
+  {
+    label: 'SUMMIT',
+    title: 'Leadership-Summit · Q4.',
+    description: 'Wlad live + ausgewählte Klasse-0001-Alumni. Live-Drills, Q&A, Klein-Format.',
+    cta: 'Auf Warteliste',
+    to: '/#summit',
+    external: false,
+    tone: 'ink',
+  },
+];
+
+const FromWladStrip = () => (
+  <section
+    aria-label="Aus Wlad's Welt"
+    className="bg-[#0A0A0A] text-white"
+    data-testid="journal-from-wlad"
+  >
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-12 md:py-16">
+      {/* Strip header */}
+      <div className="flex items-end justify-between flex-wrap gap-4 mb-8 pb-4 border-b border-white/15">
+        <div className="flex items-baseline gap-2">
+          <span className="text-[28px] md:text-[36px] text-brand" style={serifItalic}>Aus</span>
+          <span className="text-[24px] md:text-[32px] text-white" style={condensed}>WLAD'S WELT</span>
+        </div>
+        <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-white/55">
+          ▸ Podcast · Bücher · Klasse · Summit
+        </div>
       </div>
-      <a
-        href={`#cat-${category.slug}`}
-        className="inline-flex items-center justify-center w-9 h-9 border border-foreground/30 hover:bg-foreground hover:text-white transition-colors rounded-full"
-        aria-label={`Alle Artikel in ${category.name}`}
-      >
-        <ArrowRight size={14} />
-      </a>
+
+      {/* 4 quick-access tiles */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {FROM_WLAD.map((tile) => {
+          const Inner = (
+            <>
+              <div className="flex items-center justify-between mb-3">
+                <span className={`font-mono text-[10px] font-bold uppercase tracking-[0.28em] ${tile.tone === 'lime' ? 'text-brand' : 'text-white/55'}`}>
+                  ▸ {tile.label}
+                </span>
+                <ArrowUpRight size={14} className={tile.tone === 'lime' ? 'text-brand' : 'text-white/55'} />
+              </div>
+              <h3
+                className="text-[20px] md:text-[22px] leading-[1.1] text-white mb-3"
+                style={serifItalic}
+              >
+                {tile.title.replace(/\.$/, '')}
+              </h3>
+              <p className="text-[13px] leading-[1.5] text-white/65 mb-5">
+                {tile.description}
+              </p>
+              <div className={`font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] ${tile.tone === 'lime' ? 'text-brand' : 'text-white/70'} group-hover:translate-x-1 transition-transform inline-flex items-center gap-1.5`}>
+                {tile.cta} <ArrowRight size={12} />
+              </div>
+              {tile.highlight && (
+                <div className="absolute top-3 right-3 bg-brand text-black font-mono text-[9px] font-bold uppercase tracking-[0.22em] px-2 py-1">
+                  ● LIVE
+                </div>
+              )}
+            </>
+          );
+          const className = `group relative block border ${tile.highlight ? 'border-brand bg-brand/[0.04]' : 'border-white/15 bg-white/[0.02]'} hover:bg-white/[0.05] p-6 transition-colors min-h-[260px] flex flex-col justify-between`;
+          return tile.external ? (
+            <a key={tile.label} href={tile.to} target="_blank" rel="noopener noreferrer" className={className}>
+              {Inner}
+            </a>
+          ) : (
+            <Link key={tile.label} to={tile.to} className={className}>
+              {Inner}
+            </Link>
+          );
+        })}
+      </div>
     </div>
-  </div>
+  </section>
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// SPLIT CARD — left text panel + right photo panel (Players' Tribune)
+// CATEGORY SECTION — newspaper-style spread
 // ─────────────────────────────────────────────────────────────────────────
 const SplitCard = ({ article, imageOnRight = true }) => {
   const cover = resolveCover(article, 'wide');
   const text = (
     <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 bg-white">
+      <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-brand-strong mb-3">
+        {formatNewsDate(article.publishedAt)}
+      </div>
       <h3
-        className="text-[26px] sm:text-[32px] md:text-[40px] leading-[1.02] text-foreground"
-        style={serifItalic}
+        className="text-[28px] sm:text-[34px] md:text-[42px] leading-[1.0] uppercase text-foreground"
+        style={condensed}
       >
         {article.title.replace(/\.$/, '')}
       </h3>
       <p className="mt-4 text-[14.5px] md:text-[16px] leading-[1.55] text-foreground/70 line-clamp-3">
         {article.description}
       </p>
-      <div className="mt-7 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/70">
+      <div className="mt-6 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/70 flex items-center gap-2">
         {authorOf(article)}
+        <span className="opacity-40">·</span>
+        <span>{readingMinutes(article)} MIN</span>
       </div>
     </div>
   );
   const photo = (
-    <div className="relative overflow-hidden bg-foreground/5 aspect-[4/3] md:aspect-auto">
+    <div className="newsroom-halftone aspect-[4/3] md:aspect-auto md:min-h-[360px]">
       <img
         src={cover}
         alt={article.title}
@@ -248,7 +400,7 @@ const SplitCard = ({ article, imageOnRight = true }) => {
     <Link
       to={`/journal/${article.slug}`}
       data-testid={`journal-split-${article.slug}`}
-      className="group block bg-white border border-foreground/10 hover:border-foreground/30 transition-colors"
+      className="group block bg-white border border-foreground/15 hover:border-foreground transition-colors"
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
         {imageOnRight ? (<>{text}{photo}</>) : (<>{photo}{text}</>)}
@@ -257,47 +409,41 @@ const SplitCard = ({ article, imageOnRight = true }) => {
   );
 };
 
-// ─────────────────────────────────────────────────────────────────────────
-// MINI image-first card (used in 3-up row)
-// ─────────────────────────────────────────────────────────────────────────
-const MiniCard = ({ article }) => {
-  const cover = resolveCover(article, 'wide');
-  return (
-    <Link
-      to={`/journal/${article.slug}`}
-      data-testid={`journal-mini-${article.slug}`}
-      className="group block bg-white border border-foreground/10 hover:border-foreground/30 transition-colors"
-    >
-      <div className="relative overflow-hidden aspect-[4/3] bg-foreground/5">
-        <img
-          src={cover}
-          alt={article.title}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out"
-        />
+const MiniCard = ({ article }) => (
+  <Link
+    to={`/journal/${article.slug}`}
+    data-testid={`journal-mini-${article.slug}`}
+    className="group block bg-white border border-foreground/15 hover:border-foreground transition-colors"
+  >
+    <div className="newsroom-halftone aspect-[4/3]">
+      <img
+        src={resolveCover(article, 'wide')}
+        alt={article.title}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out"
+      />
+    </div>
+    <div className="p-5 md:p-6">
+      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-strong mb-2">
+        {formatNewsDate(article.publishedAt)}
       </div>
-      <div className="p-5 md:p-6">
-        <h4
-          className="text-[19px] md:text-[22px] leading-[1.1] text-foreground"
-          style={serifItalic}
-        >
-          {article.title.replace(/\.$/, '')}
-        </h4>
-        <p className="mt-2.5 text-[13px] leading-[1.5] text-foreground/65 line-clamp-2">
-          {article.description}
-        </p>
-        <div className="mt-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/60">
-          {authorOf(article)}
-        </div>
+      <h4
+        className="text-[18px] md:text-[20px] uppercase leading-[1.1] text-foreground group-hover:text-brand-strong transition-colors"
+        style={{ ...condensed, fontWeight: 800 }}
+      >
+        {article.title.replace(/\.$/, '')}
+      </h4>
+      <p className="mt-2.5 text-[13px] leading-[1.5] text-foreground/65 line-clamp-2">
+        {article.description}
+      </p>
+      <div className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/60">
+        {authorOf(article)}
       </div>
-    </Link>
-  );
-};
+    </div>
+  </Link>
+);
 
-// ─────────────────────────────────────────────────────────────────────────
-// Per-category section: header → split → 3 minis
-// ─────────────────────────────────────────────────────────────────────────
 const CategorySection = ({ category, splitDirection = true }) => {
   if (!category.articles.length) return null;
   const [lead, ...rest] = category.articles;
@@ -308,26 +454,38 @@ const CategorySection = ({ category, splitDirection = true }) => {
       id={`cat-${category.slug}`}
       data-testid={`category-${category.slug}`}
       aria-label={category.name}
-      className="bg-white"
+      className="newsroom-paper"
     >
-      <SectionHeader category={category} />
+      <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 pt-14 pb-4">
+        <div className="flex items-end justify-between border-b-[2px] border-foreground pb-3">
+          <div className="flex items-baseline gap-3">
+            <span className="text-[28px] md:text-[36px] text-brand-strong" style={serifItalic}>{category.name.split(' ')[0]}</span>
+            {category.name.split(' ').slice(1).length > 0 && (
+              <span className="text-[20px] md:text-[26px] text-foreground" style={condensed}>{category.name.split(' ').slice(1).join(' ').toUpperCase()}</span>
+            )}
+          </div>
+          <div className="flex items-center gap-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/60">
+            <span>{category.funnelLabel}</span>
+            <span className="opacity-30">·</span>
+            <span>{category.articles.length}</span>
+          </div>
+        </div>
+      </div>
 
-      <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 pb-4">
+      <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14">
         <SplitCard article={lead} imageOnRight={splitDirection} />
       </div>
 
       {minis.length > 0 && (
-        <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 pb-14">
+        <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 pb-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mt-5">
-            {minis.map((a) => (
-              <MiniCard key={a.slug} article={a} />
-            ))}
+            {minis.map((a) => <MiniCard key={a.slug} article={a} />)}
           </div>
           {rest.length > minis.length && (
             <div className="mt-7 text-center">
               <Link
                 to={`/journal?cat=${category.slug}`}
-                className="inline-flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/70 hover:text-brand-strong border-b border-foreground/20 hover:border-brand-strong pb-1 transition-colors"
+                className="inline-flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/70 hover:text-brand-strong border-b border-foreground/30 hover:border-brand-strong pb-1 transition-colors"
               >
                 Alle {rest.length} Artikel in {category.name}
                 <ArrowRight size={13} />
@@ -341,7 +499,7 @@ const CategorySection = ({ category, splitDirection = true }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Funnel CTA blocks (Players'-Tribune-style "Letter to..." inserts)
+// Funnel CTA blocks
 // ─────────────────────────────────────────────────────────────────────────
 const DiagnoseCTA = () => (
   <section
@@ -349,9 +507,9 @@ const DiagnoseCTA = () => (
     className="bg-[#0A0A0A] text-white"
     data-testid="journal-cta-diagnose"
   >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-24">
-      <div className="grid md:grid-cols-2 gap-0 border border-white/10">
-        <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-foreground">
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-16 md:py-24">
+      <div className="grid md:grid-cols-2 gap-0 border border-white/15">
+        <div className="newsroom-halftone newsroom-halftone--ink aspect-[4/3] md:aspect-auto">
           <img
             src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1600&h=1200&fit=crop&crop=faces&auto=format&q=80"
             alt="Leadership Diagnose"
@@ -359,23 +517,12 @@ const DiagnoseCTA = () => (
             decoding="async"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(10,10,10,0.0) 30%, rgba(10,10,10,0.55) 100%)',
-            }}
-          />
         </div>
         <div className="p-8 md:p-14 flex flex-col justify-center">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5">
             ▸ Leadership-Diagnose · 60 Sekunden
           </div>
-          <h3
-            className="text-[32px] md:text-[46px] leading-[1.02]"
-            style={serifItalic}
-          >
+          <h3 className="text-[32px] md:text-[46px] leading-[1.02]" style={serifItalic}>
             Welcher KI-Leader bist du wirklich?
           </h3>
           <p className="mt-5 max-w-xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
@@ -384,18 +531,11 @@ const DiagnoseCTA = () => (
             Kein Login. Kein Spam.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              to="/#archetyp"
-              className="inline-flex items-center gap-3 px-6 h-13 py-3.5 bg-brand hover:bg-white text-black font-bold text-[13.5px] tracking-[0.02em] transition-colors"
-            >
-              Diagnose-Test starten
-              <ArrowRight size={16} />
+            <Link to="/#archetyp" className="inline-flex items-center gap-3 px-6 py-3.5 bg-brand hover:bg-white text-black font-bold text-[13.5px] tracking-[0.02em] transition-colors">
+              Diagnose-Test starten <ArrowRight size={16} />
             </Link>
-            <Link
-              to="/journal"
-              className="inline-flex items-center gap-3 px-6 py-3.5 border border-white/30 hover:border-white text-white font-bold text-[13.5px] tracking-[0.02em] transition-colors"
-            >
-              Erst weiterlesen
+            <Link to="/#beratung" className="inline-flex items-center gap-3 px-6 py-3.5 border border-white/30 hover:border-white text-white font-bold text-[13.5px] tracking-[0.02em] transition-colors">
+              Direkt Beratungsgespräch
             </Link>
           </div>
         </div>
@@ -405,31 +545,20 @@ const DiagnoseCTA = () => (
 );
 
 const ArchetypTeaserCTA = () => (
-  <section
-    aria-label="Archetyp-Quiz Teaser"
-    className="bg-[#F5F5F5]"
-    data-testid="journal-cta-archetyp"
-  >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-20">
-      <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
+  <section aria-label="Archetyp-Teaser" className="bg-[#EFEDE5] border-y border-foreground/15" data-testid="journal-cta-archetyp">
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-12 md:py-16">
+      <div className="grid md:grid-cols-12 gap-6 md:gap-12 items-end">
         <div className="md:col-span-7">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-4">
             ▸ Zwischenstopp · Diagnose
           </div>
-          <h3
-            className="text-[32px] md:text-[52px] leading-[1.02] text-foreground"
-            style={serifItalic}
-          >
+          <h3 className="text-[30px] md:text-[48px] leading-[1.02] text-foreground" style={serifItalic}>
             Bevor du weiterliest — kennst du deinen Archetyp?
           </h3>
         </div>
         <div className="md:col-span-5 md:text-right">
-          <Link
-            to="/#archetyp"
-            className="inline-flex items-center gap-3 px-6 h-12 bg-foreground hover:bg-brand text-white hover:text-black font-bold text-[13px] tracking-[0.02em] transition-colors"
-          >
-            Test starten
-            <ArrowRight size={15} />
+          <Link to="/#archetyp" className="inline-flex items-center gap-3 px-6 h-12 bg-foreground hover:bg-brand text-white hover:text-black font-bold text-[13px] tracking-[0.02em] transition-colors">
+            Test starten <ArrowRight size={15} />
           </Link>
         </div>
       </div>
@@ -438,21 +567,14 @@ const ArchetypTeaserCTA = () => (
 );
 
 const KlasseCTA = () => (
-  <section
-    aria-label="Dein nächster Schritt"
-    className="bg-brand text-black"
-    data-testid="journal-cta-klasse"
-  >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 py-20 md:py-28">
+  <section aria-label="Dein nächster Schritt" className="bg-brand text-black" data-testid="journal-cta-klasse">
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-20 md:py-28">
       <div className="grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-8">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-black/60 mb-5">
             ▸ Dein nächster Schritt · Staatlich anerkannte Führungskräfte-Ausbildung
           </div>
-          <h3
-            className="text-[36px] md:text-[58px] leading-[1.0]"
-            style={serifItalic}
-          >
+          <h3 className="text-[36px] md:text-[58px] leading-[1.0]" style={serifItalic}>
             In 6 Monaten kann sich alles verändern.
           </h3>
           <p className="mt-5 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-black/75">
@@ -463,12 +585,8 @@ const KlasseCTA = () => (
           </p>
         </div>
         <div className="md:col-span-4 md:text-right flex md:block flex-col gap-3">
-          <Link
-            to="/#beratung"
-            className="inline-flex items-center justify-center gap-3 px-6 h-14 bg-black hover:bg-foreground text-brand font-bold text-[14px] tracking-[0.02em] transition-colors"
-          >
-            Beratungsgespräch buchen
-            <ArrowRight size={18} />
+          <Link to="/#beratung" className="inline-flex items-center justify-center gap-3 px-6 h-14 bg-black hover:bg-foreground text-brand font-bold text-[14px] tracking-[0.02em] transition-colors">
+            Beratungsgespräch buchen <ArrowRight size={18} />
           </Link>
           <div className="mt-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-black/55">
             ▸ Unverbindlich · 30 Min
@@ -480,16 +598,16 @@ const KlasseCTA = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// Sticky category strip
+// Sticky category strip (sub-nav under masthead)
 // ─────────────────────────────────────────────────────────────────────────
 const CategoryStrip = ({ categories, search, setSearch }) => (
   <nav
     aria-label="Kategorie-Navigation"
-    className="sticky top-20 z-20 bg-white/95 backdrop-blur-md border-b border-foreground/10"
+    className="sticky top-20 z-20 newsroom-paper border-b border-foreground/15"
   >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-12 lg:px-16 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
-      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/45">
-        ▸ Kategorien
+    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/50">
+        ▸ Ressorts
       </span>
       {categories.map((c) => (
         <a
@@ -501,8 +619,8 @@ const CategoryStrip = ({ categories, search, setSearch }) => (
           <span className="ml-1.5 opacity-50">({c.articles.length})</span>
         </a>
       ))}
-      <div className="ml-auto flex items-center gap-2 border border-foreground/15 px-3 h-9">
-        <Search size={13} className="text-foreground/50" />
+      <div className="ml-auto flex items-center gap-2 border border-foreground/20 px-3 h-9 bg-white/60">
+        <Search size={13} className="text-foreground/55" />
         <input
           type="text"
           value={search}
@@ -536,39 +654,51 @@ export default function JournalIndex() {
 
   const categories = useMemo(() => groupByTaxonomy(filtered), [filtered]);
 
-  // Hero = newest article (already sorted by registry); top stories = the
-  // next 3 newest, drawn from across all categories so the top of the page
-  // reads as "what's hot this week", not "C-01 first 3".
-  const heroArticle = filtered[0] || null;
-  const topStories = filtered.slice(1, 4);
+  // Front-page lede composition:
+  //   feature      = newest article
+  //   datedHeads   = next 6 newest (column of dated headlines)
+  //   hotStories   = 2 picks with newsroom labels (MOVES / PEOPLE)
+  const featureArticle = filtered[0] || null;
+  const datedArticles  = filtered.slice(1, 7);
+  const hotStories     = filtered.slice(7, 9).map((article, i) => ({
+    article,
+    label: i === 0 ? 'MOVES' : 'PEOPLE',
+    tone: i === 0 ? 'lime' : 'ink',
+  }));
 
   useEffect(() => {
     return applySeoToDocument({
-      title: 'Feldnotizen · KI-Praxis, Methoden, Rhetorik · Leader-OS',
+      title: 'Feldnotizen · Das KI-Leadership Magazin · Wlad Jachtchenko',
       description:
-        'Frameworks, Skripte und Field-Notes für KI-natives Führen — ' +
-        'aus Wlad Jachtchenkos Arbeit mit über 400 000 Klienten. KI-Praxis, ' +
-        'Methodik, Rhetorik, Rollen und der Pfad in Klasse 0001.',
+        'Newsroom für KI-natives Führen — Frameworks, Skripte, Field-Notes aus ' +
+        'Wlad Jachtchenkos Arbeit mit 400 000+ Klienten. Podcast, Bücher, ' +
+        'Klasse 0001, Leadership-Summit.',
       canonical: 'https://leader-os.de/journal',
-      keywords: ['KI', 'Führung', 'Rhetorik', 'Frameworks', 'Wlad Jachtchenko', 'Leader-OS', 'Sprint 0001'],
+      keywords: ['KI Führung', 'Leadership Magazin', 'Wlad Jachtchenko', 'Schlagfertigkeit', 'Mitarbeiterführung', 'Beratungsgespräch', 'Leader-OS'],
       robots: 'index, follow, max-image-preview:large',
       ogImage: null,
     });
   }, []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen antialiased" data-testid="journal-index">
+    <div className="newsroom-paper min-h-screen antialiased text-foreground" data-testid="journal-index">
       <LandingNav />
 
-      {heroArticle && <Hero article={heroArticle} totalCount={articles.length} />}
+      <Masthead totalArticles={articles.length} />
 
-      {topStories.length > 0 && <TopStories articles={topStories} />}
+      <FrontPageLede
+        featureArticle={featureArticle}
+        datedArticles={datedArticles}
+        hotStories={hotStories}
+      />
+
+      <FromWladStrip />
 
       <CategoryStrip categories={categories} search={search} setSearch={setSearch} />
 
       <main>
         {categories.map((cat, idx) => {
-          const splitDir = idx % 2 === 0; // alternate image side per section
+          const splitDir = idx % 2 === 0;
           return (
             <div key={cat.code}>
               <CategorySection category={cat} splitDirection={splitDir} />
