@@ -174,7 +174,7 @@ const TILES = [
   },
   {
     code: 'CONTEXT',
-    label: 'Der Layer, der dich kennt.',
+    label: 'Der Coach, der dich kennt.',
     body: 'WladBot antwortet nicht generisch. Er kennt deinen Check-Score, deine Rolle, deine Drills, deinen Ton. Jede Antwort liegt auf dieser Schicht.',
     Mock: ContextLayerMock,
   },
@@ -208,7 +208,7 @@ export const AppPreviewSection = () => (
         </h2>
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-foreground/70">
           Drei Räume: das Dashboard, die Lernmissionen, der Context-
-          Layer. Jeder Raum bringt dich näher an die Führungskraft, die
+          Bereich. Jeder Raum bringt dich näher an die Führungskraft, die
           du werden willst. Nichts davon ist Show. Alles davon
           arbeitet täglich für dich.
         </p>
