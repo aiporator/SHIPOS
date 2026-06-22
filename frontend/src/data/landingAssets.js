@@ -31,9 +31,9 @@ const wlad = (file) => `/wlad/${file}`;
 export const LANDING_META = {
   title: 'Leader-OS · Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
   description:
-    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint mit ' +
-    'Wlad Jachtchenko. Erste Gruppe jetzt offen, nur 50 Plätze. Starte mit ' +
-    'der kostenlosen Diagnose auf leadercheck.de.',
+    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint plus ' +
+    '12 Monate Mitgliedschaft mit Wlad Jachtchenko. Klasse 0001 jetzt ' +
+    'offen, nur 30 Charter-Plätze. Starte mit der kostenlosen Diagnose.',
   url: 'https://leader-os.de',
   slogan: 'Sprint mit Wlad.',
   // Kicker, gehört unter den ATF-Headline-Block.

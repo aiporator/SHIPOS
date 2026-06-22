@@ -16,6 +16,7 @@ import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
 import { WladKnowledgeInsideSection } from '../components/landing/WladKnowledgeInsideSection';
 import { ClassesRoadmapSection } from '../components/landing/ClassesRoadmapSection';
+import { PlatformValueSection } from '../components/landing/PlatformValueSection';
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
@@ -127,6 +128,7 @@ export default function LandingPage() {
         <WladIntroVideo />
         <ArchetypeQuizSection />
         <FreeToolsSection />
+        <PlatformValueSection />
         <ClassesRoadmapSection />
         <TrackFieldSection />
         <HowItWorksSection />

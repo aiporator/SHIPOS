@@ -78,8 +78,20 @@ import dasVersprechenUndDieGrenzen from './articles/das-versprechen-und-die-gren
 import die5RollenEinerKiNativenFuehrungskraft from './articles/die-5-rollen-einer-ki-nativen-fuehrungskraft';
 import in6MonatenZurKiNativenFuehrungskraft from './articles/in-6-monaten-zur-ki-nativen-fuehrungskraft';
 import schlagfertigkeitImKiZeitalter from './articles/schlagfertigkeit-im-ki-zeitalter';
+// Players'-Tribune-style narrative SEO bombs
+import briefAnMeinen28JaehrigenSelbst from './articles/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde';
+import derTagAnDemIchAufhoerteZuPushen from './articles/der-tag-an-dem-ich-aufhoerte-zu-pushen';
+import dreiBurnoutsEineLektion from './articles/drei-burnouts-eine-lektion';
+import liebeMitarbeiterDasHierWollteIch from './articles/liebe-mitarbeiter-das-hier-wollte-ich-euch-immer-sagen';
 
 const ARTICLES = [
+  // Narrative SEO bombs (Players'-Tribune voice, viral hooks, SEO-armored).
+  // Published 2026-08-15 → 18, so they take Hero + Top Stories on /journal.
+  briefAnMeinen28JaehrigenSelbst,
+  derTagAnDemIchAufhoerteZuPushen,
+  dreiBurnoutsEineLektion,
+  liebeMitarbeiterDasHierWollteIch,
+
   // Brand-new KI-Voice articles (Wlad x KI, signature launch posts).
   die5RollenEinerKiNativenFuehrungskraft,
   in6MonatenZurKiNativenFuehrungskraft,

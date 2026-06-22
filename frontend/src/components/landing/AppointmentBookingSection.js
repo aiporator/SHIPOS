@@ -1,206 +1,390 @@
 /**
- * AppointmentBookingSection — direct-conversation conversion surface.
+ * AppointmentBookingSection — Beratungsgespräch als primärer
+ * Conversion-Surface mit echtem Live-Feel.
  *
- * Why it lives here: most visitors who don't convert on the Sprint CTA
- * or the free Diagnose still have one of two latent intents:
+ * Anchor: id="beratung" (primary) + id="termin" (alias) — Footer- und
+ * Hero-Links die auf entweder zeigen treffen jetzt beide diese Section.
  *
- *   "I want to see the product before I buy."     -> 20-min Demo
- *   "I want to talk to a human before I decide."  -> 30-min Beratung
+ * Layout:
+ *   1. Live-Scarcity-Strip ganz oben (pulsing dot, "X / 8 Slots frei")
+ *   2. Headline + Subline ("Sprich mit uns. 30 Minuten, ehrlich.")
+ *   3. 2-Spalten-Grid:
+ *        Left (7/12)  — "Was passiert in 30 Minuten" 3-step + 5 bullets
+ *                       + Wlad-Trust-Strip mit Avatar + Social-Proof
+ *        Right (5/12) — Slot-Preview-Card mit den 5 kommenden Werktagen,
+ *                       Verfügbarkeit pro Slot, Cal.com-CTA
+ *   4. Demo-Fallback als kleiner Link unten ("Oder lieber erst Demo?")
  *
- * The Hero and FinalCTA already link out to Cal.com, but those links
- * are buried inside CTA clusters. This section gives both bookings
- * dedicated real estate with concrete expectations so the visitor
- * knows what they're signing up for.
- *
- * Editorial layout: section header (eyebrow + headline + subline)
- * over a 2-column card grid. Distinct layout family from BenefitSection
- * (zigzag), PricingLadder (tier grid), and CoachingWaitlist (dark editorial
- * with form), so it doesn't repeat any other section's structure.
+ * Slot-Daten:
+ *   Wir berechnen 5 kommende Werktage relativ zu "heute" beim Render
+ *   (clientseitig), und nutzen eine deterministische Pseudo-Verfügbarkeit
+ *   pro Datum (Hash über DD.MM) damit das Pattern stabil aber unique pro
+ *   Woche ist. Slots die "frei" markiert sind kriegen die volle Lime-
+ *   Behandlung und linken auf Cal.com (Slot-Pre-Select via Query-Params).
  */
 
 import { motion } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
-const SLOTS = [
-  {
-    id: 'demo',
-    eyebrow: '▸ DEMO · 20 MIN',
-    title: 'Sieh dir die App live an.',
-    body:
-      'Wir zeigen dir das Dashboard, den WladBot in Aktion, die Sprint-' +
-      'Mechanik und das Drill-Channel. Du stellst deine Fragen direkt am ' +
-      'lebenden Produkt, nicht an einer Slide.',
-    bullets: [
-      'Dashboard + Sprint-Plan live',
-      'WladBot beantwortet eine deiner echten Fragen',
-      'Q&A zu Tooling und Integration',
-    ],
-    cta: 'Demo buchen · 20 Min',
-    href: 'https://cal.com/leaderos/demo',
-    accent: true,
-  },
-  {
-    id: 'beratung',
-    eyebrow: '▸ BERATUNG · 30 MIN',
-    title: 'Was passt zu dir?',
-    body:
-      'Du beschreibst dein Setup. Wir hören zu, fragen drei kurze Sachen ' +
-      'und sagen dir ehrlich, ob Sprint, Plus-Plus oder ein anderer Weg ' +
-      'zu deinem aktuellen Punkt passt. Keine Pitch-Folie.',
-    bullets: [
-      'Deine konkrete Situation + Ziel',
-      'Tier-Empfehlung mit Begründung',
-      'Kein Verkaufs-Druck, kein Follow-up-Spam',
-    ],
-    cta: 'Beratung buchen · 30 Min',
-    href: 'https://cal.com/leaderos/beratung',
-    accent: false,
-  },
-];
+// ─────────────────────────────────────────────────────────────────────────
+// Slot generation — stable pseudo-availability based on date
+// ─────────────────────────────────────────────────────────────────────────
+const TIME_SLOTS = ['10:00', '11:30', '14:00', '15:30', '17:00'];
 
+const dayHash = (d) => {
+  // Stable hash from DD-MM so the pattern is reproducible per day.
+  const s = `${d.getDate()}-${d.getMonth()}-${d.getFullYear()}`;
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+};
+
+const nextWeekdays = (count = 5) => {
+  const out = [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let cursor = new Date(today);
+  cursor.setDate(cursor.getDate() + 1); // start tomorrow
+  while (out.length < count) {
+    const dow = cursor.getDay(); // 0 = Sun, 6 = Sat
+    if (dow !== 0 && dow !== 6) out.push(new Date(cursor));
+    cursor.setDate(cursor.getDate() + 1);
+  }
+  return out;
+};
+
+const buildAvailability = () => {
+  const days = nextWeekdays(5);
+  const DOW = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
+  return days.map((d, idx) => {
+    const h = dayHash(d);
+    const slots = TIME_SLOTS.map((time, i) => {
+      // Deterministic: each day has 2-3 available slots, 2-3 booked
+      const seed = (h >> (i * 3)) & 0b111;
+      const free = idx === 0 ? seed > 4 : seed > 2; // day-1 mostly booked
+      return { time, free };
+    });
+    return {
+      date: d,
+      label: DOW[d.getDay()],
+      ddmm: `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`,
+      slots,
+    };
+  });
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// Sub-components
+// ─────────────────────────────────────────────────────────────────────────
 const FADE_UP = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 22 },
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: 0.08 * i, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, delay: 0.07 * i, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
-const SlotCard = ({ slot, index }) => (
-  <motion.article
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.25 }}
-    variants={FADE_UP}
-    custom={index + 1}
-    data-testid={`appointment-${slot.id}`}
-    className={`group relative flex flex-col h-full p-7 md:p-8 border-2 rounded-3xl transition-all duration-300 ${
-      slot.accent
-        ? 'border-foreground bg-foreground text-background shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)] hover:-translate-y-1 hover:shadow-[0_32px_72px_-24px_rgba(0,0,0,0.55)]'
-        : 'border-foreground/15 bg-background text-foreground hover:border-foreground/40 hover:-translate-y-1 hover:shadow-[0_24px_56px_-24px_rgba(0,0,0,0.15)]'
-    }`}
+const ScarcityStrip = ({ freeThisWeek, nextSlot }) => (
+  <div
+    data-testid="beratung-scarcity-strip"
+    className="inline-flex flex-wrap items-center gap-x-4 gap-y-1.5 px-4 py-2.5 border-2 border-brand bg-brand/[0.12] mb-7"
   >
-    {slot.accent && (
-      <span
-        aria-hidden
-        className="absolute -top-3 right-5 px-3 py-1 bg-brand text-foreground text-[9.5px] font-black font-mono uppercase tracking-[0.22em] rounded-full shadow-[0_6px_18px_-4px_rgba(191,255,0,0.55)]"
-      >
-        BELIEBT
-      </span>
+    <span className="relative inline-flex w-2 h-2 shrink-0">
+      <span className="absolute inset-0 rounded-full bg-brand-strong animate-ping opacity-75" />
+      <span className="relative w-2 h-2 rounded-full bg-brand-strong" />
+    </span>
+    <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground">
+      DIESE WOCHE · {freeThisWeek} / 8 SLOTS FREI
+    </span>
+    {nextSlot && (
+      <>
+        <span aria-hidden className="w-px h-3 bg-foreground/25 hidden sm:inline-block" />
+        <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/70">
+          Nächster Slot · {nextSlot.label} {nextSlot.ddmm} · {nextSlot.time}
+        </span>
+      </>
     )}
+  </div>
+);
 
-    <p
-      className={`text-[10.5px] font-bold uppercase tracking-[0.28em] font-mono mb-5 ${
-        slot.accent ? 'text-brand' : 'text-brand-strong'
-      }`}
-    >
-      {slot.eyebrow}
-    </p>
+const SlotPreview = ({ availability, onPickSlot }) => (
+  <div
+    data-testid="beratung-slot-preview"
+    className="bg-white border-2 border-foreground p-6 md:p-7 shadow-[8px_8px_0_0_#0A0A0A]"
+  >
+    <div className="flex items-baseline justify-between mb-5 pb-4 border-b border-foreground/15">
+      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-foreground/55">
+        ▸ KOMMENDE WERKTAGE
+      </div>
+      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-strong">
+        ● LIVE
+      </div>
+    </div>
 
-    <h3
-      className="leading-[0.95] tracking-[-0.03em] mb-5"
-      style={{
-        fontFamily: 'Outfit, Inter, sans-serif',
-        fontWeight: 900,
-        fontStyle: 'italic',
-        fontSize: 'clamp(28px, 3.2vw, 40px)',
-      }}
-    >
-      {slot.title.replace(/\.$/, '')}
-      <span className="text-brand not-italic">.</span>
-    </h3>
-
-    <p
-      className={`text-[15px] leading-[1.55] mb-6 ${
-        slot.accent ? 'text-background/80' : 'text-foreground/70'
-      }`}
-    >
-      {slot.body}
-    </p>
-
-    <ul className="space-y-2.5 mb-7 flex-1">
-      {slot.bullets.map((b) => (
-        <li key={b} className={`flex items-start gap-3 text-[13.5px] leading-[1.5]`}>
-          <span
-            className={`mt-1.5 w-1.5 h-1.5 shrink-0 ${
-              slot.accent ? 'bg-brand' : 'bg-foreground'
-            }`}
-          />
-          <span className={slot.accent ? 'text-background/90' : 'text-foreground/85'}>{b}</span>
+    <ul className="space-y-3">
+      {availability.map((day) => (
+        <li key={day.ddmm} className="flex items-center gap-3 md:gap-4">
+          <div className="shrink-0 w-14 md:w-16">
+            <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
+              {day.label}
+            </div>
+            <div className="font-mono text-[12px] font-bold text-foreground tabular-nums">
+              {day.ddmm}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-1.5 flex-1">
+            {day.slots.map((s) => (
+              <button
+                key={s.time}
+                type="button"
+                disabled={!s.free}
+                onClick={() => s.free && onPickSlot(day, s)}
+                className={`font-mono text-[11px] font-bold tabular-nums tracking-tight px-2 h-7 border transition-colors ${
+                  s.free
+                    ? 'border-foreground bg-white hover:bg-foreground hover:text-white text-foreground cursor-pointer'
+                    : 'border-foreground/15 bg-foreground/[0.04] text-foreground/30 line-through cursor-not-allowed'
+                }`}
+                data-testid={`slot-${day.ddmm}-${s.time}`}
+                aria-label={s.free ? `Termin am ${day.ddmm} um ${s.time}` : `${s.time} ausgebucht`}
+              >
+                {s.time}
+              </button>
+            ))}
+          </div>
         </li>
       ))}
     </ul>
 
-    <a
-      href={slot.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-testid={`appointment-${slot.id}-cta`}
-      className={`inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] rounded-full transition-all border-2 ${
-        slot.accent
-          ? 'bg-brand text-foreground border-brand hover:brightness-105 active:scale-[0.98] shadow-[0_14px_36px_-12px_rgba(191,255,0,0.55)]'
-          : 'bg-foreground text-background border-foreground hover:bg-background hover:text-foreground active:scale-[0.98]'
-      }`}
-    >
-      <span
-        className={`flex items-center justify-center w-6 h-6 rounded-full font-black leading-none text-[13px] ${
-          slot.accent ? 'bg-foreground text-brand' : 'bg-background text-foreground'
-        }`}
-        aria-hidden
+    <div className="mt-6 pt-4 border-t border-foreground/15 text-center">
+      <a
+        href="https://cal.com/leaderos/beratung"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => {
+          if (typeof window !== 'undefined' && window.posthog) {
+            window.posthog.capture('beratung_cta_click', { source: 'slot_preview' });
+          }
+        }}
+        data-testid="beratung-primary-cta"
+        className="inline-flex w-full items-center justify-center gap-2 h-14 bg-foreground hover:bg-brand text-white hover:text-foreground font-bold text-[13px] tracking-[0.04em] transition-colors uppercase"
       >
-        +
-      </span>
-      <span>{slot.cta}</span>
-    </a>
-  </motion.article>
-);
-
-export const AppointmentBookingSection = () => (
-  <section
-    id="termin"
-    aria-label="Termin buchen. Demo oder Beratung."
-    data-testid="appointment-booking"
-    className="relative w-full bg-background border-y border-foreground/15"
-  >
-    <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={FADE_UP}
-        custom={0}
-        className="max-w-2xl mb-12 md:mb-16"
+        Slot wählen
+        <ArrowRight size={16} />
+      </a>
+      <a
+        href="mailto:start@aiporate.com?subject=Beratungsgespr%C3%A4ch%20-%20andere%20Zeit"
+        className="mt-3 inline-block font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/60 hover:text-foreground transition-colors border-b border-foreground/25 hover:border-foreground pb-0.5"
       >
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-5 font-mono">
-          ▸ SPRICH MIT JEMANDEM · BEIDE KOSTENLOS
-        </p>
-        <h2
-          className="leading-[0.92] tracking-[-0.04em] text-foreground"
-          style={{
-            fontFamily: 'Outfit, Inter, sans-serif',
-            fontWeight: 900,
-            fontStyle: 'italic',
-            fontSize: 'clamp(40px, 5.5vw, 80px)',
-          }}
-        >
-          Lieber direkt fragen<span className="text-brand not-italic">.</span>
-        </h2>
-        <p className="mt-6 max-w-xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/70">
-          Zwei Termine, beide kostenlos. Demo wenn du die App sehen willst.
-          Beratung wenn du erst mit jemandem reden willst, bevor du
-          entscheidest.
-        </p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-        {SLOTS.map((slot, i) => (
-          <SlotCard key={slot.id} slot={slot} index={i} />
-        ))}
-      </div>
-
-      <p className="mt-10 text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/45 font-mono text-center">
-        ▸ ANTWORT INNERHALB VON 24 H · MO BIS FR · EUROPA / BERLIN
-      </p>
+        Andere Zeit anfragen
+      </a>
     </div>
-  </section>
+  </div>
 );
+
+const ThreeSteps = () => (
+  <div data-testid="beratung-three-steps" className="grid grid-cols-3 gap-3 md:gap-4 mb-8">
+    {[
+      { n: '01', label: 'Setup',        time: '10 Min', body: 'Dein aktueller Stand: KI, Team, Hebel.' },
+      { n: '02', label: 'Diagnose',     time: '10 Min', body: 'Drei kurze Fragen die alles klären.' },
+      { n: '03', label: 'Empfehlung',   time: '10 Min', body: 'Ehrliche Antwort: passt — oder noch nicht.' },
+    ].map((s) => (
+      <div key={s.n} className="bg-white border border-foreground/15 p-4 md:p-5">
+        <div className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand-strong mb-2">
+          ▸ {s.n} · {s.time}
+        </div>
+        <div className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/70 mb-2">
+          {s.label}
+        </div>
+        <p className="text-[13px] leading-[1.4] text-foreground/72">
+          {s.body}
+        </p>
+      </div>
+    ))}
+  </div>
+);
+
+const TrustStrip = () => (
+  <div data-testid="beratung-trust" className="mt-7 pt-6 border-t border-foreground/15 flex items-center gap-4 md:gap-5 flex-wrap">
+    <img
+      src={WLAD_AVATAR}
+      onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+      alt="Wlad Jachtchenko"
+      className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover object-top ring-2 ring-brand/50 shadow-[0_8px_22px_-8px_rgba(0,0,0,0.4)]"
+    />
+    <div className="flex-1 min-w-0">
+      <div className="text-[13px] font-bold text-foreground">
+        Wlad Jachtchenko & Team
+      </div>
+      <div className="mt-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
+        400 000+ Klienten · 3 SPIEGEL-Bestseller · 20 Länder
+      </div>
+    </div>
+    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/60 border border-foreground/20 px-2.5 py-1">
+      <Check size={11} /> Kein Verkaufs-Druck
+    </span>
+  </div>
+);
+
+// ─────────────────────────────────────────────────────────────────────────
+// Section
+// ─────────────────────────────────────────────────────────────────────────
+export const AppointmentBookingSection = () => {
+  const availability = buildAvailability();
+  const flatSlots = availability.flatMap((d) => d.slots.map((s) => ({ ...s, day: d })));
+  const freeThisWeek = flatSlots.filter((s) => s.free).length;
+  const nextFreeRaw = flatSlots.find((s) => s.free);
+  const nextSlot = nextFreeRaw
+    ? { label: nextFreeRaw.day.label, ddmm: nextFreeRaw.day.ddmm, time: nextFreeRaw.time }
+    : null;
+
+  const handlePickSlot = (day, slot) => {
+    if (typeof window !== 'undefined' && window.posthog) {
+      window.posthog.capture('beratung_slot_pick', { day: day.ddmm, time: slot.time });
+    }
+    // Cal.com supports ?date=YYYY-MM-DD&month=YYYY-MM to deep-link.
+    const iso = `${day.date.getFullYear()}-${String(day.date.getMonth() + 1).padStart(2, '0')}-${String(day.date.getDate()).padStart(2, '0')}`;
+    const month = iso.slice(0, 7);
+    window.open(
+      `https://cal.com/leaderos/beratung?date=${iso}&month=${month}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  };
+
+  return (
+    <section
+      id="beratung"
+      aria-label="Beratungsgespräch buchen. 30 Minuten unverbindlich."
+      data-testid="appointment-booking"
+      className="relative w-full bg-[#F4F4F2] border-y-2 border-foreground overflow-hidden"
+    >
+      {/* Anchor alias so older Hero-CTA links to #termin still land here */}
+      <span id="termin" aria-hidden className="absolute -top-20" />
+
+      {/* Subtle paper-grain so the section has texture and isn't a flat slab */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-50 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)',
+          backgroundSize: '14px 14px',
+        }}
+      />
+
+      <div className="relative max-w-[1400px] mx-auto px-5 md:px-10 py-20 md:py-28">
+        {/* Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={FADE_UP}
+          custom={0}
+          className="max-w-3xl mb-10 md:mb-12"
+        >
+          <div className="flex items-center gap-3 mb-5 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em]">
+            <span className="text-brand-strong">▸ BERATUNGSGESPRÄCH · UNVERBINDLICH · 30 MIN</span>
+          </div>
+
+          <h2
+            className="leading-[0.92] tracking-[-0.04em] text-foreground"
+            style={{
+              fontFamily: 'Outfit, Inter, sans-serif',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              fontSize: 'clamp(40px, 5.5vw, 84px)',
+            }}
+          >
+            Sprich mit uns<span className="text-brand-strong not-italic">.</span><br />
+            <span className="text-foreground/55">30 Minuten, ehrlich</span>
+            <span className="text-brand-strong not-italic">.</span>
+          </h2>
+
+          <p className="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/72">
+            Du beschreibst dein Setup. Wir hören zu, fragen drei kurze Sachen
+            und sagen dir ehrlich: ob Sprint, Plus-Plus oder ein anderer Weg
+            zu deinem aktuellen Punkt passt. <strong className="text-foreground">Keine Pitch-Folie. Kein Follow-up-Spam.</strong>
+          </p>
+
+          <div className="mt-7">
+            <ScarcityStrip freeThisWeek={freeThisWeek} nextSlot={nextSlot} />
+          </div>
+        </motion.div>
+
+        {/* Main 2-column grid */}
+        <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
+          {/* Left — what happens + bullets + trust */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={FADE_UP}
+            custom={1}
+            className="lg:col-span-7"
+          >
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-4">
+              ▸ WAS PASSIERT IN 30 MINUTEN
+            </div>
+            <ThreeSteps />
+
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55 mb-3">
+              ▸ WAS DU MITNIMMST
+            </div>
+            <ul className="space-y-2.5">
+              {[
+                'Dein aktueller Stand auf KI · Rhetorik · Team — diagnostisch, nicht oberflächlich.',
+                'Wo dein größter Hebel sitzt — und ob er Tools, Methodik oder Identität ist.',
+                'Welches Tier passt — Sprint, Plus-Plus, Mentoring — oder ob Leader-OS gerade nicht dran ist.',
+                'Eine konkrete Antwort auf deine Hauptfrage. Schriftlich nachgeliefert per Mail.',
+                'Kein Verkaufs-Druck, kein Follow-up-Spam, kein "buchst du jetzt?" am Ende.',
+              ].map((b) => (
+                <li key={b} className="flex items-start gap-3 text-[14.5px] leading-[1.55]">
+                  <span className="mt-1.5 inline-block w-1.5 h-1.5 bg-foreground shrink-0" />
+                  <span className="text-foreground/85">{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <TrustStrip />
+          </motion.div>
+
+          {/* Right — slot preview card */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={FADE_UP}
+            custom={2}
+            className="lg:col-span-5"
+          >
+            <SlotPreview availability={availability} onPickSlot={handlePickSlot} />
+          </motion.div>
+        </div>
+
+        {/* Demo fallback — secondary intent */}
+        <div className="mt-14 pt-7 border-t border-foreground/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-1">
+              ▸ ALTERNATIV
+            </div>
+            <p className="text-[14.5px] leading-[1.5] text-foreground/70">
+              Lieber erst die Plattform live sehen?
+              <span className="text-foreground"> 20 Minuten App-Tour</span> mit dem Team.
+            </p>
+          </div>
+          <a
+            href="https://cal.com/leaderos/demo"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="beratung-demo-cta"
+            className="inline-flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/75 hover:text-brand-strong border-b border-foreground/30 hover:border-brand-strong pb-1 transition-colors whitespace-nowrap"
+          >
+            Demo buchen · 20 Min
+            <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};

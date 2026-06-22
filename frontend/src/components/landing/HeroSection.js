@@ -58,19 +58,21 @@ export const HeroSection = () => (
       aria-hidden
       className="hidden md:block absolute top-3 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
     >
-      [ SPRINT · 997 € · DIAGNOSE FREE ]
+      [ SPRINT 997 € · 30 TAGE + 12 MONATE · DIAGNOSE FREE ]
     </div>
 
-    {/* Background-W — Heron-Preston editorial ghost letterform */}
+    {/* Background-W — Heron-Preston editorial ghost letterform.
+        Hidden on small phones so it never competes with the headline
+        on a 375px screen; reintroduced softer on tablet, full on desktop. */}
     <motion.div
       aria-hidden
       initial={{ opacity: 0, scale: 1.04 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-y-0 right-[-8%] md:right-[-4%] w-[80%] md:w-[58%] flex items-center justify-end pointer-events-none select-none"
+      className="hidden sm:flex absolute inset-y-0 right-[-8%] md:right-[-4%] w-[60%] md:w-[58%] items-center justify-end pointer-events-none select-none"
     >
       <span
-        className="text-[42vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em] text-foreground/[0.04]"
+        className="text-[32vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em] text-foreground/[0.04]"
         style={{
           fontFamily: 'Outfit, Inter, sans-serif',
           fontWeight: 900,
@@ -81,11 +83,11 @@ export const HeroSection = () => (
       </span>
     </motion.div>
 
-    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-10 md:pb-12">
+    <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-6 md:pt-10 pb-10 md:pb-12">
       {/* 1 / 4 — Wlad-anker (eyebrow slot).
           Centered, vertically-stacked, symmetric. Avatar floats on a
           soft lime halo; name + subline read as one calm trust-line. */}
-      <div className="flex flex-col items-center text-center mb-8 md:mb-10">
+      <div className="flex flex-col items-center text-center mb-6 md:mb-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.86 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -132,7 +134,7 @@ export const HeroSection = () => (
         animate="show"
         custom={1}
         variants={FADE_UP}
-        className="text-[64px] sm:text-[96px] md:text-[136px] lg:text-[176px] leading-[0.84] tracking-[-0.048em] text-foreground"
+        className="text-[48px] sm:text-[88px] md:text-[136px] lg:text-[176px] leading-[0.86] sm:leading-[0.84] tracking-[-0.038em] sm:tracking-[-0.044em] md:tracking-[-0.048em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 900,
@@ -148,7 +150,7 @@ export const HeroSection = () => (
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-6 md:mt-8 max-w-3xl text-[22px] sm:text-[28px] md:text-[36px] leading-[1.18] tracking-[-0.018em] text-foreground"
+        className="mt-5 sm:mt-6 md:mt-8 max-w-3xl text-[18px] sm:text-[26px] md:text-[36px] leading-[1.25] sm:leading-[1.18] tracking-[-0.012em] sm:tracking-[-0.018em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 800,
@@ -188,7 +190,7 @@ export const HeroSection = () => (
             +
           </span>
           <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
-            Sprint sichern · 997 € · 30 Tage
+            Sprint · 997 € · 30 Tage + 12 Monate
           </span>
         </a>
       </motion.div>
