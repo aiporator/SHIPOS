@@ -59,6 +59,7 @@ const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscrib
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
+const QuickCheckPage = lazyWithRetry(() => import("./pages/QuickCheckPage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
@@ -177,6 +178,7 @@ function AppRouter() {
         {/* Public — Feldnotizen / content engine */}
         <Route path="/journal" element={<JournalIndex />} />
         <Route path="/journal/:slug" element={<ArticlePage />} />
+        <Route path="/quick-check" element={<QuickCheckPage />} />
         {/* Public share routes — read-only showcase, no auth required */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />
