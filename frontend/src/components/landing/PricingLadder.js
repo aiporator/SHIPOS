@@ -33,19 +33,20 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ 30-TAGE-SPRINT',
+    eyebrow: '▸ 30-TAGE-SPRINT + 12-MONATE-MITGLIEDSCHAFT',
     name: 'Sprint',
-    duration: '30 Tage · Erste Gruppe',
+    duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
     price: '997 €',
-    outcome: '11 Frameworks · Zertifikat · LinkedIn',
+    outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
     scarcity: 'Erste Gruppe · 43 von 50 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
+      '12 Monate Mitgliedschaft inkludiert · voller Plattform-Zugang',
       'Tägliche Lernvideos · Wöchen-Drills',
       'Zertifikat für dein LinkedIn',
     ],
-    cta: 'Sprint kaufen · 30 Tage',
+    cta: 'Sprint kaufen · 30 Tage + 12 Monate',
     href: 'https://leaderos.de/checkout?tier=sprint',
     accent: true,
     badge: '★ BELIEBT',
@@ -289,7 +290,10 @@ export const PricingLadder = () => {
         </div>
         <div className="md:col-span-5 md:pt-6">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
-            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge: elf Frameworks, tägliche Drills, WladBot 24/7. Plus-Plus geht ein ganzes Jahr: Sprint plus Live-Sessions mit Wlad. <span className="text-black font-bold">Sprint zuerst, immer.</span>
+            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge plus
+            12 Monate Mitgliedschaft: elf Frameworks, tägliche Drills, WladBot 24/7,
+            voller Plattform-Zugang ein ganzes Jahr. Plus-Plus legt monatliche
+            Live-Sessions mit Wlad obendrauf. <span className="text-black font-bold">Sprint zuerst, immer.</span>
           </p>
         </div>
       </div>

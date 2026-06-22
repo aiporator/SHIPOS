@@ -520,13 +520,14 @@ const DiagnoseCTA = () => (
         </div>
         <div className="p-8 md:p-14 flex flex-col justify-center">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5">
-            ▸ Leadership-Diagnose · 60 Sekunden
+            ▸ Leadership-Diagnose · 10 Min · Kostenlos
           </div>
           <h3 className="text-[32px] md:text-[46px] leading-[1.02]" style={serifItalic}>
             Welcher KI-Leader bist du wirklich?
           </h3>
           <p className="mt-5 max-w-xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-            5 Fragen. Ein Archetyp. Ein konkreter Lernpfad — abgestimmt auf
+            30 Fragen. 10 Minuten. Drei Dimensionen — KI, Rhetorik, EQ.
+            Sofort dein Score plus konkreter Lernpfad, abgestimmt auf
             Wlads Methodik und deinen aktuellen Rollen-Übergang.
             Kein Login. Kein Spam.
           </p>
