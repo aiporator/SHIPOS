@@ -58,7 +58,7 @@ export default {
       type: 'list',
       style: 'bullet',
       items: [
-        'Du hast keine Skill-Lücke — du hast eine Rollen-Lücke (vom Senior zum VP).',
+        'Du hast keine Skill-Lücke · du hast eine Rollen-Lücke (vom Senior zum VP).',
         'Du brauchst einen externen Sparrings-Partner über mindestens vier Quartale.',
         'Deine Probleme wechseln im Quartalsrhythmus.',
         'Du willst keinen Werkzeugkasten, du willst einen begleitenden Spiegel.',
@@ -87,14 +87,14 @@ export default {
     {
       type: 'quote',
       text:
-        'Wer eine konkrete Lücke hat, schließt sie in dreißig Tagen — oder erkennt schnell, dass die ' +
+        'Wer eine konkrete Lücke hat, schließt sie in dreißig Tagen · oder erkennt schnell, dass die ' +
         'Lücke gar nicht das echte Problem war.',
       attribution: 'Wlad, aus dem Sprint-Briefing 2026',
     },
     {
       type: 'paragraph',
       text:
-        'Wenn du gerade liest und denkst "ich habe drei Lücken gleichzeitig" — das ist normal. Die ' +
+        'Wenn du gerade liest und denkst "ich habe drei Lücken gleichzeitig" · das ist normal. Die ' +
         'kostenlose Diagnose auf leadercheck.de priorisiert sie für dich. Du startest mit der größten, ' +
         'nicht mit der lautesten.',
     },

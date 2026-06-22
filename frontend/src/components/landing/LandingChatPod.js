@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 /**
- * LandingChatPod — editorial WladBot-Mini, eingebettet als Funnel.
+ * LandingChatPod · editorial WladBot-Mini, eingebettet als Funnel.
  *
  * KEIN echter Chat-mit-LLM. Ein scripted Funnel im Specimen-Stil,
  * der den Besucher in 4–6 Mikro-Fragen qualifiziert und am Ende
@@ -12,13 +12,13 @@ import { AnimatePresence, motion } from 'framer-motion';
  *
  * Zwei Modi via `mode`-Prop (passend zum Landing-Host):
  *
- *   'lead'      — fires on leader-os.de (Vercel marketing landing).
+ *   'lead'      · fires on leader-os.de (Vercel marketing landing).
  *                 Erkundet Rolle, größte Leadership-Baustelle,
  *                 Zeit-Horizont, Team-Größe. Berechnet FIT-Score
  *                 und schlägt vor: Diagnose (low fit) → leadercheck.de
  *                 · Demo (mid) → cal.com · Beratung (high) → cal.com.
  *
- *   'readiness' — fires on leader-check.de (Vercel marketing landing).
+ *   'readiness' · fires on leader-check.de (Vercel marketing landing).
  *                 Erkundet KI-Nutzung, Argumentations-Sicherheit,
  *                 EQ-Reflex. READINESS-Score routet in die volle
  *                 30-Fragen-Diagnose auf leadercheck.de (Emergent app).
@@ -30,7 +30,7 @@ import { AnimatePresence, motion } from 'framer-motion';
  * Look-and-Feel:
  *   - Editorial Specimen-Pod: schwarze Canvas, Hairline-Borders,
  *     Mono BIB-Header, Outfit-Italic-Headline, Lime-Akzent.
- *   - Floating Launcher rechts unten — pulsierender Lime-Punkt +
+ *   - Floating Launcher rechts unten · pulsierender Lime-Punkt +
  *     "▸ FRAG WLADBOT" Mono-Caption.
  *   - Drawer von rechts auf Desktop, Bottom-Sheet auf Mobile.
  *   - Tippen-Indikator: 3 Lime-Punkte mit Stagger.
@@ -92,7 +92,7 @@ const FLOWS = {
         min: 10,
         title: 'Persönliche Beratung.',
         body:
-          'Bei deinem Setup macht es wenig Sinn, mit der Diagnose anzufangen — ' +
+          'Bei deinem Setup macht es wenig Sinn, mit der Diagnose anzufangen · ' +
           'wir setzen direkt mit einer 30-Min-Beratung an deinem konkreten Fall an.',
         primary: { label: 'Beratung buchen · 30 Min', href: 'https://cal.com/leaderos/beratung' },
         secondary: { label: 'Lieber doch Demo · 20 Min', href: 'https://cal.com/leaderos/demo' },
@@ -101,7 +101,7 @@ const FLOWS = {
         min: 7,
         title: 'Live-Demo.',
         body:
-          'Du kennst deine Baustelle — schau dir Leader-OS am eigenen Use-Case an. ' +
+          'Du kennst deine Baustelle · schau dir Leader-OS am eigenen Use-Case an. ' +
           '20 Minuten, Live, mit dem Team.',
         primary: { label: 'Demo buchen · 20 Min', href: 'https://cal.com/leaderos/demo' },
         secondary: { label: 'Erst Diagnose machen', href: 'https://leadercheck.de' },
@@ -119,7 +119,7 @@ const FLOWS = {
   },
   readiness: {
     bib: 'WLADBOT · MINI · READINESS',
-    opener: '4 schnelle Fragen — dann zeige ich dir wo du startest.',
+    opener: '4 schnelle Fragen · dann zeige ich dir wo du startest.',
     steps: [
       {
         q: 'Nutzt du KI heute schon in deinem Führungs-Alltag?',
@@ -135,7 +135,7 @@ const FLOWS = {
         key: 'rhet',
         options: [
           { label: 'Sehr sicher · ich habe Skripte', value: 'high', weight: 3 },
-          { label: 'Geht so — Bauch entscheidet', value: 'mid', weight: 2 },
+          { label: 'Geht so · Bauch entscheidet', value: 'mid', weight: 2 },
           { label: 'Eher unsicher · vermeide oft', value: 'low', weight: 1 },
         ],
       },
@@ -164,7 +164,7 @@ const FLOWS = {
         title: 'Bist schon weit.',
         body:
           'Du hast Basics drin. Die 30-Fragen-Diagnose zeigt dir die feinen ' +
-          'Lücken — und Leader-OS schließt sie systematisch in 30 Tagen.',
+          'Lücken · und Leader-OS schließt sie systematisch in 30 Tagen.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Direkt Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung' },
       },
@@ -172,7 +172,7 @@ const FLOWS = {
         min: 7,
         title: 'Solide Mitte.',
         body:
-          'Du arbeitest schon bewusst — aber mit Lücken. Die volle Diagnose ' +
+          'Du arbeitest schon bewusst · aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
@@ -181,7 +181,7 @@ const FLOWS = {
         min: 0,
         title: 'Bester Zeitpunkt.',
         body:
-          'Du fängst quasi bei Null an — das ist der beste Zeitpunkt, um ' +
+          'Du fängst quasi bei Null an · das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
@@ -345,7 +345,7 @@ export const LandingChatPod = ({ mode = 'lead' }) => {
         keepalive: true,
       });
     } catch {
-      /* swallow — der CTA-Klick navigiert eh weiter */
+      /* swallow · der CTA-Klick navigiert eh weiter */
     }
   };
 

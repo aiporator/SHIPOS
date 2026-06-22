@@ -1,5 +1,5 @@
 /**
- * VoiceSpeedToggle — premium pill toggle (0.75x · 1x · 1.25x · 1.5x).
+ * VoiceSpeedToggle · premium pill toggle (0.75x · 1x · 1.25x · 1.5x).
  * Stored globally via lib/ttsSpeed.js so every <audio> across the app honors it.
  */
 import { useState, useEffect } from 'react';

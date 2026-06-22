@@ -57,7 +57,7 @@ export const SidebarFooter = ({ theme, toggleTheme, lang, toggleLang, t, collaps
         {!collapsed && <span className="font-medium">{theme === 'dark' ? t('nav.lightMode') : t('nav.darkMode')}</span>}
       </button>
 
-      {/* Upgrade CTA — hidden for OS PLUS users */}
+      {/* Upgrade CTA · hidden for OS PLUS users */}
       {user && !isAccelerator && (
         <button
           onClick={() => openPricing(tier === 'standard' ? 'leadership_os_plus' : 'leadership_os')}

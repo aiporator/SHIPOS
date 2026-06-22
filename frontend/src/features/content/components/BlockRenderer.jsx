@@ -1,5 +1,5 @@
 /**
- * BlockRenderer — one renderer for the structured-block content schema.
+ * BlockRenderer · one renderer for the structured-block content schema.
  *
  * Renders { type, ... } blocks defined in the article body. Adding a
  * new block type means: add a case here, no other file changes.

@@ -94,7 +94,7 @@ const Item = ({ faq, isOpen, onToggle, index }) => (
 );
 
 /**
- * FAQSection — objection-handling block. Six common questions answered
+ * FAQSection · objection-handling block. Six common questions answered
  * crisply in Wlad's direct German voice (du-form, concrete examples,
  * no corporate fluff). Accordion behaviour, first item open by default
  * to invite scrolling, others click-to-expand.

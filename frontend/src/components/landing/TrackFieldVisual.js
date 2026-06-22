@@ -1,9 +1,9 @@
 /**
- * TrackFieldVisual — Animierte SVG-Szene "Wer Wlads System hat, führt vorneweg."
+ * TrackFieldVisual · Animierte SVG-Szene "Wer Wlads System hat, führt vorneweg."
  *
  * Layout (oben → unten):
  *   1. Tribüne mit pixeligem Publikum (animiertes Twinkle)
- *   2. Stadion-Banner "LEADER · OS — KLASSE 0001"
+ *   2. Stadion-Banner "LEADER · OS · KLASSE 0001"
  *   3. 5 Bahnen mit Distanz-Markern (100M → 0M)
  *      4 Anzug-Träger noch am Anfang, leicht wankend (CSS shuffle)
  *      1 T-Shirt-Läufer durchbricht das Ziel-Band (Stride-Animation)
@@ -13,7 +13,7 @@
  *   5. Footer-Strips mit BIB-Codes
  *
  * Alle Animationen via inline CSS-Keyframes in <style>. respect für
- * prefers-reduced-motion eingebaut. Pure SVG — keine externen Assets.
+ * prefers-reduced-motion eingebaut. Pure SVG · keine externen Assets.
  */
 
 export const TrackFieldVisual = ({ className = '' }) => (
@@ -94,10 +94,10 @@ export const TrackFieldVisual = ({ className = '' }) => (
       `}</style>
     </defs>
 
-    {/* Bahn-Hintergrund — kalter Beton-Asphalt */}
+    {/* Bahn-Hintergrund · kalter Beton-Asphalt */}
     <rect width="900" height="360" fill="#F5F5F2" />
 
-    {/* ── TRIBÜNE oben — pixelige Publikums-Dots ── */}
+    {/* ── TRIBÜNE oben · pixelige Publikums-Dots ── */}
     <g aria-hidden="true">
       <rect x="40" y="38" width="820" height="14" fill="#E8E6DE" />
       {Array.from({ length: 90 }).map((_, i) => {
@@ -123,7 +123,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       >
         LEADER
       </text>
-      {/* Lime mid-dot accent — matches Leader·OS wordmark in nav */}
+      {/* Lime mid-dot accent · matches Leader·OS wordmark in nav */}
       <circle cx="85" cy="11.5" r="2.2" fill="#BFFF00" />
       <text
         x="92"
@@ -252,7 +252,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
             {m.m}
           </text>
 
-          {/* Stage-Name — die eigentliche Reise */}
+          {/* Stage-Name · die eigentliche Reise */}
           {m.isFinish ? (
             <g>
               {/* Lime Kapsel hinter LEADER */}
@@ -301,7 +301,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       {/* Lime Glow */}
       <rect x="800" y="92" width="2" height="174" fill="#BFFF00" opacity="0.8" />
     </g>
-    {/* Ziel-Linie auf Boden — solid */}
+    {/* Ziel-Linie auf Boden · solid */}
     <line x1="800" y1="92" x2="800" y2="288" stroke="#FFFFFF" strokeWidth="3" opacity="0.9" />
     <text x="800" y="84" fill="#0A0A0A" fontSize="11" fontWeight="900" textAnchor="middle" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '0.22em' }}>
       ZIEL
@@ -332,7 +332,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
             {/* Lapels */}
             <rect x="4" y="6" width="2" height="6" fill="#2A2A2A" />
             <rect x="12" y="6" width="2" height="6" fill="#2A2A2A" />
-            {/* Schlips (jeder eine andere Farbe — kein Klon) */}
+            {/* Schlips (jeder eine andere Farbe · kein Klon) */}
             <rect x="8" y="8" width="2" height="6" fill={['#5B0E0E', '#0E2E5B', '#5B4A0E', '#0E5B2E'][i]} />
             {/* Aktentasche links */}
             {i % 2 === 0 && <rect x="0" y="12" width="4" height="5" fill="#3A2418" />}
@@ -347,9 +347,9 @@ export const TrackFieldVisual = ({ className = '' }) => (
       );
     })}
 
-    {/* ── T-SHIRT LÄUFER auf Bahn 5 — durchbricht das Ziel-Band ── */}
+    {/* ── T-SHIRT LÄUFER auf Bahn 5 · durchbricht das Ziel-Band ── */}
     <g transform="translate(770, 252)">
-      {/* Aura — zwei Schichten mit verschiedenen Phasen */}
+      {/* Aura · zwei Schichten mit verschiedenen Phasen */}
       <ellipse cx="14" cy="14" rx="32" ry="28" fill="#BFFF00" className="track-aura-o" />
       <ellipse cx="14" cy="14" rx="22" ry="20" fill="#BFFF00" className="track-aura-i" />
 
@@ -376,7 +376,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       {/* T-Shirt Schatten / Falte */}
       <rect x="6" y="18" width="16" height="2" fill="#0A0A0A" opacity="0.12" />
 
-      {/* ★ WladMark Emblem auf Brust — pulsiert/dreht ★ */}
+      {/* ★ WladMark Emblem auf Brust · pulsiert/dreht ★ */}
       {/* Outer <g> hält die statische Position, inner <g> bekommt die CSS-Animation
           (CSS transform-keyframes würden sonst das SVG transform-Attribut überschreiben) */}
       <g transform="translate(10, 9)">
@@ -387,7 +387,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
         </g>
       </g>
 
-      {/* Arme — pumpend (Lauf-Pose) */}
+      {/* Arme · pumpend (Lauf-Pose) */}
       <g className="track-stride-a">
         <rect x="2" y="9" width="3.5" height="7" fill="#F2C8A4" transform="rotate(-32 3.75 12.5)" />
       </g>
@@ -395,7 +395,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
         <rect x="22.5" y="7" width="3.5" height="7" fill="#F2C8A4" transform="rotate(42 24.25 10.5)" />
       </g>
 
-      {/* Beine — Sprint-Pose */}
+      {/* Beine · Sprint-Pose */}
       <g className="track-stride-a">
         <rect x="8" y="20" width="3.5" height="10" fill="#1A4A5A" transform="rotate(22 9.75 25)" />
         <rect x="7" y="29" width="5" height="2" fill="#BFFF00" />
@@ -406,7 +406,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       </g>
     </g>
 
-    {/* "MIT WLADBOT" Pill — sitzt oberhalb des Läufers, sauber freigestellt.
+    {/* "MIT WLADBOT" Pill · sitzt oberhalb des Läufers, sauber freigestellt.
         Outer <g> hält die Position, inner <g> macht das Bob via CSS-keyframes
         (sonst überschreibt die CSS-transform-Animation das SVG-transform-Attribut).
         Pille ist absichtlich 112×26 (Text + 0.16em letter-spacing ≈ 86px,
@@ -434,7 +434,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
 
     {/* Footer */}
     <text x="40" y="345" fill="#0A0A0A" fontSize="8" fontWeight="700" opacity="0.55" style={{ fontFamily: 'monospace', letterSpacing: '0.22em' }}>
-      ▸ LEADER · OS — STADIUM
+      ▸ LEADER · OS · STADIUM
     </text>
     <text x="860" y="345" fill="#0A0A0A" fontSize="8" fontWeight="700" textAnchor="end" opacity="0.55" style={{ fontFamily: 'monospace', letterSpacing: '0.22em' }}>
       ERSTE GRUPPE · WLADBOT IM RENNEN

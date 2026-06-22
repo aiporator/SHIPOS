@@ -4,7 +4,7 @@ import { PlusCircleCTA } from './PlusCircleCTA';
 import { useGsapScrollIn } from './motion/useGsapScrollIn';
 
 /**
- * BenefitSection — Type-first poster spread.
+ * BenefitSection · Type-first poster spread.
  *
  * Per user direction after the photo-band attempt: the GIANT HEADLINE is the
  * visual. No separate photo band stretching above the title. No duplicated
@@ -25,11 +25,11 @@ import { useGsapScrollIn } from './motion/useGsapScrollIn';
  *   │                                  │   B&W + halftone overlay   │
  *   │ ⊕ Plus-circle CTA                │   Variant overlay (if any) │
  *   ├──────────────────────────────────┴────────────────────────────┤
- *   │ Specimen table — full-width                                    │
+ *   │ Specimen table · full-width                                    │
  *   └──────────────────────────────────────────────────────────────┘
  *
  * Photo size is contained (max ~480 px wide) and rendered in its natural
- * 4:5 aspect — no full-bleed stretching. Same proportions across all 7
+ * 4:5 aspect · no full-bleed stretching. Same proportions across all 7
  * chapters so the page reads as a rhythmic specimen-spread, not a
  * variable-height row of competing posters.
  *
@@ -50,7 +50,7 @@ const FADE_UP = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Variant overlays — sit centered on the photo card
+// Variant overlays · sit centered on the photo card
 // ─────────────────────────────────────────────────────────────────────────
 const BibOverlay = () => (
   <div className="absolute inset-0 flex items-center justify-center p-8 pointer-events-none">
@@ -149,16 +149,16 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Photo card — two image-treatment modes, identical CARD LAYOUT.
+// Photo card · two image-treatment modes, identical CARD LAYOUT.
 //
-//   Default (real photographs): GREEN halftone — grayscale + #2EBC75
+//   Default (real photographs): GREEN halftone · grayscale + #2EBC75
 //   multiply + 3.5px dot screen. Matches the modal/popup, gives photos
 //   their newsroom editorial tint.
 //
 //   posterDesign: true (pre-designed brand posters with burned-in
 //   typography): SKIP halftone on the <img> so the source artwork
 //   renders in its true colors (designs already use the lime accent).
-//   Border, top/bottom metadata strips, and VariantOverlay all stay —
+//   Border, top/bottom metadata strips, and VariantOverlay all stay ·
 //   the CARD itself looks identical to a photo chapter.
 // ─────────────────────────────────────────────────────────────────────────
 const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign }) => (
@@ -183,7 +183,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
       <div aria-hidden className="absolute inset-0 bg-foreground/[0.04]" />
     )}
 
-    {/* GREEN halftone — only for default (photo) mode. Skipped for
+    {/* GREEN halftone · only for default (photo) mode. Skipped for
         posterDesign so the source artwork shows through pristine. */}
     {!posterDesign && (
       <>
@@ -215,7 +215,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     </div>
 
     {/* Variant overlay */}
-    {/* Variant overlay — skipped when posterDesign is true. The burned-in
+    {/* Variant overlay · skipped when posterDesign is true. The burned-in
         typography of the poster already conveys the variant's message
         (bib plate, startnummer, woman speaker), so re-rendering the
         code-generated graphic on top would duplicate the visual. */}
@@ -230,7 +230,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// Section — type-first poster
+// Section · type-first poster
 // ─────────────────────────────────────────────────────────────────────────
 export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
   const ref = useRef(null);
@@ -248,7 +248,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
       id={anchor}
       className={`relative w-full overflow-hidden ${isDark ? 'bg-[#0A0A0A] text-white' : 'bg-background text-foreground'}`}
       data-testid={`landing-${anchor}`}
-      aria-label={`Benefit ${asset.nr} — ${asset.headline} ${asset.headlineAccent}`}
+      aria-label={`Benefit ${asset.nr} · ${asset.headline} ${asset.headlineAccent}`}
     >
       {/* Ghost giant chapter numeral behind the headline */}
       <div
@@ -284,7 +284,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           <span className="hidden sm:inline">LEADER · OS</span>
         </div>
 
-        {/* GIANT HEADLINE — the ONE visual. No photo above, no duplicate h2. */}
+        {/* GIANT HEADLINE · the ONE visual. No photo above, no duplicate h2. */}
         <motion.h2
           initial="hidden"
           whileInView="show"
@@ -305,7 +305,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           <span className="text-brand not-italic">.</span>
         </motion.h2>
 
-        {/* Subline mono caps — kept small so the headline carries the moment */}
+        {/* Subline mono caps · kept small so the headline carries the moment */}
         {asset.subline && (
           <p
             className={`mt-6 md:mt-8 max-w-2xl text-[14px] sm:text-[16px] md:text-[18px] leading-[1.35] tracking-[-0.005em] ${
@@ -365,7 +365,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           </motion.div>
         </div>
 
-        {/* Specimen table — full-width below */}
+        {/* Specimen table · full-width below */}
         <div
           className={`relative z-10 mt-12 md:mt-16 border ${isDark ? 'border-white/15 bg-white/[0.02]' : 'border-foreground/15 bg-foreground/[0.015]'} p-6 md:p-8`}
           data-testid={`specimen-${asset.nr}`}

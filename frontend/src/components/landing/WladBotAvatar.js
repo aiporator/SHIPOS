@@ -1,5 +1,5 @@
 /**
- * WladBotAvatar — Voxel-Charakter-System für WladBot.
+ * WladBotAvatar · Voxel-Charakter-System für WladBot.
  *
  * Eine 16×24 Minecraft-DNA-Figur in 8 Posen, jede als eigene React-
  * Komponente exportiert. Die Figur trägt grünes Samt-Sakko (matched
@@ -7,19 +7,19 @@
  * Bart, Lime-Pocket-Square als Brand-Signal.
  *
  * Posen:
- *   <WladIdle />          — Hände an der Seite (Default)
- *   <WladPoint />         — Linker Arm hoch, zeigt nach vorne
- *   <WladThink />         — Hand am Kinn, leichte Kopfneigung
- *   <WladTalk />          — Mund offen, Sprech-Geste
- *   <WladHeadset />       — Mit Headphones (Voice-Call)
- *   <WladBook />          — Hält Buch (Lernen)
- *   <WladTablet />        — Hält iPad (Chat)
- *   <WladPodium />        — Mit Rednerpult (Public Speaking)
+ *   <WladIdle />          · Hände an der Seite (Default)
+ *   <WladPoint />         · Linker Arm hoch, zeigt nach vorne
+ *   <WladThink />         · Hand am Kinn, leichte Kopfneigung
+ *   <WladTalk />          · Mund offen, Sprech-Geste
+ *   <WladHeadset />       · Mit Headphones (Voice-Call)
+ *   <WladBook />          · Hält Buch (Lernen)
+ *   <WladTablet />        · Hält iPad (Chat)
+ *   <WladPodium />        · Mit Rednerpult (Public Speaking)
  *
  * Props (alle optional):
- *   - size: number — pixel-Größe (default 96)
+ *   - size: number · pixel-Größe (default 96)
  *   - background: 'transparent' | 'lime' | 'cream' | 'dark'
- *   - frame: bool — zeichnet 2px-Border
+ *   - frame: bool · zeichnet 2px-Border
  *
  * Convenience-Wrapper:
  *   <WladBotAvatar pose="point" size={120} background="dark" frame />
@@ -266,7 +266,7 @@ export const WladTablet = ({ size = 96, background = 'transparent', frame = fals
       <Legs />
       {/* Tablet */}
       <rect x="3" y="14" width="10" height="7" fill={COLORS.black} stroke={COLORS.black} strokeWidth="0.5" />
-      {/* Screen content — lime chat bubble */}
+      {/* Screen content · lime chat bubble */}
       <rect x="4" y="15" width="8" height="5" fill={COLORS.eye} />
       <rect x="5" y="16" width="4" height="1" fill={COLORS.lime} />
       <rect x="5" y="18" width="6" height="1" fill={COLORS.shirt} />

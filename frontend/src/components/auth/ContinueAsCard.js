@@ -1,5 +1,5 @@
 /**
- * "Continue as [user]" — the signature premium-feel touch.
+ * "Continue as [user]" · the signature premium-feel touch.
  *
  * Shown above the standard auth form when a previous login is cached. Picks
  * up the avatar/name/provider from localStorage and offers a one-tap return.
@@ -102,7 +102,7 @@ export const ContinueAsCard = ({
         </div>
       </div>
 
-      {/* "Not you?" — clears this account from the recent list */}
+      {/* "Not you?" · clears this account from the recent list */}
       {!loading && (
         <span
           role="button"
@@ -137,14 +137,14 @@ export const useContinueAs = (account, { de = true, onPrefill, onMagicSent, onEr
     setLoading(true);
     try {
       if (provider === 'magic_link') {
-        // Full email is no longer stored — ask user to re-enter it.
+        // Full email is no longer stored · ask user to re-enter it.
         // The parent switches to login mode so the email field is shown.
         onPrefill?.('', provider);
       } else if (provider === 'email') {
         // Same: no stored email, switch to login mode with empty prefill.
         onPrefill?.('');
       } else if (provider === 'google' || provider === 'apple' || provider === 'microsoft') {
-        // OAuth doesn't need the email — the provider handles identity.
+        // OAuth doesn't need the email · the provider handles identity.
         onPrefill?.('', provider);
       }
     } catch (err) {

@@ -1,11 +1,11 @@
 import { ArrowRight, Lock, Sparkles } from 'lucide-react';
 
 /**
- * ClassesRoadmapSection — Bonus-Strecke: Was nach Klasse 0001 kommt.
+ * ClassesRoadmapSection · Bonus-Strecke: Was nach Klasse 0001 kommt.
  *
  * Diese Section sitzt NACH dem PlatformValueSection (das den primären
  * Sprint-Value verkauft). Hier zeigen wir dem User: "Du bekommst aber
- * nicht nur 0001 — wer dabei ist, hat Vorzugs-Zugang zu drei weiteren
+ * nicht nur 0001 · wer dabei ist, hat Vorzugs-Zugang zu drei weiteren
  * Klassen die noch kommen." Das macht das Charter-Angebot dichter ohne
  * das Hauptversprechen zu verwässern.
  *
@@ -26,8 +26,8 @@ const FUTURE_CLASSES = [
     subtitle: 'Deine eigenen KI-Agenten bauen.',
     promise:
       'Schritt-für-Schritt: vom ersten Custom-GPT bis zu Multi-Agent-' +
-      'Workflows die dir Arbeit abnehmen — ohne dass du Developer wirst.',
-    outcome: 'Drei eigene Agenten am Ende der Klasse — produktiv im Einsatz.',
+      'Workflows die dir Arbeit abnehmen · ohne dass du Developer wirst.',
+    outcome: 'Drei eigene Agenten am Ende der Klasse · produktiv im Einsatz.',
     pillars: ['Agent-Patterns', 'Tool-Use', 'Multi-Agent Workflows', 'Production-Ops'],
     seats: 'STARTET Q3 · WARTELISTE OFFEN',
   },
@@ -37,9 +37,9 @@ const FUTURE_CLASSES = [
     status: 'comingSoon',
     subtitle: 'Dein persönliches KI-Studio.',
     promise:
-      'Wir designen dein KI-Setup auf deinen tatsächlichen Job zu — ' +
+      'Wir designen dein KI-Setup auf deinen tatsächlichen Job zu · ' +
       'Tools, Prompts, Wissens-Basen, Integrationen. Nicht generisch, ' +
-      'nicht für 80 % — für DICH.',
+      'nicht für 80 % · für DICH.',
     outcome: 'Dein KI-Studio läuft. Replizierbar. Skalierbar.',
     pillars: ['Tool-Stack-Audit', 'Custom Knowledge Base', 'Workflow-Design', 'Integration'],
     seats: 'STARTET Q4 · WARTELISTE OFFEN',
@@ -133,7 +133,7 @@ export const ClassesRoadmapSection = () => (
     aria-label="Bonus · Was nach Klasse 0001 kommt"
     className="border-y-2 border-black/[0.06] bg-[#0A0A0A] text-white relative overflow-hidden"
   >
-    {/* Subtle lime ambient — softer than before since this is a secondary section */}
+    {/* Subtle lime ambient · softer than before since this is a secondary section */}
     <div
       aria-hidden
       className="absolute -bottom-32 -right-32 w-[420px] h-[420px] rounded-full pointer-events-none"
@@ -165,7 +165,7 @@ export const ClassesRoadmapSection = () => (
           <p className="text-[15px] md:text-[16.5px] leading-[1.6] text-white/75">
             Wer in der Klasse 0001 dabei ist, bekommt automatisch
             <strong className="text-white"> Vorzugs-Zugang</strong> zu allen
-            weiteren Klassen — AI Agents Builder, Custom AI Setup, Revenue
+            weiteren Klassen · AI Agents Builder, Custom AI Setup, Revenue
             Skills. Eine Identität, ein Pfad, vier Klassen.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 px-3 py-2 bg-brand text-black font-mono text-[10.5px] font-bold uppercase tracking-[0.22em]">
@@ -182,7 +182,7 @@ export const ClassesRoadmapSection = () => (
         ))}
       </div>
 
-      {/* Soft anchor back to the Sprint CTA — no giant block this time, just a one-liner */}
+      {/* Soft anchor back to the Sprint CTA · no giant block this time, just a one-liner */}
       <div className="mt-12 md:mt-14 pt-7 border-t border-white/12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
         <p className="text-[14px] md:text-[15.5px] leading-[1.5] text-white/70 max-w-2xl">
           Du startest mit der Sprint-Plattform und Klasse 0001.

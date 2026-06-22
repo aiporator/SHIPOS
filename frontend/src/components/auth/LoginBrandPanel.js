@@ -1,7 +1,7 @@
 import { WladMark } from '../brand/WladMark';
 
 /**
- * LoginBrandPanel — linke Hälfte der Login-Page, Nike Athletic-Editorial-DNA.
+ * LoginBrandPanel · linke Hälfte der Login-Page, Nike Athletic-Editorial-DNA.
  *
  * Schwarzer Block mit massiver Outfit-Italic-Headline, Lime-Akzent,
  * Liste der Benefits als Mono-eyebrow + Body. 8px-Schritt rhythmus,
@@ -13,7 +13,7 @@ export const LoginBrandPanel = ({ features, de }) => {
       data-testid="login-brand-panel"
       className="hidden lg:flex lg:w-[48%] relative overflow-hidden bg-black text-white"
     >
-      {/* Dezenter Lime-Glow rechts unten — einziger chromatischer Moment */}
+      {/* Dezenter Lime-Glow rechts unten · einziger chromatischer Moment */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -bottom-32 -right-32 h-[26rem] w-[26rem] rounded-full bg-brand/[0.20] blur-[120px]" />
       </div>

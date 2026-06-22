@@ -220,7 +220,7 @@ export default function VideoChallengePage() {
           </div>
         )}
 
-        {/* Trial banner — visible for Free/Standard users with active trial */}
+        {/* Trial banner · visible for Free/Standard users with active trial */}
         {!isAccelerator && trial?.eligible && (
           <div className={`mb-8 rounded-xl border px-5 py-4 flex items-center gap-4 transition-colors ${trial.active ? 'border-[#BFFF00]/20 bg-[#BFFF00]/[0.06] hover:border-[#BFFF00]/30' : 'border-rose-500/20 bg-rose-500/[0.04] hover:border-rose-500/30'}`} data-testid="video-trial-banner">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${trial.active ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-rose-500/15 text-rose-500'}`}>
@@ -240,8 +240,8 @@ export default function VideoChallengePage() {
               <p className="text-[11px] text-white/50 mt-1 font-light leading-relaxed">
                 {trial.active
                   ? (lang === 'de'
-                      ? `Probier-Phase läuft noch ${trial.days_left} Tage — danach exklusiv im Leadership OS PLUS.`
-                      : `Trial ends in ${trial.days_left} days — then PLUS exclusive.`)
+                      ? `Probier-Phase läuft noch ${trial.days_left} Tage · danach exklusiv im Leadership OS PLUS.`
+                      : `Trial ends in ${trial.days_left} days · then PLUS exclusive.`)
                   : (lang === 'de'
                       ? 'Upgrade auf Leadership OS PLUS für unbegrenzte Analysen.'
                       : 'Upgrade to Leadership OS PLUS for unlimited analyses.')

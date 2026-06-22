@@ -1,7 +1,7 @@
 import { useGsapScrollIn } from './motion/useGsapScrollIn';
 
 /**
- * PricingLadder — Sprint → Plus-Plus → Mentoring → AI Ownership.
+ * PricingLadder · Sprint → Plus-Plus → Mentoring → AI Ownership.
  *
  * Nike+xAI+Tesla+Cactus-Jack DNA: sharp 2px borders, Outfit Italic
  * Black für Tier-Namen, SF Mono für Metadata, lime accent für Preise.
@@ -11,7 +11,7 @@ import { useGsapScrollIn } from './motion/useGsapScrollIn';
  *
  * Funnel-Logik: Sprint ist Eingang, Plus-Plus ist der Marathon, Mentoring
  * 6/12 sind on-top, AI Ownership ist Enterprise. Niemand kauft direkt
- * Mentoring — Sprint zuerst, immer.
+ * Mentoring · Sprint zuerst, immer.
  */
 
 const TIERS = [
@@ -134,7 +134,7 @@ const TIERS = [
 
 // Launch-Focus: Sprint + Plus-Plus + Diagnose nur. Mentoring + Enterprise
 // existieren weiter im Code für später (sales-anchor + B2B-pipeline), aber
-// auf der Landing erstmal versteckt — klares Funnel ohne Premium-Distraction.
+// auf der Landing erstmal versteckt · klares Funnel ohne Premium-Distraction.
 const VISIBLE_IDS = new Set(['diagnose', 'sprint', 'plusplus']);
 const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
 
@@ -209,7 +209,7 @@ const TierCard = ({ tier }) => {
         </p>
       </div>
 
-      {/* Scarcity-Strip — nur Sprint zeigt Klasse-0001-Plätze, sonst die echte Knappheit */}
+      {/* Scarcity-Strip · nur Sprint zeigt Klasse-0001-Plätze, sonst die echte Knappheit */}
       {tier.scarcity && (
         <div
           className={`mx-6 md:mx-7 mb-2 flex items-center gap-2 px-3 py-2 border ${tier.dark ? 'border-brand/40 bg-brand/[0.08]' : 'border-black bg-black/[0.04]'}`}

@@ -1,5 +1,5 @@
 /**
- * Article: KI im Führungs-Alltag — drei Use Cases die heute schon
+ * Article: KI im Führungs-Alltag · drei Use Cases die heute schon
  * funktionieren.
  *
  * Anchors the "Wissens-Hub KI für Führungskräfte" thesis: concrete,
@@ -78,7 +78,7 @@ export default {
       title: 'Argumentations-Modell',
       explanation:
         'Sechs Schritte für jede gesprochene Argumentation: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, ' +
-        'Einwand-Vorwegnahme, Resumée. KI kann jede Bullet-Liste in dieses Schema sortieren — aber nur du ' +
+        'Einwand-Vorwegnahme, Resumée. KI kann jede Bullet-Liste in dieses Schema sortieren · aber nur du ' +
         'kannst das X-Beispiel mit einer echten Zahl aus deinem Quartal füllen.',
     },
     {

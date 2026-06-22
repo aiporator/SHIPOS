@@ -1,5 +1,5 @@
 /**
- * LearningVideosManager — admin tool to drop Vimeo IDs / URLs onto the 10 lessons.
+ * LearningVideosManager · admin tool to drop Vimeo IDs / URLs onto the 10 lessons.
  *
  * Reads /api/admin/learning-videos and lets the operator set vimeo_id /
  * vimeo_url per lesson row. As soon as a value is saved, the lesson becomes

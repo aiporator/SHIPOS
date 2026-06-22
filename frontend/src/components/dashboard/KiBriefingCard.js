@@ -32,7 +32,7 @@ export const KiBriefingCard = ({ kiNews, de, onNavigate }) => {
               <Quote size={14} className="text-brand shrink-0 mt-0.5" />
               <div className="min-w-0">
                 <p className="text-[11px] text-foreground/80 leading-relaxed italic">"{kiNews.quote_of_the_day.quote}"</p>
-                <p className="text-[9px] text-muted-foreground/70 mt-1.5 font-semibold">{kiNews.quote_of_the_day.author} — {kiNews.quote_of_the_day.role}</p>
+                <p className="text-[9px] text-muted-foreground/70 mt-1.5 font-semibold">{kiNews.quote_of_the_day.author} · {kiNews.quote_of_the_day.role}</p>
                 <p className="text-[9px] text-[#BFFF00]/60 mt-0.5">{kiNews.quote_of_the_day.insight}</p>
                 {kiNews.quote_of_the_day.coach_prompt && (
                   <button

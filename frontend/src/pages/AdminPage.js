@@ -266,7 +266,7 @@ export default function AdminPage() {
           </CardContent>
         </Card>
 
-        {/* RAG Debug Studio — diagnose WladBot's knowledge retrieval */}
+        {/* RAG Debug Studio · diagnose WladBot's knowledge retrieval */}
         <div className="mt-2">
           <div className="mb-3">
             <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>
@@ -274,14 +274,14 @@ export default function AdminPage() {
             </h2>
             <p className="text-[11px] text-muted-foreground">
               {de
-                ? 'Sieh genau welche Wlad-Chunks WladBot für jede Frage findet — Coverage-Lücken vor den Usern entdecken.'
-                : 'See exactly which Wlad chunks WladBot retrieves for any question — spot coverage gaps before users do.'}
+                ? 'Sieh genau welche Wlad-Chunks WladBot für jede Frage findet · Coverage-Lücken vor den Usern entdecken.'
+                : 'See exactly which Wlad chunks WladBot retrieves for any question · spot coverage gaps before users do.'}
             </p>
           </div>
           <RagDebugStudio />
         </div>
 
-        {/* Learning Videos Manager — Vimeo metadata for the 10-course catalogue */}
+        {/* Learning Videos Manager · Vimeo metadata for the 10-course catalogue */}
         <div className="mt-6">
           <div className="mb-3">
             <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>

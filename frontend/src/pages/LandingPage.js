@@ -41,7 +41,7 @@ const isLeaderCheckHost = () => {
 };
 
 // App-Tier hosts (no hyphen). On these hosts the root `/` is the
-// platform entry — unauthenticated visitors go straight to /login,
+// platform entry · unauthenticated visitors go straight to /login,
 // signed-in visitors are already redirected to /dashboard by the
 // `if (user)` check above. The marketing landing only lives on the
 // Vercel hosts (with hyphen).
@@ -51,7 +51,7 @@ const isAppTierHost = () => {
 };
 
 /**
- * LandingPage — the public face of leader-os.de.
+ * LandingPage · the public face of leader-os.de.
  *
  * Direction A LOCKED: Athletic Editorial × Heron-Preston specimen
  * sheets. Pure typography, zero external image dependency.
@@ -88,7 +88,7 @@ export default function LandingPage() {
       document.head.appendChild(m);
     }
 
-    // Landing-Page läuft IMMER in Light-Mode — egal was der User in
+    // Landing-Page läuft IMMER in Light-Mode · egal was der User in
     // localStorage hatte. Editorial-Direction A ist explizit weiß-auf-
     // dunkel-akzent, nicht das umgekehrte. Dashboard und App-Surfaces
     // dürfen weiterhin der Theme-Preference folgen.
@@ -105,7 +105,7 @@ export default function LandingPage() {
   }
   if (user) return <Navigate to="/dashboard" replace />;
 
-  // App-Tier hosts (leaderos.de / leadercheck.de) — the platform entry,
+  // App-Tier hosts (leaderos.de / leadercheck.de) · the platform entry,
   // not the marketing landing. Send unauthenticated visitors straight to
   // /login. The marketing pages live on the hyphen hosts on Vercel.
   if (isAppTierHost()) return <Navigate to="/login" replace />;
@@ -148,7 +148,7 @@ export default function LandingPage() {
 
         <AppPreviewSection />
 
-        {/* MiniChallenge wandert weit nach unten — am Anfang konkurrierte
+        {/* MiniChallenge wandert weit nach unten · am Anfang konkurrierte
             sie mit dem Archetyp-Quiz. Hier nach AppPreview funktioniert sie
             als Re-Engagement-Beat: "ok du hast die Plattform gesehen,
             jetzt ein 60-Sekunden-Selbsttest bevor du auf Preise schaust." */}
@@ -164,13 +164,13 @@ export default function LandingPage() {
 
       <LandingFooter />
 
-      {/* Lead-capture exit-intent popup — ConversionBand removed per
+      {/* Lead-capture exit-intent popup · ConversionBand removed per
           editorial decision: the black sticky bottom bar competed with
           the WladSignGuy mascot and clipped content on mobile. */}
       <LeadCaptureModal />
 
       {/* Wlad-Sign-Guy (Pixel-Wlad mit Sign-Brett) rechts unten.
-          Klick scrollt zur Mini-Challenge — der eigentliche Funnel-
+          Klick scrollt zur Mini-Challenge · der eigentliche Funnel-
           Entry-Point auf der Page. */}
       <WladSignGuy
         onOpen={() => {

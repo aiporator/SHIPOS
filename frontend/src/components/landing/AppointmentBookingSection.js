@@ -1,17 +1,17 @@
 /**
- * AppointmentBookingSection — Beratungsgespräch als primärer
+ * AppointmentBookingSection · Beratungsgespräch als primärer
  * Conversion-Surface mit echtem Live-Feel.
  *
- * Anchor: id="beratung" (primary) + id="termin" (alias) — Footer- und
+ * Anchor: id="beratung" (primary) + id="termin" (alias) · Footer- und
  * Hero-Links die auf entweder zeigen treffen jetzt beide diese Section.
  *
  * Layout:
  *   1. Live-Scarcity-Strip ganz oben (pulsing dot, "X / 8 Slots frei")
  *   2. Headline + Subline ("Sprich mit uns. 30 Minuten, ehrlich.")
  *   3. 2-Spalten-Grid:
- *        Left (7/12)  — "Was passiert in 30 Minuten" 3-step + 5 bullets
+ *        Left (7/12)  · "Was passiert in 30 Minuten" 3-step + 5 bullets
  *                       + Wlad-Trust-Strip mit Avatar + Social-Proof
- *        Right (5/12) — Slot-Preview-Card mit den 5 kommenden Werktagen,
+ *        Right (5/12) · Slot-Preview-Card mit den 5 kommenden Werktagen,
  *                       Verfügbarkeit pro Slot, Cal.com-CTA
  *   4. Demo-Fallback als kleiner Link unten ("Oder lieber erst Demo?")
  *
@@ -28,7 +28,7 @@ import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 // ─────────────────────────────────────────────────────────────────────────
-// Slot generation — stable pseudo-availability based on date
+// Slot generation · stable pseudo-availability based on date
 // ─────────────────────────────────────────────────────────────────────────
 const TIME_SLOTS = ['10:00', '11:30', '14:00', '15:30', '17:00'];
 
@@ -188,7 +188,7 @@ const ThreeSteps = () => (
     {[
       { n: '01', label: 'Setup',        time: '10 Min', body: 'Dein aktueller Stand: KI, Team, Hebel.' },
       { n: '02', label: 'Diagnose',     time: '10 Min', body: 'Drei kurze Fragen die alles klären.' },
-      { n: '03', label: 'Empfehlung',   time: '10 Min', body: 'Ehrliche Antwort: passt — oder noch nicht.' },
+      { n: '03', label: 'Empfehlung',   time: '10 Min', body: 'Ehrliche Antwort: passt · oder noch nicht.' },
     ].map((s) => (
       <div key={s.n} className="bg-white border border-foreground/15 p-4 md:p-5">
         <div className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand-strong mb-2">
@@ -314,7 +314,7 @@ export const AppointmentBookingSection = () => {
 
         {/* Main 2-column grid */}
         <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
-          {/* Left — what happens + bullets + trust */}
+          {/* Left · what happens + bullets + trust */}
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -333,9 +333,9 @@ export const AppointmentBookingSection = () => {
             </div>
             <ul className="space-y-2.5">
               {[
-                'Dein aktueller Stand auf KI · Rhetorik · Team — diagnostisch, nicht oberflächlich.',
-                'Wo dein größter Hebel sitzt — und ob er Tools, Methodik oder Identität ist.',
-                'Welches Tier passt — Sprint, Plus-Plus, Mentoring — oder ob Leader-OS gerade nicht dran ist.',
+                'Dein aktueller Stand auf KI · Rhetorik · Team · diagnostisch, nicht oberflächlich.',
+                'Wo dein größter Hebel sitzt · und ob er Tools, Methodik oder Identität ist.',
+                'Welches Tier passt · Sprint, Plus-Plus, Mentoring · oder ob Leader-OS gerade nicht dran ist.',
                 'Eine konkrete Antwort auf deine Hauptfrage. Schriftlich nachgeliefert per Mail.',
                 'Kein Verkaufs-Druck, kein Follow-up-Spam, kein "buchst du jetzt?" am Ende.',
               ].map((b) => (
@@ -349,7 +349,7 @@ export const AppointmentBookingSection = () => {
             <TrustStrip />
           </motion.div>
 
-          {/* Right — slot preview card */}
+          {/* Right · slot preview card */}
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -362,7 +362,7 @@ export const AppointmentBookingSection = () => {
           </motion.div>
         </div>
 
-        {/* Demo fallback — secondary intent */}
+        {/* Demo fallback · secondary intent */}
         <div className="mt-14 pt-7 border-t border-foreground/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-1">

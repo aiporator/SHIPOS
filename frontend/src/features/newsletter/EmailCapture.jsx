@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { subscribe, isValidEmail } from './lib/newsletterClient';
 
 /**
- * EmailCapture — the one reusable newsletter opt-in across every surface.
+ * EmailCapture · the one reusable newsletter opt-in across every surface.
  *
  * Every signup is attributed via `source` (+ optional `campaign`), so the
  * same component drops into the footer, a journal article, a guide, a
@@ -16,13 +16,13 @@ import { subscribe, isValidEmail } from './lib/newsletterClient';
  * The success copy reflects that ("check your inbox"), never "you're in".
  *
  * Props:
- *   source    (string, required) — capture surface for attribution
- *   campaign  (string)           — optional campaign tag
- *   tone      ('dark'|'light')   — surface contrast. default 'dark'
- *   variant   ('inline'|'stacked') — layout. default 'inline'
- *   title     (string)           — eyebrow/heading override
- *   blurb     (string)           — supporting line override
- *   compact   (bool)             — drop the heading, just the field (footer)
+ *   source    (string, required) · capture surface for attribution
+ *   campaign  (string)           · optional campaign tag
+ *   tone      ('dark'|'light')   · surface contrast. default 'dark'
+ *   variant   ('inline'|'stacked') · layout. default 'inline'
+ *   title     (string)           · eyebrow/heading override
+ *   blurb     (string)           · supporting line override
+ *   compact   (bool)             · drop the heading, just the field (footer)
  */
 export const EmailCapture = ({
   source,
@@ -50,7 +50,7 @@ export const EmailCapture = ({
     setError('');
     setSubmitting(true);
 
-    // PostHog — same identity key (email_lower) as the rest of the funnel.
+    // PostHog · same identity key (email_lower) as the rest of the funnel.
     if (typeof window !== 'undefined' && window.posthog?.capture) {
       try {
         window.posthog.identify(trimmed.toLowerCase());
@@ -75,7 +75,7 @@ export const EmailCapture = ({
         window.dispatchEvent(
           new CustomEvent('newsletter:subscribed', { detail: { email: trimmed } }),
         );
-      } catch { /* old browsers — fine to swallow */ }
+      } catch { /* old browsers · fine to swallow */ }
     }
 
     if (!result.ok) {
@@ -148,7 +148,7 @@ export const EmailCapture = ({
         </p>
         <p className={`mt-2 text-[13.5px] leading-[1.55] ${t.doneBody}`}>
           Wir haben dir einen Bestätigungs-Link geschickt. Ein Klick und
-          du bist dabei — ohne Bestätigung passiert nichts.
+          du bist dabei · ohne Bestätigung passiert nichts.
         </p>
       </div>
     );

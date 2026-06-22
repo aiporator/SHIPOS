@@ -1,4 +1,4 @@
-// Content-Specimens — Instagram (1080×1080) + LinkedIn (1080×1350)
+// Content-Specimens · Instagram (1080×1080) + LinkedIn (1080×1350)
 // Posts im selben Athletic-Editorial-Specimen-Stil wie die Landing-
 // Page-Mockups (hf-01..hf-07): Outfit-Black-Italic-Headline mit Lime-
 // Punkt, BIB-Code-Header, Mono-Metadata-Footer.
@@ -10,15 +10,15 @@
 //   'vertical' → 1080×1350  (LinkedIn / Instagram-Story-Light)
 //
 // Variants:
-//   'headline'  — XXL Outfit-Italic-Headline, dichotomie-Subline
-//   'numbers'   — Big-Numbers (à la 400 TAUSEND / 14 MILLIONEN)
-//   'framework' — Specimen-Tabelle mit nummerierter Liste
-//   'quote'     — Manifesto-Zeile mit BIB-Hairline
-//   'bib'       — Marathon-Startnummer-Plate
+//   'headline'  · XXL Outfit-Italic-Headline, dichotomie-Subline
+//   'numbers'   · Big-Numbers (à la 400 TAUSEND / 14 MILLIONEN)
+//   'framework' · Specimen-Tabelle mit nummerierter Liste
+//   'quote'     · Manifesto-Zeile mit BIB-Hairline
+//   'bib'       · Marathon-Startnummer-Plate
 
 export const POST_SERIES = [
   // ─────────────────────────────────────────────────────────────────
-  // SERIE A — KI-NATIVE MANIFESTO  (5 Posts · LinkedIn + Instagram)
+  // SERIE A · KI-NATIVE MANIFESTO  (5 Posts · LinkedIn + Instagram)
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'A-01',
@@ -37,7 +37,7 @@ export const POST_SERIES = [
       'Werkzeuge werden schneller. Modelle werden klüger. Pipelines ' +
       'werden günstiger. Die Geschwindigkeit gehört der Maschine.\n\n' +
       'Die Richtung gehört dir. Und nur dir.\n\n' +
-      'Werde KI-nativ — leader-os.de\n\n' +
+      'Werde KI-nativ · leader-os.de\n\n' +
       '#leadership #kinativ #wladmethodik',
   },
   {
@@ -86,7 +86,7 @@ export const POST_SERIES = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // SERIE B — FRAMEWORK-DRILLS  (5 Posts · Instagram-Carousel-fähig)
+  // SERIE B · FRAMEWORK-DRILLS  (5 Posts · Instagram-Carousel-fähig)
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'B-01',
@@ -109,7 +109,7 @@ export const POST_SERIES = [
     ],
     foot: 'leader-os.de · 11 Frameworks',
     caption:
-      'SEXIER — argumentieren in sechs Schritten.\n\n' +
+      'SEXIER · argumentieren in sechs Schritten.\n\n' +
       'Statement → Explanation → Example → Impact → Exception → ' +
       'Resolution. Das Modell, mit dem Wlad seit Jahren Menschen ' +
       'in Verhandlungen wieder klar bringt.\n\n' +
@@ -125,7 +125,7 @@ export const POST_SERIES = [
     eyebrow: 'DRILL · 3 SÄULEN',
     headline: 'Logos. Ethos. Pathos.',
     accent: 'Aristoteles funktioniert noch.',
-    body: 'Drei Säulen — jede Überzeugungsrede steht auf diesen drei.',
+    body: 'Drei Säulen · jede Überzeugungsrede steht auf diesen drei.',
     rows: [
       ['L', 'LOGOS',  'Das Argument · die Logik · die Zahl'],
       ['E', 'ETHOS',  'Wer du bist · warum du sprichst'],
@@ -133,7 +133,7 @@ export const POST_SERIES = [
     ],
     foot: 'leader-os.de · 11 Frameworks',
     caption:
-      'Logos. Ethos. Pathos. — Aristoteles funktioniert noch.\n\n' +
+      'Logos. Ethos. Pathos. · Aristoteles funktioniert noch.\n\n' +
       'Drei Säulen, auf denen jede Überzeugungs-Situation steht: ' +
       'die Logik (Logos), die Person (Ethos), die Emotion (Pathos). ' +
       'Wer eine vergisst, verliert die Hälfte des Raums.\n\n' +
@@ -157,7 +157,7 @@ export const POST_SERIES = [
     ],
     foot: 'leader-os.de · 11 Frameworks',
     caption:
-      'Feedback ohne Drama — in drei Sätzen.\n\n' +
+      'Feedback ohne Drama · in drei Sätzen.\n\n' +
       'Beobachtung. Wirkung. Wunsch. Mehr braucht keine schwierige ' +
       'Konversation. Mehr macht jede schwierige Konversation kaputt.\n\n' +
       'Probier es im nächsten 1:1 aus. Berichte mir, wie es war.\n\n' +
@@ -173,7 +173,7 @@ export const POST_SERIES = [
     eyebrow: 'DRILL · DUNKLE RHETORIK',
     headline: 'Erkenne sie.',
     accent: 'Nutze sie nie.',
-    body: 'Drei der häufigsten Manipulationen — und ihr Konter.',
+    body: 'Drei der häufigsten Manipulationen · und ihr Konter.',
     rows: [
       ['1', 'STRAW MAN',      'Konter: „Das habe ich nicht gesagt."'],
       ['2', 'AD HOMINEM',     'Konter: „Zurück zum Thema, bitte."'],
@@ -181,8 +181,8 @@ export const POST_SERIES = [
     ],
     foot: 'leader-os.de · 11 Frameworks',
     caption:
-      'Dunkle Rhetorik — erkenne sie. Nutze sie nie.\n\n' +
-      'Drei der häufigsten Tricks in Diskussionen — und der einfache ' +
+      'Dunkle Rhetorik · erkenne sie. Nutze sie nie.\n\n' +
+      'Drei der häufigsten Tricks in Diskussionen · und der einfache ' +
       'Konter dazu. Du musst nicht aggressiver werden. Du musst nur ' +
       'sehen, was gespielt wird.\n\n' +
       'Eines von elf Frameworks im Leader-OS.',
@@ -197,7 +197,7 @@ export const POST_SERIES = [
     eyebrow: 'DRILL · 5 ROLLEN',
     headline: 'Du bist nicht eine',
     accent: 'Führungskraft.',
-    body: 'Du wechselst zwischen fünf Rollen — pro Tag. Bewusst oder nicht.',
+    body: 'Du wechselst zwischen fünf Rollen · pro Tag. Bewusst oder nicht.',
     rows: [
       ['1', 'VISIONÄR',     'Wohin gehen wir?'],
       ['2', 'STRATEGE',     'Wie kommen wir hin?'],
@@ -207,16 +207,16 @@ export const POST_SERIES = [
     ],
     foot: 'leader-os.de · 11 Frameworks',
     caption:
-      'Du bist nicht eine Führungskraft. Du bist fünf — pro Tag.\n\n' +
+      'Du bist nicht eine Führungskraft. Du bist fünf · pro Tag.\n\n' +
       'Visionär. Stratege. Coach. Operator. Botschafter. Die Frage ' +
       'ist nicht, welche du bist. Die Frage ist, ob du bewusst ' +
-      'zwischen ihnen wechselst — oder ob die Situation für dich ' +
+      'zwischen ihnen wechselst · oder ob die Situation für dich ' +
       'entscheidet.\n\n' +
       '→ leader-os.de',
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // SERIE C — TRUST + PRODUKT  (4 Posts)
+  // SERIE C · TRUST + PRODUKT  (4 Posts)
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'C-01',
@@ -237,7 +237,7 @@ export const POST_SERIES = [
     caption:
       '400 Tausend Kunden. 14 Millionen Views. 3 SPIEGEL-Bestseller.\n\n' +
       'Wlad Jachtchenkos Methodik ist nicht neu. Sie ist seit Jahren ' +
-      'in der Praxis erprobt — in Konzernen, im Mittelstand, in ' +
+      'in der Praxis erprobt · in Konzernen, im Mittelstand, in ' +
       'Verhandlungen, die niemand mitbekommt. Jetzt im Leader-OS.\n\n' +
       '→ leader-os.de',
   },
@@ -257,7 +257,7 @@ export const POST_SERIES = [
       '24 Stunden. 7 Tage. Dein KI-Coach wartet nicht bis Montag.\n\n' +
       'WladBot kennt Wlads Methodik in- und auswendig. Antwortet in ' +
       'Wlads Stimme, mit Wlads Frameworks, auf deine konkrete ' +
-      'Leadership-Situation — in unter 3 Sekunden.\n\n' +
+      'Leadership-Situation · in unter 3 Sekunden.\n\n' +
       'Kostenlose Probe auf leader-check.de.',
   },
   {
@@ -274,7 +274,7 @@ export const POST_SERIES = [
     foot: 'BIB · 0001 · leader-os.de',
     caption:
       'Dreißig Tage. Ein neues Du.\n\n' +
-      'Der Leader-OS-Sprint ist kein Kurs. Es ist ein Training — ' +
+      'Der Leader-OS-Sprint ist kein Kurs. Es ist ein Training · ' +
       'jeden Tag eine Frage, jeden Tag ein Drill, jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst.\n\n' +
       'BIB 0001 jetzt offen. → leader-os.de',
@@ -303,7 +303,7 @@ export const POST_SERIES = [
       'Du lernst nicht allein. Du wirst Teil von etwas.\n\n' +
       'WladBot ist der Anfang. Dahinter: tägliche Lernvideos, Live-' +
       'Sessions mit Wlad, die Class 0001 im geschlossenen Channel, ' +
-      'monatliche Strategie-Calls — und ein Zertifikat, das zeigt, ' +
+      'monatliche Strategie-Calls · und ein Zertifikat, das zeigt, ' +
       'wer du geworden bist.\n\n' +
       '→ leader-os.de',
   },

@@ -52,7 +52,7 @@ export const Sidebar = () => {
     {
       id: 'admin', label: lang === 'de' ? 'Admin' : 'Admin', badge: SBolt, badgeGrad: 'from-[#7B3FE4] to-[#4F1FE4]',
       items: [
-        // Admin Panel is hidden entirely — owners reach it via the secret /wlad-control-* URL only.
+        // Admin Panel is hidden entirely · owners reach it via the secret /wlad-control-* URL only.
         { path: '/coaching', label: t('nav.coaching'), icon: IconDiamond },
       ]
     }

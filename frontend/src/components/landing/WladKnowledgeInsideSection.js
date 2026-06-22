@@ -1,10 +1,10 @@
 import { BookText, Layers, MessagesSquare, Compass, Zap, Crown } from 'lucide-react';
 
 /**
- * WladKnowledgeInsideSection — was steckt von Wlad in Leader-OS drin.
+ * WladKnowledgeInsideSection · was steckt von Wlad in Leader-OS drin.
  *
  * Direkter Nachsatz zur WladAuthoritySection. Antwort auf die Frage
- * "okay, der Mann ist krass — aber was kommt davon bei MIR an?"
+ * "okay, der Mann ist krass · aber was kommt davon bei MIR an?"
  *
  * Sechs konkrete Quellen die in der Plattform leben:
  *   - 3 SPIEGEL-Bestseller (Rhetorik-Frameworks)
@@ -14,7 +14,7 @@ import { BookText, Layers, MessagesSquare, Compass, Zap, Crown } from 'lucide-re
  *   - 30-Tage Sprint-Methodik
  *   - Klassen-Pfad (0001 → 0004)
  *
- * Keine Theorie, keine Buchhülle — alles in tägliche Routinen, Drills,
+ * Keine Theorie, keine Buchhülle · alles in tägliche Routinen, Drills,
  * Sprint-Etappen und WladBot-Sparring übersetzt.
  */
 
@@ -24,7 +24,7 @@ const SOURCES = [
     bib: 'IN · 01',
     title: 'Aus den 3 SPIEGEL-Bestsellern.',
     body:
-      'Dunkle Rhetorik, Schwarze Rhetorik, Manipulationstechniken — die ' +
+      'Dunkle Rhetorik, Schwarze Rhetorik, Manipulationstechniken · die ' +
       'Methodik aus über 1 200 Seiten als sofort einsetzbare Drills.',
     artifact: 'Argumentations-Skripte · Schlagfertigkeits-Routinen · Anti-Manipulations-Drills',
   },
@@ -33,7 +33,7 @@ const SOURCES = [
     bib: 'IN · 02',
     title: 'Aus 100+ Akademie-Kursen.',
     body:
-      'Die meistgebuchten Inhalte der Argumentorik-Akademie — verdichtet ' +
+      'Die meistgebuchten Inhalte der Argumentorik-Akademie · verdichtet ' +
       'in 15-Minuten-Mikro-Drills statt 8-Stunden-Video-Marathon.',
     artifact: 'Verhandlungs-Drills · Präsentations-Methodik · Konflikt-Skripte',
   },
@@ -43,7 +43,7 @@ const SOURCES = [
     title: 'Aus 400 000 Coachings.',
     body:
       'Was Wlad in 10+ Jahren live in 1:1-Sessions, Live-Workshops und ' +
-      'Inhouse-Programmen gelernt hat — als Antwort-Logik im WladBot.',
+      'Inhouse-Programmen gelernt hat · als Antwort-Logik im WladBot.',
     artifact: 'WladBot kennt deinen Kontext · antwortet in Wlads Sprache',
   },
   {
@@ -52,7 +52,7 @@ const SOURCES = [
     title: 'Die 11 Leader-Frameworks.',
     body:
       'Die elf Methodiken die Wlad bei seinen Klienten am häufigsten ' +
-      'einsetzt — eingebaut als Sprint-Lektionen mit konkreten Übungen.',
+      'einsetzt · eingebaut als Sprint-Lektionen mit konkreten Übungen.',
     artifact: 'B-W-W Feedback · Harvard Verhandlung · 5 Rollen · Schulz von Thun · …',
   },
   {
@@ -70,7 +70,7 @@ const SOURCES = [
     title: 'Plus: vieles was nie veröffentlicht wurde.',
     body:
       'Material aus Inhouse-Programmen, Vorstands-Coachings und privaten ' +
-      'Sparrings — das bisher nur Klienten kannten. Jetzt für alle in 0001.',
+      'Sparrings · das bisher nur Klienten kannten. Jetzt für alle in 0001.',
     artifact: 'Vorstands-Skripte · Krisen-Kommunikation · Senior-Verhandlung',
   },
 ];
@@ -103,7 +103,7 @@ export const WladKnowledgeInsideSection = () => (
         <p className="mt-7 text-[16px] md:text-[18px] leading-[1.6] text-foreground/70">
           Du musst nicht alle Bücher lesen, alle Kurse buchen oder Wlad
           persönlich engagieren um an sein Wissen zu kommen. Es ist alles
-          schon hier — verdichtet, sortiert, in tägliche Routinen übersetzt.
+          schon hier · verdichtet, sortiert, in tägliche Routinen übersetzt.
           So nutzt du es jeden Tag, statt es in einem Bücherregal stehen
           zu lassen.
         </p>
@@ -178,7 +178,7 @@ export const WladKnowledgeInsideSection = () => (
           </div>
           <p className="text-[13.5px] leading-[1.55] text-foreground/70">
             Wlad selbst ist nur 1× verfügbar. Sein Wissen ist es jetzt
-            jederzeit — als System, als WladBot, als Klasse 0001.
+            jederzeit · als System, als WladBot, als Klasse 0001.
           </p>
         </div>
       </div>

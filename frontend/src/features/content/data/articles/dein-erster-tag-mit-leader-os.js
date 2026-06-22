@@ -1,5 +1,5 @@
 /**
- * Article 3/10 — onboarding mechanics. What happens on day 1.
+ * Article 3/10 · onboarding mechanics. What happens on day 1.
  */
 export default {
   slug: 'dein-erster-tag-mit-leader-os',
@@ -23,12 +23,12 @@ export default {
       'Diagnose-Scores (KI-Readiness, Rhetorik, EQ) um die Reihenfolge der elf Frameworks für DEIN Programm ' +
       'zu sortieren. Deine schwächste Dimension kommt zuerst.' },
     { type: 'paragraph', text:
-      'Wenn deine Diagnose noch nicht gemacht wurde, läuft sie jetzt — zehn Minuten, dreißig Fragen, sofort ' +
+      'Wenn deine Diagnose noch nicht gemacht wurde, läuft sie jetzt · zehn Minuten, dreißig Fragen, sofort ' +
       'der Plan. Wenn sie schon gemacht wurde, springst du direkt zu Minute 10.' },
     { type: 'heading', level: 2, text: 'Minute 10 bis 25: Setup-Gespräch mit WladBot.' },
     { type: 'paragraph', text:
       'Der erste echte Drill ist kein Drill. Es ist ein Setup-Gespräch. WladBot fragt dich nach drei realen ' +
-      'Situationen aus den letzten zwei Wochen — ein 1:1, ein Townhall, eine Verhandlung. Du beschreibst sie ' +
+      'Situationen aus den letzten zwei Wochen · ein 1:1, ein Townhall, eine Verhandlung. Du beschreibst sie ' +
       'in deinen eigenen Worten. Der Bot speichert sie als Trainings-Cases für den restlichen Sprint.' },
     { type: 'callout', tone: 'lime', text:
       'Wichtig: ohne diese drei Cases drillst du gegen generische Beispiele. Mit ihnen drillst du gegen dein ' +

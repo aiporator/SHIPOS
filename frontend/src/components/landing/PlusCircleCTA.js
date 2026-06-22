@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 /**
- * PlusCircleCTA — THE signature interaction of the Direction-A brand.
+ * PlusCircleCTA · THE signature interaction of the Direction-A brand.
  *
  * Visual: a perfect lime-green circle with a black `+` glyph, an
  * underlined action-phrase to its right, with an infinite halo pulse
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
  * external (opens in a new tab by default; pass external=false to
  * disable). The two paths render the same visual.
  *
- * Set `halo={false}` to disable the pulse — use for secondary CTAs or
+ * Set `halo={false}` to disable the pulse · use for secondary CTAs or
  * when multiple CTAs sit close (multiple pulsing halos = noise).
  */
 

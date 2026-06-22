@@ -1,5 +1,5 @@
 /**
- * PostHog identity helpers — canonical `user_id` from MongoDB is the
+ * PostHog identity helpers · canonical `user_id` from MongoDB is the
  * distinct_id; email is attached as a person property. This decouples
  * analytics identity from email changes and OAuth provider drift.
  *
@@ -31,7 +31,7 @@ export function identifyByUser(user) {
     // as distinct_id (which would re-introduce identity drift).
     if (process.env.NODE_ENV !== 'production') {
       // eslint-disable-next-line no-console
-      console.warn('[analytics] identifyByUser called without user_id — skipping');
+      console.warn('[analytics] identifyByUser called without user_id · skipping');
     }
     return;
   }
@@ -46,11 +46,11 @@ export function identifyByUser(user) {
   });
 }
 
-/** @deprecated — use identifyByUser(user). Kept for transitional safety. */
+/** @deprecated · use identifyByUser(user). Kept for transitional safety. */
 export function identifyByEmail(email) {
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line no-console
-    console.warn('[analytics] identifyByEmail is deprecated — use identifyByUser(user)');
+    console.warn('[analytics] identifyByEmail is deprecated · use identifyByUser(user)');
   }
   const ph = getPosthog();
   if (!ph || !email) return;

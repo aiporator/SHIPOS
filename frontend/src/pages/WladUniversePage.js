@@ -1,13 +1,13 @@
 /**
- * WladUniversePage — Doppelfunktion: interne Wissensbibliothek + Landing-Page
+ * WladUniversePage · Doppelfunktion: interne Wissensbibliothek + Landing-Page
  * für Beratungsgespräch-Bookings (cal.com Integration: leaderos/beratung).
  *
- * Design: Revolut-inspired — riesige bold Outfit-Headlines, klare Hierarchie,
+ * Design: Revolut-inspired · riesige bold Outfit-Headlines, klare Hierarchie,
  * Glow-Halos via design tokens (NICHT hardcoded text-white), Cal-Buttons an
  * 5 strategischen Conversion-Points.
  *
  * Light/Dark: alle Farben kommen aus hsl(var(--...)). Brand-Lime wird nur
- * für Accents verwendet (nie für reinen Text in Light-Mode — dort `#6B8A00`).
+ * für Accents verwendet (nie für reinen Text in Light-Mode · dort `#6B8A00`).
  */
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
@@ -202,7 +202,7 @@ export default function WladUniversePage() {
 
                 <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-7">
                   6 Monate · 5 Rollen · Live-Coachings + WladBot 24/7. Trainiert von Wlad
-                  Jachtchenko — 400.000 Kunden in 20+ Ländern, 12 Bücher, 3 SPIEGEL-Bestseller.
+                  Jachtchenko · 400.000 Kunden in 20+ Ländern, 12 Bücher, 3 SPIEGEL-Bestseller.
                 </p>
 
                 <div className="flex flex-wrap gap-3">
@@ -378,7 +378,7 @@ export default function WladUniversePage() {
         <BookingTeaserCard
           eyebrow="Persönliche Beratung · 1:1"
           title="30 Minuten, die deinen Pfad klären."
-          subtitle="Sprich mit einem Argumentorik-Leadership-Berater. Wir hören zu, analysieren deinen Status — und sagen dir ehrlich, welcher Weg zu dir passt."
+          subtitle="Sprich mit einem Argumentorik-Leadership-Berater. Wir hören zu, analysieren deinen Status · und sagen dir ehrlich, welcher Weg zu dir passt."
         />
 
         {/* ── CLOSER CTA ─────────────────────────────────────────────────── */}

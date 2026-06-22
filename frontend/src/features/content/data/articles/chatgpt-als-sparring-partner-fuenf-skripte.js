@@ -1,9 +1,9 @@
 /**
- * Article: ChatGPT als Sparring-Partner — fünf Skripte für deinen
+ * Article: ChatGPT als Sparring-Partner · fünf Skripte für deinen
  * Führungs-Alltag.
  *
  * Practical scripts collection. Highest SEO/AEO upside in the content
- * set — searched directly via queries like "ChatGPT prompt für
+ * set · searched directly via queries like "ChatGPT prompt für
  * mitarbeitergespräch", "AI coach prompt leadership".
  */
 export default {
@@ -92,12 +92,12 @@ export default {
       type: 'callout',
       tone: 'neutral',
       text:
-        '"Ich verhandele morgen [Thema] mit [Stakeholder-Rolle, ihre Interessen, vorherige Position]. Liste mir die zehn wahrscheinlichsten Einwände, die ich hören werde. Für jeden gib mir einen Konter-Move in zwei Sätzen — keine Konfrontation, sondern Anschluss. Sortiere nach Wahrscheinlichkeit."',
+        '"Ich verhandele morgen [Thema] mit [Stakeholder-Rolle, ihre Interessen, vorherige Position]. Liste mir die zehn wahrscheinlichsten Einwände, die ich hören werde. Für jeden gib mir einen Konter-Move in zwei Sätzen · keine Konfrontation, sondern Anschluss. Sortiere nach Wahrscheinlichkeit."',
     },
     {
       type: 'paragraph',
       text:
-        'Der Output ist eine Liste, die du nicht auswendig lernst — du liest sie zweimal durch. Dein Gehirn ' +
+        'Der Output ist eine Liste, die du nicht auswendig lernst · du liest sie zweimal durch. Dein Gehirn ' +
         'wird in der echten Verhandlung sieben der zehn antizipieren und intuitiv mit dem passenden Anschluss ' +
         'reagieren. Das ist der Effekt, den du willst.',
     },
@@ -122,7 +122,7 @@ export default {
       type: 'paragraph',
       text:
         'Der Bot ist hier KEIN Therapeut. Er ist ein Strukturierungs-Spiegel. Die Hypothesen sind oft nicht ' +
-        'überraschend — aber dass sie ausgesprochen sind, hilft dir, die nächste Woche bewusst anzugehen.',
+        'überraschend · aber dass sie ausgesprochen sind, hilft dir, die nächste Woche bewusst anzugehen.',
     },
     {
       type: 'heading',

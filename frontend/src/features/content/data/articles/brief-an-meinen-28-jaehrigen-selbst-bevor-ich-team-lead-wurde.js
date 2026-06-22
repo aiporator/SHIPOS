@@ -2,7 +2,7 @@ export default {
   slug: 'brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde',
   type: 'article',
   status: 'published',
-  title: 'Brief an meinen 28-jährigen Selbst — bevor ich zum ersten Mal Team-Lead wurde.',
+  title: 'Brief an meinen 28-jährigen Selbst · bevor ich zum ersten Mal Team-Lead wurde.',
   description:
     'Was ich jeder neuen Führungskraft heute sage. Vom Kollegen zum Chef, ' +
     'die ersten 100 Tage, der Selbstzweifel-Loop, die fünf Fehler die dich ' +
@@ -15,7 +15,7 @@ export default {
     title: 'Vom Kollegen zum Chef: Brief an meinen 28-jährigen Selbst | Leader-OS',
     description:
       'Erste Führungsposition, vom Kollegen zum Vorgesetzten, die ersten 100 Tage als Team-Lead. ' +
-      'Wlad Jachtchenko schreibt an sein 28-jähriges Ich — die fünf Fehler die dich ein Jahr kosten.',
+      'Wlad Jachtchenko schreibt an sein 28-jähriges Ich · die fünf Fehler die dich ein Jahr kosten.',
     canonical: 'https://leader-os.de/journal/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde',
     keywords: [
       'vom kollegen zum chef',
@@ -38,7 +38,7 @@ export default {
 
     { type: 'heading', level: 2, text: 'Du wirst denken du musst alles können. Du musst es nicht.' },
     { type: 'paragraph', text: 'Als Kollege warst du der Beste im Team. Deshalb hat Andreas dich gefragt. Du wirst daraus den falschen Schluss ziehen: "Ich muss jetzt überall der Beste sein." Falsch. Deine Aufgabe ist nicht, der beste Entwickler / Verkäufer / Berater im Raum zu sein. Deine Aufgabe ist, deine fünf Rollen als Führungskraft sauber zu spielen.' },
-    { type: 'paragraph', text: 'Du spielst ab dem ersten — egal ob du das willst oder nicht — fünf Rollen: Vorausschauer, Entscheider, Kommunikator, Verstärker, Verteidiger. Keine davon ist "selbst liefern". Das wirst du in den ersten Wochen am schwersten akzeptieren. Du wirst dich beim Arbeiten ertappen und denken: "Aber ich muss doch was tun." Doch. Du tust was. Aber nicht das was du vorher getan hast.' },
+    { type: 'paragraph', text: 'Du spielst ab dem ersten · egal ob du das willst oder nicht · fünf Rollen: Vorausschauer, Entscheider, Kommunikator, Verstärker, Verteidiger. Keine davon ist "selbst liefern". Das wirst du in den ersten Wochen am schwersten akzeptieren. Du wirst dich beim Arbeiten ertappen und denken: "Aber ich muss doch was tun." Doch. Du tust was. Aber nicht das was du vorher getan hast.' },
     { type: 'paragraph', text: 'Den ersten Monat verschwendest du damit, weiter die Arbeit zu machen die nicht mehr deine Arbeit ist. Den zweiten Monat ärgerst du dich, dass dein Team langsamer ist als du. Den dritten Monat verstehst du: dein Team ist nicht langsamer. Du hast es nur nicht in die Lage versetzt, schneller zu sein. Das ist deine Verantwortung. Das ist deine Arbeit.' },
 
     { type: 'heading', level: 2, text: 'Du wirst pushen. Hör auf, bevor das Team kündigt.' },
@@ -49,17 +49,17 @@ export default {
     { type: 'heading', level: 2, text: 'Die fünf Fehler die dich ein Jahr kosten.' },
     { type: 'paragraph', text: 'Hier sind sie, in der Reihenfolge in der du sie machen wirst. Lies sie. Mark dir die zweite. Die zweite kostet dich am meisten.' },
     { type: 'paragraph', text: 'Eins: Du machst Kollege-Gespräche statt Führungs-Gespräche. Wenn dich Tim fragt "wie sollen wir das machen", wirst du eine Antwort geben. Falsch. Du fragst zurück: "Was ist dein Vorschlag?" Das ist nicht Bequemlichkeit. Das ist deine eigentliche Arbeit. Sonst trainierst du dein Team darauf, bei jeder Entscheidung bei dir aufzulaufen.' },
-    { type: 'paragraph', text: 'Zwei: Du wirst nicht mit deinem Chef arbeiten. Andreas ist nicht mehr dein Vorgesetzter im klassischen Sinn — er ist dein erster Sparring-Partner. Du brauchst ein wöchentliches 1:1 mit ihm. Du brauchst eine klare Frage in jedem Meeting. Du brauchst seinen Schutz für dein Team. Wenn du das in den ersten 100 Tagen nicht etablierst, kämpfst du das ganze Jahr ohne Rückendeckung.' },
+    { type: 'paragraph', text: 'Zwei: Du wirst nicht mit deinem Chef arbeiten. Andreas ist nicht mehr dein Vorgesetzter im klassischen Sinn · er ist dein erster Sparring-Partner. Du brauchst ein wöchentliches 1:1 mit ihm. Du brauchst eine klare Frage in jedem Meeting. Du brauchst seinen Schutz für dein Team. Wenn du das in den ersten 100 Tagen nicht etablierst, kämpfst du das ganze Jahr ohne Rückendeckung.' },
     { type: 'paragraph', text: 'Drei: Du wirst zu spät anfangen, dein Team kennenzulernen. Ich rede nicht von "wie alt sind deine Kinder". Ich rede von: was treibt diese Person, was killt sie, woran will sie gemessen werden. Du brauchst in den ersten 30 Tagen ein 60-Minuten-Gespräch mit jedem. Strukturiert. Mit Notizen. Sonst führst du Phantome.' },
     { type: 'paragraph', text: 'Vier: Du wirst keine Routinen bauen. Du wirst ad-hoc reagieren. Du wirst jeden Tag aufstehen und dich fragen "was muss ich heute tun". Das ist der schnellste Weg ins Burnout. Du brauchst feste Slots: Montag Wochen-Planung, Dienstag bis Donnerstag 1:1-Tage, Freitag Reflexion. Wer ohne Struktur führt, wird von der Struktur seines Tages geführt.' },
     { type: 'paragraph', text: 'Fünf: Du wirst dich für deine Entscheidungen entschuldigen. Du wirst Mails schicken die mit "ich denke vielleicht könnten wir" anfangen. Du wirst in Meetings sagen "das ist nur ein Vorschlag". Lass das. Entscheide klar, kommuniziere klar, halte aus dass jemand sauer ist. Die Energie die du in das "weichspülen" investierst, kostet dein Team Klarheit und dich Glaubwürdigkeit.' },
 
     { type: 'heading', level: 2, text: 'Was du heute schon machen kannst.' },
     { type: 'paragraph', text: 'Du wirst diesen Brief lesen und denken: "Klingt logisch, aber wie genau?". Hier ist die kürzeste Antwort die ich dir geben kann.' },
-    { type: 'framework', code: 'F·100', title: 'Die ersten 100 Tage in drei Sätzen.', explanation: 'Erstens: 60-Minuten-Gespräch mit jedem Teammitglied in den ersten 30 Tagen — strukturiert nach "was treibt dich, was killt dich, woran willst du gemessen werden". Zweitens: feste Wochen-Struktur ab Woche 1 — Montag Planung, Mi-Do 1:1s, Freitag Reflexion. Drittens: dein Chef ist Sparring-Partner, nicht Vorgesetzter — wöchentliches 1:1 erzwingen mit drei Standardfragen.' },
+    { type: 'framework', code: 'F·100', title: 'Die ersten 100 Tage in drei Sätzen.', explanation: 'Erstens: 60-Minuten-Gespräch mit jedem Teammitglied in den ersten 30 Tagen · strukturiert nach "was treibt dich, was killt dich, woran willst du gemessen werden". Zweitens: feste Wochen-Struktur ab Woche 1 · Montag Planung, Mi-Do 1:1s, Freitag Reflexion. Drittens: dein Chef ist Sparring-Partner, nicht Vorgesetzter · wöchentliches 1:1 erzwingen mit drei Standardfragen.' },
 
     { type: 'heading', level: 2, text: 'Was du nicht machen sollst.' },
-    { type: 'paragraph', text: 'Du wirst Bücher kaufen. Vier, fünf, sieben. Du wirst LinkedIn-Influencer lesen. Du wirst Podcasts hören während du joggst. All das ist nicht falsch, aber alleine nutzlos. Wissen ohne Drill ist Stress mit Anlauf. Was du brauchst ist: ein System das dich täglich 15 Minuten zwingt zu trainieren — Feedback geben, Konflikt lösen, Entscheidung kommunizieren — bis es Reflex ist.' },
+    { type: 'paragraph', text: 'Du wirst Bücher kaufen. Vier, fünf, sieben. Du wirst LinkedIn-Influencer lesen. Du wirst Podcasts hören während du joggst. All das ist nicht falsch, aber alleine nutzlos. Wissen ohne Drill ist Stress mit Anlauf. Was du brauchst ist: ein System das dich täglich 15 Minuten zwingt zu trainieren · Feedback geben, Konflikt lösen, Entscheidung kommunizieren · bis es Reflex ist.' },
     { type: 'paragraph', text: 'Du wirst denken, du brauchst einen Coach. Vielleicht. Aber ein Coach allein, einmal die Woche, reicht nicht. Du brauchst tägliche Mikro-Übung. Du brauchst einen Sparring-Partner der 24/7 verfügbar ist, der jede deiner Mails reviewen kann bevor du sie schickst, der dir vor jedem schwierigen Gespräch drei Eröffnungsvarianten gibt. Genau das hatte ich mit 28 nicht. Du wirst es haben können.' },
 
     { type: 'callout', tone: 'dark', text: 'Genau das ist Leader-OS: die staatlich anerkannte Führungskräfte-Ausbildung mit dem WladBot als Sparring-Partner und der 5-Rollen-Struktur als Roter Faden. 6 Monate, täglich messbar, mit dem System das ich gebraucht hätte als ich 28 war. Buch dir ein unverbindliches Beratungsgespräch.' },

@@ -1,5 +1,5 @@
 /**
- * Content feature — public barrel.
+ * Content feature · public barrel.
  *
  * Phase 3 of the content engine: registry-driven articles with one
  * renderer, two starter articles, route pair (/journal, /journal/:slug),

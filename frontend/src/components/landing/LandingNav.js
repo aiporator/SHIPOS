@@ -5,12 +5,12 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * Sticky top nav — wide editorial.
+ * Sticky top nav · wide editorial.
  *
  * Edge-to-edge container (px-6 → px-12) so the nav reads as the page
  * header, not a centered ad-bar floating in the void. Taller default
  * (h-20) collapses to h-16 on scroll. Brand lockup sits big on the
- * left, the CTA is a flat editorial button — no rounded +icon, no
+ * left, the CTA is a flat editorial button · no rounded +icon, no
  * pill chrome, no "click here" energy.
  *
  *  Primary CTA   to  leadercheck.de        (app, Emergent)
@@ -55,7 +55,7 @@ export const LandingNav = () => {
 
         {/* Single-focus nav: only the leadercheck.de CTA. The legacy
             Klassen / So funktioniert's / Journal / Login links were dropped
-            per user feedback ("Layer kennt auch niemand") — the whole nav
+            per user feedback ("Layer kennt auch niemand") · the whole nav
             now points at ONE action: start the diagnose on leadercheck.de.
             Anchors to specific sections still work via in-page scroll;
             users discover them as they scroll, not as nav choices. */}

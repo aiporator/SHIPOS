@@ -3,7 +3,7 @@ import { Award, Mic, BookText, Users, Tv, GraduationCap } from 'lucide-react';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 /**
- * WladAuthoritySection — die dedizierte Trust- und SEO-Authority-Sektion
+ * WladAuthoritySection · die dedizierte Trust- und SEO-Authority-Sektion
  * für Wlad Jachtchenko.
  *
  * Vorher war Wlads Profil nur lose über die Hero, das Vimeo-Intro und
@@ -15,7 +15,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/bran
  *     Beweis dass KI + Rhetorik + Methodik zu Wirkung wird
  *
  * Position auf der Landing: SLOT 03 (direkt nach SprintSpecimen, vor
- * dem ersten Intro-Video) — wer hier landet versteht in 8 Sekunden
+ * dem ersten Intro-Video) · wer hier landet versteht in 8 Sekunden
  * WER hinter Leader-OS steht und warum das nicht der nächste KI-
  * Influencer ist.
  */
@@ -26,7 +26,7 @@ const CREDENTIALS = [
     bib: '01',
     headline: '3× SPIEGEL-Bestseller',
     body:
-      '"Dunkle Rhetorik", "Schwarze Rhetorik", "Manipulationstechniken" — ' +
+      '"Dunkle Rhetorik", "Schwarze Rhetorik", "Manipulationstechniken" · ' +
       'die meistverkauften Rhetorik-Sachbücher Deutschlands seit 2018.',
   },
   {
@@ -34,7 +34,7 @@ const CREDENTIALS = [
     bib: '02',
     headline: '400 000+ Klienten ausgebildet',
     body:
-      'Vom Engineering-Lead über CEOs bis zu Vertriebsteams — Live-Workshops, ' +
+      'Vom Engineering-Lead über CEOs bis zu Vertriebsteams · Live-Workshops, ' +
       'Online-Akademie, persönliche Coachings über mehr als ein Jahrzehnt.',
   },
   {
@@ -50,7 +50,7 @@ const CREDENTIALS = [
     bib: '04',
     headline: 'Funk, TV & Podcasts',
     body:
-      'Regelmäßig in ARD, ZDF, ntv, Welt, Wirtschaftswoche, Handelsblatt — ' +
+      'Regelmäßig in ARD, ZDF, ntv, Welt, Wirtschaftswoche, Handelsblatt · ' +
       'plus eigene Podcasts zu Rhetorik, KI und KI-natives Führen.',
   },
   {
@@ -66,8 +66,8 @@ const CREDENTIALS = [
     bib: '06',
     headline: '10+ Jahre Wissen verdichtet',
     body:
-      'Alles aus Wlads Coachings, Frameworks und Büchern — plus vieles mehr ' +
-      'aus über 10 Jahren Praxis — steckt heute in Leader-OS drin.',
+      'Alles aus Wlads Coachings, Frameworks und Büchern · plus vieles mehr ' +
+      'aus über 10 Jahren Praxis · steckt heute in Leader-OS drin.',
   },
 ];
 
@@ -112,7 +112,7 @@ const useWladJsonLd = () => {
       },
       award: [
         '3× SPIEGEL-Bestseller-Autor (Dunkle Rhetorik, Schwarze Rhetorik, Manipulationstechniken)',
-        'Top-Speaker 4.9/5.0 — über 500 Bühnen-Engagements',
+        'Top-Speaker 4.9/5.0 · über 500 Bühnen-Engagements',
       ],
     });
     document.head.appendChild(script);
@@ -151,7 +151,7 @@ export const WladAuthoritySection = () => {
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                alt="Wlad Jachtchenko — 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS und Argumentorik-Akademie"
+                alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS und Argumentorik-Akademie"
                 width="320"
                 height="320"
                 loading="lazy"
@@ -191,7 +191,7 @@ export const WladAuthoritySection = () => {
 
             <p className="mt-5 max-w-2xl text-[15px] md:text-[16.5px] leading-[1.6] text-white/65">
               Alles was Wlad in über 10 Jahren in Coachings, Frameworks und
-              Büchern entwickelt hat — und noch viel mehr — steckt heute in
+              Büchern entwickelt hat · und noch viel mehr · steckt heute in
               Leader-OS. Nicht als Kurs-Bibliothek, sondern als tägliches
               System.
             </p>

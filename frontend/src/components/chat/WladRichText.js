@@ -1,5 +1,5 @@
 /**
- * WladRichText — Lite-Markdown renderer for WladBot's `insight` / `strategy`
+ * WladRichText · Lite-Markdown renderer for WladBot's `insight` / `strategy`
  * / `reflection` text fields. Matches the OUTPUT-STIL contract in
  * `backend/services.py` WLAD_HARD_RULES (Rule 7):
  *
@@ -9,12 +9,12 @@
  *   » at line start   →  example-script callout (indented, brand-tinted)
  *   blank line        →  paragraph break
  *
- * Intentionally NOT a full Markdown engine — no headings, tables, links, or
+ * Intentionally NOT a full Markdown engine · no headings, tables, links, or
  * code fences. The narrow grammar is what makes the output feel curated and
  * consistent across surfaces. If the LLM ignores the contract and returns
  * plain prose, we still render it cleanly as paragraphs.
  *
- * Zero external deps — keeps yarn.lock frozen.
+ * Zero external deps · keeps yarn.lock frozen.
  */
 
 const RE_BOLD = /\*\*([^*]+)\*\*/g;

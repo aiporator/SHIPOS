@@ -26,7 +26,7 @@ export default {
       'Tool-Kommunikation als Top-Down-Push aufsetzen. Hat den umgekehrten Effekt.',
       'Slack-Engagement-Tracking nutzen. Trust-Killer.',
     ] },
-    { type: 'callout', tone: 'lime', text: 'Multiplikator-Effekt entsteht durch Beispiel und durch sichtbares Tun — nicht durch Predigt. Die Daten sind eindeutig.' },
+    { type: 'callout', tone: 'lime', text: 'Multiplikator-Effekt entsteht durch Beispiel und durch sichtbares Tun · nicht durch Predigt. Die Daten sind eindeutig.' },
     { type: 'paragraph', text: 'Wenn du mehr als drei direct reports hast und systematisch multiplizieren willst: das ist genau der Team-Rollout-Pfad. 30-Min-Beratung um den Setup mit deinem konkreten Team zu planen.' },
   ],
   seo: {

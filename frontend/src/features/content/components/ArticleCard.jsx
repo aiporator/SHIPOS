@@ -9,7 +9,7 @@ const TYPE_LABEL = {
 };
 
 /**
- * ArticleCard — entry in the JournalIndex grid.
+ * ArticleCard · entry in the JournalIndex grid.
  *
  * Brand: editorial specimen card with hairline border, lime accent on
  * the type label, type+date+reading-time mono strip, lime period on

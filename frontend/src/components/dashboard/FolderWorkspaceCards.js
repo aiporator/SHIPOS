@@ -1,5 +1,5 @@
 /**
- * FolderWorkspaceCards — premium folder grid for the Dashboard (Iter 92.23.11).
+ * FolderWorkspaceCards · premium folder grid for the Dashboard (Iter 92.23.11).
  *
  * Mert: "Folder-Workspace-Cards auf Dashboard: Mini-Stats +
  *        Quick-Briefing-Button pro Folder"
@@ -201,7 +201,7 @@ export const FolderWorkspaceCards = ({ de = true }) => {
           <div className="mt-4 pt-3 border-t border-black/[0.04] dark:border-white/[0.06] flex items-center gap-3 text-[10px] text-muted-foreground/60">
             <span className="flex items-center gap-1"><Video size={9} /> {de ? 'Missionen' : 'Missions'}</span>
             <span className="flex items-center gap-1"><MessageSquareText size={9} /> {de ? 'Chats' : 'Chats'}</span>
-            <span className="ml-auto">{de ? '1 Klick — vollkontextiges Briefing.' : '1 click — fully-contextual briefing.'}</span>
+            <span className="ml-auto">{de ? '1 Klick · vollkontextiges Briefing.' : '1 click · fully-contextual briefing.'}</span>
           </div>
         )}
       </CardContent>

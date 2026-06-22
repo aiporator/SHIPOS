@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * StudioHub — Single-Page-Übersicht für alle Design-Surfaces.
+ * StudioHub · Single-Page-Übersicht für alle Design-Surfaces.
  *
  * Erreichbar unter /studio. Listet:
- *   - /specimens — IG/LinkedIn Editorial-Posts
- *   - /ads       — Paid-Creatives Netflix-Bites-DNA
- *   - /system    — Live-Provider-Health
+ *   - /specimens · IG/LinkedIn Editorial-Posts
+ *   - /ads       · Paid-Creatives Netflix-Bites-DNA
+ *   - /system    · Live-Provider-Health
  *
  * Pro Surface: Worum-geht-es, welche Data-Datei, wie wird editiert,
  * direkter Link. Damit ist klar: "von hier" heißt von dieser Seite,
- * von Claude Code, von einem Git-Push — die einzige Wahrheit.
+ * von Claude Code, von einem Git-Push · die einzige Wahrheit.
  */
 
 const SURFACES = [
@@ -21,7 +21,7 @@ const SURFACES = [
     path: '/specimens',
     eyebrow: 'INSTAGRAM · LINKEDIN',
     body:
-      'Editorial-Posts im Athletic-Specimen-Stil — 1080×1080 für ' +
+      'Editorial-Posts im Athletic-Specimen-Stil · 1080×1080 für ' +
       'Feed, 1080×1350 für vertikal. Outfit-Black-Italic-Headlines, ' +
       'Lime-Punkt, BIB-Code-Header. Caption-Body daneben mit Copy-Button.',
     file: 'frontend/src/data/contentSpecimens.js',
@@ -34,7 +34,7 @@ const SURFACES = [
     path: '/ads',
     eyebrow: 'META · STORIES · LINKEDIN',
     body:
-      'Paid-Creatives in Netflix-Bites-DNA — voller Farbblock, ' +
+      'Paid-Creatives in Netflix-Bites-DNA · voller Farbblock, ' +
       'full-bleed Portrait, Tracked-Uppercase-Headline. Drei Formate ' +
       '(1:1, 4:5, 9:16), sechs Brand-Paletten, Native-Size-Modal ' +
       'für Screenshots.',
@@ -148,7 +148,7 @@ export default function StudioHub() {
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.6] text-foreground/70">
           Drei Studios. Drei Daten-Files. Ein Workflow: editiere die
           Datei, push, Vercel rebuilded in 90 Sek, du screenshotst und
-          postest. Kein Figma-Hop, kein Hand-Off, kein Asset-Versand —
+          postest. Kein Figma-Hop, kein Hand-Off, kein Asset-Versand ·
           das Design lebt im Code.
         </p>
 
@@ -165,7 +165,7 @@ export default function StudioHub() {
           </p>
           <ol className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              ['01', 'EDIT', 'Frag Claude Code — oder edit das Daten-File direkt.'],
+              ['01', 'EDIT', 'Frag Claude Code · oder edit das Daten-File direkt.'],
               ['02', 'PUSH', 'Commit + push auf den Production-Branch.'],
               ['03', 'BUILD', 'Vercel rebuilded in ~90 Sek, beide Domains ziehen mit.'],
               ['04', 'SHIP', 'Studio öffnen, Tile screenshoten, Caption kopieren, posten.'],

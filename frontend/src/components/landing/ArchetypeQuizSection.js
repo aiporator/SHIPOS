@@ -4,10 +4,10 @@ import { ArrowRight, RotateCcw, Mail, Check } from 'lucide-react';
 import { capture } from '../../lib/analytics';
 
 // ───────────────────────────────────────────────────────────────────
-// Lead-capture pipeline — mirrors LeadCaptureModal.
+// Lead-capture pipeline · mirrors LeadCaptureModal.
 //   1. PostHog identify + capture('archetype_quiz_lead_captured')  (always works, primary store)
 //   2. POST /api/leader-check/intent                                (Emergent → Supabase, best-effort)
-// Never throws — funnel UX always continues.
+// Never throws · funnel UX always continues.
 // ───────────────────────────────────────────────────────────────────
 const persistLead = async ({ email, archetype, source }) => {
   const trimmed = (email || '').trim();
@@ -58,7 +58,7 @@ const buildCtaUrl = (base, { archetype }) => {
 };
 
 /**
- * ArchetypeQuizSection — der "Funnel-Magnet" der Landing.
+ * ArchetypeQuizSection · der "Funnel-Magnet" der Landing.
  *
  * Typeform-style. 5 schnelle Fragen, ein Klick = eine Antwort, autoadvance.
  * Am Ende ein KI-Leadership-Archetyp + CTA in die tiefe Diagnose auf
@@ -73,14 +73,14 @@ const buildCtaUrl = (base, { archetype }) => {
  */
 
 // ───────────────────────────────────────────────────────────────────
-// Archetype map — 4 KI-Leadership-Profile.
+// Archetype map · 4 KI-Leadership-Profile.
 // Jede Antwort verteilt 1 Punkt auf einen Archetyp. Höchster Score gewinnt.
 //
 // Jeder Archetyp erzählt eine ganze Geschichte:
-//   essence       — wer du jetzt bist (2-3 Sätze)
-//   gap           — was dich aufhält (Lime-Akzent)
-//   diagnose[3]   — was leadercheck.de dir konkret zeigt
-//   platform[3]   — was Leader-OS dir konkret liefert
+//   essence       · wer du jetzt bist (2-3 Sätze)
+//   gap           · was dich aufhält (Lime-Akzent)
+//   diagnose[3]   · was leadercheck.de dir konkret zeigt
+//   platform[3]   · was Leader-OS dir konkret liefert
 //
 // Ziel: nach dem Quiz hat der User verstanden was BEIDE Produkte sind
 // und warum sie für ihn relevant sind. Nicht generisch.
@@ -92,18 +92,18 @@ const ARCHETYPES = {
     roleLabel: 'Operator',
     essence:
       'Du nutzt KI jeden Tag. Prompts tippst du so schnell wie du denkst. ' +
-      'Aber dein Tag ist immer noch reaktiv, nicht systemisch — du jagst ' +
+      'Aber dein Tag ist immer noch reaktiv, nicht systemisch · du jagst ' +
       'die nächste Aufgabe statt dass das System für dich arbeitet.',
     gap:
       'Was dir fehlt ist nicht noch ein Tool. Es ist die Architektur, die ' +
       'aus deinen tausend KI-Reflexen eine klare Führungs-Routine macht.',
     diagnose: [
-      { title: 'KI-Reflex-Score',     body: 'Misst wie tief KI bereits in deinen Alltag eingebaut ist — und wo dein System hakt.' },
+      { title: 'KI-Reflex-Score',     body: 'Misst wie tief KI bereits in deinen Alltag eingebaut ist · und wo dein System hakt.' },
       { title: 'Hebel-Mapping',       body: 'Zeigt welche 3 Routinen den größten Multiplikator-Effekt für dich haben würden.' },
       { title: '30-Tage Sprint-Match', body: 'Sagt dir ob Sprint 0001 für deinen Reifegrad passt oder ob du erst Grundlagen brauchst.' },
     ],
     platform: [
-      { title: 'Daily Check-in',          body: 'Strukturiertes 10-Minuten-Ritual jeden Morgen — KI macht deinen Tagesplan, du entscheidest.' },
+      { title: 'Daily Check-in',          body: 'Strukturiertes 10-Minuten-Ritual jeden Morgen · KI macht deinen Tagesplan, du entscheidest.' },
       { title: 'WladBot als Sparring',    body: 'Dein persönlicher KI-Coach kennt deine Ziele, deine Themen, deinen Stil.' },
       { title: 'Sprint 0001 · 30 Tage',   body: 'Strukturierter Pfad vom Reflex-Nutzer zum System-Operator. Klare Tagesziele, klare Drills.' },
     ],
@@ -115,17 +115,17 @@ const ARCHETYPES = {
     essence:
       'Du sprichst klar. Du ziehst Aufmerksamkeit. Deine Stimme ist dein ' +
       'Hebel. Aber die KI hinter den Kulissen ist noch nicht deine zweite ' +
-      'Stimme — sie klingt nach allen anderen.',
+      'Stimme · sie klingt nach allen anderen.',
     gap:
       'Was du brauchst ist KI-Drill der zu DEINER Tonalität passt, nicht ' +
       'generische Prompts die jeden Creator gleich klingen lassen.',
     diagnose: [
       { title: 'Voice-DNA-Mapping',     body: 'Analysiert deinen Schreib- und Sprechstil und sagt wo deine echte Signatur sitzt.' },
-      { title: 'Skill-Tiefen-Score',    body: 'Misst wo du vom 80%-Standard-Output abweichst — dein eigentlicher Wettbewerbsvorteil.' },
+      { title: 'Skill-Tiefen-Score',    body: 'Misst wo du vom 80%-Standard-Output abweichst · dein eigentlicher Wettbewerbsvorteil.' },
       { title: 'Drill-Empfehlung',      body: 'Zeigt welche 3 Mikro-Drills deine KI-Stimme genau dort vertiefen wo dein Style sitzt.' },
     ],
     platform: [
-      { title: '15-Minuten Mikro-Drills', body: 'Tägliche, fokussierte Übungen die hängen bleiben — nicht Theorie, sondern Muskel.' },
+      { title: '15-Minuten Mikro-Drills', body: 'Tägliche, fokussierte Übungen die hängen bleiben · nicht Theorie, sondern Muskel.' },
       { title: 'WladBot lernt deine DNA', body: 'Je länger du auf der Plattform bist, desto mehr klingt KI nach dir, nicht nach Standard.' },
       { title: 'Kreator-Community',       body: 'Klasse 0001: Creator und Solo-Founder die KI als Verstärker ihrer Stimme nutzen.' },
     ],
@@ -140,16 +140,16 @@ const ARCHETYPES = {
       'Donnerstag-Abend wirklich erledigt ist klafft Tag für Tag eine Lücke.',
     gap:
       'Was dir fehlt ist nicht eine bessere Vision. Es ist das System ' +
-      'das deine Vision konsistent in tägliches Tun übersetzt — ohne ' +
+      'das deine Vision konsistent in tägliches Tun übersetzt · ohne ' +
       'dass du jeden Morgen wieder von vorne anfängst.',
     diagnose: [
       { title: 'Vision-zu-Tag-Score',        body: 'Zeigt wo zwischen deinem Kopf und deinem Tag die meiste Energie verdunstet.' },
-      { title: 'Konsistenz-Index',           body: 'Misst wie stabil deine Vision sich in tatsächlichem Output zeigt — über Wochen, nicht Tage.' },
+      { title: 'Konsistenz-Index',           body: 'Misst wie stabil deine Vision sich in tatsächlichem Output zeigt · über Wochen, nicht Tage.' },
       { title: 'Architektur-Standortbestimmung', body: 'Sagt dir ob du erst System brauchst oder bereit bist zu skalieren.' },
     ],
     platform: [
       { title: 'Visions-Playbooks',          body: 'Frameworks für Strategie-Sprints, Quartalsplanung, KI-Roadmaps die wirklich landen.' },
-      { title: 'Wochen-Sprint-Rituale',      body: 'Strukturierte Rhythmen die deine Vision in tägliche Realität übersetzen — egal ob solo oder mit Team.' },
+      { title: 'Wochen-Sprint-Rituale',      body: 'Strukturierte Rhythmen die deine Vision in tägliche Realität übersetzen · egal ob solo oder mit Team.' },
       { title: 'Coaching mit Wlad',          body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
     ],
   },
@@ -158,29 +158,29 @@ const ARCHETYPES = {
     title: 'Die Leaderin · Der Leader.',
     roleLabel: 'Leader',
     essence:
-      'Du führst schon vorausschauend — egal ob ein Team, ein Projekt, ' +
+      'Du führst schon vorausschauend · egal ob ein Team, ein Projekt, ' +
       'eine Audience oder dich selbst. Du wartest nicht auf Klarheit, ' +
       'du machst sie. Deine Entscheidungen sind nicht reaktiv. Was jetzt ' +
-      'zählt ist nicht Aufholen — sondern Beschleunigen.',
+      'zählt ist nicht Aufholen · sondern Beschleunigen.',
     gap:
       'Was dich auf die nächste Stufe bringt ist nicht noch mehr Wissen. ' +
-      'Es ist Austausch auf Augenhöhe — und ein System das deinen Tag ' +
+      'Es ist Austausch auf Augenhöhe · und ein System das deinen Tag ' +
       'schon kennt bevor du ihn anfängst.',
     diagnose: [
-      { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt — Kollegen, Klienten, Markt, Umfeld.' },
+      { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt · Kollegen, Klienten, Markt, Umfeld.' },
       { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
       { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Klasse 0001) du am schnellsten vorankommst.' },
     ],
     platform: [
-      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen — geschlossene Klasse, Senior-Niveau.' },
-      { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene — direkt auf Wirkung, nicht Aufholen.' },
+      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen · geschlossene Klasse, Senior-Niveau.' },
+      { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
       { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
   },
 };
 
 // ───────────────────────────────────────────────────────────────────
-// Questions — jede Antwort hat einen Archetype-Tag.
+// Questions · jede Antwort hat einen Archetype-Tag.
 // Reihenfolge bewusst: leicht → tief, damit Momentum hält.
 // ───────────────────────────────────────────────────────────────────
 const QUESTIONS = [
@@ -198,12 +198,12 @@ const QUESTIONS = [
   {
     bib: '02',
     q: 'Was beschreibt deine Rolle am besten?',
-    sub: 'Egal welcher Titel — was tust du wirklich am Tag.',
+    sub: 'Egal welcher Titel · was tust du wirklich am Tag.',
     options: [
-      { label: 'Founder oder CEO — ich setze die Richtung', tag: 'visionaer' },
-      { label: 'Manager oder Team-Lead — ich führe Menschen', tag: 'leader' },
-      { label: 'Senior IC — ich liefere Substanz', tag: 'operator' },
-      { label: 'Creator oder Solo — ich baue meine Audience', tag: 'kreator' },
+      { label: 'Founder oder CEO · ich setze die Richtung', tag: 'visionaer' },
+      { label: 'Manager oder Team-Lead · ich führe Menschen', tag: 'leader' },
+      { label: 'Senior IC · ich liefere Substanz', tag: 'operator' },
+      { label: 'Creator oder Solo · ich baue meine Audience', tag: 'kreator' },
     ],
   },
   {
@@ -222,10 +222,10 @@ const QUESTIONS = [
     q: 'Was hält dich am meisten zurück?',
     sub: 'Sei ehrlich. Nur die ehrliche Antwort zählt.',
     options: [
-      { label: 'Zeit — alles bleibt liegen', tag: 'operator' },
-      { label: 'Methodik — ich weiß nicht wo anfangen', tag: 'kreator' },
-      { label: 'Team — alleine geht es nicht weiter', tag: 'leader' },
-      { label: 'Klarheit — zu viele Optionen', tag: 'visionaer' },
+      { label: 'Zeit · alles bleibt liegen', tag: 'operator' },
+      { label: 'Methodik · ich weiß nicht wo anfangen', tag: 'kreator' },
+      { label: 'Team · alleine geht es nicht weiter', tag: 'leader' },
+      { label: 'Klarheit · zu viele Optionen', tag: 'visionaer' },
     ],
   },
   {
@@ -366,8 +366,8 @@ export const ArchetypeQuizSection = () => {
         <p className="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.6] text-foreground/70">
           Das ist der <strong className="text-foreground">60-Sekunden-Schnelltest</strong>.
           Fünf Fragen, ein Archetyp, ein konkreter Hinweis worauf du als nächstes
-          schaust. Der vollständige Check — deine Opportunities, dein Lernpfad
-          in KI, dein 30-Tage-Plan — wartet danach auf{' '}
+          schaust. Der vollständige Check · deine Opportunities, dein Lernpfad
+          in KI, dein 30-Tage-Plan · wartet danach auf{' '}
           <span className="font-mono text-[15px] text-brand-strong font-bold">leadercheck.de</span>.
         </p>
       </div>
@@ -475,7 +475,7 @@ export const ArchetypeQuizSection = () => {
                     {archetype.essence}
                   </p>
 
-                  {/* ── Gap: "Hier sitzt dein Hebel" — Lime-akzentuiert ── */}
+                  {/* ── Gap: "Hier sitzt dein Hebel" · Lime-akzentuiert ── */}
                   <div className="mt-7 max-w-3xl border-l-[3px] border-brand pl-5 py-2 bg-brand/5">
                     <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-strong">
                       ▸ HIER SITZT DEIN HEBEL
@@ -485,7 +485,7 @@ export const ArchetypeQuizSection = () => {
                     </p>
                   </div>
 
-                  {/* ── SCHRITT 02 · LEADERCHECK — was die Diagnose dir zeigt ── */}
+                  {/* ── SCHRITT 02 · LEADERCHECK · was die Diagnose dir zeigt ── */}
                   <div className="mt-10 max-w-3xl border-2 border-black bg-black text-white p-6 md:p-8">
                     <div className="flex items-center gap-2 mb-4 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand">
                       <span>▸ SCHRITT 02</span>
@@ -518,7 +518,7 @@ export const ArchetypeQuizSection = () => {
                     </ul>
                   </div>
 
-                  {/* ── SCHRITT 03 · LEADER-OS — was die Plattform dir liefert ── */}
+                  {/* ── SCHRITT 03 · LEADER-OS · was die Plattform dir liefert ── */}
                   <div className="mt-6 max-w-3xl border-2 border-black bg-background text-foreground p-6 md:p-8 relative">
                     {/* Lime corner tag */}
                     <div className="absolute -top-[2px] left-6 bg-brand text-black px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.22em]">
@@ -563,7 +563,7 @@ export const ArchetypeQuizSection = () => {
                   {/* ── Optionale Email-Capture vor dem CTA ──
                       Sanfter Ask AFTER Value-Delivery. Wer einträgt landet sofort
                       als Lead in PostHog + /api/leader-check/intent. Wer skippt
-                      kann trotzdem den Check starten — dort wird die E-Mail eh
+                      kann trotzdem den Check starten · dort wird die E-Mail eh
                       noch erhoben. Doppelte Versicherung gegen Lead-Loss. */}
                   <div className="mt-8 max-w-2xl border-2 border-black bg-background p-5 md:p-6">
                     {leadSent ? (
@@ -639,7 +639,7 @@ export const ArchetypeQuizSection = () => {
           </div>
         </div>
 
-        {/* Coda — micro social-proof */}
+        {/* Coda · micro social-proof */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
           <span>▸ 400 000 KUNDEN</span>

@@ -282,9 +282,9 @@ export default function Challenge30Page() {
             <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground">{de ? 'Meilenstein' : 'Milestone'}</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            {activeWeek === 1 && (de ? 'Du weißt, wo du stehst — und wo die Hebel liegen.' : 'You know where you stand.')}
-            {activeWeek === 2 && (de ? 'Du hast dein erstes Toolkit — und nutzt es bereits.' : 'You have your first toolkit.')}
-            {activeWeek === 3 && (de ? 'Du wendest alles an — und dein Umfeld bemerkt den Unterschied.' : 'You apply everything.')}
+            {activeWeek === 1 && (de ? 'Du weißt, wo du stehst · und wo die Hebel liegen.' : 'You know where you stand.')}
+            {activeWeek === 2 && (de ? 'Du hast dein erstes Toolkit · und nutzt es bereits.' : 'You have your first toolkit.')}
+            {activeWeek === 3 && (de ? 'Du wendest alles an · und dein Umfeld bemerkt den Unterschied.' : 'You apply everything.')}
             {activeWeek === 4 && (de ? 'Du bist nicht mehr derselbe Leader wie vor 30 Tagen.' : 'You are no longer the same leader.')}
           </p>
         </div>

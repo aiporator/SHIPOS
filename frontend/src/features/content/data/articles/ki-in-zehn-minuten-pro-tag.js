@@ -17,7 +17,7 @@ export default {
     { type: 'list', style: 'numbered', items: [
       'Block 1 (morgens, 3 Min): einen Prompt für die wichtigste Konversation des Tages schreiben.',
       'Block 2 (zwischen zwei Meetings, 3 Min): den Prompt ausführen und die Antwort in deine Notiz kopieren.',
-      'Block 3 (abends, 3 Min): kurz reflektieren — hat es geholfen oder nicht.',
+      'Block 3 (abends, 3 Min): kurz reflektieren · hat es geholfen oder nicht.',
     ] },
     { type: 'heading', level: 2, text: 'Was in den zehn Minuten passiert.' },
     { type: 'paragraph', text: 'Du löst nicht das ganze Tages-Problem, du baust eine winzige Skill-Anwendung ein. Du bleibst im Drill-Modus, auch wenn die Woche brennt. Das ist der einzige Hebel der "Sprint-Pause" verhindert.' },
@@ -30,7 +30,7 @@ export default {
     ] },
     { type: 'framework', code: '10 MIN', title: 'Drei-Block-Variante', explanation: 'Morgens 3 Min Prompt schreiben · zwischen Meetings 3 Min ausführen · abends 3 Min reflektieren. Insgesamt 9 Min effektiv. Funktioniert während Phasen wo 15-Min-Slots unmöglich sind.' },
     { type: 'callout', tone: 'lime', text: 'Zehn Minuten an einem Tag schlagen null Minuten. Sprint-Pause kostet dich zwei bis drei Wochen Rück-Schritt. Mini-Routine in der Krise hält den Drill am Laufen.' },
-    { type: 'paragraph', text: 'WladBot erkennt eingebaut wenn du eine Krise-Phase signalisierst und schlägt automatisch die Zehn-Minuten-Variante vor — ohne dass du es bewusst einstellen musst.' },
+    { type: 'paragraph', text: 'WladBot erkennt eingebaut wenn du eine Krise-Phase signalisierst und schlägt automatisch die Zehn-Minuten-Variante vor · ohne dass du es bewusst einstellen musst.' },
   ],
   seo: {
     description: 'KI-Routine in zehn Minuten pro Tag in drei Blöcken (morgens, zwischen Meetings, abends). Für On-Call-Wochen und Fundraising-Phasen.',

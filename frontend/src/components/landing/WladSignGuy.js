@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 /**
- * WladSignGuy — Mascot rechts unten der ein Schild hochhält und rotierend
+ * WladSignGuy · Mascot rechts unten der ein Schild hochhält und rotierend
  * Botschaften zeigt. Inspiriert vom "Sign Guy" auf Instagram, aber als
  * Pixel-Minecraft-Wlad mit Lime-Akzent.
  *
@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
  * - Klick auf Wlad oder Schild → onOpen() Callback (öffnet ChatPod-Modal).
  * - Auf Mobile fix unten rechts, schmaler. Auf Desktop größer mit Schatten.
  *
- * Komplett SVG — keine Bilder, kein Asset-Download, immer scharf.
+ * Komplett SVG · keine Bilder, kein Asset-Download, immer scharf.
  */
 
 const MESSAGES = [
@@ -23,8 +23,8 @@ const MESSAGES = [
 ];
 
 const PixelWlad = () => (
-  // 16×24 Pixel-Wlad — Kopf, Sakko, kleine Lime-Punkte als Augen-Akzent.
-  // Bewusst grob — Minecraft-DNA.
+  // 16×24 Pixel-Wlad · Kopf, Sakko, kleine Lime-Punkte als Augen-Akzent.
+  // Bewusst grob · Minecraft-DNA.
   <svg
     viewBox="0 0 16 24"
     aria-hidden
@@ -35,7 +35,7 @@ const PixelWlad = () => (
     <rect x="3" y="0" width="10" height="3" fill="#3A2418" />
     {/* Forehead skin */}
     <rect x="3" y="3" width="10" height="2" fill="#F2C8A4" />
-    {/* Eyes block — lime accent dots */}
+    {/* Eyes block · lime accent dots */}
     <rect x="3" y="5" width="10" height="2" fill="#F2C8A4" />
     <rect x="5" y="5" width="2" height="2" fill="#0A0A0A" />
     <rect x="9" y="5" width="2" height="2" fill="#0A0A0A" />
@@ -45,7 +45,7 @@ const PixelWlad = () => (
     <rect x="3" y="9" width="10" height="1" fill="#6B4530" />
     {/* Neck */}
     <rect x="6" y="10" width="4" height="1" fill="#F2C8A4" />
-    {/* Shirt collar — light blue */}
+    {/* Shirt collar · light blue */}
     <rect x="5" y="11" width="6" height="1" fill="#E8F1FF" />
     {/* Velvet green jacket (mimics the Wlad portrait) */}
     <rect x="2" y="12" width="12" height="9" fill="#0E3B1F" />
@@ -129,7 +129,7 @@ export const WladSignGuy = ({ onOpen }) => {
           type="button"
           onClick={onOpen}
           data-testid="wlad-sign-guy"
-          aria-label={`${msg.big} ${msg.small} — Wlad fragen`}
+          aria-label={`${msg.big} ${msg.small} · Wlad fragen`}
           initial={{ opacity: 0, y: 24, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -140,7 +140,7 @@ export const WladSignGuy = ({ onOpen }) => {
           }}
           className="fixed right-4 md:right-6 z-30 inline-flex items-end gap-2 group cursor-pointer"
         >
-          {/* Wlad bobt sanft im Stand — kompakter als vorher (-25% Footprint) */}
+          {/* Wlad bobt sanft im Stand · kompakter als vorher (-25% Footprint) */}
           <motion.div
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}

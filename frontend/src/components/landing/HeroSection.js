@@ -13,7 +13,7 @@ const FADE_UP = {
 };
 
 /**
- * Hero — pure typography, zero image dependency.
+ * Hero · pure typography, zero image dependency.
  *
  * Heron-Preston specimen-sheet DNA: huge headline, lime period as
  * the punctuation, BIB-coded eyebrow and footer-strip, technical
@@ -61,7 +61,7 @@ export const HeroSection = () => (
       [ SPRINT 997 € · 30 TAGE + 12 MONATE · DIAGNOSE FREE ]
     </div>
 
-    {/* Background-W — Heron-Preston editorial ghost letterform.
+    {/* Background-W · Heron-Preston editorial ghost letterform.
         Hidden on small phones so it never competes with the headline
         on a 375px screen; reintroduced softer on tablet, full on desktop. */}
     <motion.div
@@ -84,7 +84,7 @@ export const HeroSection = () => (
     </motion.div>
 
     <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-10 pt-6 md:pt-10 pb-10 md:pb-12">
-      {/* 1 / 4 — Wlad-anker (eyebrow slot).
+      {/* 1 / 4 · Wlad-anker (eyebrow slot).
           Centered, vertically-stacked, symmetric. Avatar floats on a
           soft lime halo; name + subline read as one calm trust-line. */}
       <div className="flex flex-col items-center text-center mb-6 md:mb-10">
@@ -94,7 +94,7 @@ export const HeroSection = () => (
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          {/* Soft lime halo behind the portrait — animates a slow pulse
+          {/* Soft lime halo behind the portrait · animates a slow pulse
               so the anker reads as alive, not static. */}
           <motion.span
             aria-hidden
@@ -128,7 +128,7 @@ export const HeroSection = () => (
         </motion.p>
       </div>
 
-      {/* 2 / 4 — Headline */}
+      {/* 2 / 4 · Headline */}
       <motion.h1
         initial="hidden"
         animate="show"
@@ -144,7 +144,7 @@ export const HeroSection = () => (
         Sprint<br />mit Wlad<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* 3 / 4 — Subline */}
+      {/* 3 / 4 · Subline */}
       <motion.p
         initial="hidden"
         animate="show"
@@ -160,11 +160,11 @@ export const HeroSection = () => (
         <span className="text-foreground/55">Ein KI-Coach der dich kennt<span className="text-brand">.</span></span>
       </motion.p>
 
-      {/* 4 / 4 — CTAs. Two primary intents side by side:
+      {/* 4 / 4 · CTAs. Two primary intents side by side:
           Diagnose (free, low-friction entry) and Sprint (paid, high
-          intent). They serve different audiences — visitors who want
+          intent). They serve different audiences · visitors who want
           to try-before-buy and visitors who already know what they
-          want — and not having Sprint in the ATF leaves the offer
+          want · and not having Sprint in the ATF leaves the offer
           buried below the fold. */}
       <motion.div
         initial="hidden"

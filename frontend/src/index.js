@@ -6,7 +6,7 @@ import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
 import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
-// Cross-tier guard — runs SYNCHRONOUSLY before anything else mounts.
+// Cross-tier guard · runs SYNCHRONOUSLY before anything else mounts.
 // If a visitor hits an App route (e.g. /login, /dashboard, /auth/magic)
 // on a Landing host (leader-os.de, leader-check.de), hard-redirect to
 // the matching App host (leaderos.de, leadercheck.de). Doing this here
@@ -14,7 +14,7 @@ import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 // LoginPage on the wrong origin. Auth, magic-link cookies, and OAuth
 // callbacks must stay on a single origin to work.
 if (redirectAppRoutesToAppTier()) {
-  // Browser is navigating away — abort module init.
+  // Browser is navigating away · abort module init.
   // (React, Sentry, PostHog all stay un-booted on the wrong origin.)
 } else {
   bootstrapConsent();
@@ -33,7 +33,7 @@ const sentryDsn = isLeaderCheck
   : process.env.REACT_APP_SENTRY_DSN_LEADER_OS;
 
 if (sentryDsn) {
-  // Sentry error tracking is always on (Art. 6(1)(f) DSGVO — legitimate
+  // Sentry error tracking is always on (Art. 6(1)(f) DSGVO · legitimate
   // interest in service stability, anonymized stacktraces, sendDefaultPii=false).
   // Session-Replay only activates when the user has explicitly consented.
   const integrations = [Sentry.browserTracingIntegration()];
@@ -46,7 +46,7 @@ if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
     environment: process.env.REACT_APP_SENTRY_ENV || "production",
-    // Release tag for deployment correlation — set REACT_APP_SENTRY_RELEASE
+    // Release tag for deployment correlation · set REACT_APP_SENTRY_RELEASE
     // in Vercel build env (e.g. `frontend@${VERCEL_GIT_COMMIT_SHA}`).
     // Falls back to a stable string so we never accidentally collapse
     // every release into the same "unknown" bucket.
@@ -73,7 +73,7 @@ const maybeInitPostHog = () => {
       autocapture: false,
       capture_pageview: true,
       persistence: "localStorage+cookie",
-      // No subdomain-shared cookies — the funnel deliberately spans
+      // No subdomain-shared cookies · the funnel deliberately spans
       // leader-os.de ↔ leaderos.de (and leader-check.de ↔ leadercheck.de),
       // which are different root domains. Cross-domain stitching happens
       // via the ph_did URL param (passed by ArchetypeQuiz CTA) and via
@@ -81,7 +81,7 @@ const maybeInitPostHog = () => {
       // is not a concern.
       cross_subdomain_cookie: false,
     });
-  }).catch(() => { /* network blocked / extension blocked — silent */ });
+  }).catch(() => { /* network blocked / extension blocked · silent */ });
 };
 
 if (analyticsConsented) maybeInitPostHog();

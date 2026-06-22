@@ -3,7 +3,7 @@ import { MessageSquareText } from 'lucide-react';
 const SUGGESTIONS_DE = [
   'Hilf mir, eine schwierige Botschaft überzeugend zu vermitteln',
   'Wie delegiere ich effektiver?',
-  'Mein Team ist demotiviert — was kann ich tun?',
+  'Mein Team ist demotiviert · was kann ich tun?',
   'Wie zeige ich mehr Empathie als Führungskraft?',
   'Ich muss eine unpopuläre Entscheidung durchsetzen',
   'Coach mich für mein nächstes Feedbackgespräch',
@@ -12,7 +12,7 @@ const SUGGESTIONS_DE = [
 const SUGGESTIONS_EN = [
   'Help me deliver a difficult message persuasively',
   'How do I delegate more effectively?',
-  'My team is demotivated — what can I do?',
+  'My team is demotivated · what can I do?',
   'How do I show more empathy as a leader?',
   'I need to push through an unpopular decision',
   'Coach me for my next feedback conversation',

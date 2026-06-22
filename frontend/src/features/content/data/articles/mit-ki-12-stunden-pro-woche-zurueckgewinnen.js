@@ -2,7 +2,7 @@ export default {
   slug: 'mit-ki-12-stunden-pro-woche-zurueckgewinnen',
   type: 'article',
   status: 'published',
-  title: 'Mit KI 12 Stunden pro Woche zurückgewinnen — die fünf Hebel.',
+  title: 'Mit KI 12 Stunden pro Woche zurückgewinnen · die fünf Hebel.',
   description:
     'Nicht über "KI macht mich effizienter". Sondern fünf konkrete Aufgaben ' +
     'die du an KI delegierst, mit genauen Zeit-Werten je Klient nach 30 Tagen.',
@@ -32,7 +32,7 @@ export default {
     { type: 'paragraph', text: 'Hier sind die fünf Hebel mit echten Zeit-Werten.' },
 
     { type: 'heading', level: 2, text: 'Hebel 01 · Email-Drafts (3-4 h / Woche).' },
-    { type: 'paragraph', text: 'Schwierige, lange, oder politisch sensible Emails: nicht selbst schreiben. Stichworte + Empfänger + Ziel in KI, lass drei Varianten generieren, pick eine, polier. 45 Min auf 8 Min. Multipliziert pro Tag — 3-4 Stunden Woche.' },
+    { type: 'paragraph', text: 'Schwierige, lange, oder politisch sensible Emails: nicht selbst schreiben. Stichworte + Empfänger + Ziel in KI, lass drei Varianten generieren, pick eine, polier. 45 Min auf 8 Min. Multipliziert pro Tag · 3-4 Stunden Woche.' },
 
     { type: 'heading', level: 2, text: 'Hebel 02 · Meeting-Vorbereitung (2-3 h / Woche).' },
     { type: 'paragraph', text: 'Vor jedem wichtigen Meeting: deine Agenda + Teilnehmer + Risiko in KI. Lass dir drei mögliche Verläufe simulieren und für jeden die kritischste Frage. 5 Minuten Vorbereitung pro Meeting, 60% weniger Stress.' },
@@ -48,7 +48,7 @@ export default {
 
     { type: 'framework', code: 'H·5', title: 'Die fünf Hebel in Stunden.', explanation: 'Email-Drafts 3-4 h · Meeting-Vorbereitung 2-3 h · Wissens-Verdichtung 2 h · Strategie-Stress-Test 1-2 h · Feedback-Reflexion 1 h. Median: 12 Stunden pro Woche zurückgewonnen. Was du mit der Zeit machst, ist deine Entscheidung. Was viele Klienten machen: pünktlicher Feierabend, mehr 1:1s mit Schlüsselleuten, ein neues strategisches Projekt das vorher kein Slot hatte.' },
 
-    { type: 'callout', tone: 'dark', text: 'Genau diese fünf Hebel sind die ersten fünf Drills im Sprint 0001. 30 Tage, täglich messbar. Im Schnitt haben Klienten nach Woche zwei den ersten 8-Stunden-Tag — und gehen pünktlich nach Hause. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'Genau diese fünf Hebel sind die ersten fünf Drills im Sprint 0001. 30 Tage, täglich messbar. Im Schnitt haben Klienten nach Woche zwei den ersten 8-Stunden-Tag · und gehen pünktlich nach Hause. Buch ein unverbindliches Beratungsgespräch.' },
   ],
   related: [
     'der-tag-an-dem-ich-aufhoerte-zu-pushen',

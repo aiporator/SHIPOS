@@ -1,5 +1,5 @@
 /**
- * PricingModal — Apple/Revolut-grade in-app pricing & Stripe checkout.
+ * PricingModal · Apple/Revolut-grade in-app pricing & Stripe checkout.
  *
  * Replaces the older PaywallModal upgrade UX. Shows all 4 packages
  * (Leadership OS one-time / 2× / 12× and OS PLUS) in a single elegant
@@ -11,7 +11,7 @@
  *      already wired to activate the tier and fire the welcome + receipt
  *      emails.
  *
- * Secondary CTA: cal.com Beratungsgespräch — same lime accent, no exit.
+ * Secondary CTA: cal.com Beratungsgespräch · same lime accent, no exit.
  */
 import { useState, useCallback } from 'react';
 import { X, CheckCircle2, Sparkles, Shield, ArrowRight, Loader2, Zap, Crown, Calendar, Lock } from 'lucide-react';
@@ -123,7 +123,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
       });
       const url = res?.data?.url;
       if (!url) throw new Error('Kein Checkout-Link erhalten');
-      // Open Stripe in same tab — safer than popup blocker issues; the
+      // Open Stripe in same tab · safer than popup blocker issues; the
       // success page restores state. No-op on transactional pages.
       window.location.assign(url);
     } catch (e) {
@@ -275,7 +275,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
           </div>
         )}
 
-        {/* Bottom alternate CTA — cal.com booking */}
+        {/* Bottom alternate CTA · cal.com booking */}
         <div className="px-6 md:px-8 py-5 border-t border-border bg-foreground/[0.02] flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="text-center md:text-left">
             <p className="text-[13px] font-bold text-foreground" style={OUTFIT}>

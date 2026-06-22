@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Target, MessagesSquare, Compass } from 'lucide-react';
 
 /**
- * FreeToolsSection — Free-Tools-Discovery für Leader die mit KI starten wollen.
+ * FreeToolsSection · Free-Tools-Discovery für Leader die mit KI starten wollen.
  *
  * Zweck: viraler Top-of-Funnel-Magnet. Jedes Tool ist ein eigenständiges
  * KI-Werkzeug das ohne Login funktioniert, gleichzeitig aber den User
@@ -67,7 +67,7 @@ const TOOLS = [
     subtitle: 'Frag Wlad. Direkt aus der Landing.',
     body:
       'Ein erster Geschmack auf den persönlichen KI-Coach. Stell deine ' +
-      'Frage zu Führung, KI-Routine oder Kommunikation — Antwort sofort.',
+      'Frage zu Führung, KI-Routine oder Kommunikation · Antwort sofort.',
     cta: 'Chat öffnen',
     isCustomEvent: 'leader-os:open-chat',
     badge: 'NEU',
@@ -178,7 +178,7 @@ export const FreeToolsSection = () => (
           <span className="text-brand not-italic">.</span>
         </h2>
         <p className="mt-6 text-[16px] md:text-[18px] leading-[1.6] text-foreground/70">
-          Vier kostenlose Werkzeuge die dich nicht nur testen — sie bringen dir
+          Vier kostenlose Werkzeuge die dich nicht nur testen · sie bringen dir
           direkt Wert. Mach den Archetyp-Check, finde deinen Hebel, frag den
           WladBot. Onboarding ohne Reibung. Wenn du tiefer willst, ist Leader-OS
           der nächste Schritt.

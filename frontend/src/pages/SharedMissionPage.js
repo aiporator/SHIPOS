@@ -1,5 +1,5 @@
 /**
- * SharedMissionPage — Public showcase of a user's video-mission analysis.
+ * SharedMissionPage · Public showcase of a user's video-mission analysis.
  *
  * Mert (Iter 92.23, P2): User können ihre besten Mission-Scores teilen.
  * URL Format: /m/{slug}
@@ -9,7 +9,7 @@
  *   2. Conversion: prominenter CTA "Jetzt selbst testen → Leader-OS"
  *   3. Authenticity: Username + Avatar, Wlad-Logo Watermark
  *
- * Public route — no auth required. Backend redacts PII (no full transcript).
+ * Public route · no auth required. Backend redacts PII (no full transcript).
  */
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -239,7 +239,7 @@ export default function SharedMissionPage() {
           )}
         </div>
 
-        {/* Final CTA — the conversion driver */}
+        {/* Final CTA · the conversion driver */}
         <Card className="border-0 bg-gradient-to-r from-[#BFFF00] to-[#A8E600] text-black overflow-hidden">
           <CardContent className="p-8 sm:p-10 text-center">
             <Trophy size={32} className="mx-auto mb-3" />

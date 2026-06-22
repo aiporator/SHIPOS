@@ -143,7 +143,7 @@ export default function DashboardPage() {
         {/* ── Event Reminder ── */}
         <EventReminderBanner de={de} />
 
-        {/* Wlad's Daily Motivation — click to hear Wlad speak via ElevenLabs */}
+        {/* Wlad's Daily Motivation · click to hear Wlad speak via ElevenLabs */}
         <div className="mb-5">
           <WladMotivationCard de={de} />
         </div>
@@ -151,7 +151,7 @@ export default function DashboardPage() {
         {/* ── Stat Cards Row ── */}
         <StatCardsRow aiReadiness={aiReadiness} learningPct={learningPct} c30={c30} de={de} />
 
-        {/* ── YOUR NEXT STEP (DOMINANT) — editorial Specimen-Card ── */}
+        {/* ── YOUR NEXT STEP (DOMINANT) · editorial Specimen-Card ── */}
         <Card className="surface-card card-lift mb-8 overflow-hidden" data-testid="next-step-cta" data-anim="dash-cta">
           <div className="flex items-center justify-between px-5 py-2.5 border-b border-border/40 text-[9.5px] font-bold uppercase tracking-[0.22em] text-muted-foreground font-mono">
             <span>▸ HEUTE · TAG {c30.current_day || '01'} / 30</span>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
                 <p className="text-[14px] text-muted-foreground mt-1.5 leading-relaxed">
                   {!c30.started
                     ? (de ? 'Starte deinen 30-Tage KI-Leadership Sprint und lerne die Grundlagen.' : 'Start your 30-day AI Leadership sprint and learn the fundamentals.')
-                    : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge — 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge — 10 interactive questions await.`)
+                    : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge · 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge · 10 interactive questions await.`)
                   }
                 </p>
               </div>

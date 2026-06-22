@@ -29,8 +29,8 @@ export default {
       'Frage: "Wie wird der Output-Change in sechs Wochen gemessen?" Wenn die Antwort "Selbst-Bericht" ist, scheitert das Training.',
       'Frage: "Bekomme ich Korrektur in unter 24 Stunden auf jeden Drill?" Wenn die Antwort "wir treffen uns wieder in zwei Wochen" ist, scheitert das Training.',
     ] },
-    { type: 'callout', tone: 'lime', text: 'Das ist keine Werbung für Leader-OS — das ist die ehrliche Markt-Realität. Frag jedes Training-Angebot die drei Tests durch, bevor du investierst.' },
-    { type: 'paragraph', text: 'Wenn du gerade entscheidest welches KI-Leadership-Training für dein Team passt: 30-Min-Beratung. Wir besprechen ehrlich was die 90-Prozent-Fallen sind und ob unser Setup zu deinem Team passt — oder nicht.' },
+    { type: 'callout', tone: 'lime', text: 'Das ist keine Werbung für Leader-OS · das ist die ehrliche Markt-Realität. Frag jedes Training-Angebot die drei Tests durch, bevor du investierst.' },
+    { type: 'paragraph', text: 'Wenn du gerade entscheidest welches KI-Leadership-Training für dein Team passt: 30-Min-Beratung. Wir besprechen ehrlich was die 90-Prozent-Fallen sind und ob unser Setup zu deinem Team passt · oder nicht.' },
   ],
   seo: {
     description: 'Drei Gründe warum 90 Prozent aller KI-Trainings scheitern: Theorie-Last, fehlender Tomorrow-Anker, falsche Messung. Die eine Variable die immer vorhanden ist.',

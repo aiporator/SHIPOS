@@ -39,9 +39,9 @@ export const AuthProvider = ({ children }) => {
       setSentryUser(res.data);
     } catch (err) {
       // Network error (backend unreachable, CORS blocked, offline) ≠ unauthorized.
-      // Don't clear cached user on network errors — let them keep browsing cached state.
+      // Don't clear cached user on network errors · let them keep browsing cached state.
       if (!err?.response) {
-        logger.warn('Network error during auth check — assuming offline, keeping cached user');
+        logger.warn('Network error during auth check · assuming offline, keeping cached user');
         setNetworkError(true);
       } else {
         logger.info('Auth check: no valid session');
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener('wladbot:network-error', handler);
   }, []);
 
-  // Proactive token refresh on tab focus — if the user has been away for >5 min,
+  // Proactive token refresh on tab focus · if the user has been away for >5 min,
   // silently refresh the access cookie BEFORE the page fires its parallel API calls.
   // Prevents the "7 transient 401s on dashboard mount" race that pollutes DevTools.
   //
@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
       logger.error('Logout request failed:', err?.message || err);
     }
     sessionStorage.removeItem('wladbot_user');
-    // NOTE: We do NOT call forgetAllLogins() on a normal logout — the user
+    // NOTE: We do NOT call forgetAllLogins() on a normal logout · the user
     // likely wants "Continue as me" on next visit. Only clear on explicit
     // "Forget all accounts" action from the security tab.
     setUser(null);

@@ -1,5 +1,5 @@
 /**
- * Article 5/10 — persona use case for engineering leaders.
+ * Article 5/10 · persona use case for engineering leaders.
  */
 export default {
   slug: 'leader-os-fuer-engineering-leitung',
@@ -17,7 +17,7 @@ export default {
   body: [
     { type: 'paragraph', text:
       'Engineering-Verantwortliche teilen ein Muster: technisch brillant, kommunikativ unterdimensioniert. ' +
-      'Nicht weil sie nicht reden können — sondern weil ihr Wachstum auf der technischen Spur kein Bedürfnis ' +
+      'Nicht weil sie nicht reden können · sondern weil ihr Wachstum auf der technischen Spur kein Bedürfnis ' +
       'für SEXIER, Drei Säulen oder ALPEN aufgebaut hat. Bis sie als VP plötzlich sechzig Leute führen.' },
     { type: 'heading', level: 2, text: 'Die drei häufigsten Reibungspunkte.' },
     { type: 'list', style: 'numbered', items: [

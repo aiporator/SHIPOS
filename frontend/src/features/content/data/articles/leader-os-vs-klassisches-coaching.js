@@ -1,5 +1,5 @@
 /**
- * Article 10/10 — competitive positioning vs classical coaching.
+ * Article 10/10 · competitive positioning vs classical coaching.
  */
 export default {
   slug: 'leader-os-vs-klassisches-coaching',
@@ -15,7 +15,7 @@ export default {
   tags: ['Leader-OS', 'Vergleich', 'Coaching'],
   body: [
     { type: 'paragraph', text:
-      'Wer Leader-OS bewertet, vergleicht es entweder mit ChatGPT (falsche Trennlinie — siehe "WladBot vs ' +
+      'Wer Leader-OS bewertet, vergleicht es entweder mit ChatGPT (falsche Trennlinie · siehe "WladBot vs ' +
       'ChatGPT vs Coach") oder mit klassischem 1:1-Coaching. Dieser zweite Vergleich ist der interessantere. ' +
       'Hier sind die echten Trennlinien.' },
     { type: 'heading', level: 2, text: 'Stelle 01: Verfügbarkeit.' },
@@ -32,7 +32,7 @@ export default {
     { type: 'heading', level: 2, text: 'Stelle 03: Output-Tracking.' },
     { type: 'paragraph', text:
       'Klassisches Coaching: kein systematisches Output-Tracking. Die meisten Coachees können nach drei ' +
-      'Monaten nicht klar sagen was sich verändert hat — sie haben das Gefühl, "klarer zu sein". Leader-OS: ' +
+      'Monaten nicht klar sagen was sich verändert hat · sie haben das Gefühl, "klarer zu sein". Leader-OS: ' +
       'Diagnose-Score am Anfang, Diagnose-Score am Ende, B-W-W-Reflex-Zeit messbar, Drill-Cases mit Pre/Post-' +
       'Vergleich. Ein Coachee weiß was sich verändert hat.' },
     { type: 'callout', tone: 'lime', text:
@@ -55,12 +55,12 @@ export default {
     { type: 'heading', level: 2, text: 'Drei häufige Fehlentscheidungen.' },
     { type: 'list', style: 'numbered', items: [
       'Coaching für Skill-Wiederholung kaufen. Du verbrennst Geld auf Stunden, die mit einem Drill-Tool besser bedient wären.',
-      'Leader-OS für Identitäts-Arbeit nutzen. Du wirst eine Lücke spüren — das Werkzeug ist nicht dafür gebaut.',
+      'Leader-OS für Identitäts-Arbeit nutzen. Du wirst eine Lücke spüren · das Werkzeug ist nicht dafür gebaut.',
       'Beides parallel ohne Koordination buchen. Coach und Sprint laufen aneinander vorbei, beides verliert an Schärfe.',
     ] },
     { type: 'paragraph', text:
       'Wenn du gerade entscheidest, ob für dich Sprint, Coach oder Plus-Plus passt: 30-Min-Beratung kostet ' +
-      'dich nichts und liefert dir eine ehrliche Empfehlung. Kein Verkaufs-Druck — wir empfehlen explizit auch ' +
+      'dich nichts und liefert dir eine ehrliche Empfehlung. Kein Verkaufs-Druck · wir empfehlen explizit auch ' +
       'Coach oder gar kein Tool, wenn das die richtige Antwort ist.' },
   ],
   seo: {

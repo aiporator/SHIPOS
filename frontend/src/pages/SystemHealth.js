@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import api from '../lib/api';
 
 /**
- * SystemHealth — Live-Provider-Status-Dashboard für /system.
+ * SystemHealth · Live-Provider-Status-Dashboard für /system.
  *
  * Liest /api/monitoring/system und rendert jeden Subsystem-Status als
  * Specimen-Card im editorial-DNA: Mono-Eyebrow, BIB-Code, Lime-Punkt,
  * Status-Pill in einer von drei Farben:
- *   GO       lime — native Provider läuft
- *   DEGRADED amber — Legacy-Pfad oder Fallback aktiv
- *   DOWN     rot — keine Konfiguration, Aufrufe failen
+ *   GO       lime · native Provider läuft
+ *   DEGRADED amber · Legacy-Pfad oder Fallback aktiv
+ *   DOWN     rot · keine Konfiguration, Aufrufe failen
  *
- * Public, kein Auth-Gate — die Daten enthalten keine Keys, nur
+ * Public, kein Auth-Gate · die Daten enthalten keine Keys, nur
  * Provider-Namen und einen Hinweistext.
  */
 

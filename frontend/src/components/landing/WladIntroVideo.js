@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * WladIntroVideo — Selbst-gehostetes Wlad-Intro mit eingeblendetem
+ * WladIntroVideo · Selbst-gehostetes Wlad-Intro mit eingeblendetem
  * Text-Overlay und Outro-Card.
  *
  * Verhalten:

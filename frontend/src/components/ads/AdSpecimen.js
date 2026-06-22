@@ -1,14 +1,14 @@
 import { AD_PALETTES } from '../../data/contentAds';
 
 /**
- * AdSpecimen — Netflix-Bites-DNA für Leader-OS-Werbeflächen.
+ * AdSpecimen · Netflix-Bites-DNA für Leader-OS-Werbeflächen.
  *
  * Komposition pro Tile:
  *   - voller Hintergrund in `palette.bg` (gesättigte Brand-Farbe)
  *   - 1 Portrait-Foto, gecroppt auf full-bleed mit `object-cover`
  *   - oben links: 2-zeilige TRACKED UPPERCASE Headline in `palette.hi`
  *   - unten: zweite Headline + Datum/CTA-Strip + URL
- *   - Tracking 0.02em, Weight 900, Font Outfit (kein Italic — Ads
+ *   - Tracking 0.02em, Weight 900, Font Outfit (kein Italic · Ads
  *     sollen lauter sein als die editorial-Specimen).
  *
  * Drei Aspect-Ratios:
@@ -111,7 +111,7 @@ export const AdSpecimen = ({ ad, scale = 0.4 }) => {
             size={subSize}
           />
 
-          {/* MITTE: ggf. Logo / Watermark — bewusst leer für Foto-Atmung */}
+          {/* MITTE: ggf. Logo / Watermark · bewusst leer für Foto-Atmung */}
           <div />
 
           {/* BOTTOM: Haupt-Title + Strip */}

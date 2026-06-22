@@ -1,5 +1,5 @@
 /**
- * Premium 5-Page Leadership Report Generator — WladBot Leader OS
+ * Premium 5-Page Leadership Report Generator · WladBot Leader OS
  * Generates professional downloadable HTML reports with full German support
  */
 export async function downloadHTMLReport({ title, subtitle, date, sections, scores, footer, analysis, challenge, userName }) {
@@ -35,7 +35,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
     if (analysis.framework_feedback) {
       extendedHTML += `
         <div class="page-break"></div>
-        <div class="page-header">Seite 2 — Framework-Analyse</div>
+        <div class="page-header">Seite 2 · Framework-Analyse</div>
         <h2>Wlads 3-Säulen-Bewertung</h2>
         <div class="framework-grid">
           ${[
@@ -61,7 +61,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
       const sa = analysis.speech_analysis;
       extendedHTML += `
         <div class="page-break"></div>
-        <div class="page-header">Seite 3 — Sprachanalyse</div>
+        <div class="page-header">Seite 3 · Sprachanalyse</div>
         <h2>Detaillierte Sprachanalyse</h2>
         <div class="speech-stats">
           <div class="stat-item"><span class="stat-label">Sprechtempo</span><span class="stat-value">${sa.speech_pace || 'N/A'}</span></div>
@@ -76,7 +76,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
     // Page 4: Rewrite + Exercises
     extendedHTML += `
       <div class="page-break"></div>
-      <div class="page-header">Seite 4 — Optimierte Version & Übungen</div>
+      <div class="page-header">Seite 4 · Optimierte Version & Übungen</div>
     `;
     if (analysis.rewrite_suggestion) {
       extendedHTML += `<div class="section section-info"><h3>So hätte deine Rede klingen können</h3><p class="rewrite">"${analysis.rewrite_suggestion}"</p></div>`;
@@ -88,7 +88,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
     // Page 5: Personal Development Plan
     extendedHTML += `
       <div class="page-break"></div>
-      <div class="page-header">Seite 5 — Dein persönlicher Entwicklungsplan</div>
+      <div class="page-header">Seite 5 · Dein persönlicher Entwicklungsplan</div>
       <h2>Nächste Schritte</h2>
       <div class="section"><h3>Wlads Assessment</h3><p>${analysis.wlad_assessment || 'Keine Bewertung verfügbar.'}</p></div>
       ${analysis.improvement_vs_previous ? `<div class="section section-info"><h3>Fortschritt vs. vorherige Versuche</h3><p>${analysis.improvement_vs_previous}</p></div>` : ''}
@@ -114,7 +114,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title} — WladBot Report</title>
+<title>${title} · WladBot Report</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -170,7 +170,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
     <div class="meta">${userName ? `${userName} · ` : ''}${dateStr} · Powered by Wlad Jachtchenko Methodik</div>
   </div>
 
-  <div class="page-header">Seite 1 — Performance-Übersicht</div>
+  <div class="page-header">Seite 1 · Performance-Übersicht</div>
   <h2>Deine Scores</h2>
   ${scoreHTML}
   ${sectionsHTML}
@@ -192,7 +192,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
 
 /**
  * Render the given HTML in a hidden iframe, snapshot it via html2canvas,
- * and return a multi-page PDF download via jsPDF. Async — falls back to
+ * and return a multi-page PDF download via jsPDF. Async · falls back to
  * the legacy .html download on any error so users always get *something*.
  */
 async function generatePDFFromHTML(html, filename, fallbackBlob) {
@@ -206,7 +206,7 @@ async function generatePDFFromHTML(html, filename, fallbackBlob) {
 
     iframe = document.createElement('iframe');
     iframe.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:auto;border:0;visibility:hidden;';
-    // Using srcdoc (instead of legacy iframe injection methods) — safer, future-proof, no parser blocking.
+    // Using srcdoc (instead of legacy iframe injection methods) · safer, future-proof, no parser blocking.
     iframe.srcdoc = html;
     document.body.appendChild(iframe);
 

@@ -1,19 +1,19 @@
 import { ArrowRight, Bot, Layers, Target, Compass, Calendar, Users } from 'lucide-react';
 
 /**
- * PlatformValueSection — "Das bekommst du sofort von Leader-OS".
+ * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
  *
- * Sitzt VOR der ClassesRoadmapSection. Verkauft zuerst die Plattform —
+ * Sitzt VOR der ClassesRoadmapSection. Verkauft zuerst die Plattform ·
  * konkrete Deliverables, nicht den Identity-Shift. Die Klassen-Roadmap
  * danach wird zum "und so geht's weiter"-Bonus.
  *
  * Sechs Plattform-Features mit BIB-Codes (P·01 bis P·06), jeweils mit
  * Icon, einer harten Headline und der ehrlichen Begründung, warum es
- * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets — die
+ * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets · die
  * Plattform ist das was du AB TAG 1 in der Hand hast.
  *
  * Closing-CTA-Strip bündelt die Charter-Konditionen (30 Tage + 12 Monate)
- * + Preis + Button — damit der Übergang in den Sprint-Kauf einlippig ist.
+ * + Preis + Button · damit der Übergang in den Sprint-Kauf einlippig ist.
  */
 
 const FEATURES = [
@@ -24,7 +24,7 @@ const FEATURES = [
     headline: 'Dein KI-Sparring-Partner.',
     body:
       'Trainiert auf Wlads Methodik aus 400 000 Coachings. Verfügbar ' +
-      'um 23 Uhr wenn du eine harte Antwort für morgen früh brauchst — ' +
+      'um 23 Uhr wenn du eine harte Antwort für morgen früh brauchst · ' +
       'oder vor jedem schwierigen Mitarbeitergespräch.',
     proof: 'IM SCHNITT 8 ANFRAGEN / KLIENT / WOCHE',
   },
@@ -35,7 +35,7 @@ const FEATURES = [
     headline: 'Die kompletten Methoden.',
     body:
       'B·W·W, Harvard-Verhandlung, Schulz von Thun, ALPEN, 5-Rollen, ' +
-      'Dunkle Rhetorik erkennen — die SPIEGEL-Bestseller-Frameworks als ' +
+      'Dunkle Rhetorik erkennen · die SPIEGEL-Bestseller-Frameworks als ' +
       'drillbare Library mit echten Fall-Skripten.',
     proof: '40+ STUNDEN VIDEO · 200+ SKRIPTE',
   },
@@ -46,7 +46,7 @@ const FEATURES = [
     headline: '15 Minuten am echten Fall.',
     body:
       'Kein Theorie-Bingo. Jeden Tag eine konkrete Übung an deiner ' +
-      'aktuellen Situation — Mitarbeitergespräch, Townhall, Konflikt. ' +
+      'aktuellen Situation · Mitarbeitergespräch, Townhall, Konflikt. ' +
       'Output-fokussiert, von Wlad kuratiert.',
     proof: '30 DRILLS IM SPRINT · 365 ÜBER 12 MONATE',
   },
@@ -162,7 +162,7 @@ export const PlatformValueSection = () => (
         <div className="md:col-span-4 md:pb-4">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/72">
             Sechs Module die ab Tag 1 in deiner Tasche sind. Kein Drip-Feed,
-            kein "freischalten in Monat 3" — alles sofort. 30 Tage intensiv
+            kein "freischalten in Monat 3" · alles sofort. 30 Tage intensiv
             mit Wlad, danach 12 Monate Plattform.
           </p>
         </div>
@@ -173,7 +173,7 @@ export const PlatformValueSection = () => (
         {FEATURES.map((f) => <FeatureCard key={f.bib} feature={f} />)}
       </div>
 
-      {/* Charter-CTA strip — bundles 30 Tage + 12 Monate + 997€ + Button */}
+      {/* Charter-CTA strip · bundles 30 Tage + 12 Monate + 997€ + Button */}
       <div className="mt-14 md:mt-16 bg-black text-white border-2 border-black p-7 md:p-10">
         <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center">
           <div className="md:col-span-8">

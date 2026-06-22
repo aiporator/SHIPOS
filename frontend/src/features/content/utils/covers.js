@@ -1,5 +1,5 @@
 /**
- * Cover-resolver — Players'-Tribune-style editorial photography for every
+ * Cover-resolver · Players'-Tribune-style editorial photography for every
  * article, even when the article itself has no `cover` field yet.
  *
  * Strategy: pick from a curated pool of Unsplash editorial photos, bucketed
@@ -7,18 +7,18 @@
  * the photo inside the bucket is chosen by a deterministic hash of the
  * article slug so the same article always shows the same cover.
  *
- * The pool URLs are Unsplash's CDN with width/quality params — hotlink-safe,
+ * The pool URLs are Unsplash's CDN with width/quality params · hotlink-safe,
  * fast (auto-format=avif/webp where supported), and crop-aware via fit=crop.
  * If you ever want to override one article: set `cover: '/path/to/file.jpg'`
  * on the article record and `resolveCover()` will return that path verbatim.
  */
 import { categoryForArticle } from '../data/taxonomy';
 
-// Curated editorial photo pool. Each entry is the Unsplash photo ID — we
+// Curated editorial photo pool. Each entry is the Unsplash photo ID · we
 // render the full CDN URL at request time. Keep ~6 per bucket so the same
 // photo doesn't repeat on a single category section.
 const POOL = {
-  // KI-Praxis — abstract tech, light/dark code, dim AI imagery
+  // KI-Praxis · abstract tech, light/dark code, dim AI imagery
   'C-01': [
     '1677442136019-21780ecad995', // soft neural abstract
     '1620712943543-bcc4688e7485', // dark monitor light
@@ -27,7 +27,7 @@ const POOL = {
     '1591453089816-0fbb971b454c', // glowing data stream
     '1639762681485-074b7f938ba0', // editorial chatgpt-style
   ],
-  // Methoden & Frameworks — editorial business, notebooks, hands at work
+  // Methoden & Frameworks · editorial business, notebooks, hands at work
   'C-02': [
     '1517048676732-d65bc937f952', // boardroom hands meeting
     '1454165804606-c3d57bc86b40', // notebook desk pencil
@@ -36,7 +36,7 @@ const POOL = {
     '1556761175-5973dc0f32e7',    // architectural office, dark
     '1542744173-8e7e53415bb0',    // executive notes
   ],
-  // Rhetorik & Kommunikation — speakers, microphones, conferences, faces
+  // Rhetorik & Kommunikation · speakers, microphones, conferences, faces
   'C-03': [
     '1505373877841-8d25f7d46678', // speaker on stage
     '1475721027785-f74eccf877e2', // microphone close
@@ -45,7 +45,7 @@ const POOL = {
     '1559523182-a284c3fb7cff',    // single mic in light
     '1591115765373-5207764f72e4', // contemplative debate
   ],
-  // Rollen & Karriere — portraits, contemplative, identity
+  // Rollen & Karriere · portraits, contemplative, identity
   'C-04': [
     '1507003211169-0a1dd7228f2d', // portrait man window light
     '1573497019940-1c28c88b4f3e', // portrait woman editorial
@@ -54,7 +54,7 @@ const POOL = {
     '1500648767791-00dcc994a43e', // portrait monochrome
     '1521119989659-a83eee488004', // portrait standing window
   ],
-  // Plattform & Klasse 0001 — products, screens, architecture, sets
+  // Plattform & Klasse 0001 · products, screens, architecture, sets
   'C-05': [
     '1497366216548-37526070297c', // architecture corridor
     '1497366811353-6870744d04b2', // workspace minimal
@@ -78,8 +78,8 @@ function hash(slug) {
 /**
  * Resolve a cover URL for an article.
  *
- * @param {object} article — registry article record
- * @param {'wide'|'square'|'portrait'|'lead'} [shape] — controls width/ratio
+ * @param {object} article · registry article record
+ * @param {'wide'|'square'|'portrait'|'lead'} [shape] · controls width/ratio
  * @returns {string} CDN URL
  */
 export function resolveCover(article, shape = 'wide') {
@@ -102,7 +102,7 @@ export function resolveCover(article, shape = 'wide') {
 }
 
 /**
- * Convenience: a low-res blurred placeholder for the same photo —
+ * Convenience: a low-res blurred placeholder for the same photo ·
  * useful as a CSS background-image while the main img loads.
  */
 export function resolveCoverPlaceholder(article) {

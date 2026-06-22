@@ -10,13 +10,13 @@ import { applySeoToDocument } from '../utils/seo';
 import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
 
 /**
- * JournalIndex — /journal · Newsroom-frontpage layout (godmode).
+ * JournalIndex · /journal · Newsroom-frontpage layout (godmode).
  *
- *   1. Masthead (two-tone serif logo + live ticker + side menu) —
+ *   1. Masthead (two-tone serif logo + live ticker + side menu) ·
  *      Off-Crypto / The Players' Tribune lovechild
  *   2. Front-page lede grid: big halftone-lime feature image (left) +
  *      dated news column (center) + Hot Stories sidebar (right)
- *   3. "Aus Wlad's Welt" news strip — Podcast / Bücher / Klasse-0001
+ *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Klasse-0001
  *      live-counter / Leadership-Summit · 4 quick-access tiles
  *   4. Funnel CTA breaks weaved in between category sections
  *   5. Per-category newspaper-style spreads (image + headlines)
@@ -57,7 +57,7 @@ const condensed = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// MASTHEAD — two-tone logo + live ticker + side menu
+// MASTHEAD · two-tone logo + live ticker + side menu
 // ─────────────────────────────────────────────────────────────────────────
 const TICKER = [
   { label: 'KLIENTEN', value: '400K+', tone: 'up' },
@@ -78,7 +78,7 @@ const Masthead = ({ totalArticles }) => (
     <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 pt-8 md:pt-10 pb-5">
       {/* Top row: logo + ticker + side menu */}
       <div className="grid grid-cols-12 gap-4 md:gap-6 items-start">
-        {/* Logo lockup — two-tone serif+sans  */}
+        {/* Logo lockup · two-tone serif+sans  */}
         <Link to="/" className="col-span-12 md:col-span-5 flex items-baseline gap-0 group" data-testid="journal-logo">
           <span
             className="text-[56px] sm:text-[72px] md:text-[84px] lg:text-[96px] leading-[0.85] text-brand-strong"
@@ -94,7 +94,7 @@ const Masthead = ({ totalArticles }) => (
           </span>
         </Link>
 
-        {/* Ticker bar — newsroom data-stats */}
+        {/* Ticker bar · newsroom data-stats */}
         <div className="col-span-12 md:col-span-5 grid grid-cols-3 md:grid-cols-3 gap-x-4 gap-y-3 pt-1 md:pt-2 md:pl-4 md:border-l border-foreground/15">
           {TICKER.slice(0, 6).map((t) => (
             <div key={t.label} className="leading-tight">
@@ -134,7 +134,7 @@ const Masthead = ({ totalArticles }) => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// FRONT-PAGE LEDE — feature image (left, halftone lime) + dated headlines
+// FRONT-PAGE LEDE · feature image (left, halftone lime) + dated headlines
 // (center) + Hot Stories sidebar (right)
 // ─────────────────────────────────────────────────────────────────────────
 const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
@@ -152,7 +152,7 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
         </div>
 
         <div className="grid grid-cols-12 gap-6 md:gap-10">
-          {/* LEFT: Feature column — halftone-lime image + headline */}
+          {/* LEFT: Feature column · halftone-lime image + headline */}
           <article className="col-span-12 md:col-span-5">
             <Link
               to={`/journal/${featureArticle.slug}`}
@@ -253,13 +253,13 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// AUS WLAD'S WELT — News-strip mit 4 quick-access tiles
+// AUS WLAD'S WELT · News-strip mit 4 quick-access tiles
 // (Podcast · Bücher · Klasse-0001-Counter · Leadership-Summit)
 // ─────────────────────────────────────────────────────────────────────────
 const FROM_WLAD = [
   {
     label: 'PODCAST',
-    title: 'Wlad spricht — Folge der Woche.',
+    title: 'Wlad spricht · Folge der Woche.',
     description: 'KI x Führung. Neue Folge jeden Mittwoch. 10M+ Downloads in 20 Ländern.',
     cta: 'Podcast hören',
     to: 'https://podcast.wladjachtchenko.de',
@@ -361,7 +361,7 @@ const FromWladStrip = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// CATEGORY SECTION — newspaper-style spread
+// CATEGORY SECTION · newspaper-style spread
 // ─────────────────────────────────────────────────────────────────────────
 const SplitCard = ({ article, imageOnRight = true }) => {
   const cover = resolveCover(article, 'wide');
@@ -527,7 +527,7 @@ const DiagnoseCTA = () => (
             Welcher KI-Leader bist du wirklich?
           </h3>
           <p className="mt-5 max-w-xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-            30 Fragen. 10 Minuten. Drei Dimensionen — KI, Rhetorik, EQ.
+            30 Fragen. 10 Minuten. Drei Dimensionen · KI, Rhetorik, EQ.
             Sofort dein Score plus konkreter Lernpfad, abgestimmt auf
             Wlads Methodik und deinen aktuellen Rollen-Übergang.
             Kein Login. Kein Spam.
@@ -555,7 +555,7 @@ const ArchetypTeaserCTA = () => (
             ▸ Zwischenstopp · Diagnose
           </div>
           <h3 className="text-[30px] md:text-[48px] leading-[1.02] text-foreground" style={serifItalic}>
-            Bevor du weiterliest — kennst du deinen Archetyp?
+            Bevor du weiterliest · kennst du deinen Archetyp?
           </h3>
         </div>
         <div className="md:col-span-5 md:text-right">
@@ -582,7 +582,7 @@ const KlasseCTA = () => (
           <p className="mt-5 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-black/75">
             Oder du machst es weiter wie bisher. Beides hat einen Preis.
             Selbstbewusst dein Team führen, souverän und schlagfertig in
-            herausfordernden Situationen — ohne Selbstzweifel, Gedankenkarussell
+            herausfordernden Situationen · ohne Selbstzweifel, Gedankenkarussell
             oder unnötige Überstunden. 400 000+ zufriedene Klienten in 20 Ländern.
           </p>
         </div>
@@ -600,7 +600,7 @@ const KlasseCTA = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// NewsFeedStrip — kuratierte DACH-News (KI · Führung · Jobmarkt)
+// NewsFeedStrip · kuratierte DACH-News (KI · Führung · Jobmarkt)
 // 3 Buckets · 13 Items · wöchentliches Update
 // ─────────────────────────────────────────────────────────────────────────
 const NewsItemRow = ({ item }) => {
@@ -685,7 +685,7 @@ const NewsFeedStrip = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// FreeToolsStrip — Lead-Magnet Mini-Tools die wirklich Wert liefern
+// FreeToolsStrip · Lead-Magnet Mini-Tools die wirklich Wert liefern
 // ─────────────────────────────────────────────────────────────────────────
 const FREE_TOOLS = [
   {
@@ -700,13 +700,13 @@ const FREE_TOOLS = [
   },
   {
     code: 'T·02',
-    icon: Compass,
-    title: 'Quick-Check · 60 Sek',
-    body: '5 Fragen, Score sofort, dein Archetyp + nächster konkreter Schritt. Pfad zur 10-Min-Diagnose und leaderos.de Account.',
-    cta: 'Quick-Check starten',
-    href: '/quick-check',
+    icon: MessagesSquare,
+    title: 'Feldnotizen-Newsletter',
+    body: 'Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle paar Wochen. Frameworks, Skripte, Beobachtungen. Kein Spam.',
+    cta: 'Newsletter abonnieren',
+    href: '/#newsletter-footer',
     external: false,
-    badge: 'NEU',
+    badge: 'WLAD INSIDE',
   },
   {
     code: 'T·03',
@@ -859,7 +859,7 @@ export default function JournalIndex() {
     return applySeoToDocument({
       title: 'Feldnotizen · Das KI-Leadership Magazin · Wlad Jachtchenko',
       description:
-        'Newsroom für KI-natives Führen — Frameworks, Skripte, Field-Notes aus ' +
+        'Newsroom für KI-natives Führen · Frameworks, Skripte, Field-Notes aus ' +
         'Wlad Jachtchenkos Arbeit mit 400 000+ Klienten. Podcast, Bücher, ' +
         'Klasse 0001, Leadership-Summit.',
       canonical: 'https://leader-os.de/journal',

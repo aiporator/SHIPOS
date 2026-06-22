@@ -2,7 +2,7 @@ export default {
   slug: 'townhall-speeches-die-7-minuten-regel',
   type: 'article',
   status: 'published',
-  title: 'Townhall-Rede — die 7-Minuten-Regel die alles ändert.',
+  title: 'Townhall-Rede · die 7-Minuten-Regel die alles ändert.',
   description:
     'Warum jede Townhall die länger als 7 Minuten pro Sprecher dauert, verloren ' +
     'ist. Plus das Drei-Akt-Skript aus 200+ live geführten Townhalls.',
@@ -39,9 +39,9 @@ export default {
     { type: 'paragraph', text: 'Maximal DREI Botschaften. Mehr verkraftet niemand. Jede in zwei Sätzen + ein konkretes Beispiel. Keine Quartals-Slides, keine Zahlen-Massengräber. Drei Aussagen die im Kopf bleiben.' },
 
     { type: 'heading', level: 2, text: 'Akt 03 · 2 Minuten · der Call.' },
-    { type: 'paragraph', text: 'Was sollen die Leute MORGEN konkret tun? Wenn deine Townhall nicht in einem klaren "morgen früh ist es das…" endet, war sie keine Townhall — war Informations-Erguss. Konkretester möglicher Aufruf zur Handlung, idealerweise mit einem konkreten Termin.' },
+    { type: 'paragraph', text: 'Was sollen die Leute MORGEN konkret tun? Wenn deine Townhall nicht in einem klaren "morgen früh ist es das…" endet, war sie keine Townhall · war Informations-Erguss. Konkretester möglicher Aufruf zur Handlung, idealerweise mit einem konkreten Termin.' },
 
-    { type: 'framework', code: 'T·7', title: 'Die 7-Minuten-Townhall.', explanation: 'Total: 7 Minuten Sprecher-Zeit. Akt 1 Hook (2 Min). Akt 2 drei Botschaften (3 Min). Akt 3 Call (2 Min). Danach Q&A — 15-20 Minuten. Wer länger als 7 Minuten am Stück sprechen will, hat zu wenig vorbereitet, nicht zu viel zu sagen. Üben mit Stoppuhr. Das ist Drill, nicht Talent.' },
+    { type: 'framework', code: 'T·7', title: 'Die 7-Minuten-Townhall.', explanation: 'Total: 7 Minuten Sprecher-Zeit. Akt 1 Hook (2 Min). Akt 2 drei Botschaften (3 Min). Akt 3 Call (2 Min). Danach Q&A · 15-20 Minuten. Wer länger als 7 Minuten am Stück sprechen will, hat zu wenig vorbereitet, nicht zu viel zu sagen. Üben mit Stoppuhr. Das ist Drill, nicht Talent.' },
 
     { type: 'callout', tone: 'dark', text: 'In Klasse 0001 üben die ersten 5 Klienten ihre eigenen Townhalls mit WladBot als Test-Audience. Sprich, KI hört zu, gibt Feedback in Wlads Ton. Bis Minute 7 sitzt, dauert im Schnitt 12 Drill-Sessions. Buch ein unverbindliches Beratungsgespräch.' },
   ],

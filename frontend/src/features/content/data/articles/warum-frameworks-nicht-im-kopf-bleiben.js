@@ -105,9 +105,9 @@ export default {
       type: 'list',
       style: 'bullet',
       items: [
-        'Lesen fühlt sich an wie verstehen — es ist Wiedererkennen.',
+        'Lesen fühlt sich an wie verstehen · es ist Wiedererkennen.',
         'Abrufen entsteht durch dreißig wiederholte Anwendungen, nicht durch ein neues Buch.',
-        'Generische Modelle treffen keinen Townhall — geübte Skripte schon.',
+        'Generische Modelle treffen keinen Townhall · geübte Skripte schon.',
         'Verfügbarkeit ist die unterschätzte Dimension. Coach um 22:47 Uhr oder nichts.',
       ],
     },
