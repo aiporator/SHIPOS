@@ -29,7 +29,7 @@ jobs:
     name: RAG match threshold lives only in services_rag.py
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: enforce single source
         run: |
           set -euo pipefail
@@ -61,7 +61,7 @@ jobs:
     name: Voyage embedding model name lives only in services_rag.py
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: enforce single source
         run: |
           set -euo pipefail
