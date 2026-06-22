@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 /**
  * ClassScarcityBanner — top-of-page editorial scarcity strip.
  *
- * Klasse 0001 startet, nur 50 Plätze, echte Scarcity statt
+ * Klasse 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
  * fake-urgency. Seat-count tickt langsam runter über die Zeit,
  * persistent in localStorage damit der Wert nicht bei jedem Reload
  * zurückspringt. Dismissible per Session.
@@ -14,10 +14,10 @@ import { useEffect, useState } from 'react';
  * adding signal and reads as AI-SaaS chrome).
  */
 
-const STORAGE_SEATS = 'leaderos_class_0001_seats';
+const STORAGE_SEATS = 'leaderos_class_0001_seats_v2';
 const STORAGE_DISMISS = 'leaderos_class_0001_dismissed';
-const INITIAL_SEATS = 50;
-const FLOOR_SEATS = 12;
+const INITIAL_SEATS = 30;
+const FLOOR_SEATS = 8;
 
 const computeSeatsRemaining = () => {
   try {
@@ -32,8 +32,10 @@ const computeSeatsRemaining = () => {
 
   const LAUNCH_ANCHOR = Date.parse('2026-06-19T06:00:00+02:00');
   const hoursElapsed = Math.max(0, (Date.now() - LAUNCH_ANCHOR) / (1000 * 60 * 60));
-  const decayPhase1 = Math.min(hoursElapsed, 50) / 6;
-  const decayPhase2 = Math.max(0, hoursElapsed - 50) / 24;
+  // Phase 1 (first 30 h): ~1 seat / 6 h.  Phase 2 (afterwards): 1 / 24 h.
+  // With INITIAL_SEATS=30, this hits FLOOR_SEATS=8 after ~270 h ≈ 11 days.
+  const decayPhase1 = Math.min(hoursElapsed, 30) / 6;
+  const decayPhase2 = Math.max(0, hoursElapsed - 30) / 24;
   const decay = Math.floor(decayPhase1 + decayPhase2);
   const seats = Math.max(FLOOR_SEATS, INITIAL_SEATS - decay);
 
@@ -65,7 +67,7 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Erste Gruppe. Plätze begrenzt."
+      aria-label="Klasse 0001. Plätze begrenzt."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
@@ -76,7 +78,7 @@ export const ClassScarcityBanner = () => {
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          ERSTE GRUPPE
+          KLASSE 0001
         </span>
 
         {/* Mono hairline separator */}
@@ -85,7 +87,7 @@ export const ClassScarcityBanner = () => {
         {/* Inline scarcity line */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
           Nur <span className="text-brand font-black tabular-nums">{seats}</span>
-          <span className="text-white/55"> von 50 Plätzen frei</span>
+          <span className="text-white/55"> von 30 Charter-Plätzen frei</span>
         </p>
 
         {/* Inline CTA, mono uppercase, integral part of the strip rather than a button */}
