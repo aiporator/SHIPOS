@@ -198,7 +198,7 @@ export const LeadCaptureModal = () => {
         {/* Specimen header */}
         <div className="flex items-center justify-between px-7 md:px-9 pt-6 pb-3 mb-0 border-b border-foreground/12">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55 font-mono">
-            ERSTE GRUPPE · NUR 50 PLÄTZE
+            KLASSE 0001 · NUR 30 CHARTER-PLÄTZE
           </span>
           <button
             onClick={close}

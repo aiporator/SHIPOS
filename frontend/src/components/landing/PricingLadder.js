@@ -38,7 +38,7 @@ const TIERS = [
     duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
     price: '997 €',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
-    scarcity: 'Erste Gruppe · 43 von 50 Plätzen frei',
+    scarcity: 'Klasse 0001 · 12 von 30 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
@@ -272,7 +272,7 @@ export const PricingLadder = () => {
       <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
         <div className="md:col-span-7">
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-            ▸ DIE LEITER · SPRINT BIS AI OWNERSHIP
+            ▸ DIE LEITER · DIAGNOSE · SPRINT · PLUS-PLUS
           </p>
           <h2
             className="leading-[0.9] tracking-[-0.04em] text-black"

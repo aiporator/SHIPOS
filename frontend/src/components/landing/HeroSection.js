@@ -58,7 +58,7 @@ export const HeroSection = () => (
       aria-hidden
       className="hidden md:block absolute top-3 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
     >
-      [ SPRINT · 997 € · DIAGNOSE FREE ]
+      [ SPRINT 997 € · 30 TAGE + 12 MONATE · DIAGNOSE FREE ]
     </div>
 
     {/* Background-W — Heron-Preston editorial ghost letterform.

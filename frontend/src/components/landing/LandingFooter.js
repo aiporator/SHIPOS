@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { EmailCapture } from '../../features/newsletter';
+import { WladMark } from '../brand/WladMark';
 
 /**
  * LandingFooter — comprehensive newsroom-style sitemap.
@@ -106,24 +107,12 @@ export const LandingFooter = () => (
       <div className="grid md:grid-cols-12 gap-12 md:gap-14">
         {/* Brand block (kept) */}
         <div className="md:col-span-3">
-          <div className="flex items-center gap-4 mb-6">
-            <span
-              className="inline-flex items-center justify-center w-14 h-14 rounded-[18px] bg-brand text-black shadow-[0_10px_28px_-10px_rgba(191,255,0,0.55)]"
-              aria-label="Leader-OS"
-            >
-              <span
-                aria-hidden
-                className="text-[30px] leading-none"
-                style={{
-                  fontFamily: 'Outfit, Inter, sans-serif',
-                  fontWeight: 900,
-                  fontStyle: 'italic',
-                  letterSpacing: '-0.04em',
-                }}
-              >
-                W
-              </span>
-            </span>
+          <Link
+            to="/"
+            className="flex items-center gap-4 mb-6 group"
+            aria-label="Leader-OS Startseite"
+          >
+            <WladMark size={56} animated />
             <div>
               <div
                 className="text-[26px] font-black tracking-tight text-white leading-none"
@@ -135,7 +124,7 @@ export const LandingFooter = () => (
                 POWERED BY WLADBOT
               </div>
             </div>
-          </div>
+          </Link>
           <p className="max-w-xs text-[13.5px] leading-[1.55] text-white/55">
             Das Operating System für Führungskräfte, gebaut auf
             Wlad Jachtchenkos Methodik. Staatlich anerkannt. 400 000+
