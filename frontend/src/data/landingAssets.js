@@ -199,6 +199,8 @@ export const LANDING_BENEFITS = [
     cta: 'Sprint starten',
     href: 'https://leadercheck.de',
     variant: 'bib',
+    photo: local('hf-03.png'),
+    photoFit: 'cover',
   },
   {
     nr: '04',
@@ -271,6 +273,8 @@ export const LANDING_BENEFITS = [
     cta: 'Erstes Zertifikat freischalten',
     href: 'https://leadercheck.de',
     variant: 'cert',
+    photo: local('hf-06.png'),
+    photoFit: 'cover',
   },
   {
     nr: '07',
@@ -299,6 +303,8 @@ export const LANDING_BENEFITS = [
     cta: 'Mit Wlad starten',
     href: 'https://leadercheck.de',
     variant: 'voxel',
+    photo: local('hf-07.png'),
+    photoFit: 'cover',
   },
 ];
 
