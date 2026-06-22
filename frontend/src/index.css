@@ -799,3 +799,47 @@ html {
 [data-testid='dashboard-page'] {
   scroll-behavior: auto;
 }
+
+/* ─── Newsroom Halftone Lime Image Treatment ─────────────────
+   Used on /journal newspaper-style hero images. Renders the
+   photo as a desaturated halftone with a lime overlay, like
+   the "Off-Crypto" style green-tinted news lede. */
+.newsroom-halftone {
+  position: relative;
+  overflow: hidden;
+}
+.newsroom-halftone img {
+  filter: grayscale(1) contrast(1.18) brightness(0.92);
+}
+.newsroom-halftone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #2EBC75; /* deep lime-green for newsroom */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.newsroom-halftone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px);
+  background-size: 3.5px 3.5px;
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 1;
+}
+.newsroom-halftone--ink::after { background: #0A0A0A; opacity: 0.78; }
+.newsroom-halftone--ink::before { mix-blend-mode: screen; opacity: 0.22; }
+
+/* Subtle newsroom paper texture — applied to /journal body bg */
+.newsroom-paper {
+  background-color: #F7F5EF;
+  background-image:
+    radial-gradient(rgba(0,0,0,0.022) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,0.018) 1px, transparent 1px);
+  background-size: 4px 4px, 11px 11px;
+  background-position: 0 0, 2px 2px;
+}
