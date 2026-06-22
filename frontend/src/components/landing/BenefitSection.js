@@ -149,7 +149,8 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Photo card — natural 4:5 portrait, contained, halftone B&W
+// Photo card — natural 4:5 portrait, contained, GREEN-halftone treatment
+// (matches the modal/popup: grayscale → #2EBC75 multiply → radial-dot screen)
 // ─────────────────────────────────────────────────────────────────────────
 const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark }) => (
   <div
@@ -164,7 +165,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
         decoding="async"
         referrerPolicy="no-referrer"
         className={`absolute inset-0 w-full h-full ${photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover object-center'}`}
-        style={{ filter: 'grayscale(1) contrast(1.06) brightness(0.94)' }}
+        style={{ filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
         onError={(e) => {
           if (photoFallback && e.currentTarget.src !== photoFallback) e.currentTarget.src = photoFallback;
         }}
@@ -173,13 +174,23 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
       <div aria-hidden className="absolute inset-0 bg-foreground/[0.04]" />
     )}
 
-    {/* Halftone grain */}
+    {/* GREEN halftone — same recipe as the LeadCaptureModal portrait */}
     <div
       aria-hidden
-      className="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-50"
+      className="absolute inset-0 pointer-events-none"
       style={{
-        backgroundImage: 'radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1.2px)',
+        background: '#2EBC75',
+        mixBlendMode: 'multiply',
+      }}
+    />
+    <div
+      aria-hidden
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
         backgroundSize: '3.5px 3.5px',
+        mixBlendMode: 'screen',
+        opacity: 0.32,
       }}
     />
 
