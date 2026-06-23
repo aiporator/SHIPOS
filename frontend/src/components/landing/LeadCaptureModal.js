@@ -199,7 +199,7 @@ export const LeadCaptureModal = () => {
 
           {/* Body · 2-column on desktop, stacked on mobile */}
           <div className="grid md:grid-cols-12">
-            {/* LEFT · halftone-lime Wlad portrait + live scarcity */}
+            {/* LEFT · clean Wlad portrait + live scarcity */}
             <div className="md:col-span-5 relative bg-foreground/5 overflow-hidden order-1 md:order-1">
               <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-full md:min-h-[460px] overflow-hidden">
                 <img
@@ -207,27 +207,15 @@ export const LeadCaptureModal = () => {
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
                   alt="Wlad Jachtchenko"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_18%]"
-                  style={{ filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
                 />
-                {/* Lime multiply tint */}
+                {/* Bottom-only dark gradient for scarcity-card legibility · no
+                    color tint over Wlad himself. The natural portrait carries
+                    the editorial weight. */}
                 <div
                   aria-hidden
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
                   style={{
-                    background: '#2EBC75',
-                    mixBlendMode: 'multiply',
-                  }}
-                />
-                {/* Halftone screen */}
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(rgba(0,0,0,0.55) 1px, transparent 1.4px)',
-                    backgroundSize: '3.5px 3.5px',
-                    mixBlendMode: 'screen',
-                    opacity: 0.32,
+                    background: 'linear-gradient(to top, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 100%)',
                   }}
                 />
 
