@@ -29,28 +29,34 @@ const local = (file) => `/landing/${file}`;
 const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
-  title: 'Leader-OS · Sprint mit Wlad. Dein Führungs-OS in 30 Tagen.',
+  title: 'Leader-OS · Dein Führungs-OS. 14 Tage kostenlos testen.',
   description:
-    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. 30-Tage-Sprint plus ' +
-    '12 Monate Mitgliedschaft mit Wlad Jachtchenko. Klasse 0001 jetzt ' +
-    'offen, nur 30 Charter-Plätze. Starte mit der kostenlosen Diagnose.',
+    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. Wlad Jachtchenko · ' +
+    '3× SPIEGEL-Bestseller. 14 Tage kostenlos testen, ohne Karte, ' +
+    'ohne Risiko. Klasse 0001 jetzt offen.',
   url: 'https://leader-os.de',
-  slogan: 'Sprint mit Wlad.',
+  slogan: '14 Tage kostenlos.',
   // Kicker, gehört unter den ATF-Headline-Block.
-  kicker: 'Dreißig Tage. Elf Frameworks. Ein System, das wirkt.',
+  kicker: 'Elf Frameworks. Ein KI-Coach. Vierzehn Tage, ohne Karte.',
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
-    primary: { label: 'Diagnose starten', href: 'https://leadercheck.de' },
+    // Primary funnel-entry · 14-day trial on leaderos.de. The Sprint is
+    // promoted INSIDE the app after signup (email + dashboard upsell),
+    // not as the landing-page CTA. The diagnose is still available as
+    // a soft secondary path for visitors who want low-friction entry.
+    primary:   { label: 'Jetzt 14 Tage kostenlos testen', href: 'https://leaderos.de/signup?trial=14' },
     secondary: { label: 'Login', href: 'https://leaderos.de/login' },
+    diagnose:  { label: 'Diagnose · 10 Min', href: 'https://leadercheck.de' },
   },
-  // Pricing, bewusst leise. Erscheint nur in 3 dezenten Specimen-Strips
-  // (Hero-Corner, §07-Detail, FinalCTA-Investment-Line). Nirgends als
-  // Headline, nirgends als Riesen-Zahl. Der Wert soll vor dem Preis kommen.
+  // Pricing kept in the data for the one section that explicitly sells
+  // tiers (PricingLadder · further down the page) · the marketing
+  // landing itself never leads with a Euro figure anymore.
   pricing: {
+    trial:  { amount: '0', currency: '€', label: '14 TAGE KOSTENLOS' },
     sprint: { amount: '997', currency: '€', label: '30-TAGE-SPRINT' },
     os:     { amount: '4 797', currency: '€', label: 'OS · JAHR' },
-    note:   'Diagnose bleibt kostenlos.',
+    note:   'Erst testen. Dann entscheiden.',
   },
 };
 

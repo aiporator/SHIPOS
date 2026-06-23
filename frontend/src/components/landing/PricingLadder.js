@@ -16,6 +16,24 @@ import { useGsapScrollIn } from './motion/useGsapScrollIn';
 
 const TIERS = [
   {
+    id: 'trial',
+    eyebrow: '▸ KOSTENLOS · 14 TAGE',
+    name: 'Trial',
+    duration: '14 Tage · ohne Karte',
+    price: '0 €',
+    outcome: 'Voller Zugang · jederzeit kündbar',
+    bullets: [
+      'Komplette Leader-OS-Plattform',
+      'WladBot 24/7 in deiner Tasche',
+      'Elf Frameworks zum Ausprobieren',
+      'Kein Abo, keine Karte, kein Risiko',
+    ],
+    cta: '14 Tage kostenlos starten',
+    href: 'https://leaderos.de/signup?trial=14',
+    accent: true,
+    badge: '★ STARTE HIER',
+  },
+  {
     id: 'diagnose',
     eyebrow: '▸ KOSTENLOS · 10 MIN',
     name: 'Diagnose',
@@ -25,7 +43,7 @@ const TIERS = [
     bullets: [
       'KI-Diagnose in drei Dimensionen',
       '30 Fragen · 10 Minuten · ehrlich beantwortet',
-      'Sofort dein Score plus Empfehlung für Sprint-Start',
+      'Sofort dein Score plus Empfehlung',
     ],
     cta: 'Diagnose starten',
     href: 'https://leadercheck.de',
@@ -33,23 +51,24 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ 30-TAGE-SPRINT + 12-MONATE-MITGLIEDSCHAFT',
+    eyebrow: '▸ 30-TAGE-SPRINT · NACH TRIAL',
     name: 'Sprint',
     duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
     price: '997 €',
+    priceSub: 'erst nach deiner Trial-Phase',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
     scarcity: 'Klasse 0001 · 12 von 30 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
-      '12 Monate Mitgliedschaft inkludiert · voller Plattform-Zugang',
+      '12 Monate Mitgliedschaft inkludiert',
       'Tägliche Lernvideos · Wöchen-Drills',
       'Zertifikat für dein LinkedIn',
     ],
-    cta: 'Sprint kaufen · 30 Tage + 12 Monate',
-    href: 'https://leaderos.de/checkout?tier=sprint',
-    accent: true,
-    badge: '★ BELIEBT',
+    cta: 'Erst 14 Tage testen',
+    href: 'https://leaderos.de/signup?trial=14',
+    accent: false,
+    badge: 'AB TAG 15',
   },
   {
     id: 'plusplus',
@@ -135,7 +154,7 @@ const TIERS = [
 // Launch-Focus: Sprint + Plus-Plus + Diagnose nur. Mentoring + Enterprise
 // existieren weiter im Code für später (sales-anchor + B2B-pipeline), aber
 // auf der Landing erstmal versteckt · klares Funnel ohne Premium-Distraction.
-const VISIBLE_IDS = new Set(['diagnose', 'sprint', 'plusplus']);
+const VISIBLE_IDS = new Set(['trial', 'diagnose', 'sprint']);
 const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
 
 const TierCard = ({ tier }) => {
@@ -262,7 +281,7 @@ export const PricingLadder = () => {
   return (
   <section
     id="pricing"
-    aria-label="Preise: Sprint bis AI Ownership"
+    aria-label="Einstieg: 14 Tage Trial bis Sprint"
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black"
     data-testid="pricing-ladder"
   >
@@ -270,9 +289,9 @@ export const PricingLadder = () => {
 
       {/* Header */}
       <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
-        <div className="md:col-span-7">
+        <div className="md:col-span-7 text-center md:text-left">
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-            ▸ DIE LEITER · DIAGNOSE · SPRINT · PLUS-PLUS
+            ▸ DEIN EINSTIEG · TRIAL · DIAGNOSE · SPRINT
           </p>
           <h2
             className="leading-[0.9] tracking-[-0.04em] text-black"
@@ -283,17 +302,17 @@ export const PricingLadder = () => {
               fontSize: 'clamp(40px, 5.5vw, 88px)',
             }}
           >
-            Dein Pfad.<br />
-            <span className="text-black/55">In 30 Tagen</span>
+            Erst testen.<br />
+            <span className="text-black/55">Dann entscheiden</span>
             <span className="text-brand">.</span>
           </h2>
         </div>
-        <div className="md:col-span-5 md:pt-6">
+        <div className="md:col-span-5 md:pt-6 text-center md:text-left">
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
-            Diagnose zeigt dir wo du stehst. Sprint ist deine 30-Tage-Challenge plus
-            12 Monate Mitgliedschaft: elf Frameworks, tägliche Drills, WladBot 24/7,
-            voller Plattform-Zugang ein ganzes Jahr. Plus-Plus legt monatliche
-            Live-Sessions mit Wlad obendrauf. <span className="text-black font-bold">Sprint zuerst, immer.</span>
+            Vierzehn Tage. Ohne Karte. Voller Plattform-Zugang. WladBot 24/7,
+            elf Frameworks, alle Lernvideos. Erst wenn es für dich passt,
+            wandelst du in den 30-Tage-Sprint mit 12 Monate Mitgliedschaft.
+            <span className="text-black font-bold"> Trial zuerst, immer.</span>
           </p>
         </div>
       </div>
@@ -315,7 +334,7 @@ export const PricingLadder = () => {
 
       {/* Footnote */}
       <p className="mt-10 text-center text-[12px] font-mono uppercase tracking-[0.22em] text-black/45">
-        ▸ ALLE PREISE EINMALIG · OHNE ABO · 14 TAGE GELD-ZURÜCK AUF SPRINT
+        ▸ 14 TAGE KOSTENLOS · OHNE KARTE · JEDERZEIT KÜNDBAR
       </p>
     </div>
   </section>

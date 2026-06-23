@@ -266,34 +266,33 @@ export const LeadCaptureModal = () => {
             <div className="md:col-span-7 px-5 sm:px-7 md:px-8 py-6 md:py-7 order-2 md:order-2">
               <h2
                 id="lead-modal-title"
-                className="text-[32px] sm:text-[40px] md:text-[44px] leading-[0.92] tracking-[-0.04em] text-foreground"
+                className="text-[32px] sm:text-[40px] md:text-[44px] leading-[0.92] tracking-[-0.04em] text-foreground text-center md:text-left"
                 style={{
                   fontFamily: 'Outfit, Inter, sans-serif',
                   fontWeight: 900,
                   fontStyle: 'italic',
                 }}
               >
-                30 Tage<span className="text-brand-strong not-italic">.</span><br />
-                <span className="text-foreground/55">Neues Du</span>
+                14 Tage<span className="text-brand-strong not-italic">.</span><br />
+                <span className="text-foreground/55">Kostenlos</span>
                 <span className="text-brand-strong not-italic">.</span>
               </h2>
 
-              <p className="mt-3 text-[12px] font-bold uppercase tracking-[0.18em] text-brand-strong font-mono">
-                ▸ +12 MONATE MITGLIEDSCHAFT INKLUDIERT
+              <p className="mt-3 text-[12px] font-bold uppercase tracking-[0.18em] text-brand-strong font-mono text-center md:text-left">
+                ▸ KEINE KARTE · JEDERZEIT KÜNDBAR
               </p>
 
-              <p className="mt-4 text-[14px] md:text-[14.5px] leading-[1.55] text-foreground/75">
-                Erst die kostenlose <span className="text-foreground font-bold">10-Min-Diagnose</span> ·
-                KI · Rhetorik · EQ. Dann der 30-Tage Sprint, der genau das verändert
-                was im Score schwach war.{' '}
-                <span className="text-foreground font-bold">Mit 12 Monate Plattform-Mitgliedschaft, WladBot 24/7, 11 Frameworks.</span>
+              <p className="mt-4 text-[14px] md:text-[14.5px] leading-[1.55] text-foreground/75 text-center md:text-left">
+                Du loggst dich ein, du arbeitest mit dem System, du entscheidest.{' '}
+                <span className="text-foreground font-bold">11 Frameworks, WladBot 24/7, voller Plattform-Zugang</span> · vierzehn Tage lang.
+                Erst wenn es für dich passt, machst du weiter.
               </p>
 
-              {/* 3-Schritt BIB-Strip · KLAR "30T + 12M" inkl. Membership */}
+              {/* 3-Schritt BIB-Strip · klare Reihenfolge ohne Preis-Push */}
               <div className="mt-5 grid grid-cols-3 gap-2 border-y-2 border-foreground py-3.5">
                 {[
-                  { nr: '01', label: 'DIAGNOSE',   value: '10 MIN',   sub: 'KOSTENLOS' },
-                  { nr: '02', label: 'SPRINT',     value: '997 €',    sub: '30 T + 12 MO', highlight: true },
+                  { nr: '01', label: 'TRIAL',      value: '14 TAGE',  sub: 'KOSTENLOS', highlight: true },
+                  { nr: '02', label: 'COACH',      value: '24/7',     sub: 'WLADBOT' },
                   { nr: '03', label: 'ZERTIFIKAT', value: '0001',     sub: 'LINKEDIN' },
                 ].map(({ nr, label, value, sub, highlight }) => (
                   <div key={nr} className={`text-center px-1 py-1 ${highlight ? 'bg-brand/10 border border-brand' : ''}`}>
@@ -344,7 +343,7 @@ export const LeadCaptureModal = () => {
                   data-testid="lead-modal-submit"
                 >
                   <span className="flex items-center justify-center w-7 h-7 rounded-full bg-brand text-foreground group-hover:bg-foreground group-hover:text-brand text-base font-black leading-none transition-colors" aria-hidden>+</span>
-                  {submitting ? 'Wird gestartet…' : 'Diagnose starten · 10 Min'}
+                  {submitting ? 'Wird gestartet…' : '14 Tage kostenlos starten'}
                 </button>
               </form>
             </div>
@@ -356,7 +355,7 @@ export const LeadCaptureModal = () => {
               ['400K+', 'KLIENTEN'],
               ['3×',    'SPIEGEL-BESTSELLER'],
               ['20',    'LÄNDER'],
-              ['14',    'TAGE GELD-ZURÜCK'],
+              ['14',    'TAGE KOSTENLOS'],
             ].map(([big, small]) => (
               <div key={small} className="leading-tight">
                 <div className="font-mono text-[12px] font-bold text-brand tabular-nums">

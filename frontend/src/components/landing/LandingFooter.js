@@ -29,8 +29,8 @@ import { WladMark } from '../brand/WladMark';
 // Sitemap data
 // ─────────────────────────────────────────────────────────────────────────
 const COL_SYSTEM = [
-  { label: 'Sprint · 30 Tage + 12 Monate', to: '/#pricing' },
-  { label: 'Plus-Plus · OS-Jahr',          to: '/#pricing' },
+  { label: '14 Tage kostenlos testen',     href: 'https://leaderos.de/signup?trial=14', external: true, focal: true },
+  { label: 'Diagnose · 10 Min',            href: 'https://leadercheck.de', external: true },
   { label: 'WladBot · 24/7 Sparring',      to: '/#platform' },
   { label: '11 Frameworks',                to: '/#platform' },
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
@@ -318,15 +318,14 @@ export const LandingFooter = () => (
       <div className="mt-14 pt-6 border-t border-white/10 grid md:grid-cols-2 gap-6 md:gap-10 items-start">
         <div>
           <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] mb-3 font-mono text-brand">
-            ▸ INVESTITION
+            ▸ EINSTIEG
           </p>
           <p className="text-[14px] leading-[1.55] text-slate-300 max-w-md">
-            Diagnose <span className="text-brand font-bold">kostenlos</span> ·
-            30-Tage-Sprint + 12 Monate Mitgliedschaft{' '}
-            <span className="text-brand font-bold">997 €</span>{' '}
-            · OS-Jahr inkl. Komplettbegleitung{' '}
-            <span className="text-brand font-bold">4 797 €</span>. Keine Abo-Falle,
-            14 Tage Geld-zurück-Garantie auf den Sprint.
+            <span className="text-brand font-bold">14 Tage kostenlos</span> testen ·
+            ohne Karte, ohne Risiko, jederzeit kündbar. Diagnose bleibt{' '}
+            <span className="text-brand font-bold">kostenlos</span>.
+            Erst wenn es für dich passt, machst du im 30-Tage-Sprint mit
+            12 Monaten Mitgliedschaft weiter.
           </p>
         </div>
         <div className="md:text-right">
