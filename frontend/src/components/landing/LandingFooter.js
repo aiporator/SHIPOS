@@ -27,6 +27,17 @@ import { WladMark } from '../brand/WladMark';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Sitemap data
+//
+// Cross-tier convention (see lib/tierRedirect.js for the canonical map):
+//   - `to:`    react-router SPA navigate · only for routes that exist on
+//              the marketing host (Vercel: leader-os.de · leader-check.de).
+//              That's /, /journal/*, /datenschutz, /impressum, /agb,
+//              /widerruf, /thank-you, /m/*, /f/*, /newsletter/*, plus
+//              any /#anchor on the landing.
+//   - `href:`  hard cross-host link · used for ALL app-tier routes
+//              (/dashboard, /chat, /tools, /onboarding, /profile, …) so
+//              the click lands on leaderos.de in one HTTP request instead
+//              of routing through the SPA tier-redirect with a flicker.
 // ─────────────────────────────────────────────────────────────────────────
 const COL_SYSTEM = [
   { label: '14 Tage kostenlos testen',     href: 'https://leaderos.de/signup?trial=14', external: true, focal: true },
@@ -35,25 +46,25 @@ const COL_SYSTEM = [
   { label: '11 Frameworks',                to: '/#platform' },
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
   { label: 'Die 5 Rollen',                 to: '/journal/die-5-rollen-einer-ki-nativen-fuehrungskraft' },
-  { label: 'Leadership-Diagnose',          to: '/#archetyp' },
+  { label: 'Leadership-Diagnose',          href: 'https://leadercheck.de', external: true },
   { label: 'Klasse 0001 · Charter',        to: '/#klassen' },
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
 const COL_PLATTFORM = [
-  { label: 'Dashboard',          to: '/dashboard' },
-  { label: 'Chat · WladBot',     to: '/chat' },
-  { label: 'Daily Check-In',     to: '/daily-checkin' },
-  { label: 'Tools',              to: '/tools' },
-  { label: 'Simulationen',       to: '/simulations' },
-  { label: 'Missions',           to: '/missions' },
-  { label: 'Lern-Videos',        to: '/lern-videos' },
-  { label: 'My Path',            to: '/my-path' },
-  { label: 'Community',          to: '/community' },
-  { label: 'Wlad-Universe',      to: '/wlad-universe' },
-  { label: 'Playbooks',          to: '/playbooks' },
-  { label: 'Coaching',           to: '/coaching' },
-  { label: 'Downloads',          to: '/downloads' },
+  { label: 'Dashboard',          href: 'https://leaderos.de/dashboard',     external: true },
+  { label: 'Chat · WladBot',     href: 'https://leaderos.de/chat',          external: true },
+  { label: 'Daily Check-In',     href: 'https://leaderos.de/daily-checkin', external: true },
+  { label: 'Tools',              href: 'https://leaderos.de/tools',         external: true },
+  { label: 'Simulationen',       href: 'https://leaderos.de/simulations',   external: true },
+  { label: 'Missions',           href: 'https://leaderos.de/missions',      external: true },
+  { label: 'Lern-Videos',        href: 'https://leaderos.de/lern-videos',   external: true },
+  { label: 'My Path',            href: 'https://leaderos.de/my-path',       external: true },
+  { label: 'Community',          href: 'https://leaderos.de/community',     external: true },
+  { label: 'Wlad-Universe',      href: 'https://leaderos.de/wlad-universe', external: true },
+  { label: 'Playbooks',          href: 'https://leaderos.de/playbooks',     external: true },
+  { label: 'Coaching',           href: 'https://leaderos.de/coaching',      external: true },
+  { label: 'Downloads',          href: 'https://leaderos.de/downloads',     external: true },
 ];
 
 const COL_EXPLORE = [
@@ -71,11 +82,12 @@ const COL_EXPLORE = [
 ];
 
 const COL_COMPANY = [
-  { label: 'Login',                  href: 'https://leaderos.de/login', external: true },
-  { label: 'Onboarding',             to: '/onboarding' },
-  { label: 'Profile',                to: '/profile' },
-  { label: 'Referral · Empfehlung',  to: '/referral' },
-  { label: 'Enterprise',             to: '/enterprise' },
+  { label: 'Login',                  href: 'https://leaderos.de/login',      external: true },
+  { label: '14 Tage testen',         href: 'https://leaderos.de/signup?trial=14', external: true, focal: true },
+  { label: 'Onboarding',             href: 'https://leaderos.de/onboarding', external: true },
+  { label: 'Profile',                href: 'https://leaderos.de/profile',    external: true },
+  { label: 'Referral · Empfehlung',  href: 'https://leaderos.de/referral',   external: true },
+  { label: 'Enterprise',             href: 'https://leaderos.de/enterprise', external: true },
   { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladjachtchenko/', external: true },
   { label: 'start@aiporate.com',     href: 'mailto:start@aiporate.com' },
   { label: 'Karriere',               to: '/#careers' },
