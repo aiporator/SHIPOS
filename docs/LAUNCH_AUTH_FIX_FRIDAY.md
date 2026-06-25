@@ -75,6 +75,72 @@ curl -sS -X POST https://leaderos.de/api/auth/google/callback \
 
 Order matters · stop at the first hit.
 
+### ⚠️ ROOT CAUSE FOUND ON 2026-06-25 (the bug, not a maybe)
+
+Live probe via the Supabase `email_sends` queue confirmed: every send
+fails with HTTP 403 from Resend:
+
+```
+"The leader-os.de domain is not verified. Please, add and verify your
+ domain on https://resend.com/domains"
+```
+
+This means the `SENDER_EMAIL` env var on the Emergent backend is
+currently set to a `@leader-os.de` address (probably `wlad@leader-os.de`)
+but the Resend account has not verified `leader-os.de` as a sending
+domain. Resend rejects every send · no email leaves their servers.
+
+**Wrong domain too**: `leader-os.de` (with hyphen) is the Vercel
+marketing host. Transactional mail should come from the app tier
+`leaderos.de` (no hyphen).
+
+#### Fix A · IMMEDIATE UNBLOCK (1 min, ship for launch)
+
+Set on the Emergent backend env vars:
+```
+SENDER_EMAIL=onboarding@resend.dev
+```
+This is Resend's officially-verified test sender, always works, no DNS
+setup needed. Cosmetic only: emails arrive as
+`WladBot <onboarding@resend.dev>` instead of `wlad@leaderos.de`. Good
+enough for launch · swap to a verified domain in parallel.
+
+Then **redeploy** Emergent (env vars are not hot-reloaded).
+
+#### Fix B · PROPER VERIFIED DOMAIN (10-20 min + DNS prop)
+
+1. Resend Dashboard → Domains → Add `leaderos.de` (app-tier host)
+   - Optional: also add `leadercheck.de` if you want diagnose-app
+     emails to come from there
+   - Do NOT add `leader-os.de` (Vercel marketing host · should never
+     send mail)
+2. Resend gives 4 DNS records · 1 TXT for SPF, 2 CNAME for DKIM, 1 MX
+   for return-path
+3. Add them in your DNS provider (Cloudflare / Vercel DNS / wherever
+   leaderos.de is delegated)
+4. Wait 10-15 min for DNS propagation
+5. Resend Dashboard → click "Verify" → all 4 rows green
+6. Set on Emergent:
+   ```
+   SENDER_EMAIL=wlad@leaderos.de
+   ```
+7. Redeploy
+
+#### Symptom check after either fix
+
+```bash
+curl -sS -X POST https://leaderos.de/api/auth/magic-link/request \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"start@aiporate.com"}' | jq
+# Always returns 200 by design (anti-enumeration). What matters is
+# whether the mail actually arrives in the inbox within 60 s.
+```
+
+If it still does not arrive after the fix, continue with the legacy
+checklist below.
+
+### Legacy checklist · in case Fix A/B didn't resolve it
+
 1. **`RESEND_API_KEY` set on Emergent backend?**
    Without it, `services_email.is_enabled()` returns `False` and
    `services_magic_link.send_magic_link_email` logs
