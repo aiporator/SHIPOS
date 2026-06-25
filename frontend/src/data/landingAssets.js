@@ -234,6 +234,7 @@ export const LANDING_BENEFITS = [
     cta: 'Mehr über Wlad',
     href: 'https://leadercheck.de',
     variant: 'photo',
+    posterDesign: true,
     photo: wlad('wlad-portrait.jpg'),
     photoFallback: local('hf-04.png'),
     photoFit: 'portrait',

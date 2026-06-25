@@ -14,10 +14,13 @@ import { useEffect, useState } from 'react';
  * adding signal and reads as AI-SaaS chrome).
  */
 
-const STORAGE_SEATS = 'leaderos_class_0001_seats_v2';
+// v3 key invalidates any stale v2 counter so the launch-day reset
+// (LAUNCH_ANCHOR moved forward, INITIAL_SEATS=20) is picked up on every
+// returning visitor's first render.
+const STORAGE_SEATS = 'leaderos_class_0001_seats_v3';
 const STORAGE_DISMISS = 'leaderos_class_0001_dismissed';
-const INITIAL_SEATS = 30;
-const FLOOR_SEATS = 8;
+const INITIAL_SEATS = 20;
+const FLOOR_SEATS = 5;
 
 const computeSeatsRemaining = () => {
   try {
@@ -30,13 +33,12 @@ const computeSeatsRemaining = () => {
     }
   } catch { /* ignore */ }
 
-  const LAUNCH_ANCHOR = Date.parse('2026-06-19T06:00:00+02:00');
+  // Launch-day anchor · resets so today's visitors see "20 von 30 frei"
+  // and the counter ticks down from there (1 seat every ~12 h until the
+  // FLOOR of 5 holds the line · ~7 days of soft decay).
+  const LAUNCH_ANCHOR = Date.parse('2026-06-26T06:00:00+02:00');
   const hoursElapsed = Math.max(0, (Date.now() - LAUNCH_ANCHOR) / (1000 * 60 * 60));
-  // Phase 1 (first 30 h): ~1 seat / 6 h.  Phase 2 (afterwards): 1 / 24 h.
-  // With INITIAL_SEATS=30, this hits FLOOR_SEATS=8 after ~270 h ≈ 11 days.
-  const decayPhase1 = Math.min(hoursElapsed, 30) / 6;
-  const decayPhase2 = Math.max(0, hoursElapsed - 30) / 24;
-  const decay = Math.floor(decayPhase1 + decayPhase2);
+  const decay = Math.floor(hoursElapsed / 12);
   const seats = Math.max(FLOOR_SEATS, INITIAL_SEATS - decay);
 
   try {
@@ -84,21 +86,24 @@ export const ClassScarcityBanner = () => {
         {/* Mono hairline separator */}
         <span aria-hidden className="hidden md:inline-block w-px h-3 bg-white/20" />
 
-        {/* Inline scarcity line */}
+        {/* Inline scarcity line · tagline anchored on the right so even
+            on narrow screens the seats count + tagline both stay legible. */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
           Nur <span className="text-brand font-black tabular-nums">{seats}</span>
           <span className="text-white/55"> von 30 Charter-Plätzen frei</span>
+          <span className="hidden md:inline text-white/35"> · Klasse 0001 ist erst der Anfang.</span>
         </p>
 
-        {/* Inline CTA, mono uppercase, integral part of the strip rather than a button */}
+        {/* Inline CTA · pushes the leadercheck diagnose hard so the
+            top-of-page micro-conversion stays one click away. */}
         <a
           href="https://leadercheck.de"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 font-mono font-bold tracking-[0.22em] uppercase text-[10.5px] text-white hover:text-brand transition-colors shrink-0"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 h-7 bg-brand hover:bg-white text-black font-mono font-bold tracking-[0.18em] uppercase text-[10.5px] transition-colors shrink-0"
           data-testid="class-scarcity-cta"
         >
-          Diagnose sichern <span aria-hidden className="text-brand">→</span>
+          Diagnose starten <span aria-hidden>→</span>
         </a>
 
         {/* Dismiss, muted but reachable */}
