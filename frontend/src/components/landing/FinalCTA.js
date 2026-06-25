@@ -76,13 +76,13 @@ export const FinalCTA = () => {
           ))}
         </h2>
 
-        <p className="mt-10 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Klasse 0001. Nur 30 Charter-Plätze. 30 Tage Sprint + 12 Monate
-          Mitgliedschaft inkludiert. Plus-Plus legt monatliche Live-Sessions
-          mit Wlad obendrauf, wenn du willst.
+        <p className="mt-10 max-w-2xl text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-[17px] leading-[1.55] text-white/75">
+          Vierzehn Tage. Ohne Karte. Ohne Risiko. Du loggst dich ein,
+          du arbeitest mit dem System, du entscheidest. Klasse 0001
+          ist offen · nur 30 Charter-Plätze.
         </p>
 
-        <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div className="mt-12 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-8">
           {/* Primary · der einzige mit Halo-Pulse damit die Hierarchie klar ist */}
           <PlusCircleCTA
             href={LANDING_META.cta.primary.href}
@@ -92,20 +92,12 @@ export const FinalCTA = () => {
             {LANDING_META.cta.primary.label}
           </PlusCircleCTA>
           <PlusCircleCTA
-            href="https://cal.com/leaderos/demo"
-            testId="final-cta-demo"
+            href={LANDING_META.cta.diagnose.href}
+            testId="final-cta-diagnose"
             halo={false}
             className="text-white/85 hover:text-white"
           >
-            Demo buchen · 20 Min
-          </PlusCircleCTA>
-          <PlusCircleCTA
-            href="https://cal.com/leaderos/beratung"
-            testId="final-cta-beratung"
-            halo={false}
-            className="text-white/85 hover:text-white"
-          >
-            Beratung · 30 Min
+            Diagnose · 10 Min · kostenlos
           </PlusCircleCTA>
           <PlusCircleCTA
             href={LANDING_META.cta.secondary.href}
@@ -117,23 +109,22 @@ export const FinalCTA = () => {
           </PlusCircleCTA>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/45 max-w-3xl">
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-[10px] uppercase tracking-[0.2em] font-bold text-white/45 max-w-3xl text-center md:text-left mx-auto md:mx-0">
+          <span>▸ 14 Tage Trial</span>
           <span>▸ 11 Frameworks</span>
-          <span>▸ 30 Tage Sprint</span>
           <span>▸ 24/7 Coach</span>
           <span>▸ Zertifikat 0001</span>
         </div>
 
-        {/* Investment-Strip · leise, ein dezenter Specimen-Tape unter
-            den Pills. Wer den Preis sucht, findet ihn. Wer nicht, wird
-            nicht angeschrien. */}
-        <div className="mt-10 pt-5 border-t border-white/10 max-w-3xl flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] font-mono text-white/40">
-          <span className="text-brand">▸ INVESTITION</span>
-          <span>DIAGNOSE · KOSTENLOS</span>
+        {/* Specimen-tape unter den Pills · ohne Preis. Wer Preise sehen
+            will, scrollt hoch zu PricingLadder. Hier zählt der Einstieg. */}
+        <div className="mt-10 pt-5 border-t border-white/10 max-w-3xl mx-auto md:mx-0 flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 text-[10px] font-bold uppercase tracking-[0.22em] font-mono text-white/40">
+          <span className="text-brand">▸ EINSTIEG</span>
+          <span>14 TAGE · KOSTENLOS</span>
           <span className="text-white/20">/</span>
-          <span>30-TAGE-SPRINT · 997 €</span>
+          <span>OHNE KARTE</span>
           <span className="text-white/20">/</span>
-          <span>OS · JAHR · 4 797 €</span>
+          <span>JEDERZEIT KÜNDBAR</span>
         </div>
       </motion.div>
     </div>

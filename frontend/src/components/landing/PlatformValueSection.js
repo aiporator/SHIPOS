@@ -173,30 +173,31 @@ export const PlatformValueSection = () => (
         {FEATURES.map((f) => <FeatureCard key={f.bib} feature={f} />)}
       </div>
 
-      {/* Charter-CTA strip · bundles 30 Tage + 12 Monate + 997€ + Button */}
+      {/* Trial-CTA strip · 14 Tage kostenlos · die Sprint-Konvertierung
+          läuft post-Signup im App-Email-Flow, nicht hier auf der Landing. */}
       <div className="mt-14 md:mt-16 bg-black text-white border-2 border-black p-7 md:p-10">
-        <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center">
+        <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
           <div className="md:col-span-8">
             <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
-              ▸ CHARTER-PREIS · KLASSE 0001 · 12 / 30 PLÄTZE FREI
+              ▸ KLASSE 0001 · 12 / 30 PLÄTZE FREI
             </div>
             <h3
               className="text-[28px] md:text-[42px] leading-[1.02] tracking-[-0.03em]"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              30 Tage Sprint
-              <span className="text-white/55"> + </span>
-              12 Monate Mitgliedschaft
+              Vierzehn Tage
+              <span className="text-white/55"> · </span>
+              kostenlos testen
               <span className="text-brand not-italic">.</span>
             </h3>
-            <p className="mt-4 text-[14.5px] md:text-[16px] leading-[1.6] text-white/75 max-w-2xl">
-              Alle sechs Module inkludiert. 1:1-Onboarding mit Wlad persönlich.
-              Lifetime-Zugang zum Klasse-0001-Peer-Kreis. Vorzugs-Aufnahme in
-              0002, 0003, 0004. 14 Tage Geld-zurück-Garantie auf den Sprint.
+            <p className="mt-4 text-[14.5px] md:text-[16px] leading-[1.6] text-white/75 max-w-2xl mx-auto md:mx-0">
+              Volle Plattform · alle sechs Module · WladBot 24/7 · keine Karte
+              nötig. Du loggst dich ein, du arbeitest mit dem System, du
+              entscheidest. Erst wenn es für dich passt, geht es in den Sprint.
             </p>
           </div>
           <div className="md:col-span-4 md:text-right">
-            <div className="flex items-baseline justify-end gap-2 mb-5">
+            <div className="flex items-baseline justify-center md:justify-end gap-2 mb-5">
               <span
                 className="text-brand leading-none"
                 style={{
@@ -206,27 +207,24 @@ export const PlatformValueSection = () => (
                   fontSize: 'clamp(48px, 4vw, 72px)',
                 }}
               >
-                997 €
+                0 €
               </span>
               <span className="text-[12px] font-mono uppercase tracking-[0.18em] text-white/55">
-                einmalig
+                14 Tage
               </span>
             </div>
             <a
-              href="#pricing"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById('pricing');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
+              href="https://leaderos.de/signup?trial=14"
+              target="_blank"
+              rel="noopener noreferrer"
               data-testid="platform-charter-cta"
               className="inline-flex items-center justify-center gap-3 px-6 md:px-8 h-14 bg-brand hover:bg-white text-black font-bold text-[13.5px] md:text-[14px] tracking-[0.04em] transition-colors shadow-[6px_6px_0_0_#BFFF00] hover:shadow-[6px_6px_0_0_#fff]"
             >
-              Charter-Platz sichern
+              Jetzt 14 Tage testen
               <ArrowRight size={18} />
             </a>
             <p className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">
-              ▸ Unverbindlich · 14 Tage Geld-zurück
+              ▸ Ohne Karte · jederzeit kündbar
             </p>
           </div>
         </div>

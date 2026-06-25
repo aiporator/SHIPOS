@@ -58,7 +58,7 @@ export const HeroSection = () => (
       aria-hidden
       className="hidden md:block absolute top-3 right-6 lg:right-10 text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/35 font-mono text-right"
     >
-      [ SPRINT 997 € · 30 TAGE + 12 MONATE · DIAGNOSE FREE ]
+      [ 14 TAGE KOSTENLOS · OHNE KARTE · DIAGNOSE FREE ]
     </div>
 
     {/* Background-W · Heron-Preston editorial ghost letterform.
@@ -134,14 +134,14 @@ export const HeroSection = () => (
         animate="show"
         custom={1}
         variants={FADE_UP}
-        className="text-[48px] sm:text-[88px] md:text-[136px] lg:text-[176px] leading-[0.86] sm:leading-[0.84] tracking-[-0.038em] sm:tracking-[-0.044em] md:tracking-[-0.048em] text-foreground"
+        className="text-center md:text-left text-[48px] sm:text-[88px] md:text-[136px] lg:text-[176px] leading-[0.86] sm:leading-[0.84] tracking-[-0.038em] sm:tracking-[-0.044em] md:tracking-[-0.048em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 900,
           fontStyle: 'italic',
         }}
       >
-        Sprint<br />mit Wlad<span className="text-brand not-italic">.</span>
+        Vierzehn Tage<br />kostenlos<span className="text-brand not-italic">.</span>
       </motion.h1>
 
       {/* 3 / 4 · Subline */}
@@ -150,50 +150,62 @@ export const HeroSection = () => (
         animate="show"
         custom={2}
         variants={FADE_UP}
-        className="mt-5 sm:mt-6 md:mt-8 max-w-3xl text-[18px] sm:text-[26px] md:text-[36px] leading-[1.25] sm:leading-[1.18] tracking-[-0.012em] sm:tracking-[-0.018em] text-foreground"
+        className="mx-auto md:mx-0 mt-5 sm:mt-6 md:mt-8 max-w-3xl text-center md:text-left text-[18px] sm:text-[26px] md:text-[36px] leading-[1.25] sm:leading-[1.18] tracking-[-0.012em] sm:tracking-[-0.018em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
           fontWeight: 800,
         }}
       >
-        Dreißig Tage. <span className="text-brand">Elf</span> Frameworks.{' '}
-        <span className="text-foreground/55">Ein KI-Coach der dich kennt<span className="text-brand">.</span></span>
+        Elf <span className="text-brand">Frameworks</span>. Ein KI-Coach.{' '}
+        <span className="text-foreground/55">Ohne Karte<span className="text-brand">.</span> Ohne Risiko<span className="text-brand">.</span></span>
       </motion.p>
 
-      {/* 4 / 4 · CTAs. Two primary intents side by side:
-          Diagnose (free, low-friction entry) and Sprint (paid, high
-          intent). They serve different audiences · visitors who want
-          to try-before-buy and visitors who already know what they
-          want · and not having Sprint in the ATF leaves the offer
-          buried below the fold. */}
+      {/* 4 / 4 · CTAs · centered on mobile so the call-to-action moment
+          reads as a complete editorial poster on a 375px screen. Primary
+          (lime, big plus-halo) is the 14-day free trial. Secondary is the
+          even-lower-friction free diagnose · still a path for visitors
+          who want zero-signup. The Sprint sales push lives INSIDE the
+          app (post-signup email sequence + dashboard upsell) so it does
+          not crowd the marketing landing anymore. */}
       <motion.div
         initial="hidden"
         animate="show"
         custom={3}
         variants={FADE_UP}
-        className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
+        className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-6"
       >
         <PlusCircleCTA
           href={LANDING_META.cta.primary.href}
           testId="hero-cta-primary"
         >
-          Diagnose starten · 10 Min · kostenlos
+          {LANDING_META.cta.primary.label}
         </PlusCircleCTA>
         <a
-          href="https://leaderos.de/checkout?tier=sprint"
+          href={LANDING_META.cta.diagnose.href}
           target="_blank"
           rel="noopener noreferrer"
-          data-testid="hero-cta-sprint"
+          data-testid="hero-cta-diagnose"
           className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background rounded-full px-5 py-3 active:scale-[0.98] transition-all"
         >
           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
             +
           </span>
           <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
-            Sprint · 997 € · 30 Tage + 12 Monate
+            Diagnose · 10 Min · kostenlos
           </span>
         </a>
       </motion.div>
+
+      {/* Mobile-only trust line under the CTAs · cements the no-risk
+          feel without crowding the desktop layout. */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.55 }}
+        className="md:hidden mt-5 text-center text-[11px] font-mono uppercase tracking-[0.22em] text-foreground/45"
+      >
+        ▸ Kein Abo · Jederzeit kündbar
+      </motion.p>
     </div>
   </section>
 );

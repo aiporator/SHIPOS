@@ -116,6 +116,17 @@ function AppRouter() {
     redirectAppRoutesToAppTier();
   }, [location.pathname, location.search, location.hash]);
 
+  // Scroll-to-top on every pathname change. We skip when the URL has a
+  // hash (in-page anchor like /#pricing or /journal/foo#section) so
+  // anchor-driven scrolls keep landing on their target. Without this,
+  // navigating /journal/a → /journal/b preserves the previous article's
+  // scroll position — confusing UX, especially on long reads.
+  useEffect(() => {
+    if (location.hash) return;
+    if (typeof window === 'undefined') return;
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
   if (location.hash?.includes('session_id=')) {
     return (
       <Suspense fallback={<RouteLoader />}>

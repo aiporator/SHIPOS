@@ -53,24 +53,24 @@ export const LandingNav = () => {
           </div>
         </Link>
 
-        {/* Single-focus nav: only the leadercheck.de CTA. The legacy
-            Klassen / So funktioniert's / Journal / Login links were dropped
-            per user feedback ("Layer kennt auch niemand") · the whole nav
-            now points at ONE action: start the diagnose on leadercheck.de.
-            Anchors to specific sections still work via in-page scroll;
-            users discover them as they scroll, not as nav choices. */}
+        {/* Single-focus nav: only the 14-day-trial CTA. The Sprint sales
+            push lives INSIDE the app (post-signup email + dashboard upsell),
+            so the marketing nav points at ONE action: start the free trial
+            on leaderos.de. Anchors to specific sections still work via
+            in-page scroll; users discover them as they scroll, not as
+            nav choices. */}
         <nav className="flex items-center">
           <a
-            href="https://leadercheck.de"
+            href="https://leaderos.de/signup?trial=14"
             target="_blank"
             rel="noopener noreferrer"
-            className={`group inline-flex items-center gap-2.5 bg-foreground text-background hover:bg-brand hover:text-black font-bold uppercase tracking-[0.12em] transition-colors ${
+            className={`group inline-flex items-center gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
               scrolled ? 'h-10 px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-5 text-[11px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-cta"
           >
-            <span className="hidden sm:inline">Diagnose · leadercheck.de</span>
-            <span className="sm:hidden">Diagnose</span>
+            <span className="hidden sm:inline">14 Tage kostenlos testen</span>
+            <span className="sm:hidden">14 Tage gratis</span>
             <ArrowRight
               size={scrolled ? 14 : 16}
               className="group-hover:translate-x-0.5 transition-transform"

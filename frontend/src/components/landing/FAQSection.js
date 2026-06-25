@@ -20,7 +20,7 @@ const FAQS = [
   {
     q: 'Was kostet das genau?',
     a:
-      'Die Diagnose auf leadercheck.de ist und bleibt kostenlos. Der 30-Tage-Sprint kostet 997 € einmalig. Plus-Plus (Sprint + 12 Monate Enablement-Begleitung mit Live-Sessions und Drill-Channel) kostet 4 797 € einmalig oder in drei Raten. 1:1 mit Wlad gibt es nur als limitierte Warteliste, kein Standard-Produkt, weil seine Zeit der Bottleneck ist. Alles ohne Abo, ohne automatische Verlängerung. 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Wenn und Aber.',
+      'Der Einstieg ist 14 Tage kostenlos, ohne Karte, jederzeit kündbar. In dieser Zeit hast du vollen Zugang zur Plattform · alle Frameworks, WladBot 24/7, alle Lernvideos. Wenn es für dich passt, wandelst du danach in den 30-Tage-Sprint mit 12 Monaten Mitgliedschaft (997 € einmalig) oder die volle 12-Monats-Begleitung Plus-Plus (4 797 € einmalig oder in drei Raten). Die Diagnose auf leadercheck.de bleibt unabhängig davon kostenlos. Kein Abo, keine automatische Verlängerung.',
   },
   {
     q: 'Warum sollte ich für die Diagnose dieselbe Email nutzen?',
@@ -40,7 +40,7 @@ const FAQS = [
   {
     q: 'Was, wenn ich merke, das ist nichts für mich?',
     a:
-      '14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Du schreibst kurz, wir erstatten. Bisher hat noch niemand zurückgefordert. Die Garantie steht trotzdem, damit du angstfrei starten kannst.',
+      'Während der 14-tägigen Test-Phase kündigst du mit einem Klick, ohne Karte, ohne Begründung · es entsteht kein Risiko. Falls du danach in den Sprint wandelst und es doch nicht passt, gilt zusätzlich 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Bisher hat noch niemand zurückgefordert. Die Garantie steht trotzdem, damit du angstfrei starten kannst.',
   },
 ];
 
