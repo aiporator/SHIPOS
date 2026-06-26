@@ -77,9 +77,10 @@ export const FinalCTA = () => {
         </h2>
 
         <p className="mt-10 max-w-2xl text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Vierzehn Tage. Ohne Karte. Ohne Risiko. Du loggst dich ein,
-          du arbeitest mit dem System, du entscheidest. Klasse 0001
-          ist offen · nur 30 Charter-Plätze.
+          Mach den kostenlosen Leader-Check · zehn Minuten, dein Score
+          sofort. Dann vierzehn Tage Leader-OS testen, ohne Karte, ohne
+          Risiko. Erst wenn es für dich passt, sicherst du deinen Platz
+          in Klasse 0001.
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-8">

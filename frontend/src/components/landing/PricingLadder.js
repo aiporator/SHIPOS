@@ -57,7 +57,7 @@ const TIERS = [
     price: '997 €',
     priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
-    scarcity: 'Klasse 0001 · 20 von 30 Plätzen frei',
+    scarcity: 'Klasse 0001 · letzte Charter-Plätze',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',

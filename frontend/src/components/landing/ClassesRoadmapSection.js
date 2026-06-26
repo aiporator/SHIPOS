@@ -156,8 +156,8 @@ export const ClassesRoadmapSection = () => (
             className="text-[36px] sm:text-[52px] md:text-[68px] leading-[0.94] tracking-[-0.038em]"
             style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Klasse 0001 ist erst<br />
-            <span className="text-white/55">der Anfang</span>
+            Ein Platz<span className="text-brand not-italic">.</span><br />
+            <span className="text-white/55">Vier Klassen</span>
             <span className="text-brand not-italic">.</span>
           </h2>
         </div>

@@ -554,7 +554,7 @@ export const ArchetypeQuizSection = () => {
                       ))}
                     </ul>
                     <div className="mt-6 pt-5 border-t border-foreground/12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
-                      <span>▸ KLASSE 0001 · 20 / 30 PLÄTZE · DER ANFANG</span>
+                      <span>▸ DEIN LEADER-CHECK ENTSCHEIDET</span>
                       <span>▸ 14 TAGE KOSTENLOS TESTEN</span>
                       <span>▸ COACHING MIT WLAD</span>
                     </div>
@@ -642,8 +642,8 @@ export const ArchetypeQuizSection = () => {
         {/* Coda · micro social-proof */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
-          <span>▸ 400 000 KUNDEN</span>
-          <span>▸ KLASSE 0001 · 18 / 30 PLÄTZE WEG</span>
+          <span>▸ 420 000 KUNDEN</span>
+          <span>▸ LEADER-CHECK · 10 MIN · KOSTENLOS</span>
         </div>
       </div>
     </section>

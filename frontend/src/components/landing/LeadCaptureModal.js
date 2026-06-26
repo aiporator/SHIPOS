@@ -185,7 +185,7 @@ export const LeadCaptureModal = () => {
                 <span className="absolute inset-0 rounded-full bg-brand-strong animate-ping opacity-75" />
                 <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
               </span>
-              KLASSE 0001 · 20 VON 30 PLÄTZE FREI
+              KLASSE 0001 · CHARTER FÜLLT SICH
             </span>
             <button
               onClick={close}
@@ -235,17 +235,17 @@ export const LeadCaptureModal = () => {
                         <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
                       </span>
                       <span className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-foreground/55">
-                        CHARTER · LIVE
+                        KOSTENLOS · LIVE
                       </span>
                     </div>
                     <div
                       className="mt-1 text-foreground leading-none"
                       style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(22px, 3vw, 32px)', letterSpacing: '-0.025em' }}
                     >
-                      20 / 30<span className="text-brand-strong not-italic">.</span>
+                      10 Min<span className="text-brand-strong not-italic">.</span>
                     </div>
                     <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.2em] text-foreground/55">
-                      Plätze frei diese Kohorte
+                      Leader-Check · dein Score sofort
                     </div>
                   </div>
                 </div>

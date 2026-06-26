@@ -196,7 +196,7 @@ export const LandingFooter = () => (
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
               <span className="relative w-2 h-2 rounded-full bg-brand" />
             </span>
-            KLASSE 0001 · 20 VON 30 FREI
+            KLASSE 0001 · MACH DEN LEADER-CHECK
           </div>
         </div>
 

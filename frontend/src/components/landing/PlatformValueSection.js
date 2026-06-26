@@ -179,7 +179,7 @@ export const PlatformValueSection = () => (
         <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
           <div className="md:col-span-8">
             <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
-              ▸ KLASSE 0001 · 20 / 30 PLÄTZE FREI · DER ANFANG
+              ▸ KLASSE 0001 · START MIT DEM LEADER-CHECK
             </div>
             <h3
               className="text-[28px] md:text-[42px] leading-[1.02] tracking-[-0.03em]"

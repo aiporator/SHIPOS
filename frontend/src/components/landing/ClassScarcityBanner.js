@@ -86,16 +86,18 @@ export const ClassScarcityBanner = () => {
         {/* Mono hairline separator */}
         <span aria-hidden className="hidden md:inline-block w-px h-3 bg-white/20" />
 
-        {/* Inline scarcity line · tagline anchored on the right so even
-            on narrow screens the seats count + tagline both stay legible. */}
+        {/* Inline action line · benefit + scarcity as support, NOT
+            scarcity as headline. The free Leader-Check is the gateway ·
+            we lead with the 10-minute promise, the seat count adds
+            urgency without being the whole message. */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
-          Nur <span className="text-brand font-black tabular-nums">{seats}</span>
-          <span className="text-white/55"> von 30 Charter-Plätzen frei</span>
-          <span className="hidden md:inline text-white/35"> · Klasse 0001 ist erst der Anfang.</span>
+          <span className="text-white">10 Minuten Leader-Check</span>
+          <span className="text-white/55"> · finde heraus wo du stehst und sichere deinen Platz.</span>
+          <span className="hidden md:inline text-brand font-bold"> Noch {seats} von 30 frei.</span>
         </p>
 
-        {/* Inline CTA · pushes the leadercheck diagnose hard so the
-            top-of-page micro-conversion stays one click away. */}
+        {/* Inline CTA · the free Leader-Check is the micro-conversion
+            that feeds LeaderOS · one click away, top of every page. */}
         <a
           href="https://leadercheck.de"
           target="_blank"
@@ -103,7 +105,7 @@ export const ClassScarcityBanner = () => {
           className="hidden sm:inline-flex items-center gap-1.5 px-3 h-7 bg-brand hover:bg-white text-black font-mono font-bold tracking-[0.18em] uppercase text-[10.5px] transition-colors shrink-0"
           data-testid="class-scarcity-cta"
         >
-          Diagnose starten <span aria-hidden>→</span>
+          Kostenlos starten <span aria-hidden>→</span>
         </a>
 
         {/* Dismiss, muted but reachable */}
