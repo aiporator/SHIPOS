@@ -146,7 +146,7 @@ export default function ArticlePage() {
         </div>
       </header>
 
-      <main className="max-w-[1280px] mx-auto px-5 md:px-8 lg:px-10 pt-10 md:pt-16 pb-16 md:pb-24">
+      <main id="main-content" className="max-w-[1280px] mx-auto px-5 md:px-8 lg:px-10 pt-10 md:pt-16 pb-16 md:pb-24">
         <div className="flex gap-10 xl:gap-14">
           {/* LEFT RAIL · TOC + sticky CTA (xl only) */}
           <ArticleLeftRail headings={headings} slug={article.slug} />

@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { ShareBar } from '../features/content/components/ShareBar';
+import { applyPageMeta } from '../lib/pageMeta';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 /**
@@ -490,16 +491,18 @@ const FAQ_JSON_LD = {
 
 export default function WladJachtchenkoPage() {
   useEffect(() => {
-    document.title = 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, Leader-OS';
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content',
-      'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS. Biographie, Bücher, Methodik, Kontakt.',
-    );
-
-    const canon = document.createElement('link');
-    canon.rel = 'canonical';
-    canon.href = 'https://leader-os.de/wlad-jachtchenko';
-    document.head.appendChild(canon);
+    // Full OG/Twitter/canonical injection · so a shared /wlad-jachtchenko
+    // link shows Wlad's portrait + bio in the preview card instead of the
+    // generic homepage OG. Directly supports the ShareBar on this page.
+    const restoreMeta = applyPageMeta({
+      title: 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, Leader-OS',
+      description:
+        'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS. Biographie, Bücher, Methodik, Kontakt.',
+      url: 'https://leader-os.de/wlad-jachtchenko',
+      image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+      imageAlt: 'Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller',
+      type: 'profile',
+    });
 
     const ldPerson = document.createElement('script');
     ldPerson.type = 'application/ld+json';
@@ -557,7 +560,7 @@ export default function WladJachtchenkoPage() {
     document.head.appendChild(ldVideos);
 
     return () => {
-      canon.remove();
+      restoreMeta();
       ldPerson.remove();
       ldFaq.remove();
       ldVideos.remove();
@@ -568,7 +571,7 @@ export default function WladJachtchenkoPage() {
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="wlad-page">
       <LandingNav />
 
-      <main className="max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
+      <main id="main-content" className="max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
         {/* Hero · Person identity card · stacked on mobile with centered
             wordmark over the portrait, side-by-side on md+ for the
             editorial spec layout. */}

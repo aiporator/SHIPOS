@@ -223,6 +223,15 @@ function App() {
               <TierProvider>
                 <PricingProvider>
                   <BrowserRouter>
+                    {/* Skip-to-content · WCAG 2.4.1 · visually hidden until
+                        keyboard-focused, then jumps a keyboard/screen-reader
+                        user past the nav straight into the page content. */}
+                    <a
+                      href="#main-content"
+                      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:font-bold focus:text-sm focus:rounded-none focus:outline-none focus:ring-4 focus:ring-brand"
+                    >
+                      Zum Inhalt springen
+                    </a>
                     <NetworkStatusBanner />
                     <AppRouter />
                     <FakeWladCall />

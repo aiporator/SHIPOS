@@ -121,7 +121,7 @@ export default function LandingPage() {
       <LandingNav />
       <ScrollProgressRail />
 
-      <main>
+      <main id="main-content">
         <HeroSection />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
