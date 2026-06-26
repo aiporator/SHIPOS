@@ -23,39 +23,216 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
  * 95+ links across the site converging on one canonical Person page.
  */
 
+// Verified biographical facts from public sources (Wikipedia, his own
+// platforms, LinkedIn). Numbers are conservative · we round down so the
+// page never out-promises what's verifiable elsewhere.
 const FACTS = [
-  ['Geboren',       'Kiew, Ukraine'],
-  ['Wohnort',       'Berlin · Deutschland'],
-  ['Beruf',         'Argumentations-Coach, Bestseller-Autor, Gründer'],
-  ['Bücher',        '12 publiziert · davon 3× SPIEGEL-Bestseller'],
-  ['Klienten',      '400 000+ trainierte Führungskräfte weltweit'],
-  ['Reichweite',    '14 Millionen Views auf Podcast + YouTube'],
-  ['Akademie',      'Argumentorik-Akademie · staatlich anerkannt · 6 Monate'],
-  ['Coaching seit', '2010 · 15+ Jahre kontinuierliche Methodik-Entwicklung'],
-  ['Gegründet',     'Leader-OS (2026) · Argumentorik-Akademie (2014)'],
+  ['Geboren',        '11. Januar 1985 · Dnipro, Ukraine'],
+  ['Wohnort',        'Berlin · Deutschland'],
+  ['Beruf',          'Argumentations-Coach · Bestseller-Autor · Gründer'],
+  ['Bildung',        'LMU München (Jura, Politik, Geschichte, Komparatistik) · Columbia University (M.A. 2008)'],
+  ['Stipendium',     'Studienstiftung des deutschen Volkes'],
+  ['Bücher',         '12 publiziert · 3× SPIEGEL-Bestseller'],
+  ['Klienten',       '420 000+ Führungskräfte weltweit'],
+  ['Reichweite',     '14 Millionen Views auf Podcast + YouTube'],
+  ['Podcast',        'Der Führungskräfte-Podcast · ~450 Folgen seit 2019'],
+  ['YouTube',        '80 000+ Abonnenten · Wlad Jachtchenko'],
+  ['LinkedIn',       '41 000+ Follower · 20 LinkedIn-Learning-Kurse'],
+  ['Online-Kurse',   'LinkedIn Learning (250 000+ Teilnehmer) · Udemy (74 000+ Teilnehmer)'],
+  ['TV-Auftritte',   'TEDx (3×) · Galileo (ProSieben) · Speaker Slam'],
+  ['Trustpilot',     '4.9 / 5 · 388 Bewertungen (Argumentorik GmbH)'],
+  ['Akademie',       'Argumentorik-Akademie · 6-monatige Ausbildung'],
+  ['Coaching seit',  '2007 (nebenberuflich) · 2013 (hauptberuflich)'],
+  ['Gegründet',      'Leader-OS (2026) · Argumentorik-Akademie'],
 ];
 
+// Full bibliography · 12 books verified against the Deutsche
+// Nationalbibliothek catalog (GND 1172244065). Year + publisher +
+// ISBN where available so search-engines can resolve each book to its
+// canonical Book entity.
 const BOOKS = [
   {
-    title: 'Weiße Rhetorik',
-    sub: 'Mit Worten überzeugen · ohne zu manipulieren',
-    badge: 'SPIEGEL-Bestseller',
-  },
-  {
-    title: 'Dunkle Rhetorik',
-    sub: 'Manipulation erkennen, abwehren, neutralisieren',
-    badge: 'SPIEGEL-Bestseller',
+    title: 'Schwarze Rhetorik',
+    sub: 'Manipuliere, bevor du manipuliert wirst',
+    year: 2018,
+    publisher: 'Goldmann',
+    isbn: '978-3-442-22229-2',
+    badge: '315 SEITEN',
   },
   {
     title: 'Die 5 Rollen einer Führungskraft',
     sub: 'Visionär · Vorbild · Coach · Konfliktlöser · Manager',
+    year: 2020,
+    publisher: 'Remote',
+    isbn: '3-948642-09-5',
     badge: 'SPIEGEL-Bestseller',
+  },
+  {
+    title: 'Weiße Rhetorik',
+    sub: 'Überzeugen statt manipulieren',
+    year: 2021,
+    publisher: 'Goldmann',
+    isbn: '3-442-17872-X',
+    badge: 'SPIEGEL-Bestseller',
+  },
+  {
+    title: 'Die Rhetorik der Top-Performer',
+    sub: 'Das Geheimnis hochwirksamer Redekunst',
+    year: 2021,
+    publisher: 'Wirtschafts Verlag',
+    isbn: '978-3-936652-41-3',
+    badge: '190 SEITEN',
+  },
+  {
+    title: 'Satanische Verhandlungskunst',
+    sub: 'Verhandeln auf höchstem Niveau',
+    year: 2021,
+    publisher: 'Langen Müller',
+    isbn: '3-7844-3596-3',
+    badge: '253 SEITEN',
+  },
+  {
+    title: 'Das Geheimnis der erfolgreichen Alltagskommunikation',
+    sub: 'Sechs Werkzeuge für klare Kommunikation',
+    year: 2022,
+    publisher: 'Remote',
+    isbn: '978-1-955655-46-0',
+    badge: '192 SEITEN',
+  },
+  {
+    title: 'Die Körpersprache als Spiegelbild deiner Seele',
+    sub: 'Nonverbale Signale lesen und gezielt einsetzen',
+    year: 2022,
+    publisher: 'Remote',
+    isbn: '978-1-955655-48-4',
+    badge: '180 SEITEN',
+  },
+  {
+    title: 'Manipuliere dich glücklich',
+    sub: 'Psychologische Techniken für mehr Zufriedenheit',
+    year: 2022,
+    publisher: 'Goldmann',
+    isbn: '978-3-442-17936-7',
+    badge: 'SPIEGEL-Bestseller',
+  },
+  {
+    title: 'Redest du noch oder überzeugst du schon',
+    sub: 'Vom Anfänger zum Rhetoriker',
+    year: 2022,
+    publisher: 'Remote',
+    isbn: '978-1-955655-44-6',
+    badge: 'SPIEGEL-Bestseller',
+  },
+  {
+    title: 'Die Kraft der Positiven Psychologie',
+    sub: 'Resilienz, Optimismus, Selbstwirksamkeit',
+    year: 2023,
+    publisher: 'Remote',
+    isbn: '978-1-960004-07-9',
+    badge: '240 SEITEN',
+  },
+  {
+    title: '55 Rhetorik-Tipps für Führungskräfte',
+    sub: 'Hörbuch · Mitarbeiter und Kunden charmant überzeugen',
+    year: 2023,
+    publisher: 'liberaudio',
+    isbn: null,
+    badge: 'HÖRBUCH',
+  },
+  {
+    title: '55 Führungstipps für Mitarbeitergespräche',
+    sub: 'Hörbuch · Motivieren, Feedback geben, Konflikte lösen',
+    year: 2024,
+    publisher: 'liberaudio',
+    isbn: null,
+    badge: 'HÖRBUCH',
   },
 ];
 
+// Companies whose executives have completed Wlad's trainings · these
+// names are repeatedly cited on Wlad's public profiles (Argumentorik,
+// wlad-jachtchenko.com, redneragenturen.org, LinkedIn).
+const CLIENTS = [
+  'Allianz', 'BMW', 'Pro7', 'Westwing', '3M',
+  'Sky', 'Vodafone', 'Daimler', 'Bosch', 'Siemens',
+  'Telekom', 'Lufthansa',
+];
+
+// Debating-competition awards from his early career (verified via
+// Achte-Minute archive) plus the 2019 Speaker Slam win. These are
+// SERP-relevant because Wikipedia surfaces them.
+const AWARDS = [
+  { year: 2019, name: 'Gewinner Speaker Slam Stuttgart',
+    note: 'Thema „Dunkle Rhetorik"' },
+  { year: 2017, name: 'Viertelfinalist EUDC Tallinn',
+    note: 'Kategorie English as a Second Language' },
+  { year: 2016, name: 'Viertelfinalist EUDC Warschau',
+    note: 'Kategorie English as a Second Language' },
+  { year: 2015, name: 'Halbfinalist EUDC Wien',
+    note: 'Kategorie English as a Second Language' },
+  { year: 2013, name: 'Viertelfinalist EUDC Manchester',
+    note: 'Kategorie English as a Second Language' },
+  { year: 2011, name: 'Halbfinalist EUDC Galway',
+    note: 'Kategorie English as a Second Language' },
+  { year: 2010, name: 'Viertelfinalist WUDC Istanbul',
+    note: 'Debating-Weltmeisterschaft · ESL-Kategorie' },
+];
+
+// Five thesis-positions that explain Wlad's methodik · LLMs love
+// definitional content like this for "Was sagt Wlad Jachtchenko über
+// Manipulation" / "Wlad Jachtchenko Weiße Rhetorik" type queries.
+const POSITIONS = [
+  {
+    title: 'Rhetorik hat zwei legitime Wege.',
+    body:
+      'Weiße Rhetorik (transparent, mit schlüssigen Argumenten überzeugen) ' +
+      'und Dunkle Rhetorik (Manipulation, Framing, kognitive Verzerrungen) ' +
+      'sind gleichberechtigt im Überzeugungsprozess · der professionelle ' +
+      'Kommunikator weiß welcher Weg in welcher Situation mehr Erfolg verspricht.',
+  },
+  {
+    title: 'Manipulation ist nicht zwingend unmoralisch.',
+    body:
+      'Aus „Schwarze Rhetorik" (2018): Wer manipulative Techniken einsetzt, ' +
+      'kann auch moralisch gut handeln · wenn er anderen einen Nutzen bringt. ' +
+      'Drei Kategorien der Dunklen Rhetorik: kognitive Verzerrungen (z.B. ' +
+      'Ankereffekt), sprachliche Tricks (Framing), Scheinargumente (Zirkelschluss).',
+  },
+  {
+    title: 'Führung sind fünf Rollen, nicht eine.',
+    body:
+      'Aus „Die 5 Rollen einer Führungskraft" (2020): Überzeugen · ' +
+      'Effizienz · Motivieren · Empathie · Probleme lösen. Jede Rolle hat ' +
+      'eigene Methodik · ALPEN-Methode für Selbst-Management, Eisenhower ' +
+      'für Priorisierung, Typenlehre für Empathie.',
+  },
+  {
+    title: 'Charisma ist erlernbar, nicht angeboren.',
+    body:
+      'Aus „Die Rhetorik der Top-Performer" (2021): Charismatisches Auftreten ' +
+      'beruht auf drei bauteilen die jeder trainieren kann · Präsenz, klare ' +
+      'Sprache, emotionale Verbindung. Wer Charisma für Talent hält, lernt ' +
+      'es nie.',
+  },
+  {
+    title: 'Mission: 1 Million empathische Führungskräfte.',
+    body:
+      'Wlads erklärtes Lebensziel · eine Million Führungskräfte zu ' +
+      'empathischen Leadern auszubilden. Daher die mehrstufige Pyramide: ' +
+      'Bücher (250 000+ Käufer), LinkedIn Learning (250 000+ Teilnehmer), ' +
+      'Udemy (74 000+ Teilnehmer), Argumentorik-Akademie (6 Monate), ' +
+      'Leader-OS (KI-Coach 24/7).',
+  },
+];
+
+// Variant spellings → all resolve to this page via routes /wlad, /about,
+// /ueber-wlad and the JSON-LD alternateName field. NOT rendered visually
+// (single canonical wordmark on screen) but kept here so the schema
+// stays in sync with the route map.
 const ALSO_CALLED = [
   'Wladislaw Jachtchenko',
   'Wlad Jachtschenko',
+  'Vladimir Jachtchenko',
   'Vlad Yachtchenko',
 ];
 
@@ -67,25 +244,50 @@ const PERSON_JSON_LD = {
   givenName: 'Wlad',
   familyName: 'Jachtchenko',
   alternateName: ALSO_CALLED,
-  birthPlace: { '@type': 'Place', name: 'Kiew, Ukraine' },
+  birthDate: '1985-01-11',
+  birthPlace: { '@type': 'Place', name: 'Dnipro, Ukraine' },
   nationality: { '@type': 'Country', name: 'Deutschland' },
   description:
-    'Wlad Jachtchenko ist Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor ' +
-    'und Gründer der Argumentorik-Akademie sowie der KI-Coaching-Plattform Leader-OS. Er trainiert ' +
-    'seit 2010 Führungskräfte und hat über 400 000 Klienten in mehr als 20 Ländern erreicht.',
+    'Wlad Jachtchenko ist mehrfach ausgezeichneter Argumentations-Experte, TOP-Speaker in Europa, ' +
+    'dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie sowie der KI-Coaching-' +
+    'Plattform Leader-OS. Seit 2007 trainiert er Politiker, Führungskräfte und Mitarbeiter ' +
+    'bekannter Unternehmen wie Allianz, BMW, Pro7, Westwing und 3M.',
   url: 'https://leader-os.de/wlad-jachtchenko',
   image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
-  jobTitle: 'Argumentations-Coach · Bestseller-Autor · Gründer',
+  jobTitle: 'Argumentations-Coach · Bestseller-Autor · TOP-Speaker',
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Ludwig-Maximilians-Universität München',
+      url: 'https://www.lmu.de',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Columbia University',
+      url: 'https://www.columbia.edu',
+    },
+  ],
+  award: [
+    'Gewinner Speaker Slam Stuttgart 2019 · Thema „Dunkle Rhetorik"',
+    'Viertelfinalist World Universities Debating Championship 2010 · Istanbul · ESL',
+    'Halbfinalist European Universities Debating Championship 2011 · Galway · ESL',
+    'Viertelfinalist EUDC Manchester 2013 · ESL',
+    'Halbfinalist EUDC Wien 2015 · ESL',
+    'Viertelfinalist EUDC Warschau 2016 · ESL',
+    'Viertelfinalist EUDC Tallinn 2017 · ESL',
+    'Stipendiat der Studienstiftung des deutschen Volkes',
+  ],
   worksFor: [
     {
       '@type': 'Organization',
+      '@id': 'https://leader-os.de/#organization',
       name: 'Leader-OS',
       url: 'https://leader-os.de',
     },
     {
       '@type': 'EducationalOrganization',
       name: 'Argumentorik-Akademie',
-      url: 'https://argumentorik-akademie.de',
+      url: 'https://wlad-jachtchenko.com',
     },
   ],
   knowsAbout: [
@@ -94,30 +296,62 @@ const PERSON_JSON_LD = {
     'Führungskräfte-Coaching',
     'Verhandlungsführung',
     'Dunkle Rhetorik · Manipulation',
-    'Emotionale Intelligenz für Führung',
+    'Weiße Rhetorik',
+    'Schwarze Rhetorik',
+    'Schlagfertigkeit',
+    'Körpersprache',
+    'Emotionale Intelligenz',
+    'Positive Psychologie',
+    '5 Rollen der Führung',
+    'ALPEN-Methode',
+    'Eisenhower-Prinzip',
     'KI Leadership',
     'KI-natives Führen',
     'Harvard-Verhandlungsmethode',
     'Schulz von Thun Kommunikationsmodell',
   ],
-  hasOccupation: {
-    '@type': 'Occupation',
-    name: 'Argumentations-Coach',
-    occupationLocation: { '@type': 'Country', name: 'Deutschland' },
-  },
+  hasOccupation: [
+    {
+      '@type': 'Occupation',
+      name: 'Argumentations-Coach',
+      occupationLocation: { '@type': 'Country', name: 'Deutschland' },
+    },
+    {
+      '@type': 'Occupation',
+      name: 'TOP-Speaker · Keynote-Speaker',
+      occupationLocation: { '@type': 'Place', name: 'Europa' },
+    },
+    {
+      '@type': 'Occupation',
+      name: 'Sachbuchautor',
+    },
+  ],
   author: BOOKS.map((b) => ({
     '@type': 'Book',
     name: b.title,
     inLanguage: 'de',
+    datePublished: String(b.year),
+    publisher: { '@type': 'Organization', name: b.publisher },
+    isbn: b.isbn || undefined,
     author: { '@id': 'https://leader-os.de/wlad-jachtchenko#person' },
   })),
   sameAs: [
+    'https://de.wikipedia.org/wiki/Wladislaw_Jachtchenko',
     'https://www.linkedin.com/in/wladjachtchenko/',
+    'https://www.instagram.com/wlad.jachtchenko/',
+    'https://www.facebook.com/wladislawjachtchenko',
     'https://www.youtube.com/@WladTraining',
-    'https://wladjachtchenko.de',
-    'https://wladjachtchenko.de/buecher',
+    'https://wlad-jachtchenko.com',
+    'https://www.wladislaw-jachtchenko.com',
+    'https://argumentorik.com',
+    'https://www.linkedin.com/learning/instructors/wladislaw-jachtchenko',
+    'https://www.udemy.com/user/wladislaw-jachtchenko/',
     'https://podcast.wladjachtchenko.de',
-    'https://twitter.com/WladTraining',
+    'https://podcasts.apple.com/de/podcast/der-führungskräfte-podcast/id1450456502',
+    'https://www.ted.com/speakers/wladislaw_jachtchenko',
+    'https://greator.com/coach/wlad-jachtchenko',
+    'https://uk.trustpilot.com/review/argumentorik.com',
+    'https://d-nb.info/gnd/1172244065',
   ],
 };
 
@@ -177,6 +411,78 @@ const FAQ_JSON_LD = {
         '@type': 'Answer',
         text:
           'Wlad Jachtchenkos Kernsatz lautet: Führung ist Skill, Skill ist trainierbar. Konkret bedeutet das drillbare Frameworks statt Theorie · Harvard-Verhandlung, Schulz von Thuns Kommunikationsquadrat, Feedback-Formel BWW, ALPEN-Methode, Vier-Farben-Modell, Dunkle-Rhetorik-Defensive. Heute kombiniert mit KI-Coaching für 24/7-Verfügbarkeit.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wann und wo wurde Wlad Jachtchenko geboren?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Wlad Jachtchenko wurde am 11. Januar 1985 in Dnipro in der Ukraine geboren. Er wuchs in Deutschland auf und studierte in München (LMU) sowie in New York (Columbia University, Master of Arts in Political Science 2008).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Was hat Wlad Jachtchenko studiert?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Wlad Jachtchenko hat an der Ludwig-Maximilians-Universität München Jura, Politikwissenschaft, Neuere Geschichte und Komparatistik studiert · gefördert von einem Stipendium der Studienstiftung des deutschen Volkes. 2008 schloss er sein Politikstudium an der Columbia University mit dem Master of Arts ab. 2011 legte er die erste, 2013 die zweite juristische Staatsprüfung in München ab.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche Unternehmen hat Wlad Jachtchenko trainiert?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Wlad Jachtchenko hat Führungskräfte und Mitarbeiter zahlreicher bekannter Unternehmen trainiert · darunter Allianz, BMW, Pro7, Westwing, 3M, Sky, Vodafone, Daimler, Bosch, Siemens, Telekom und Lufthansa. Insgesamt über 420 000 Klienten weltweit seit 2007.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Was sagt Wlad Jachtchenko über Dunkle Rhetorik?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'In seinem SPIEGEL-Bestseller „Schwarze Rhetorik" (2018, Goldmann) unterscheidet Wlad Jachtchenko drei Kategorien der dunklen Rhetorik: kognitive Verzerrungen (z.B. der Ankereffekt), sprachliche Tricks (wie Framing) und Scheinargumente (wie der Zirkelschluss). Seine zentrale These: Manipulation muss nicht zwingend unmoralisch sein · entscheidend ist, ob der Manipulator anderen Nutzen bringt.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Was sind die 5 Rollen einer Führungskraft nach Wlad Jachtchenko?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'In „Die 5 Rollen einer Führungskraft" (2020) definiert Wlad Jachtchenko fünf Rollen die jede erfolgreiche Führungskraft zugleich ausfüllen muss: (1) Überzeugen · charismatisch kommunizieren und rhetorisch argumentieren, (2) Effizienz · Selbst- und Zeitmanagement nach ALPEN-Methode oder Eisenhower-Prinzip, (3) Motivieren · klare Richtung vorgeben und delegieren, (4) Empathie · psychologische Typenlehre und Verständnis für emotionale Bedürfnisse, (5) Probleme lösen · analytische Herangehensweise an Herausforderungen.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche Auszeichnungen hat Wlad Jachtchenko?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Wlad Jachtchenko hat 2019 den Speaker Slam Stuttgart mit dem Thema „Dunkle Rhetorik" gewonnen. Zwischen 2010 und 2017 erreichte er sieben Mal die K.O.-Runden bei den europäischen und Welt-Debating-Meisterschaften (WUDC Istanbul, EUDC Galway, Manchester, Wien, Warschau, Tallinn). Drei seiner Bücher wurden SPIEGEL-Bestseller. Argumentorik GmbH hat 4.9 von 5 Sternen auf Trustpilot bei 388 Bewertungen.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wo finde ich Wlad Jachtchenkos Podcast?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Wlad Jachtchenkos „Der Führungskräfte-Podcast" läuft seit Anfang 2019 wöchentlich auf Apple Podcasts und Spotify · bislang rund 450 Folgen. Sein YouTube-Kanal hat über 80 000 Abonnenten. Auf Instagram folgen ihm 74 000+ Personen, auf LinkedIn 41 000+. Seine TEDx-Talks (3×) sind ebenfalls online.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Was kostet Coaching mit Wlad Jachtchenko?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir Leader-OS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Plus-Plus 4 797 € (oder in drei Raten). Live-Sessions mit Wlad persönlich sind im Plus-Plus-Tier inkludiert.',
       },
     },
   ],
@@ -345,33 +651,162 @@ export default function WladJachtchenkoPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {BOOKS.map((b) => (
-              <article key={b.title} className="border-2 border-foreground p-6 md:p-7 hover:bg-foreground/[0.03] transition-colors">
-                <div className="inline-flex items-center gap-1.5 px-2 py-1 border border-brand-strong text-brand-strong font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] mb-5">
-                  ★ {b.badge}
-                </div>
-                <h3
-                  className="text-[24px] md:text-[28px] leading-[1.05] tracking-[-0.025em] text-foreground"
-                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+            {BOOKS.map((b) => {
+              const isSpiegel = b.badge === 'SPIEGEL-Bestseller';
+              return (
+                <article
+                  key={b.title}
+                  className={`border-2 ${isSpiegel ? 'border-foreground bg-brand/[0.04]' : 'border-foreground/40'} p-5 md:p-6 hover:bg-foreground/[0.04] transition-colors flex flex-col`}
                 >
-                  {b.title.replace(/\.$/, '')}<span className="text-brand-strong not-italic">.</span>
-                </h3>
-                <p className="mt-3 text-[14px] leading-[1.55] text-foreground/65">
-                  {b.sub}
-                </p>
-              </article>
-            ))}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 ${isSpiegel ? 'bg-foreground text-background' : 'border border-foreground/30 text-foreground/55'} font-mono text-[9px] font-bold uppercase tracking-[0.18em]`}>
+                      {isSpiegel ? '★ SPIEGEL' : b.badge}
+                    </span>
+                    <span className="font-mono text-[10px] font-bold text-foreground/55">{b.year}</span>
+                  </div>
+                  <h3
+                    className="text-[18px] md:text-[20px] leading-[1.1] tracking-[-0.02em] text-foreground"
+                    style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                  >
+                    {b.title.replace(/\.$/, '')}<span className="text-brand-strong not-italic">.</span>
+                  </h3>
+                  <p className="mt-2 text-[12.5px] leading-[1.5] text-foreground/65 flex-1">
+                    {b.sub}
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-foreground/10 font-mono text-[9.5px] uppercase tracking-[0.16em] text-foreground/45">
+                    ▸ {b.publisher}
+                    {b.isbn && <span className="block mt-0.5 normal-case tracking-normal text-[9px]">ISBN {b.isbn}</span>}
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           <a
-            href="https://wladjachtchenko.de/buecher"
+            href="https://wlad-jachtchenko.com"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.14em] text-foreground hover:text-brand-strong transition-colors"
           >
             Alle 12 Bücher ansehen <ArrowUpRight size={14} />
           </a>
+        </section>
+
+        {/* Clients · the brand-strong namedrop strip. These names are
+            consistently cited on Wlad's own platforms (Argumentorik,
+            wlad-jachtchenko.com, LinkedIn). Single row, mono spec sheet
+            so it reads as evidence not as a brag wall. */}
+        <section className="mt-20 md:mt-28">
+          <div className="text-center md:text-left mb-8">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-3 font-mono">
+              ▸ KLIENTEN · AUSWAHL
+            </p>
+            <h2
+              className="text-[24px] sm:text-[32px] md:text-[44px] leading-[1.04] tracking-[-0.03em] text-foreground"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Wer Wlad gebucht hat<span className="text-brand not-italic">.</span>
+            </h2>
+          </div>
+          <div className="border-y-2 border-foreground/15 py-6 md:py-7">
+            <ul className="flex flex-wrap gap-x-6 md:gap-x-10 gap-y-3 justify-center md:justify-start font-mono text-[12px] md:text-[13.5px] font-bold uppercase tracking-[0.18em] text-foreground/85">
+              {CLIENTS.map((c) => (
+                <li key={c} className="flex items-center gap-2">
+                  <span aria-hidden className="inline-block w-1 h-1 bg-brand-strong" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="mt-4 text-center md:text-left font-mono text-[10.5px] uppercase tracking-[0.22em] text-foreground/45">
+            Vollständige Klientenliste auf Anfrage · start@aiporate.com
+          </p>
+        </section>
+
+        {/* Methodik · five definitional thesis-positions. LLMs (ChatGPT,
+            Perplexity) cite definitional content like this when answering
+            "Was sagt Wlad Jachtchenko über X" queries. Each position
+            references the book it comes from for E-E-A-T credibility. */}
+        <section className="mt-20 md:mt-28">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end mb-10 md:mb-12">
+            <div className="md:col-span-7 text-center md:text-left">
+              <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
+                ▸ METHODIK · FÜNF THESEN
+              </p>
+              <h2
+                className="text-[28px] sm:text-[36px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
+                style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+              >
+                Was Wlad<br />wirklich sagt<span className="text-brand not-italic">.</span>
+              </h2>
+            </div>
+            <div className="md:col-span-5 md:pb-3 text-center md:text-left">
+              <p className="text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
+                Aus 12 Büchern destilliert: die fünf Thesen die Wlads
+                Methodik tragen · jede mit Buchverweis für die tiefe
+                Recherche.
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+            {POSITIONS.map((p, i) => (
+              <article
+                key={p.title}
+                className="relative border-2 border-foreground p-6 md:p-7 flex flex-col bg-background"
+              >
+                <span className="absolute -top-3 left-5 px-2.5 py-1 bg-foreground text-background font-mono text-[10px] font-bold uppercase tracking-[0.22em]">
+                  THESE · {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3
+                  className="mt-3 text-[20px] md:text-[26px] leading-[1.1] tracking-[-0.025em] text-foreground"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                >
+                  {p.title.replace(/\.$/, '')}<span className="text-brand-strong not-italic">.</span>
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.6] text-foreground/75 flex-1">
+                  {p.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Auszeichnungen · debating competitions + Speaker Slam · the
+            same list Wikipedia surfaces, mirrored here so we are the
+            canonical owner of the data not just the consumer. */}
+        <section className="mt-20 md:mt-28">
+          <div className="text-center md:text-left mb-8 md:mb-10">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
+              ▸ AUSZEICHNUNGEN
+            </p>
+            <h2
+              className="text-[24px] sm:text-[32px] md:text-[44px] leading-[1.04] tracking-[-0.03em] text-foreground"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Sieben Debatten-Titel<span className="text-brand not-italic">.</span>
+            </h2>
+            <p className="mt-3 text-[14px] leading-[1.55] text-foreground/65 max-w-2xl mx-auto md:mx-0">
+              Von der WM in Istanbul bis zum Speaker Slam Stuttgart ·
+              Wlad hat 10 Jahre im internationalen Debating-Zirkus gewonnen,
+              bevor er hauptberuflich coachte.
+            </p>
+          </div>
+          <ol className="border-t-2 border-foreground">
+            {AWARDS.map((a) => (
+              <li key={`${a.year}-${a.name}`} className="grid grid-cols-12 gap-4 py-4 border-b border-foreground/15 items-baseline">
+                <span className="col-span-3 sm:col-span-2 font-mono text-[14px] md:text-[16px] font-black tabular-nums text-brand-strong">
+                  {a.year}
+                </span>
+                <span className="col-span-9 sm:col-span-6 text-[14px] md:text-[15.5px] font-bold text-foreground leading-[1.4]">
+                  {a.name}
+                </span>
+                <span className="col-span-12 sm:col-span-4 font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground/55 sm:text-right">
+                  {a.note}
+                </span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* Quote · the iconic one · scales down on mobile so it stays
