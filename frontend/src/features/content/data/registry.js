@@ -105,8 +105,19 @@ import briefAnMeinen28JaehrigenSelbst from './articles/brief-an-meinen-28-jaehri
 import derTagAnDemIchAufhoerteZuPushen from './articles/der-tag-an-dem-ich-aufhoerte-zu-pushen';
 import dreiBurnoutsEineLektion from './articles/drei-burnouts-eine-lektion';
 import liebeMitarbeiterDasHierWollteIch from './articles/liebe-mitarbeiter-das-hier-wollte-ich-euch-immer-sagen';
+// 2026-06-26 · Authority + Definitional + Comparison pillars · designed for
+// AI Overview / Perplexity / ChatGPT citation. Each carries a Wlad cover
+// image, full SEO armor with 9+ long-tail keywords, and structured Q+A-shaped
+// h2 headings so LLMs can lift sections cleanly.
+import werIstWladJachtchenko from './articles/wer-ist-wlad-jachtchenko';
+import wasIstEineKiNativeFuehrungskraft from './articles/was-ist-eine-ki-native-fuehrungskraft';
+import leaderOsVsChatgptClaudePerplexity from './articles/leader-os-vs-chatgpt-claude-perplexity';
 
 const ARTICLES = [
+  // 2026-06-26 GEO pillars · authority + definition + comparison
+  werIstWladJachtchenko,
+  wasIstEineKiNativeFuehrungskraft,
+  leaderOsVsChatgptClaudePerplexity,
   // Narrative SEO bombs (Players'-Tribune voice, viral hooks, SEO-armored).
   // 2026-08/09 expansion · 20 SEO-armored articles
   ChatgptAlsCoPilot7PromptsFuerFuehrungskraefte,

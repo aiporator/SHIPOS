@@ -141,10 +141,13 @@ export const HeroSection = () => (
           fontStyle: 'italic',
         }}
       >
-        Vierzehn Tage<br />kostenlos<span className="text-brand not-italic">.</span>
+        Führung ist<br />Skill<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* 3 / 4 · Subline */}
+      {/* 3 / 4 · Subline · authority-claim + product-handle, no price up here.
+          Skill ist die Headline-Klammer · Skill ist trainierbar ist die
+          Versprechung · Wlads Methodik ist der Beleg · KI-Coach ist die
+          Distribution. Vier Beats, alle conversion-relevant, keiner ein Preis. */}
       <motion.p
         initial="hidden"
         animate="show"
@@ -156,8 +159,8 @@ export const HeroSection = () => (
           fontWeight: 800,
         }}
       >
-        Elf <span className="text-brand">Frameworks</span>. Ein KI-Coach.{' '}
-        <span className="text-foreground/55">Ohne Karte<span className="text-brand">.</span> Ohne Risiko<span className="text-brand">.</span></span>
+        Skill ist <span className="text-brand">trainierbar</span>.{' '}
+        <span className="text-foreground/55">Mit Wlads Methodik. 24/7 KI-Coach<span className="text-brand">.</span></span>
       </motion.p>
 
       {/* 4 / 4 · CTAs · centered on mobile so the call-to-action moment
