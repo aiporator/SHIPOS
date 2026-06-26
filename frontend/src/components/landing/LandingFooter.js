@@ -98,36 +98,6 @@ const COL_COMPANY = [
   { label: 'Widerruf',               to: '/widerruf' },
 ];
 
-const IMAGE_TILES = [
-  {
-    src: '/wlad/wlad-portrait.jpg',
-    alt: 'Wlad Jachtchenko Portrait',
-    eyebrow: '▸ AUTHOR',
-    title: 'Wlad Jachtchenko',
-    sub: '3× SPIEGEL · 400 000+ Kunden',
-    href: 'https://www.linkedin.com/in/wladjachtchenko/',
-    external: true,
-  },
-  {
-    src: '/landing/hf-04.png',
-    alt: 'Wlad Intro Video Poster',
-    eyebrow: '▸ INTRO · 90 SEK',
-    title: 'Bevor du startest',
-    sub: 'Wlad erklärt Leader-OS in 90 Sekunden',
-    href: '/#wlad-intro',
-    external: false,
-  },
-  {
-    src: '/stickers/STK-04-wladbot-stamp.svg',
-    alt: 'WladBot Stamp',
-    eyebrow: '▸ POWERED BY',
-    title: 'WladBot · 24/7',
-    sub: 'Dein KI-Sparring-Partner',
-    href: '/#platform',
-    external: false,
-  },
-];
-
 // ─────────────────────────────────────────────────────────────────────────
 // Sub-components
 // ─────────────────────────────────────────────────────────────────────────
@@ -170,53 +140,6 @@ const Column = ({ title, links, testId }) => (
     </ul>
   </div>
 );
-
-const ImageTile = ({ tile }) => {
-  const isSvg = tile.src.endsWith('.svg');
-  const inner = (
-    <>
-      <div className="relative aspect-[4/5] overflow-hidden bg-white/[0.03] border border-white/10 group-hover:border-brand transition-colors">
-        <img
-          src={tile.src}
-          alt={tile.alt}
-          loading="lazy"
-          decoding="async"
-          className={`absolute inset-0 w-full h-full ${isSvg ? 'object-contain p-12' : 'object-cover'} group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out`}
-        />
-        {/* lime sweep on hover */}
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(191,255,0,0) 30%, rgba(191,255,0,0.18) 100%)',
-          }}
-        />
-      </div>
-      <div className="mt-3.5">
-        <div className="font-mono text-[9.5px] font-bold uppercase tracking-[0.26em] text-brand mb-1.5">
-          {tile.eyebrow}
-        </div>
-        <div className="text-[15px] font-extrabold text-white leading-[1.15]">
-          {tile.title}
-        </div>
-        <div className="mt-1 text-[12px] font-medium text-slate-400 leading-[1.4]">
-          {tile.sub}
-        </div>
-      </div>
-    </>
-  );
-  const className = 'group block';
-  return tile.external ? (
-    <a href={tile.href} target="_blank" rel="noopener noreferrer" className={className}>
-      {inner}
-    </a>
-  ) : (
-    <Link to={tile.href.startsWith('/') ? tile.href : `/${tile.href}`} className={className}>
-      {inner}
-    </Link>
-  );
-};
 
 // ─────────────────────────────────────────────────────────────────────────
 // Page-bg + dotted-grid layer
@@ -286,22 +209,12 @@ export const LandingFooter = () => (
         </div>
       </div>
 
-      {/* ── Image-tile strip ───────────────────────────────────────────── */}
-      <div className="mt-16 pt-10 border-t border-white/10">
-        <div className="flex items-baseline justify-between mb-6 flex-wrap gap-3">
-          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-brand">
-            ▸ MEDIA · MEET WLAD
-          </p>
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-            3× SPIEGEL-BESTSELLER · 10M+ DOWNLOADS · 20 LÄNDER
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6">
-          {IMAGE_TILES.map((t) => (
-            <ImageTile key={t.title} tile={t} />
-          ))}
-        </div>
-      </div>
+      {/* The MEDIA · MEET WLAD image-tile strip lived here · removed because
+          the middle tile rendered the legacy hf-04.png poster (the
+          AI-mockup of someone who is not Wlad) and the lime CTA disk on
+          the third tile collided with its own label · neither was on-brand.
+          The /wlad-jachtchenko canonical page now carries the Meet-Wlad
+          surface in full editorial layout. */}
 
       {/* ── Newsletter · Feldnotizen opt-in ─────────────────────────────── */}
       <div

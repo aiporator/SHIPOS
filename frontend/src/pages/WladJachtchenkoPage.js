@@ -216,10 +216,12 @@ export default function WladJachtchenkoPage() {
       <LandingNav />
 
       <main className="max-w-[1280px] mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-16 md:pb-24">
-        {/* Hero · Person identity card */}
-        <section className="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
-          <div className="md:col-span-5">
-            <div className="relative aspect-[4/5] w-full max-w-[420px] bg-foreground/5 border-2 border-foreground overflow-hidden">
+        {/* Hero · Person identity card · stacked on mobile with centered
+            wordmark over the portrait, side-by-side on md+ for the
+            editorial spec layout. */}
+        <section className="grid md:grid-cols-12 gap-10 md:gap-12 items-start">
+          <div className="md:col-span-5 mx-auto md:mx-0 w-full">
+            <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden">
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
@@ -239,24 +241,25 @@ export default function WladJachtchenkoPage() {
             </div>
           </div>
 
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 text-center md:text-left">
             <div className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
               ▸ PERSON · WLAD JACHTCHENKO · EST. 2010
             </div>
             <h1
-              className="text-[44px] sm:text-[64px] md:text-[88px] leading-[0.95] tracking-[-0.035em] text-foreground"
+              className="text-[40px] sm:text-[56px] md:text-[88px] leading-[0.95] tracking-[-0.035em] text-foreground"
               style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
               Wlad<br />Jachtchenko<span className="text-brand not-italic">.</span>
             </h1>
-            <p className="mt-6 text-[17px] md:text-[19px] leading-[1.6] text-foreground/80 max-w-2xl">
+            <p className="mt-6 mx-auto md:mx-0 text-[16px] sm:text-[17px] md:text-[19px] leading-[1.6] text-foreground/80 max-w-2xl">
               Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller.
               Vierhunderttausend trainierte Klienten. Fünfzehn Jahre Coaching-Praxis.
               Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS.
             </p>
 
-            {/* Quick CTAs */}
-            <div className="mt-8 flex flex-wrap gap-3">
+            {/* Quick CTAs · stacked + centered on mobile so each chip has a
+                full row width and the lime trial button is unmissable. */}
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3">
               <Link
                 to="/journal/wer-ist-wlad-jachtchenko"
                 className="inline-flex items-center gap-2 px-5 h-12 bg-foreground hover:bg-brand text-white hover:text-foreground font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
@@ -285,12 +288,12 @@ export default function WladJachtchenkoPage() {
 
         {/* Facts box · Wikipedia-style for AI Overview lift */}
         <section className="mt-20 md:mt-28 grid md:grid-cols-12 gap-8 md:gap-12">
-          <div className="md:col-span-5">
+          <div className="md:col-span-5 text-center md:text-left">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
               ▸ FAKTEN · KOMPAKT
             </p>
             <h2
-              className="text-[32px] md:text-[44px] leading-[1.04] tracking-[-0.03em] text-foreground"
+              className="text-[28px] sm:text-[32px] md:text-[44px] leading-[1.04] tracking-[-0.03em] text-foreground"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
               Auf einen Blick<span className="text-brand not-italic">.</span>
@@ -303,11 +306,14 @@ export default function WladJachtchenkoPage() {
           <div className="md:col-span-7">
             <dl className="border-t-2 border-foreground">
               {FACTS.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-3 gap-4 py-4 border-b border-foreground/15">
+                <div
+                  key={k}
+                  className="flex flex-col sm:grid sm:grid-cols-3 gap-1.5 sm:gap-4 py-4 border-b border-foreground/15"
+                >
                   <dt className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/55">
                     {k}
                   </dt>
-                  <dd className="col-span-2 text-[14.5px] md:text-[15.5px] leading-[1.5] text-foreground font-semibold">
+                  <dd className="sm:col-span-2 text-[14.5px] md:text-[15.5px] leading-[1.5] text-foreground font-semibold">
                     {v}
                   </dd>
                 </div>
@@ -319,18 +325,18 @@ export default function WladJachtchenkoPage() {
         {/* Books · SPIEGEL-Bestseller trio */}
         <section className="mt-20 md:mt-28">
           <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end mb-10 md:mb-12">
-            <div className="md:col-span-7">
+            <div className="md:col-span-7 text-center md:text-left">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
                 ▸ BÜCHER · 12 PUBLIZIERT
               </p>
               <h2
-                className="text-[32px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
+                className="text-[28px] sm:text-[36px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
                 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
               >
                 Drei davon<br />SPIEGEL-Bestseller<span className="text-brand not-italic">.</span>
               </h2>
             </div>
-            <div className="md:col-span-5 md:pb-3">
+            <div className="md:col-span-5 md:pb-3 text-center md:text-left">
               <p className="text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
                 Verkauft sich in zwei Welten zugleich: mittelständische Vorstandsetagen
                 im Schwarzwald und Strategie-Berater in Berlin lesen dieselben Seiten.
@@ -367,31 +373,35 @@ export default function WladJachtchenkoPage() {
           </a>
         </section>
 
-        {/* Quote · the iconic one */}
+        {/* Quote · the iconic one · scales down on mobile so it stays
+            inside the viewport on a 375px screen without ripping the
+            sentence apart at awkward break points. */}
         <section className="mt-20 md:mt-28 border-y-2 border-foreground py-14 md:py-20">
           <blockquote
-            className="text-[36px] sm:text-[52px] md:text-[72px] leading-[1.04] tracking-[-0.035em] text-foreground max-w-5xl"
+            className="text-[28px] sm:text-[40px] md:text-[60px] lg:text-[72px] leading-[1.06] tracking-[-0.03em] text-foreground max-w-5xl text-center md:text-left mx-auto md:mx-0"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
             „Führung ist Skill. Skill ist trainierbar.
             Wer Skill für Talent hält, lernt nie zu führen<span className="text-brand not-italic">.</span>"
           </blockquote>
-          <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/55">
+          <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/55 text-center md:text-left">
             ▸ WLAD JACHTCHENKO · METHODIK-KERNSATZ
           </p>
         </section>
 
         {/* Wlad's projects · the three properties he runs */}
         <section className="mt-20 md:mt-28">
-          <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-            ▸ DREI PROJEKTE · ALLE LIVE
-          </p>
-          <h2
-            className="text-[32px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
-            style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-          >
-            Wo Wlad heute arbeitet<span className="text-brand not-italic">.</span>
-          </h2>
+          <div className="text-center md:text-left">
+            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
+              ▸ DREI PROJEKTE · ALLE LIVE
+            </p>
+            <h2
+              className="text-[28px] sm:text-[36px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Wo Wlad heute arbeitet<span className="text-brand not-italic">.</span>
+            </h2>
+          </div>
           <div className="mt-10 grid md:grid-cols-3 gap-5 md:gap-6">
             {[
               { name: 'Leader-OS',
@@ -437,19 +447,19 @@ export default function WladJachtchenkoPage() {
         </section>
 
         {/* Press / journalists · the surface that journalists Google-and-cite */}
-        <section className="mt-20 md:mt-28 bg-foreground text-background p-8 md:p-12">
-          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <section className="mt-20 md:mt-28 bg-foreground text-background p-6 sm:p-8 md:p-12">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-center text-center md:text-left">
             <div className="md:col-span-7">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4 font-mono">
                 ▸ PRESSE · JOURNALISTEN
               </p>
               <h2
-                className="text-[28px] md:text-[40px] leading-[1.04] tracking-[-0.025em]"
+                className="text-[24px] sm:text-[28px] md:text-[40px] leading-[1.04] tracking-[-0.025em]"
                 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
               >
                 Pressefotos, Bio, Sprecher-Anfragen<span className="text-brand not-italic">.</span>
               </h2>
-              <p className="mt-4 text-[14.5px] leading-[1.6] text-background/75">
+              <p className="mt-4 text-[14.5px] leading-[1.6] text-background/75 mx-auto md:mx-0">
                 Für Interviews, Keynotes oder Hintergrundgespräche · einfach Mail an
                 start@aiporate.com. Bio in zwei Längen, Pressefoto in 4K, und ein
                 kuratierter Zitat-Pool stehen auf Anfrage bereit.
@@ -466,18 +476,11 @@ export default function WladJachtchenkoPage() {
           </div>
         </section>
 
-        {/* Also-called · for Google's entity disambiguation */}
-        <section className="mt-20 md:mt-28 text-center">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-foreground/45 mb-3">
-            ▸ AUCH BEKANNT ALS
-          </p>
-          <p className="text-[15px] md:text-[16.5px] text-foreground/75">
-            {ALSO_CALLED.join(' · ')}
-          </p>
-          <p className="mt-2 text-[12px] text-foreground/45">
-            Diese Schreibweisen führen zur gleichen Person · alle resolvieren auf diese Seite.
-          </p>
-        </section>
+        {/* Entity-disambiguation lives in the Person JSON-LD's alternateName
+            field (machine-readable, helps search engines resolve variant
+            spellings) · we do not surface the variants visually anymore
+            because brand discipline requires a single canonical
+            wordmark on screen: "Wlad Jachtchenko". */}
       </main>
 
       <LandingFooter />
