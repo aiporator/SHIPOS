@@ -161,7 +161,21 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 //   Border, top/bottom metadata strips, and VariantOverlay all stay ·
 //   the CARD itself looks identical to a photo chapter.
 // ─────────────────────────────────────────────────────────────────────────
-const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign }) => (
+// Alt-text catalog per chapter · keyword-rich for AI Overview / Perplexity /
+// image-search ranking around "Wlad Jachtchenko", "KI-Coach", "Leadership-
+// Operating-System". Each entry maps the chapter code to an SEO-shaped
+// sentence that describes the visible asset AND the chapter's claim.
+const ALT_BY_CODE = {
+  INHALT:        'Leader-OS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
+  WLADBOT:       'WladBot · KI-Coach 24/7 in Wlads Stimme · trainiert auf 2 212 Wlad-Lektionen',
+  SPRINT:        '30-Tage-Sprint · Klasse 0001 Startnummer Plate · Leader-OS Charter-Kohorte',
+  WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS',
+  TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · Leader-OS',
+  ZERTIFIKAT:    'Leader-OS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',
+  KOMPLETT:      'Wlad Jachtchenko Voxel-Avatar mit OS-Würfel · WladBot Komplettbegleitung',
+};
+
+const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign, headline }) => (
   <div
     className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} ${posterDesign ? 'bg-background' : 'bg-foreground'} overflow-hidden`}
     data-testid={`benefit-photo-${nr}`}
@@ -169,7 +183,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     {photo ? (
       <img
         src={photo}
-        alt=""
+        alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · Leader-OS Kapitel ${nr}` : `Leader-OS Kapitel ${nr}`)}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
@@ -361,6 +375,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
               code={asset.code}
               isDark={isDark}
               posterDesign={asset.posterDesign}
+              headline={asset.headline}
             />
           </motion.div>
         </div>

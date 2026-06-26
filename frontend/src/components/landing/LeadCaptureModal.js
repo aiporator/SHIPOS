@@ -185,7 +185,7 @@ export const LeadCaptureModal = () => {
                 <span className="absolute inset-0 rounded-full bg-brand-strong animate-ping opacity-75" />
                 <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
               </span>
-              KLASSE 0001 · 12 VON 30 PLÄTZE FREI
+              KLASSE 0001 · 20 VON 30 PLÄTZE FREI
             </span>
             <button
               onClick={close}
@@ -205,7 +205,9 @@ export const LeadCaptureModal = () => {
                 <img
                   src={WLAD_AVATAR}
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                  alt="Wlad Jachtchenko"
+                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Klasse 0001 Charter offen"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_18%]"
                 />
                 {/* Bottom-only dark gradient for scarcity-card legibility · no
@@ -240,7 +242,7 @@ export const LeadCaptureModal = () => {
                       className="mt-1 text-foreground leading-none"
                       style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(22px, 3vw, 32px)', letterSpacing: '-0.025em' }}
                     >
-                      12 / 30<span className="text-brand-strong not-italic">.</span>
+                      20 / 30<span className="text-brand-strong not-italic">.</span>
                     </div>
                     <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.2em] text-foreground/55">
                       Plätze frei diese Kohorte

@@ -1,6 +1,45 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HOW_IT_WORKS } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
+
+// HowTo JSON-LD · injected once at mount, removed on unmount. AI-search
+// engines (ChatGPT, Google AI Overview, Perplexity) prefer structured
+// HowTo data when answering "how do I" questions; this lets us rank
+// for "wie werde ich KI-native Führungskraft" and similar long-tails.
+const useHowToJsonLd = () => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'Wie werde ich eine KI-native Führungskraft mit Leader-OS',
+      description:
+        'Drei-Schritt-Pfad von der kostenlosen Diagnose über den 30-Tage-Sprint ' +
+        'zur langfristigen Plattform-Mitgliedschaft. Methodik von Wlad Jachtchenko, ' +
+        '3× SPIEGEL-Bestseller-Autor.',
+      totalTime: 'P30D',
+      supply: [
+        { '@type': 'HowToSupply', name: '10 Minuten für die Diagnose' },
+        { '@type': 'HowToSupply', name: '30 Tage Aufmerksamkeit für den Sprint' },
+        { '@type': 'HowToSupply', name: 'Eine reale Führungssituation pro Woche' },
+      ],
+      step: HOW_IT_WORKS.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: s.title,
+        text: s.body,
+        url: s.href,
+      })),
+    };
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.textContent = JSON.stringify(data);
+    el.dataset.howtoLd = 'leader-os';
+    document.head.appendChild(el);
+    return () => el.remove();
+  }, []);
+};
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -20,7 +59,9 @@ const FADE_UP = {
  * number, headline, body, CTA. The user told us to make this clear,
  * here it is.
  */
-export const HowItWorksSection = () => (
+export const HowItWorksSection = () => {
+  useHowToJsonLd();
+  return (
   <section
     id="how-it-works"
     className="relative w-full bg-background overflow-hidden"
@@ -147,4 +188,5 @@ export const HowItWorksSection = () => (
       </motion.div>
     </div>
   </section>
-);
+  );
+};

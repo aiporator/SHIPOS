@@ -53,13 +53,28 @@ export const LandingNav = () => {
           </div>
         </Link>
 
-        {/* Single-focus nav: only the 14-day-trial CTA. The Sprint sales
-            push lives INSIDE the app (post-signup email + dashboard upsell),
-            so the marketing nav points at ONE action: start the free trial
-            on leaderos.de. Anchors to specific sections still work via
-            in-page scroll; users discover them as they scroll, not as
-            nav choices. */}
-        <nav className="flex items-center">
+        {/* Dual entry-point nav: free 10-min diagnose on the left (the
+            softest micro-conversion · most visitors click here first),
+            14-day trial on the right (the harder commit). Both routes
+            converge in the same Mongo identity via email_lower, so
+            sending traffic to whichever offer matches the visitor's
+            comfort level is strictly better than gating it.
+            On mobile the diagnose stays visible (sm:inline-flex) since
+            it's the lower-friction option, the trial collapses to
+            "14 Tage". */}
+        <nav className="flex items-center gap-2 sm:gap-3">
+          <a
+            href="https://leadercheck.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group inline-flex items-center gap-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background text-foreground font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-3 text-[10px] sm:text-[11px]' : 'h-12 px-4 text-[10.5px] sm:text-[12px]'
+            }`}
+            data-testid="landing-nav-diagnose"
+          >
+            <span className="hidden sm:inline">Diagnose · 10 Min</span>
+            <span className="sm:hidden">Diagnose</span>
+          </a>
           <a
             href="https://leaderos.de/signup?trial=14"
             target="_blank"
@@ -69,8 +84,8 @@ export const LandingNav = () => {
             }`}
             data-testid="landing-nav-cta"
           >
-            <span className="hidden sm:inline">14 Tage kostenlos testen</span>
-            <span className="sm:hidden">14 Tage gratis</span>
+            <span className="hidden sm:inline">14 Tage kostenlos</span>
+            <span className="sm:hidden">14 Tage</span>
             <ArrowRight
               size={scrolled ? 14 : 16}
               className="group-hover:translate-x-0.5 transition-transform"

@@ -51,13 +51,13 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ 30-TAGE-SPRINT · NACH TRIAL',
+    eyebrow: '▸ 30-TAGE-SPRINT + 12 MONATE',
     name: 'Sprint',
     duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
     price: '997 €',
-    priceSub: 'erst nach deiner Trial-Phase',
+    priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
-    scarcity: 'Klasse 0001 · 12 von 30 Plätzen frei',
+    scarcity: 'Klasse 0001 · 20 von 30 Plätzen frei',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
@@ -65,10 +65,10 @@ const TIERS = [
       'Tägliche Lernvideos · Wöchen-Drills',
       'Zertifikat für dein LinkedIn',
     ],
-    cta: 'Erst 14 Tage testen',
-    href: 'https://leaderos.de/signup?trial=14',
-    accent: false,
-    badge: 'AB TAG 15',
+    cta: 'Sprint kaufen',
+    href: 'https://leaderos.de/checkout?tier=sprint',
+    accent: true,
+    badge: '★ BELIEBT',
   },
   {
     id: 'plusplus',
@@ -88,7 +88,7 @@ const TIERS = [
     cta: 'Plus-Plus starten',
     href: 'https://leaderos.de/checkout?tier=plusplus',
     accent: false,
-    badge: 'EMPFOHLEN',
+    badge: 'OS-JAHR',
     dark: true,
   },
   {
@@ -151,10 +151,10 @@ const TIERS = [
   },
 ];
 
-// Launch-Focus: Sprint + Plus-Plus + Diagnose nur. Mentoring + Enterprise
+// Launch-Focus: Trial · Sprint · Plus-Plus · Diagnose. Mentoring + Enterprise
 // existieren weiter im Code für später (sales-anchor + B2B-pipeline), aber
 // auf der Landing erstmal versteckt · klares Funnel ohne Premium-Distraction.
-const VISIBLE_IDS = new Set(['trial', 'diagnose', 'sprint']);
+const VISIBLE_IDS = new Set(['trial', 'sprint', 'plusplus', 'diagnose']);
 const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
 
 const TierCard = ({ tier }) => {
@@ -320,7 +320,7 @@ export const PricingLadder = () => {
       {/* Drei-Tier-Fokus: Diagnose · Sprint · Plus-Plus. Mentoring + Enterprise
           existieren weiter im Code (TIERS array), sind aber für den Launch
           versteckt. Re-aktivierbar via VISIBLE_IDS oben. */}
-      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+      <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
         {VISIBLE_TIERS.map((tier) => (
           // h-full on the wrapper so the inner TierCard's own h-full
           // resolves against the grid-track height; without this anchor,

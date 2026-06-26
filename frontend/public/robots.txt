@@ -7,6 +7,10 @@ Allow: /
 Allow: /login
 Allow: /journal
 Allow: /journal/
+Allow: /wlad-jachtchenko
+Allow: /wlad
+Allow: /about
+Allow: /ueber-wlad
 Allow: /impressum
 Allow: /datenschutz
 Allow: /agb
@@ -51,12 +55,109 @@ Crawl-delay: 5
 User-agent: YandexBot
 Crawl-delay: 10
 
-# Bad bots — block entirely
+# ════════════════════════════════════════════════════════════════════
+# AI-Search crawlers · ALLOWED on purpose.
+# ════════════════════════════════════════════════════════════════════
+# McKinsey Oct 2025: 50% of consumers use AI-powered search today,
+# $750B in revenue flows through GEO by 2028. Blocking the LLM
+# training/inference crawlers = invisible to ChatGPT, Claude,
+# Perplexity, Google AI Overview, Gemini, Copilot. We explicitly
+# allow them on every public surface and disallow the same auth-
+# only surfaces we hide from generic crawlers above.
+#
+# Reference: https://platform.openai.com/docs/bots
+# Reference: https://docs.anthropic.com/en/docs/build-with-claude/web-bots
+# Reference: https://docs.perplexity.ai/guides/perplexity-bot
+
 User-agent: GPTBot
-Disallow: /
+Allow: /
+Allow: /journal/
+Disallow: /dashboard
+Disallow: /chat
+Disallow: /tools
+Disallow: /api/
+Disallow: /onboarding
+Disallow: /profile
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
 
 User-agent: CCBot
-Disallow: /
+Allow: /
+Disallow: /dashboard
+Disallow: /chat
+Disallow: /api/
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+
+User-agent: meta-externalagent
+Allow: /
+Disallow: /api/
+
+User-agent: FacebookBot
+Allow: /
+Disallow: /api/
+
+User-agent: MistralBot
+Allow: /
+Disallow: /api/
+
+User-agent: DiffbotBot
+Allow: /
+Disallow: /api/
+
+# ════════════════════════════════════════════════════════════════════
+# SEO-spam scrapers · still blocked.
+# ════════════════════════════════════════════════════════════════════
+# These crawl for competitive-intelligence resale or to feed
+# link-building spam farms · no value to us, blocked entirely.
 
 User-agent: AhrefsBot
 Disallow: /
@@ -67,5 +168,13 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-# Sitemap reference
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# ════════════════════════════════════════════════════════════════════
+# Sitemap + LLM manifest references.
+# ════════════════════════════════════════════════════════════════════
 Sitemap: https://leader-os.de/sitemap.xml

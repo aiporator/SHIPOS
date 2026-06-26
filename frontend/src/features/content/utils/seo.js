@@ -129,6 +129,39 @@ function setLink(rel, href) {
  */
 export function applyArticleJsonLd(article, seo) {
   if (typeof document === 'undefined') return () => {};
+  // Rich Person sub-schema for E-E-A-T (Experience · Expertise · Authoritativeness
+  // · Trustworthiness) signals. Google AI Overview and Perplexity preferentially
+  // surface articles whose author has provable credentials, citations, and a
+  // canonical Person entity. Wlad gets the full credential matrix on every
+  // article authored by him.
+  const wladAuthor = {
+    '@type': 'Person',
+    '@id': 'https://leader-os.de/#wlad',
+    name: 'Wlad Jachtchenko',
+    givenName: 'Wlad',
+    familyName: 'Jachtchenko',
+    jobTitle: 'Argumentations-Coach · Bestseller-Autor · Gründer Leader-OS',
+    description:
+      'Europas führender Argumentations-Coach. 3× SPIEGEL-Bestseller, ' +
+      '400 000+ trainierte Klienten, 15 Jahre Coaching-Praxis. Gründer der ' +
+      'Argumentorik-Akademie und Leader-OS.',
+    url: 'https://leader-os.de/journal/wer-ist-wlad-jachtchenko',
+    image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+    sameAs: [
+      'https://www.linkedin.com/in/wladjachtchenko/',
+      'https://www.youtube.com/@WladTraining',
+      'https://wladjachtchenko.de/buecher',
+      'https://podcast.wladjachtchenko.de',
+    ],
+    knowsAbout: [
+      'Boardroom-Rhetorik',
+      'Argumentation',
+      'Führungskräfte-Coaching',
+      'Verhandlung',
+      'Dunkle Rhetorik',
+      'KI Leadership',
+    ],
+  };
   const data = {
     '@context': 'https://schema.org',
     '@type': article.type === 'guide' ? 'TechArticle' : 'BlogPosting',
@@ -136,24 +169,60 @@ export function applyArticleJsonLd(article, seo) {
     description: seo.description,
     datePublished: article.publishedAt,
     dateModified: article.updatedAt ?? article.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: article.author ?? 'Wlad Jachtchenko',
-      url: 'https://leader-os.de',
-    },
+    author: article.author === 'Wlad Jachtchenko' || !article.author
+      ? wladAuthor
+      : {
+          '@type': 'Person',
+          name: article.author,
+          url: 'https://leader-os.de',
+        },
     publisher: {
       '@type': 'Organization',
+      '@id': 'https://leader-os.de/#organization',
       name: 'Leader-OS',
       url: 'https://leader-os.de',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://leader-os.de/logo-512.png',
+        width: 512,
+        height: 512,
+      },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': seo.canonical },
     image: seo.ogImage ? [seo.ogImage] : undefined,
     keywords: (seo.keywords ?? []).join(', '),
+    inLanguage: 'de-DE',
+    // Speakable lets voice-AI engines (Assistant, Siri, Echo) lift the
+    // first paragraph + h2-text aloud · pure win for AEO since voice
+    // queries are growing fast and barely any DACH site marks it up.
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'article p:first-of-type', 'article h2'],
+    },
   };
-  const el = document.createElement('script');
-  el.type = 'application/ld+json';
-  el.textContent = JSON.stringify(data);
-  el.dataset.articleSlug = article.slug;
-  document.head.appendChild(el);
-  return () => el.remove();
+  // BreadcrumbList in its own LD block · Google's documented schema
+  // requires it as a separate root, not nested under Article.
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Leader-OS', item: 'https://leader-os.de/' },
+      { '@type': 'ListItem', position: 2, name: 'Feldnotizen', item: 'https://leader-os.de/journal' },
+      { '@type': 'ListItem', position: 3, name: article.title.replace(/\.$/, ''), item: seo.canonical },
+    ],
+  };
+  const elArticle = document.createElement('script');
+  elArticle.type = 'application/ld+json';
+  elArticle.textContent = JSON.stringify(data);
+  elArticle.dataset.articleSlug = article.slug;
+  document.head.appendChild(elArticle);
+  const elCrumbs = document.createElement('script');
+  elCrumbs.type = 'application/ld+json';
+  elCrumbs.textContent = JSON.stringify(breadcrumbs);
+  elCrumbs.dataset.crumbsSlug = article.slug;
+  document.head.appendChild(elCrumbs);
+  return () => {
+    elArticle.remove();
+    elCrumbs.remove();
+  };
 }

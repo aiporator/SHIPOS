@@ -210,7 +210,11 @@ const TrustStrip = () => (
     <img
       src={WLAD_AVATAR}
       onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-      alt="Wlad Jachtchenko"
+      alt="Wlad Jachtchenko · persönliches Beratungsgespräch zu Leader-OS buchen"
+      width="56"
+      height="56"
+      loading="lazy"
+      decoding="async"
       className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover object-top ring-2 ring-brand/50 shadow-[0_8px_22px_-8px_rgba(0,0,0,0.4)]"
     />
     <div className="flex-1 min-w-0">

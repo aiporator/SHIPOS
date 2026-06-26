@@ -68,6 +68,7 @@ const COL_PLATTFORM = [
 ];
 
 const COL_EXPLORE = [
+  { label: 'Wlad Jachtchenko · Person',     to: '/wlad-jachtchenko', focal: true },
   { label: 'Feldnotizen · Journal',         to: '/journal' },
   { label: 'KI-Praxis',                     to: '/journal#cat-ki-praxis' },
   { label: 'Methoden & Frameworks',         to: '/journal#cat-methoden' },
@@ -272,7 +273,7 @@ export const LandingFooter = () => (
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
               <span className="relative w-2 h-2 rounded-full bg-brand" />
             </span>
-            KLASSE 0001 · 12 VON 30 FREI
+            KLASSE 0001 · 20 VON 30 FREI
           </div>
         </div>
 
@@ -330,15 +331,57 @@ export const LandingFooter = () => (
       <div className="mt-14 pt-6 border-t border-white/10 grid md:grid-cols-2 gap-6 md:gap-10 items-start">
         <div>
           <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] mb-3 font-mono text-brand">
-            ▸ EINSTIEG
+            ▸ INVESTITION
           </p>
-          <p className="text-[14px] leading-[1.55] text-slate-300 max-w-md">
-            <span className="text-brand font-bold">14 Tage kostenlos</span> testen ·
-            ohne Karte, ohne Risiko, jederzeit kündbar. Diagnose bleibt{' '}
-            <span className="text-brand font-bold">kostenlos</span>.
-            Erst wenn es für dich passt, machst du im 30-Tage-Sprint mit
-            12 Monaten Mitgliedschaft weiter.
+          <p className="text-[14px] leading-[1.55] text-slate-300 max-w-md mb-4">
+            Drei Wege rein · alle direkt auf{' '}
+            <a
+              href="https://leaderos.de"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-brand transition-colors font-bold underline decoration-brand/40 underline-offset-2"
+            >
+              leaderos.de
+            </a>
+            , der Plattform. Kein Abo, keine automatische Verlängerung,
+            14 Tage Geld-zurück-Garantie auf den Sprint.
           </p>
+          {/* Direct-link price ladder · jede Zeile zeigt einen Tier mit Preis und
+              klickt cross-host auf den App-Tier-Checkout. So sehen Visitor in der
+              Footer-Zeile alle drei Optionen und können direkt einsteigen, ohne
+              zur PricingLadder hochscrollen zu müssen. */}
+          <div className="space-y-1.5 max-w-md font-mono text-[11.5px] uppercase tracking-[0.14em]">
+            <a
+              href="https://leaderos.de/signup?trial=14"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-baseline justify-between gap-3 py-1.5 border-b border-white/10 text-slate-300 hover:text-white transition-colors"
+              data-testid="footer-tier-trial"
+            >
+              <span><span className="text-brand font-black">0 €</span> · Trial · 14 Tage</span>
+              <span className="text-white/40 group-hover:text-brand">→</span>
+            </a>
+            <a
+              href="https://leaderos.de/checkout?tier=sprint"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-baseline justify-between gap-3 py-1.5 border-b border-white/10 text-slate-300 hover:text-white transition-colors"
+              data-testid="footer-tier-sprint"
+            >
+              <span><span className="text-brand font-black">997 €</span> · Sprint · 30 T + 12 Mo</span>
+              <span className="text-white/40 group-hover:text-brand">→</span>
+            </a>
+            <a
+              href="https://leaderos.de/checkout?tier=plusplus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-baseline justify-between gap-3 py-1.5 text-slate-300 hover:text-white transition-colors"
+              data-testid="footer-tier-plusplus"
+            >
+              <span><span className="text-brand font-black">4 797 €</span> · Plus-Plus · OS-Jahr</span>
+              <span className="text-white/40 group-hover:text-brand">→</span>
+            </a>
+          </div>
         </div>
         <div className="md:text-right">
           <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] mb-3 font-mono text-brand">

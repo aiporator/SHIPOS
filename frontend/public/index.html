@@ -18,6 +18,10 @@
         <link rel="canonical" href="https://leader-os.de/" />
         <link rel="alternate" hreflang="de" href="https://leader-os.de/" />
         <link rel="alternate" hreflang="x-default" href="https://leader-os.de/" />
+        <!-- LLM-discovery manifest (emerging convention) · gives ChatGPT,
+             Claude, Perplexity et al. a concise, structured summary of
+             the site they can pull on a single fetch. -->
+        <link rel="llms" href="/llms.txt" />
 
         <!-- ════════════════════════════════════════════════════════════════ -->
         <!-- OPEN GRAPH · LinkedIn, Facebook, Slack, Discord                  -->
@@ -78,15 +82,37 @@
             },
             {
               "@type": "Person",
-              "@id": "https://leader-os.de/#wlad",
+              "@id": "https://leader-os.de/wlad-jachtchenko#person",
               "name": "Wlad Jachtchenko",
               "givenName": "Wlad",
               "familyName": "Jachtchenko",
-              "jobTitle": "Leadership-Coach & Bestseller-Autor",
-              "description": "Top-Speaker und Coach für Boardroom-Rhetorik, Verhandlung und Manipulation. Trainiert seit über 15 Jahren Führungskräfte aus DAX-Konzernen.",
-              "url": "https://leader-os.de",
+              "alternateName": ["Wladislaw Jachtchenko", "Wlad Jachtschenko", "Vlad Yachtchenko"],
+              "jobTitle": "Argumentations-Coach · Bestseller-Autor · Gründer",
+              "description": "Europas führender Argumentations-Coach. 3× SPIEGEL-Bestseller, 400 000+ trainierte Klienten, 15 Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS.",
+              "url": "https://leader-os.de/wlad-jachtchenko",
+              "image": "https://leader-os.de/wlad/wlad-portrait.jpg",
+              "birthPlace": { "@type": "Place", "name": "Kiew, Ukraine" },
+              "knowsAbout": [
+                "Boardroom-Rhetorik",
+                "Argumentation",
+                "Führungskräfte-Coaching",
+                "Verhandlungsführung",
+                "Dunkle Rhetorik",
+                "Emotionale Intelligenz",
+                "KI Leadership",
+                "Harvard-Verhandlungsmethode",
+                "Schulz von Thun Kommunikationsmodell"
+              ],
+              "worksFor": [
+                { "@type": "Organization", "name": "Leader-OS", "url": "https://leader-os.de" },
+                { "@type": "EducationalOrganization", "name": "Argumentorik-Akademie", "url": "https://wladjachtchenko.de" }
+              ],
               "sameAs": [
-                "https://www.linkedin.com/in/wladjachtchenko/"
+                "https://www.linkedin.com/in/wladjachtchenko/",
+                "https://www.youtube.com/@WladTraining",
+                "https://wladjachtchenko.de",
+                "https://wladjachtchenko.de/buecher",
+                "https://podcast.wladjachtchenko.de"
               ]
             },
             {
@@ -181,6 +207,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://accounts.google.com" />
         <link rel="dns-prefetch" href="https://eu.i.posthog.com" />
+        <!-- LCP-critical · Wlad portrait is the hero avatar, the §04 chapter
+             photo, the lead-capture modal, and the appointment booking card.
+             Preload triggers the fetch in parallel with HTML parse so the
+             first paint isn't blocked on a separate request round-trip. -->
+        <link rel="preload" as="image" href="/wlad/wlad-portrait.jpg" fetchpriority="high" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
         <!-- Harmless Chrome bug: silence DataCloneError on PerformanceServerTiming -->

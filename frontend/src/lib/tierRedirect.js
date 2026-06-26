@@ -33,6 +33,13 @@ export const LANDING_ALLOWED_ROUTES = [
   '/thank-you',
   '/m/',
   '/f/',
+  // Canonical SERP-winner for "Wlad Jachtchenko" + aliases. All live on
+  // the marketing host so the Knowledge-Graph / AI-Overview answer lands
+  // on leader-os.de, not the app tier.
+  '/wlad-jachtchenko',
+  '/wlad',
+  '/about',
+  '/ueber-wlad',
 ];
 
 export const isLandingHost = (hostname) => {
