@@ -1,5 +1,5 @@
 /**
- * Global TTS playback speed — used by VoicePlayButton + voice overlays.
+ * Global TTS playback speed · used by VoicePlayButton + voice overlays.
  * Persisted in localStorage so the user's pace preference survives reloads.
  */
 const KEY = 'wladbot_tts_speed_v1';
@@ -12,7 +12,7 @@ const read = () => {
     return ALLOWED.includes(raw) ? raw : DEFAULT;
   } catch (err) {
     // localStorage can throw in private-browsing / SSR / quota-exceeded states.
-    // Falling back to default is the only sensible thing — log for telemetry.
+    // Falling back to default is the only sensible thing · log for telemetry.
     if (typeof console !== 'undefined') console.warn('[ttsSpeed] read failed:', err?.message);
     return DEFAULT;
   }

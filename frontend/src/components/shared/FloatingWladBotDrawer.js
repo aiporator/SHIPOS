@@ -1,8 +1,8 @@
 /**
- * FloatingWladBotDrawer — always-on agent drawer (Iter 92.23.8).
+ * FloatingWladBotDrawer · always-on agent drawer (Iter 92.23.8).
  *
  * Mert's vision (Iter 92.23.7):
- *   "the agent who is then always next to you" — like Wingman / OpenClaw but
+ *   "the agent who is then always next to you" · like Wingman / OpenClaw but
  *   for leaders.
  *
  * Behavior:
@@ -11,12 +11,12 @@
  *     the same /api/chat backend.
  *   - The drawer auto-picks the most-recently-active folder so the agent
  *     starts with the user's current context. Can be changed via dropdown.
- *   - Messages persist server-side as a regular chat session — user can later
+ *   - Messages persist server-side as a regular chat session · user can later
  *     "open in full chat" to continue with the deep UI.
  *
  * Why this is global:
  *   - Mounted once in DashboardLayout so it travels with the user across pages.
- *   - Light-weight: no full chat history, no PDF uploads, no role selector —
+ *   - Light-weight: no full chat history, no PDF uploads, no role selector ·
  *     just quick Q&A with folder context. The deep chat lives at /chat.
  */
 import { useEffect, useRef, useState } from 'react';
@@ -30,17 +30,17 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { subscribeWladBotOpen, subscribeWladBotClose, subscribeWladBotPageContext, getLastPageContext } from '../../lib/wladbotBus';
 
-// Hide the FAB on these routes — onboarding, auth, public, etc.
+// Hide the FAB on these routes · onboarding, auth, public, etc.
 const HIDDEN_ROUTES = ['/login', '/signup', '/onboarding', '/m/', '/f/', '/leader-os/welcome', '/leader-os/diagnose', '/auth-callback', '/auth/magic', '/chat'];
 
 const QUICK_PROMPTS_DE = [
   { label: 'Heute fokussieren', q: 'Was sollte ich heute als Priorität angehen, gegeben mein aktueller Kontext?' },
-  { label: 'Gespräch vorbereiten', q: 'Hilf mir, ein wichtiges Gespräch vorzubereiten — was sind die 3 Schlüsselsätze?' },
+  { label: 'Gespräch vorbereiten', q: 'Hilf mir, ein wichtiges Gespräch vorzubereiten · was sind die 3 Schlüsselsätze?' },
   { label: 'Reflektieren', q: 'Lass uns kurz reflektieren: Was lief diese Woche gut, was kann ich morgen besser machen?' },
 ];
 const QUICK_PROMPTS_EN = [
   { label: 'Focus today', q: 'What should I prioritize today, given my current context?' },
-  { label: 'Prep a talk', q: 'Help me prep a critical conversation — what are the 3 key sentences?' },
+  { label: 'Prep a talk', q: 'Help me prep a critical conversation · what are the 3 key sentences?' },
   { label: 'Reflect', q: "Let's reflect briefly: what went well this week, what can I do better tomorrow?" },
 ];
 
@@ -78,7 +78,7 @@ export const FloatingWladBotDrawer = () => {
       }
       if (briefingMessage) {
         // Render as an assistant turn with an insight bubble so the SmartText
-        // styling already in the drawer applies. We do NOT round-trip to LLM —
+        // styling already in the drawer applies. We do NOT round-trip to LLM ·
         // the message is the briefing the parent computed.
         setMessages([{ role: 'assistant', parsed: { insight: briefingMessage } }]);
       }
@@ -90,7 +90,7 @@ export const FloatingWladBotDrawer = () => {
   // Don't render on hidden routes (and never for unauthenticated users).
   const isHidden = !user || HIDDEN_ROUTES.some(r => location.pathname.startsWith(r));
 
-  // Iter 92.23.11: keep page-context fresh — when the user navigates between
+  // Iter 92.23.11: keep page-context fresh · when the user navigates between
   // /missions, /chat, etc. the page publishes its active folder/entry/label.
   useEffect(() => {
     const off = subscribeWladBotPageContext((ctx) => setPageContext(ctx));
@@ -175,7 +175,7 @@ export const FloatingWladBotDrawer = () => {
 
   return createPortal(
     <>
-      {/* FAB — positioned ABOVE the WladHelp support button (which lives at bottom-6 right-6 z-[140]) */}
+      {/* FAB · positioned ABOVE the WladHelp support button (which lives at bottom-6 right-6 z-[140]) */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
@@ -218,7 +218,7 @@ export const FloatingWladBotDrawer = () => {
                 </button>
               </div>
 
-              {/* Folder picker — current context */}
+              {/* Folder picker · current context */}
               <div ref={folderPickRef} className="relative mt-3">
                 <button
                   onClick={() => setFolderPickerOpen(o => !o)}

@@ -1,9 +1,9 @@
 /**
- * WladTopicChips — kompakte 1-Klick-Themen direkt unter dem Chat.
+ * WladTopicChips · kompakte 1-Klick-Themen direkt unter dem Chat.
  *
  * Ersetzt den irreführenden „Wlads Buch" Footer-Link. Beim Klick auf ein
  * Topic wird der Chat-Input mit dem passenden Wlad-Starter-Prompt befüllt
- * — der User landet sofort in einer fokussierten Wlad-Session.
+ * · der User landet sofort in einer fokussierten Wlad-Session.
  *
  * Design: subtil, scrollbar, max 1 Zeile hoch. Kein Banner, kein Slop.
  */
@@ -43,7 +43,7 @@ const PillarColumn = ({ pillar, onPick, lang }) => (
 export const WladTopicChips = ({ onPickPrompt, lang = 'de' }) => {
   const [expanded, setExpanded] = useState(false);
 
-  // Collapsed teaser — 1 topic per pillar
+  // Collapsed teaser · 1 topic per pillar
   const teasers = WLAD_TOPIC_PILLARS.map((p) => ({
     pillar: p,
     sample: p.topics[0],

@@ -14,7 +14,7 @@ export default {
   body: [
     { type: 'paragraph', text: 'Der DACH-Coaching-Markt ist 2026 in Bewegung wie nie zuvor. Klassische 1:1-Coaches verlieren Termine an KI-Tools, Plattformen wie Leader-OS wachsen zweistellig. Die echte Frage ist nicht "wer gewinnt", sondern "welche Aufgabe gehört zu welcher Schicht".' },
     { type: 'heading', level: 2, text: 'Dimension 01: Kosten.' },
-    { type: 'paragraph', text: 'Klassisches DACH-Coaching: 200 bis 500 EUR pro Stunde, Senior-Coaches 600 bis 1000 EUR. Sechs Stunden pro Jahr typische Buchung — 1200 bis 6000 EUR. KI-Plattformen mit methodischer Tiefe (wie Leader-OS) liegen bei 997 EUR einmalig für den Sprint plus optionale Plus-Plus-Begleitung 4 797 EUR.' },
+    { type: 'paragraph', text: 'Klassisches DACH-Coaching: 200 bis 500 EUR pro Stunde, Senior-Coaches 600 bis 1000 EUR. Sechs Stunden pro Jahr typische Buchung · 1200 bis 6000 EUR. KI-Plattformen mit methodischer Tiefe (wie Leader-OS) liegen bei 997 EUR einmalig für den Sprint plus optionale Plus-Plus-Begleitung 4 797 EUR.' },
     { type: 'paragraph', text: 'Die Kostenrechnung ist nicht "billiger ist besser". Sie ist "was bekomme ich pro Euro". Klassisches Coaching liefert sechs tiefe Identitäts-Sessions pro Jahr. KI-Plattformen liefern täglichen methodischen Drill plus optional die menschliche Tiefe.' },
     { type: 'heading', level: 2, text: 'Dimension 02: Verfügbarkeit.' },
     { type: 'paragraph', text: 'Klassisches Coaching: ein Termin alle zwei bis vier Wochen, vereinbart per E-Mail. KI-Coaching: 24/7-Zugang, Antwort in unter drei Sekunden. Wer am Dienstagabend ein Skript braucht, hat in der klassischen Variante keine Option.' },

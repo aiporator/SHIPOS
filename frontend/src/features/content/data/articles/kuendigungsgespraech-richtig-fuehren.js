@@ -6,7 +6,7 @@ export default {
   description:
     'Das schwierigste Gespräch das du als Führungskraft führen wirst. Drei ' +
     'unverhandelbare Regeln, ein klares Skript, was du explizit NICHT ' +
-    'sagen darfst — auch wenn es sich richtig anfühlt.',
+    'sagen darfst · auch wenn es sich richtig anfühlt.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-02',
   cover: null,
@@ -29,11 +29,11 @@ export default {
       '"Es liegt nicht an dir." Doch, sonst wäre die Entscheidung anders. Die Person wird es spüren und das Vertrauen verlieren.',
       '"Ich verstehe wie du dich fühlst." Du verstehst es nicht. Sage stattdessen: "Das ist eine schwere Nachricht. Nimm dir die Zeit die du brauchst."',
       '"Wir hatten keine Wahl." Doch, ihr hattet eine Wahl. Die Person hat ein Recht auf die Wahrheit dass die Entscheidung intern getroffen wurde.',
-      '"Du wirst dafür dankbar sein." Niemand ist langfristig dankbar für eine Kündigung — und in dem Moment ist es zynisch.',
+      '"Du wirst dafür dankbar sein." Niemand ist langfristig dankbar für eine Kündigung · und in dem Moment ist es zynisch.',
     ] },
     { type: 'framework', code: 'KÜNDIG', title: 'Die vier Minuten', explanation: 'Eröffnung 30 Sek (klar, ohne Vorlauf) · Begründung 60 Sek (faktisch, ohne Schuld) · Operatives 90 Sek (HR übernimmt) · Empathie + Schweigen (Rest). Keine Versprechen, keine Korrekturen, keine Selbstverteidigung.' },
-    { type: 'callout', tone: 'lime', text: 'Nach dem Gespräch: nicht in den Aufzug, sondern in ein leeres Büro. Atme zehn Minuten. Dieses Gespräch braucht Verarbeitung — auch bei dir.' },
-    { type: 'paragraph', text: 'Wenn du gerade auf ein Kündigungsgespräch vorbereitest und niemanden zum Drillen hast: in der 30-Min-Beratung üben wir das Skript einmal durch mit deinem konkreten Fall (anonymisiert). Das ersetzt keinen Anwalt — es ersetzt die Improvisation.' },
+    { type: 'callout', tone: 'lime', text: 'Nach dem Gespräch: nicht in den Aufzug, sondern in ein leeres Büro. Atme zehn Minuten. Dieses Gespräch braucht Verarbeitung · auch bei dir.' },
+    { type: 'paragraph', text: 'Wenn du gerade auf ein Kündigungsgespräch vorbereitest und niemanden zum Drillen hast: in der 30-Min-Beratung üben wir das Skript einmal durch mit deinem konkreten Fall (anonymisiert). Das ersetzt keinen Anwalt · es ersetzt die Improvisation.' },
   ],
   seo: {
     description: 'Skript für ein Kündigungsgespräch: drei Regeln, vier-Minuten-Ablauf, vier Sätze die du nicht sagen darfst. Rechtlich sauber und menschlich fair.',

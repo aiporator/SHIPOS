@@ -5,7 +5,7 @@ export default {
   title: 'KI-Tool-Müdigkeit: was zu tun ist.',
   description:
     'Sieben offene Tabs, drei zahlend, keiner mehr aktiv. Wie du aus ' +
-    'Tool-Müdigkeit ein klares Setup machst — in einem Donnerstag-Nachmittag.',
+    'Tool-Müdigkeit ein klares Setup machst · in einem Donnerstag-Nachmittag.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-08',
   cover: null,

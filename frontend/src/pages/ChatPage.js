@@ -71,7 +71,7 @@ export default function ChatPage() {
       const res = await api.get('/chat/sessions');
       if (res.data.length > 0 && !currentSession) setCurrentSession(res.data[0].session_id);
       // Trigger Sidebar-Reload (refreshKey bump) ohne Doppelladung des
-      // Sessions-Endpoints — die Sidebar holt selbst, wir signalisieren nur.
+      // Sessions-Endpoints · die Sidebar holt selbst, wir signalisieren nur.
       setHistoryRefreshKey((k) => k + 1);
     } catch (err) { logger.error('Failed to load sessions:', err); }
   }, [currentSession]);

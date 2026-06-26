@@ -1,5 +1,5 @@
 /**
- * CommunityFeedTabs — personalized feed-filter pills (orthogonal to category).
+ * CommunityFeedTabs · personalized feed-filter pills (orthogonal to category).
  *
  * - "Alle" → all posts from everyone (default)
  * - "Top"  → most-liked first

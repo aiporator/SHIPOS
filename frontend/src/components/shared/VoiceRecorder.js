@@ -75,7 +75,7 @@ export const VoiceRecorder = ({ onTranscription, disabled }) => {
         setElapsedMs(Date.now() - startTsRef.current);
       }, 100);
 
-      // Hard auto-stop bei 2 min — Whisper-Anfragen über 25 MB würden eh failen
+      // Hard auto-stop bei 2 min · Whisper-Anfragen über 25 MB würden eh failen
       autoStopRef.current = setTimeout(() => {
         stopRecording();
       }, MAX_RECORD_MS);
@@ -114,7 +114,7 @@ export const VoiceRecorder = ({ onTranscription, disabled }) => {
     );
   }
 
-  // Recording state — show countdown ring + mm:ss
+  // Recording state · show countdown ring + mm:ss
   const remainingMs = Math.max(0, MAX_RECORD_MS - elapsedMs);
   const progress = Math.min(1, elapsedMs / MAX_RECORD_MS);
   const isWarning = remainingMs < 20_000;  // last 20s pulse red
@@ -159,7 +159,7 @@ export const VoiceRecorder = ({ onTranscription, disabled }) => {
         </span>
       </button>
 
-      {/* Live MM:SS Countdown — tabular nums so it doesn't jitter */}
+      {/* Live MM:SS Countdown · tabular nums so it doesn't jitter */}
       <span
         className={`text-[12px] font-black tabular-nums leading-none ${isWarning ? 'text-rose-500 animate-pulse' : 'text-foreground/85'}`}
         style={{ fontFamily: 'Outfit, Inter, sans-serif' }}

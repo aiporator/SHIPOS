@@ -5,12 +5,12 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * Sticky top nav — wide editorial.
+ * Sticky top nav · wide editorial.
  *
  * Edge-to-edge container (px-6 → px-12) so the nav reads as the page
  * header, not a centered ad-bar floating in the void. Taller default
  * (h-20) collapses to h-16 on scroll. Brand lockup sits big on the
- * left, the CTA is a flat editorial button — no rounded +icon, no
+ * left, the CTA is a flat editorial button · no rounded +icon, no
  * pill chrome, no "click here" energy.
  *
  *  Primary CTA   to  leadercheck.de        (app, Emergent)
@@ -43,60 +43,34 @@ export const LandingNav = () => {
           aria-label="Leader-OS Startseite"
         >
           <WladMark size={scrolled ? 32 : 40} animated />
-          <div className="flex flex-col leading-none">
+          <div className="leading-none">
             <span
               className={`font-black tracking-tight text-foreground transition-all ${scrolled ? 'text-[17px]' : 'text-[22px] md:text-[24px]'}`}
               style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.03em' }}
             >
               Leader<span className="text-brand mx-0.5">·</span>OS
             </span>
-            <span className={`text-foreground/55 font-bold tracking-[0.24em] uppercase mt-[3px] font-mono transition-all ${scrolled ? 'text-[8px]' : 'text-[9px]'}`}>
-              Powered by WladBot
-            </span>
           </div>
         </Link>
 
-        <nav className="flex items-center gap-3 md:gap-7">
+        {/* Single-focus nav: only the 14-day-trial CTA. The Sprint sales
+            push lives INSIDE the app (post-signup email + dashboard upsell),
+            so the marketing nav points at ONE action: start the free trial
+            on leaderos.de. Anchors to specific sections still work via
+            in-page scroll; users discover them as they scroll, not as
+            nav choices. */}
+        <nav className="flex items-center">
           <a
-            href="#klassen"
-            className="hidden md:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
-            data-testid="landing-nav-klassen"
-          >
-            Klassen
-          </a>
-          <a
-            href="#how-it-works"
-            className="hidden md:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
-            data-testid="landing-nav-how"
-          >
-            So funktioniert's
-          </a>
-          <a
-            href="#journal"
-            className="hidden lg:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
-            data-testid="landing-nav-journal"
-          >
-            Journal
-          </a>
-          <a
-            href="https://leaderos.de/login"
+            href="https://leaderos.de/signup?trial=14"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-block text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/65 hover:text-foreground transition-colors"
-            data-testid="landing-nav-login"
-          >
-            Login
-          </a>
-          <a
-            href="https://leadercheck.de"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group inline-flex items-center gap-2.5 bg-foreground text-background hover:bg-brand hover:text-black font-bold uppercase tracking-[0.12em] transition-colors ${
-              scrolled ? 'h-10 px-4 text-[11px]' : 'h-12 px-5 text-[12px]'
+            className={`group inline-flex items-center gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-5 text-[11px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-cta"
           >
-            Diagnose starten
+            <span className="hidden sm:inline">14 Tage kostenlos testen</span>
+            <span className="sm:hidden">14 Tage gratis</span>
             <ArrowRight
               size={scrolled ? 14 : 16}
               className="group-hover:translate-x-0.5 transition-transform"

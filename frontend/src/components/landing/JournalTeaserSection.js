@@ -3,11 +3,11 @@ import { ArrowRight, BookOpen } from 'lucide-react';
 import { listArticles } from '../../features/content/data/registry';
 
 /**
- * JournalTeaserSection — featured articles auf der Landing.
+ * JournalTeaserSection · featured articles auf der Landing.
  *
  * Zweck: SEO + Discoverability. Wir haben 66+ veröffentlichte Artikel
  * im content/registry, die meisten waren bisher nur über /journal
- * erreichbar — keine Linkjuice von der Homepage, keine Sichtbarkeit
+ * erreichbar · keine Linkjuice von der Homepage, keine Sichtbarkeit
  * für Erst-Besucher. Diese Section zieht die 3 aktuellsten Artikel
  * auf die Landing und gibt dem ganzen Journal eine prominente
  * Einstiegs-Rampe.
@@ -127,7 +127,7 @@ export const JournalTeaserSection = () => {
     <section
       id="journal"
       data-testid="journal-teaser-section"
-      aria-label="Feldnotizen — das Journal von Leader-OS"
+      aria-label="Feldnotizen · das Journal von Leader-OS"
       className="border-y-2 border-black/[0.06] bg-[#FAFAF7]"
     >
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">
@@ -148,7 +148,7 @@ export const JournalTeaserSection = () => {
               <span className="text-brand not-italic">.</span>
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] md:text-[16.5px] leading-[1.6] text-foreground/70">
-              Frameworks, Skripte und Field-Notes für KI-natives Führen — direkt
+              Frameworks, Skripte und Field-Notes für KI-natives Führen · direkt
               aus der Arbeit mit Wlads Klienten. Kein Theorie-Bingo, kein
               Generisches. Jeder Artikel hat eine Methodik die du heute
               Nachmittag einsetzen kannst.
@@ -171,7 +171,7 @@ export const JournalTeaserSection = () => {
             {rest.map((article, i) => (
               <ArticleMini key={article.slug} article={article} index={i} />
             ))}
-            {/* "Mehr" pill — fills the second slot if only 1 mini */}
+            {/* "Mehr" pill · fills the second slot if only 1 mini */}
             {rest.length < 2 && (
               <Link
                 to="/journal"

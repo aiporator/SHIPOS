@@ -43,7 +43,7 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: 'B — Beobachtung, kein Urteil.',
+      text: 'B · Beobachtung, kein Urteil.',
     },
     {
       type: 'paragraph',
@@ -67,7 +67,7 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: 'W — Wirkung, in deinem System.',
+      text: 'W · Wirkung, in deinem System.',
     },
     {
       type: 'paragraph',
@@ -84,7 +84,7 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: 'W — Wunsch, konkret und in der Zukunft.',
+      text: 'W · Wunsch, konkret und in der Zukunft.',
     },
     {
       type: 'paragraph',

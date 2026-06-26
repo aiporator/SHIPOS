@@ -1,5 +1,5 @@
 /**
- * BenefitVisual — per-section specimen visual.
+ * BenefitVisual · per-section specimen visual.
  *
  * Three variants drive distinct treatments inside the same Heron-Preston
  * frame so the page reads as a magazine, not a row of identical cards:
@@ -10,14 +10,14 @@
  *
  *   variant: 'bib'
  *     Typographic BIB 0001 startnummer plate. No photo. Pure marathon
- *     race-bib energy — used on §03 SPRINT.
+ *     race-bib energy · used on §03 SPRINT.
  *
  *   variant: 'trust'
  *     Giant 400 / 14 numerals with TAUSEND / MILLIONEN suffix labels,
  *     plus a small book-stack inset. Used on §05 TRUST.
  *
  * Photos are bundled local assets (/landing/*) or picsum fallback. If a
- * photo fails to load the frame + metadata still render — the section
+ * photo fails to load the frame + metadata still render · the section
  * is never broken.
  */
 
@@ -193,7 +193,7 @@ const TrustBody = ({ photo, isDark, trustNumbers = [] }) => {
   );
 };
 
-// Zertifikat-Plate — Goldsiegel-Anmutung + Schreibschrift-Signature.
+// Zertifikat-Plate · Goldsiegel-Anmutung + Schreibschrift-Signature.
 const CertBody = ({ isDark }) => (
   <div className="absolute inset-0 flex items-center justify-center px-6 pt-12 pb-12">
     <div
@@ -201,7 +201,7 @@ const CertBody = ({ isDark }) => (
         isDark ? 'bg-white/[0.97] text-black' : 'bg-background border border-foreground/85'
       } shadow-[0_30px_60px_-30px_rgba(0,0,0,0.35)] flex flex-col items-center justify-between py-7 px-5`}
     >
-      {/* Eckornamente — typografisch dezent */}
+      {/* Eckornamente · typografisch dezent */}
       {['top-2 left-2', 'top-2 right-2', 'bottom-2 left-2', 'bottom-2 right-2'].map((pos) => (
         <span
           key={pos}
@@ -256,7 +256,7 @@ const CertBody = ({ isDark }) => (
   </div>
 );
 
-// Voxel-Kopf-Hint — typografische W-Skulptur in Lime, dunkler Hintergrund.
+// Voxel-Kopf-Hint · typografische W-Skulptur in Lime, dunkler Hintergrund.
 const VoxelBody = ({ isDark }) => (
   <div className="absolute inset-0 bg-[#0A0A0A] overflow-hidden">
     {/* Voxel-Grid als Hintergrund */}
@@ -287,7 +287,7 @@ const VoxelBody = ({ isDark }) => (
         W
       </span>
     </div>
-    {/* Floating-Framework-Labels — Voxel-Hint aus dem Mockup */}
+    {/* Floating-Framework-Labels · Voxel-Hint aus dem Mockup */}
     <div className="absolute top-[18%] right-[14%] text-[9px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
       SEXIER
     </div>
@@ -300,7 +300,7 @@ const VoxelBody = ({ isDark }) => (
   </div>
 );
 
-// ListBody — typographic-only specimen for benefits where no image
+// ListBody · typographic-only specimen for benefits where no image
 // fits. Uses the asset's detail array as the visible body so there's
 // no AI-generated mockup competing for attention.
 const ListBody = ({ isDark, listItems = [], headline }) => (

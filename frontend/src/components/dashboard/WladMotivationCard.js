@@ -15,7 +15,7 @@ const WLAD_QUOTES_DE = [
 ];
 
 const WLAD_QUOTES_EN = [
-  "Leadership doesn't start with a title. It starts with a decision. Decide today — to lead.",
+  "Leadership doesn't start with a title. It starts with a decision. Decide today · to lead.",
   "Your comfort zone is a nice place. But nothing grows there. Take one step out today.",
   "The best leaders listen more than they speak. Practice active listening in every meeting today.",
   "Consistency beats talent when talent isn't consistent. Take the small step today.",
@@ -25,7 +25,7 @@ const WLAD_QUOTES_EN = [
   "Feedback isn't criticism. It's a proof of love for growth. Give someone honest feedback today.",
 ];
 
-/** Rotating daily motivational quote from Wlad — tap to hear him speak it. */
+/** Rotating daily motivational quote from Wlad · tap to hear him speak it. */
 export const WladMotivationCard = ({ de = true }) => {
   const [quote, setQuote] = useState('');
 
@@ -66,7 +66,7 @@ export const WladMotivationCard = ({ de = true }) => {
               &ldquo;{quote}&rdquo;
             </p>
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-[10px] text-muted-foreground italic">— Wlad Jachtchenko</span>
+              <span className="text-[10px] text-muted-foreground italic">· Wlad Jachtchenko</span>
               <VoicePlayButton
                 text={quote}
                 persona="wlad"

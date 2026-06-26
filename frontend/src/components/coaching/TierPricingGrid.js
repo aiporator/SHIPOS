@@ -8,7 +8,7 @@ import { LeadershipOSInstallmentModal } from './LeadershipOSInstallmentModal';
 import { EnterpriseQuoteModal } from './EnterpriseQuoteModal';
 
 /**
- * TierPricingGrid — 3-Tier-Pricing: Leadership OS | Leadership OS PLUS | Enterprise
+ * TierPricingGrid · 3-Tier-Pricing: Leadership OS | Leadership OS PLUS | Enterprise
  *
  * • Leadership OS €997/Jahr · 12 Videokurse Drip · 30-Tage Money-Back · Raten möglich (2× oder 12×)
  * • Leadership OS PLUS €4.797/Jahr · OS + 12 Einzelcoachings (je 299€)

@@ -1,7 +1,7 @@
 import { EmailCapture } from '../../newsletter';
 
 /**
- * NewsletterDrop — in-article EmailCapture placement.
+ * NewsletterDrop · in-article EmailCapture placement.
  *
  * Lives at the end of every article so we attribute every signup to
  * the article that drove it (source="article", campaign=article.slug).

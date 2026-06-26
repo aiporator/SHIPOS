@@ -5,14 +5,14 @@ export default {
   title: 'Drei Rituale die KI-Investments rentabel machen.',
   description:
     'Ohne Rituale versickern KI-Tools innerhalb von neun Wochen. Mit ' +
-    'drei einfachen Routinen wird aus jedem Abo ein Hebel — auch in ' +
+    'drei einfachen Routinen wird aus jedem Abo ein Hebel · auch in ' +
     'der stressigsten Phase deines Quartals.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-13',
   cover: null,
   tags: ['KI-Paradox', 'Rituale', 'System'],
   body: [
-    { type: 'paragraph', text: 'Ein KI-Tool ohne Ritual ist ein Abo das du in neun Wochen kündigst oder vergisst. Drei einfache Rituale machen aus jedem Tool einen Hebel — und sie passen in jeden Wochenfluss.' },
+    { type: 'paragraph', text: 'Ein KI-Tool ohne Ritual ist ein Abo das du in neun Wochen kündigst oder vergisst. Drei einfache Rituale machen aus jedem Tool einen Hebel · und sie passen in jeden Wochenfluss.' },
     { type: 'heading', level: 2, text: 'Ritual 01: Montag-Morgen Prompt-Vorschau.' },
     { type: 'paragraph', text: 'Zehn Minuten am Montag bevor die Meetings starten. Du listest die drei wichtigsten Konversationen der Woche (1:1, Townhall, Stakeholder-Termin) und schreibst für jede den Prompt für deine Vorbereitung. Effekt: deine Vorbereitung sinkt um die Hälfte, deine Klarheit steigt.' },
     { type: 'heading', level: 2, text: 'Ritual 02: Mittwoch-Mittag Prompt-Sharing.' },
@@ -22,7 +22,7 @@ export default {
     { type: 'framework', code: '3 RITUALE', title: 'Montag · Mittwoch · Freitag', explanation: '22 Minuten pro Woche insgesamt. Mo: Vorschau (Klarheit). Mi: Sharing (Multiplikator). Fr: Bilanz (Selbst-Kalibrierung). Wer die drei Rituale konsequent über zwölf Wochen hält, hat einen messbaren Output-Lift. Wer sie nicht baut, versickert KI-Zeit.' },
     { type: 'heading', level: 2, text: 'Warum 22 Minuten und nicht eine Stunde.' },
     { type: 'paragraph', text: 'Eine Stunde pro Woche zusätzlich findet niemand. 22 Minuten in drei Mikro-Slots schon. Das ist der Trick: niedrige Energie-Kosten, hohe Wiederholungs-Rate, kleine sichtbare Symbolik. Genau die drei Eigenschaften die Kleinen Hebel rentabel machen.' },
-    { type: 'callout', tone: 'lime', text: 'Wer diese drei Rituale baut, braucht den Sprint nicht zwingend — die Rituale sind die Anwendung der Sprint-Mechanik. Wer den Sprint absolviert, hat die Rituale danach systematisch implementiert.' },
+    { type: 'callout', tone: 'lime', text: 'Wer diese drei Rituale baut, braucht den Sprint nicht zwingend · die Rituale sind die Anwendung der Sprint-Mechanik. Wer den Sprint absolviert, hat die Rituale danach systematisch implementiert.' },
     { type: 'paragraph', text: 'Im Sprint wird ein Wochen-Slot in Plus-Plus zu einem Ritual-Aufbau-Drill. Du nutzt drei Wochen um diese drei Rituale in deinen Kalender zu schreiben, mit WladBot-Korrektur am ersten Versuch.' },
   ],
   seo: {

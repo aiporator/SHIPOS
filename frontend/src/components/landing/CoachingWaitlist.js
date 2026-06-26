@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 /**
- * CoachingWaitlist — limitierte Warteliste für 1:1-Coaching mit Wlad.
+ * CoachingWaitlist · limitierte Warteliste für 1:1-Coaching mit Wlad.
  *
- * Scarcity-Anker. Kein direktes Kauf-Produkt — bewusst gating. Wer
+ * Scarcity-Anker. Kein direktes Kauf-Produkt · bewusst gating. Wer
  * 1:1 mit Wlad will, geht durch eine kuratierte Liste. Position:
  * zwischen ManifestoSection und Benefits, als ruhiger schwarzer
  * Block der den Übergang von Story zu Produkt-Sektionen markiert.
@@ -66,7 +66,7 @@ export const CoachingWaitlist = () => {
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
 
-          {/* Linke Spalte — Editorial */}
+          {/* Linke Spalte · Editorial */}
           <div className="lg:col-span-7">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5 font-mono">
               ▸ 1:1 MIT WLAD · BEGRENZT
@@ -112,7 +112,7 @@ export const CoachingWaitlist = () => {
             </ul>
           </div>
 
-          {/* Rechte Spalte — Warteliste-Form */}
+          {/* Rechte Spalte · Warteliste-Form */}
           <div className="lg:col-span-5">
             <div className="border-2 border-white/15 p-7 md:p-9 bg-white/[0.02]">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand font-mono mb-4">

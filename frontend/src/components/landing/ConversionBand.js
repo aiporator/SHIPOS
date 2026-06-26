@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * ConversionBand — sticky bottom action-strip.
+ * ConversionBand · sticky bottom action-strip.
  *
  * Appears after the visitor has scrolled past the hero. Always-on CTA
  * to leadercheck.de (the app). Dismissible per session. Tiny, doesn't fight
@@ -46,7 +46,7 @@ export const ConversionBand = () => {
               ▸ BIB · 0001
             </span>
             <span className="text-[12px] md:text-[13px] font-bold text-white/90 truncate">
-              Starte mit der kostenlosen Diagnose — <span className="text-brand">5 Min · kein Abo.</span>
+              Starte mit der kostenlosen Diagnose · <span className="text-brand">5 Min · kein Abo.</span>
             </span>
           </div>
 

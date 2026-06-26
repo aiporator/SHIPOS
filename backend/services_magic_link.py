@@ -60,7 +60,14 @@ async def ensure_indexes() -> None:
 
 async def create_token(email: str, request_ip: str) -> Optional[str]:
     """Generate a fresh magic-link token for `email`. Returns the RAW token
-    (URL-safe) to embed in the email link, or None if user does not exist."""
+    (URL-safe) to embed in the email link, or None if user does not exist.
+
+    Invalidates ALL prior unused magic-links for the same email before
+    issuing the new one · so requesting a fresh link silently kills any
+    earlier link sitting unused in the user's inbox. Defends against a
+    common attack where a stolen unused link in an old inbox is replayed
+    while the legitimate user has since requested a new one.
+    """
     email = (email or "").strip().lower()
     if not email:
         return None
@@ -71,6 +78,15 @@ async def create_token(email: str, request_ip: str) -> Optional[str]:
 
     raw_token = secrets.token_urlsafe(48)
     now = datetime.now(timezone.utc)
+
+    # Kill all prior unused tokens for this email so only the newest link
+    # is valid. We mark them used_at=now rather than deleting so the audit
+    # trail (request_ip, created_at) survives until the TTL prunes the row.
+    await db.magic_links.update_many(
+        {"email": email, "used_at": None},
+        {"$set": {"used_at": now, "invalidated_reason": "superseded"}},
+    )
+
     await db.magic_links.insert_one({
         "_id": _hash_token(raw_token),
         "email": email,

@@ -6,7 +6,7 @@ import { getTtsSpeed } from '../../lib/ttsSpeed';
 import { VoiceWaveVisualizer } from './VoiceWaveVisualizer';
 
 /**
- * VoicePlayButton — triggers ElevenLabs TTS synthesis + inline <audio> playback.
+ * VoicePlayButton · triggers ElevenLabs TTS synthesis + inline <audio> playback.
  * @param {string} text - Text to speak (max 800 chars)
  * @param {string} persona - One of: wlad, bezos, musk, oprah, jobs, branson, sandberg, page, hastings
  * @param {string} size - xs | sm | md (default: sm)
@@ -49,7 +49,7 @@ export default function VoicePlayButton({
     if (onEnd) onEnd();
   }, [onEnd]);
 
-  // Cleanup when component unmounts or persona changes — prevents ghost audio
+  // Cleanup when component unmounts or persona changes · prevents ghost audio
   // when user navigates away mid-playback.
   useEffect(() => {
     return () => {

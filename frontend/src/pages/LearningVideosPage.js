@@ -1,5 +1,5 @@
 /**
- * LearningVideosPage — eigene Top-Level-Route für Lern-Videos.
+ * LearningVideosPage · eigene Top-Level-Route für Lern-Videos.
  *
  * Mert (Iter 92.21): Lern-Videos brauchen einen eigenen Sidebar-Tab,
  * nicht versteckt im My-Path Tab-Untermenü. Page-Wrapper für das

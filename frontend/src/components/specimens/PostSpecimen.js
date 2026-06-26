@@ -1,5 +1,5 @@
 /**
- * PostSpecimen — Editorial-Specimen-Sheet für Social-Posts.
+ * PostSpecimen · Editorial-Specimen-Sheet für Social-Posts.
  *
  * Rendert eine einzelne Post-Definition aus contentSpecimens.js als
  * screenshotbare Kachel im Athletic-Editorial-Stil der Landing-Page:
@@ -12,7 +12,7 @@
  *   'vertical' → 4:5   (Instagram-Vertical · LinkedIn)
  *
  * Die Tile ist auf 1080px Breite optimiert. Im Studio rendern wir sie
- * verkleinert (CSS-Transform) — beim Screenshot wirkt sie native 1080.
+ * verkleinert (CSS-Transform) · beim Screenshot wirkt sie native 1080.
  */
 
 const RATIO = {

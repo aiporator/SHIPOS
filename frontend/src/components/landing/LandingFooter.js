@@ -4,7 +4,7 @@ import { EmailCapture } from '../../features/newsletter';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * LandingFooter — comprehensive black sitemap with lime focal accents
+ * LandingFooter · comprehensive black sitemap with lime focal accents
  * and 3 brand image tiles. Built for "godmode" launch: every public
  * route reachable in one click, every Journal category deep-linked,
  * Wlad authority visible.
@@ -13,7 +13,7 @@ import { WladMark } from '../brand/WladMark';
  *    1. Brand block (logo + scarcity pill)
  *    2. Four sitemap columns (SYSTEM · PLATTFORM · EXPLORE · COMPANY)
  *    3. Image-tile strip (Wlad portrait · Intro-Video poster · Brand-W
- *       sticker) — each linking out
+ *       sticker) · each linking out
  *    4. Newsletter capture (Feldnotizen)
  *    5. Investment + contact split
  *    6. BIB closing strip
@@ -27,33 +27,44 @@ import { WladMark } from '../brand/WladMark';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Sitemap data
+//
+// Cross-tier convention (see lib/tierRedirect.js for the canonical map):
+//   - `to:`    react-router SPA navigate · only for routes that exist on
+//              the marketing host (Vercel: leader-os.de · leader-check.de).
+//              That's /, /journal/*, /datenschutz, /impressum, /agb,
+//              /widerruf, /thank-you, /m/*, /f/*, /newsletter/*, plus
+//              any /#anchor on the landing.
+//   - `href:`  hard cross-host link · used for ALL app-tier routes
+//              (/dashboard, /chat, /tools, /onboarding, /profile, …) so
+//              the click lands on leaderos.de in one HTTP request instead
+//              of routing through the SPA tier-redirect with a flicker.
 // ─────────────────────────────────────────────────────────────────────────
 const COL_SYSTEM = [
-  { label: 'Sprint · 30 Tage + 12 Monate', to: '/#pricing' },
-  { label: 'Plus-Plus · OS-Jahr',          to: '/#pricing' },
+  { label: '14 Tage kostenlos testen',     href: 'https://leaderos.de/signup?trial=14', external: true, focal: true },
+  { label: 'Diagnose · 10 Min',            href: 'https://leadercheck.de', external: true },
   { label: 'WladBot · 24/7 Sparring',      to: '/#platform' },
   { label: '11 Frameworks',                to: '/#platform' },
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
   { label: 'Die 5 Rollen',                 to: '/journal/die-5-rollen-einer-ki-nativen-fuehrungskraft' },
-  { label: 'Leadership-Diagnose',          to: '/#archetyp' },
+  { label: 'Leadership-Diagnose',          href: 'https://leadercheck.de', external: true },
   { label: 'Klasse 0001 · Charter',        to: '/#klassen' },
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
 const COL_PLATTFORM = [
-  { label: 'Dashboard',          to: '/dashboard' },
-  { label: 'Chat · WladBot',     to: '/chat' },
-  { label: 'Daily Check-In',     to: '/daily-checkin' },
-  { label: 'Tools',              to: '/tools' },
-  { label: 'Simulationen',       to: '/simulations' },
-  { label: 'Missions',           to: '/missions' },
-  { label: 'Lern-Videos',        to: '/lern-videos' },
-  { label: 'My Path',            to: '/my-path' },
-  { label: 'Community',          to: '/community' },
-  { label: 'Wlad-Universe',      to: '/wlad-universe' },
-  { label: 'Playbooks',          to: '/playbooks' },
-  { label: 'Coaching',           to: '/coaching' },
-  { label: 'Downloads',          to: '/downloads' },
+  { label: 'Dashboard',          href: 'https://leaderos.de/dashboard',     external: true },
+  { label: 'Chat · WladBot',     href: 'https://leaderos.de/chat',          external: true },
+  { label: 'Daily Check-In',     href: 'https://leaderos.de/daily-checkin', external: true },
+  { label: 'Tools',              href: 'https://leaderos.de/tools',         external: true },
+  { label: 'Simulationen',       href: 'https://leaderos.de/simulations',   external: true },
+  { label: 'Missions',           href: 'https://leaderos.de/missions',      external: true },
+  { label: 'Lern-Videos',        href: 'https://leaderos.de/lern-videos',   external: true },
+  { label: 'My Path',            href: 'https://leaderos.de/my-path',       external: true },
+  { label: 'Community',          href: 'https://leaderos.de/community',     external: true },
+  { label: 'Wlad-Universe',      href: 'https://leaderos.de/wlad-universe', external: true },
+  { label: 'Playbooks',          href: 'https://leaderos.de/playbooks',     external: true },
+  { label: 'Coaching',           href: 'https://leaderos.de/coaching',      external: true },
+  { label: 'Downloads',          href: 'https://leaderos.de/downloads',     external: true },
 ];
 
 const COL_EXPLORE = [
@@ -71,11 +82,12 @@ const COL_EXPLORE = [
 ];
 
 const COL_COMPANY = [
-  { label: 'Login',                  href: 'https://leaderos.de/login', external: true },
-  { label: 'Onboarding',             to: '/onboarding' },
-  { label: 'Profile',                to: '/profile' },
-  { label: 'Referral · Empfehlung',  to: '/referral' },
-  { label: 'Enterprise',             to: '/enterprise' },
+  { label: 'Login',                  href: 'https://leaderos.de/login',      external: true },
+  { label: '14 Tage testen',         href: 'https://leaderos.de/signup?trial=14', external: true, focal: true },
+  { label: 'Onboarding',             href: 'https://leaderos.de/onboarding', external: true },
+  { label: 'Profile',                href: 'https://leaderos.de/profile',    external: true },
+  { label: 'Referral · Empfehlung',  href: 'https://leaderos.de/referral',   external: true },
+  { label: 'Enterprise',             href: 'https://leaderos.de/enterprise', external: true },
   { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladjachtchenko/', external: true },
   { label: 'start@aiporate.com',     href: 'mailto:start@aiporate.com' },
   { label: 'Karriere',               to: '/#careers' },
@@ -254,7 +266,7 @@ export const LandingFooter = () => (
             400 000+ Klienten in 20 Ländern.
           </p>
 
-          {/* Scarcity Pill — Klasse 0001 charter seats */}
+          {/* Scarcity Pill · Klasse 0001 charter seats */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
@@ -318,15 +330,14 @@ export const LandingFooter = () => (
       <div className="mt-14 pt-6 border-t border-white/10 grid md:grid-cols-2 gap-6 md:gap-10 items-start">
         <div>
           <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] mb-3 font-mono text-brand">
-            ▸ INVESTITION
+            ▸ EINSTIEG
           </p>
           <p className="text-[14px] leading-[1.55] text-slate-300 max-w-md">
-            Diagnose <span className="text-brand font-bold">kostenlos</span> ·
-            30-Tage-Sprint + 12 Monate Mitgliedschaft{' '}
-            <span className="text-brand font-bold">997 €</span>{' '}
-            · OS-Jahr inkl. Komplettbegleitung{' '}
-            <span className="text-brand font-bold">4 797 €</span>. Keine Abo-Falle,
-            14 Tage Geld-zurück-Garantie auf den Sprint.
+            <span className="text-brand font-bold">14 Tage kostenlos</span> testen ·
+            ohne Karte, ohne Risiko, jederzeit kündbar. Diagnose bleibt{' '}
+            <span className="text-brand font-bold">kostenlos</span>.
+            Erst wenn es für dich passt, machst du im 30-Tage-Sprint mit
+            12 Monaten Mitgliedschaft weiter.
           </p>
         </div>
         <div className="md:text-right">

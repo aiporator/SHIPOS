@@ -1,5 +1,5 @@
 /**
- * Article 4/10 — product differentiation. WladBot vs ChatGPT vs human coach.
+ * Article 4/10 · product differentiation. WladBot vs ChatGPT vs human coach.
  */
 export default {
   slug: 'wladbot-vs-chatgpt-vs-coach',

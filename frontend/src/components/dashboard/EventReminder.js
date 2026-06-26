@@ -69,7 +69,7 @@ export const EventReminderBanner = ({ de }) => {
   );
 };
 
-// Small badge for sidebar — shows count of upcoming reminders
+// Small badge for sidebar · shows count of upcoming reminders
 export const EventReminderCount = () => {
   const [count, setCount] = useState(0);
 

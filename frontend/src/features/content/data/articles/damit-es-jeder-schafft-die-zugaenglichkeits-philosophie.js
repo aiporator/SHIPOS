@@ -12,9 +12,9 @@ export default {
   cover: null,
   tags: ['Leader-OS', 'Philosophie', 'Zugänglichkeit'],
   body: [
-    { type: 'paragraph', text: 'Wenn du Power-User bist und schon zehn Stunden pro Woche mit KI arbeitest — Leader-OS macht dich besser. Wenn du heute drei mal pro Woche ChatGPT öffnest und dich fragst "ist das wirklich der Hebel?" — Leader-OS ist EXPLIZIT für dich gebaut. Das ist eine bewusste Design-Entscheidung.' },
+    { type: 'paragraph', text: 'Wenn du Power-User bist und schon zehn Stunden pro Woche mit KI arbeitest · Leader-OS macht dich besser. Wenn du heute drei mal pro Woche ChatGPT öffnest und dich fragst "ist das wirklich der Hebel?" · Leader-OS ist EXPLIZIT für dich gebaut. Das ist eine bewusste Design-Entscheidung.' },
     { type: 'heading', level: 2, text: 'Entscheidung 01: Mikro-Drills, nicht Marathon-Lernen.' },
-    { type: 'paragraph', text: 'Klassische KI-Trainings: zwei Tage Off-Site, sechs Stunden täglich. Niemand hat das. Leader-OS: zehn bis fünfzehn Minuten täglich, drei feste Slots pro Woche. Das ist die Größenordnung die in einen echten Führungs-Kalender passt — auch wenn die Woche brennt.' },
+    { type: 'paragraph', text: 'Klassische KI-Trainings: zwei Tage Off-Site, sechs Stunden täglich. Niemand hat das. Leader-OS: zehn bis fünfzehn Minuten täglich, drei feste Slots pro Woche. Das ist die Größenordnung die in einen echten Führungs-Kalender passt · auch wenn die Woche brennt.' },
     { type: 'heading', level: 2, text: 'Entscheidung 02: Kein "AI-Sprache" als Eintritts-Barriere.' },
     { type: 'paragraph', text: 'Wir reden nicht über Token, Embeddings, Retrieval-Augmented Generation. Du brauchst dafür kein Vorwissen. Du brauchst nur eine Sprint-Stunde pro Woche und drei echte Cases aus deinem Backlog. Die KI-Technik läuft im Hintergrund.' },
     { type: 'heading', level: 2, text: 'Entscheidung 03: Sprint kann pausiert werden.' },

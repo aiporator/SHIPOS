@@ -1,20 +1,20 @@
 /**
- * brandAssets — zentrale Quelle für Wlad-Portrait & Co.
+ * brandAssets · zentrale Quelle für Wlad-Portrait & Co.
  *
  * Vor diesem File hatten 8 Komponenten denselben Emergent-Asset-Hash
- * hardcoded — jede Asset-Rotation hätte 8 Edits gebraucht und ein
+ * hardcoded · jede Asset-Rotation hätte 8 Edits gebraucht und ein
  * vergessener wäre garantiert gewesen. Jetzt ein Import.
  *
  * Reihenfolge der Quellen (Erster gewinnt):
- *   1) /wlad/wlad-portrait.jpg   — lokales CDN-Asset (sobald Studio
+ *   1) /wlad/wlad-portrait.jpg   · lokales CDN-Asset (sobald Studio
  *                                 die Originale geliefert hat).
- *   2) /landing/hf-04.png        — Specimen-Mockup mit Wlad-Thumb
+ *   2) /landing/hf-04.png        · Specimen-Mockup mit Wlad-Thumb
  *                                 als Notnagel.
- *   3) Emergent-CDN              — Legacy-Hash. Wird beim nächsten
+ *   3) Emergent-CDN              · Legacy-Hash. Wird beim nächsten
  *                                 Asset-Push komplett deaktiviert.
  *
  * Die Helfer-Funktion `withFallback(...)` setzt `onError` so, dass
- * fehlschlagende Bilder still durchrotieren — kein gebrochenes
+ * fehlschlagende Bilder still durchrotieren · kein gebrochenes
  * <img>-Frame, kein Console-Spam.
  */
 
@@ -22,7 +22,7 @@ const LOCAL_PORTRAIT = '/wlad/wlad-portrait.jpg';
 const LOCAL_STAGE = '/wlad/wlad-stage.jpg';
 const MOCKUP_PORTRAIT = '/landing/hf-04.png';
 
-// Legacy — wird gelöscht sobald die echten Wlad-Originale im /wlad/
+// Legacy · wird gelöscht sobald die echten Wlad-Originale im /wlad/
 // Verzeichnis liegen. Nur als Fallback bis dahin.
 const LEGACY_EMERGENT_WLAD =
   'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';

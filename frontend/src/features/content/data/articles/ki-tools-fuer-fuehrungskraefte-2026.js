@@ -14,7 +14,7 @@ export default {
   body: [
     { type: 'paragraph', text: 'Es gibt im Juni 2026 mehr als zwölftausend KI-Tools auf Product Hunt mit dem Tag "leadership". Davon brauchst du fünf. Hier ist die kurze Liste.' },
     { type: 'heading', level: 2, text: '01. ChatGPT oder Claude für breite Sparring-Arbeit.' },
-    { type: 'paragraph', text: 'Wenn du ein neutrales Skript-Gerüst brauchst, eine schnelle Übersetzung, eine breite zweite Meinung — ChatGPT oder Claude reichen. Beide sind gleichwertig für 90 Prozent der Anwendungsfälle. Wähle das mit dem du dich wohler fühlst.' },
+    { type: 'paragraph', text: 'Wenn du ein neutrales Skript-Gerüst brauchst, eine schnelle Übersetzung, eine breite zweite Meinung · ChatGPT oder Claude reichen. Beide sind gleichwertig für 90 Prozent der Anwendungsfälle. Wähle das mit dem du dich wohler fühlst.' },
     { type: 'heading', level: 2, text: '02. WladBot für methodische Tiefe.' },
     { type: 'paragraph', text: 'Wenn du in der Wlad-Methodik (SEXIER, B-W-W, ALPEN etc.) trainieren willst, ist ein generisches Tool nicht ausreichend. WladBot kennt deinen Sprint-Score, deine letzten Drills, deinen Schreibstil. Die methodische Konsistenz ist der Unterschied.' },
     { type: 'heading', level: 2, text: '03. Notion AI oder Mem für Wissensmanagement.' },

@@ -12,11 +12,11 @@ export default {
   cover: null,
   tags: ['Zeit', 'Framework', 'ALPEN'],
   body: [
-    { type: 'paragraph', text: 'ALPEN ist von Lothar Seiwert. Es ist 1989 entstanden und seit dreißig Jahren das meist-zitierte Zeitmanagement-Framework im DACH-Raum. Es funktioniert immer noch. Hier ist warum — und warum es bei Führungskräften oft schief geht.' },
+    { type: 'paragraph', text: 'ALPEN ist von Lothar Seiwert. Es ist 1989 entstanden und seit dreißig Jahren das meist-zitierte Zeitmanagement-Framework im DACH-Raum. Es funktioniert immer noch. Hier ist warum · und warum es bei Führungskräften oft schief geht.' },
     { type: 'heading', level: 2, text: 'Die fünf ALPEN-Schritte.' },
-    { type: 'framework', code: 'ALPEN', title: 'Tagesplanung', explanation: 'A — Aufgaben aufschreiben. L — Länge schätzen. P — Pufferzeit einplanen (40 Prozent). E — Entscheidungen treffen (was streichen). N — Nachkontrolle am Ende.' },
+    { type: 'framework', code: 'ALPEN', title: 'Tagesplanung', explanation: 'A · Aufgaben aufschreiben. L · Länge schätzen. P · Pufferzeit einplanen (40 Prozent). E · Entscheidungen treffen (was streichen). N · Nachkontrolle am Ende.' },
     { type: 'heading', level: 2, text: 'Warum es bei Führungskräften kippt.' },
-    { type: 'paragraph', text: 'Die ersten drei Schritte (A, L, P) macht fast jeder. Den letzten Schritt (N) viele. Der entscheidende — E, Entscheidungen treffen — wird systematisch übersprungen. Warum? Weil "Aufgaben streichen" für Führungskräfte sich anfühlt wie "Verantwortung abgeben".' },
+    { type: 'paragraph', text: 'Die ersten drei Schritte (A, L, P) macht fast jeder. Den letzten Schritt (N) viele. Der entscheidende · E, Entscheidungen treffen · wird systematisch übersprungen. Warum? Weil "Aufgaben streichen" für Führungskräfte sich anfühlt wie "Verantwortung abgeben".' },
     { type: 'paragraph', text: 'Das ist falsch. Führung IST Streichen. Wer fünfzehn Aufgaben am Tag plant und alle abarbeitet, ist ausführende Kraft. Wer fünf priorisiert und zehn streicht, ist Führung.' },
     { type: 'heading', level: 2, text: 'Der konkrete E-Schritt.' },
     { type: 'list', style: 'numbered', items: [
@@ -26,10 +26,10 @@ export default {
       'Welche eine ist "ich-müsste-mal" und nicht "ich-muss-jetzt"? (In Backlog verschieben oder ganz streichen.)',
     ] },
     { type: 'heading', level: 2, text: 'Pufferzeit ist nicht "Pause".' },
-    { type: 'paragraph', text: 'Die ALPEN-Pufferzeit (40 Prozent) ist die Zeit für Unvorhergesehenes: spontane 1:1-Anfragen, Eskalations-Pings, eine wichtige Slack-Konversation. Wer Pufferzeit als Pause versteht, verlängert seinen Tag um die nicht eingeplanten Pings — und ist Donnerstag ausgebrannt.' },
+    { type: 'paragraph', text: 'Die ALPEN-Pufferzeit (40 Prozent) ist die Zeit für Unvorhergesehenes: spontane 1:1-Anfragen, Eskalations-Pings, eine wichtige Slack-Konversation. Wer Pufferzeit als Pause versteht, verlängert seinen Tag um die nicht eingeplanten Pings · und ist Donnerstag ausgebrannt.' },
     { type: 'heading', level: 2, text: 'Nachkontrolle in fünf Minuten.' },
     { type: 'paragraph', text: 'Am Ende des Tages: was lief gut, was lief schlecht, was probiere ich morgen anders. Nicht 30 Minuten Reflexion. Fünf Minuten schriftlich. Wer das eine Woche durchhält, sieht Muster die er sonst nie sieht.' },
-    { type: 'callout', tone: 'lime', text: 'ALPEN macht aus Tagesplanung Führungs-Arbeit. Der entscheidende Schritt ist E — und das ist auch der unbequemste.' },
+    { type: 'callout', tone: 'lime', text: 'ALPEN macht aus Tagesplanung Führungs-Arbeit. Der entscheidende Schritt ist E · und das ist auch der unbequemste.' },
     { type: 'paragraph', text: 'Im Sprint trainierst du ALPEN als eine deiner dreißig Drill-Cases. Du protokollierst eine Woche, WladBot identifiziert deine drei häufigsten Streich-Vermeidungs-Muster und schlägt konkrete Mikro-Experimente vor.' },
   ],
   seo: {

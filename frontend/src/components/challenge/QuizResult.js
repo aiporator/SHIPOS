@@ -1,10 +1,10 @@
 import { DashboardLayout } from '../layout/DashboardLayout';
 
 /**
- * QuizResult — Nike Athletic-Editorial DNA.
+ * QuizResult · Nike Athletic-Editorial DNA.
  *
  * Riesige Score-Zahl als Anker, flat black/white, 2px-Borders,
- * Lime-Akzent. Korrekt = schwarzer Haken, falsch = Lime-Pin —
+ * Lime-Akzent. Korrekt = schwarzer Haken, falsch = Lime-Pin ·
  * kein Ampel-Grün/Rot-Gradient-Soup. Siehe frontend/DESIGN.md.
  */
 export const QuizResult = ({ quizResult, setQuizResult, setQuizMode, setCurrentQ, setAnswers, de }) => {

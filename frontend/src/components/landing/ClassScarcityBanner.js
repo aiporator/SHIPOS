@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * ClassScarcityBanner — top-of-page editorial scarcity strip.
+ * ClassScarcityBanner · top-of-page editorial scarcity strip.
  *
  * Klasse 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
  * fake-urgency. Seat-count tickt langsam runter über die Zeit,

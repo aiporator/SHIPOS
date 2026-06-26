@@ -23,7 +23,7 @@ export default {
     { type: 'heading', level: 2, text: 'Drei Sales-spezifische Anti-Patterns.' },
     { type: 'list', style: 'bullet', items: [
       'Pipeline-Coaching im Großraumbüro. Sensible Konversation gehört in einen geschlossenen Raum.',
-      'Forecast-Sandbagging als Strategie. Du gewinnst einmal — und verlierst langfristig das CEO-Vertrauen.',
+      'Forecast-Sandbagging als Strategie. Du gewinnst einmal · und verlierst langfristig das CEO-Vertrauen.',
       'Quota als alleinige Performance-Metrik. AEs trainieren das Spiel, nicht den Beruf. Verbinde mit Output-Metriken wie Pipeline-Qualität.',
     ] },
     { type: 'callout', tone: 'lime', text: 'Vertriebs-Verantwortliche sind unsere zweit-größte Sprint-Gruppe nach Engineering. Die DACH-spezifischen B2B-Sales-Cycles (länger als US-Markt) machen die methodische Tiefe besonders wertvoll.' },

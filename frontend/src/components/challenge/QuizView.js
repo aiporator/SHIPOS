@@ -2,11 +2,11 @@ import { DashboardLayout } from '../layout/DashboardLayout';
 import { CoachQuestion, ActionQuestion, MultipleChoiceQuestion } from './QuestionTypes';
 
 /**
- * QuizView — Nike Athletic-Editorial DNA.
+ * QuizView · Nike Athletic-Editorial DNA.
  *
  * Flat black/white canvas, 2px-Schwarz-Borders, Outfit-Black-Italic
  * Frage-Nummer, Lime-Akzent als einziger chromatischer Moment,
- * Mono-BIB-Metadata. Keine Gradients, keine generischen Badges —
+ * Mono-BIB-Metadata. Keine Gradients, keine generischen Badges ·
  * siehe frontend/DESIGN.md.
  */
 export const QuizView = ({
@@ -21,7 +21,7 @@ export const QuizView = ({
   return (
     <DashboardLayout>
       <div className="bg-white text-black min-h-screen" data-testid="quiz-mode">
-        {/* Sticky Progress-Header — Specimen-Stil */}
+        {/* Sticky Progress-Header · Specimen-Stil */}
         <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b-2 border-black">
           <div className="max-w-2xl mx-auto px-5 md:px-6 py-4">
             <div className="flex items-center justify-between mb-3 text-[10px] font-bold uppercase tracking-[0.22em] font-mono text-black/60">
@@ -107,7 +107,7 @@ export const QuizView = ({
             </div>
           )}
 
-          {/* Question-Dots — flat */}
+          {/* Question-Dots · flat */}
           <div className="flex justify-center flex-wrap gap-2 mt-10">
             {Array.from({ length: total }).map((_, dotIdx) => (
               <button

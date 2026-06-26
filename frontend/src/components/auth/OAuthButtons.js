@@ -1,5 +1,5 @@
 /**
- * Provider sign-in buttons — Google (real Google Identity Services),
+ * Provider sign-in buttons · Google (real Google Identity Services),
  * Apple (Sign In with Apple JS), Microsoft (MSAL via popup).
  *
  * Each button:
@@ -45,7 +45,7 @@ const MicrosoftBrand = ({ size = 18 }) => (
 const buttonClass = "group relative flex items-center justify-center gap-3 h-14 w-full bg-white hover:bg-brand/15 border-2 border-black transition-all font-bold text-[13px] tracking-[0.04em] text-black active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed";
 
 // ────────────────────────────────────────────────────────────────────────────
-// Google — Sign in with Google JS, rendered as our own button
+// Google · Sign in with Google JS, rendered as our own button
 // ────────────────────────────────────────────────────────────────────────────
 
 let _googleScriptPromise = null;
@@ -85,9 +85,9 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
           // Distinguish network vs auth vs server errors for clearer UX
           let msg;
           if (!err?.response) {
-            msg = de ? 'Keine Verbindung — bitte Internet prüfen.' : 'Network error — check your connection.';
+            msg = de ? 'Keine Verbindung · bitte Internet prüfen.' : 'Network error · check your connection.';
           } else if (err.response.status >= 500) {
-            msg = de ? 'Server-Fehler — bitte erneut versuchen.' : 'Server error — please retry.';
+            msg = de ? 'Server-Fehler · bitte erneut versuchen.' : 'Server error · please retry.';
           } else {
             msg = err.response.data?.detail || (de ? 'Google-Login fehlgeschlagen.' : 'Google sign-in failed.');
           }
@@ -100,7 +100,7 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
       cancel_on_tap_outside: true,
       use_fedcm_for_prompt: true,
     });
-    // Pre-render an invisible Google button — used as fallback when One-Tap is suppressed
+    // Pre-render an invisible Google button · used as fallback when One-Tap is suppressed
     if (hiddenButtonRef.current) {
       try {
         window.google.accounts.id.renderButton(hiddenButtonRef.current, {
@@ -136,7 +136,7 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
       return;
     }
     if (!window.google?.accounts?.id) {
-      onError?.(de ? 'Google-Login lädt noch — bitte einen Moment.' : 'Google sign-in is still loading…');
+      onError?.(de ? 'Google-Login lädt noch · bitte einen Moment.' : 'Google sign-in is still loading…');
       return;
     }
     // First try One-Tap prompt
@@ -162,7 +162,7 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
 
   // Different button states for clarity
   const buttonText = scriptStatus === 'failed'
-    ? (de ? 'Google nicht erreichbar — Erneut versuchen' : 'Google unavailable — Retry')
+    ? (de ? 'Google nicht erreichbar · Erneut versuchen' : 'Google unavailable · Retry')
     : (label || (de ? 'Mit Google fortfahren' : 'Continue with Google'));
 
   return (
@@ -177,7 +177,7 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
         {loading ? <Loader2 size={16} className="animate-spin" /> : <GoogleBrand />}
         <span>{buttonText}</span>
       </button>
-      {/* Hidden Google-rendered button — used as click-target fallback when
+      {/* Hidden Google-rendered button · used as click-target fallback when
           One-Tap is suppressed. Off-screen but in DOM so we can click() it. */}
       <div
         ref={hiddenButtonRef}
@@ -189,7 +189,7 @@ export const GoogleSignInButton = ({ clientId, onSuccess, onError, de = true, la
 };
 
 // ────────────────────────────────────────────────────────────────────────────
-// Apple — Sign In with Apple JS
+// Apple · Sign In with Apple JS
 // ────────────────────────────────────────────────────────────────────────────
 
 let _appleScriptPromise = null;
@@ -242,7 +242,7 @@ export const AppleSignInButton = ({ serviceId, onSuccess, onError, de = true }) 
       });
       onSuccess?.(res.data.user, 'apple');
     } catch (err) {
-      // The user closing the popup throws — don't surface it as an error
+      // The user closing the popup throws · don't surface it as an error
       if (err?.error === 'popup_closed_by_user') return;
       logger.error('Apple sign-in failed', err);
       onError?.(err?.response?.data?.detail || 'Apple-Login fehlgeschlagen.');
@@ -268,7 +268,7 @@ export const AppleSignInButton = ({ serviceId, onSuccess, onError, de = true }) 
 };
 
 // ────────────────────────────────────────────────────────────────────────────
-// Microsoft — MSAL.js via popup
+// Microsoft · MSAL.js via popup
 // ────────────────────────────────────────────────────────────────────────────
 
 let _msalScriptPromise = null;
@@ -348,7 +348,7 @@ export const MicrosoftSignInButton = ({ clientId, tenant = 'common', onSuccess, 
 };
 
 // ────────────────────────────────────────────────────────────────────────────
-// Combined provider stack — renders only the configured providers
+// Combined provider stack · renders only the configured providers
 // ────────────────────────────────────────────────────────────────────────────
 
 export const OAuthProviderStack = ({ providers, onSuccess, onError, de = true }) => {

@@ -2,7 +2,7 @@ export default {
   slug: 'der-tag-an-dem-ich-aufhoerte-zu-pushen',
   type: 'article',
   status: 'published',
-  title: 'Der Tag an dem ich aufhörte zu pushen — und mein Team plötzlich lieferte.',
+  title: 'Der Tag an dem ich aufhörte zu pushen · und mein Team plötzlich lieferte.',
   description:
     'Mikromanagement loswerden ist nicht "weniger arbeiten". Es ist anders arbeiten. ' +
     'Wie ich an einem Dienstag im November aufhörte zu kontrollieren und damit ' +
@@ -33,7 +33,7 @@ export default {
     ],
   },
   body: [
-    { type: 'paragraph', text: 'Es war ein Dienstag im November. Halb sieben am Abend, das Büro war leer, ich hatte noch drei Mails offen die ich vor dem Heimgehen schicken wollte. Ich öffnete den ersten Entwurf — von Sarah, die seit zwei Jahren in meinem Team war. Ich begann zu lesen, mit der Maus über "ändern" hovernd. Und dann hielt ich inne.' },
+    { type: 'paragraph', text: 'Es war ein Dienstag im November. Halb sieben am Abend, das Büro war leer, ich hatte noch drei Mails offen die ich vor dem Heimgehen schicken wollte. Ich öffnete den ersten Entwurf · von Sarah, die seit zwei Jahren in meinem Team war. Ich begann zu lesen, mit der Maus über "ändern" hovernd. Und dann hielt ich inne.' },
     { type: 'paragraph', text: 'Sarah ist klüger als ich. Sarah schreibt besser als ich. Sarah hat den Kunden seit acht Monaten betreut, ich habe ihn zweimal gesehen. Was genau wollte ich an dieser Mail korrigieren? Was qualifizierte mich überhaupt, sie zu korrigieren? Die Antwort die ich an mich selbst gab war ehrlich: nichts. Ich wollte sie korrigieren weil ich es immer tat. Es war ein Reflex, kein Beitrag.' },
     { type: 'paragraph', text: 'Ich schloss den Entwurf. Ich schrieb in unsere Kanal-Notiz: "Sarah, ab heute schickst du Kunden-Mails direkt. Ich review nur noch wenn du explizit drum bittest." Dann ging ich nach Hause. Ich rechnete mit Chaos. Es kam keins. Was kam, war 5 Stunden mehr Zeit in meiner Woche und ein Team das innerhalb von drei Wochen anders arbeitete.' },
 
@@ -44,9 +44,9 @@ export default {
 
     { type: 'heading', level: 2, text: 'Die drei Regeln die alles verändert haben.' },
     { type: 'paragraph', text: 'Nach diesem November-Dienstag habe ich ein einfaches System eingeführt. Drei Regeln, schriftlich, an meinem Monitor, sechs Wochen lang. Es hat funktioniert.' },
-    { type: 'framework', code: 'D·01', title: 'Regel 1 — Aufträge nur als Ergebnis, nie als Methode.', explanation: 'Statt "Mach bitte einen Kunden-Report mit den Quartalszahlen, gerne als Tabelle, dann Mail an mich, ich schick weiter" → "Kunde X braucht bis Freitag ein Update zur Quartalsleistung. Du hast die Daten. Wie du das verpackst und an wen du es schickst, entscheidest du." Zwei Sätze. Ergebnis + Deadline. Methode nicht angerührt.' },
-    { type: 'framework', code: 'D·02', title: 'Regel 2 — Zwischen Auftrag und Deadline keine Nachfragen.', explanation: 'Wenn du delegiert hast, halt die Klappe. Keine "wie weit bist du"-Mails. Kein "denk dran" auf Slack. Wer alle zwei Tage nachfragt, hat nicht delegiert — der hat zwischengeparkt. Vertraue dem Datum das ihr beide festgelegt habt. Wenn dein Mitarbeiter etwas braucht, wird er kommen.' },
-    { type: 'framework', code: 'D·03', title: 'Regel 3 — Reflexion danach: über die Methode, nicht das Ergebnis.', explanation: 'Im 1:1 nach Abschluss: "Was würdest du nochmal so machen, was nicht? Wo hattest du das ungute Gefühl, ich würde es anders machen?" Reflexion auf der Methodik-Ebene, nicht "war der Report gut". Das ist Coaching, nicht Kontrolle. Drei Fragen, 8 Minuten, dein Mitarbeiter wächst.' },
+    { type: 'framework', code: 'D·01', title: 'Regel 1 · Aufträge nur als Ergebnis, nie als Methode.', explanation: 'Statt "Mach bitte einen Kunden-Report mit den Quartalszahlen, gerne als Tabelle, dann Mail an mich, ich schick weiter" → "Kunde X braucht bis Freitag ein Update zur Quartalsleistung. Du hast die Daten. Wie du das verpackst und an wen du es schickst, entscheidest du." Zwei Sätze. Ergebnis + Deadline. Methode nicht angerührt.' },
+    { type: 'framework', code: 'D·02', title: 'Regel 2 · Zwischen Auftrag und Deadline keine Nachfragen.', explanation: 'Wenn du delegiert hast, halt die Klappe. Keine "wie weit bist du"-Mails. Kein "denk dran" auf Slack. Wer alle zwei Tage nachfragt, hat nicht delegiert · der hat zwischengeparkt. Vertraue dem Datum das ihr beide festgelegt habt. Wenn dein Mitarbeiter etwas braucht, wird er kommen.' },
+    { type: 'framework', code: 'D·03', title: 'Regel 3 · Reflexion danach: über die Methode, nicht das Ergebnis.', explanation: 'Im 1:1 nach Abschluss: "Was würdest du nochmal so machen, was nicht? Wo hattest du das ungute Gefühl, ich würde es anders machen?" Reflexion auf der Methodik-Ebene, nicht "war der Report gut". Das ist Coaching, nicht Kontrolle. Drei Fragen, 8 Minuten, dein Mitarbeiter wächst.' },
 
     { type: 'heading', level: 2, text: 'Was sich messbar geändert hat.' },
     { type: 'paragraph', text: 'In den ersten sechs Wochen nach dem November-Dienstag habe ich mit Stift mitgeführt was sich änderte. Nicht weil ich gläubig war, sondern weil ich Beweise brauchte für mein eigenes Gedankenkarussell.' },
@@ -58,7 +58,7 @@ export default {
     { type: 'paragraph', text: 'Mikromanagement aufzugeben fühlt sich nicht wie "Last loswerden" an. Es fühlt sich wie Kontrollverlust an. Du sitzt am Mittwochmorgen am Schreibtisch, dein Team arbeitet, du weißt nicht woran. Das ist unbequem. Du wirst den Impuls haben kurz reinzuschauen. Lass es. Geh stattdessen einen Kaffee holen. Schreib einen LinkedIn-Post. Mach das wofür du eigentlich da bist: Vorausschau, Entscheidungen, Coaching.' },
     { type: 'paragraph', text: 'Die zweite Hürde ist das Schlimmste: in den ersten zwei Wochen wird etwas schiefgehen. Eine Mail wird einen Tippfehler haben den du gefangen hättest. Ein Report wird Details vermissen die du ergänzt hättest. Du wirst denken: siehst du, ich bin doch der Garant. Falsch. Du wirst denken müssen: dieser Tippfehler kostet uns 0,3 Sekunden Reputation. Mein altes Mikromanagement hat uns Wochen Eigenständigkeit gekostet. Welcher Schaden ist größer?' },
 
-    { type: 'callout', tone: 'dark', text: 'Genau diese Regeln — Delegation als Ergebnis statt Methode, Methoden-Reflexion statt Ergebnis-Kontrolle — sind Teil der staatlich anerkannten Führungskräfte-Ausbildung in Leader-OS. 6 Monate, mit dem WladBot als Sparring vor jedem schwierigen Delegations-Gespräch. Buch dir ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'Genau diese Regeln · Delegation als Ergebnis statt Methode, Methoden-Reflexion statt Ergebnis-Kontrolle · sind Teil der staatlich anerkannten Führungskräfte-Ausbildung in Leader-OS. 6 Monate, mit dem WladBot als Sparring vor jedem schwierigen Delegations-Gespräch. Buch dir ein unverbindliches Beratungsgespräch.' },
 
     { type: 'heading', level: 2, text: 'Was du diese Woche machen kannst.' },
     { type: 'paragraph', text: 'Du musst nicht 14 Jahre brauchen wie ich. Hier ist die kürzeste Übung die etwas verändert: such dir EINE wiederkehrende Aufgabe die heute über deinen Schreibtisch geht und die jemand anders machen könnte. Schreib eine Mail. Zwei Sätze. Ergebnis, Deadline. Lehn dich zurück. Schau zu was passiert.' },

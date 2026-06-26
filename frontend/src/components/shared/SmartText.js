@@ -1,5 +1,5 @@
 /**
- * SmartText — premium markdown-lite renderer.
+ * SmartText · premium markdown-lite renderer.
  *
  * Why this exists:
  *   AI outputs (wlad_assessment, framework_feedback, rewrite_suggestion, etc.)
@@ -29,7 +29,7 @@ import { Sparkles } from 'lucide-react';
 const ORDERED_LINE_RE = /^\s*(\d{1,2})[.)]\s+(.+)$/;
 const BULLET_LINE_RE = /^\s*[-•*]\s+(.+)$/;
 
-// Inline "1. … 2. … 3. …" — split a single line that hides a list.
+// Inline "1. … 2. … 3. …" · split a single line that hides a list.
 // We look for at least 2 occurrences before treating it as a list.
 function splitInlineNumbered(line) {
   // Match each "N. text-until-next-N.-or-end". Non-greedy so it doesn't gobble.
@@ -102,7 +102,7 @@ function parseBlocks(text) {
       continue;
     }
 
-    // Regular paragraph line — append to running paragraph block.
+    // Regular paragraph line · append to running paragraph block.
     if (!buffer || buffer.type !== 'paragraph') {
       flushBuffer();
       buffer = { type: 'paragraph', items: [] };
@@ -150,7 +150,7 @@ export const SmartText = ({
   const blocks = parseBlocks(text);
   if (blocks.length === 0) return null;
 
-  // Inline (compact) mode: keep typography small + tight — used in chat bubbles.
+  // Inline (compact) mode: keep typography small + tight · used in chat bubbles.
   const isInline = variant === 'inline';
   const listGap = isInline ? 'space-y-1.5' : 'space-y-2';
 

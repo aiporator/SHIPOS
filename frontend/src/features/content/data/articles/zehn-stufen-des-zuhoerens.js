@@ -12,7 +12,7 @@ export default {
   cover: null,
   tags: ['EQ', 'Framework', 'Zuhören'],
   body: [
-    { type: 'paragraph', text: 'Zuhören ist nicht eine Stufe — es sind zehn. Die meisten Führungskräfte arbeiten auf Stufe drei bis fünf und glauben sie wären auf Stufe acht. Hier ist die Skala die zeigt wo du tatsächlich stehst.' },
+    { type: 'paragraph', text: 'Zuhören ist nicht eine Stufe · es sind zehn. Die meisten Führungskräfte arbeiten auf Stufe drei bis fünf und glauben sie wären auf Stufe acht. Hier ist die Skala die zeigt wo du tatsächlich stehst.' },
     { type: 'heading', level: 2, text: 'Stufen 01-03: das abwesende Zuhören.' },
     { type: 'list', style: 'numbered', items: [
       'Stufe 1: Ignorieren. Du hörst Geräusche, nicht Worte. Smartphone in der Hand.',
@@ -37,11 +37,11 @@ export default {
     { type: 'framework', code: '10 STUFEN', title: 'Zuhör-Hierarchie', explanation: 'Stufe 1-3: abwesend. Stufe 4-6: aufmerksam. Stufe 7-10: tief. Die meisten Senior-Führungskräfte arbeiten auf 5-6. Plus-Plus-Drill bringt dich auf 7-8. Stufe 9 und 10 sind selten, aber lernbar.' },
     { type: 'heading', level: 2, text: 'Mikro-Übung für diese Woche.' },
     { type: 'paragraph', text: 'In deinem nächsten 1:1: stelle die erste Frage und dann SCHWEIGE für vollständige fünfzehn Sekunden, egal was passiert. Du wirst merken: die meisten füllen die Stille mit ihrer eigentlichen Antwort. Du wirst mehr lernen als sonst in dreißig Minuten.' },
-    { type: 'callout', tone: 'lime', text: 'Eine Stufe pro Woche ist realistisch. Eine Stufe pro Monat ist die Sprint-Realität — und reicht um in einem Jahr von 5 auf 8 zu kommen.' },
+    { type: 'callout', tone: 'lime', text: 'Eine Stufe pro Woche ist realistisch. Eine Stufe pro Monat ist die Sprint-Realität · und reicht um in einem Jahr von 5 auf 8 zu kommen.' },
     { type: 'paragraph', text: 'Im Sprint diagnostizieren wir deine aktuelle Stufe und drillen dich auf die nächste. WladBot zeigt dir nach jedem geschriebenen 1:1-Transkript welche Stufe deine Antworten hatten.' },
   ],
   seo: {
-    description: 'Zehn Stufen des Zuhörens — von abwesend bis transformativ. Wo Führungskräfte typischerweise stehen und wie du eine Stufe pro Woche aufsteigst.',
+    description: 'Zehn Stufen des Zuhörens · von abwesend bis transformativ. Wo Führungskräfte typischerweise stehen und wie du eine Stufe pro Woche aufsteigst.',
     keywords: ['Zuhören lernen', 'Aktives Zuhören', 'Zehn Stufen Zuhören', 'Empathisches Zuhören Führung', 'Wlad Jachtchenko Zuhören'],
   },
   related: ['schulz-von-thun-kommunikationsquadrat-fuer-fuehrungskraefte', '5-rollen-der-fuehrung-nach-wlad-jachtchenko'],

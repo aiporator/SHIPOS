@@ -259,7 +259,7 @@ export default function LoginPage() {
               <div className="absolute inset-0 flex items-center"><div className="w-full border-t-2 border-black/[0.10]" /></div>
               <div className="relative flex justify-center">
                 <span className="bg-white px-4 text-[10px] text-black/55 uppercase tracking-[0.22em] font-bold font-mono">
-                  {de ? '— oder per E-Mail —' : '— or with email —'}
+                  {de ? '· oder per E-Mail ·' : '· or with email ·'}
                 </span>
               </div>
             </div>

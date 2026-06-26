@@ -1,5 +1,5 @@
 /**
- * Article registry — the single source of truth for all published
+ * Article registry · the single source of truth for all published
  * content. Static imports (no dynamic `import('./articles/' + slug)`)
  * because dynamic imports with computed paths are awkward with CRA's
  * webpack and break bundler-side static analysis.
@@ -78,6 +78,28 @@ import dasVersprechenUndDieGrenzen from './articles/das-versprechen-und-die-gren
 import die5RollenEinerKiNativenFuehrungskraft from './articles/die-5-rollen-einer-ki-nativen-fuehrungskraft';
 import in6MonatenZurKiNativenFuehrungskraft from './articles/in-6-monaten-zur-ki-nativen-fuehrungskraft';
 import schlagfertigkeitImKiZeitalter from './articles/schlagfertigkeit-im-ki-zeitalter';
+
+// ── 2026-08/09 expansion batch (20 new SEO articles) ──
+import ChatgptAlsCoPilot7PromptsFuerFuehrungskraefte from './articles/chatgpt-als-co-pilot-7-prompts-fuer-fuehrungskraefte';
+import ClaudeVsChatgptVsGeminiWelcheKiFuerWelchenJob from './articles/claude-vs-chatgpt-vs-gemini-welche-ki-fuer-welchen-job';
+import KiHalluzinationenErkennenAlsManager from './articles/ki-halluzinationen-erkennen-als-manager';
+import MitKi12StundenProWocheZurueckgewinnen from './articles/mit-ki-12-stunden-pro-woche-zurueckgewinnen';
+import ScrumFuerNichtTechManager from './articles/scrum-fuer-nicht-tech-manager';
+import OkrVsKpiWannWelcheMethode from './articles/okr-vs-kpi-wann-welche-methode';
+import EisenhowerMatrixImKiZeitalter from './articles/eisenhower-matrix-im-ki-zeitalter';
+import ParetoPrinzipInDerFuehrung from './articles/pareto-prinzip-in-der-fuehrung';
+import KonstruktiveKonfrontationDasBwwSkript from './articles/konstruktive-konfrontation-das-bww-skript';
+import Verhandlungstaktiken5PhrasenDieDeinePositionStaerken from './articles/verhandlungstaktiken-5-phrasen-die-deine-position-staerken';
+import TownhallSpeechesDie7MinutenRegel from './articles/townhall-speeches-die-7-minuten-regel';
+import SchlagfertigkeitGegenManipulationDreiVerteidigungen from './articles/schlagfertigkeit-gegen-manipulation-drei-verteidigungen';
+import StorytellingFuerFuehrungskraeftePixarFormel from './articles/storytelling-fuer-fuehrungskraefte-pixar-formel';
+import ImposterSyndromBeiCLevel from './articles/imposter-syndrom-bei-c-level';
+import GehaltsverhandlungAlsFuehrungskraftDrehbuch from './articles/gehaltsverhandlung-als-fuehrungskraft-drehbuch';
+import VomManagerZumDirectorWasWirklichAndersWird from './articles/vom-manager-zum-director-was-wirklich-anders-wird';
+import BurnoutBeiTopPerformernDieWarnsignale from './articles/burnout-bei-top-performern-die-warnsignale';
+import DieErsten7TageMitLeaderOs from './articles/die-ersten-7-tage-mit-leader-os';
+import Klasse0001WerReinkommtWerNicht from './articles/klasse-0001-wer-reinkommt-wer-nicht';
+import SprintVsPlusPlusWelcherPfad from './articles/sprint-vs-plus-plus-welcher-pfad';
 // Players'-Tribune-style narrative SEO bombs
 import briefAnMeinen28JaehrigenSelbst from './articles/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde';
 import derTagAnDemIchAufhoerteZuPushen from './articles/der-tag-an-dem-ich-aufhoerte-zu-pushen';
@@ -86,7 +108,29 @@ import liebeMitarbeiterDasHierWollteIch from './articles/liebe-mitarbeiter-das-h
 
 const ARTICLES = [
   // Narrative SEO bombs (Players'-Tribune voice, viral hooks, SEO-armored).
-  // Published 2026-08-15 → 18, so they take Hero + Top Stories on /journal.
+  // 2026-08/09 expansion · 20 SEO-armored articles
+  ChatgptAlsCoPilot7PromptsFuerFuehrungskraefte,
+  ClaudeVsChatgptVsGeminiWelcheKiFuerWelchenJob,
+  KiHalluzinationenErkennenAlsManager,
+  MitKi12StundenProWocheZurueckgewinnen,
+  ScrumFuerNichtTechManager,
+  OkrVsKpiWannWelcheMethode,
+  EisenhowerMatrixImKiZeitalter,
+  ParetoPrinzipInDerFuehrung,
+  KonstruktiveKonfrontationDasBwwSkript,
+  Verhandlungstaktiken5PhrasenDieDeinePositionStaerken,
+  TownhallSpeechesDie7MinutenRegel,
+  SchlagfertigkeitGegenManipulationDreiVerteidigungen,
+  StorytellingFuerFuehrungskraeftePixarFormel,
+  ImposterSyndromBeiCLevel,
+  GehaltsverhandlungAlsFuehrungskraftDrehbuch,
+  VomManagerZumDirectorWasWirklichAndersWird,
+  BurnoutBeiTopPerformernDieWarnsignale,
+  DieErsten7TageMitLeaderOs,
+  Klasse0001WerReinkommtWerNicht,
+  SprintVsPlusPlusWelcherPfad,
+
+    // Published 2026-08-15 → 18, so they take Hero + Top Stories on /journal.
   briefAnMeinen28JaehrigenSelbst,
   derTagAnDemIchAufhoerteZuPushen,
   dreiBurnoutsEineLektion,
@@ -97,7 +141,7 @@ const ARTICLES = [
   in6MonatenZurKiNativenFuehrungskraft,
   schlagfertigkeitImKiZeitalter,
 
-  // KI-Paradox & der Hebel-Effekt (Top bucket — diagnostic + solution + accessibility)
+  // KI-Paradox & der Hebel-Effekt (Top bucket · diagnostic + solution + accessibility)
   dasKiProduktivitaetsParadox,
   warumDeinChatgptTabDichNichtEffizienterMacht,
   wennDeineKiInvestitionVersickertFuenfDiagnoseFragen,
@@ -186,9 +230,9 @@ export function getArticle(slug) {
  * List articles, newest first.
  *
  * @param {Object} [options]
- * @param {string} [options.type]   — filter by 'article' | 'guide' | 'field-note' | 'case-study'
- * @param {string} [options.tag]    — filter by tag (case-insensitive)
- * @param {string[]} [options.slugs]— preserve given order (used by RelatedArticles)
+ * @param {string} [options.type]   · filter by 'article' | 'guide' | 'field-note' | 'case-study'
+ * @param {string} [options.tag]    · filter by tag (case-insensitive)
+ * @param {string[]} [options.slugs]· preserve given order (used by RelatedArticles)
  * @param {number} [options.limit]
  */
 export function listArticles(options = {}) {

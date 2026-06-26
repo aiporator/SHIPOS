@@ -3,7 +3,7 @@ import { PostSpecimen } from '../components/specimens/PostSpecimen';
 import { POST_SERIES } from '../data/contentSpecimens';
 
 /**
- * SpecimenStudio — internal content studio at /specimens.
+ * SpecimenStudio · internal content studio at /specimens.
  *
  * Shows every Instagram + LinkedIn post-specimen tile in the same
  * editorial DNA as the landing page, ready to screenshot at native
@@ -14,7 +14,7 @@ import { POST_SERIES } from '../data/contentSpecimens';
  * Meta Composer.
  *
  * Caption-Body sits next to each tile so the copywriter can copy it
- * straight to clipboard. No CMS, no API — the data lives in
+ * straight to clipboard. No CMS, no API · the data lives in
  * `contentSpecimens.js` and gets edited by hand for now.
  *
  * Not protected. URL is unguessable enough for a draft tool; if it
@@ -137,7 +137,7 @@ export default function SpecimenStudio() {
         </div>
       </main>
 
-      {/* Native-Size Overlay — for clean screenshots */}
+      {/* Native-Size Overlay · for clean screenshots */}
       {nativePost && (
         <div
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md overflow-auto"

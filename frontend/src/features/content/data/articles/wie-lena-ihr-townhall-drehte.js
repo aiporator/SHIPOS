@@ -147,7 +147,7 @@ export default {
       style: 'bullet',
       items: [
         'Eine Skill-Lücke ist nicht "kann nicht reden", sondern "fehlt das Struktur-Skript". Skripte sind trainierbar in 30 Tagen.',
-        'Die Diagnose zuerst — ohne Score blockiert man oft an der falschen Dimension. Lenas Strategie war nicht das Problem.',
+        'Die Diagnose zuerst · ohne Score blockiert man oft an der falschen Dimension. Lenas Strategie war nicht das Problem.',
         'Live-Drill mit dem Original übertrifft jede Buch-Lektüre. Eine Vortrags-Probe mit Wlad ersetzt sechs Wochen Selbst-Reflexion.',
         'Output messen, nicht Input. Vier Stunden weniger Alignment-Wash pro Woche ist die echte Metrik, nicht "ich fühle mich klarer".',
       ],

@@ -115,7 +115,7 @@ export default function CoachingPage() {
           </div>
         </div>
 
-        {/* NEW: 3-Tier Pricing (replaces old PremiumProgram — keeps old for back-compat below) */}
+        {/* NEW: 3-Tier Pricing (replaces old PremiumProgram · keeps old for back-compat below) */}
         <TierPricingGrid onCheckout={handleStripeCheckout} checkoutLoading={checkoutLoading} de={de} />
 
         {/* Booking */}

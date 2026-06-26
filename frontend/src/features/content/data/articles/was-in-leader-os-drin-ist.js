@@ -1,5 +1,5 @@
 /**
- * Article 2/10 — product walkthrough. What's inside Leader-OS.
+ * Article 2/10 · product walkthrough. What's inside Leader-OS.
  */
 export default {
   slug: 'was-in-leader-os-drin-ist',
@@ -52,7 +52,7 @@ export default {
     { type: 'heading', level: 2, text: 'Was du behältst, lebenslang.' },
     { type: 'list', style: 'bullet', items: [
       'Voller Zugriff auf alle elf Frameworks, auch nach dem Sprint.',
-      'WladBot 24/7 — keine monatliche Abo-Schranke.',
+      'WladBot 24/7 · keine monatliche Abo-Schranke.',
       'Lernvideo-Bibliothek (600+ Wlad-Lektionen) bleibt freigeschaltet.',
       'Sprint-Historie als Context-Layer für jede zukünftige Bot-Konversation.',
     ] },

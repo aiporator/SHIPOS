@@ -3,10 +3,10 @@ import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
 
 /**
- * VimeoIntroSection — schwarzer Block mit Wlads Intro-Video.
+ * VimeoIntroSection · schwarzer Block mit Wlads Intro-Video.
  *
  * Sitzt nach dem Manifesto. Liefert das, was Text nicht kann:
- * Wlads Stimme, sein Tempo, seine Augen. Vimeo statt YouTube — kein
+ * Wlads Stimme, sein Tempo, seine Augen. Vimeo statt YouTube · kein
  * "Up Next"-Karussell, keine Ablenkung, kein YouTube-Tracker.
  *
  * Vimeo-Embed via iframe in einem 16:9-Container. Player-Settings:
@@ -16,7 +16,7 @@ import { PlusCircleCTA } from './PlusCircleCTA';
  *
  * Wenn das Video noch nicht freigegeben ist (Privacy "Hide from Vimeo"),
  * muss der Embed-Domain leader-os.de in den Vimeo-Settings whitelisted
- * werden — sonst kommt 403.
+ * werden · sonst kommt 403.
  */
 
 const VIMEO_ID = '1197728183';
@@ -28,7 +28,7 @@ export const VimeoIntroSection = () => (
   <section
     id="wlad-intro"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Wlad Jachtchenko — Intro"
+    aria-label="Wlad Jachtchenko · Intro"
     data-testid="landing-vimeo-intro"
   >
     {/* Atmospheric lime mesh */}

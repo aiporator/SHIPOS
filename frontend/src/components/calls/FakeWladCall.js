@@ -1,5 +1,5 @@
 /**
- * FakeWladCall — iOS-style incoming-call overlay from "Wlad Jachtchenko".
+ * FakeWladCall · iOS-style incoming-call overlay from "Wlad Jachtchenko".
  *
  * Conversion-engagement trick (Iter 92): triggers automatically after the
  * user has been active for 3 minutes, can fire at most TWICE per browser
@@ -9,7 +9,7 @@
  * Accept   → opens Cal.com booking modal (real consultation)
  * Decline  → navigates to /chat with a Wlad-style starter prompt
  *
- * A/B Test (Iter 92.4 — `fake_wlad_call_bribe`):
+ * A/B Test (Iter 92.4 · `fake_wlad_call_bribe`):
  *   - control: pure call overlay
  *   - bribe:   reveals a "WLAD10" 10% discount code during the call;
  *              code persists to localStorage so user sees it in checkout.
@@ -28,7 +28,7 @@ const MAX_CALLS_PER_SESSION = 2;
 const TRIGGER_INTERVAL_MS = 3 * 60 * 1000;  // 3 minutes
 // Routes where we must NOT pop the call (already in a call-equivalent flow)
 const SUPPRESSED_PATHS = ['/chat', '/onboarding', '/payment-success', '/login', '/auth/magic', '/email/unsubscribe'];
-// Tiers that have already converted — they don't need conversion-pressure.
+// Tiers that have already converted · they don't need conversion-pressure.
 // Instead they see the call ONCE PER MONTH as a "Monthly Update Call" prompt
 // from the consultant team.
 const PRO_TIERS = new Set(['standard', 'accelerator', 'plus']);
@@ -48,7 +48,7 @@ const bumpCallCount = () => {
 };
 
 const STARTER_PROMPTS = [
-  'Ich habe gerade nicht abgenommen, als Wlad anrief — aber zeig mir trotzdem: wo ist meine größte Leadership-Lücke? Stell mir 3 Diagnose-Fragen.',
+  'Ich habe gerade nicht abgenommen, als Wlad anrief · aber zeig mir trotzdem: wo ist meine größte Leadership-Lücke? Stell mir 3 Diagnose-Fragen.',
   'Letzte Chance verpasst. Sag mir in 1 Satz: was hindert mich aktuell daran, meine Top-Priorität anzugehen?',
 ];
 
@@ -91,7 +91,7 @@ export const FakeWladCall = () => {
       if (getCallCount() >= MAX_CALLS_PER_SESSION) return;
       const path = window.location.pathname;
       if (SUPPRESSED_PATHS.some((p) => path.startsWith(p))) {
-        // Reschedule instead of firing — user is in a focus flow
+        // Reschedule instead of firing · user is in a focus flow
         scheduleNext();
         return;
       }
@@ -225,11 +225,11 @@ export const FakeWladCall = () => {
           <p className="text-white/75 text-[13px] leading-snug">
             {isPro
               ? '„Zeit für deinen Monats-Check-in. 30 Min, wo du gerade stehst."'
-              : '„Lass uns 30 Min reden — ich helf dir, deinen Pfad zu klären."'}
+              : '„Lass uns 30 Min reden · ich helf dir, deinen Pfad zu klären."'}
           </p>
         </div>
 
-        {/* Bribe variant — 10% discount appears ONLY for non-pro treatment group */}
+        {/* Bribe variant · 10% discount appears ONLY for non-pro treatment group */}
         {variant === 'bribe' && !isPro && (
           <div
             className="flex items-center gap-2.5 bg-[#BFFF00]/[0.08] border border-[#BFFF00]/30 rounded-xl px-3.5 py-2 backdrop-blur-sm wlad-call-shimmer"
@@ -269,7 +269,7 @@ export const FakeWladCall = () => {
           />
         </div>
 
-        {/* tiny tertiary — alternate fallback to chat */}
+        {/* tiny tertiary · alternate fallback to chat */}
         <button
           type="button"
           onClick={decline}

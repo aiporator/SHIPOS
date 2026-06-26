@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { PlusCircleCTA } from './PlusCircleCTA';
 
 /**
- * AppPreviewSection — "Was siehst du, wenn du drinnen bist?".
+ * AppPreviewSection · "Was siehst du, wenn du drinnen bist?".
  *
  * Drei Specimen-Mockups die das Produkt-Innere zeigen: das
  * Dashboard (heutige Mission + Fortschritt), die Video-Mission
@@ -11,7 +11,7 @@ import { PlusCircleCTA } from './PlusCircleCTA';
  *
  * Echte Screenshots wären besser, sind aber noch nicht
  * launch-ready. Bis dahin rendern wir die Mockups typografisch
- * im selben Athletic-Editorial-Stil wie der Rest der Page —
+ * im selben Athletic-Editorial-Stil wie der Rest der Page ·
  * konsistenter Look ist wichtiger als Foto-Realismus.
  */
 
@@ -174,7 +174,7 @@ const TILES = [
   },
   {
     code: 'CONTEXT',
-    label: 'Der Layer, der dich kennt.',
+    label: 'Der Coach, der dich kennt.',
     body: 'WladBot antwortet nicht generisch. Er kennt deinen Check-Score, deine Rolle, deine Drills, deinen Ton. Jede Antwort liegt auf dieser Schicht.',
     Mock: ContextLayerMock,
   },
@@ -208,7 +208,7 @@ export const AppPreviewSection = () => (
         </h2>
         <p className="mt-8 max-w-2xl text-[15px] md:text-[17px] leading-[1.55] text-foreground/70">
           Drei Räume: das Dashboard, die Lernmissionen, der Context-
-          Layer. Jeder Raum bringt dich näher an die Führungskraft, die
+          Bereich. Jeder Raum bringt dich näher an die Führungskraft, die
           du werden willst. Nichts davon ist Show. Alles davon
           arbeitet täglich für dich.
         </p>

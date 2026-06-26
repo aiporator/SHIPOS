@@ -6,10 +6,10 @@ import { PlusCircleCTA } from '../components/landing/PlusCircleCTA';
 import { HOW_IT_WORKS } from '../data/landingAssets';
 
 /**
- * ThankYouPage — confirmation surface for the lead-capture popup.
+ * ThankYouPage · confirmation surface for the lead-capture popup.
  *
  * Shows the user three things in this order:
- *   1. Thanks — and your email (if present in ?email=…)
+ *   1. Thanks · and your email (if present in ?email=…)
  *   2. The exact next step: button-jump to leader-check.de
  *   3. The 3-step path so they understand where they are
  *
@@ -21,7 +21,7 @@ export default function ThankYouPage() {
   const email = params.get('email');
 
   useEffect(() => {
-    document.title = 'Danke — deine Diagnose startet · Leader-OS';
+    document.title = 'Danke · deine Diagnose startet · Leader-OS';
   }, []);
 
   return (
@@ -47,7 +47,7 @@ export default function ThankYouPage() {
         <p className="mt-8 md:mt-10 max-w-2xl text-[16px] md:text-[19px] leading-[1.55] text-foreground/75">
           {email ? (
             <>
-              Danke — wir haben <strong className="text-foreground">{email}</strong> vorgemerkt.
+              Danke · wir haben <strong className="text-foreground">{email}</strong> vorgemerkt.
               Klicke jetzt unten weiter zu leader-check.de und schließ deine
               KI-Diagnose ab. Zehn Minuten, kostenlos, sofort dein Ergebnis.
             </>

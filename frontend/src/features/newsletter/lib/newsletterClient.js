@@ -1,9 +1,9 @@
 /**
- * newsletterClient — thin wrapper over the double-opt-in subscribe endpoint.
+ * newsletterClient · thin wrapper over the double-opt-in subscribe endpoint.
  *
  * Posts same-origin to `/api/newsletter/subscribe`, which Vercel rewrites
  * to the Supabase Edge Function `newsletter-subscribe` (see vercel.json).
- * No Supabase anon key ships in the bundle — the rewrite + verify_jwt=false
+ * No Supabase anon key ships in the bundle · the rewrite + verify_jwt=false
  * keep the client dumb and keyless.
  *
  * The endpoint is intentionally non-committal: it returns `{ ok: true }`
@@ -19,9 +19,9 @@ export const isValidEmail = (value) =>
 
 /**
  * @param {Object} args
- * @param {string} args.email     — raw email input
- * @param {string} args.source    — capture surface, e.g. 'footer' | 'journal' | 'article'
- * @param {string} [args.campaign]— optional campaign tag, e.g. 'field-notes'
+ * @param {string} args.email     · raw email input
+ * @param {string} args.source    · capture surface, e.g. 'footer' | 'journal' | 'article'
+ * @param {string} [args.campaign]· optional campaign tag, e.g. 'field-notes'
  * @returns {Promise<{ ok: boolean, error?: string }>}
  */
 export async function subscribe({ email, source, campaign }) {

@@ -26,7 +26,7 @@ const VideoCard = ({ video, onPlay, onUpgrade, newlyUnlocked }) => {
       data-anim="video-tile"
       style={{ willChange: 'transform' }}
     >
-      {/* Unlock celebration ring — invisible until JIT animation triggers */}
+      {/* Unlock celebration ring · invisible until JIT animation triggers */}
       {newlyUnlocked && (
         <span
           data-unlock-ring
@@ -165,7 +165,7 @@ export default function LearningVideosTab() {
     // Persist current state so we don't re-celebrate on next visit
     try {
       localStorage.setItem(UNLOCK_MEMO_KEY, JSON.stringify([...currentUnlocked]));
-    } catch { /* localStorage full / private mode — celebration only this session */ }
+    } catch { /* localStorage full / private mode · celebration only this session */ }
 
     // Don't celebrate the FIRST-EVER load (lastSet was empty → would tag everything as new)
     if (lastSet.size === 0) return new Set();
@@ -208,7 +208,7 @@ export default function LearningVideosTab() {
         </div>
       </div>
 
-      {/* Starter pack — 6 episodes, lead-magnet for the cohort. Iter 92.10: "FREE" wording out — Mert wants premium positioning. */}
+      {/* Starter pack · 6 episodes, lead-magnet for the cohort. Iter 92.10: "FREE" wording out · Mert wants premium positioning. */}
       <section data-anim="video-section">
         <div className="flex items-end justify-between mb-4" data-anim="section-header">
           <div>
@@ -216,7 +216,7 @@ export default function LearningVideosTab() {
               <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Ohne Anmeldung</span>
               <span className="text-[9px] font-bold text-muted-foreground/50">· Lead-Magnet · 6 Kurse · Sofortstart</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen — Sofortstart</h2>
+            <h2 className="text-xl font-black tracking-tight">Leadership-Grundlagen · Sofortstart</h2>
             <p className="text-xs text-muted-foreground mt-0.5">6 Kurse · {data.starter_videos.reduce((s, v) => s + v.episodes, 0)} Folgen · Vimeo HD · Ohne Anmeldepflicht</p>
           </div>
           <span
@@ -274,7 +274,7 @@ export default function LearningVideosTab() {
         </div>
       </section>
 
-      {/* In-app video player modal — opens when a video with vimeo_id/url is played */}
+      {/* In-app video player modal · opens when a video with vimeo_id/url is played */}
       {playerOpen && (
         <div
           className="fixed inset-0 z-[9000] flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
