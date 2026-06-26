@@ -59,6 +59,7 @@ const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscrib
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
+const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
@@ -203,7 +204,10 @@ function AppRouter() {
         <Route path="/ads" element={<AdStudio />} />
         <Route path="/system" element={<SystemHealth />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Branded 404 instead of silent Navigate-to-/ · lets Search
+            Console flag broken external backlinks and gives users a
+            "did you mean" surface with the 5 highest-intent destinations. */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );

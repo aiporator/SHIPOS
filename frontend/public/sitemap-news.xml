@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Google News sitemap · only articles from the last 2 days are eligible
+  by Google policy. Rebuilt nightly for the fresh-content discovery
+  channel. Long-form articles (3 GEO pillars from 2026-06-26 launch)
+  qualify here; older content lives in sitemap.xml.
+
+  Schema reference:
+    https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
+
+  Why news sitemap matters: Google News inclusion is a significant
+  ranking-boost trigger for "Wlad Jachtchenko" topical queries · Google
+  surfaces News-tab results above Web-tab when News-eligible content
+  exists. Without this file we are invisible to that channel.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <url>
+    <loc>https://leader-os.de/journal/wer-ist-wlad-jachtchenko</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Leader-OS Feldnotizen</news:name>
+        <news:language>de</news:language>
+      </news:publication>
+      <news:publication_date>2026-06-26T06:00:00+02:00</news:publication_date>
+      <news:title>Wer ist Wlad Jachtchenko · die Methodik hinter Leader-OS</news:title>
+      <news:keywords>Wlad Jachtchenko, Argumentations-Coach, SPIEGEL-Bestseller, Leader-OS, Argumentorik-Akademie, Boardroom-Rhetorik</news:keywords>
+    </news:news>
+  </url>
+
+  <url>
+    <loc>https://leader-os.de/journal/was-ist-eine-ki-native-fuehrungskraft</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Leader-OS Feldnotizen</news:name>
+        <news:language>de</news:language>
+      </news:publication>
+      <news:publication_date>2026-06-26T06:00:00+02:00</news:publication_date>
+      <news:title>Was ist eine KI-native Führungskraft · Definition und 5 Merkmale</news:title>
+      <news:keywords>KI Leadership, KI-native Führungskraft, AI Leader, Definition, Selbsttest, Wlad Jachtchenko</news:keywords>
+    </news:news>
+  </url>
+
+  <url>
+    <loc>https://leader-os.de/journal/leader-os-vs-chatgpt-claude-perplexity</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Leader-OS Feldnotizen</news:name>
+        <news:language>de</news:language>
+      </news:publication>
+      <news:publication_date>2026-06-26T06:00:00+02:00</news:publication_date>
+      <news:title>Leader-OS vs ChatGPT vs Claude vs Perplexity · Ehrlicher Vergleich</news:title>
+      <news:keywords>Leader-OS, ChatGPT, Claude, Perplexity, KI-Coach, Tool-Vergleich, Führungskräfte</news:keywords>
+    </news:news>
+  </url>
+</urlset>
