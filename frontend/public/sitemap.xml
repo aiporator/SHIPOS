@@ -520,6 +520,16 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- 2026-06-26 · Canonical SERP-winner for "Wlad Jachtchenko" Person
+       searches. Highest priority because it's the answer-page Google
+       Knowledge Graph and AI Overview should cite. -->
+  <url>
+    <loc>https://leader-os.de/wlad-jachtchenko</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
   <!-- 2026-06-26 · GEO Pillars · authority + definition + comparison ·
        priority 1.0 because these are the canonical answers we want AI
        Overview and Perplexity to cite for high-intent queries. -->

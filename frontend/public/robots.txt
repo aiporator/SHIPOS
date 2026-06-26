@@ -7,6 +7,10 @@ Allow: /
 Allow: /login
 Allow: /journal
 Allow: /journal/
+Allow: /wlad-jachtchenko
+Allow: /wlad
+Allow: /about
+Allow: /ueber-wlad
 Allow: /impressum
 Allow: /datenschutz
 Allow: /agb

@@ -58,6 +58,7 @@ const AGBPage = lazyWithRetry(() => import("./pages/AGBPage"));
 const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscribePage"));
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
+const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
@@ -188,6 +189,11 @@ function AppRouter() {
         {/* Public · Feldnotizen / content engine */}
         <Route path="/journal" element={<JournalIndex />} />
         <Route path="/journal/:slug" element={<ArticlePage />} />
+        {/* Canonical SERP-winner for "Wlad Jachtchenko" searches · public, no auth */}
+        <Route path="/wlad-jachtchenko" element={<WladJachtchenkoPage />} />
+        <Route path="/wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
+        <Route path="/about" element={<Navigate to="/wlad-jachtchenko" replace />} />
+        <Route path="/ueber-wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
         {/* Public share routes · read-only showcase, no auth required */}
         <Route path="/m/:slug" element={<SharedMissionPage />} />
         <Route path="/f/:slug" element={<SharedFolderPage />} />

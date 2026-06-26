@@ -68,6 +68,7 @@ const COL_PLATTFORM = [
 ];
 
 const COL_EXPLORE = [
+  { label: 'Wlad Jachtchenko · Person',     to: '/wlad-jachtchenko', focal: true },
   { label: 'Feldnotizen · Journal',         to: '/journal' },
   { label: 'KI-Praxis',                     to: '/journal#cat-ki-praxis' },
   { label: 'Methoden & Frameworks',         to: '/journal#cat-methoden' },

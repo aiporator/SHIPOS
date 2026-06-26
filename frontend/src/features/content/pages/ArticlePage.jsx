@@ -7,6 +7,7 @@ import { BlocksRenderer } from '../components/BlockRenderer';
 import { ReadingProgress } from '../components/ReadingProgress';
 import { RelatedArticles } from '../components/RelatedArticles';
 import { NewsletterDrop } from '../components/NewsletterDrop';
+import { ShareBar } from '../components/ShareBar';
 import { ArticleLeftRail, extractHeadings } from '../components/ArticleLeftRail';
 import { ArticleRightRail, ArticleMobileMiniApps } from '../components/ArticleRightRail';
 import { applySeoToDocument, applyArticleJsonLd, buildArticleSeo } from '../utils/seo';
@@ -178,6 +179,13 @@ export default function ArticlePage() {
             <article className="text-foreground" data-article-body>
               <BlocksRenderer blocks={article.body} />
             </article>
+
+            <ShareBar
+              url={`https://leader-os.de/journal/${article.slug}`}
+              title={article.title.replace(/\.$/, '')}
+              summary={article.description}
+              slug={article.slug}
+            />
 
             <NewsletterDrop articleSlug={article.slug} />
 
