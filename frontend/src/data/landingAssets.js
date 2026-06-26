@@ -235,7 +235,8 @@ export const LANDING_BENEFITS = [
     href: 'https://leadercheck.de',
     variant: 'photo',
     posterDesign: true,
-    photo: wlad('wlad-portrait.jpg'),
+    photo: wlad('wlad-portrait.webp'),
+    photoFallback: wlad('wlad-portrait.jpg'),
     // No fallback on purpose. hf-04.png is an AI-generated mockup of
     // someone who is NOT Wlad · if the real portrait ever 404s we want a
     // broken-image marker so we notice in QA, not a stranger silently

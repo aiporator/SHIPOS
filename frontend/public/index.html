@@ -226,9 +226,11 @@
         <link rel="prefetch" href="/wlad-jachtchenko" as="document" />
         <!-- LCP-critical · Wlad portrait is the hero avatar, the §04 chapter
              photo, the lead-capture modal, and the appointment booking card.
-             Preload triggers the fetch in parallel with HTML parse so the
-             first paint isn't blocked on a separate request round-trip. -->
-        <link rel="preload" as="image" href="/wlad/wlad-portrait.jpg" fetchpriority="high" />
+             Preload the 44KB WebP (was a 2.4MB mislabelled PNG) in parallel
+             with HTML parse. type-gated so only WebP-capable browsers fetch
+             it; the rare non-WebP browser loads the 97KB jpg via the img's
+             onError fallback chain. -->
+        <link rel="preload" as="image" href="/wlad/wlad-portrait.webp" type="image/webp" fetchpriority="high" />
         <!-- Font payload trimmed from 6→3 weights per family · the brand DNA
              uses 400 (body), 700 (semibold/labels), 900 (Outfit-Italic-Black
              display headlines). Dropping the unused 500/600/800 cuts the
