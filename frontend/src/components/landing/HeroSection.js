@@ -105,7 +105,11 @@ export const HeroSection = () => (
           <img
             src={WLAD_AVATAR}
             onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-            alt="Wlad Jachtchenko"
+            alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie · Leader-OS"
+            width="72"
+            height="72"
+            fetchpriority="high"
+            decoding="async"
             className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full object-cover object-top ring-2 ring-brand/55 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)]"
           />
         </motion.div>

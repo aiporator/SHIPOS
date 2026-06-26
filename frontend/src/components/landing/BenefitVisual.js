@@ -54,12 +54,12 @@ const SpecimenFrame = ({ children, code, nr, isDark, total = 5 }) => (
   </div>
 );
 
-const PhotoBody = ({ photo, photoFallback, isDark, photoFit }) => (
+const PhotoBody = ({ photo, photoFallback, isDark, photoFit, alt }) => (
   <>
     {photo ? (
       <img
         src={photo}
-        alt=""
+        alt={alt || 'Wlad Jachtchenko · Leader-OS · KI-Coach für Führungskräfte'}
         className={`absolute inset-0 w-full h-full ${
           photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover'
         } ${isDark ? 'opacity-80' : 'opacity-95'}`}
@@ -156,7 +156,7 @@ const TrustBody = ({ photo, isDark, trustNumbers = [] }) => {
       {photo && (
         <img
           src={photo}
-          alt=""
+          alt="Wlad Jachtchenko · 400 000 Klienten, 14 Millionen Views · Autorität-Beweis für Leader-OS"
           className="absolute right-0 bottom-10 h-[55%] w-[55%] object-cover object-right opacity-70"
           loading="lazy"
           decoding="async"

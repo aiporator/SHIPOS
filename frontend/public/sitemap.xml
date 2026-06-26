@@ -520,4 +520,28 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- 2026-06-26 · GEO Pillars · authority + definition + comparison ·
+       priority 1.0 because these are the canonical answers we want AI
+       Overview and Perplexity to cite for high-intent queries. -->
+  <url>
+    <loc>https://leader-os.de/journal/wer-ist-wlad-jachtchenko</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://leader-os.de/journal/was-ist-eine-ki-native-fuehrungskraft</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://leader-os.de/journal/leader-os-vs-chatgpt-claude-perplexity</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
 </urlset>

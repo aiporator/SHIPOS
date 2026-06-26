@@ -32,9 +32,9 @@ export const ArticleCard = ({ article }) => {
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-foreground/5">
         <img
           src={cover}
-          alt=""
-          aria-hidden
+          alt={`${article.title.replace(/\.$/, '')} · Leader-OS Journal · Wlad Jachtchenko`}
           loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
         {/* Subtle bottom darkening so the type pill stays legible on any photo */}

@@ -185,6 +185,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://accounts.google.com" />
         <link rel="dns-prefetch" href="https://eu.i.posthog.com" />
+        <!-- LCP-critical · Wlad portrait is the hero avatar, the §04 chapter
+             photo, the lead-capture modal, and the appointment booking card.
+             Preload triggers the fetch in parallel with HTML parse so the
+             first paint isn't blocked on a separate request round-trip. -->
+        <link rel="preload" as="image" href="/wlad/wlad-portrait.jpg" fetchpriority="high" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
         <!-- Harmless Chrome bug: silence DataCloneError on PerformanceServerTiming -->
