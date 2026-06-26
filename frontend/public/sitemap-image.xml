@@ -24,6 +24,11 @@
       <image:caption>Wlad Jachtchenko, Europas führender Argumentations-Coach und Gründer der Argumentorik-Akademie sowie der KI-Coaching-Plattform Leader-OS. Drei SPIEGEL-Bestseller-Autor mit 420 000+ trainierten Klienten.</image:caption>
       <image:license>https://leader-os.de/impressum</image:license>
     </image:image>
+    <image:image>
+      <image:loc>https://leader-os.de/og-wlad.jpg</image:loc>
+      <image:title>Wlad Jachtchenko · Share-Card · Leader-OS</image:title>
+      <image:caption>Wlad Jachtchenko · 3× SPIEGEL-Bestseller · 420 000+ Klienten · Argumentations-Coach · Leader-OS Person-Card.</image:caption>
+    </image:image>
   </url>
 
   <url>
@@ -34,9 +39,9 @@
       <image:caption>Wlad Jachtchenko, Gründer der KI-Coaching-Plattform Leader-OS für Führungskräfte.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://leader-os.de/og-default.png</image:loc>
-      <image:title>Leader-OS · KI Leadership System für Führungskräfte</image:title>
-      <image:caption>Leader-OS Marketing-Card · 14 Tage kostenlos testen · KI-Coach 24/7 · Wlads Methodik.</image:caption>
+      <image:loc>https://leader-os.de/og-home.jpg</image:loc>
+      <image:title>Leader-OS · Führung ist Skill · 14 Tage kostenlos testen</image:title>
+      <image:caption>Leader-OS Share-Card · Führung ist Skill, Skill ist trainierbar · 14 Tage kostenlos · Wlads Methodik · KI-Coach 24/7.</image:caption>
     </image:image>
   </url>
 

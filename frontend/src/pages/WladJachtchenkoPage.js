@@ -499,7 +499,7 @@ export default function WladJachtchenkoPage() {
       description:
         'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS. Biographie, Bücher, Methodik, Kontakt.',
       url: 'https://leader-os.de/wlad-jachtchenko',
-      image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+      image: 'https://leader-os.de/og-wlad.jpg',
       imageAlt: 'Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller',
       type: 'profile',
     });
