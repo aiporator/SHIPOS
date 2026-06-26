@@ -14,6 +14,7 @@ import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection
 import { JournalTeaserSection } from '../components/landing/JournalTeaserSection';
 import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
+import { TrustProofSection } from '../components/landing/TrustProofSection';
 import { WladKnowledgeInsideSection } from '../components/landing/WladKnowledgeInsideSection';
 import { ClassesRoadmapSection } from '../components/landing/ClassesRoadmapSection';
 import { PlatformValueSection } from '../components/landing/PlatformValueSection';
@@ -124,6 +125,7 @@ export default function LandingPage() {
         <HeroSection />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
+        <TrustProofSection />
         <WladKnowledgeInsideSection />
         <WladIntroVideo />
         <ArchetypeQuizSection />

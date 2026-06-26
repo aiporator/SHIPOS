@@ -511,10 +511,56 @@ export default function WladJachtchenkoPage() {
     ldFaq.textContent = JSON.stringify(FAQ_JSON_LD);
     document.head.appendChild(ldFaq);
 
+    // VideoObject schema for Wlad's TEDx talks · these are real,
+    // verifiable on TED.com / YouTube and rank in Google Video Search
+    // for "Wlad Jachtchenko TEDx" / "Wlad Jachtchenko Rhetorik" queries.
+    // Marking them up here makes /wlad-jachtchenko the page Google
+    // associates with the video carousel.
+    const ldVideos = document.createElement('script');
+    ldVideos.type = 'application/ld+json';
+    ldVideos.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: [
+        {
+          '@type': 'VideoObject',
+          name: 'Weiße Rhetorik vs. Dunkle Rhetorik',
+          description: 'Wlad Jachtchenko erklärt bei TEDx, was eine Argumentation „dunkel" oder „weiß" macht und wie man Manipulation in Verhandlungen erkennt.',
+          thumbnailUrl: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+          uploadDate: '2020-02-21',
+          contentUrl: 'https://www.ted.com/talks/wladislaw_jachtchenko_weisse_rhetorik_vs_dunkle_rhetorik',
+          publisher: { '@id': 'https://leader-os.de/#organization' },
+          author: { '@id': 'https://leader-os.de/wlad-jachtchenko#person' },
+        },
+        {
+          '@type': 'VideoObject',
+          name: 'Die 10 Stufen des Zuhörens',
+          description: 'Wlad Jachtchenko bei TEDxFreiburg über aktives Zuhören als Führungs-Skill.',
+          thumbnailUrl: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+          uploadDate: '2019-11-23',
+          contentUrl: 'https://www.tedxfreiburg.com/',
+          publisher: { '@id': 'https://leader-os.de/#organization' },
+          author: { '@id': 'https://leader-os.de/wlad-jachtchenko#person' },
+        },
+        {
+          '@type': 'VideoObject',
+          name: 'How to find the right response within 3 seconds',
+          description: 'Wlad Jachtchenko teilt die Kunst der Schlagfertigkeit · einfache Techniken um in Sekunden die richtige Antwort zu finden.',
+          thumbnailUrl: 'https://leader-os.de/wlad/wlad-portrait.jpg',
+          uploadDate: '2021-01-01',
+          contentUrl: 'https://www.youtube.com/@WladTraining',
+          publisher: { '@id': 'https://leader-os.de/#organization' },
+          author: { '@id': 'https://leader-os.de/wlad-jachtchenko#person' },
+        },
+      ],
+    });
+    document.head.appendChild(ldVideos);
+
     return () => {
       canon.remove();
       ldPerson.remove();
       ldFaq.remove();
+      ldVideos.remove();
     };
   }, []);
 
