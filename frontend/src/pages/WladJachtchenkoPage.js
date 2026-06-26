@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
+import { ShareBar } from '../features/content/components/ShareBar';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 /**
@@ -481,6 +482,16 @@ export default function WladJachtchenkoPage() {
             spellings) · we do not surface the variants visually anymore
             because brand discipline requires a single canonical
             wordmark on screen: "Wlad Jachtchenko". */}
+
+        {/* Viral surface · readers landing on this page are doing
+            authority-research about Wlad · the moment they finish
+            reading is exactly when LinkedIn-share intent peaks. */}
+        <ShareBar
+          url="https://leader-os.de/wlad-jachtchenko"
+          title="Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller"
+          summary="Europas führender Argumentations-Coach. Fünfzehn Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und Leader-OS."
+          slug="wlad-jachtchenko"
+        />
       </main>
 
       <LandingFooter />

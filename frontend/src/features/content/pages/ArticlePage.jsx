@@ -177,7 +177,11 @@ export default function ArticlePage() {
             <ArticleMobileMiniApps article={article} />
 
             <article className="text-foreground" data-article-body>
-              <BlocksRenderer blocks={article.body} />
+              <BlocksRenderer
+                blocks={article.body}
+                articleSlug={article.slug}
+                articleUrl={`https://leader-os.de/journal/${article.slug}`}
+              />
             </article>
 
             <ShareBar
