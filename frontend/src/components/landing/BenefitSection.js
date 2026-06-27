@@ -168,7 +168,7 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 const ALT_BY_CODE = {
   INHALT:        'Leader-OS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
   WLADBOT:       'WladBot · KI-Coach 24/7 in Wlads Stimme · trainiert auf 2 212 Wlad-Lektionen',
-  SPRINT:        '30-Tage-Sprint · Klasse 0001 Startnummer Plate · Leader-OS Charter-Kohorte',
+  SPRINT:        '30-Tage-Sprint · Charter 0001 Startnummer Plate · Leader-OS Charter-Kohorte',
   WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS',
   TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · Leader-OS',
   ZERTIFIKAT:    'Leader-OS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',

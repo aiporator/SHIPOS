@@ -185,7 +185,7 @@ export const LeadCaptureModal = () => {
                 <span className="absolute inset-0 rounded-full bg-brand-strong animate-ping opacity-75" />
                 <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
               </span>
-              KLASSE 0001 · CHARTER FÜLLT SICH
+              CHARTER 0001 · CHARTER FÜLLT SICH
             </span>
             <button
               onClick={close}
@@ -205,7 +205,7 @@ export const LeadCaptureModal = () => {
                 <img
                   src={WLAD_AVATAR}
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Klasse 0001 Charter offen"
+                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Charter 0001 Charter offen"
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_18%]"

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 /**
  * ClassScarcityBanner · top-of-page editorial scarcity strip.
  *
- * Klasse 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
+ * Charter 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
  * fake-urgency. Seat-count tickt langsam runter über die Zeit,
  * persistent in localStorage damit der Wert nicht bei jedem Reload
  * zurückspringt. Dismissible per Session.
@@ -14,48 +14,18 @@ import { useEffect, useState } from 'react';
  * adding signal and reads as AI-SaaS chrome).
  */
 
-// v3 key invalidates any stale v2 counter so the launch-day reset
-// (LAUNCH_ANCHOR moved forward, INITIAL_SEATS=20) is picked up on every
-// returning visitor's first render.
-const STORAGE_SEATS = 'leaderos_class_0001_seats_v3';
-const STORAGE_DISMISS = 'leaderos_class_0001_dismissed';
-const INITIAL_SEATS = 20;
-const FLOOR_SEATS = 5;
-
-const computeSeatsRemaining = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_SEATS);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (parsed && typeof parsed.seats === 'number' && Date.now() - parsed.ts < 1000 * 60 * 30) {
-        return parsed.seats;
-      }
-    }
-  } catch { /* ignore */ }
-
-  // Launch-day anchor · resets so today's visitors see "20 von 30 frei"
-  // and the counter ticks down from there (1 seat every ~12 h until the
-  // FLOOR of 5 holds the line · ~7 days of soft decay).
-  const LAUNCH_ANCHOR = Date.parse('2026-06-26T06:00:00+02:00');
-  const hoursElapsed = Math.max(0, (Date.now() - LAUNCH_ANCHOR) / (1000 * 60 * 60));
-  const decay = Math.floor(hoursElapsed / 12);
-  const seats = Math.max(FLOOR_SEATS, INITIAL_SEATS - decay);
-
-  try {
-    localStorage.setItem(STORAGE_SEATS, JSON.stringify({ seats, ts: Date.now() }));
-  } catch { /* ignore */ }
-
-  return seats;
-};
+// The seat-countdown machinery was removed · the banner now leads with
+// the free Leader-Check action instead of a "X von 30 frei" counter
+// (which read as fake-urgency AI-SaaS chrome and which the visitor can't
+// verify). Only the per-session dismiss flag remains.
+const STORAGE_DISMISS = 'leaderos_charter_0001_dismissed';
 
 export const ClassScarcityBanner = () => {
   const [visible, setVisible] = useState(false);
-  const [seats, setSeats] = useState(INITIAL_SEATS);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (sessionStorage.getItem(STORAGE_DISMISS) === '1') return;
-    setSeats(computeSeatsRemaining());
     setVisible(true);
   }, []);
 
@@ -69,7 +39,7 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Klasse 0001. Plätze begrenzt."
+      aria-label="Charter 0001. Plätze begrenzt."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
@@ -80,20 +50,19 @@ export const ClassScarcityBanner = () => {
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          KLASSE 0001
+          CHARTER 0001
         </span>
 
         {/* Mono hairline separator */}
         <span aria-hidden className="hidden md:inline-block w-px h-3 bg-white/20" />
 
-        {/* Inline action line · benefit + scarcity as support, NOT
-            scarcity as headline. The free Leader-Check is the gateway ·
-            we lead with the 10-minute promise, the seat count adds
-            urgency without being the whole message. */}
+        {/* Inline action line · the free Leader-Check is the gateway.
+            No seat-count number anymore · the message is purely the
+            action + benefit, which converts better than a counter the
+            visitor can't verify. */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
           <span className="text-white">10 Minuten Leader-Check</span>
-          <span className="text-white/55"> · finde heraus wo du stehst und sichere deinen Platz.</span>
-          <span className="hidden md:inline text-brand font-bold"> Noch {seats} von 30 frei.</span>
+          <span className="text-white/55"> · finde in zehn Minuten heraus wo du stehst und ob Leader-OS zu dir passt.</span>
         </p>
 
         {/* Inline CTA · the free Leader-Check is the micro-conversion

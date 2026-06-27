@@ -27,7 +27,7 @@ const FUTURE_CLASSES = [
     promise:
       'Schritt-für-Schritt: vom ersten Custom-GPT bis zu Multi-Agent-' +
       'Workflows die dir Arbeit abnehmen · ohne dass du Developer wirst.',
-    outcome: 'Drei eigene Agenten am Ende der Klasse · produktiv im Einsatz.',
+    outcome: 'Drei eigene Agenten am Ende der Stufe · produktiv im Einsatz.',
     pillars: ['Agent-Patterns', 'Tool-Use', 'Multi-Agent Workflows', 'Production-Ops'],
     seats: 'STARTET Q3 · WARTELISTE OFFEN',
   },
@@ -81,7 +81,7 @@ const ClassCard = ({ klass }) => (
     <div className="flex items-start justify-between gap-4 mb-5">
       <div>
         <div className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brand">
-          ▸ KLASSE · {klass.code}
+          ▸ STUFE · {klass.code}
         </div>
         <h3
           className="mt-1.5 text-[24px] md:text-[28px] leading-[1.04] tracking-[-0.03em]"
@@ -130,7 +130,7 @@ export const ClassesRoadmapSection = () => (
   <section
     id="klassen"
     data-testid="classes-roadmap-section"
-    aria-label="Bonus · Was nach Klasse 0001 kommt"
+    aria-label="Bonus · Was nach Charter 0001 kommt"
     className="border-y-2 border-black/[0.06] bg-[#0A0A0A] text-white relative overflow-hidden"
   >
     {/* Subtle lime ambient · softer than before since this is a secondary section */}
@@ -157,16 +157,16 @@ export const ClassesRoadmapSection = () => (
             style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
             Ein Platz<span className="text-brand not-italic">.</span><br />
-            <span className="text-white/55">Vier Klassen</span>
+            <span className="text-white/55">Vier Stufen</span>
             <span className="text-brand not-italic">.</span>
           </h2>
         </div>
         <div className="md:col-span-5 md:pb-3">
           <p className="text-[15px] md:text-[16.5px] leading-[1.6] text-white/75">
-            Wer in der Klasse 0001 dabei ist, bekommt automatisch
+            Wer in Charter 0001 dabei ist, bekommt automatisch
             <strong className="text-white"> Vorzugs-Zugang</strong> zu allen
-            weiteren Klassen · AI Agents Builder, Custom AI Setup, Revenue
-            Skills. Eine Identität, ein Pfad, vier Klassen.
+            weiteren Stufen · AI Agents Builder, Custom AI Setup, Revenue
+            Skills. Eine Identität, ein Pfad, vier Stufen.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 px-3 py-2 bg-brand text-black font-mono text-[10.5px] font-bold uppercase tracking-[0.22em]">
             <Sparkles size={12} />
@@ -185,7 +185,7 @@ export const ClassesRoadmapSection = () => (
       {/* Soft anchor back to the Sprint CTA · no giant block this time, just a one-liner */}
       <div className="mt-12 md:mt-14 pt-7 border-t border-white/12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
         <p className="text-[14px] md:text-[15.5px] leading-[1.5] text-white/70 max-w-2xl">
-          Du startest mit der Sprint-Plattform und Klasse 0001.
+          Du startest mit der Sprint-Plattform als Charter 0001.
           Alles andere kommt mit Vorzug.
         </p>
         <a

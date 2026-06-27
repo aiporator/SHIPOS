@@ -33,7 +33,7 @@ export const LANDING_META = {
   description:
     'Elf Frameworks. Ein OS. WladBot-Coach 24/7. Wlad Jachtchenko · ' +
     '3× SPIEGEL-Bestseller. 14 Tage kostenlos testen, ohne Karte, ' +
-    'ohne Risiko. Klasse 0001 jetzt offen.',
+    'ohne Risiko. Charter 0001 jetzt offen.',
   url: 'https://leader-os.de',
   slogan: '14 Tage kostenlos.',
   // Kicker, gehört unter den ATF-Headline-Block.

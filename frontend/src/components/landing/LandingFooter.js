@@ -47,7 +47,7 @@ const COL_SYSTEM = [
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
   { label: 'Die 5 Rollen',                 to: '/journal/die-5-rollen-einer-ki-nativen-fuehrungskraft' },
   { label: 'Leadership-Diagnose',          href: 'https://leadercheck.de', external: true },
-  { label: 'Klasse 0001 · Charter',        to: '/#klassen' },
+  { label: 'Charter 0001 · Charter',        to: '/#klassen' },
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
@@ -74,7 +74,7 @@ const COL_EXPLORE = [
   { label: 'Methoden & Frameworks',         to: '/journal#cat-methoden' },
   { label: 'Rhetorik & Kommunikation',      to: '/journal#cat-rhetorik' },
   { label: 'Rollen & Karriere',             to: '/journal#cat-rollen-karriere' },
-  { label: 'Plattform & Klasse 0001',       to: '/journal#cat-plattform' },
+  { label: 'Plattform & Charter 0001',       to: '/journal#cat-plattform' },
   { label: 'Free Tools',                    to: '/#tools' },
   { label: 'Podcast · Wlad spricht',        href: 'https://podcast.wladjachtchenko.de', external: true },
   { label: 'Bücher · 3 SPIEGEL-Bestseller', href: 'https://wladjachtchenko.de/buecher', external: true },
@@ -190,13 +190,13 @@ export const LandingFooter = () => (
             400 000+ Klienten in 20 Ländern.
           </p>
 
-          {/* Scarcity Pill · Klasse 0001 charter seats */}
+          {/* Scarcity Pill · Charter 0001 charter seats */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
               <span className="relative w-2 h-2 rounded-full bg-brand" />
             </span>
-            KLASSE 0001 · MACH DEN LEADER-CHECK
+            CHARTER 0001 · MACH DEN LEADER-CHECK
           </div>
         </div>
 

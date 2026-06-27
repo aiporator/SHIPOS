@@ -80,7 +80,7 @@ export const FinalCTA = () => {
           Mach den kostenlosen Leader-Check · zehn Minuten, dein Score
           sofort. Dann vierzehn Tage Leader-OS testen, ohne Karte, ohne
           Risiko. Erst wenn es für dich passt, sicherst du deinen Platz
-          in Klasse 0001.
+          in Charter 0001.
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-8">

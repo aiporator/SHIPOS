@@ -127,7 +127,7 @@ const ARCHETYPES = {
     platform: [
       { title: '15-Minuten Mikro-Drills', body: 'Tägliche, fokussierte Übungen die hängen bleiben · nicht Theorie, sondern Muskel.' },
       { title: 'WladBot lernt deine DNA', body: 'Je länger du auf der Plattform bist, desto mehr klingt KI nach dir, nicht nach Standard.' },
-      { title: 'Kreator-Community',       body: 'Klasse 0001: Creator und Solo-Founder die KI als Verstärker ihrer Stimme nutzen.' },
+      { title: 'Kreator-Community',       body: 'Charter 0001: Creator und Solo-Founder die KI als Verstärker ihrer Stimme nutzen.' },
     ],
   },
   visionaer: {
@@ -169,10 +169,10 @@ const ARCHETYPES = {
     diagnose: [
       { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt · Kollegen, Klienten, Markt, Umfeld.' },
       { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
-      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Klasse 0001) du am schnellsten vorankommst.' },
+      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Charter 0001) du am schnellsten vorankommst.' },
     ],
     platform: [
-      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen · geschlossene Klasse, Senior-Niveau.' },
+      { title: 'Charter 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen · geschlossener Kreis, Senior-Niveau.' },
       { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
       { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
