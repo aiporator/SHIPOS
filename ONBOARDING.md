@@ -382,6 +382,16 @@ Contact: **start@aiporate.com**.
 
 ---
 
+## 12b. What to build next
+
+Once you're oriented, your scoped engineering tickets live in
+[`docs/DEVELOPER_TASKS.md`](./docs/DEVELOPER_TASKS.md) — three tracks
+(Stripe automation, output quality, speed), each with context,
+acceptance criteria, files, and gotchas. Start with **T1.1 (trial →
+paid conversion)**; it's tied directly to launch revenue.
+
+---
+
 ## 13. Your first day checklist
 
 - [ ] Read §2 (domains) and §4 (data stores) until they're muscle memory.
