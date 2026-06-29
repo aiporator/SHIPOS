@@ -1,5 +1,10 @@
 # Leader-OS
 
+> **New here? Read [`ONBOARDING.md`](./ONBOARDING.md) first.** It's the
+> single map of the whole system — domains, data stores, local setup,
+> deploy flow, and where everything lives. This README is the topology
+> deep-dive; the onboarding doc is the ramp.
+
 Single repo, **two production domains, two Vercel projects, one React
 app**. Host-based routing inside `frontend/` decides which surface to
 render at runtime.
