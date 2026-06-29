@@ -68,7 +68,7 @@ numpy==2.4.2
 oauthlib==3.3.1
 openai==2.43.0
 packaging==26.0
-pandas==3.0.3
+pandas==3.0.4
 passlib==1.7.4
 pathspec==1.0.4
 pillow==12.1.1
@@ -105,7 +105,7 @@ resend==2.29.0
 rich==14.3.3
 rpds-py==0.30.0
 rsa==4.9.1
-ruff==0.15.18
+ruff==0.15.20
 s3transfer==0.16.0
 s5cmd==0.2.0
 shellingham==1.5.4
