@@ -181,6 +181,7 @@ export default function ArticlePage() {
                 blocks={article.body}
                 articleSlug={article.slug}
                 articleUrl={`https://leader-os.de/journal/${article.slug}`}
+                articleTitle={article.title}
               />
             </article>
 

@@ -82,6 +82,12 @@ export default {
     { type: 'heading', level: 2, text: 'Beide Rollen besser machen.' },
     { type: 'paragraph', text:
       'Egal ob du disziplinarisch, fachlich oder beides führst · die Kern-Skills sind dieselben: klar kommunizieren, Feedback geben, Konflikte lösen, Menschen entwickeln. In Leader-OS trainierst du genau diese Skills an deinen echten Fällen, mit WladBot als Sparring für die Situation, in der die Rollen-Trennung gerade Reibung erzeugt.' },
+    { type: 'diagnostic', prompt: 'Welche Rollen-Reibung erlebst du gerade?', options: [
+      { label: 'Fachlich verantwortlich, keine Macht', category: 'delegation' },
+      { label: 'Mitarbeiter hört auf den Linien-Chef', category: 'conflict' },
+      { label: 'Unklar wer was entscheidet', category: 'communication' },
+      { label: 'Konflikt zwischen den Rollen', category: 'conflict' },
+    ] },
     { type: 'callout', tone: 'lime', text:
       'Weiterführend: das Führen-ohne-Macht-Handwerk in Laterale Führung · die Sinn-Ebene in Transformationale Führung · die Gesamt-Strecke in Führungskräfteentwicklung. Mach den kostenlosen Leader-Check.' },
   ],

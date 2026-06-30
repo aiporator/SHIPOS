@@ -137,7 +137,7 @@ const REGISTRY = {
 // articleSlug + articleUrl into the click-to-tweet block at render time.
 export { Quote };
 
-export const BlockRenderer = ({ block, articleSlug, articleUrl }) => {
+export const BlockRenderer = ({ block, articleSlug, articleUrl, articleTitle }) => {
   // Auto-promote: any explicit `click-to-tweet` block OR any `quote`
   // block where the parent passed share-context renders as a shareable
   // pull-quote · matches existing Quote visual but adds X/LinkedIn/copy
@@ -154,18 +154,31 @@ export const BlockRenderer = ({ block, articleSlug, articleUrl }) => {
       />
     );
   }
+  // Embedded problem-capture block (Growth-Loop Layer 2) · routes the
+  // reader's situation through the Intent Schema Layer into WladBot.
+  if (block.type === 'diagnostic') {
+    const { InlineDiagnostic } = require('./InlineDiagnostic');
+    return (
+      <InlineDiagnostic
+        block={block}
+        articleSlug={articleSlug}
+        articleTitle={articleTitle}
+      />
+    );
+  }
   const Component = REGISTRY[block.type];
   if (!Component) return null;
   return <Component block={block} />;
 };
 
-export const BlocksRenderer = ({ blocks, articleSlug, articleUrl }) => (
+export const BlocksRenderer = ({ blocks, articleSlug, articleUrl, articleTitle }) => (
   <>{blocks.map((b, i) => (
     <BlockRenderer
       key={i}
       block={b}
       articleSlug={articleSlug}
       articleUrl={articleUrl}
+      articleTitle={articleTitle}
     />
   ))}</>
 );

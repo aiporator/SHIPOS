@@ -69,6 +69,12 @@ export default {
     { type: 'heading', level: 2, text: 'Laterale Führung lernen.' },
     { type: 'paragraph', text:
       'Weil laterale Führung reine Skill-Arbeit ist (Vertrauen, Verhandlung, Kommunikation), lässt sie sich besonders gut drillen. In Leader-OS übst du die Harvard-Verhandlung, die Feedback-Formel und Konflikt-Skripte an deinen echten Projektsituationen · mit WladBot als Sparring für das Gespräch, das morgen ansteht.' },
+    { type: 'diagnostic', prompt: 'Welche laterale Situation steckt dir gerade fest?', options: [
+      { label: 'Niemand zieht mit, ich habe keine Macht', category: 'conflict' },
+      { label: 'Projektteam aus mehreren Abteilungen', category: 'delegation' },
+      { label: 'Konflikt ohne Weisungsbefugnis', category: 'conflict' },
+      { label: 'Ich muss überzeugen statt anordnen', category: 'communication' },
+    ] },
     { type: 'callout', tone: 'lime', text:
       'Weiterführend: die Interessen-Technik in Harvard-Verhandlungsmethode erklärt · das Konflikt-Skript in Die Feedback-Formel BWW · der Stil-Vergleich in Transformationale Führung. Mach den kostenlosen Leader-Check für deine Standortbestimmung.' },
   ],

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, MessageCircle, Sparkles, Check } from 'lucide-react';
+import { captureLeadershipIntent, wladbotUrlForIntent } from '../../../lib/leadershipIntent';
 
 /**
  * ArticleRightRail · sticky engagement column on the right of long-form
@@ -279,27 +280,17 @@ const PROBLEM_SUGGESTIONS = [
 const WladBotMini = ({ articleSlug, articleTitle }) => {
   const [problem, setProblem] = useState('');
 
-  const buildPrompt = (text) => {
-    const situation = (text || '').trim();
-    const base = situation
-      ? `Meine Situation als Führungskraft: ${situation}. Ich habe gerade „${articleTitle}" gelesen — gib mir den konkreten nächsten Schritt nach Wlads Methodik.`
-      : `Ich habe gerade „${articleTitle}" gelesen. Was ist mein konkreter nächster Schritt nach Wlads Methodik?`;
-    return base;
-  };
-
+  // Every submission flows through the Intent Schema Layer · it
+  // normalizes the text into {category, level, urgency, clarity,
+  // keywords}, fires the canonical `leadership_intent_captured` event
+  // (Growth-Loop Layer 4), and builds the category-tuned WladBot link
+  // (Layer 3). See lib/leadershipIntent.js + docs/GROWTH_LOOP.md.
   const go = (text) => {
-    const prompt = buildPrompt(text);
-    if (typeof window !== 'undefined' && window.posthog?.capture) {
-      try {
-        window.posthog.capture('wladbot_funnel_question', {
-          article: articleSlug,
-          has_problem: Boolean((text || '').trim()),
-          problem_preview: (text || '').slice(0, 80),
-          surface: 'article-right-rail',
-        });
-      } catch { /* never block */ }
-    }
-    const href = `https://leaderos.de/chat?prompt=${encodeURIComponent(prompt)}&utm_source=article&utm_medium=right-rail&utm_campaign=${encodeURIComponent(articleSlug)}`;
+    const intent = captureLeadershipIntent(text, {
+      source: 'article-right-rail',
+      article: articleSlug,
+    });
+    const href = wladbotUrlForIntent(intent, articleTitle);
     if (typeof window !== 'undefined') window.open(href, '_blank', 'noopener');
   };
 

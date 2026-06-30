@@ -87,6 +87,12 @@ export default {
     { type: 'heading', level: 2, text: 'Der nächste Schritt.' },
     { type: 'paragraph', text:
       'Leader-OS ist Führungskräfteentwicklung als Operating System: elf drillbare Frameworks, WladBot als 24/7-Coach, tägliche Mikro-Drills an deinen echten Fällen, eine Diagnose, die dir zeigt wo du stehst. Vierzehn Tage kostenlos testen, ohne Karte. Oder starte mit dem kostenlosen 10-Minuten-Leader-Check.' },
+    { type: 'diagnostic', prompt: 'Was willst du als Führungskraft als Erstes verbessern?', options: [
+      { label: 'Feedback & schwierige Gespräche', category: 'communication' },
+      { label: 'Delegieren & Zeit zurückgewinnen', category: 'delegation' },
+      { label: 'Konflikte im Team lösen', category: 'conflict' },
+      { label: 'Mein Team motivieren', category: 'performance' },
+    ] },
     { type: 'callout', tone: 'lime', text:
       'Weiterführend: die Stil-Pillars Transformationale Führung · Laterale Führung · Fachliche und disziplinarische Führung · und warum Trainings scheitern in Warum 90 Prozent aller KI-Trainings scheitern. Mach den kostenlosen Leader-Check.' },
   ],

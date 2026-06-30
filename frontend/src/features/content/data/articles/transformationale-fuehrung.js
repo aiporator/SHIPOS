@@ -83,6 +83,12 @@ export default {
     { type: 'heading', level: 2, text: 'Transformationale Führung lernen.' },
     { type: 'paragraph', text:
       'Die vier Dimensionen sind Verhaltensweisen, keine Persönlichkeitsmerkmale · also drillbar. In Leader-OS ist das einer der Kern-Pfade: du bekommst pro Dimension wöchentliche Mikro-Drills an deinen echten Fällen, WladBot als 24/7-Sparring für die schwierigen Gespräche, und eine Diagnose, die dir zeigt, welche der vier I bei dir schon sitzt und welche noch hakt.' },
+    { type: 'diagnostic', prompt: 'Wo hakt es bei dir gerade?', options: [
+      { label: 'Ein Mitarbeiter zieht nicht mit', category: 'performance' },
+      { label: 'Mein Team folgt der Richtung nicht', category: 'communication' },
+      { label: 'Ich wirke nicht als Vorbild', category: 'identity' },
+      { label: 'Konflikt im Team', category: 'conflict' },
+    ] },
     { type: 'callout', tone: 'lime', text:
       'Weiterführend: Wlads Kern-Framework in Die 5 Rollen einer Führungskraft · der Unterschied von Macht und Wirkung in Laterale Führung · die Gesamt-Strecke in Führungskräfteentwicklung. Mach den kostenlosen Leader-Check, um zu sehen wo du auf den vier Dimensionen stehst.' },
   ],
