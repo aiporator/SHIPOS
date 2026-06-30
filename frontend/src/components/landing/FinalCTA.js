@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
 import { useGsapScrollIn } from './motion/useGsapScrollIn';
+import { DottedGlowBackground } from '../shared/DottedGlowBackground';
 
 // The closing headline as data so the word-reveal motion can target
 // individual word spans without breaking the existing typographic tone.
@@ -40,6 +41,19 @@ export const FinalCTA = () => {
         backgroundImage:
           'radial-gradient(at 80% 0%, rgba(191,255,0,0.10) 0px, transparent 50%), radial-gradient(at 15% 90%, rgba(191,255,0,0.06) 0px, transparent 55%)',
       }}
+    />
+
+    {/* Animated dotted glow · adds depth on the dark closing surface.
+        Radial-masked + low opacity so the headline stays crisp. */}
+    <DottedGlowBackground
+      className="[mask-image:radial-gradient(120%_120%_at_50%_30%,#000_50%,transparent_100%)]"
+      gap={26}
+      radius={1.3}
+      color="rgba(191,255,0,0.22)"
+      glowColor="rgba(191,255,0,0.9)"
+      opacity={0.45}
+      speedMin={0.15}
+      speedMax={0.9}
     />
 
     <div className="relative z-10 max-w-[1440px] mx-auto px-5 md:px-10 py-28 md:py-40">

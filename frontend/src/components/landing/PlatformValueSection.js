@@ -1,5 +1,6 @@
 import { ArrowRight, Bot, Layers, Target, Compass, Calendar, Users } from 'lucide-react';
 import { SpotlightCard } from './SpotlightCard';
+import { DottedGlowBackground } from '../shared/DottedGlowBackground';
 
 /**
  * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
@@ -177,8 +178,18 @@ export const PlatformValueSection = () => (
 
       {/* Trial-CTA strip · 14 Tage kostenlos · die Sprint-Konvertierung
           läuft post-Signup im App-Email-Flow, nicht hier auf der Landing. */}
-      <div className="mt-14 md:mt-16 bg-black text-white border-2 border-black p-7 md:p-10">
-        <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
+      <div className="relative overflow-hidden mt-14 md:mt-16 bg-black text-white border-2 border-black p-7 md:p-10">
+        <DottedGlowBackground
+          className="[mask-image:radial-gradient(130%_130%_at_80%_50%,#000_45%,transparent_100%)]"
+          gap={24}
+          radius={1.3}
+          color="rgba(191,255,0,0.24)"
+          glowColor="rgba(191,255,0,0.9)"
+          opacity={0.5}
+          speedMin={0.18}
+          speedMax={1}
+        />
+        <div className="relative z-10 grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
           <div className="md:col-span-8">
             <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
               ▸ WERDE TEIL · START MIT DEM LEADER-CHECK
