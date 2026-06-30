@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Target, MessagesSquare, Compass } from 'lucide-react';
+import { SpotlightCard } from './SpotlightCard';
 
 /**
  * FreeToolsSection · Free-Tools-Discovery für Leader die mit KI starten wollen.
@@ -104,10 +105,12 @@ const ToolCard = ({ tool, index }) => {
   const isLimeBadge = tool.badgeTone === 'lime';
 
   return (
-    <a
+    <SpotlightCard
+      as="a"
       {...linkProps}
       data-testid={`free-tool-${tool.bib}`}
-      className="group relative block border-2 border-black bg-background p-7 md:p-9 hover:bg-brand/5 hover:shadow-[8px_8px_0_0_#000] transition-all"
+      className="group block border-2 border-black bg-background hover:bg-brand/5 hover:shadow-[8px_8px_0_0_#000] transition-all"
+      innerClassName="p-7 md:p-9"
     >
       {tool.badge && (
         <span
@@ -150,7 +153,7 @@ const ToolCard = ({ tool, index }) => {
         {tool.cta}
         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
       </div>
-    </a>
+    </SpotlightCard>
   );
 };
 

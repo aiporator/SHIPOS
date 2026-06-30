@@ -1,4 +1,5 @@
 import { ArrowRight, Bot, Layers, Target, Compass, Calendar, Users } from 'lucide-react';
+import { SpotlightCard } from './SpotlightCard';
 
 /**
  * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
@@ -88,15 +89,16 @@ const FEATURES = [
 const FeatureCard = ({ feature }) => {
   const Icon = feature.icon;
   return (
-    <article
+    <SpotlightCard
       data-testid={`platform-feature-${feature.bib}`}
-      className="group relative bg-white border-2 border-black p-6 md:p-7 flex flex-col h-full transition-all hover:shadow-[8px_8px_0_0_#BFFF00] hover:-translate-y-1"
+      className="group bg-white border-2 border-black h-full transition-all duration-200 hover:shadow-[8px_8px_0_0_#BFFF00] hover:-translate-y-1"
+      innerClassName="p-6 md:p-7 flex flex-col h-full"
     >
       <div className="flex items-start justify-between gap-4 mb-5">
         <span className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand-strong">
           ▸ {feature.bib}
         </span>
-        <Icon size={22} strokeWidth={2} className="text-black/70" />
+        <Icon size={22} strokeWidth={2} className="text-black/70 transition-transform duration-300 group-hover:scale-110 group-hover:text-black" />
       </div>
 
       <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-black/55 mb-2">
@@ -114,7 +116,7 @@ const FeatureCard = ({ feature }) => {
       <div className="mt-5 pt-4 border-t border-black/12 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-black/55">
         ▸ {feature.proof}
       </div>
-    </article>
+    </SpotlightCard>
   );
 };
 
