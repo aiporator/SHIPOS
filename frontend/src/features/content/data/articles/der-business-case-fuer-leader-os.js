@@ -64,9 +64,10 @@ export default {
       'Excel-Vorlage mit und passen die Zahlen auf deine Organisation an.' },
   ],
   seo: {
+    title: 'Business Case Leadership-Training: 4 ROI-Hebel · Leader-OS',
     description:
-      'Vier ROI-Hebel für Leader-OS: eingesparte Coaching-Stunden, zurückgewonnene Manager-Zeit, reduzierte ' +
-      'Senior-Fluktuation, vermiedene Eskalations-Kosten. Mit ehrlichen Grenzen des Cases.',
+      'Business Case für Leadership-Training: vier ROI-Hebel mit Größenordnungen · Coaching-Stunden, ' +
+      'Manager-Zeit, Senior-Fluktuation, Eskalations-Kosten. Mit ehrlichen Grenzen. Von Wlad Jachtchenko.',
     keywords: ['Leadership Training ROI', 'Business Case Coaching', 'Leadership Tool ROI', 'L&D Business Case', 'Wlad Jachtchenko Enterprise ROI'],
   },
   related: ['leader-os-fuer-hr-und-people-ops', 'leader-os-im-team-rollout'],

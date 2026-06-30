@@ -64,9 +64,10 @@ export default {
       'Coach oder gar kein Tool, wenn das die richtige Antwort ist.' },
   ],
   seo: {
+    title: 'Leader-OS vs. klassisches Coaching: der Vergleich',
     description:
-      'Drei Stellen wo Leader-OS gewinnt (Verfügbarkeit, methodische Konsistenz, Output-Tracking), eine Stelle ' +
-      'wo Coaching gewinnt (Identitäts-Arbeit). Plus drei häufige Fehlentscheidungen.',
+      'Leader-OS vs. klassisches Coaching im ehrlichen Vergleich: drei Stellen, wo das System gewinnt ' +
+      '(Verfügbarkeit, Methodik, Output-Tracking), eine, wo der Coach gewinnt. Von Wlad Jachtchenko.',
     keywords: ['Leadership Coaching Vergleich', 'KI Coach vs Mensch', 'Leadership Tool oder Coach', 'Wlad Jachtchenko Coaching Alternative', 'Online Leadership Programm'],
   },
   related: ['wladbot-vs-chatgpt-vs-coach', 'der-business-case-fuer-leader-os'],

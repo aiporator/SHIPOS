@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Methodik', 'Zeitmanagement', 'KI', 'Frameworks'],
   seo: {
-    title: 'Eisenhower-Matrix mit KI: neu gedacht | Leader-OS',
+    title: 'Eisenhower-Matrix mit KI neu gedacht · Leader-OS',
     description:
-      'Eisenhower-Matrix für KI-native Führungskräfte: was sich ändert wenn KI ' +
-      '60% des Quadrant-2-Aufgaben übernimmt. Mit Drill für jeden Quadranten.',
+      'Eisenhower-Matrix im KI-Zeitalter: wie sich Wichtig vs. Dringend ändert, wenn KI 60% der ' +
+      'Quadrant-2-Aufgaben übernimmt · plus Sonntag-Drill für jeden Quadranten. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/eisenhower-matrix-im-ki-zeitalter',
     keywords: [
       'eisenhower matrix',

@@ -120,9 +120,10 @@ export default {
     },
   ],
   seo: {
+    title: 'Warum Frameworks nicht im Kopf bleiben · Leader-OS',
     description:
-      'Warum 80 Prozent aller Leadership-Frameworks nach zwei Wochen verschwinden. Field Note aus ' +
-      '400 000 Coachings. Drei Mechanismen + ein konkreter Trade.',
+      'Warum 80 Prozent aller Leadership-Frameworks nach zwei Wochen verschwinden · Field Note aus ' +
+      '400.000 Coachings, drei Mechanismen und ein konkreter Trade. Von Wlad Jachtchenko.',
     keywords: [
       'Leadership Frameworks',
       'Wlad Jachtchenko',

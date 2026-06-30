@@ -10,7 +10,7 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Transformationale Führung', 'Beispiele', 'Methoden'],
   seo: {
-    title: 'Transformationale Führung · Beispiele aus dem Alltag (4 Dimensionen)',
+    title: 'Transformationale Führung: Beispiele aus dem Alltag',
     description: 'Konkrete Beispiele für transformationale Führung im Alltag — die vier ' +
       'Dimensionen als Verhalten im Standup, 1:1 und in der Krise. Von Wlad Jachtchenko.',
     keywords: [

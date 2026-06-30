@@ -11,10 +11,11 @@ export default {
   cover: null,
   tags: ['Karriere', 'Identity', 'Imposter', 'Selbstführung'],
   seo: {
-    title: 'Imposter-Syndrom bei Top-Führungskräften: was wirklich hilft | Leader-OS',
+    title: 'Imposter-Syndrom bei C-Level: was wirklich hilft',
     description:
       'Imposter-Syndrom als C-Level: warum es mit jeder Beförderung schlimmer wird ' +
-      'und wie Top-Führungskräfte damit umgehen. Wlad Jachtchenkos Methodik.',
+      'und wie Top-Führungskräfte damit leben statt dagegen zu kämpfen. Von Wlad ' +
+      'Jachtchenko.',
     canonical: 'https://leader-os.de/journal/imposter-syndrom-bei-c-level',
     keywords: [
       'imposter syndrom',

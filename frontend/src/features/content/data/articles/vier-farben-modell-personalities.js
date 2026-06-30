@@ -32,7 +32,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint baust du deinen Default und deine Sekundär-Farbe. Du trainierst Skript-Varianten für die drei Farben die dir nicht liegen. WladBot zeigt dir bei jeder geschriebenen Konversation welche Farbe gerade dominiert und welche du verdrängst.' },
   ],
   seo: {
-    description: 'Das Vier-Farben-Modell für Teamarbeit: Rot, Gelb, Grün, Blau als Kommunikationsstile. Drei Anwendungen für eigenen Modus, 1:1s und Team-Konstellation.',
+    title: 'Vier-Farben-Modell: Persönlichkeiten im Team führen',
+    description: 'Vier-Farben-Modell für Teamarbeit: Rot, Gelb, Grün, Blau als Kommunikationsstile · drei Anwendungen für deinen Modus, 1:1s und Team-Konstellation. Von Wlad Jachtchenko.',
     keywords: ['Vier-Farben-Modell', 'DISG Modell Führung', 'Persönlichkeitstypen Team', 'Kommunikationsstile Manager', 'Mitarbeiter Persönlichkeit'],
   },
   related: ['5-rollen-der-fuehrung-nach-wlad-jachtchenko', 'schulz-von-thun-kommunikationsquadrat-fuer-fuehrungskraefte'],

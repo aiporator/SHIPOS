@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Methodik', 'Pareto', 'Frameworks', 'Führung'],
   seo: {
-    title: 'Pareto-Prinzip 80/20 in der Führung: wo es greift | Leader-OS',
+    title: 'Pareto-Prinzip 80/20 in der Führung: wo es greift',
     description:
-      'Pareto-Prinzip 80/20 für Führungskräfte: drei Bereiche wo es wirklich greift, ' +
-      'einer wo es dich kaputt macht. Wlad Jachtchenkos Methodik.',
+      'Pareto-Prinzip 80/20 für Führungskräfte: drei Bereiche wo die 80/20-Regel wirklich greift ' +
+      'und der eine, wo sie dich kaputt macht · plus Quartals-Audit. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/pareto-prinzip-in-der-fuehrung',
     keywords: [
       'pareto prinzip',

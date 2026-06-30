@@ -31,7 +31,8 @@ export default {
     { type: 'paragraph', text: 'Wer gerade befördert wurde oder befördert wird: starte mit der Diagnose. Sie zeigt dir in zehn Minuten welche der drei Lücken deine größte ist · und damit welches Sprint-Profil zu deinen ersten 30 Tagen passt.' },
   ],
   seo: {
-    description: 'Die ersten 90 Tage nach einer Beförderung: vier Phasen, drei häufigste Fehler, eine konkrete Struktur die 70 Prozent höhere 2-Jahres-Retention bringt.',
+    title: 'Erste 90 Tage nach Beförderung: die Anleitung',
+    description: 'Erste 90 Tage nach der Beförderung meistern: vier Phasen, drei häufige Fehler und eine Struktur, die 70 Prozent höhere 2-Jahres-Retention bringt. Von Wlad Jachtchenko.',
     keywords: ['Beförderung Onboarding', 'Erste 90 Tage Führung', 'Neu Lead Coaching', 'Beförderung Führungskraft', 'Karriere-Sprung Manager'],
   },
   related: ['dein-erster-tag-mit-leader-os', 'leader-os-im-team-rollout'],

@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du Konter-Skripte für alle sechs Techniken an deinen echten Cases. WladBot spielt das Gegenüber mit der wahrscheinlichsten Manipulation und drillt dich auf höfliche, klare Konter.' },
   ],
   seo: {
-    description: 'Sechs gängige Manipulations-Techniken im Führungs-Alltag · Strohmann, Whataboutism, falsche Dichotomie, Ad Hominem, Dringlichkeit, Zustimmungs-Falle · mit konkreten Konter-Skripten.',
+    title: 'Dunkle Rhetorik erkennen und abwehren: 6 Konter',
+    description: 'Dunkle Rhetorik erkennen und abwehren: sechs Manipulations-Techniken im Führungs-Alltag · Strohmann, Whataboutism, Ad Hominem · mit konkreten Konter-Skripten. Von Wlad Jachtchenko.',
     keywords: ['Dunkle Rhetorik', 'Manipulation erkennen', 'Strohmann Argument', 'Whataboutism', 'Rhetorik abwehren', 'Wlad Jachtchenko Manipulation'],
   },
   related: ['drei-saeulen-der-ueberzeugung-logos-ethos-pathos', 'harvard-verhandlungsmethode-erklaert'],

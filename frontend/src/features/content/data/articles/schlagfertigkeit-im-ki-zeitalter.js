@@ -29,6 +29,10 @@ export default {
     { type: 'paragraph', text: 'KI ist Sparring, nicht Bühne. Sie ersetzt nicht das Live-Üben mit echten Menschen. Was sie aber tut: sie macht jedes Live-Üben fünf Mal effizienter, weil du vorbereitet ankommst. Wer das verstanden hat, hat den größten Hebel der heutigen Rhetorik-Praxis gefunden.' },
     { type: 'callout', tone: 'lime', text: 'Genau diese drei Drills sind Teil von Leader-OS · dem KI-natives-Führen-Sprint von Wlad. 30 Tage, tägliches Coaching, WladBot als Sparring-Partner. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte. leader-os.de/#klassen' },
   ],
+  seo: {
+    title: 'Schlagfertigkeit im KI-Zeitalter: 3 Drills · Leader-OS',
+    description: 'Schlagfertigkeit im KI-Zeitalter trainieren: warum Rhetorik 2026 wichtiger ist denn je und drei Drills, die dich mit KI-Sparring in 30 Tagen souveräner machen. Von Wlad Jachtchenko.',
+  },
   related: [
     'schlagfertigkeit-lernen-als-fuehrungskraft',
     'die-5-rollen-einer-ki-nativen-fuehrungskraft',

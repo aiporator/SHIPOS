@@ -16,11 +16,11 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Vergleich', 'ChatGPT', 'Claude', 'Perplexity', 'Tools'],
   seo: {
-    title: 'Leader-OS vs ChatGPT vs Claude vs Perplexity · Vergleich 2026',
+    title: 'Leader-OS vs ChatGPT, Claude, Perplexity: 2026',
     description:
-      'Ehrlicher Tool-Vergleich für Führungskräfte. Wann ChatGPT reicht, ' +
-      'wann Claude besser ist, wann Perplexity, wann Leader-OS. Matrix ' +
-      'mit Use-Cases, Preisen, Stärken, Schwächen.',
+      'Leader-OS vs ChatGPT, Claude und Perplexity: ehrlicher Tool-Vergleich für ' +
+      'Führungskräfte. Wann welches Tool reicht · Matrix mit Use-Cases, Preisen, ' +
+      'Stärken, Schwächen. Von Wlad Jachtchenko.',
     keywords: [
       'Leader-OS vs ChatGPT',
       'KI-Coach Vergleich',

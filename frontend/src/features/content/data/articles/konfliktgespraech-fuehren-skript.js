@@ -31,7 +31,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint drillst du Konfliktgespräche an drei deiner echten Spannungs-Beziehungen. WladBot spielt das Gegenüber, korrigiert deine Eröffnung, prüft ob du wirklich zehn Sekunden schweigen kannst.' },
   ],
   seo: {
-    description: 'Sieben Schritte für ein Konfliktgespräch im Führungs-Alltag. Mit Eröffnungs-Sätzen, B-W-W-Statements, Schweigen und Tomorrow-Anker.',
+    title: 'Konfliktgespräch führen: Skript in 7 Schritten',
+    description: 'Konfliktgespräch führen mit klarem Skript: sieben Schritte mit Eröffnungs-Sätzen, B-W-W-Statements, gezieltem Schweigen und Tomorrow-Anker für den Führungsalltag. Von Wlad Jachtchenko.',
     keywords: ['Konfliktgespräch führen', 'Konfliktgespräch Vorlage', 'Mitarbeiter Konflikt', 'Konfliktmanagement Führungskraft', 'Konfliktgespräch Skript'],
   },
   related: ['mitarbeitergespraech-vorbereiten-mit-ki', 'feedback-geben-vorlage-bww-framework'],

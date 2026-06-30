@@ -64,9 +64,10 @@ export default {
       'ob deine größte Lücke aktuell von Leader-OS adressiert wird oder nicht.' },
   ],
   seo: {
+    title: 'Was ist in Leader-OS drin? Die 3 Schichten erklärt',
     description:
-      'Drei Schichten von Leader-OS: elf Wlad-Frameworks, WladBot als 24/7-KI-Coach, 30-Tage-Sprint als ' +
-      'Reflex-Mechanik. Plus was du lebenslang behältst. Konkret und ohne Marketing.',
+      'Was steckt in Leader-OS? Drei Schichten: elf Wlad-Frameworks, WladBot als 24/7-KI-Coach, ' +
+      '30-Tage-Sprint. Plus lebenslanger Zugriff. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS Inhalt', 'Leader-OS Frameworks', 'WladBot', '30-Tage Sprint Wlad', 'Leadership Operating System Inhalt'],
   },
   related: ['warum-leader-os', 'dein-erster-tag-mit-leader-os'],

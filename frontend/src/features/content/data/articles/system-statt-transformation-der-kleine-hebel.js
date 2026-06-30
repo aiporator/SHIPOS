@@ -28,7 +28,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du genau diese kleinen Hebel an dreißig deiner echten Cases. Nicht "neue Identität" · sondern "eine Mikro-Änderung die in deinen Wochenfluss passt und bleibt".' },
   ],
   seo: {
-    description: 'Warum kleine konsequente Hebel größere Umbrüche schlagen. Drei Beispiele aus Sprint-Daten und eine Mikro-Anwendung für deine nächste Woche.',
+    title: 'System statt Transformation: der kleine Hebel wirkt',
+    description: 'System statt Transformation: warum kleine, konsequente Hebel große Umbrüche schlagen. Drei Beispiele aus Sprint-Daten plus eine Mikro-Anwendung für nächste Woche. Von Wlad Jachtchenko.',
     keywords: ['System statt Transformation', 'Kleine Hebel Führung', 'Mikro-Änderung Manager', 'Marginal Gains Leadership', 'Wlad Jachtchenko System'],
   },
   related: ['mehr-als-eine-transformation', 'mikro-drills-fuenfzehn-minuten-pro-tag'],

@@ -12,11 +12,11 @@ export default {
   cover: null,
   tags: ['Rollen', 'Methodik', 'Delegation', 'Zeitmanagement', 'Mikromanagement'],
   seo: {
-    title: 'Mikromanagement aufhören: der Tag an dem ich aufhörte zu pushen | Leader-OS',
+    title: 'Mikromanagement aufhören: so delegierst du · Leader-OS',
     description:
-      'Mikromanagement loswerden, delegieren lernen als Führungskraft, vertrauen ins ' +
-      'Team aufbauen. Wlad Jachtchenkos Story und die drei Delegations-Regeln die ' +
-      '5–10 Stunden pro Woche zurückgeben.',
+      'Mikromanagement aufhören und delegieren lernen als Führungskraft: drei ' +
+      'Delegations-Regeln, die Vertrauen ins Team aufbauen und 5–10 Stunden pro ' +
+      'Woche zurückgeben. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/der-tag-an-dem-ich-aufhoerte-zu-pushen',
     keywords: [
       'mikromanagement aufhören',

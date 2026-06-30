@@ -34,6 +34,10 @@ export default {
     { type: 'paragraph', text: 'Das ist der Moment in dem die meisten Klienten sagen, dass diese sechs Monate ihre wertvollste berufliche Investition waren · nicht weil sie ein Zertifikat haben, sondern weil sie nachweislich anders arbeiten als vorher.' },
     { type: 'callout', tone: 'lime', text: 'Werde Teil von Leader-OS · 6 Monate strukturierte Ausbildung, alle Vorteile ab Tag 1, Lifetime-Zugang. 14 Tage kostenlos, ohne Karte: leader-os.de/#klassen' },
   ],
+  seo: {
+    title: 'In 6 Monaten zur KI-nativen Führungskraft: Plan',
+    description: 'In 6 Monaten vom KI-Skeptiker zur KI-nativen Führungskraft: der konkrete Monatsplan mit Sprint, 5 Rollen, Rhetorik und eigenen Agenten — plus messbare Etappen. Von Wlad Jachtchenko.',
+  },
   related: [
     'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',
     'die-5-rollen-einer-ki-nativen-fuehrungskraft',

@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du gerade entscheidest welcher Slot zu dir passt: in der 30-Min-Beratung simulieren wir gemeinsam deinen typischen Wochenfluss und finden den robustesten Slot für dich.' },
   ],
   seo: {
-    description: 'Wie eine Mikro-Drill-Routine von 15 Min pro Tag in deinen Kalender passt: drei Slot-Optionen, was in den 15 Min passiert, Anti-Patterns.',
+    title: 'Mikro-Drills: 15 Minuten pro Tag · Leader-OS',
+    description: 'Mikro-Drills mit 15 Minuten pro Tag: drei Slot-Optionen, was in den 15 Minuten passiert und die Anti-Patterns. Passt in jede Woche. Von Wlad Jachtchenko.',
     keywords: ['Mikro Drills', 'KI Training 15 Minuten', 'Sprint Routine', 'Kurze Lern-Routinen', 'Leadership Routine'],
   },
   related: ['dein-erster-tag-mit-leader-os', 'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie'],

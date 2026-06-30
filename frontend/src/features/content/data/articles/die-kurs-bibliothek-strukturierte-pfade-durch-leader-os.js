@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Welcher Kurs zu deinem aktuellen Quartal passt: 30-Min-Beratung. Wir schauen auf deinen Sprint-Score plus dein Quartals-Backlog und schlagen die zwei sinnvollsten Spezial-Kurse vor.' },
   ],
   seo: {
-    description: 'Sechs Spezial-Kurse nach dem Sprint: Investor-Pitch, Townhall, Verhandlung, Konflikt, KI-Strategie, 90-Tage-Beförderung. 297 EUR pro Kurs.',
+    title: 'Leader-OS Kurse: 6 Spezial-Pfade im Überblick',
+    description: 'Leader-OS Kurse im Überblick: sechs Spezial-Pfade nach dem Sprint · Investor-Pitch, Townhall, Verhandlung, Konflikt, KI-Strategie, 90-Tage-Beförderung. 297 EUR pro Kurs. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS Kurse', 'Spezial Kurse Führung', 'Townhall Kurs', 'Investor Pitch Training', 'Verhandlungs Kurs DACH'],
   },
   related: ['die-leader-os-kurs-architektur', 'mehr-als-eine-transformation'],

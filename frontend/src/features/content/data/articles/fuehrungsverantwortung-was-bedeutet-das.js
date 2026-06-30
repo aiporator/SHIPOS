@@ -9,8 +9,8 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Führungsverantwortung', 'Grundlagen', 'Methoden'],
   seo: {
-    title: 'Führungsverantwortung · Definition, Ebenen und was sie konkret heißt',
-    description: 'Führungsverantwortung einfach erklärt · Definition, die fünf Ebenen, Führungsspanne und was sie konkret bedeutet. Praxisnah. Von Wlad Jachtchenko.',
+    title: 'Führungsverantwortung: Definition, Ebenen & Beispiele',
+    description: 'Führungsverantwortung einfach erklärt: Definition, die fünf Ebenen, Führungsspanne und was sie konkret bedeutet — praxisnah mit Beispielen. Von Wlad Jachtchenko.',
     keywords: [
       'Führungsverantwortung',
       'Führungsverantwortung Definition',

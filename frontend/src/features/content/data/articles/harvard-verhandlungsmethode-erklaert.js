@@ -32,7 +32,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du Harvard an deinen drei realsten Verhandlungs-Cases. WladBot spielt das Gegenüber mit den wahrscheinlichen Einwänden und drillt dich gegen schwache Argumente.' },
   ],
   seo: {
-    description: 'Vier Prinzipien der Harvard-Verhandlungsmethode plus BATNA, anhand drei DACH-Führungs-Beispielen (Budget, Senior-Hire, Stakeholder-Eskalation).',
+    title: 'Harvard-Verhandlungsmethode: erklärt + 3 Beispiele',
+    description: 'Harvard-Verhandlungsmethode einfach erklärt: vier Prinzipien plus BATNA an drei DACH-Beispielen für Führungskräfte. Von Wlad Jachtchenko.',
     keywords: ['Harvard Verhandlungsmethode', 'BATNA Definition', 'Verhandeln Führungskraft', 'Budget Verhandlung CFO', 'Stakeholder Verhandlung', 'Wlad Jachtchenko Verhandeln'],
   },
   related: ['townhall-rede-strukturieren-sexier', 'mitarbeitergespraech-vorbereiten-mit-ki'],

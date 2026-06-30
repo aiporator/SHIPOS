@@ -11,11 +11,11 @@ export default {
   cover: null,
   tags: ['Kommunikation', 'Rhetorik', 'Feedback', 'Mitarbeitergespräch', 'Führung'],
   seo: {
-    title: 'Schwieriges Mitarbeitergespräch: was Chefs denken aber nie sagen | Leader-OS',
+    title: 'Schwieriges Mitarbeitergespräch: was Chefs nie sagen',
     description:
-      'Schwieriges Mitarbeitergespräch führen, unmotivierte Mitarbeiter motivieren, ' +
-      'schwierige Mitarbeiter ansprechen. Wlad Jachtchenkos offener Brief · die fünf ' +
-      'Sätze die Chefs nie aussprechen.',
+      'Schwieriges Mitarbeitergespräch führen, unmotivierte Mitarbeiter motivieren und ' +
+      'schwierige Mitarbeiter ansprechen: ein offener Brief und die fünf Sätze, die Chefs ' +
+      'nie aussprechen. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/liebe-mitarbeiter-das-hier-wollte-ich-euch-immer-sagen',
     keywords: [
       'schwieriges mitarbeitergespräch',

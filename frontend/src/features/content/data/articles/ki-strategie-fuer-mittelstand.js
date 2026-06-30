@@ -39,7 +39,8 @@ export default {
     { type: 'paragraph', text: 'Für eine konkrete Roadmap mit deinem Senior-Team: 30-Min-Beratung. Wir besprechen welche zwei der vier Hebel zu deiner Branche am besten passen und welcher dein erster Pilot ist.' },
   ],
   seo: {
-    description: 'KI-Strategie für Mittelstand-Geschäftsführer: drei Fragen, vier Hebel, klare Trennlinie zwischen Tool-Kauf und Operating-Model. Drei-Monats-Plan.',
+    title: 'KI-Strategie für den Mittelstand: Leitfaden 2026',
+    description: 'KI-Strategie für Mittelstand-Geschäftsführer: drei Fragen, vier Hebel, klare Trennlinie zwischen Tool-Kauf und Operating-Model, plus Drei-Monats-Plan. Von Wlad Jachtchenko.',
     keywords: ['KI Strategie Mittelstand', 'AI Strategie Geschäftsführer', 'Mittelstand Digitalisierung', 'KI Roadmap DACH', 'Operating Model KI'],
   },
   related: ['leader-os-fuer-mittelstand-ceo', 'ki-tools-fuer-fuehrungskraefte-2026'],

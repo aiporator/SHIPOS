@@ -34,7 +34,8 @@ export default {
     { type: 'paragraph', text: 'Wer aktuell unsicher ist welcher Pfad zu ihm passt: 30-Min-Beratung. Wir empfehlen ehrlich · auch wenn das heißt "fang mit der Diagnose an, schau in dreißig Tagen weiter".' },
   ],
   seo: {
-    description: 'Die Leader-OS Kurs-Architektur: Sprint, Plus-Plus, Spezial-Kurse, Team-Rollout, Mentoring. Fünf Lern-Pfade mit klaren Ziel-Definitionen.',
+    title: 'Leader-OS Kurs-Architektur: 5 Lern-Pfade im Überblick',
+    description: 'Die Leader-OS Kurs-Architektur: Sprint, Plus-Plus, Spezial-Kurse, Team-Rollout, Mentoring. Fünf Lern-Pfade mit klarem Ziel. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS Kurse', 'Leadership Kurs-Pfade', 'Wlad Jachtchenko Kurse', 'Online Leadership Programm Architektur', 'KI Coaching Pfade'],
   },
   related: ['was-in-leader-os-drin-ist', 'leader-os-im-team-rollout'],

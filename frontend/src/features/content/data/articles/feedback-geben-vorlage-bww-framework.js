@@ -29,7 +29,8 @@ export default {
     { type: 'callout', tone: 'lime', text: 'Im Sprint drillst du B-W-W an dreißig deiner echten Anlässe · von Lob bis Konflikt. WladBot kennt deine Cases und passt jede Variante an.' },
   ],
   seo: {
-    description: 'B-W-W-Vorlage für sechs Feedback-Anlässe: Lob, Kritik, Beförderung, Konflikt, Quartals-Review, Onboarding. Mit konkreten Beispielen pro Anlass.',
+    title: 'Feedback geben: die B-W-W-Vorlage + Beispiele',
+    description: 'Feedback geben mit der B-W-W-Vorlage für sechs Anlässe: Lob, Kritik, Beförderung, Konflikt, Quartals-Review, Onboarding. Mit konkreten Beispielen. Von Wlad Jachtchenko.',
     keywords: ['Feedback geben Vorlage', 'B-W-W Feedback Formel', 'Mitarbeiter Lob', 'Konfliktgespräch Vorlage', 'Quartals Review Vorlage', 'Beförderungs-Feedback'],
   },
   related: ['die-feedback-formel-bww', 'mitarbeitergespraech-vorbereiten-mit-ki'],

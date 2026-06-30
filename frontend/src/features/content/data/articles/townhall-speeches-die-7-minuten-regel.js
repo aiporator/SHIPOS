@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Rhetorik', 'Townhall', 'Kommunikation', 'Skripte'],
   seo: {
-    title: 'Townhall-Speech: 7-Minuten-Regel + 3-Akt-Skript | Leader-OS',
+    title: 'Townhall-Rede: 7-Minuten-Regel + 3-Akt-Skript',
     description:
-      'Townhall-Reden die wirken: die 7-Minuten-Regel + 3-Akt-Drehbuch. Aus 200+ live ' +
-      'geführten Townhalls mit Wlad Jachtchenko.',
+      'Townhall-Rede die wirkt: die 7-Minuten-Regel und das 3-Akt-Skript (Hook, Substanz, Call) ' +
+      'aus 200+ live moderierten Townhalls. Üben bis es Reflex ist. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/townhall-speeches-die-7-minuten-regel',
     keywords: [
       'townhall rede',

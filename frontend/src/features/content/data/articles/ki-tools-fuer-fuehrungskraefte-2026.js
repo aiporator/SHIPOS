@@ -34,7 +34,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint diagnostizieren wir welche zwei oder drei Tools FÜR DICH den größten Hebel haben. Wer ohne Diagnose Tools sammelt, baut Tool-Müdigkeit. Wer mit Diagnose entscheidet, hat in drei Wochen einen funktionierenden Stack.' },
   ],
   seo: {
-    description: 'Fünf KI-Tools die sich für Führungskräfte 2026 lohnen (ChatGPT, WladBot, Notion AI, Fathom, Granola) plus drei die du ignorieren kannst.',
+    title: 'KI-Tools für Führungskräfte 2026: die Top 5',
+    description: 'KI-Tools für Führungskräfte 2026: die fünf, die sich wirklich lohnen (ChatGPT, WladBot, Notion AI, Fathom, Granola) plus drei, die du ignorieren kannst. Von Wlad Jachtchenko.',
     keywords: ['KI Tools Führungskräfte', 'AI Tools Manager 2026', 'ChatGPT vs Claude Leadership', 'KI Stack Führung', 'WladBot Tool'],
   },
   related: ['wladbot-vs-chatgpt-vs-coach', 'prompt-engineering-fuer-fuehrungskraefte'],

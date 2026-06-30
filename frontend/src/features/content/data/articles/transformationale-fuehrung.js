@@ -18,7 +18,7 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Transformationale Führung', 'Leadership', 'Methoden'],
   seo: {
-    title: 'Transformationale Führung · Definition, 4 Dimensionen, Beispiele',
+    title: 'Transformationale Führung: Definition + 4 Dimensionen',
     description:
       'Transformationale Führung erklärt: Definition, die vier Dimensionen ' +
       '(idealisierter Einfluss, inspirierende Motivation, intellektuelle ' +

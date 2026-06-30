@@ -12,10 +12,10 @@ export default {
   cover: null,
   tags: ['Rollen', 'Karriere', 'Identity', 'Führung', 'Erste 100 Tage'],
   seo: {
-    title: 'Vom Kollegen zum Chef: Brief an meinen 28-jährigen Selbst | Leader-OS',
+    title: 'Vom Kollegen zum Chef: erste 100 Tage als Team-Lead',
     description:
-      'Erste Führungsposition, vom Kollegen zum Vorgesetzten, die ersten 100 Tage als Team-Lead. ' +
-      'Wlad Jachtchenko schreibt an sein 28-jähriges Ich · die fünf Fehler die dich ein Jahr kosten.',
+      'Vom Kollegen zum Chef: die ersten 100 Tage als Team-Lead, der Selbstzweifel-Loop und die fünf ' +
+      'Fehler die dich ein Jahr kosten · ein Brief an mein 28-jähriges Ich. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde',
     keywords: [
       'vom kollegen zum chef',

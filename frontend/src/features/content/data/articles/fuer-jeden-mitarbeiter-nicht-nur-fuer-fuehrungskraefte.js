@@ -28,7 +28,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du Senior IC, Tech-Lead oder Solo-Spezialist bist und unsicher bist ob der Sprint zu dir passt: in der 30-Min-Beratung schauen wir auf dein Setup. Wenn er nicht passt, sagen wir das ehrlich.' },
   ],
   seo: {
-    description: 'Drei nicht-Manager-Profile die vom Leader-OS Sprint profitieren: Senior IC, Tech-Lead ohne direct reports, Solo-Spezialist.',
+    title: 'Leadership ohne Personalverantwortung: für jeden',
+    description: 'Leadership ohne Personalverantwortung: drei Profile, die vom Leader-OS Sprint profitieren – Senior IC, Tech-Lead ohne direct reports, Solo-Spezialist. Von Wlad Jachtchenko.',
     keywords: ['Leadership Sprint IC', 'Senior IC Coaching', 'Tech Lead Coaching', 'Solo Spezialist Skill', 'Leadership ohne Personalverantwortung'],
   },
   related: ['damit-es-jeder-schafft-die-zugaenglichkeits-philosophie', 'leader-os-fuer-neu-befoerderte-leads'],

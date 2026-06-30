@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Die kostenlose Diagnose ist die ehrlichste Möglichkeit zu prüfen ob du in der Zielgruppe bist. Wenn dein Score sagt "deine Lücke ist anders", empfehlen wir explizit etwas anderes.' },
   ],
   seo: {
-    description: 'Drei Design-Entscheidungen die Leader-OS für jeden zugänglich machen: Mikro-Drills, keine AI-Eintritts-Barriere, pausierbar bei Krisen.',
+    title: 'Leader-OS für jeden: KI-Coaching ohne Vorwissen',
+    description: 'KI-Coaching ohne Vorwissen: drei Design-Entscheidungen machen Leader-OS für jeden zugänglich · Mikro-Drills, keine AI-Barriere, pausierbar bei Krisen. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS für jeden', 'AI Training einsteiger', 'Mikro-Drills KI', 'KI Coaching zugänglich', 'AI Skill ohne Vorwissen'],
   },
   related: ['warum-leader-os', 'mikro-drills-fuenfzehn-minuten-pro-tag'],

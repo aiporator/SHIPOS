@@ -16,10 +16,10 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Wlad Jachtchenko', 'Authority', 'Methodik', 'Biographie'],
   seo: {
-    title: 'Wlad Jachtchenko · Wer ist Europas führender Argumentations-Coach?',
+    title: 'Wer ist Wlad Jachtchenko? Argumentations-Coach',
     description:
-      'Drei SPIEGEL-Bestseller. 400 000+ Klienten. 15 Jahre Coaching. ' +
-      'Wlad Jachtchenko Biographie, Methodik, Bücher, Coaching-Ansatz für Führungskräfte.',
+      'Wer ist Wlad Jachtchenko? Drei SPIEGEL-Bestseller, 400.000+ Klienten, 15 Jahre Coaching. ' +
+      'Biographie, Methodik, Bücher und Coaching-Ansatz für Führungskräfte im Überblick.',
     keywords: [
       'Wlad Jachtchenko',
       'Argumentations-Coach',

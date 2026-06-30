@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'WladBot erkennt eingebaut wenn du eine Krise-Phase signalisierst und schlägt automatisch die Zehn-Minuten-Variante vor · ohne dass du es bewusst einstellen musst.' },
   ],
   seo: {
-    description: 'KI-Routine in zehn Minuten pro Tag in drei Blöcken (morgens, zwischen Meetings, abends). Für On-Call-Wochen und Fundraising-Phasen.',
+    title: 'KI in 10 Minuten pro Tag · Leader-OS',
+    description: 'KI in 10 Minuten pro Tag: die Drei-Block-Routine, die selbst in On-Call-Wochen und Fundraising-Phasen hält. So bleibst du im Drill. Von Wlad Jachtchenko.',
     keywords: ['KI 10 Minuten', 'Mikro-Routine Manager', 'Sprint Pause vermeiden', 'KI in stressigen Wochen', 'Leadership Routine kurz'],
   },
   related: ['mikro-drills-fuenfzehn-minuten-pro-tag', 'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie'],

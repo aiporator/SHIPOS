@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Rhetorik', 'Verhandlung', 'Skripte', 'Schlagfertigkeit'],
   seo: {
-    title: 'Verhandlungstaktiken: 5 Phrasen die wirken | Leader-OS',
+    title: 'Verhandlungstaktiken: 5 Phrasen die wirken · Leader-OS',
     description:
-      'Verhandlungs-Phrasen für Führungskräfte: 5 konkrete Sätze die deine Position ' +
-      'sofort stärken. Aus Wlad Jachtchenkos 17 Jahren Verhandlungs-Training.',
+      'Verhandlungstaktiken für Führungskräfte: fünf konkrete Phrasen, die deine Position ' +
+      'sofort stärken. Aus 17 Jahren Verhandlungs-Training von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/verhandlungstaktiken-5-phrasen-die-deine-position-staerken',
     keywords: [
       'verhandlungstaktiken',

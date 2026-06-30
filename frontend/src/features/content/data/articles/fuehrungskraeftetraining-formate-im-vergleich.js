@@ -19,11 +19,11 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Führungskräftetraining', 'Führungskräfteentwicklung', 'Methoden'],
   seo: {
-    title: 'Führungskräftetraining · Seminar, Coaching oder KI-Plattform?',
+    title: 'Führungskräftetraining: Seminar, Coaching oder KI?',
     description:
-      'Führungskräftetraining im Vergleich · Seminar, Coaching, Online-Kurs ' +
-      'oder KI-Plattform. Stärken, Schwächen und welches Format den ' +
-      'Transfer-Gap schließt. Von Wlad Jachtchenko.',
+      'Führungskräftetraining im Vergleich: Seminar, Coaching, Online-Kurs oder ' +
+      'KI-Plattform. Stärken, Schwächen und welches Format den Transfer-Gap ' +
+      'wirklich schließt. Von Wlad Jachtchenko.',
     keywords: [
       'Führungskräftetraining',
       'Führungsseminar',

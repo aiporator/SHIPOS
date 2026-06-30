@@ -16,7 +16,7 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['KI Leadership', 'Definition', 'Führung', 'Selbsttest'],
   seo: {
-    title: 'Was ist eine KI-native Führungskraft · Definition + 5 Merkmale',
+    title: 'KI-native Führungskraft: Definition + 5 Merkmale',
     description:
       'Definition · fünf Merkmale · Selbsttest. Was eine KI-native ' +
       'Führungskraft heute ausmacht. Klare Antwort von Wlad Jachtchenko, ' +

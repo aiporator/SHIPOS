@@ -18,10 +18,10 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Fachliche Führung', 'Laterale Führung', 'Methoden'],
   seo: {
-    title: 'Fachliche Führung ohne disziplinarische Verantwortung · so geht es',
+    title: 'Fachliche Führung ohne Weisungsbefugnis: so geht es',
     description:
-      'Fachlich führen ohne disziplinarische Macht: was du darfst, die vier ' +
-      'Hebel ohne Weisungsbefugnis und der häufigste Fehler. Für Tech-Leads ' +
+      'Fachliche Führung ohne disziplinarische Verantwortung: was du darfst, die ' +
+      'vier Hebel ohne Weisungsbefugnis und der häufigste Fehler. Für Tech-Leads ' +
       'und Principals. Von Wlad Jachtchenko.',
     keywords: [
       'fachliche Führung ohne disziplinarische Verantwortung',

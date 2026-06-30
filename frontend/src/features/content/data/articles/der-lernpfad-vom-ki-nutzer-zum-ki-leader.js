@@ -31,7 +31,8 @@ export default {
     { type: 'paragraph', text: 'Die Diagnose zeigt dir auf welcher Stufe du heute stehst. Der Sprint ist der schnellste bekannte Weg von Stufe 1-2 auf Stufe 3. Plus-Plus + Team-Rollout führt zu Stufe 4.' },
   ],
   seo: {
-    description: 'Vier Stufen vom KI-Nutzer zum KI-Leader: Nutzer (60%), Power-User (25%), gestützte Führungskraft (10%), KI-Leader (3-5%). Zwölf-Wochen-Plan pro Stufe.',
+    title: 'Vom KI-Nutzer zum KI-Leader: der Lernpfad in 4 Stufen',
+    description: 'KI-Leader werden in vier Stufen: Nutzer, Power-User, gestützte Führungskraft, KI-Leader. Finde deine Stufe plus Zwölf-Wochen-Plan. Von Wlad Jachtchenko.',
     keywords: ['KI Leader werden', 'KI Karriere', 'AI Leadership Path', 'KI Skill Stufen', 'KI Lernpfad'],
   },
   related: ['ki-leadership-was-bedeutet-das-konkret', 'die-leader-os-kurs-architektur'],

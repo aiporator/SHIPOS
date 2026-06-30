@@ -34,7 +34,8 @@ export default {
     { type: 'paragraph', text: 'Für eine konkrete Empfehlung: 30-Min-Beratung. Wir hören uns deine Situation an und sagen ehrlich ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
-    description: 'Wie Leader-OS Mittelstand-CEOs unterstützt: drei spezifische Reibungspunkte, dominante Frameworks, was nicht angeboten wird.',
+    title: 'Leader-OS für Mittelstand-CEOs: KI-Era trifft Tradition',
+    description: 'Leadership für Mittelstand-CEOs zwischen Familienunternehmen und KI-Era: drei Reibungspunkte, die stärksten Frameworks und was Leader-OS bewusst nicht bietet. Von Wlad Jachtchenko.',
     keywords: ['Mittelstand CEO Coaching', 'Familienunternehmen Führung', 'Generationswechsel Coaching', 'DACH Mittelstand KI', 'Wlad Jachtchenko Mittelstand'],
   },
   related: ['der-business-case-fuer-leader-os', '5-rollen-der-fuehrung-nach-wlad-jachtchenko'],

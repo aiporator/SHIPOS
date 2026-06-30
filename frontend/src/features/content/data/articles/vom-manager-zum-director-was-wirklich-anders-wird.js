@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Karriere', 'Rollen', 'Identity', 'Management'],
   seo: {
-    title: 'Vom Manager zum Director: was wirklich anders ist | Leader-OS',
+    title: 'Vom Manager zum Director: was wirklich anders wird',
     description:
-      'Manager-zu-Director Übergang: drei Identity-Shifts die niemand vorher erklärt. ' +
-      'Was sich an Aufgaben, Kommunikation, Rhythmus ändert.',
+      'Vom Manager zum Director: die drei Identity-Shifts, die niemand erklärt, und was sich ' +
+      'an Aufgaben, Kommunikation, Rhythmus ändert. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/vom-manager-zum-director-was-wirklich-anders-wird',
     keywords: [
       'vom manager zum director',

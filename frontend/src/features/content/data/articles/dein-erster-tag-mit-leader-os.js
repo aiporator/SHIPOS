@@ -63,9 +63,10 @@ export default {
       'die Plattform und du siehst Tag 1 in real-time, an einem Case aus deinem Backlog.' },
   ],
   seo: {
+    title: 'Leader-OS Onboarding: dein erster Tag in 60 Minuten',
     description:
-      'Was am ersten Tag mit Leader-OS passiert: Login, Sprint-Plan, Setup-Gespräch mit WladBot, erste ' +
-      'Lektion und erster Drill am eigenen Case. Sechzig Minuten, kein Marketing-Theater.',
+      'Leader-OS Onboarding Schritt für Schritt: Login, Sprint-Plan, Setup-Gespräch mit WladBot, erste ' +
+      'Lektion und erster Drill am eigenen Case. 60 Minuten, kein Marketing-Theater. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS Onboarding', 'Sprint Tag 1', 'Wlad Sprint Ablauf', 'Leadership Onboarding 30 Tage', 'WladBot Setup'],
   },
   related: ['was-in-leader-os-drin-ist', 'leader-os-im-team-rollout'],

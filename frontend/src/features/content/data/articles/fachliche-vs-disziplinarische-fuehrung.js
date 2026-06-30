@@ -17,11 +17,11 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Fachliche Führung', 'Disziplinarische Führung', 'Methoden'],
   seo: {
-    title: 'Fachliche vs. disziplinarische Führung · Unterschied einfach erklärt',
+    title: 'Fachliche vs. disziplinarische Führung: Unterschied',
     description:
-      'Fachliche Führung und disziplinarische Führung: der Unterschied, ' +
-      'wer welche Befugnisse hat, wann beides zusammenfällt und wie ' +
-      'fachliche Führung ohne Weisungsbefugnis funktioniert. Von Wlad Jachtchenko.',
+      'Fachliche vs. disziplinarische Führung einfach erklärt: wer welche ' +
+      'Befugnisse hat, wann beides zusammenfällt und wie du ohne ' +
+      'Weisungsbefugnis trotzdem führst. Von Wlad Jachtchenko.',
     keywords: [
       'fachliche Führung',
       'disziplinarische Führung',

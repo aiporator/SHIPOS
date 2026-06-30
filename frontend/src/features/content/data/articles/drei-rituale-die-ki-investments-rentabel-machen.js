@@ -26,7 +26,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint wird ein Wochen-Slot in Plus-Plus zu einem Ritual-Aufbau-Drill. Du nutzt drei Wochen um diese drei Rituale in deinen Kalender zu schreiben, mit WladBot-Korrektur am ersten Versuch.' },
   ],
   seo: {
-    description: 'Drei Rituale die KI-Investments rentabel machen: Montag-Vorschau, Mittwoch-Sharing, Freitag-Bilanz. 22 Min/Woche, messbarer Output-Lift.',
+    title: 'KI Rituale: 3 Routinen, die Investments rentabel machen',
+    description: 'Drei KI Rituale für den Wochenfluss: Montag-Vorschau, Mittwoch-Sharing, Freitag-Bilanz. 22 Min/Woche für messbaren Output-Lift statt versickerter Abos. Von Wlad Jachtchenko.',
     keywords: ['KI Rituale', 'Productive Routines KI', 'KI Wochenfluss', 'Prompt Routinen', 'KI Diziplin'],
   },
   related: ['mikro-drills-fuenfzehn-minuten-pro-tag', 'wenn-deine-ki-investition-versickert-fuenf-diagnose-fragen'],

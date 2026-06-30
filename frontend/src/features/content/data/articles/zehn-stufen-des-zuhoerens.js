@@ -41,7 +41,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint diagnostizieren wir deine aktuelle Stufe und drillen dich auf die nächste. WladBot zeigt dir nach jedem geschriebenen 1:1-Transkript welche Stufe deine Antworten hatten.' },
   ],
   seo: {
-    description: 'Zehn Stufen des Zuhörens · von abwesend bis transformativ. Wo Führungskräfte typischerweise stehen und wie du eine Stufe pro Woche aufsteigst.',
+    title: 'Zehn Stufen des Zuhörens: aktives Zuhören lernen',
+    description: 'Die zehn Stufen des Zuhörens von abwesend bis transformativ: wo Führungskräfte typischerweise stehen und wie du aktives Zuhören eine Stufe pro Woche aufbaust. Von Wlad Jachtchenko.',
     keywords: ['Zuhören lernen', 'Aktives Zuhören', 'Zehn Stufen Zuhören', 'Empathisches Zuhören Führung', 'Wlad Jachtchenko Zuhören'],
   },
   related: ['schulz-von-thun-kommunikationsquadrat-fuer-fuehrungskraefte', '5-rollen-der-fuehrung-nach-wlad-jachtchenko'],

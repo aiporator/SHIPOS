@@ -12,10 +12,10 @@ export default {
   cover: null,
   tags: ['KI', 'Halluzinationen', 'Risiko', 'Methodik'],
   seo: {
-    title: 'KI-Halluzinationen erkennen: 3 Warnsignale + 30-Sek-Check | Leader-OS',
+    title: 'KI-Halluzinationen erkennen: 3 Warnsignale + Check',
     description:
-      'KI halluziniert: erfundene Quellen, falsche Zahlen, plausible Fake-Fakten. ' +
-      'Drei Warnsignale, ein Verifikations-Check, was Führungskräfte 2026 wissen müssen.',
+      'KI-Halluzinationen erkennen: erfundene Quellen, falsche Zahlen, plausible Fake-Fakten. ' +
+      'Drei Warnsignale plus 30-Sekunden-Check, den jede Führungskraft 2026 braucht. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/ki-halluzinationen-erkennen-als-manager',
     keywords: [
       'ki halluzinationen',

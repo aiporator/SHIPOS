@@ -28,7 +28,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du die Konter für alle fünf Anti-Muster an deinen echten Cases. WladBot zeigt dir nach jedem geschriebenen Prompt welches Muster gerade aktiv war.' },
   ],
   seo: {
-    description: 'Fünf Anti-Muster die jedes KI-Investment versickern lassen: falsche Aufgaben, Iterations-Spirale, fehlender Kontext, keine Wiederverwendung, fehlendes Teilen.',
+    title: 'ChatGPT effizient nutzen: 5 Fehler die Zeit kosten',
+    description: 'ChatGPT effizient nutzen: fünf Anti-Muster, die jedes KI-Investment versickern lassen – falsche Aufgaben, Iterations-Spirale, fehlender Kontext und mehr. Von Wlad Jachtchenko.',
     keywords: ['ChatGPT effizient nutzen', 'KI nicht produktiv', 'ChatGPT Tipps Manager', 'KI Anti-Patterns', 'Prompts strukturieren'],
   },
   related: ['das-ki-produktivitaets-paradox', 'prompt-engineering-fuer-fuehrungskraefte'],

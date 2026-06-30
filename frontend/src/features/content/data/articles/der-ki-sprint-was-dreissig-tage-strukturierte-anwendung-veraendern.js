@@ -36,7 +36,8 @@ export default {
     { type: 'paragraph', text: 'Wer wissen will welche der fünf messbaren Verbesserungen FÜR DICH den größten Hebel hätte: die Diagnose ist der schnellste Indikator.' },
   ],
   seo: {
-    description: 'Konkrete Vorher-Nachher-Daten aus 240 Sprint-Teilnehmern: Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote, Alignment-Welle.',
+    title: 'KI-Sprint: was 30 Tage messbar verändern',
+    description: 'KI-Sprint Ergebnisse: Vorher-Nachher-Daten aus 240 Teilnehmern · Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote. Was 30 Tage messen und was nicht. Von Wlad Jachtchenko.',
     keywords: ['Sprint Ergebnisse', 'Leader-OS Daten', 'Wlad Sprint Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Sprint Output'],
   },
   related: ['output-messen-im-ki-zeitalter', 'der-business-case-fuer-leader-os'],

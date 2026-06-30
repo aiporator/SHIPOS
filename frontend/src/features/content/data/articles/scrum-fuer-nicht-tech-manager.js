@@ -12,10 +12,10 @@ export default {
   cover: null,
   tags: ['Methodik', 'Scrum', 'Karriere', 'Frameworks'],
   seo: {
-    title: 'Scrum für Nicht-Tech-Manager: 30-Min-Erklärung | Leader-OS',
+    title: 'Scrum für Nicht-Tech-Manager: einfach erklärt',
     description:
-      'Scrum verstehen ohne Engineering-Background. Sprint, Daily, Retro · was es ' +
-      'wirklich bedeutet für Manager die mit Tech-Teams arbeiten. Wlad Jachtchenkos Erklärung.',
+      'Scrum einfach erklärt für Nicht-Techniker: Sprint, Daily, Retro plus Velocity, Backlog ' +
+      'und DoD · sechs Begriffe für dein nächstes Tech-Meeting. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/scrum-fuer-nicht-tech-manager',
     keywords: [
       'scrum für manager',

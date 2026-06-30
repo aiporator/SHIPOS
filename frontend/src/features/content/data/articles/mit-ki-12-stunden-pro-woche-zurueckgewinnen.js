@@ -11,10 +11,11 @@ export default {
   cover: null,
   tags: ['KI', 'Zeitmanagement', 'Produktivität', 'Methodik'],
   seo: {
-    title: 'Mit KI 12 Stunden pro Woche sparen: 5 konkrete Hebel | Leader-OS',
+    title: 'Mit KI 12 Stunden pro Woche sparen: 5 Hebel',
     description:
-      'KI-Zeitersparnis als Führungskraft: 5 Hebel die im Median 12 Stunden pro Woche ' +
-      'zurückgeben. Mit Messwerten aus 30 Wlad-Klienten.',
+      'Mit KI Zeit sparen als Führungskraft: 5 konkrete Hebel, die im Median 12 ' +
+      'Stunden pro Woche zurückgeben · mit Messwerten aus 30 Klienten. Von Wlad ' +
+      'Jachtchenko.',
     canonical: 'https://leader-os.de/journal/mit-ki-12-stunden-pro-woche-zurueckgewinnen',
     keywords: [
       'mit ki zeit sparen',

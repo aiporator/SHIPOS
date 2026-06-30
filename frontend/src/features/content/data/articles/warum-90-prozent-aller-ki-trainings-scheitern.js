@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du gerade entscheidest welches KI-Leadership-Training für dein Team passt: 30-Min-Beratung. Wir besprechen ehrlich was die 90-Prozent-Fallen sind und ob unser Setup zu deinem Team passt · oder nicht.' },
   ],
   seo: {
-    description: 'Drei Gründe warum 90 Prozent aller KI-Trainings scheitern: Theorie-Last, fehlender Tomorrow-Anker, falsche Messung. Die eine Variable die immer vorhanden ist.',
+    title: 'Warum 90% aller KI-Trainings scheitern: 3 Gründe',
+    description: 'Warum 90% aller KI-Trainings scheitern: Theorie-Last, fehlender Tomorrow-Anker, falsche Messung — plus die eine Variable, die erfolgreiche Trainings teilen. Von Wlad Jachtchenko.',
     keywords: ['KI Training scheitern', 'Leadership Training Erfolg', 'KI Skill Transfer', 'Training ROI', 'KI Coaching Markt'],
   },
   related: ['das-ki-produktivitaets-paradox', 'warum-frameworks-nicht-im-kopf-bleiben'],

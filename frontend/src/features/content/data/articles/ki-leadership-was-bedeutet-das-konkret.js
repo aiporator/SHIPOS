@@ -36,7 +36,8 @@ export default {
     { type: 'paragraph', text: 'Wenn keiner der drei Indikatoren stimmt, ist die Diagnose auf leadercheck.de dein nächster Schritt. Wenn alle drei stimmen, gehörst du zur Top-5 Prozent der DACH-Führungskräfte und Plus-Plus passt vermutlich besser zu dir.' },
   ],
   seo: {
-    description: 'Drei klare Schichten von KI Leadership: Tool-Nutzung, gestützte Führung, strategischer Hebel. Plus drei Indikatoren ob du es heute schon praktizierst.',
+    title: 'KI Leadership: was bedeutet das konkret? Definition',
+    description: 'KI Leadership konkret erklärt: drei klare Schichten von Tool-Nutzung über gestützte Führung bis zum strategischen Hebel · plus Selbsttest, ob du es schon praktizierst. Von Wlad Jachtchenko.',
     keywords: ['KI Leadership', 'AI Leadership Definition', 'Was ist KI Leadership', 'AI Manager Training', 'KI Führungskraft Definition'],
   },
   related: ['warum-leader-os', 'ki-im-fuehrungs-alltag-drei-use-cases'],

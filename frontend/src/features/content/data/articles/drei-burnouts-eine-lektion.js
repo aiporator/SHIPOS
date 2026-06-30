@@ -12,11 +12,11 @@ export default {
   cover: null,
   tags: ['Rollen', 'Karriere', 'Identity', 'Burnout', 'Selbstführung'],
   seo: {
-    title: 'Burnout als Führungskraft: drei Burnouts, eine Lektion | Leader-OS',
+    title: 'Burnout als Führungskraft: drei Burnouts, eine Lektion',
     description:
-      'Burnout Führungskraft, Selbstzweifel als Chef, Gedankenkarussell stoppen, ' +
-      'Überstunden reduzieren. Wlad Jachtchenkos drei Burnouts und das System das ' +
-      'er Führungskräften heute gibt.',
+      'Burnout als Führungskraft: warum nicht die Last brennt, sondern die fehlende ' +
+      'Struktur. Drei Burnouts und das System gegen Selbstzweifel, Gedankenkarussell ' +
+      'und Überstunden. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/drei-burnouts-eine-lektion',
     keywords: [
       'burnout führungskraft',

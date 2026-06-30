@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Wer als CTO ein konkretes Sprint-Setup mit Boardroom-Drill möchte: 30-Min-Beratung mit einem unserer Senior-Berater die selbst Tech-Hintergrund haben.' },
   ],
   seo: {
-    description: 'Drei Skill-Lücken die CTOs typischerweise unterspielen: Pathos im Boardroom, Tech-zu-Business-Übersetzung, VPE als Sparrings-Partner.',
+    title: 'CTO Coaching: 3 Skill-Lücken im Boardroom',
+    description: 'CTO Coaching: drei Skill-Lücken die Tech-Vorstände unterspielen · Pathos im Boardroom, Tech-zu-Business-Übersetzung, VPE als Sparrings-Partner statt Code-Review. Von Wlad Jachtchenko.',
     keywords: ['CTO Coaching', 'Tech-Vorstand Training', 'Engineering Leadership Boardroom', 'VP Engineering Coaching', 'Wlad Jachtchenko CTO'],
   },
   related: ['leader-os-fuer-engineering-leitung', 'drei-saeulen-der-ueberzeugung-logos-ethos-pathos'],

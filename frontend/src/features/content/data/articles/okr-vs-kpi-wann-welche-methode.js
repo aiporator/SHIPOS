@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Methodik', 'OKR', 'KPI', 'Frameworks', 'Strategie'],
   seo: {
-    title: 'OKR vs KPI: wann welche Methode | Leader-OS',
+    title: 'OKR vs KPI: wann welche Methode · Leader-OS',
     description:
-      'OKR vs KPI klar getrennt. OKR für Veränderung, KPI für Stabilität. ' +
-      'Mit konkreten Beispielen und der Anti-Pattern-Liste die jeder Manager kennen muss.',
+      'OKR vs KPI klar getrennt: OKR für Veränderung, KPI für Stabilität. ' +
+      'Mit konkreten Beispielen und der Anti-Pattern-Liste, die jeder Manager kennen muss.',
     canonical: 'https://leader-os.de/journal/okr-vs-kpi-wann-welche-methode',
     keywords: [
       'okr vs kpi',

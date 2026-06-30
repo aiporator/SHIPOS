@@ -36,7 +36,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du gerade auf ein Kündigungsgespräch vorbereitest und niemanden zum Drillen hast: in der 30-Min-Beratung üben wir das Skript einmal durch mit deinem konkreten Fall (anonymisiert). Das ersetzt keinen Anwalt · es ersetzt die Improvisation.' },
   ],
   seo: {
-    description: 'Skript für ein Kündigungsgespräch: drei Regeln, vier-Minuten-Ablauf, vier Sätze die du nicht sagen darfst. Rechtlich sauber und menschlich fair.',
+    title: 'Kündigungsgespräch führen: Anleitung + Skript',
+    description: 'Kündigungsgespräch führen mit Skript: drei Regeln, Vier-Minuten-Ablauf und vier Sätze, die du nie sagen darfst. Rechtlich sauber und menschlich fair. Von Wlad Jachtchenko.',
     keywords: ['Kündigungsgespräch führen', 'Mitarbeiter kündigen Skript', 'Kündigung Gespräch Vorlage', 'Trennung Mitarbeiter', 'HR Kündigung'],
   },
   related: ['konfliktgespraech-fuehren-skript', 'feedback-geben-vorlage-bww-framework'],

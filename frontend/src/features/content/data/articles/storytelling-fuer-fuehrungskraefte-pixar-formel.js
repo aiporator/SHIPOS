@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Rhetorik', 'Storytelling', 'Pixar', 'Skripte'],
   seo: {
-    title: 'Storytelling für Führungskräfte: Pixar-Formel | Leader-OS',
+    title: 'Storytelling für Führungskräfte: Pixar-Formel · Leader-OS',
     description:
-      'Pixars 6-Satz-Formel für Boardroom-Storytelling. Wie Führungskräfte aus Slides ' +
-      'Geschichten machen, die ankommen. Wlad Jachtchenkos Methodik.',
+      'Storytelling für Führungskräfte mit Pixars 6-Satz-Formel: wie du aus Slides ' +
+      'Geschichten machst, die im Boardroom ankommen — in 90 Sekunden. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/storytelling-fuer-fuehrungskraefte-pixar-formel',
     keywords: [
       'storytelling führungskraft',
