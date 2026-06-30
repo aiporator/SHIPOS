@@ -47,18 +47,20 @@ export function useGsapScrollIn(kind, options = {}) {
           gsap.set(target, { opacity: 0.08, y: 0 });
           return;
         }
+        // Play-once fade-up instead of a scroll-scrub · scrubbing a giant
+        // numeral on every scroll tick is the main "weird/janky scroll" feel.
         gsap.fromTo(
           target,
-          { opacity: 0, y: 60 },
+          { opacity: 0, y: 40 },
           {
             opacity: 0.08,
             y: 0,
-            ease: 'none',
+            duration: 0.7,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: root,
-              start: 'top 80%',
-              end: 'top 30%',
-              scrub: true,
+              start: 'top 82%',
+              toggleActions: 'play none none none',
               invalidateOnRefresh: true,
             },
           },
@@ -72,19 +74,22 @@ export function useGsapScrollIn(kind, options = {}) {
           gsap.set(targets, { opacity: 1, y: 0, scale: 1 });
           return;
         }
+        // Clean fade-up · NO scale (scale on grid cards causes subpixel
+        // shimmer + the "weird scroll" feel) and fires earlier so the cards
+        // are already settled before the user reaches them. Transform+opacity
+        // only, play-once → native-smooth scroll.
         gsap.fromTo(
           targets,
-          { opacity: 0, y: 40, scale: 0.97 },
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: 'expo.out',
-            stagger: 0.12,
+            duration: 0.5,
+            ease: 'power3.out',
+            stagger: 0.08,
             scrollTrigger: {
               trigger: root,
-              start: 'top 75%',
+              start: 'top 85%',
               toggleActions: 'play none none none',
               invalidateOnRefresh: true,
             },
@@ -99,18 +104,20 @@ export function useGsapScrollIn(kind, options = {}) {
           gsap.set(words, { opacity: 1 });
           return;
         }
+        // Play-once staggered word fade instead of a scroll-scrub · the
+        // scrub made the closing line feel like it fought the scroll.
         gsap.fromTo(
           words,
           { opacity: 0.18 },
           {
             opacity: 1,
-            ease: 'none',
-            stagger: 0.04,
+            duration: 0.5,
+            ease: 'power1.out',
+            stagger: 0.05,
             scrollTrigger: {
               trigger: root,
-              start: 'top 70%',
-              end: 'bottom 60%',
-              scrub: true,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
               invalidateOnRefresh: true,
             },
           },
