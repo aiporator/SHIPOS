@@ -36,6 +36,12 @@ export const WLAD_AVATAR_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 export const WLAD_STAGE = LOCAL_STAGE;
 export const WLAD_STAGE_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 
+// WladBot 3.0 · the Pixar-style 3D render of WladBot · the single source of
+// truth for the bot's face across chat avatar, the floating mascot and the
+// branded blog thumbnail. Drop the file at frontend/public/wlad/wladbot3.0.png
+// to activate it everywhere; every consumer falls back gracefully until then.
+export const WLADBOT_AVATAR = '/wlad/wladbot3.0.png';
+
 /**
  * onError-Handler für <img>-Tags, der automatisch durch die
  * Fallback-Liste rotiert. Einsatz: `onError={withFallback(WLAD_AVATAR_FALLBACKS)}`.

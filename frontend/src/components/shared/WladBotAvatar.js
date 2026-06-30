@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Zap } from 'lucide-react';
+import { WLADBOT_AVATAR } from '../../lib/brandAssets';
 
 /**
  * WladBot-Avatar · Chat- und Bot-Kontext (NICHT auf Sales-/Coaching-Seiten).
@@ -14,7 +15,7 @@ import { Zap } from 'lucide-react';
  * → der neue Avatar erscheint überall im Chat (PlaybookChatView,
  *   PlaybookChatMessage, LandingChatPod …).
  */
-const WLADBOT_PIXAR_SRC = '';
+const WLADBOT_PIXAR_SRC = WLADBOT_AVATAR;
 
 export const WladBotAvatar = ({
   size = 28,
