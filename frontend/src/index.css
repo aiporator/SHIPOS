@@ -107,6 +107,13 @@
   }
 }
 
+/* ── Branded text selection ──
+   The default browser blue selection highlight clashed hard with the cream
+   editorial surfaces (the journal looked broken when text was selected).
+   Lime highlight + black text · always readable, always on-brand. */
+::selection { background: #BFFF00; color: #0A0A0A; text-shadow: none; }
+::-moz-selection { background: #BFFF00; color: #0A0A0A; text-shadow: none; }
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }

@@ -8,6 +8,7 @@ import { groupByTaxonomy } from '../data/taxonomy';
 import { applySeoToDocument } from '../utils/seo';
 import { ArticleCover } from '../components/ArticleCover';
 import { WladBotThumbnail } from '../components/WladBotThumbnail';
+import { DottedGlowBackground } from '../../../components/shared/DottedGlowBackground';
 import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
 
 /**
@@ -492,10 +493,20 @@ const CategorySection = ({ category, splitDirection = true }) => {
 const DiagnoseCTA = () => (
   <section
     aria-label="Leadership-Diagnose"
-    className="bg-[#0A0A0A] text-white"
+    className="relative overflow-hidden bg-[#0A0A0A] text-white"
     data-testid="journal-cta-diagnose"
   >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-16 md:py-24">
+    <DottedGlowBackground
+      className="[mask-image:radial-gradient(120%_120%_at_50%_40%,#000_55%,transparent_100%)]"
+      gap={22}
+      radius={1.4}
+      color="rgba(191,255,0,0.32)"
+      glowColor="rgba(191,255,0,0.95)"
+      opacity={0.55}
+      speedMin={0.2}
+      speedMax={1.1}
+    />
+    <div className="relative z-10 max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-0 border border-white/15">
         <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px]">
           <WladBotThumbnail title="Mach den kostenlosen Leader-Check" eyebrow="DIAGNOSE · 10 MIN" />
@@ -837,7 +848,7 @@ export default function JournalIndex() {
   }));
 
   useEffect(() => {
-    return applySeoToDocument({
+    const restoreSeo = applySeoToDocument({
       title: 'Feldnotizen · Das KI-Leadership Magazin · Wlad Jachtchenko',
       description:
         'Newsroom für KI-natives Führen · Frameworks, Skripte, Field-Notes aus ' +
@@ -848,6 +859,18 @@ export default function JournalIndex() {
       robots: 'index, follow, max-image-preview:large',
       ogImage: null,
     });
+
+    // The magazine is a light editorial surface (cream newsroom paper). Lock
+    // light mode while mounted so theme-dependent `text-foreground` never
+    // renders light-on-cream (unreadable) for visitors whose OS/app is dark.
+    const root = document.documentElement;
+    const wasDark = root.classList.contains('dark');
+    if (wasDark) root.classList.remove('dark');
+
+    return () => {
+      restoreSeo();
+      if (wasDark) root.classList.add('dark');
+    };
   }, []);
 
   return (
