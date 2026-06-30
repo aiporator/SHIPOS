@@ -39,7 +39,8 @@ export default {
     { type: 'paragraph', text: 'Wenn diese ehrliche Liste zu dir passt: die Diagnose ist der erste Schritt. Wenn du mehr Magie erwartest als wir liefern, geh zu einem anderen Anbieter · wir helfen dir nicht dort weiter wo wir nicht stark sind.' },
   ],
   seo: {
-    description: 'Was Leader-OS versprochen wird und was nicht: messbare Skill-Verbesserung, Garantie, lebenslanger Zugriff. Keine Persönlichkeits-Transformation.',
+    title: 'Leader-OS Versprechen: was du bekommst · und was nicht',
+    description: 'Das Leader-OS Versprechen ehrlich: messbare Skill-Verbesserung, Coaching-Garantie und lebenslanger Zugriff · aber keine Persönlichkeits-Transformation. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS Versprechen', 'Coaching Garantie', 'Ehrliches Leadership Training', 'Leadership Programm Erwartungen', 'Sprint Erwartung'],
   },
   related: ['mehr-als-eine-transformation', 'leader-os-vs-klassisches-coaching'],

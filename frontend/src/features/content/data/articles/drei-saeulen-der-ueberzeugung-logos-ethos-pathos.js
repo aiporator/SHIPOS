@@ -32,7 +32,8 @@ export default {
     { type: 'paragraph', text: 'WladBot zeigt dir nach jedem geschriebenen Skript wie deine drei Säulen verteilt sind. Du siehst sofort wo du nachjustieren musst.' },
   ],
   seo: {
-    description: 'Drei Säulen der Überzeugung · Logos, Ethos, Pathos · angewendet auf Townhall, Investor-Pitch, Sales-Verhandlung und Krisen-Kommunikation.',
+    title: 'Logos, Ethos, Pathos: die drei Säulen der Überzeugung',
+    description: 'Logos, Ethos, Pathos verstehen und anwenden: die drei Säulen der Überzeugung für Townhall, Investor-Pitch, Sales-Verhandlung und Krisen-Kommunikation. Von Wlad Jachtchenko.',
     keywords: ['Drei Säulen der Überzeugung', 'Aristoteles Rhetorik', 'Logos Ethos Pathos', 'Überzeugung Führungskraft', 'Persuasion Manager'],
   },
   related: ['townhall-rede-strukturieren-sexier', 'harvard-verhandlungsmethode-erklaert'],

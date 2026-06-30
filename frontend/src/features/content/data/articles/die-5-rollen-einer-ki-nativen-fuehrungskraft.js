@@ -34,6 +34,10 @@ export default {
     { type: 'paragraph', text: 'Das ist nicht "KI nutzen". Das ist KI-nativ führen.' },
     { type: 'callout', tone: 'lime', text: 'Genau diese fünf Rollen-Routinen sind in Leader-OS verbaut · als tägliche Mikro-Drills am echten Fall, nicht als Theorie. Plus elf drillbare Frameworks und WladBot 24/7. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte. Hier reinschauen: leader-os.de/#klassen' },
   ],
+  seo: {
+    title: 'Die 5 Rollen einer KI-nativen Führungskraft · Leader-OS',
+    description: 'Die 5 Rollen einer KI-nativen Führungskraft: Vorausschauer, Entscheider, Kommunikator, Verstärker, Verteidiger — jede mit einer konkreten KI-Routine. Von Wlad Jachtchenko.',
+  },
   related: [
     'fuenf-rollen-der-fuehrung-nach-wlad-jachtchenko',
     'ki-leadership-was-bedeutet-das-konkret',

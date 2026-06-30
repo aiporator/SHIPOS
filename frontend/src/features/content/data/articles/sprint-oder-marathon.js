@@ -100,9 +100,10 @@ export default {
     },
   ],
   seo: {
+    title: 'Sprint oder Marathon: 30 Tage vs 12 Monate Coaching',
     description:
-      'Dreißig Tage versus zwölf Monate Coaching. Wann was richtig ist, und welche Fehlentscheidung ' +
-      'die meisten treffen.',
+      'Sprint oder Marathon? Warum 30 Tage präziser sind als zwölf Monate Coaching und welche ' +
+      'Fehlentscheidung die meisten treffen. Von Wlad Jachtchenko.',
     keywords: [
       'Sprint Coaching',
       'Leadership Sprint',

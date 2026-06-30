@@ -19,9 +19,9 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Führungskompetenzen', 'Führungskräfteentwicklung', 'Methoden'],
   seo: {
-    title: 'Die 8 wichtigsten Führungskompetenzen · und wie man sie trainiert',
+    title: 'Führungskompetenzen: die 8 wichtigsten als Liste',
     description:
-      'Die wichtigsten Führungskompetenzen als Liste: Kommunikation, Feedback, ' +
+      'Die 8 wichtigsten Führungskompetenzen als Liste: Kommunikation, Feedback, ' +
       'Konflikte, Delegieren, Entscheiden, Selbstführung, Coachen, Verhandeln. ' +
       'Trainierbar statt angeboren. Von Wlad Jachtchenko.',
     keywords: [

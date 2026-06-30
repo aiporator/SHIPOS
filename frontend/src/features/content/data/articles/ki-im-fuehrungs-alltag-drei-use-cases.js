@@ -138,9 +138,10 @@ export default {
     },
   ],
   seo: {
+    title: 'KI für Führungskräfte: 3 Use Cases für heute',
     description:
-      'Drei sofort einsetzbare KI-Use-Cases für Führungskräfte: Skript-Vorbereitung, Townhall-Strukturierung, ' +
-      'Freitag-Reflexion. Plus drei Use Cases die du nicht brauchst, weil sie KI-Slop produzieren.',
+      'KI für Führungskräfte: drei sofort einsetzbare Use Cases · Skript-Vorbereitung, Townhall-Strukturierung, ' +
+      'Freitag-Reflexion. Plus drei Use Cases die du nicht brauchst. Von Wlad Jachtchenko.',
     keywords: [
       'KI für Führungskräfte',
       'AI Leadership',

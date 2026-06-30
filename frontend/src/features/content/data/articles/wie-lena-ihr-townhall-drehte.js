@@ -160,9 +160,10 @@ export default {
     },
   ],
   seo: {
+    title: 'Townhall-Speech Case Study: wie Lena sie drehte',
     description:
-      'Case Study: VP Engineering eines Series-B Startups, zwei Townhalls hintereinander verloren. Wie ein 30-Tage-' +
-      'Sprint mit SEXIER und Drei Säulen das dritte Townhall drehte. Inklusive Output-Zahlen.',
+      'Townhall Case Study: VP Engineering, Series-B, zwei Townhalls verloren. Wie ein 30-Tage-' +
+      'Sprint mit SEXIER und Drei Säulen die dritte drehte · inklusive Output-Zahlen. Von Wlad Jachtchenko.',
     keywords: [
       'Townhall Speech',
       'Public Speaking Engineering Leader',

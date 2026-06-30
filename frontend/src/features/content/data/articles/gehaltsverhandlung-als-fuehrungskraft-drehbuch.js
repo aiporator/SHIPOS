@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Karriere', 'Verhandlung', 'Gehalt', 'Skripte'],
   seo: {
-    title: 'Gehaltsverhandlung als Führungskraft: das Drehbuch | Leader-OS',
+    title: 'Gehaltsverhandlung Führungskraft: Drehbuch + Skript',
     description:
-      'Gehaltsverhandlung Drehbuch für Führungskräfte: der erste Satz, drei Anker, ' +
-      'die entscheidende Frage. Aus 80+ live moderierten Verhandlungen.',
+      'Gehaltsverhandlung als Führungskraft: der erste Satz, die drei Anker, die entscheidende ' +
+      'Frage · ein Drehbuch aus 80+ live moderierten Verhandlungen. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/gehaltsverhandlung-als-fuehrungskraft-drehbuch',
     keywords: [
       'gehaltsverhandlung führungskraft',

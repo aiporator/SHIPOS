@@ -34,7 +34,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint diagnostizieren wir deine Rollen-Verteilung an dreißig deiner echten Wochen-Snapshots. WladBot zeigt dir wo du systematisch eine Rolle weglässt · und welcher Mikro-Experiment-Pfad das ändert.' },
   ],
   seo: {
-    description: 'Fünf Rollen der Führung nach Wlad Jachtchenko: Treiber, Stratege, Sparrings-Partner, Resilienz-Anker, Repräsentant. Plus drei Selbst-Diagnosen.',
+    title: 'Fünf Rollen der Führung: das Modell von Wlad Jachtchenko',
+    description: 'Fünf Rollen der Führung erkennen: Treiber, Stratege, Sparrings-Partner, Resilienz-Anker, Repräsentant. Welche Rolle wann zählt, plus drei Selbst-Diagnosen. Von Wlad Jachtchenko.',
     keywords: ['Fünf Rollen Führung', 'Wlad Jachtchenko Rollen', 'Führungsrollen Modell', 'Manager Identität', 'Treiber Stratege Rolle'],
   },
   related: ['leader-os-fuer-scaleup-gruender', 'die-feedback-formel-bww'],

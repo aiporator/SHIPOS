@@ -11,10 +11,11 @@ export default {
   cover: null,
   tags: ['Rhetorik', 'Schlagfertigkeit', 'Manipulation', 'Skripte'],
   seo: {
-    title: 'Schlagfertigkeit gegen Manipulation: 3 Verteidigungen | Leader-OS',
+    title: 'Schlagfertigkeit gegen Manipulation: 3 Konter',
     description:
-      'Manipulation im Meeting erkennen + kontern. Drei rhetorische Verteidigungen ' +
-      'gegen Schuldumkehr, falsche Dichotomie, Personalisierung. Wlad Jachtchenkos Methode.',
+      'Manipulation im Meeting erkennen und kontern: drei rhetorische Verteidigungen ' +
+      'gegen Schuldumkehr, falsche Dichotomie und Personalisierung, die immer wirken. ' +
+      'Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/schlagfertigkeit-gegen-manipulation-drei-verteidigungen',
     keywords: [
       'manipulation erkennen',

@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint übst du die Vier-Ebenen-Diagnose an dreißig deiner echten Konversationen. WladBot zeigt dir wo deine letzte Botschaft auf welcher Ebene gelandet ist · und wo du eine andere Ebene hättest priorisieren sollen.' },
   ],
   seo: {
-    description: 'Vier Ebenen des Schulz-von-Thun-Kommunikationsquadrats erklärt mit Beispielen für Stand-up, Konflikt und Kunden-Call.',
+    title: 'Schulz von Thun: Kommunikationsquadrat + Beispiele',
+    description: 'Kommunikationsquadrat nach Schulz von Thun: die vier Ebenen jeder Botschaft erklärt, mit Beispielen für Stand-up, Konflikt und Kunden-Call. Von Wlad Jachtchenko.',
     keywords: ['Schulz von Thun', 'Kommunikationsquadrat', 'Vier Ohren Modell', 'Kommunikation Führungskraft', 'Konflikt verstehen', 'Empathie Manager'],
   },
   related: ['die-feedback-formel-bww', 'townhall-rede-strukturieren-sexier'],

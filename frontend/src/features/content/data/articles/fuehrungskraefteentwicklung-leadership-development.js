@@ -19,7 +19,7 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Führungskräfteentwicklung', 'Leadership Development', 'Training and Development'],
   seo: {
-    title: 'Führungskräfteentwicklung · Leadership Development, das wirklich wirkt',
+    title: 'Führungskräfteentwicklung: Formate die wirklich wirken',
     description:
       'Führungskräfteentwicklung 2026: Definition, die wirksamen Formate, ' +
       'der Transfer-Gap zwischen Seminar und Alltag, und wie KI-gestütztes ' +

@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du gerade die Lücke zwischen "ich weiß das" und "ich kann das im Moment des Bedarfs" spürst · die Diagnose zeigt dir welche der elf Frameworks gerade dein größter Reflex-Lift wäre.' },
   ],
   seo: {
-    description: 'Der Unterschied zwischen KI-Wissen und KI-Reflex: drei Zeichen für jedes, und wie Wiederholung am echten Case Wissen in Reflex verwandelt.',
+    title: 'KI-Wissen vs KI-Reflex: der entscheidende Unterschied',
+    description: 'KI-Wissen vs KI-Reflex: je drei Zeichen, an denen du beide erkennst, und wie Wiederholung am Case Wissen in Reflex verwandelt. Von Wlad Jachtchenko.',
     keywords: ['Wissen vs Reflex', 'Skill Transfer', 'KI Reflex', 'Lernen durch Wiederholung', 'Methodik im Reflex'],
   },
   related: ['warum-frameworks-nicht-im-kopf-bleiben', 'mikro-drills-fuenfzehn-minuten-pro-tag'],

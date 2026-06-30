@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Wer als CRO oder Sales-Lead konkret prüfen möchte ob Sprint oder Plus-Plus passt: 30-Min-Beratung. Wir bringen das Sprint-Setup für Sales-Persona mit.' },
   ],
   seo: {
-    description: 'Drei Frameworks für Vertriebsleitung: Harvard für AE-Coaching, SEXIER für QBR, B-W-W für Forecast-Korrekturen. Plus DACH-spezifische Anti-Patterns.',
+    title: 'Vertriebsleitung Coaching: 3 Frameworks für CROs',
+    description: 'Vertriebsleitung Coaching für CRO und VP Sales: drei Frameworks · Harvard fürs AE-Coaching, SEXIER fürs QBR, B-W-W für Forecast-Korrekturen, plus DACH-Anti-Patterns. Von Wlad Jachtchenko.',
     keywords: ['CRO Coaching', 'VP Sales Coaching', 'Vertriebsleitung Training', 'Sales Leadership DACH', 'Wlad Jachtchenko Sales'],
   },
   related: ['harvard-verhandlungsmethode-erklaert', 'townhall-rede-strukturieren-sexier'],

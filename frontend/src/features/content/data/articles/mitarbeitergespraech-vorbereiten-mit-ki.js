@@ -27,7 +27,8 @@ export default {
     { type: 'paragraph', text: 'Diese zwölf Minuten ersetzen weder den menschlichen Tiefgang noch die Beziehungs-Arbeit. Sie ersetzen das improvisierte Mitarbeitergespräch, das beide Seiten ungut zurücklässt. Im Leader-OS-Sprint trainierst du B-W-W an dreißig deiner echten Cases mit Live-Korrektur durch WladBot.' },
   ],
   seo: {
-    description: 'In zwölf Minuten Mitarbeitergespräch vorbereiten: drei Schritte mit KI-Sparring-Prompt und B-W-W-Skript. Plus Anti-Patterns die du vermeiden musst.',
+    title: 'Mitarbeitergespräch vorbereiten: mit KI in 12 Minuten',
+    description: 'Mitarbeitergespräch vorbereiten in 12 Minuten: drei Prompts, ein B-W-W-Skript und zwei Anti-Patterns, damit dein Gegenüber es als faires Gespräch erlebt. Von Wlad Jachtchenko.',
     keywords: ['Mitarbeitergespräch vorbereiten', 'Mitarbeitergespräch Vorlage', 'Mitarbeitergespräch Skript', 'Feedback mit KI', 'B-W-W Formel', 'Wlad Jachtchenko Feedback'],
   },
   related: ['die-feedback-formel-bww', 'chatgpt-als-sparring-partner-fuenf-skripte'],

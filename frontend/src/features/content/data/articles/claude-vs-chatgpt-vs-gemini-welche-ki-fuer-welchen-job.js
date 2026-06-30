@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['KI', 'Tools', 'ChatGPT', 'Claude', 'Gemini'],
   seo: {
-    title: 'Claude vs ChatGPT vs Gemini: welche KI für welche Führungsaufgabe | Leader-OS',
+    title: 'Claude vs ChatGPT vs Gemini: welche KI für welchen Job',
     description:
-      'KI-Vergleich für Führungskräfte: Claude vs ChatGPT vs Gemini. Welches Modell ' +
-      'wann nutzen · Analyse, Sparring, Recherche. Wlad Jachtchenkos Test-Setup.',
+      'Claude vs ChatGPT vs Gemini im Vergleich für Führungskräfte: welches KI-Modell ' +
+      'wann nutzen – für Analyse, Sparring und Recherche. Test-Setup von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/claude-vs-chatgpt-vs-gemini-welche-ki-fuer-welchen-job',
     keywords: [
       'claude vs chatgpt',

@@ -32,7 +32,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du explizit diese Trennlinie. WladBot wird dich aktiv warnen wenn du gerade einen Anti-Slot in ein Drill schiebst · und dir vorschlagen statt KI eine menschliche Konversation zu führen.' },
   ],
   seo: {
-    description: 'Vier Situationen in denen KI dich verlangsamt: Routine-Antworten, emotionale Konversationen, strategische Wetten, Identitäts-Fragen.',
+    title: 'Wann KI dich verlangsamt: 4 Situationen ohne KI',
+    description: 'Wann KI dich verlangsamt statt beschleunigt: vier Situationen – Routine-Antworten, emotionale Gespräche, strategische Wetten, Identitäts-Fragen. Von Wlad Jachtchenko.',
     keywords: ['KI Anti-Patterns', 'Wann nicht KI nutzen', 'ChatGPT verlangsamt', 'KI ungeeignet', 'Manuelle Arbeit besser KI'],
   },
   related: ['das-ki-produktivitaets-paradox', 'wladbot-vs-chatgpt-vs-coach'],

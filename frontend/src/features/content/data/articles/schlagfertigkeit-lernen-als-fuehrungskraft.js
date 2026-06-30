@@ -32,7 +32,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du Schlagfertigkeit an dreißig deiner echten Cases. WladBot simuliert den Angriff mit den wahrscheinlichsten Varianten und drillt dich auf die Drei-Sekunden-Pause.' },
   ],
   seo: {
-    description: 'Schlagfertigkeit für Führungskräfte: drei Techniken (Reframing, Pause, Drei-Wort-Antwort) plus was Schlagfertigkeit nicht ist.',
+    title: 'Schlagfertigkeit lernen als Führungskraft: 3 Techniken',
+    description: 'Schlagfertigkeit lernen als Führungskraft: drei Techniken – Reframing, Pause, Drei-Wort-Antwort – plus was Schlagfertigkeit gerade nicht ist. Von Wlad Jachtchenko.',
     keywords: ['Schlagfertigkeit lernen', 'Schlagfertigkeit Übungen', 'Schlagfertigkeit Führungskraft', 'Wlad Jachtchenko Schlagfertig', 'rhetorisch kontern'],
   },
   related: ['dunkle-rhetorik-erkennen-und-abwehren', 'townhall-rede-strukturieren-sexier'],

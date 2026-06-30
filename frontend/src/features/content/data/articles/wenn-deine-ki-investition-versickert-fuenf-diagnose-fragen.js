@@ -28,7 +28,8 @@ export default {
     { type: 'paragraph', text: 'Wenn die Diagnose zeigt dass deine KI-Zeit versickert, ist der Sprint die kürzeste Intervention. Dreißig Tage strukturierte Anwendung, am Ende kannst du jede der fünf Fragen klar beantworten.' },
   ],
   seo: {
-    description: 'Fünf Diagnose-Fragen für deine KI-Nutzung: Wins, tägliche Tools, wiederverwendete Prompts, Team-Sharing, Output-Lift in einem Satz.',
+    title: 'KI-Investition versickert? 5 Diagnose-Fragen · Leader-OS',
+    description: 'KI-Investition versickert? Fünf ehrliche Diagnose-Fragen zeigen dir in zehn Minuten, ob dein KI-Stack arbeitet oder nur Zeit kostet — Wins, Tools, Prompts, Sharing, Output. Von Wlad Jachtchenko.',
     keywords: ['KI Diagnose', 'ChatGPT Selbst-Check', 'KI Effekt messen', 'KI ROI Test', 'KI Nutzung evaluieren'],
   },
   related: ['das-ki-produktivitaets-paradox', 'warum-dein-chatgpt-tab-dich-nicht-effizienter-macht'],

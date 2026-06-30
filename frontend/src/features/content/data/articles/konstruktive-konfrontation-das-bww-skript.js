@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Methodik', 'Feedback', 'BWW', 'Kommunikation', 'Rhetorik'],
   seo: {
-    title: 'B-W-W Skript richtig: konstruktive Konfrontation für Führungskräfte | Leader-OS',
+    title: 'B-W-W Skript richtig: konstruktive Konfrontation',
     description:
-      'Beobachtung-Wirkung-Wunsch (BWW) konkret. Der eine Satz den 90% falsch machen ' +
-      'und wie du ihn richtig formulierst. Mit drei Echt-Situationen.',
+      'B-W-W Skript (Beobachtung-Wirkung-Wunsch) richtig nutzen: der eine Satz, den 90% ' +
+      'falsch machen, und wie du ihn formulierst — mit drei Echt-Situationen. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/konstruktive-konfrontation-das-bww-skript',
     keywords: [
       'b-w-w skript',

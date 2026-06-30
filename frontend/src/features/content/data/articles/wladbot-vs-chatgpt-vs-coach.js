@@ -64,9 +64,10 @@ export default {
       'Startpunkt. Sie sagt dir nicht "kauf Leader-OS". Sie sagt dir ehrlich wo dein größter Hebel liegt.' },
   ],
   seo: {
+    title: 'WladBot vs ChatGPT vs Coach: der ehrliche Vergleich',
     description:
-      'WladBot, ChatGPT und 1:1-Coach: drei verschiedene Werkzeuge mit klaren Einsatz-Slots. Wann welcher ' +
-      'gewinnt, wann welcher der falsche ist.',
+      'WladBot vs ChatGPT vs Coach im ehrlichen Vergleich: drei Sparrings-Partner, klare ' +
+      'Einsatz-Slots. Wann welcher gewinnt. Von Wlad Jachtchenko.',
     keywords: ['WladBot vs ChatGPT', 'AI Coach Vergleich', 'Wlad Jachtchenko Bot', 'KI Coach Leadership', 'Sparring Partner AI'],
   },
   related: ['warum-leader-os', 'chatgpt-als-sparring-partner-fuenf-skripte'],

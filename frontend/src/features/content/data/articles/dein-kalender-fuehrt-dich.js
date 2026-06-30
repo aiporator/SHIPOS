@@ -98,9 +98,9 @@ export default {
     },
   ],
   seo: {
+    title: 'Kalender als Führungsinstrument: so geht Zeitführung',
     description:
-      'Ein offener Kalender macht dich verfügbar, ein verteidigter Kalender macht dich führbar. Drei Mikro-Diagnosen ' +
-      'die deine echten Prioritäten sichtbar machen. Inklusive ALPEN als Streich-Frame.',
+      'Zeitmanagement für Führungskräfte: Ein verteidigter Kalender macht dich führbar statt nur verfügbar. Drei Mikro-Diagnosen plus ALPEN als Streich-Frame. Von Wlad Jachtchenko.',
     keywords: [
       'Kalender Management Führung',
       'ALPEN Methode',

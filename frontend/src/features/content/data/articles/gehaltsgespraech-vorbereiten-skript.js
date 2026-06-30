@@ -36,7 +36,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint drillst du Gehaltsgespräche an deinen drei realsten Cases · als Mitarbeiter ODER als Führungskraft je nach Diagnose-Profil. WladBot spielt das Gegenüber mit den wahrscheinlichen Einwänden.' },
   ],
   seo: {
-    description: 'Gehaltsgespräch vorbereiten für beide Seiten: drei Daten-Quellen, Skript-Eröffnung mit Daten, Bewertungs-Routine für Führungskräfte mit drei häufigen Fehlentscheidungen.',
+    title: 'Gehaltsgespräch vorbereiten: Skript für beide Seiten',
+    description: 'Gehaltsgespräch vorbereiten: ein Skript für beide Seiten · drei Daten-Quellen, Eröffnung mit Daten, Bewertungs-Routine plus drei häufige Fehler. Von Wlad Jachtchenko.',
     keywords: ['Gehaltsgespräch vorbereiten', 'Gehaltsverhandlung Skript', 'Gehalt verhandeln Manager', 'Salary Negotiation deutsch', 'Mitarbeiter Gehaltsanfrage'],
   },
   related: ['harvard-verhandlungsmethode-erklaert', 'konfliktgespraech-fuehren-skript'],

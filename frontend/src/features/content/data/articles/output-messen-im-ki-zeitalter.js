@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint führen wir für dich die fünf Output-Metriken über dreißig Tage. Du siehst nach dem Sprint schwarz auf weiß welche der fünf bei dir den stärksten Lift hatte.' },
   ],
   seo: {
-    description: 'Fünf Output-Metriken für KI-Nutzung (zurückgewonnene Stunden, Reflex-Zeit, Alignment-Welle, Stale-Quote, Sharing-Rate) und drei Metriken die nichts sagen.',
+    title: 'Output messen im KI-Zeitalter: 5 Metriken · Leader-OS',
+    description: 'Output messen im KI-Zeitalter: fünf Metriken, die zählen · zurückgewonnene Stunden, Reflex-Zeit, Alignment, Stale-Quote, Sharing-Rate · plus drei, die nichts sagen. Von Wlad Jachtchenko.',
     keywords: ['KI Output Messen', 'ChatGPT ROI', 'KI Produktivität messen', 'KI Effekt quantifizieren', 'Output Metriken Manager'],
   },
   related: ['der-business-case-fuer-leader-os', 'das-ki-produktivitaets-paradox'],

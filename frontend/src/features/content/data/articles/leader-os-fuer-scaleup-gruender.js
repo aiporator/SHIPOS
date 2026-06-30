@@ -61,9 +61,10 @@ export default {
       'ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
+    title: 'Leader-OS für Scaleup-Gründer: Series A bis C',
     description:
-      'Was sich für Scaleup-Gründer im Series-A-bis-C-Bereich im Führungs-Alltag bricht. Zwei Hebel-Frameworks ' +
-      'aus Leader-OS, die am schnellsten Reibung herausnehmen.',
+      'Leader-OS für Scaleup-Gründer: was im Series-A-bis-C-Alltag bricht und zwei Hebel-Frameworks, ' +
+      'die am schnellsten Reibung aus deiner Führung nehmen. Von Wlad Jachtchenko.',
     keywords: ['Scaleup Founder Coaching', 'Startup CEO Leadership', 'Series A Coaching', 'Gründer Coaching KI', 'Wlad Jachtchenko Founder'],
   },
   related: ['dein-kalender-fuehrt-dich', 'der-business-case-fuer-leader-os'],

@@ -14,9 +14,9 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Transformationale Führung', 'Transaktionale Führung', 'Leadership'],
   seo: {
-    title: 'Transformationale vs. transaktionale Führung · Leader-OS',
+    title: 'Transformationale vs. transaktionale Führung: Unterschied',
     description:
-      'Transaktionale vs. transformationale Führung: Definition, Unterschiede, wann welcher Stil passt — und warum du beide brauchst. Von Wlad Jachtchenko.',
+      'Transformationale vs. transaktionale Führung: Definition, die Unterschiede, wann welcher Stil passt — und warum du beide brauchst. Von Wlad Jachtchenko.',
     keywords: [
       'transformationale vs transaktionale Führung',
       'transaktionale Führung',

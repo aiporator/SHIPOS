@@ -26,7 +26,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint erlebst du in dreißig Tagen wie sich die drei Schichten in deinen echten Fluss einbauen. Nicht durch Theorie, sondern durch tägliche Anwendung am eigenen Case. Die kostenlose Diagnose ist der ehrlichste erste Schritt.' },
   ],
   seo: {
-    description: 'Drei Schichten von Leader-OS: Methodik als Stütze, Drill als Mechanik, Sharing als Multiplikator. Warum das System wichtiger ist als jedes einzelne Tool.',
+    title: 'Das System hinter dem System · Leader-OS',
+    description: 'Leader-OS als System statt KI-Tool: Methodik als Stütze, Drill als Mechanik, Sharing als Multiplikator. Warum das System jedes Einzel-Tool schlägt. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS System', 'KI System statt Tool', 'Leadership Operating System', 'Methodik Drill Sharing', 'KI Hebel System'],
   },
   related: ['warum-leader-os', 'was-in-leader-os-drin-ist'],

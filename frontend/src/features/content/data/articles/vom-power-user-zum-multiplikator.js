@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Wenn du mehr als drei direct reports hast und systematisch multiplizieren willst: das ist genau der Team-Rollout-Pfad. 30-Min-Beratung um den Setup mit deinem konkreten Team zu planen.' },
   ],
   seo: {
-    description: 'Drei Hebel um vom KI-Power-User zum Team-Multiplikator zu werden: Prompts publizieren, Pilot-Mitarbeiter drillen, sichtbare Effekte zeigen.',
+    title: 'KI im Team: vom Power-User zum Multiplikator',
+    description: 'KI im Team verankern: drei Hebel, um vom KI-Power-User zum Multiplikator zu werden · Prompts publizieren, Pilot-Mitarbeiter drillen und sichtbare Effekte zeigen. Von Wlad Jachtchenko.',
     keywords: ['KI im Team', 'Multiplikator Effekt KI', 'Power User Adoption', 'Team KI Adoption', 'KI Beispiel Manager'],
   },
   related: ['vom-einzel-erfolg-zum-team-system', 'leader-os-im-team-rollout'],

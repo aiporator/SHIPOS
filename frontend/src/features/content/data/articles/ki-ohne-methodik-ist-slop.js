@@ -26,7 +26,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint übst du die Methodik-Installation in jedem deiner Prompts. Nach dreißig Tagen schreibst du Prompts mit eingebauter Methodik ohne darüber nachzudenken · das ist Reflex.' },
   ],
   seo: {
-    description: 'Vier konkrete Beispiele wo Methodik den Unterschied macht zwischen KI-Slop und Substanz: Feedback, Townhall, 1:1, Quartals-Ziel.',
+    title: 'KI Slop vermeiden: 4 Beispiele mit Methodik · Leader-OS',
+    description: 'KI Slop vermeiden: vier Beispiele, wo Methodik über generischen Output und echte Substanz entscheidet — Feedback, Townhall, 1:1, Quartals-Ziel. Von Wlad Jachtchenko.',
     keywords: ['KI Slop', 'AI Slop vermeiden', 'KI Methodik', 'ChatGPT Substanz', 'KI Output Qualität'],
   },
   related: ['das-ki-produktivitaets-paradox', 'das-system-hinter-dem-system'],

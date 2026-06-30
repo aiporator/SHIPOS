@@ -55,9 +55,10 @@ export default {
       'Wenn er sagt: "Skill", ist der Sprint der schnellste Weg sie zu schließen.' },
   ],
   seo: {
+    title: 'Warum Leader-OS: das Führungs-Betriebssystem',
     description:
-      'Warum es Leader-OS gibt: die drei Engpässe klassischer Führungs-Entwicklung (teures Coaching, ' +
-      'Bücher ohne Abruf-Training, Wochenend-Seminare) und wie wir sie mit Frameworks + KI-Coach + Sprint auflösen.',
+      'Warum es Leader-OS gibt: die drei Engpässe der Führungs-Entwicklung · teures Coaching, ' +
+      'Bücher, Seminare · gelöst mit Frameworks, KI-Coach und Sprint. Von Wlad Jachtchenko.',
     keywords: ['Leader-OS', 'Wlad Jachtchenko Plattform', 'KI Leadership Operating System', 'Führungskräfte System', 'Coaching Alternative'],
   },
   related: ['was-in-leader-os-drin-ist', 'wladbot-vs-chatgpt-vs-coach'],

@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Plattform', 'Leader-OS', 'Sprint', 'Onboarding'],
   seo: {
-    title: 'Leader-OS erste 7 Tage: Tag-für-Tag-Anleitung | Leader-OS',
+    title: 'Leader-OS erste 7 Tage: Tag-für-Tag-Anleitung',
     description:
-      'Erste Woche mit Leader-OS: was du an Tag 1, 3, 5, 7 konkret tust. Drills, ' +
-      'Methodik, WladBot-Setup. Leader-OS Sprint-Eröffnung Schritt für Schritt.',
+      'Leader-OS erste 7 Tage: was du an Tag 1, 3, 5 und 7 konkret tust – Drills, ' +
+      'Methodik, WladBot-Setup. Die Sprint-Eröffnung Schritt für Schritt erklärt.',
     canonical: 'https://leader-os.de/journal/die-ersten-7-tage-mit-leader-os',
     keywords: [
       'leader-os erste tage',

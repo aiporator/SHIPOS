@@ -163,9 +163,10 @@ export default {
     },
   ],
   seo: {
+    title: 'ChatGPT Prompts für Führungskräfte: 5 Skripte · Leader-OS',
     description:
-      'Fünf konkrete ChatGPT-Prompts für Führungskräfte: B-W-W Feedback, SEXIER für Townhalls, Einwand-Vorwegnahme ' +
-      'für Verhandlungen, EQ-Diagnose für 1:1s, Freitag-Reflexion. Geprüft gegen Wlads Methodik.',
+      'Fünf ChatGPT-Prompts für Führungskräfte zum Kopieren: B-W-W Feedback, SEXIER für Townhalls, ' +
+      'Einwand-Vorwegnahme, EQ-Diagnose fürs 1:1, Freitag-Reflexion. Von Wlad Jachtchenko.',
     keywords: [
       'ChatGPT Prompts Führungskräfte',
       'AI Leadership Prompts',

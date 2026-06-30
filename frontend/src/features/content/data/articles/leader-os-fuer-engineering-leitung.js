@@ -56,9 +56,10 @@ export default {
       'deinem Backlog und gehen Live durch den ersten Drill.' },
   ],
   seo: {
+    title: 'Leader-OS für Engineering-Leitung: CTO, VP, Tech-Lead',
     description:
-      'Wie Leader-OS Engineering-Verantwortliche unterstützt: drei häufigste Reibungspunkte, dominante ' +
-      'Frameworks (SEXIER, B-W-W, Drei Säulen) und Anpassungen an On-Call-Wochen und Engineering-Sprints.',
+      'Leader-OS für Engineering-Leitung: die drei Reibungspunkte, die stärksten Frameworks ' +
+      'und wie der Sprint sich an deinen Rhythmus anpasst. Von Wlad Jachtchenko.',
     keywords: ['Engineering Leadership Coaching', 'VP Engineering Training', 'Tech Lead Kommunikation', 'CTO Coaching KI', 'Wlad Jachtchenko Engineering'],
   },
   related: ['wie-lena-ihr-townhall-drehte', 'leader-os-im-team-rollout'],

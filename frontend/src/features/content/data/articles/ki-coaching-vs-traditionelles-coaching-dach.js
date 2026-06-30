@@ -38,7 +38,8 @@ export default {
     { type: 'paragraph', text: 'Wer gerade zwischen Coach und KI-Plattform entscheidet: 30-Min-Beratung. Wir empfehlen explizit auch klassisches Coaching wenn es zu deiner aktuellen Frage besser passt. Kein Verkaufs-Druck.' },
   ],
   seo: {
-    description: 'KI-Coaching vs klassisches Coaching im DACH-Markt 2026: drei Dimensionen, ehrliche Markt-Analyse, warum die meisten Senior-Manager beides brauchen.',
+    title: 'KI-Coaching vs traditionelles Coaching: DACH 2026',
+    description: 'KI-Coaching vs klassisches Coaching im DACH-Markt 2026: drei Dimensionen, ehrliche Markt-Analyse und warum die meisten Senior-Manager beides brauchen. Von Wlad Jachtchenko.',
     keywords: ['KI Coaching DACH', 'Coaching Marktanalyse 2026', 'Coaching Alternative', 'Online Leadership Coaching', 'Klassisches vs KI Coaching'],
   },
   related: ['wladbot-vs-chatgpt-vs-coach', 'leader-os-vs-klassisches-coaching'],

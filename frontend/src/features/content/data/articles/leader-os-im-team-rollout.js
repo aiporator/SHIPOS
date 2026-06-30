@@ -65,9 +65,10 @@ export default {
       'Playbook mit und passen ihn an deine Organisation an.' },
   ],
   seo: {
+    title: 'Leader-OS im Team-Rollout: der 4-Wochen-Plan (B2B)',
     description:
-      'Vier-Wochen-Plan für den Rollout von Leader-OS auf zehn bis fünfzig Führungskräfte. Mit Pilot, ' +
-      'Kickoff, parallel-laufenden Sprints und Reflexions-Runde. Beobachtete Completion-Rate 78-85 Prozent.',
+      'Team-Rollout von Leader-OS: der erprobte Vier-Wochen-Plan für zehn bis fünfzig ' +
+      'Führungskräfte. Completion-Rate 78-85 Prozent. Von Wlad Jachtchenko.',
     keywords: ['Leadership Tool Rollout', 'Team Coaching Rollout', 'B2B Leadership Programm', 'Team Sprint Implementation', 'Wlad Jachtchenko Team'],
   },
   related: ['leader-os-fuer-hr-und-people-ops', 'der-business-case-fuer-leader-os'],

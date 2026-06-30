@@ -16,7 +16,7 @@ export default {
   cover: '/wlad/wlad-portrait.jpg',
   tags: ['Führung', 'Laterale Führung', 'Projektleitung', 'Methoden'],
   seo: {
-    title: 'Laterale Führung · Führen ohne Weisungsbefugnis (Definition + Methoden)',
+    title: 'Laterale Führung: Definition + Methoden · Leader-OS',
     description:
       'Laterale Führung erklärt: führen ohne disziplinarische Macht. ' +
       'Definition, die drei Hebel nach Kühl & Schnelle, konkrete Techniken ' +

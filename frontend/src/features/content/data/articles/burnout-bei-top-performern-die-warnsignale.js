@@ -11,10 +11,10 @@ export default {
   cover: null,
   tags: ['Karriere', 'Burnout', 'Selbstführung', 'Identity'],
   seo: {
-    title: 'Burnout bei Top-Performern: 5 Frühwarn-Signale | Leader-OS',
+    title: 'Burnout bei Top-Performern: 5 Warnsignale · Leader-OS',
     description:
-      'Burnout bei Top-Performern erkennen: fünf subtile Frühwarn-Signale die 6 Monate ' +
-      'VOR dem Crash kommen. Aus 17 Jahren Coaching-Erfahrung von Wlad Jachtchenko.',
+      'Burnout bei Top-Performern erkennen: fünf subtile Warnsignale, die 6 Monate vor dem ' +
+      'Crash auftauchen, und was sie stoppt. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/burnout-bei-top-performern-die-warnsignale',
     keywords: [
       'burnout top performer',

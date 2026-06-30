@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Leader-OS wurde explizit gegen das KI-Produktivitäts-Paradox gebaut. Nicht "noch ein Tool", sondern ein System das in dreißig Tagen aus deiner Tool-Nutzung einen Reflex macht. Die kostenlose Diagnose zeigt dir in zehn Minuten welcher der drei Mechanismen bei DIR der dominante ist.' },
   ],
   seo: {
-    description: 'Warum 78% der DACH-Führungskräfte KI nutzen aber nur 14% einen Output-Lift quantifizieren können. Drei Mechanismen, vier Symptome, eine Lösung.',
+    title: 'KI-Produktivitäts-Paradox: 3 Ursachen · Leader-OS',
+    description: 'KI-Produktivitäts-Paradox erklärt: warum 78% der Führungskräfte KI nutzen, aber nur 14% einen Output-Lift messen. Drei Mechanismen, vier Symptome, eine Lösung. Von Wlad Jachtchenko.',
     keywords: ['KI Produktivität', 'AI Productivity Paradox', 'ChatGPT Effekt', 'KI ROI Führungskraft', 'KI ohne Output', 'KI Zeit verschwendet'],
   },
   related: ['warum-dein-chatgpt-tab-dich-nicht-effizienter-macht', 'wenn-deine-ki-investition-versickert-fuenf-diagnose-fragen'],

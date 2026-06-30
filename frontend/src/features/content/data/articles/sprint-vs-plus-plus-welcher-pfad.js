@@ -11,10 +11,11 @@ export default {
   cover: null,
   tags: ['Plattform', 'Pricing', 'Sprint', 'Plus-Plus'],
   seo: {
-    title: 'Sprint vs Plus-Plus: welcher Leader-OS Pfad für dich | Leader-OS',
+    title: 'Sprint vs Plus-Plus: welcher Leader-OS Pfad?',
     description:
-      'Sprint (997 €) oder Plus-Plus (4 797 €) · welcher Leader-OS Pfad passt zu ' +
-      'welcher Situation. Ehrliche Entscheidungs-Hilfe von Wlad Jachtchenko.',
+      'Leader-OS Sprint (997 €) oder Plus-Plus (4 797 €): welcher Pfad passt zu ' +
+      'welcher Situation und welchem Budget. Ehrliche Entscheidungs-Hilfe von Wlad ' +
+      'Jachtchenko.',
     canonical: 'https://leader-os.de/journal/sprint-vs-plus-plus-welcher-pfad',
     keywords: [
       'leader-os sprint',

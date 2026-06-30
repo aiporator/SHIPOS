@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Wenn dein Team größer als zehn Personen ist und du explizit aufbauen willst: 30-Min-Beratung mit Rollout-Playbook. Wir bringen die Schritte mit die in 80 Prozent der Fälle funktionieren.' },
   ],
   seo: {
-    description: 'Drei Sharing-Schichten um aus deinen Sprint-Wins einen Team-Effekt zu machen: implizit über Methodik, explizit über Prompt-Bibliothek, strukturell über L&D-Rollout.',
+    title: 'Vom Einzel-Erfolg zum Team-System: 3 Schichten',
+    description: 'Vom Einzel-Erfolg zum Team-System: drei Sharing-Schichten die deine Sprint-Wins multiplizieren · implizit über Methodik, explizit über Prompts, strukturell über L&D. Von Wlad Jachtchenko.',
     keywords: ['KI im Team', 'Team Rollout KI', 'Sprint Team', 'Leadership Multiplikator', 'KI Adoption Team'],
   },
   related: ['leader-os-im-team-rollout', 'leader-os-fuer-hr-und-people-ops'],

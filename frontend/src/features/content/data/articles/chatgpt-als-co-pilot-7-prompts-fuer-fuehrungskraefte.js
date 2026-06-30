@@ -12,10 +12,11 @@ export default {
   cover: null,
   tags: ['KI', 'Prompts', 'ChatGPT', 'Tools', 'Führung'],
   seo: {
-    title: 'ChatGPT für Führungskräfte: 7 Prompts die wirklich funktionieren | Leader-OS',
+    title: 'ChatGPT für Führungskräfte: 7 Prompts · Leader-OS',
     description:
-      'ChatGPT für Führungskräfte einsetzen: 7 konkrete Prompt-Vorlagen für ' +
-      'Mitarbeitergespräch, Konflikt, Strategie, Feedback. Wlad Jachtchenkos Methodik.',
+      'ChatGPT für Führungskräfte: 7 erprobte Prompt-Vorlagen für ' +
+      'Mitarbeitergespräch, Konflikt, Strategie und Feedback · in 90 Sekunden ' +
+      'einsatzbereit. Von Wlad Jachtchenko.',
     canonical: 'https://leader-os.de/journal/chatgpt-als-co-pilot-7-prompts-fuer-fuehrungskraefte',
     keywords: [
       'chatgpt für führungskräfte',

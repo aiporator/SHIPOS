@@ -30,7 +30,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint erlebst du Schicht 1 der Architektur. Wenn du danach mehr willst, wechselst du in Plus-Plus oder Spezial-Kurse. Wenn du nach dreißig Tagen sagst "das war es", bleibst du mit lebenslangem Zugriff auf alle Werkzeuge ausgestattet · du hast nie nur das Sprint-Erlebnis gekauft.' },
   ],
   seo: {
-    description: 'Warum wir das Wort "Transformation" meiden und stattdessen "Architektur" sprechen. Drei konkrete Unterschiede zwischen Erlebnis und Werkzeug.',
+    title: 'Mehr als eine Transformation: Lern-Architektur',
+    description: 'Warum wir das Wort „Transformation" meiden und von Lern-Architektur sprechen: drei konkrete Unterschiede zwischen Einmal-Erlebnis und Werkzeug für 30 Jahre Karriere. Von Wlad Jachtchenko.',
     keywords: ['Mehr als Transformation', 'Leadership Architektur', 'Leader-OS Philosophie', 'Lernsystem Führung', 'Skill statt Erlebnis'],
   },
   related: ['die-leader-os-kurs-architektur', 'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie'],

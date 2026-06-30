@@ -28,7 +28,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du die ersten 100 Tage als konkrete Drill-Cases · dein erstes 1:1 mit dem Senior-Architect, deine erste Roadmap-Skizze für den CEO, deine erste Skip-Level-Konversation. Real, nicht Theorie.' },
   ],
   seo: {
-    description: 'Vier Phasen für die ersten 100 Tage als CTO oder VP Engineering: Daten ohne Entscheidung, drei Mini-Signale, strategische Klarheit, Senior-Hire-Entscheidung.',
+    title: 'Erste 100 Tage als CTO oder VP Engineering: Anleitung',
+    description: 'Die ersten 100 Tage als CTO oder VP Engineering in vier Phasen: Daten, Mini-Signale, strategische Klarheit, Senior-Hire. Von Wlad Jachtchenko.',
     keywords: ['Erste 100 Tage CTO', 'Neuer CTO Coaching', 'VP Engineering Onboarding', 'Tech-Lead Beförderung', 'CTO Karriere DACH'],
   },
   related: ['leader-os-fuer-cto-und-tech-vorstand', 'leader-os-fuer-neu-befoerderte-leads'],

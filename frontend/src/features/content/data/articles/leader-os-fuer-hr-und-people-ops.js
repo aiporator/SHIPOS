@@ -66,9 +66,11 @@ export default {
       'Beispiel-Setup aus deiner Branche mit und zeigen dir wie das Reporting aussieht.' },
   ],
   seo: {
+    title: 'Leader-OS für HR und People Ops: L&D mit KI',
     description:
-      'Wie Leader-OS in eine bestehende L&D-Architektur passt: Sprint für neue Leads, Plus-Plus für High ' +
-      'Performer, Mentoring für Top-Talent. Plus welche Daten Programm-Owner bekommen.',
+      'Leader-OS für HR und People Ops: wie es in eine bestehende L&D-Architektur ' +
+      'passt · Sprint für neue Leads, Plus-Plus für High Performer, Mentoring für ' +
+      'Top-Talent. Plus Reporting für Programm-Owner.',
     keywords: ['Leadership Programm HR', 'People Ops Leadership Development', 'L&D Leadership Training KI', 'HR Leadership Tool', 'Wlad Jachtchenko Enterprise'],
   },
   related: ['der-business-case-fuer-leader-os', 'leader-os-im-team-rollout'],

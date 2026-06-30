@@ -33,7 +33,8 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du ALPEN als eine deiner dreißig Drill-Cases. Du protokollierst eine Woche, WladBot identifiziert deine drei häufigsten Streich-Vermeidungs-Muster und schlägt konkrete Mikro-Experimente vor.' },
   ],
   seo: {
-    description: 'Die ALPEN-Methode für Führungskräfte: Aufgaben, Länge, Puffer, Entscheidungen, Nachkontrolle. Plus warum E der entscheidende Schritt ist.',
+    title: 'ALPEN-Methode: Anleitung für Führungskräfte · Leader-OS',
+    description: 'ALPEN-Methode einfach erklärt: Aufgaben, Länge, Puffer, Entscheidungen, Nachkontrolle. Warum E der Schritt ist, der Tagesplanung zu Führung macht. Von Wlad Jachtchenko.',
     keywords: ['ALPEN Methode', 'Zeitmanagement Führungskraft', 'Lothar Seiwert ALPEN', 'Tagesplanung Manager', 'Prioritäten setzen Führung', 'Deep Work Methode'],
   },
   related: ['dein-kalender-fuehrt-dich', 'leader-os-fuer-scaleup-gruender'],
