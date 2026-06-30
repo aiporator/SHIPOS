@@ -127,7 +127,7 @@ const ARCHETYPES = {
     platform: [
       { title: '15-Minuten Mikro-Drills', body: 'Tägliche, fokussierte Übungen die hängen bleiben · nicht Theorie, sondern Muskel.' },
       { title: 'WladBot lernt deine DNA', body: 'Je länger du auf der Plattform bist, desto mehr klingt KI nach dir, nicht nach Standard.' },
-      { title: 'Kreator-Community',       body: 'Klasse 0001: Creator und Solo-Founder die KI als Verstärker ihrer Stimme nutzen.' },
+      { title: 'Kreator-Community',       body: 'Lerne mit anderen Creatorn und Solo-Foundern, die KI als Verstärker ihrer Stimme nutzen.' },
     ],
   },
   visionaer: {
@@ -169,11 +169,11 @@ const ARCHETYPES = {
     diagnose: [
       { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt · Kollegen, Klienten, Markt, Umfeld.' },
       { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
-      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Klasse 0001) du am schnellsten vorankommst.' },
+      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Peer-Community) du am schnellsten vorankommst.' },
     ],
     platform: [
-      { title: 'Klasse 0001 · Peer-Kreis',  body: '50 ausgewählte Menschen die vorausgehen statt nachzulaufen · geschlossene Klasse, Senior-Niveau.' },
-      { title: 'Senior-Sprint',             body: 'Beschleunigter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
+      { title: 'Deine Peer-Community',       body: 'Lerne mit anderen Führungskräften die vorausgehen statt nachzulaufen · echter Austausch auf Augenhöhe.' },
+      { title: 'Beschleunigter Sprint',     body: 'Strukturierter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
       { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
   },
@@ -554,7 +554,7 @@ export const ArchetypeQuizSection = () => {
                       ))}
                     </ul>
                     <div className="mt-6 pt-5 border-t border-foreground/12 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/55">
-                      <span>▸ KLASSE 0001 · 20 / 30 PLÄTZE · DER ANFANG</span>
+                      <span>▸ DEIN LEADER-CHECK ENTSCHEIDET</span>
                       <span>▸ 14 TAGE KOSTENLOS TESTEN</span>
                       <span>▸ COACHING MIT WLAD</span>
                     </div>
@@ -642,8 +642,8 @@ export const ArchetypeQuizSection = () => {
         {/* Coda · micro social-proof */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
-          <span>▸ 400 000 KUNDEN</span>
-          <span>▸ KLASSE 0001 · 18 / 30 PLÄTZE WEG</span>
+          <span>▸ 420 000 KUNDEN</span>
+          <span>▸ LEADER-CHECK · 10 MIN · KOSTENLOS</span>
         </div>
       </div>
     </section>

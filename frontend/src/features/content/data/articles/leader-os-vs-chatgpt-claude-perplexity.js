@@ -58,7 +58,7 @@ export default {
       'WladBot kennt deinen Sprint, deine Diagnose-Scores, deine letzten Drills. Trainiert auf 2 212 authentische Wlad-Chunks und antwortet in Wlads Ton.',
       'Elf Frameworks · kuratiert, nicht zehntausend. B·W·W, Harvard-Verhandlung, Schulz von Thun, ALPEN, 5-Rollen. Du lernst eine Methode, drillst sie, hast sie verfügbar.',
       '30-Tage-Sprint mit täglichen 15-Minuten-Übungen an deinen echten Fällen. Strukturierte Progression statt freier Spielwiese.',
-      'Live-Sessions mit Wlad persönlich (Plus-Plus). Drill-Channel für sofortige Anwendung. Charter-Klasse 0001 mit Peer-Sparring.',
+      'Live-Sessions mit Wlad persönlich (Plus-Plus). Drill-Channel für sofortige Anwendung. Leader-OS-Community mit Peer-Sparring.',
     ] },
     { type: 'heading', level: 2, text: 'Die ehrliche Empfehlung.' },
     { type: 'paragraph', text:

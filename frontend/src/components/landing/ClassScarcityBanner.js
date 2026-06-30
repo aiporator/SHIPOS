@@ -1,61 +1,28 @@
 import { useEffect, useState } from 'react';
 
 /**
- * ClassScarcityBanner · top-of-page editorial scarcity strip.
+ * ClassScarcityBanner · top-of-page editorial invite strip.
  *
- * Klasse 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
- * fake-urgency. Seat-count tickt langsam runter über die Zeit,
- * persistent in localStorage damit der Wert nicht bei jedem Reload
- * zurückspringt. Dismissible per Session.
+ * Benefit-led, inklusiv: führt mit dem kostenlosen Leader-Check und der
+ * Einladung, Teil von Leader-OS zu werden · keine Scarcity, keine
+ * Seat-Counts. Dismissible per Session.
  *
  * Editorial single-line: lime live-dot, mono BIB-code separators,
- * one inline link, optional dismiss. No progress bar (the seat
- * count itself communicates urgency; a bar duplicates without
- * adding signal and reads as AI-SaaS chrome).
+ * one inline link, optional dismiss. No progress bar · the message is
+ * purely action + benefit, which converts better than chrome.
  */
 
-// v3 key invalidates any stale v2 counter so the launch-day reset
-// (LAUNCH_ANCHOR moved forward, INITIAL_SEATS=20) is picked up on every
-// returning visitor's first render.
-const STORAGE_SEATS = 'leaderos_class_0001_seats_v3';
-const STORAGE_DISMISS = 'leaderos_class_0001_dismissed';
-const INITIAL_SEATS = 20;
-const FLOOR_SEATS = 5;
-
-const computeSeatsRemaining = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_SEATS);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (parsed && typeof parsed.seats === 'number' && Date.now() - parsed.ts < 1000 * 60 * 30) {
-        return parsed.seats;
-      }
-    }
-  } catch { /* ignore */ }
-
-  // Launch-day anchor · resets so today's visitors see "20 von 30 frei"
-  // and the counter ticks down from there (1 seat every ~12 h until the
-  // FLOOR of 5 holds the line · ~7 days of soft decay).
-  const LAUNCH_ANCHOR = Date.parse('2026-06-26T06:00:00+02:00');
-  const hoursElapsed = Math.max(0, (Date.now() - LAUNCH_ANCHOR) / (1000 * 60 * 60));
-  const decay = Math.floor(hoursElapsed / 12);
-  const seats = Math.max(FLOOR_SEATS, INITIAL_SEATS - decay);
-
-  try {
-    localStorage.setItem(STORAGE_SEATS, JSON.stringify({ seats, ts: Date.now() }));
-  } catch { /* ignore */ }
-
-  return seats;
-};
+// The banner leads with the free Leader-Check action and a clear invite
+// to join Leader-OS · benefit-first, no counters the visitor can't
+// verify. Only the per-session dismiss flag remains.
+const STORAGE_DISMISS = 'leaderos_charter_0001_dismissed';
 
 export const ClassScarcityBanner = () => {
   const [visible, setVisible] = useState(false);
-  const [seats, setSeats] = useState(INITIAL_SEATS);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (sessionStorage.getItem(STORAGE_DISMISS) === '1') return;
-    setSeats(computeSeatsRemaining());
     setVisible(true);
   }, []);
 
@@ -69,7 +36,7 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Klasse 0001. Plätze begrenzt."
+      aria-label="Werde Teil von Leader-OS. Starte mit dem kostenlosen Leader-Check."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
@@ -80,22 +47,23 @@ export const ClassScarcityBanner = () => {
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          KLASSE 0001
+          WERDE TEIL
         </span>
 
         {/* Mono hairline separator */}
         <span aria-hidden className="hidden md:inline-block w-px h-3 bg-white/20" />
 
-        {/* Inline scarcity line · tagline anchored on the right so even
-            on narrow screens the seats count + tagline both stay legible. */}
+        {/* Inline action line · the free Leader-Check is the gateway.
+            No seat-count number anymore · the message is purely the
+            action + benefit, which converts better than a counter the
+            visitor can't verify. */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
-          Nur <span className="text-brand font-black tabular-nums">{seats}</span>
-          <span className="text-white/55"> von 30 Charter-Plätzen frei</span>
-          <span className="hidden md:inline text-white/35"> · Klasse 0001 ist erst der Anfang.</span>
+          <span className="text-white">10 Minuten Leader-Check</span>
+          <span className="text-white/55"> · finde in zehn Minuten heraus wo du stehst und ob Leader-OS zu dir passt.</span>
         </p>
 
-        {/* Inline CTA · pushes the leadercheck diagnose hard so the
-            top-of-page micro-conversion stays one click away. */}
+        {/* Inline CTA · the free Leader-Check is the micro-conversion
+            that feeds LeaderOS · one click away, top of every page. */}
         <a
           href="https://leadercheck.de"
           target="_blank"
@@ -103,7 +71,7 @@ export const ClassScarcityBanner = () => {
           className="hidden sm:inline-flex items-center gap-1.5 px-3 h-7 bg-brand hover:bg-white text-black font-mono font-bold tracking-[0.18em] uppercase text-[10.5px] transition-colors shrink-0"
           data-testid="class-scarcity-cta"
         >
-          Diagnose starten <span aria-hidden>→</span>
+          Kostenlos starten <span aria-hidden>→</span>
         </a>
 
         {/* Dismiss, muted but reachable */}

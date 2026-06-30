@@ -22,6 +22,10 @@
              Claude, Perplexity et al. a concise, structured summary of
              the site they can pull on a single fetch. -->
         <link rel="llms" href="/llms.txt" />
+        <!-- RSS feed · discoverable to Feedly + Inoreader + Mailchimp RSS-
+             to-email + Google Discover. Browsers auto-show the orange "feed
+             available" indicator when this link is present. -->
+        <link rel="alternate" type="application/rss+xml" title="Leader-OS Feldnotizen · Wlad Jachtchenko" href="https://leader-os.de/rss.xml" />
 
         <!-- ════════════════════════════════════════════════════════════════ -->
         <!-- OPEN GRAPH · LinkedIn, Facebook, Slack, Discord                  -->
@@ -32,13 +36,13 @@
         <meta property="og:locale:alternate" content="en_US" />
         <meta property="og:url" content="https://leader-os.de/" />
         <meta property="og:title" content="Leader-OS · 14 Tage kostenlos testen. Dein Führungs-OS mit Wlad." />
-        <meta property="og:description" content="Elf Frameworks. Ein KI-Coach. 14 Tage kostenlos · keine Karte · jederzeit kündbar. Wlad Jachtchenko · 3× SPIEGEL-Bestseller. Klasse 0001 jetzt offen." />
-        <meta property="og:image" content="https://leader-os.de/og-default.png" />
-        <meta property="og:image:secure_url" content="https://leader-os.de/og-default.png" />
-        <meta property="og:image:type" content="image/png" />
+        <meta property="og:description" content="Elf Frameworks. Ein KI-Coach. 14 Tage kostenlos · keine Karte · jederzeit kündbar. Wlad Jachtchenko · 3× SPIEGEL-Bestseller. Werde jetzt Teil von Leader-OS." />
+        <meta property="og:image" content="https://leader-os.de/og-home.jpg" />
+        <meta property="og:image:secure_url" content="https://leader-os.de/og-home.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Leader-OS · Sprint mit Wlad. 30 Tage. Klasse 0001." />
+        <meta property="og:image:alt" content="Leader-OS · Führung ist Skill · 14 Tage kostenlos testen" />
 
         <!-- ════════════════════════════════════════════════════════════════ -->
         <!-- X (Twitter) Cards                                                 -->
@@ -47,9 +51,9 @@
         <meta name="twitter:site" content="@WladTraining" />
         <meta name="twitter:creator" content="@WladTraining" />
         <meta name="twitter:title" content="Leader-OS · 14 Tage kostenlos testen." />
-        <meta name="twitter:description" content="Elf Frameworks. KI-Coach 24/7. Wlad Jachtchenko. 14 Tage kostenlos · keine Karte. Klasse 0001 offen." />
-        <meta name="twitter:image" content="https://leader-os.de/og-default.png" />
-        <meta name="twitter:image:alt" content="Leader-OS · Sprint mit Wlad. Klasse 0001." />
+        <meta name="twitter:description" content="Elf Frameworks. KI-Coach 24/7. Wlad Jachtchenko. 14 Tage kostenlos · keine Karte. Werde Teil von Leader-OS." />
+        <meta name="twitter:image" content="https://leader-os.de/og-home.jpg" />
+        <meta name="twitter:image:alt" content="Leader-OS · Führung ist Skill · 14 Tage kostenlos" />
 
         <!-- ════════════════════════════════════════════════════════════════ -->
         <!-- STRUCTURED DATA · JSON-LD (Organization + Course + Person)       -->
@@ -91,7 +95,8 @@
               "description": "Europas führender Argumentations-Coach. 3× SPIEGEL-Bestseller, 400 000+ trainierte Klienten, 15 Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS.",
               "url": "https://leader-os.de/wlad-jachtchenko",
               "image": "https://leader-os.de/wlad/wlad-portrait.jpg",
-              "birthPlace": { "@type": "Place", "name": "Kiew, Ukraine" },
+              "birthDate": "1985-01-11",
+              "birthPlace": { "@type": "Place", "name": "Dnipro, Ukraine" },
               "knowsAbout": [
                 "Boardroom-Rhetorik",
                 "Argumentation",
@@ -105,7 +110,7 @@
               ],
               "worksFor": [
                 { "@type": "Organization", "name": "Leader-OS", "url": "https://leader-os.de" },
-                { "@type": "EducationalOrganization", "name": "Argumentorik-Akademie", "url": "https://wladjachtchenko.de" }
+                { "@type": "EducationalOrganization", "name": "Argumentorik-Akademie", "url": "https://wlad-jachtchenko.com" }
               ],
               "sameAs": [
                 "https://www.linkedin.com/in/wladjachtchenko/",
@@ -177,14 +182,9 @@
               "operatingSystem": "Web",
               "offers": {
                 "@type": "Offer",
-                "price": "997",
-                "priceCurrency": "EUR"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "ratingCount": "127",
-                "bestRating": "5"
+                "price": "0",
+                "priceCurrency": "EUR",
+                "description": "14 Tage kostenlos testen, danach Sprint ab 997 EUR"
               }
             }
           ]
@@ -206,16 +206,99 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://accounts.google.com" />
+        <!-- Eager TCP/TLS connect for the analytics + error stack so the first
+             event fire (pageview, identify) doesn't pay the handshake. -->
         <link rel="dns-prefetch" href="https://eu.i.posthog.com" />
+        <link rel="dns-prefetch" href="https://eu-assets.i.posthog.com" />
+        <link rel="dns-prefetch" href="https://browser.sentry-cdn.com" />
+        <!-- Social-share targets · users click these directly from ShareBar,
+             pre-resolving DNS makes the first click feel instant. -->
+        <link rel="dns-prefetch" href="https://www.linkedin.com" />
+        <link rel="dns-prefetch" href="https://twitter.com" />
+        <link rel="dns-prefetch" href="https://wa.me" />
+        <!-- App-tier handoff · most landing visitors who click 14-day-trial
+             land on leaderos.de · prefetch DNS so the cross-host nav is fast. -->
+        <link rel="dns-prefetch" href="https://leaderos.de" />
+        <link rel="dns-prefetch" href="https://leadercheck.de" />
+        <!-- High-value internal next-routes · /journal is the second-most
+             visited page after /. Prefetch the bundle on idle so click is
+             instant. -->
+        <link rel="prefetch" href="/journal" as="document" />
+        <link rel="prefetch" href="/wlad-jachtchenko" as="document" />
         <!-- LCP-critical · Wlad portrait is the hero avatar, the §04 chapter
              photo, the lead-capture modal, and the appointment booking card.
-             Preload triggers the fetch in parallel with HTML parse so the
-             first paint isn't blocked on a separate request round-trip. -->
-        <link rel="preload" as="image" href="/wlad/wlad-portrait.jpg" fetchpriority="high" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+             Preload the 44KB WebP (was a 2.4MB mislabelled PNG) in parallel
+             with HTML parse. type-gated so only WebP-capable browsers fetch
+             it; the rare non-WebP browser loads the 97KB jpg via the img's
+             onError fallback chain. -->
+        <link rel="preload" as="image" href="/wlad/wlad-portrait.webp" type="image/webp" fetchpriority="high" />
+        <!-- Font payload trimmed from 6→3 weights per family · the brand DNA
+             uses 400 (body), 700 (semibold/labels), 900 (Outfit-Italic-Black
+             display headlines). Dropping the unused 500/600/800 cuts the
+             CSS + WOFF2 payload by ~40% with zero visual change. -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:ital,wght@0,400;0,700;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
         <!-- Harmless Chrome bug: silence DataCloneError on PerformanceServerTiming -->
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- CORE WEB VITALS · real-user perf monitoring → PostHog            -->
+        <!-- ════════════════════════════════════════════════════════════════ -->
+        <!-- Captures LCP (Largest Contentful Paint), CLS (Cumulative Layout
+             Shift), and INP (Interaction to Next Paint) from real visitors
+             and fires them as PostHog events. Lets us see actual field data
+             instead of just Lighthouse lab numbers. Gated on consent: only
+             fires when posthog.__SV (initialized) is truthy. -->
+        <script>
+          (function(){
+            try {
+              if (!('PerformanceObserver' in window)) return;
+              var send = function(name, value, id){
+                try {
+                  if (window.posthog && window.posthog.__SV && window.posthog.capture) {
+                    window.posthog.capture('web_vital', {
+                      metric: name,
+                      value: Math.round(value),
+                      id: id,
+                      path: window.location.pathname,
+                    });
+                  }
+                } catch(_) { /* never block UX */ }
+              };
+              // LCP · largest above-fold paint
+              try {
+                new PerformanceObserver(function(list){
+                  var entries = list.getEntries();
+                  var last = entries[entries.length - 1];
+                  if (last) send('LCP', last.renderTime || last.loadTime || last.startTime);
+                }).observe({ type: 'largest-contentful-paint', buffered: true });
+              } catch(_) {}
+              // CLS · layout shift sum
+              try {
+                var cls = 0;
+                new PerformanceObserver(function(list){
+                  list.getEntries().forEach(function(e){
+                    if (!e.hadRecentInput) cls += e.value;
+                  });
+                  send('CLS', cls * 1000);
+                }).observe({ type: 'layout-shift', buffered: true });
+              } catch(_) {}
+              // INP · responsiveness (Chrome 96+)
+              try {
+                new PerformanceObserver(function(list){
+                  list.getEntries().forEach(function(e){
+                    if (e.duration > 40) send('INP', e.duration);
+                  });
+                }).observe({ type: 'event', durationThreshold: 40, buffered: true });
+              } catch(_) {}
+              // TTFB · server response time
+              try {
+                var nav = performance.getEntriesByType('navigation')[0];
+                if (nav) send('TTFB', nav.responseStart);
+              } catch(_) {}
+            } catch(_) {}
+          })();
+        </script>
 
         <!-- Cal.com embed: booking modal for /wlad-universe + Coaching pages -->
         <script>

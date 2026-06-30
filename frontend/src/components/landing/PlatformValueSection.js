@@ -1,4 +1,5 @@
 import { ArrowRight, Bot, Layers, Target, Compass, Calendar, Users } from 'lucide-react';
+import { SpotlightCard } from './SpotlightCard';
 
 /**
  * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
@@ -12,7 +13,7 @@ import { ArrowRight, Bot, Layers, Target, Compass, Calendar, Users } from 'lucid
  * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets · die
  * Plattform ist das was du AB TAG 1 in der Hand hast.
  *
- * Closing-CTA-Strip bündelt die Charter-Konditionen (30 Tage + 12 Monate)
+ * Closing-CTA-Strip bündelt die Leader-OS-Konditionen (30 Tage + 12 Monate)
  * + Preis + Button · damit der Übergang in den Sprint-Kauf einlippig ist.
  */
 
@@ -75,28 +76,29 @@ const FEATURES = [
   {
     bib: 'P·06',
     icon: Users,
-    title: 'Klasse 0001 Peer-Kreis',
-    headline: '30 hand-picked Charter.',
+    title: 'Deine Peer-Community',
+    headline: 'Lerne mit anderen Führungskräften.',
     body:
-      'Geschlossener Slack-Channel mit den ersten 30 Mitgliedern + ' +
-      'Wlad. Peer-Sparring, Job-Board, Intros zwischen Klienten. ' +
+      'Eigener Slack-Channel mit anderen Führungskräften + Wlad. ' +
+      'Peer-Sparring, Job-Board, Intros zwischen Klienten. ' +
       'Lifetime-Zugang, auch nach Sprint-Ende.',
-    proof: 'CHARTER-COHORT · LIFETIME',
+    proof: 'PEER-COMMUNITY · LIFETIME',
   },
 ];
 
 const FeatureCard = ({ feature }) => {
   const Icon = feature.icon;
   return (
-    <article
+    <SpotlightCard
       data-testid={`platform-feature-${feature.bib}`}
-      className="group relative bg-white border-2 border-black p-6 md:p-7 flex flex-col h-full transition-all hover:shadow-[8px_8px_0_0_#BFFF00] hover:-translate-y-1"
+      className="group bg-white border-2 border-black h-full transition-all duration-200 hover:shadow-[8px_8px_0_0_#BFFF00] hover:-translate-y-1"
+      innerClassName="p-6 md:p-7 flex flex-col h-full"
     >
       <div className="flex items-start justify-between gap-4 mb-5">
         <span className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand-strong">
           ▸ {feature.bib}
         </span>
-        <Icon size={22} strokeWidth={2} className="text-black/70" />
+        <Icon size={22} strokeWidth={2} className="text-black/70 transition-transform duration-300 group-hover:scale-110 group-hover:text-black" />
       </div>
 
       <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-black/55 mb-2">
@@ -114,7 +116,7 @@ const FeatureCard = ({ feature }) => {
       <div className="mt-5 pt-4 border-t border-black/12 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-black/55">
         ▸ {feature.proof}
       </div>
-    </article>
+    </SpotlightCard>
   );
 };
 
@@ -179,7 +181,7 @@ export const PlatformValueSection = () => (
         <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
           <div className="md:col-span-8">
             <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
-              ▸ KLASSE 0001 · 20 / 30 PLÄTZE FREI · DER ANFANG
+              ▸ WERDE TEIL · START MIT DEM LEADER-CHECK
             </div>
             <h3
               className="text-[28px] md:text-[42px] leading-[1.02] tracking-[-0.03em]"

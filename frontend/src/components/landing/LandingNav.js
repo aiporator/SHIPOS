@@ -62,7 +62,22 @@ export const LandingNav = () => {
             On mobile the diagnose stays visible (sm:inline-flex) since
             it's the lower-friction option, the trial collapses to
             "14 Tage". */}
+        {/* Funnel-ordered: quiet leaderos.de login (the app) · the free
+            Leader-Check on leadercheck.de · and the lime primary is the
+            Beratungsgespräch, our preferred conversion (scrolls to the
+            cal.com booking section). All converge on the same email_lower
+            identity, so offering the soft (check), self-serve (app) and
+            consultative (call) paths side-by-side beats gating any of them. */}
         <nav className="flex items-center gap-2 sm:gap-3">
+          <a
+            href="https://leaderos.de/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center h-10 px-2 text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/60 hover:text-foreground transition-colors"
+            data-testid="landing-nav-login"
+          >
+            Anmelden
+          </a>
           <a
             href="https://leadercheck.de"
             target="_blank"
@@ -72,25 +87,23 @@ export const LandingNav = () => {
             }`}
             data-testid="landing-nav-diagnose"
           >
-            <span className="hidden sm:inline">Diagnose · 10 Min</span>
-            <span className="sm:hidden">Diagnose</span>
+            <span className="hidden sm:inline">Leader-Check · 10 Min</span>
+            <span className="sm:hidden">Check</span>
           </a>
-          <a
-            href="https://leaderos.de/signup?trial=14"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/#beratung"
             className={`group inline-flex items-center gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
               scrolled ? 'h-10 px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-5 text-[11px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-cta"
           >
-            <span className="hidden sm:inline">14 Tage kostenlos</span>
-            <span className="sm:hidden">14 Tage</span>
+            <span className="hidden sm:inline">Beratungsgespräch</span>
+            <span className="sm:hidden">Beratung</span>
             <ArrowRight
               size={scrolled ? 14 : 16}
               className="group-hover:translate-x-0.5 transition-transform"
             />
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

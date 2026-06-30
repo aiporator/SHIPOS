@@ -5,8 +5,9 @@ import { LandingNav } from '../../../components/landing/LandingNav';
 import { LandingFooter } from '../../../components/landing/LandingFooter';
 import { listArticles } from '../data/registry';
 import { groupByTaxonomy } from '../data/taxonomy';
-import { resolveCover } from '../utils/covers';
 import { applySeoToDocument } from '../utils/seo';
+import { ArticleCover } from '../components/ArticleCover';
+import { WladBotThumbnail } from '../components/WladBotThumbnail';
 import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
 
 /**
@@ -16,7 +17,7 @@ import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
  *      Off-Crypto / The Players' Tribune lovechild
  *   2. Front-page lede grid: big halftone-lime feature image (left) +
  *      dated news column (center) + Hot Stories sidebar (right)
- *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Klasse-0001
+ *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Leader-OS
  *      live-counter / Leadership-Summit · 4 quick-access tiles
  *   4. Funnel CTA breaks weaved in between category sections
  *   5. Per-category newspaper-style spreads (image + headlines)
@@ -65,7 +66,7 @@ const TICKER = [
   { label: 'BESTSELLER', value: '3 SPIEGEL' },
   { label: 'BÜCHER',   value: '8 LÄNDER' },
   { label: 'PODCAST',  value: '10M+',  tone: 'up' },
-  { label: 'KLASSE 0001', value: 'LIVE', tone: 'up' },
+  { label: 'WERDE TEIL', value: 'LIVE', tone: 'up' },
   { label: 'WLADBOT',  value: '24/7' },
 ];
 
@@ -165,16 +166,13 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
               >
                 {featureArticle.title.replace(/\.$/, '')}
               </h2>
-              <div className="newsroom-halftone aspect-[4/5] md:aspect-[5/6] bg-foreground/10 relative">
-                <img
-                  src={resolveCover(featureArticle, 'lead')}
-                  alt={featureArticle.title}
-                  loading="eager"
-                  fetchpriority="high"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1100ms] ease-out"
-                />
-              </div>
+              <ArticleCover
+                article={featureArticle}
+                eager
+                eyebrow="FEATURE"
+                wrapClassName="aspect-[4/5] md:aspect-[5/6] bg-foreground/10"
+                imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1100ms] ease-out"
+              />
               <div className="mt-4 flex items-center justify-between font-mono text-[10.5px] font-bold uppercase tracking-[0.22em] text-foreground/65">
                 <span>{authorOf(featureArticle)}</span>
                 <span className="text-foreground/45">{readingMinutes(featureArticle)} MIN · ARTIKEL LESEN →</span>
@@ -224,15 +222,13 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
                   data-testid={`journal-hot-${h.article.slug}`}
                   className="group block"
                 >
-                  <div className={`newsroom-halftone ${h.tone === 'ink' ? 'newsroom-halftone--ink' : ''} aspect-[4/3] bg-foreground/10 relative`}>
-                    <img
-                      src={resolveCover(h.article, 'wide')}
-                      alt={h.article.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[900ms] ease-out"
-                    />
-                  </div>
+                  <ArticleCover
+                    article={h.article}
+                    ink={h.tone === 'ink'}
+                    eyebrow="HOT"
+                    wrapClassName="aspect-[4/3] bg-foreground/10"
+                    imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[900ms] ease-out"
+                  />
                   <div className="mt-3 font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-foreground/60">
                     {h.label}
                   </div>
@@ -254,7 +250,7 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
 
 // ─────────────────────────────────────────────────────────────────────────
 // AUS WLAD'S WELT · News-strip mit 4 quick-access tiles
-// (Podcast · Bücher · Klasse-0001-Counter · Leadership-Summit)
+// (Podcast · Bücher · Leader-OS · Leadership-Summit)
 // ─────────────────────────────────────────────────────────────────────────
 const FROM_WLAD = [
   {
@@ -276,10 +272,10 @@ const FROM_WLAD = [
     tone: 'ink',
   },
   {
-    label: 'KLASSE 0001',
-    title: '12 / 30 Charter-Plätze noch offen.',
-    description: 'Staatlich anerkannte Führungskräfte-Ausbildung. 6 Monate. Start in 14 Tagen.',
-    cta: 'Beratungsgespräch buchen',
+    label: 'WERDE TEIL',
+    title: 'Alle Vorteile ab Tag 1.',
+    description: 'Volle Plattform, WladBot 24/7, elf Frameworks. 14 Tage kostenlos · ohne Karte. Werde Teil von Leader-OS.',
+    cta: 'Jetzt dabei sein',
     to: '/#beratung',
     external: false,
     tone: 'lime',
@@ -288,7 +284,7 @@ const FROM_WLAD = [
   {
     label: 'SUMMIT',
     title: 'Leadership-Summit · Q4.',
-    description: 'Wlad live + ausgewählte Klasse-0001-Alumni. Live-Drills, Q&A, Klein-Format.',
+    description: 'Wlad live + die Leader-OS-Community. Live-Drills, Q&A, Klein-Format.',
     cta: 'Auf Warteliste',
     to: '/#summit',
     external: false,
@@ -310,7 +306,7 @@ const FromWladStrip = () => (
           <span className="text-[24px] md:text-[32px] text-white" style={condensed}>WLAD'S WELT</span>
         </div>
         <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-white/55">
-          ▸ Podcast · Bücher · Klasse · Summit
+          ▸ Podcast · Bücher · Leader-OS · Summit
         </div>
       </div>
 
@@ -364,7 +360,6 @@ const FromWladStrip = () => (
 // CATEGORY SECTION · newspaper-style spread
 // ─────────────────────────────────────────────────────────────────────────
 const SplitCard = ({ article, imageOnRight = true }) => {
-  const cover = resolveCover(article, 'wide');
   const text = (
     <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 bg-white">
       <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-brand-strong mb-3">
@@ -387,15 +382,11 @@ const SplitCard = ({ article, imageOnRight = true }) => {
     </div>
   );
   const photo = (
-    <div className="newsroom-halftone aspect-[4/3] md:aspect-auto md:min-h-[360px]">
-      <img
-        src={cover}
-        alt={article.title}
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[900ms] ease-out"
-      />
-    </div>
+    <ArticleCover
+      article={article}
+      wrapClassName="aspect-[4/3] md:aspect-auto md:min-h-[360px]"
+      imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[900ms] ease-out"
+    />
   );
   return (
     <Link
@@ -416,15 +407,11 @@ const MiniCard = ({ article }) => (
     data-testid={`journal-mini-${article.slug}`}
     className="group block bg-white border border-foreground/15 hover:border-foreground transition-colors"
   >
-    <div className="newsroom-halftone aspect-[4/3]">
-      <img
-        src={resolveCover(article, 'wide')}
-        alt={article.title}
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out"
-      />
-    </div>
+    <ArticleCover
+      article={article}
+      wrapClassName="aspect-[4/3]"
+      imgClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out"
+    />
     <div className="p-5 md:p-6">
       <div className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand-strong mb-2">
         {formatNewsDate(article.publishedAt)}
@@ -510,14 +497,8 @@ const DiagnoseCTA = () => (
   >
     <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-0 border border-white/15">
-        <div className="newsroom-halftone newsroom-halftone--ink aspect-[4/3] md:aspect-auto">
-          <img
-            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1600&h=1200&fit=crop&crop=faces&auto=format&q=80"
-            alt="Leadership Diagnose"
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+        <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px]">
+          <WladBotThumbnail title="Mach den kostenlosen Leader-Check" eyebrow="DIAGNOSE · 10 MIN" />
         </div>
         <div className="p-8 md:p-14 flex flex-col justify-center">
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5">
@@ -861,7 +842,7 @@ export default function JournalIndex() {
       description:
         'Newsroom für KI-natives Führen · Frameworks, Skripte, Field-Notes aus ' +
         'Wlad Jachtchenkos Arbeit mit 400 000+ Klienten. Podcast, Bücher, ' +
-        'Klasse 0001, Leadership-Summit.',
+        'Leader-OS, Leadership-Summit.',
       canonical: 'https://leader-os.de/journal',
       keywords: ['KI Führung', 'Leadership Magazin', 'Wlad Jachtchenko', 'Schlagfertigkeit', 'Mitarbeiterführung', 'Beratungsgespräch', 'Leader-OS'],
       robots: 'index, follow, max-image-preview:large',

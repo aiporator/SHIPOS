@@ -18,20 +18,29 @@
  * <img>-Frame, kein Console-Spam.
  */
 
-const LOCAL_PORTRAIT = '/wlad/wlad-portrait.jpg';
+// Primary is now the 44KB WebP · the source asset was a mislabelled 2.4MB
+// PNG, re-encoded to wlad-portrait.webp (44KB) + wlad-portrait.jpg (97KB
+// real JPEG fallback). WebP has ~98% global browser support; the .jpg
+// covers the rest via the onError chain below.
+const LOCAL_PORTRAIT = '/wlad/wlad-portrait.webp';
+const LOCAL_PORTRAIT_JPG = '/wlad/wlad-portrait.jpg';
 const LOCAL_STAGE = '/wlad/wlad-stage.jpg';
-const MOCKUP_PORTRAIT = '/landing/hf-04.png';
-
-// Legacy · wird gelöscht sobald die echten Wlad-Originale im /wlad/
-// Verzeichnis liegen. Nur als Fallback bis dahin.
-const LEGACY_EMERGENT_WLAD =
-  'https://customer-assets.emergentagent.com/job_dd3457c0-3be5-4c4c-bc34-5b0e823b9278/artifacts/4knvn6cs_WladProfilbild.jpg';
 
 export const WLAD_AVATAR = LOCAL_PORTRAIT;
-export const WLAD_AVATAR_FALLBACKS = [MOCKUP_PORTRAIT, LEGACY_EMERGENT_WLAD];
+// Fallback chain · ONLY real Wlad photos. The old hf-04.png mockup (an
+// AI render of a different person) and the rot-prone Emergent CDN legacy
+// link were removed · if the webp fails we drop to the local jpeg, never
+// to a stranger's face.
+export const WLAD_AVATAR_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 
 export const WLAD_STAGE = LOCAL_STAGE;
-export const WLAD_STAGE_FALLBACKS = [MOCKUP_PORTRAIT];
+export const WLAD_STAGE_FALLBACKS = [LOCAL_PORTRAIT_JPG];
+
+// WladBot 3.0 · the Pixar-style 3D render of WladBot · the single source of
+// truth for the bot's face across chat avatar, the floating mascot and the
+// branded blog thumbnail. Drop the file at frontend/public/wlad/wladbot3.0.png
+// to activate it everywhere; every consumer falls back gracefully until then.
+export const WLADBOT_AVATAR = '/wlad/wladbot3.0.png';
 
 /**
  * onError-Handler für <img>-Tags, der automatisch durch die

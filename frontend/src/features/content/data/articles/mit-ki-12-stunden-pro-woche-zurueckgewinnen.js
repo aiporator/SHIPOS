@@ -48,7 +48,7 @@ export default {
 
     { type: 'framework', code: 'H·5', title: 'Die fünf Hebel in Stunden.', explanation: 'Email-Drafts 3-4 h · Meeting-Vorbereitung 2-3 h · Wissens-Verdichtung 2 h · Strategie-Stress-Test 1-2 h · Feedback-Reflexion 1 h. Median: 12 Stunden pro Woche zurückgewonnen. Was du mit der Zeit machst, ist deine Entscheidung. Was viele Klienten machen: pünktlicher Feierabend, mehr 1:1s mit Schlüsselleuten, ein neues strategisches Projekt das vorher kein Slot hatte.' },
 
-    { type: 'callout', tone: 'dark', text: 'Genau diese fünf Hebel sind die ersten fünf Drills im Sprint 0001. 30 Tage, täglich messbar. Im Schnitt haben Klienten nach Woche zwei den ersten 8-Stunden-Tag · und gehen pünktlich nach Hause. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'Genau diese fünf Hebel sind die ersten fünf Drills in Leader-OS. 30 Tage, täglich messbar. Im Schnitt haben Klienten nach Woche zwei den ersten 8-Stunden-Tag · und gehen pünktlich nach Hause. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'der-tag-an-dem-ich-aufhoerte-zu-pushen',

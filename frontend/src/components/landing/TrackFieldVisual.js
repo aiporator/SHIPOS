@@ -3,7 +3,7 @@
  *
  * Layout (oben → unten):
  *   1. Tribüne mit pixeligem Publikum (animiertes Twinkle)
- *   2. Stadion-Banner "LEADER · OS · KLASSE 0001"
+ *   2. Stadion-Banner "LEADER · OS · STADIUM"
  *   3. 5 Bahnen mit Distanz-Markern (100M → 0M)
  *      4 Anzug-Träger noch am Anfang, leicht wankend (CSS shuffle)
  *      1 T-Shirt-Läufer durchbricht das Ziel-Band (Stride-Animation)
@@ -144,7 +144,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
         fontWeight="700"
         style={{ fontFamily: 'monospace', letterSpacing: '0.28em' }}
       >
-        STADIUM · KLASSE 0001
+        STADIUM · LEADER-OS
       </text>
       <text
         x="810"
@@ -164,7 +164,7 @@ export const TrackFieldVisual = ({ className = '' }) => (
       ▸ DAS RENNEN HAT ANGEFANGEN
     </text>
     <text x="860" y="28" fill="#0A0A0A" opacity="0.5" fontSize="9" fontWeight="700" textAnchor="end" style={{ fontFamily: 'monospace', letterSpacing: '0.22em' }}>
-      BIB · 0001 / 50
+      BIB · 0001
     </text>
 
     {/* ── 5 BAHNEN ── */}

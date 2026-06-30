@@ -10,7 +10,7 @@ import { WladMark } from '../brand/WladMark';
  * Wlad authority visible.
  *
  *  STRUCTURE
- *    1. Brand block (logo + scarcity pill)
+ *    1. Brand block (logo + invitation pill)
  *    2. Four sitemap columns (SYSTEM · PLATTFORM · EXPLORE · COMPANY)
  *    3. Image-tile strip (Wlad portrait · Intro-Video poster · Brand-W
  *       sticker) · each linking out
@@ -20,7 +20,7 @@ import { WladMark } from '../brand/WladMark';
  *
  *  COLOR DISCIPLINE
  *    bg #0A0A0A pure ink, lime accents EVERYWHERE the user should focus:
- *    section labels, scarcity pill, image hover-rings, investment numbers,
+ *    section labels, invitation pill, image hover-rings, investment numbers,
  *    "Beratungsgespräch" link emphasis. White hover-state for the link
  *    columns; slate-300 idle so the wall is calm but readable.
  */
@@ -47,7 +47,7 @@ const COL_SYSTEM = [
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
   { label: 'Die 5 Rollen',                 to: '/journal/die-5-rollen-einer-ki-nativen-fuehrungskraft' },
   { label: 'Leadership-Diagnose',          href: 'https://leadercheck.de', external: true },
-  { label: 'Klasse 0001 · Charter',        to: '/#klassen' },
+  { label: 'Werde Teil von Leader-OS',      to: '/#klassen' },
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
@@ -74,7 +74,7 @@ const COL_EXPLORE = [
   { label: 'Methoden & Frameworks',         to: '/journal#cat-methoden' },
   { label: 'Rhetorik & Kommunikation',      to: '/journal#cat-rhetorik' },
   { label: 'Rollen & Karriere',             to: '/journal#cat-rollen-karriere' },
-  { label: 'Plattform & Klasse 0001',       to: '/journal#cat-plattform' },
+  { label: 'Plattform & Leader-OS',          to: '/journal#cat-plattform' },
   { label: 'Free Tools',                    to: '/#tools' },
   { label: 'Podcast · Wlad spricht',        href: 'https://podcast.wladjachtchenko.de', external: true },
   { label: 'Bücher · 3 SPIEGEL-Bestseller', href: 'https://wladjachtchenko.de/buecher', external: true },
@@ -96,36 +96,6 @@ const COL_COMPANY = [
   { label: 'Datenschutz',            to: '/datenschutz' },
   { label: 'AGB',                    to: '/agb' },
   { label: 'Widerruf',               to: '/widerruf' },
-];
-
-const IMAGE_TILES = [
-  {
-    src: '/wlad/wlad-portrait.jpg',
-    alt: 'Wlad Jachtchenko Portrait',
-    eyebrow: '▸ AUTHOR',
-    title: 'Wlad Jachtchenko',
-    sub: '3× SPIEGEL · 400 000+ Kunden',
-    href: 'https://www.linkedin.com/in/wladjachtchenko/',
-    external: true,
-  },
-  {
-    src: '/landing/hf-04.png',
-    alt: 'Wlad Intro Video Poster',
-    eyebrow: '▸ INTRO · 90 SEK',
-    title: 'Bevor du startest',
-    sub: 'Wlad erklärt Leader-OS in 90 Sekunden',
-    href: '/#wlad-intro',
-    external: false,
-  },
-  {
-    src: '/stickers/STK-04-wladbot-stamp.svg',
-    alt: 'WladBot Stamp',
-    eyebrow: '▸ POWERED BY',
-    title: 'WladBot · 24/7',
-    sub: 'Dein KI-Sparring-Partner',
-    href: '/#platform',
-    external: false,
-  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -170,53 +140,6 @@ const Column = ({ title, links, testId }) => (
     </ul>
   </div>
 );
-
-const ImageTile = ({ tile }) => {
-  const isSvg = tile.src.endsWith('.svg');
-  const inner = (
-    <>
-      <div className="relative aspect-[4/5] overflow-hidden bg-white/[0.03] border border-white/10 group-hover:border-brand transition-colors">
-        <img
-          src={tile.src}
-          alt={tile.alt}
-          loading="lazy"
-          decoding="async"
-          className={`absolute inset-0 w-full h-full ${isSvg ? 'object-contain p-12' : 'object-cover'} group-hover:scale-[1.04] transition-transform duration-[800ms] ease-out`}
-        />
-        {/* lime sweep on hover */}
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(191,255,0,0) 30%, rgba(191,255,0,0.18) 100%)',
-          }}
-        />
-      </div>
-      <div className="mt-3.5">
-        <div className="font-mono text-[9.5px] font-bold uppercase tracking-[0.26em] text-brand mb-1.5">
-          {tile.eyebrow}
-        </div>
-        <div className="text-[15px] font-extrabold text-white leading-[1.15]">
-          {tile.title}
-        </div>
-        <div className="mt-1 text-[12px] font-medium text-slate-400 leading-[1.4]">
-          {tile.sub}
-        </div>
-      </div>
-    </>
-  );
-  const className = 'group block';
-  return tile.external ? (
-    <a href={tile.href} target="_blank" rel="noopener noreferrer" className={className}>
-      {inner}
-    </a>
-  ) : (
-    <Link to={tile.href.startsWith('/') ? tile.href : `/${tile.href}`} className={className}>
-      {inner}
-    </Link>
-  );
-};
 
 // ─────────────────────────────────────────────────────────────────────────
 // Page-bg + dotted-grid layer
@@ -267,13 +190,13 @@ export const LandingFooter = () => (
             400 000+ Klienten in 20 Ländern.
           </p>
 
-          {/* Scarcity Pill · Klasse 0001 charter seats */}
+          {/* Invitation Pill · werde Teil von Leader-OS */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
               <span className="relative w-2 h-2 rounded-full bg-brand" />
             </span>
-            KLASSE 0001 · 20 VON 30 FREI
+            WERDE TEIL · MACH DEN LEADER-CHECK
           </div>
         </div>
 
@@ -286,22 +209,12 @@ export const LandingFooter = () => (
         </div>
       </div>
 
-      {/* ── Image-tile strip ───────────────────────────────────────────── */}
-      <div className="mt-16 pt-10 border-t border-white/10">
-        <div className="flex items-baseline justify-between mb-6 flex-wrap gap-3">
-          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-brand">
-            ▸ MEDIA · MEET WLAD
-          </p>
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-            3× SPIEGEL-BESTSELLER · 10M+ DOWNLOADS · 20 LÄNDER
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6">
-          {IMAGE_TILES.map((t) => (
-            <ImageTile key={t.title} tile={t} />
-          ))}
-        </div>
-      </div>
+      {/* The MEDIA · MEET WLAD image-tile strip lived here · removed because
+          the middle tile rendered the legacy hf-04.png poster (the
+          AI-mockup of someone who is not Wlad) and the lime CTA disk on
+          the third tile collided with its own label · neither was on-brand.
+          The /wlad-jachtchenko canonical page now carries the Meet-Wlad
+          surface in full editorial layout. */}
 
       {/* ── Newsletter · Feldnotizen opt-in ─────────────────────────────── */}
       <div

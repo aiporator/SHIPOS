@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { WLADBOT_AVATAR } from '../../lib/brandAssets';
 
 /**
  * WladSignGuy · Mascot rechts unten der ein Schild hochhält und rotierend
@@ -19,7 +20,7 @@ const MESSAGES = [
   { eyebrow: '▸ JETZT', big: '50 FREE', small: 'CREDITS' },
   { eyebrow: '▸ 10 MIN', big: 'DIAGNOSE', small: 'KOSTENLOS' },
   { eyebrow: '▸ FRAG', big: 'WLADBOT', small: '24 / 7' },
-  { eyebrow: '▸ START', big: 'KLASSE', small: '0001' },
+  { eyebrow: '▸ START', big: 'WERDE', small: 'TEIL' },
 ];
 
 const PixelWlad = () => (
@@ -66,6 +67,25 @@ const PixelWlad = () => (
     <rect x="9" y="22" width="4" height="2" fill="#1A1A1A" />
   </svg>
 );
+
+// WladBot 3.0 · the Pixar-style render replaces the old pixel mascot.
+// Falls back to the pixel figure if the asset is missing (build-safe).
+const WladBotFigure = () => {
+  const [failed, setFailed] = useState(false);
+  if (failed) return <PixelWlad />;
+  return (
+    <img
+      src={WLADBOT_AVATAR}
+      alt="WladBot · dein KI-Coach"
+      width={64}
+      height={64}
+      loading="lazy"
+      decoding="async"
+      onError={() => setFailed(true)}
+      className="h-full w-full rounded-full bg-[#0A0A0A] object-cover ring-2 ring-brand shadow-[0_10px_28px_-8px_rgba(0,0,0,0.5)]"
+    />
+  );
+};
 
 const SignBoard = ({ msg }) => (
   // Rotierender Holzbrett-Sign. Hochformat damit es neben dem Wlad steht.
@@ -144,9 +164,9 @@ export const WladSignGuy = ({ onOpen }) => {
           <motion.div
             animate={{ y: [0, -3, 0] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-12 h-[4.5rem] md:w-14 md:h-[5rem] shrink-0"
+            className="h-14 w-14 md:h-16 md:w-16 shrink-0"
           >
-            <PixelWlad />
+            <WladBotFigure />
           </motion.div>
 
           {/* Sign mit smooth crossfade-rotate */}

@@ -92,12 +92,27 @@ export const LeadCaptureModal = () => {
       zones.forEach((z) => observer.observe(z));
     }
 
+    // Mobile has no exit-intent (no mouseleave) · without these most phone
+    // visitors never see the capture, a big lead leak. Fire on deep scroll
+    // (≈58% of the page · strong intent) or after 45s on page, whichever
+    // comes first. Both respect the same cooldown + triggered guard.
+    const onScroll = () => {
+      if (triggered.current) return;
+      const reached = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (total > 0 && reached / total > 0.58) trigger();
+    };
+    const dwellTimer = setTimeout(() => trigger(), 45000);
+
     const onSubscribed = () => armCooldown();
     window.addEventListener('newsletter:subscribed', onSubscribed);
+    window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
 
     return () => {
+      clearTimeout(dwellTimer);
       document.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('newsletter:subscribed', onSubscribed);
       if (observer) observer.disconnect();
     };
@@ -185,7 +200,7 @@ export const LeadCaptureModal = () => {
                 <span className="absolute inset-0 rounded-full bg-brand-strong animate-ping opacity-75" />
                 <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
               </span>
-              KLASSE 0001 · 20 VON 30 PLÄTZE FREI
+              LEADER · OS · WERDE TEIL
             </span>
             <button
               onClick={close}
@@ -205,7 +220,7 @@ export const LeadCaptureModal = () => {
                 <img
                   src={WLAD_AVATAR}
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Klasse 0001 Charter offen"
+                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Leader-OS für jede Führungskraft offen"
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_18%]"
@@ -235,17 +250,17 @@ export const LeadCaptureModal = () => {
                         <span className="relative w-1.5 h-1.5 rounded-full bg-brand-strong" />
                       </span>
                       <span className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-foreground/55">
-                        CHARTER · LIVE
+                        KOSTENLOS · LIVE
                       </span>
                     </div>
                     <div
                       className="mt-1 text-foreground leading-none"
                       style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(22px, 3vw, 32px)', letterSpacing: '-0.025em' }}
                     >
-                      20 / 30<span className="text-brand-strong not-italic">.</span>
+                      10 Min<span className="text-brand-strong not-italic">.</span>
                     </div>
                     <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.2em] text-foreground/55">
-                      Plätze frei diese Kohorte
+                      Leader-Check · dein Score sofort
                     </div>
                   </div>
                 </div>

@@ -59,6 +59,7 @@ const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscrib
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
+const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
@@ -203,7 +204,10 @@ function AppRouter() {
         <Route path="/ads" element={<AdStudio />} />
         <Route path="/system" element={<SystemHealth />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Branded 404 instead of silent Navigate-to-/ · lets Search
+            Console flag broken external backlinks and gives users a
+            "did you mean" surface with the 5 highest-intent destinations. */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
@@ -219,6 +223,15 @@ function App() {
               <TierProvider>
                 <PricingProvider>
                   <BrowserRouter>
+                    {/* Skip-to-content · WCAG 2.4.1 · visually hidden until
+                        keyboard-focused, then jumps a keyboard/screen-reader
+                        user past the nav straight into the page content. */}
+                    <a
+                      href="#main-content"
+                      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:font-bold focus:text-sm focus:rounded-none focus:outline-none focus:ring-4 focus:ring-brand"
+                    >
+                      Zum Inhalt springen
+                    </a>
                     <NetworkStatusBanner />
                     <AppRouter />
                     <FakeWladCall />

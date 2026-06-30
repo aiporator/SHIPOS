@@ -133,12 +133,52 @@ const REGISTRY = {
   image: Image,
 };
 
-export const BlockRenderer = ({ block }) => {
+// Re-export the registry shape so BlocksRenderer's parent can compose
+// articleSlug + articleUrl into the click-to-tweet block at render time.
+export { Quote };
+
+export const BlockRenderer = ({ block, articleSlug, articleUrl, articleTitle }) => {
+  // Auto-promote: any explicit `click-to-tweet` block OR any `quote`
+  // block where the parent passed share-context renders as a shareable
+  // pull-quote · matches existing Quote visual but adds X/LinkedIn/copy
+  // buttons. Articles authored before this feature still render plain
+  // Quotes when articleSlug isn't supplied.
+  if (block.type === 'click-to-tweet' || (block.type === 'quote' && block.shareable && articleSlug)) {
+    const { ClickToTweet } = require('./ClickToTweet');
+    return (
+      <ClickToTweet
+        text={block.text}
+        attribution={block.attribution}
+        articleSlug={articleSlug}
+        articleUrl={articleUrl}
+      />
+    );
+  }
+  // Embedded problem-capture block (Growth-Loop Layer 2) · routes the
+  // reader's situation through the Intent Schema Layer into WladBot.
+  if (block.type === 'diagnostic') {
+    const { InlineDiagnostic } = require('./InlineDiagnostic');
+    return (
+      <InlineDiagnostic
+        block={block}
+        articleSlug={articleSlug}
+        articleTitle={articleTitle}
+      />
+    );
+  }
   const Component = REGISTRY[block.type];
   if (!Component) return null;
   return <Component block={block} />;
 };
 
-export const BlocksRenderer = ({ blocks }) => (
-  <>{blocks.map((b, i) => <BlockRenderer key={i} block={b} />)}</>
+export const BlocksRenderer = ({ blocks, articleSlug, articleUrl, articleTitle }) => (
+  <>{blocks.map((b, i) => (
+    <BlockRenderer
+      key={i}
+      block={b}
+      articleSlug={articleSlug}
+      articleUrl={articleUrl}
+      articleTitle={articleTitle}
+    />
+  ))}</>
 );

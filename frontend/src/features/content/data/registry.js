@@ -98,7 +98,6 @@ import GehaltsverhandlungAlsFuehrungskraftDrehbuch from './articles/gehaltsverha
 import VomManagerZumDirectorWasWirklichAndersWird from './articles/vom-manager-zum-director-was-wirklich-anders-wird';
 import BurnoutBeiTopPerformernDieWarnsignale from './articles/burnout-bei-top-performern-die-warnsignale';
 import DieErsten7TageMitLeaderOs from './articles/die-ersten-7-tage-mit-leader-os';
-import Klasse0001WerReinkommtWerNicht from './articles/klasse-0001-wer-reinkommt-wer-nicht';
 import SprintVsPlusPlusWelcherPfad from './articles/sprint-vs-plus-plus-welcher-pfad';
 // Players'-Tribune-style narrative SEO bombs
 import briefAnMeinen28JaehrigenSelbst from './articles/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde';
@@ -112,8 +111,41 @@ import liebeMitarbeiterDasHierWollteIch from './articles/liebe-mitarbeiter-das-h
 import werIstWladJachtchenko from './articles/wer-ist-wlad-jachtchenko';
 import wasIstEineKiNativeFuehrungskraft from './articles/was-ist-eine-ki-native-fuehrungskraft';
 import leaderOsVsChatgptClaudePerplexity from './articles/leader-os-vs-chatgpt-claude-perplexity';
+// 2026-06-29 · Leadership-development SEO pillars · target the head terms
+// owned by Haufe-Akademie / DAM / Hees (transformationale, laterale,
+// fachliche/disziplinarische Führung, Führungskräfteentwicklung). Full
+// SEO armor, definitional H2s, topic-cluster cross-links.
+import transformationaleFuehrung from './articles/transformationale-fuehrung';
+import lateraleFuehrung from './articles/laterale-fuehrung';
+import fachlicheVsDisziplinarischeFuehrung from './articles/fachliche-vs-disziplinarische-fuehrung';
+import fuehrungskraefteentwicklung from './articles/fuehrungskraefteentwicklung-leadership-development';
+// 2026-06-30 · cluster articles · 2 supporting pieces per pillar, each
+// internal-linking up to its pillar + a sibling (topic-cluster topical
+// authority to out-rank the academies on the long-tails they ignore).
+import transformationaleVsTransaktionaleFuehrung from './articles/transformationale-vs-transaktionale-fuehrung';
+import transformationaleFuehrungBeispiele from './articles/transformationale-fuehrung-beispiele';
+import fuehrenOhneWeisungsbefugnis from './articles/fuehren-ohne-weisungsbefugnis';
+import matrixOrganisationFuehren from './articles/matrix-organisation-fuehren';
+import fachlicheFuehrungOhneDisziplinarischeVerantwortung from './articles/fachliche-fuehrung-ohne-disziplinarische-verantwortung';
+import fuehrungsverantwortungWasBedeutetDas from './articles/fuehrungsverantwortung-was-bedeutet-das';
+import fuehrungskompetenzenDieWichtigsten from './articles/fuehrungskompetenzen-die-wichtigsten';
+import fuehrungskraeftetrainingFormateImVergleich from './articles/fuehrungskraeftetraining-formate-im-vergleich';
 
 const ARTICLES = [
+  // 2026-06-29 leadership-development SEO pillars (compete with the academies)
+  transformationaleFuehrung,
+  lateraleFuehrung,
+  fachlicheVsDisziplinarischeFuehrung,
+  fuehrungskraefteentwicklung,
+  // 2026-06-30 cluster articles · 2 per pillar (topical authority)
+  transformationaleVsTransaktionaleFuehrung,
+  transformationaleFuehrungBeispiele,
+  fuehrenOhneWeisungsbefugnis,
+  matrixOrganisationFuehren,
+  fachlicheFuehrungOhneDisziplinarischeVerantwortung,
+  fuehrungsverantwortungWasBedeutetDas,
+  fuehrungskompetenzenDieWichtigsten,
+  fuehrungskraeftetrainingFormateImVergleich,
   // 2026-06-26 GEO pillars · authority + definition + comparison
   werIstWladJachtchenko,
   wasIstEineKiNativeFuehrungskraft,
@@ -138,7 +170,6 @@ const ARTICLES = [
   VomManagerZumDirectorWasWirklichAndersWird,
   BurnoutBeiTopPerformernDieWarnsignale,
   DieErsten7TageMitLeaderOs,
-  Klasse0001WerReinkommtWerNicht,
   SprintVsPlusPlusWelcherPfad,
 
     // Published 2026-08-15 → 18, so they take Hero + Top Stories on /journal.

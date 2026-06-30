@@ -1,13 +1,13 @@
 import { ArrowRight, Lock, Sparkles } from 'lucide-react';
 
 /**
- * ClassesRoadmapSection · Bonus-Strecke: Was nach Klasse 0001 kommt.
+ * ClassesRoadmapSection · Bonus-Strecke: Was alles noch kommt.
  *
  * Diese Section sitzt NACH dem PlatformValueSection (das den primären
  * Sprint-Value verkauft). Hier zeigen wir dem User: "Du bekommst aber
- * nicht nur 0001 · wer dabei ist, hat Vorzugs-Zugang zu drei weiteren
- * Klassen die noch kommen." Das macht das Charter-Angebot dichter ohne
- * das Hauptversprechen zu verwässern.
+ * nicht nur die Foundation · wer bei Leader-OS startet, hat Zugang zu
+ * drei weiteren Stufen die noch kommen." Das macht das Angebot dichter
+ * ohne das Hauptversprechen zu verwässern.
  *
  *   0001 Foundation       → bereits in PlatformValueSection erklärt,
  *                           hier nur als kurzer "wo du startest"-Anker
@@ -27,7 +27,7 @@ const FUTURE_CLASSES = [
     promise:
       'Schritt-für-Schritt: vom ersten Custom-GPT bis zu Multi-Agent-' +
       'Workflows die dir Arbeit abnehmen · ohne dass du Developer wirst.',
-    outcome: 'Drei eigene Agenten am Ende der Klasse · produktiv im Einsatz.',
+    outcome: 'Drei eigene Agenten am Ende der Stufe · produktiv im Einsatz.',
     pillars: ['Agent-Patterns', 'Tool-Use', 'Multi-Agent Workflows', 'Production-Ops'],
     seats: 'STARTET Q3 · WARTELISTE OFFEN',
   },
@@ -81,7 +81,7 @@ const ClassCard = ({ klass }) => (
     <div className="flex items-start justify-between gap-4 mb-5">
       <div>
         <div className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brand">
-          ▸ KLASSE · {klass.code}
+          ▸ STUFE · {klass.code}
         </div>
         <h3
           className="mt-1.5 text-[24px] md:text-[28px] leading-[1.04] tracking-[-0.03em]"
@@ -120,7 +120,7 @@ const ClassCard = ({ klass }) => (
     <div className="mt-5 flex items-center justify-between gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">
       <span>{klass.seats}</span>
       <span className="inline-flex items-center gap-1.5 text-white/60">
-        <Sparkles size={11} /> Vorzugs-Zugang aus 0001
+        <Sparkles size={11} /> Lifetime-Zugang inklusive
       </span>
     </div>
   </div>
@@ -130,7 +130,7 @@ export const ClassesRoadmapSection = () => (
   <section
     id="klassen"
     data-testid="classes-roadmap-section"
-    aria-label="Bonus · Was nach Klasse 0001 kommt"
+    aria-label="Bonus · Was bei Leader-OS noch alles auf dich wartet"
     className="border-y-2 border-black/[0.06] bg-[#0A0A0A] text-white relative overflow-hidden"
   >
     {/* Subtle lime ambient · softer than before since this is a secondary section */}
@@ -150,27 +150,27 @@ export const ClassesRoadmapSection = () => (
           <div className="flex items-center gap-3 mb-5 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand">
             <span>▸ BONUS · ROADMAP</span>
             <span className="opacity-30">·</span>
-            <span className="text-white/55">VORZUGS-ZUGANG AUS 0001</span>
+            <span className="text-white/55">ALLES INKLUSIVE · AB TAG 1</span>
           </div>
           <h2
             className="text-[36px] sm:text-[52px] md:text-[68px] leading-[0.94] tracking-[-0.038em]"
             style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Klasse 0001 ist erst<br />
-            <span className="text-white/55">der Anfang</span>
+            Ein Platz<span className="text-brand not-italic">.</span><br />
+            <span className="text-white/55">Vier Stufen</span>
             <span className="text-brand not-italic">.</span>
           </h2>
         </div>
         <div className="md:col-span-5 md:pb-3">
           <p className="text-[15px] md:text-[16.5px] leading-[1.6] text-white/75">
-            Wer in der Klasse 0001 dabei ist, bekommt automatisch
-            <strong className="text-white"> Vorzugs-Zugang</strong> zu allen
-            weiteren Klassen · AI Agents Builder, Custom AI Setup, Revenue
-            Skills. Eine Identität, ein Pfad, vier Klassen.
+            Wer bei Leader-OS startet, bekommt automatisch
+            <strong className="text-white"> Zugang zu allem was noch kommt</strong> ·
+            AI Agents Builder, Custom AI Setup, Revenue Skills. Ein Pfad,
+            vier Stufen · alle Vorteile ab Tag 1.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 px-3 py-2 bg-brand text-black font-mono text-[10.5px] font-bold uppercase tracking-[0.22em]">
             <Sparkles size={12} />
-            CHARTER-MITGLIEDER · LIFETIME
+            MITGLIEDER · LIFETIME-ZUGANG
           </div>
         </div>
       </div>
@@ -185,8 +185,8 @@ export const ClassesRoadmapSection = () => (
       {/* Soft anchor back to the Sprint CTA · no giant block this time, just a one-liner */}
       <div className="mt-12 md:mt-14 pt-7 border-t border-white/12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
         <p className="text-[14px] md:text-[15.5px] leading-[1.5] text-white/70 max-w-2xl">
-          Du startest mit der Sprint-Plattform und Klasse 0001.
-          Alles andere kommt mit Vorzug.
+          Du startest mit der vollen Leader-OS-Plattform.
+          Alles andere kommt automatisch dazu.
         </p>
         <a
           href="#pricing"
@@ -198,7 +198,7 @@ export const ClassesRoadmapSection = () => (
           data-testid="roadmap-cta"
           className="inline-flex items-center gap-2 px-5 h-12 bg-brand hover:bg-white text-black font-bold text-[12.5px] tracking-[0.04em] transition-colors whitespace-nowrap"
         >
-          ZUM CHARTER-ANGEBOT
+          JETZT DABEI SEIN
           <ArrowRight size={15} />
         </a>
       </div>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { readingTime } from '../utils/readingTime';
-import { resolveCover } from '../utils/covers';
+import { WladBotThumbnail } from './WladBotThumbnail';
 
 const TYPE_LABEL = {
   article: 'ARTICLE',
@@ -22,7 +22,10 @@ export const ArticleCard = ({ article }) => {
   const date = new Date(article.publishedAt).toLocaleDateString('de-DE', {
     day: '2-digit', month: 'short', year: 'numeric',
   });
-  const cover = resolveCover(article, 'wide');
+  // Real photographic cover wins; everything else gets the consistent
+  // branded WladBot thumbnail (thumbnail-with-text) so the journal reads
+  // as one set instead of random stock photography.
+  const hasCover = Boolean(article.cover);
   return (
     <article
       data-testid={`article-card-${article.slug}`}
@@ -30,13 +33,19 @@ export const ArticleCard = ({ article }) => {
     >
       {/* Cover · 16:10 editorial frame · subtle zoom on hover */}
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-foreground/5">
-        <img
-          src={cover}
-          alt={`${article.title.replace(/\.$/, '')} · Leader-OS Journal · Wlad Jachtchenko`}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-        />
+        {hasCover ? (
+          <img
+            src={article.cover}
+            alt={`${article.title.replace(/\.$/, '')} · Leader-OS Journal · Wlad Jachtchenko`}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]">
+            <WladBotThumbnail title={article.title} eyebrow={TYPE_LABEL[article.type] || 'LEADER·OS'} />
+          </div>
+        )}
         {/* Subtle bottom darkening so the type pill stays legible on any photo */}
         <div
           aria-hidden

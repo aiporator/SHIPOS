@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Master sitemap index for leader-os.de.
+
+  Search engines (Google, Bing, Yandex) hit /sitemap-index.xml first when
+  it exists, then crawl every <sitemap> child in parallel. This lets us
+  split the data by type and update each independently without rebuilding
+  one giant XML file.
+
+  Children:
+    sitemap.xml         · canonical page-list (landing + journal + wlad)
+    sitemap-image.xml   · image-sitemap for Google Image Search ·
+                          drives ~10-20% of total Google traffic at
+                          enterprise scale, currently leaves money on
+                          the table because we never published one
+    sitemap-news.xml    · Google News inclusion · time-sensitive content
+                          discovery for fresh journal posts
+    sitemap-leader-check.xml · host-rewritten by vercel.json on the
+                          leader-check.de surface
+
+  robots.txt should reference THIS file, not the legacy sitemap.xml ·
+  the Sitemap directive in robots.txt has been updated in tandem.
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://leader-os.de/sitemap.xml</loc>
+    <lastmod>2026-06-26</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://leader-os.de/sitemap-image.xml</loc>
+    <lastmod>2026-06-26</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://leader-os.de/sitemap-news.xml</loc>
+    <lastmod>2026-06-26</lastmod>
+  </sitemap>
+</sitemapindex>

@@ -62,12 +62,12 @@ export const TAXONOMY = [
   {
     code: 'C-05',
     slug: 'plattform',
-    name: 'Plattform & Klasse 0001',
+    name: 'Plattform & Leader-OS',
     tagline: 'Was Leader-OS ist, wie der Sprint läuft, für wen es passt.',
     description:
-      'Konkretes über die Plattform, den 30-Tage-Sprint, die Klasse 0001 ' +
-      'und die persönliche Aufnahme.',
-    tagMatches: ['Plattform', 'Sprint', 'Klasse 0001', 'Leader-OS'],
+      'Konkretes über die Plattform, den 30-Tage-Sprint und alle Vorteile, ' +
+      'die du ab Tag 1 bekommst.',
+    tagMatches: ['Plattform', 'Sprint', 'Leader-OS'],
     funnelLabel: 'WIE GEHT ES WEITER',
   },
 ];
