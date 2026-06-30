@@ -296,10 +296,20 @@ const FROM_WLAD = [
 const FromWladStrip = () => (
   <section
     aria-label="Aus Wlad's Welt"
-    className="bg-[#0A0A0A] text-white"
+    className="relative overflow-hidden bg-[#0A0A0A] text-white"
     data-testid="journal-from-wlad"
   >
-    <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-12 md:py-16">
+    <DottedGlowBackground
+      className="[mask-image:radial-gradient(130%_120%_at_15%_30%,#000_45%,transparent_100%)]"
+      gap={24}
+      radius={1.3}
+      color="rgba(191,255,0,0.26)"
+      glowColor="rgba(191,255,0,0.9)"
+      opacity={0.5}
+      speedMin={0.18}
+      speedMax={1}
+    />
+    <div className="relative z-10 max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 py-12 md:py-16">
       {/* Strip header */}
       <div className="flex items-end justify-between flex-wrap gap-4 mb-8 pb-4 border-b border-white/15">
         <div className="flex items-baseline gap-2">
@@ -393,7 +403,7 @@ const SplitCard = ({ article, imageOnRight = true }) => {
     <Link
       to={`/journal/${article.slug}`}
       data-testid={`journal-split-${article.slug}`}
-      className="group block bg-white border border-foreground/15 hover:border-foreground transition-colors"
+      className="group block bg-white border border-foreground/15 hover:border-foreground hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-22px_rgba(0,0,0,0.28)] transition-all duration-300"
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
         {imageOnRight ? (<>{text}{photo}</>) : (<>{photo}{text}</>)}
@@ -406,7 +416,7 @@ const MiniCard = ({ article }) => (
   <Link
     to={`/journal/${article.slug}`}
     data-testid={`journal-mini-${article.slug}`}
-    className="group block bg-white border border-foreground/15 hover:border-foreground transition-colors"
+    className="group block bg-white border border-foreground/15 hover:border-foreground hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-22px_rgba(0,0,0,0.28)] transition-all duration-300"
   >
     <ArticleCover
       article={article}
