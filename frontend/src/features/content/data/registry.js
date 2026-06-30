@@ -120,6 +120,17 @@ import transformationaleFuehrung from './articles/transformationale-fuehrung';
 import lateraleFuehrung from './articles/laterale-fuehrung';
 import fachlicheVsDisziplinarischeFuehrung from './articles/fachliche-vs-disziplinarische-fuehrung';
 import fuehrungskraefteentwicklung from './articles/fuehrungskraefteentwicklung-leadership-development';
+// 2026-06-30 · cluster articles · 2 supporting pieces per pillar, each
+// internal-linking up to its pillar + a sibling (topic-cluster topical
+// authority to out-rank the academies on the long-tails they ignore).
+import transformationaleVsTransaktionaleFuehrung from './articles/transformationale-vs-transaktionale-fuehrung';
+import transformationaleFuehrungBeispiele from './articles/transformationale-fuehrung-beispiele';
+import fuehrenOhneWeisungsbefugnis from './articles/fuehren-ohne-weisungsbefugnis';
+import matrixOrganisationFuehren from './articles/matrix-organisation-fuehren';
+import fachlicheFuehrungOhneDisziplinarischeVerantwortung from './articles/fachliche-fuehrung-ohne-disziplinarische-verantwortung';
+import fuehrungsverantwortungWasBedeutetDas from './articles/fuehrungsverantwortung-was-bedeutet-das';
+import fuehrungskompetenzenDieWichtigsten from './articles/fuehrungskompetenzen-die-wichtigsten';
+import fuehrungskraeftetrainingFormateImVergleich from './articles/fuehrungskraeftetraining-formate-im-vergleich';
 
 const ARTICLES = [
   // 2026-06-29 leadership-development SEO pillars (compete with the academies)
@@ -127,6 +138,15 @@ const ARTICLES = [
   lateraleFuehrung,
   fachlicheVsDisziplinarischeFuehrung,
   fuehrungskraefteentwicklung,
+  // 2026-06-30 cluster articles · 2 per pillar (topical authority)
+  transformationaleVsTransaktionaleFuehrung,
+  transformationaleFuehrungBeispiele,
+  fuehrenOhneWeisungsbefugnis,
+  matrixOrganisationFuehren,
+  fachlicheFuehrungOhneDisziplinarischeVerantwortung,
+  fuehrungsverantwortungWasBedeutetDas,
+  fuehrungskompetenzenDieWichtigsten,
+  fuehrungskraeftetrainingFormateImVergleich,
   // 2026-06-26 GEO pillars · authority + definition + comparison
   werIstWladJachtchenko,
   wasIstEineKiNativeFuehrungskraft,
