@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -76,6 +76,95 @@
     --brand: 72 100% 50%;
     --brand-hex: #BFFF00;
   }
+}
+
+/* ══════════════════════════════════════════════════
+   THEME · T1 VELLUM (Leader-OS Vellum Specification)
+   Scoped to the marketing landing via `.theme-t1` on the
+   page root — remaps the HSL semantic tokens to the warm
+   vellum/carbon palette so the whole main page sits on the
+   cream canvas, WITHOUT touching the app/dashboard surfaces.
+   See frontend/DESIGN.md. The lime --brand is preserved as
+   the single signature accent.
+   ══════════════════════════════════════════════════ */
+@layer base {
+  .theme-t1 {
+    --background: 51 19% 93%;      /* Vellum  #f0efe9 */
+    --foreground: 23 9% 18%;       /* Carbon Warm #322d2a · never pure black */
+    --card: 0 0% 100%;             /* Paper White */
+    --card-foreground: 23 9% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 23 9% 18%;
+    --secondary: 48 14% 88%;       /* warm vellum-step for chips/wells */
+    --secondary-foreground: 23 9% 18%;
+    --muted: 48 14% 89%;
+    --muted-foreground: 0 0% 42%;  /* Mercury-ish, AA on vellum */
+    --border: 40 11% 82%;          /* warm hairline */
+    --input: 40 11% 82%;
+    /* Brand lime preserved — the one accent. Olive for text on vellum. */
+    --brand: 72 100% 27%;          /* #6B8A00 · WCAG-AA lime text on vellum */
+    --t1-vellum: #f0efe9;
+    --t1-carbon: #322d2a;
+    --t1-paper: #ffffff;
+    --t1-onyx: #0f0e12;
+    --t1-lime: #bfff00;            /* punchy fill, under carbon text only */
+  }
+}
+
+/* T1 utility primitives — opt-in, no global side effects. */
+@layer components {
+  /* Whisper-light display headline · the signature weight-300 lockup. */
+  .t1-display {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: 0.01em;
+    font-size: clamp(2.5rem, 7vw + 0.5rem, 6rem);
+  }
+  /* Section label · 4px carbon square + uppercase machined caption. */
+  .t1-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--t1-carbon, #322d2a);
+  }
+  .t1-label::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    flex: none;
+    background: currentColor;
+  }
+  /* Image porthole · the dramatic 80px radius on media. */
+  .t1-porthole { border-radius: 80px; overflow: hidden; }
+  @media (max-width: 640px) { .t1-porthole { border-radius: 48px; } }
+  /* The one lime exception · primary pill. */
+  .t1-pill {
+    background: var(--t1-lime, #bfff00);
+    color: var(--t1-carbon, #322d2a);
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    transition: filter 0.2s ease, transform 0.15s ease;
+  }
+  .t1-pill:hover { filter: brightness(1.04); transform: translateY(-1px); }
+  .t1-pill:active { transform: translateY(0); }
+  /* Ghost pill · matched geometry, carbon outline. */
+  .t1-pill-ghost {
+    background: transparent;
+    color: var(--t1-carbon, #322d2a);
+    border: 1px solid var(--t1-carbon, #322d2a);
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .t1-pill-ghost:hover { background: var(--t1-carbon, #322d2a); color: var(--t1-vellum, #f0efe9); }
 }
 
 @layer base {
