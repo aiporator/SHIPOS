@@ -84,12 +84,34 @@ const maybeInitPostHog = () => {
   }).catch(() => { /* network blocked / extension blocked · silent */ });
 };
 
-if (analyticsConsented) maybeInitPostHog();
+// Microsoft Clarity (heatmaps + session replay): consent-gated exactly like
+// PostHog — injected ONLY after the user grants analytics consent (on boot or
+// live via the lo:consent event), never blindly in <head>. Idempotent.
+const maybeInitClarity = () => {
+  if (typeof window === "undefined" || window.__clarityLoaded) return;
+  window.__clarityLoaded = true;
+  (function (c, l, a, r, i) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    const t = l.createElement(r);
+    t.async = 1;
+    t.src = "https://www.clarity.ms/tag/" + i + "?ref=bwt";
+    const y = l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t, y);
+  })(window, document, "clarity", "script", "xfcxc35oau");
+};
+
+if (analyticsConsented) {
+  maybeInitPostHog();
+  maybeInitClarity();
+}
 
 if (typeof window !== "undefined") {
   window.addEventListener("lo:consent", (e) => {
     const c = e?.detail || {};
-    if (c.analytics) maybeInitPostHog();
+    if (c.analytics) {
+      maybeInitPostHog();
+      maybeInitClarity();
+    }
   });
 }
 
