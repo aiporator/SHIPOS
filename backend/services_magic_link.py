@@ -49,6 +49,34 @@ def _frontend_base() -> str:
     return (os.environ.get("FRONTEND_BASE_URL") or _BASE_URL_DEFAULT).rstrip("/")
 
 
+# Only these app hosts may receive a magic link (they have a post-login
+# surface). The marketing hyphen-hosts (leader-os.de / leader-check.de)
+# and any other origin are rejected — this is the allowlist that makes it
+# safe to trust the client-supplied origin instead of a fixed env var, and
+# blocks magic-link phishing via an attacker-controlled redirect_base.
+_ALLOWED_MAGIC_HOSTS = ("leaderos.de", "leadercheck.de")
+
+
+def _validate_base(base_url: Optional[str]) -> Optional[str]:
+    """Return a normalized https://<host> if base_url is an allowlisted app
+    host (apex or subdomain), else None. Drops any path/port/query so only
+    the bare scheme+host is ever used to build the link."""
+    if not base_url:
+        return None
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(base_url.strip())
+        if parsed.scheme != "https" or not parsed.hostname:
+            return None
+        host = parsed.hostname.lower()
+        for allowed in _ALLOWED_MAGIC_HOSTS:
+            if host == allowed or host.endswith("." + allowed):
+                return f"https://{host}"
+    except Exception:
+        return None
+    return None
+
+
 async def ensure_indexes() -> None:
     """Create TTL index on expires_at + unique on _id (hashed token)."""
     try:
@@ -152,8 +180,13 @@ def _format_email_html(user_name: str, link: str) -> str:
 """.strip()
 
 
-async def send_magic_link_email(email: str, raw_token: str) -> bool:
-    """Build the verify URL and send via Resend. Returns True on send success."""
+async def send_magic_link_email(email: str, raw_token: str, base_url: Optional[str] = None) -> bool:
+    """Build the verify URL and send via Resend. Returns True on send success.
+
+    `base_url` is the visitor's own origin (e.g. https://leaderos.de). If it
+    passes the allowlist it is used so the link returns the user to the exact
+    app host they logged in from; otherwise we fall back to FRONTEND_BASE_URL.
+    """
     from services_email import send_email, is_enabled
 
     if not is_enabled():
@@ -165,7 +198,8 @@ async def send_magic_link_email(email: str, raw_token: str) -> bool:
     user = await db.users.find_one({"email": email}, {"name": 1, "_id": 0})
     user_name = (user or {}).get("name") or "there"
 
-    link = f"{_frontend_base()}/auth/magic?token={raw_token}"
+    base = _validate_base(base_url) or _frontend_base()
+    link = f"{base}/auth/magic?token={raw_token}"
     html = _format_email_html(user_name, link)
     result = await send_email(
         to=email,

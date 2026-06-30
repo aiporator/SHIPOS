@@ -1,4 +1,5 @@
 """Authentication routes — Enterprise-grade security."""
+from typing import Optional
 from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel, EmailStr
 from pymongo.errors import DuplicateKeyError
@@ -542,6 +543,10 @@ async def change_password(data: PasswordChangeRequest, request: Request):
 
 class MagicLinkRequest(BaseModel):
     email: EmailStr
+    # The visitor's own origin (window.location.origin). Validated against an
+    # allowlist server-side so the link returns the user to the exact app host
+    # they logged in from (leaderos.de / leadercheck.de). Untrusted input.
+    redirect_base: Optional[str] = None
 
 
 class MagicLinkVerify(BaseModel):
@@ -580,7 +585,7 @@ async def magic_link_request(data: MagicLinkRequest, request: Request):
 
     token = await create_token(email, ip)
     if token:
-        await send_magic_link_email(email, token)
+        await send_magic_link_email(email, token, base_url=data.redirect_base)
 
     return {"message": "Falls die E-Mail in unserem System existiert, haben wir dir einen Login-Link geschickt. Bitte prüfe dein Postfach."}
 
