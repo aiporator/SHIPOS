@@ -67,7 +67,6 @@ const TICKER = [
   { label: 'BESTSELLER', value: '3 SPIEGEL' },
   { label: 'BÜCHER',   value: '8 LÄNDER' },
   { label: 'PODCAST',  value: '10M+',  tone: 'up' },
-  { label: 'WERDE TEIL', value: 'LIVE', tone: 'up' },
   { label: 'WLADBOT',  value: '24/7' },
 ];
 
@@ -120,7 +119,18 @@ const Masthead = ({ totalArticles }) => (
             <li><a href="#cat-ki-praxis" className="text-foreground hover:text-brand-strong transition-colors">Kategorien</a></li>
             <li><Link to="/" className="text-foreground hover:text-brand-strong transition-colors">Wissensbasis</Link></li>
             <li><Link to="/#beratung" className="text-foreground hover:text-brand-strong transition-colors">Beratung</Link></li>
-            <li><Link to="/#archetyp" className="text-foreground hover:text-brand-strong transition-colors">Diagnose</Link></li>
+            {/* The two conversion actions · highlighted lime so people act:
+                the free Leader-Check diagnose, and signing in to Leader-OS. */}
+            <li>
+              <a href="https://leadercheck.de" target="_blank" rel="noopener noreferrer" className="text-brand-strong hover:text-foreground transition-colors" data-testid="journal-menu-diagnose">
+                Diagnose
+              </a>
+            </li>
+            <li>
+              <a href="https://leaderos.de/login" target="_blank" rel="noopener noreferrer" className="text-brand-strong hover:text-foreground transition-colors" data-testid="journal-menu-anmelden">
+                Bei Leader-OS anmelden
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
