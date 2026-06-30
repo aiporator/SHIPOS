@@ -116,7 +116,7 @@ export default function LandingPage() {
   if (isLeaderCheckHost()) return <LeaderCheckLanding />;
 
   return (
-    <div className="theme-t1 bg-background text-foreground min-h-screen antialiased" data-testid="landing-page">
+    <div className="bg-background text-foreground min-h-screen antialiased" data-testid="landing-page">
       <ClassScarcityBanner />
       <LandingNav />
       <ScrollProgressRail />

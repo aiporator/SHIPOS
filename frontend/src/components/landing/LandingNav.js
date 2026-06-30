@@ -5,14 +5,16 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { WladMark } from '../brand/WladMark';
 
 /**
- * Landing nav · T1 Vellum Specification (see frontend/DESIGN.md).
+ * Sticky top nav · wide editorial.
  *
- * Floating composition over the vellum canvas: the Leader·OS logo lockup
- * sits in carbon on the cream (left), the action cluster rides as a dark
- * carbon pill (right) holding a white ghost "Diagnose" link and the single
- * lime primary pill (14-day trial). No shadow — tonal contrast alone lifts
- * the pill off the canvas. On scroll the bar gains a faint vellum blur +
- * hairline and tightens its padding.
+ * Edge-to-edge container (px-6 → px-12) so the nav reads as the page
+ * header, not a centered ad-bar floating in the void. Taller default
+ * (h-20) collapses to h-16 on scroll. Brand lockup sits big on the
+ * left, the CTA is a flat editorial button · no rounded +icon, no
+ * pill chrome, no "click here" energy.
+ *
+ *  Primary CTA   to  leadercheck.de        (app, Emergent)
+ *  Secondary CTA to  leaderos.de/login     (app, Emergent)
  *
  * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de   = Vercel marketing landings (this app)
@@ -30,53 +32,64 @@ export const LandingNav = () => {
       data-testid="landing-nav"
       className={`sticky top-0 inset-x-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/85 backdrop-blur-xl border-b border-foreground/10 py-3'
-          : 'bg-transparent border-b border-transparent py-4 md:py-5'
+          ? 'bg-background/90 backdrop-blur-xl border-b-2 border-foreground/10 h-16'
+          : 'bg-background border-b border-foreground/[0.06] h-20'
       }`}
     >
-      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8 flex items-center justify-between gap-6">
+      <div className={`w-full px-6 md:px-12 lg:px-16 h-full flex items-center justify-between gap-6`}>
         <Link
           to="/"
           className="flex items-center gap-3 group shrink-0"
           aria-label="Leader-OS Startseite"
         >
-          <WladMark size={scrolled ? 30 : 36} animated />
-          <span
-            className={`text-foreground transition-all ${scrolled ? 'text-[18px]' : 'text-[20px] md:text-[22px]'}`}
-            style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 400, letterSpacing: '0.01em' }}
-          >
-            Leader<span style={{ color: 'var(--t1-lime)' }} className="mx-0.5">·</span>OS
-          </span>
+          <WladMark size={scrolled ? 32 : 40} animated />
+          <div className="leading-none">
+            <span
+              className={`font-black tracking-tight text-foreground transition-all ${scrolled ? 'text-[17px]' : 'text-[22px] md:text-[24px]'}`}
+              style={{ fontFamily: 'Outfit, Inter, sans-serif', letterSpacing: '-0.03em' }}
+            >
+              Leader<span className="text-brand mx-0.5">·</span>OS
+            </span>
+          </div>
         </Link>
 
-        {/* Action cluster · dark carbon pill holding the ghost diagnose link
-            + the one lime primary pill. The dual entry-points converge in
-            the same identity via email_lower, so offering both the soft
-            (diagnose) and hard (trial) commit side-by-side is strictly better. */}
-        <nav
-          className="inline-flex items-center gap-1 rounded-full pl-1.5 pr-1.5 py-1.5 sm:pl-4"
-          style={{ background: 'var(--t1-carbon, #322d2a)' }}
-        >
+        {/* Dual entry-point nav: free 10-min diagnose on the left (the
+            softest micro-conversion · most visitors click here first),
+            14-day trial on the right (the harder commit). Both routes
+            converge in the same Mongo identity via email_lower, so
+            sending traffic to whichever offer matches the visitor's
+            comfort level is strictly better than gating it.
+            On mobile the diagnose stays visible (sm:inline-flex) since
+            it's the lower-friction option, the trial collapses to
+            "14 Tage". */}
+        <nav className="flex items-center gap-2 sm:gap-3">
           <a
             href="https://leadercheck.de"
             target="_blank"
             rel="noopener noreferrer"
+            className={`group inline-flex items-center gap-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background text-foreground font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-3 text-[10px] sm:text-[11px]' : 'h-12 px-4 text-[10.5px] sm:text-[12px]'
+            }`}
             data-testid="landing-nav-diagnose"
-            className="hidden sm:inline-flex items-center h-9 px-3 text-[11px] uppercase text-white/85 hover:text-white transition-colors"
-            style={{ letterSpacing: '0.08em' }}
           >
-            Diagnose · 10 Min
+            <span className="hidden sm:inline">Diagnose · 10 Min</span>
+            <span className="sm:hidden">Diagnose</span>
           </a>
           <a
             href="https://leaderos.de/signup?trial=14"
             target="_blank"
             rel="noopener noreferrer"
+            className={`group inline-flex items-center gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-5 text-[11px] sm:text-[12px]'
+            }`}
             data-testid="landing-nav-cta"
-            className="t1-pill group inline-flex items-center gap-2 h-9 px-4 text-[11px] uppercase"
           >
             <span className="hidden sm:inline">14 Tage kostenlos</span>
             <span className="sm:hidden">14 Tage</span>
-            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight
+              size={scrolled ? 14 : 16}
+              className="group-hover:translate-x-0.5 transition-transform"
+            />
           </a>
         </nav>
       </div>
