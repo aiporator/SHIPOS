@@ -92,12 +92,27 @@ export const LeadCaptureModal = () => {
       zones.forEach((z) => observer.observe(z));
     }
 
+    // Mobile has no exit-intent (no mouseleave) · without these most phone
+    // visitors never see the capture, a big lead leak. Fire on deep scroll
+    // (≈58% of the page · strong intent) or after 45s on page, whichever
+    // comes first. Both respect the same cooldown + triggered guard.
+    const onScroll = () => {
+      if (triggered.current) return;
+      const reached = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (total > 0 && reached / total > 0.58) trigger();
+    };
+    const dwellTimer = setTimeout(() => trigger(), 45000);
+
     const onSubscribed = () => armCooldown();
     window.addEventListener('newsletter:subscribed', onSubscribed);
+    window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
 
     return () => {
+      clearTimeout(dwellTimer);
       document.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('newsletter:subscribed', onSubscribed);
       if (observer) observer.disconnect();
     };
