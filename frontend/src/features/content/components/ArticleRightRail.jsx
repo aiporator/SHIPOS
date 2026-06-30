@@ -262,31 +262,101 @@ const NewsletterMini = ({ articleSlug }) => {
   );
 };
 
+// Problem-first funnel · instead of a passive "ask the bot" link, we ask
+// the reader to name their actual leadership problem right here. The
+// moment they type (or tap a suggestion) they've invested · the button
+// then deep-links into WladBot with their problem pre-filled, so they
+// land on a tailored answer, not an empty chat. That "I already got
+// value before signing up" feeling is what converts.
+const PROBLEM_SUGGESTIONS = [
+  'Mitarbeiter zieht nicht mit',
+  'Schwieriges Feedback-Gespräch',
+  'Mein Team ist überlastet',
+  'Konflikt im Team',
+  'Townhall vorbereiten',
+];
+
 const WladBotMini = ({ articleSlug, articleTitle }) => {
-  const prompt = `Ich habe gerade „${articleTitle}" gelesen. Wie wende ich das auf meine Situation an?`;
-  const href = `https://leaderos.de/chat?prompt=${encodeURIComponent(prompt)}&utm_source=article&utm_medium=right-rail&utm_campaign=${encodeURIComponent(articleSlug)}`;
+  const [problem, setProblem] = useState('');
+
+  const buildPrompt = (text) => {
+    const situation = (text || '').trim();
+    const base = situation
+      ? `Meine Situation als Führungskraft: ${situation}. Ich habe gerade „${articleTitle}" gelesen — gib mir den konkreten nächsten Schritt nach Wlads Methodik.`
+      : `Ich habe gerade „${articleTitle}" gelesen. Was ist mein konkreter nächster Schritt nach Wlads Methodik?`;
+    return base;
+  };
+
+  const go = (text) => {
+    const prompt = buildPrompt(text);
+    if (typeof window !== 'undefined' && window.posthog?.capture) {
+      try {
+        window.posthog.capture('wladbot_funnel_question', {
+          article: articleSlug,
+          has_problem: Boolean((text || '').trim()),
+          problem_preview: (text || '').slice(0, 80),
+          surface: 'article-right-rail',
+        });
+      } catch { /* never block */ }
+    }
+    const href = `https://leaderos.de/chat?prompt=${encodeURIComponent(prompt)}&utm_source=article&utm_medium=right-rail&utm_campaign=${encodeURIComponent(articleSlug)}`;
+    if (typeof window !== 'undefined') window.open(href, '_blank', 'noopener');
+  };
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       data-testid="article-right-rail-wladbot"
-      className="group block border-2 border-foreground bg-foreground text-background p-5 hover:bg-brand hover:text-foreground transition-colors"
+      className="border-2 border-foreground bg-foreground text-background p-5"
     >
       <div className="flex items-center gap-2 mb-3">
-        <MessageCircle size={14} className="text-brand group-hover:text-foreground" />
-        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.26em] text-brand group-hover:text-foreground">
-          ▸ FRAG DEN WLADBOT
+        <MessageCircle size={14} className="text-brand" />
+        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.26em] text-brand">
+          ▸ LÖS ES MIT WLADBOT
         </span>
       </div>
-      <p className="text-[13px] leading-[1.5] text-background/80 group-hover:text-foreground mb-3">
-        Wende den Inhalt sofort auf deine echte Situation an · 24/7, in deiner Sprache.
+      <p className="text-[13px] leading-[1.5] text-background/80 mb-3">
+        Was ist gerade deine größte Führungs-Herausforderung? Tipp sie
+        ein · WladBot gibt dir den nächsten Schritt nach Wlads Methodik.
       </p>
-      <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.14em] text-brand group-hover:text-foreground">
-        Loslegen <ArrowRight size={12} />
-      </span>
-    </a>
+
+      <textarea
+        value={problem}
+        onChange={(e) => setProblem(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) go(problem);
+        }}
+        rows={2}
+        placeholder="z.B. Ein Senior zieht zum dritten Mal nicht mit…"
+        className="w-full bg-background/10 border border-background/20 focus:border-brand focus:outline-none text-background placeholder:text-background/40 text-[13px] leading-[1.4] p-2.5 mb-2.5 resize-none"
+        data-testid="wladbot-problem-input"
+      />
+
+      {/* One-tap common problems · removes the blank-page friction */}
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        {PROBLEM_SUGGESTIONS.slice(0, 3).map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setProblem(s)}
+            className="px-2 py-1 border border-background/25 hover:border-brand hover:text-brand text-background/70 text-[10.5px] leading-none transition-colors"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => go(problem)}
+        className="w-full inline-flex items-center justify-center gap-1.5 bg-brand hover:bg-white text-foreground font-bold text-[11.5px] uppercase tracking-[0.14em] h-10 transition-colors"
+        data-testid="wladbot-funnel-cta"
+      >
+        {problem.trim() ? 'Lösung holen' : 'WladBot fragen'} <ArrowRight size={13} />
+      </button>
+      <p className="mt-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-background/45 text-center">
+        ▸ Antwort in 30 Sek · kostenlos starten
+      </p>
+    </div>
   );
 };
 

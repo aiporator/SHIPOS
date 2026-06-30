@@ -112,8 +112,21 @@ import liebeMitarbeiterDasHierWollteIch from './articles/liebe-mitarbeiter-das-h
 import werIstWladJachtchenko from './articles/wer-ist-wlad-jachtchenko';
 import wasIstEineKiNativeFuehrungskraft from './articles/was-ist-eine-ki-native-fuehrungskraft';
 import leaderOsVsChatgptClaudePerplexity from './articles/leader-os-vs-chatgpt-claude-perplexity';
+// 2026-06-29 · Leadership-development SEO pillars · target the head terms
+// owned by Haufe-Akademie / DAM / Hees (transformationale, laterale,
+// fachliche/disziplinarische Führung, Führungskräfteentwicklung). Full
+// SEO armor, definitional H2s, topic-cluster cross-links.
+import transformationaleFuehrung from './articles/transformationale-fuehrung';
+import lateraleFuehrung from './articles/laterale-fuehrung';
+import fachlicheVsDisziplinarischeFuehrung from './articles/fachliche-vs-disziplinarische-fuehrung';
+import fuehrungskraefteentwicklung from './articles/fuehrungskraefteentwicklung-leadership-development';
 
 const ARTICLES = [
+  // 2026-06-29 leadership-development SEO pillars (compete with the academies)
+  transformationaleFuehrung,
+  lateraleFuehrung,
+  fachlicheVsDisziplinarischeFuehrung,
+  fuehrungskraefteentwicklung,
   // 2026-06-26 GEO pillars · authority + definition + comparison
   werIstWladJachtchenko,
   wasIstEineKiNativeFuehrungskraft,

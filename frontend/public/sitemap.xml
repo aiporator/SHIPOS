@@ -530,6 +530,33 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- 2026-06-29 · Leadership-development SEO pillars · the head terms
+       owned today by Haufe-Akademie / DAM / Hees. Priority 1.0. -->
+  <url>
+    <loc>https://leader-os.de/journal/transformationale-fuehrung</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://leader-os.de/journal/laterale-fuehrung</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://leader-os.de/journal/fachliche-vs-disziplinarische-fuehrung</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://leader-os.de/journal/fuehrungskraefteentwicklung-leadership-development</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
   <!-- 2026-06-26 · GEO Pillars · authority + definition + comparison ·
        priority 1.0 because these are the canonical answers we want AI
        Overview and Perplexity to cite for high-intent queries. -->
