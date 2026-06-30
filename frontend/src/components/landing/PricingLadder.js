@@ -57,7 +57,7 @@ const TIERS = [
     price: '997 €',
     priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
-    scarcity: 'Charter 0001 · letzte Charter-Plätze',
+    scarcity: 'Alle Vorteile ab Tag 1 · werde Teil von Leader-OS',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
@@ -228,7 +228,7 @@ const TierCard = ({ tier }) => {
         </p>
       </div>
 
-      {/* Scarcity-Strip · nur Sprint zeigt Charter-0001-Plätze, sonst die echte Knappheit */}
+      {/* Benefit-Strip · nur Sprint zeigt den Einladungs-Hinweis */}
       {tier.scarcity && (
         <div
           className={`mx-6 md:mx-7 mb-2 flex items-center gap-2 px-3 py-2 border ${tier.dark ? 'border-brand/40 bg-brand/[0.08]' : 'border-black bg-black/[0.04]'}`}

@@ -452,7 +452,7 @@ export default function LeaderCheckLanding() {
               <div className="relative bg-white border border-black/[0.15] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
                 <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/[0.10] text-[9px] font-bold uppercase tracking-[0.22em] text-black/55 font-mono">
                   <span>LEADER-CHECK · ERGEBNIS · ANONYM</span>
-                  <span className="text-brand">ERSTE GRUPPE</span>
+                  <span className="text-brand">FÜR DICH</span>
                 </div>
                 <div className="p-6 md:p-8">
                   {/* 3 Score-Kreise */}
@@ -638,7 +638,7 @@ export default function LeaderCheckLanding() {
       <section className="bg-[#FAFAF7] border-y-2 border-black">
         <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-12 font-mono text-center">
-            ▸ STIMMEN VON CLASS · 0001
+            ▸ STIMMEN AUS DER COMMUNITY
           </p>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {[

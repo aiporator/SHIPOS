@@ -19,7 +19,7 @@ const MESSAGES = [
   { eyebrow: '▸ JETZT', big: '50 FREE', small: 'CREDITS' },
   { eyebrow: '▸ 10 MIN', big: 'DIAGNOSE', small: 'KOSTENLOS' },
   { eyebrow: '▸ FRAG', big: 'WLADBOT', small: '24 / 7' },
-  { eyebrow: '▸ START', big: 'CHARTER', small: '0001' },
+  { eyebrow: '▸ START', big: 'WERDE', small: 'TEIL' },
 ];
 
 const PixelWlad = () => (

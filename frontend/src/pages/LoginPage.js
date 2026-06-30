@@ -174,7 +174,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md lg:max-w-[440px]">
           <div className="mb-7 lg:mb-9">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-3 font-mono">
-              ▸ LOGIN · CLASS 0001
+              ▸ LOGIN · DEIN ZUGANG
             </p>
             <h2
               className="text-[40px] sm:text-[52px] leading-[0.92] tracking-[-0.035em] text-black"

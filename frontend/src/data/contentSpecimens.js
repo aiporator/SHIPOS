@@ -277,7 +277,7 @@ export const POST_SERIES = [
       'Der Leader-OS-Sprint ist kein Kurs. Es ist ein Training · ' +
       'jeden Tag eine Frage, jeden Tag ein Drill, jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst.\n\n' +
-      'BIB 0001 jetzt offen. → leader-os.de',
+      'BIB 0001 jetzt starten. → leader-os.de',
   },
   {
     id: 'C-04',
@@ -294,7 +294,7 @@ export const POST_SERIES = [
       ['BOT', 'WLADBOT',        '24/7 Coach in Wlads Stimme'],
       ['VID', 'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
       ['LIV', 'LIVE MIT WLAD',  'Monatlich · live · ungeschnitten'],
-      ['CLS', 'CLASS 0001',      'Privater Channel · 100 Plätze'],
+      ['CLS', 'COMMUNITY',       'Privater Channel · für alle Mitglieder'],
       ['CAL', 'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
       ['ZRT', 'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
     ],
@@ -302,7 +302,7 @@ export const POST_SERIES = [
     caption:
       'Du lernst nicht allein. Du wirst Teil von etwas.\n\n' +
       'WladBot ist der Anfang. Dahinter: tägliche Lernvideos, Live-' +
-      'Sessions mit Wlad, die Class 0001 im geschlossenen Channel, ' +
+      'Sessions mit Wlad, die Community im privaten Channel, ' +
       'monatliche Strategie-Calls · und ein Zertifikat, das zeigt, ' +
       'wer du geworden bist.\n\n' +
       '→ leader-os.de',

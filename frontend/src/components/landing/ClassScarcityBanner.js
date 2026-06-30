@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react';
 
 /**
- * ClassScarcityBanner · top-of-page editorial scarcity strip.
+ * ClassScarcityBanner · top-of-page editorial invite strip.
  *
- * Charter 0001 startet, nur 30 Charter-Plätze, echte Scarcity statt
- * fake-urgency. Seat-count tickt langsam runter über die Zeit,
- * persistent in localStorage damit der Wert nicht bei jedem Reload
- * zurückspringt. Dismissible per Session.
+ * Benefit-led, inklusiv: führt mit dem kostenlosen Leader-Check und der
+ * Einladung, Teil von Leader-OS zu werden · keine Scarcity, keine
+ * Seat-Counts. Dismissible per Session.
  *
  * Editorial single-line: lime live-dot, mono BIB-code separators,
- * one inline link, optional dismiss. No progress bar (the seat
- * count itself communicates urgency; a bar duplicates without
- * adding signal and reads as AI-SaaS chrome).
+ * one inline link, optional dismiss. No progress bar · the message is
+ * purely action + benefit, which converts better than chrome.
  */
 
-// The seat-countdown machinery was removed · the banner now leads with
-// the free Leader-Check action instead of a "X von 30 frei" counter
-// (which read as fake-urgency AI-SaaS chrome and which the visitor can't
-// verify). Only the per-session dismiss flag remains.
+// The banner leads with the free Leader-Check action and a clear invite
+// to join Leader-OS · benefit-first, no counters the visitor can't
+// verify. Only the per-session dismiss flag remains.
 const STORAGE_DISMISS = 'leaderos_charter_0001_dismissed';
 
 export const ClassScarcityBanner = () => {
@@ -39,7 +36,7 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Charter 0001. Plätze begrenzt."
+      aria-label="Werde Teil von Leader-OS. Starte mit dem kostenlosen Leader-Check."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
@@ -50,7 +47,7 @@ export const ClassScarcityBanner = () => {
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          CHARTER 0001
+          WERDE TEIL
         </span>
 
         {/* Mono hairline separator */}

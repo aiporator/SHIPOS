@@ -9,17 +9,17 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-09-05',
   cover: null,
-  tags: ['Plattform', 'Klasse 0001', 'Sprint', 'Onboarding'],
+  tags: ['Plattform', 'Leader-OS', 'Sprint', 'Onboarding'],
   seo: {
     title: 'Leader-OS erste 7 Tage: Tag-für-Tag-Anleitung | Leader-OS',
     description:
       'Erste Woche mit Leader-OS: was du an Tag 1, 3, 5, 7 konkret tust. Drills, ' +
-      'Methodik, WladBot-Setup. Klasse 0001 Sprint-Eröffnung Schritt für Schritt.',
+      'Methodik, WladBot-Setup. Leader-OS Sprint-Eröffnung Schritt für Schritt.',
     canonical: 'https://leader-os.de/journal/die-ersten-7-tage-mit-leader-os',
     keywords: [
       'leader-os erste tage',
       'sprint 0001 onboarding',
-      'klasse 0001 start',
+      'leader-os community',
       'wladbot setup',
       'ki coaching erste woche',
       '30-tage-sprint',
@@ -44,7 +44,7 @@ export default {
 
     { type: 'framework', code: '7·1', title: 'Die erste Woche in Zahlen.', explanation: 'Sieben Tage. ~2 Stunden Lernzeit insgesamt (verteilt auf 15-25 Min Slots). 7 echte Arbeit-Aufgaben mit Methodik gelöst (Email, 1:1, Feedback, Konflikt, Townhall-Vorbereitung, Reflexion, Diagnose). Drei Frameworks lebendig gemacht (B-W-W, Schlagfertigkeit, Daily-Drill). Eine Diagnose mit klarem Score. Eine Live-Session zugeordnet. Das ist der Funnel · nicht Wissen anhäufen, sondern Methodik einbauen.' },
 
-    { type: 'callout', tone: 'dark', text: 'Klasse 0001 ist offen mit 12 von 30 Charter-Plätzen frei. Jeder Charter-Mitglied bekommt zusätzlich ein 1:1-Onboarding mit Wlad in den ersten 14 Tagen · er kennt deinen Diagnose-Score und schneidet den Rest der 30 Tage auf dich zu. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'Leader-OS ist offen für alle · werde Teil davon und starte sofort. Ab Tag 1 hast du WladBot 24/7, elf drillbare Frameworks und ein Onboarding das deinen Diagnose-Score kennt und die 30 Tage auf dich zuschneidet. 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'dein-erster-tag-mit-leader-os',

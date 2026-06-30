@@ -891,7 +891,7 @@ export default function WladJachtchenkoPage() {
             {[
               { name: 'Leader-OS',
                 sub: 'KI-Coaching-Plattform · seit 2026',
-                desc: 'Wlads Methodik in einer Plattform. WladBot, 11 Frameworks, Klasse 0001 Charter.',
+                desc: 'Wlads Methodik in einer Plattform. WladBot 24/7, 11 drillbare Frameworks, 14 Tage kostenlos testen.',
                 href: 'https://leader-os.de',
                 cta: 'leader-os.de' },
               { name: 'Argumentorik-Akademie',

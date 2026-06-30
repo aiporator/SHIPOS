@@ -13,7 +13,7 @@ import { SpotlightCard } from './SpotlightCard';
  * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets · die
  * Plattform ist das was du AB TAG 1 in der Hand hast.
  *
- * Closing-CTA-Strip bündelt die Charter-Konditionen (30 Tage + 12 Monate)
+ * Closing-CTA-Strip bündelt die Leader-OS-Konditionen (30 Tage + 12 Monate)
  * + Preis + Button · damit der Übergang in den Sprint-Kauf einlippig ist.
  */
 
@@ -76,13 +76,13 @@ const FEATURES = [
   {
     bib: 'P·06',
     icon: Users,
-    title: 'Charter 0001 Peer-Kreis',
-    headline: '30 hand-picked Charter.',
+    title: 'Deine Peer-Community',
+    headline: 'Lerne mit anderen Führungskräften.',
     body:
-      'Geschlossener Slack-Channel mit den ersten 30 Mitgliedern + ' +
-      'Wlad. Peer-Sparring, Job-Board, Intros zwischen Klienten. ' +
+      'Eigener Slack-Channel mit anderen Führungskräften + Wlad. ' +
+      'Peer-Sparring, Job-Board, Intros zwischen Klienten. ' +
       'Lifetime-Zugang, auch nach Sprint-Ende.',
-    proof: 'CHARTER-COHORT · LIFETIME',
+    proof: 'PEER-COMMUNITY · LIFETIME',
   },
 ];
 
@@ -181,7 +181,7 @@ export const PlatformValueSection = () => (
         <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-center text-center md:text-left">
           <div className="md:col-span-8">
             <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
-              ▸ CHARTER 0001 · START MIT DEM LEADER-CHECK
+              ▸ WERDE TEIL · START MIT DEM LEADER-CHECK
             </div>
             <h3
               className="text-[28px] md:text-[42px] leading-[1.02] tracking-[-0.03em]"

@@ -12,7 +12,7 @@ import { BookText, Layers, MessagesSquare, Compass, Zap, Crown } from 'lucide-re
  *   - 400 000 Coaching-Stunden (verdichtet als WladBot-Trainingsdaten)
  *   - 11 Leader-Frameworks
  *   - 30-Tage Sprint-Methodik
- *   - Charter-Pfad (0001 → 0004)
+ *   - Lifetime-Lernpfad mit allen Vorteilen ab Tag 1
  *
  * Keine Theorie, keine Buchhülle · alles in tägliche Routinen, Drills,
  * Sprint-Etappen und WladBot-Sparring übersetzt.
@@ -70,7 +70,7 @@ const SOURCES = [
     title: 'Plus: vieles was nie veröffentlicht wurde.',
     body:
       'Material aus Inhouse-Programmen, Vorstands-Coachings und privaten ' +
-      'Sparrings · das bisher nur Klienten kannten. Jetzt für alle in 0001.',
+      'Sparrings · das bisher nur Klienten kannten. Jetzt für dich offen.',
     artifact: 'Vorstands-Skripte · Krisen-Kommunikation · Senior-Verhandlung',
   },
 ];
@@ -178,7 +178,7 @@ export const WladKnowledgeInsideSection = () => (
           </div>
           <p className="text-[13.5px] leading-[1.55] text-foreground/70">
             Wlad selbst ist nur 1× verfügbar. Sein Wissen ist es jetzt
-            jederzeit · als System, als WladBot, als Charter 0001.
+            jederzeit · als System, als WladBot, ab Tag 1 für dich offen.
           </p>
         </div>
       </div>

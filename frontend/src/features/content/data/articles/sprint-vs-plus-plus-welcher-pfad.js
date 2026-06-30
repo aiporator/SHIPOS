@@ -30,7 +30,7 @@ export default {
     { type: 'paragraph', text: 'Wir haben zwei Tiers · Sprint und Plus-Plus. Hier ehrlich, ohne Sales-Sprache, wer welchen Pfad nehmen soll.' },
 
     { type: 'heading', level: 2, text: 'Sprint · 997 € · 30 Tage + 12 Monate Mitgliedschaft.' },
-    { type: 'paragraph', text: 'Du bekommst: 30 Tage intensiver Drill mit allen 11 Frameworks, WladBot 24/7, Daily-Lernvideos, Klasse 0001 Peer-Kreis (Lifetime). Danach 12 Monate Mitgliedschaft · voller Plattform-Zugang, WladBot bleibt, Updates ohne Aufpreis.' },
+    { type: 'paragraph', text: 'Du bekommst: 30 Tage intensiver Drill mit allen 11 Frameworks, WladBot 24/7, Daily-Lernvideos, Leader-OS-Community als Peer-Kreis (Lifetime). Danach 12 Monate Mitgliedschaft · voller Plattform-Zugang, WladBot bleibt, Updates ohne Aufpreis.' },
     { type: 'paragraph', text: 'Sprint passt für dich wenn: du ein konkretes Methodik-Problem hast und in 30 Tagen substantielle Bewegung willst, ohne dass du LIVE mit Wlad sprechen musst. Du bist Disziplin-getrieben, brauchst nicht das wöchentliche Coaching-Push.' },
 
     { type: 'heading', level: 2, text: 'Plus-Plus · 4 797 € · OS-Jahr mit Live-Sessions.' },
@@ -46,7 +46,6 @@ export default {
     { type: 'callout', tone: 'dark', text: 'Im Beratungsgespräch entscheiden wir gemeinsam. Wir verkaufen nicht das teurere Tier "weil es teurer ist" · sondern das passende. Bei ungefähr 30% der Gespräche entscheiden wir gemeinsam für Sprint, obwohl der Klient sich vorher Plus-Plus vorgestellt hatte. Unverbindliches Beratungsgespräch.' },
   ],
   related: [
-    'klasse-0001-wer-reinkommt-wer-nicht',
     'die-ersten-7-tage-mit-leader-os',
     'leader-os-vs-klassisches-coaching',
   ],

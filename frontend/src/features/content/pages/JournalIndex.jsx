@@ -16,7 +16,7 @@ import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
  *      Off-Crypto / The Players' Tribune lovechild
  *   2. Front-page lede grid: big halftone-lime feature image (left) +
  *      dated news column (center) + Hot Stories sidebar (right)
- *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Klasse-0001
+ *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Leader-OS
  *      live-counter / Leadership-Summit · 4 quick-access tiles
  *   4. Funnel CTA breaks weaved in between category sections
  *   5. Per-category newspaper-style spreads (image + headlines)
@@ -65,7 +65,7 @@ const TICKER = [
   { label: 'BESTSELLER', value: '3 SPIEGEL' },
   { label: 'BÜCHER',   value: '8 LÄNDER' },
   { label: 'PODCAST',  value: '10M+',  tone: 'up' },
-  { label: 'KLASSE 0001', value: 'LIVE', tone: 'up' },
+  { label: 'WERDE TEIL', value: 'LIVE', tone: 'up' },
   { label: 'WLADBOT',  value: '24/7' },
 ];
 
@@ -254,7 +254,7 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
 
 // ─────────────────────────────────────────────────────────────────────────
 // AUS WLAD'S WELT · News-strip mit 4 quick-access tiles
-// (Podcast · Bücher · Klasse-0001-Counter · Leadership-Summit)
+// (Podcast · Bücher · Leader-OS · Leadership-Summit)
 // ─────────────────────────────────────────────────────────────────────────
 const FROM_WLAD = [
   {
@@ -276,10 +276,10 @@ const FROM_WLAD = [
     tone: 'ink',
   },
   {
-    label: 'KLASSE 0001',
-    title: '12 / 30 Charter-Plätze noch offen.',
-    description: 'Staatlich anerkannte Führungskräfte-Ausbildung. 6 Monate. Start in 14 Tagen.',
-    cta: 'Beratungsgespräch buchen',
+    label: 'WERDE TEIL',
+    title: 'Alle Vorteile ab Tag 1.',
+    description: 'Volle Plattform, WladBot 24/7, elf Frameworks. 14 Tage kostenlos · ohne Karte. Werde Teil von Leader-OS.',
+    cta: 'Jetzt dabei sein',
     to: '/#beratung',
     external: false,
     tone: 'lime',
@@ -288,7 +288,7 @@ const FROM_WLAD = [
   {
     label: 'SUMMIT',
     title: 'Leadership-Summit · Q4.',
-    description: 'Wlad live + ausgewählte Klasse-0001-Alumni. Live-Drills, Q&A, Klein-Format.',
+    description: 'Wlad live + die Leader-OS-Community. Live-Drills, Q&A, Klein-Format.',
     cta: 'Auf Warteliste',
     to: '/#summit',
     external: false,
@@ -310,7 +310,7 @@ const FromWladStrip = () => (
           <span className="text-[24px] md:text-[32px] text-white" style={condensed}>WLAD'S WELT</span>
         </div>
         <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-white/55">
-          ▸ Podcast · Bücher · Klasse · Summit
+          ▸ Podcast · Bücher · Leader-OS · Summit
         </div>
       </div>
 
@@ -861,7 +861,7 @@ export default function JournalIndex() {
       description:
         'Newsroom für KI-natives Führen · Frameworks, Skripte, Field-Notes aus ' +
         'Wlad Jachtchenkos Arbeit mit 400 000+ Klienten. Podcast, Bücher, ' +
-        'Klasse 0001, Leadership-Summit.',
+        'Leader-OS, Leadership-Summit.',
       canonical: 'https://leader-os.de/journal',
       keywords: ['KI Führung', 'Leadership Magazin', 'Wlad Jachtchenko', 'Schlagfertigkeit', 'Mitarbeiterführung', 'Beratungsgespräch', 'Leader-OS'],
       robots: 'index, follow, max-image-preview:large',

@@ -13,7 +13,7 @@ export default {
   tags: ['KI', 'Sprint', 'Karriere', 'Methodik'],
   body: [
     { type: 'paragraph', text: 'Ich werde oft gefragt: "Wlad, wie lange dauert das eigentlich · bis ich wirklich mit KI führe und nicht nur ChatGPT-Tabs offen habe?". Die ehrliche Antwort: in 30 Tagen siehst du den ersten echten Hebel. In 6 Monaten bist du eine andere Führungskraft. Wer das in einem Wochenend-Bootcamp verspricht, hat noch nie eine Transformation begleitet.' },
-    { type: 'paragraph', text: 'Hier ist der Pfad, den wir in der Klasse 0001 gehen. Sechs Monate. Kein Wochenend-Hype, keine 8-Stunden-Video-Marathons. Sondern strukturiertes Training mit täglichem Coaching.' },
+    { type: 'paragraph', text: 'Hier ist der Pfad, den wir in Leader-OS gehen. Sechs Monate. Kein Wochenend-Hype, keine 8-Stunden-Video-Marathons. Sondern strukturiertes Training mit täglichem Coaching.' },
     { type: 'heading', level: 2, text: 'Monat 1: Sprint 0001 · die KI-Routine baut sich auf.' },
     { type: 'paragraph', text: '30 Tage täglicher Check-in, jeden Morgen 10 Minuten. Du installierst die Grundroutine: dein WladBot kennt deinen Job, deine Ziele, deinen Stil. Du lernst die vier Prompt-Patterns die in 90 Prozent aller Führungs-Situationen reichen. Am Tag 30 hast du eine Routine die hält.' },
     { type: 'paragraph', text: 'Messbar: median 5-7 Stunden zurückgewonnene Zeit pro Woche. Erste Manager berichten dass Entscheidungs-Zyklen sich halbieren. Team-Feedback wird konkreter, weil du nicht mehr aus dem Bauch heraus antwortest.' },
@@ -28,11 +28,11 @@ export default {
     { type: 'paragraph', text: 'Am Ende von Monat 4 hast du drei bis fünf eigene Agenten die jeden Tag für dich laufen. Das ist der Moment in dem die meisten Klienten sagen: "Ich kann mir nicht mehr vorstellen wie ich vorher gearbeitet habe."' },
     { type: 'heading', level: 2, text: 'Monat 5: Multiplikator-Phase.' },
     { type: 'paragraph', text: 'Bis hierhin hast du dich selbst verstärkt. Jetzt verstärkst du dein Umfeld. Wie führst du jemanden in die KI-Routine ein? Wie machst du aus drei skeptischen Senior-ICs drei aktive KI-Nutzer? Wie skalierst du das was du selbst gelernt hast · egal ob in einem Team, einer Audience oder einem Projekt.' },
-    { type: 'paragraph', text: 'Klasse 0001 wird in dieser Phase wertvoll: du tauschst dich mit anderen Multiplikatoren aus die durch dieselbe Phase gehen. Echte Sparrings, keine Wohlfühl-Calls.' },
+    { type: 'paragraph', text: 'Die Leader-OS-Community wird in dieser Phase wertvoll: du tauschst dich mit anderen Multiplikatoren aus die durch dieselbe Phase gehen. Echte Sparrings, keine Wohlfühl-Calls.' },
     { type: 'heading', level: 2, text: 'Monat 6: Konsolidierung und Outcome.' },
-    { type: 'paragraph', text: 'Letzter Monat. Wir messen, was sich verändert hat. Zeit-Gewinn, Output-Qualität, Team-Feedback. Du machst einen persönlichen Vorher-Nachher-Vergleich mit konkreten Zahlen. Und du planst die nächsten 6 Monate · meistens in Klasse 0002, 0003 oder 0004.' },
+    { type: 'paragraph', text: 'Letzter Monat. Wir messen, was sich verändert hat. Zeit-Gewinn, Output-Qualität, Team-Feedback. Du machst einen persönlichen Vorher-Nachher-Vergleich mit konkreten Zahlen. Und du planst die nächsten 6 Monate · mit deinem Lifetime-Zugang zu Leader-OS gehst du einfach in die nächste Vertiefungs-Stufe.' },
     { type: 'paragraph', text: 'Das ist der Moment in dem die meisten Klienten sagen, dass diese sechs Monate ihre wertvollste berufliche Investition waren · nicht weil sie ein Zertifikat haben, sondern weil sie nachweislich anders arbeiten als vorher.' },
-    { type: 'callout', tone: 'lime', text: 'Klasse 0001 startet bald. 30 Charter-Plätze, 6 Monate strukturierte Ausbildung, persönliche Aufnahme. Unverbindliches Beratungsgespräch buchen: leader-os.de/#klassen' },
+    { type: 'callout', tone: 'lime', text: 'Werde Teil von Leader-OS · 6 Monate strukturierte Ausbildung, alle Vorteile ab Tag 1, Lifetime-Zugang. 14 Tage kostenlos, ohne Karte: leader-os.de/#klassen' },
   ],
   related: [
     'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',

@@ -43,7 +43,7 @@ export default {
 
     { type: 'framework', code: 'T·7', title: 'Die 7-Minuten-Townhall.', explanation: 'Total: 7 Minuten Sprecher-Zeit. Akt 1 Hook (2 Min). Akt 2 drei Botschaften (3 Min). Akt 3 Call (2 Min). Danach Q&A · 15-20 Minuten. Wer länger als 7 Minuten am Stück sprechen will, hat zu wenig vorbereitet, nicht zu viel zu sagen. Üben mit Stoppuhr. Das ist Drill, nicht Talent.' },
 
-    { type: 'callout', tone: 'dark', text: 'In Klasse 0001 üben die ersten 5 Klienten ihre eigenen Townhalls mit WladBot als Test-Audience. Sprich, KI hört zu, gibt Feedback in Wlads Ton. Bis Minute 7 sitzt, dauert im Schnitt 12 Drill-Sessions. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'In Leader-OS übst du deine eigenen Townhalls mit WladBot als Test-Audience. Sprich, KI hört zu, gibt Feedback in Wlads Ton. Bis Minute 7 sitzt, dauert im Schnitt 12 Drill-Sessions. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'townhall-rede-strukturieren-sexier',

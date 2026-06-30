@@ -49,7 +49,7 @@ export const AD_SERIES = [
     palette: 'midnight',
     topText: 'KI-NATIVE\nLEADERSHIP',
     titleText: 'WERDE\nKI-NATIV.',
-    bottomText: 'BIB · 0001 · JETZT OFFEN',
+    bottomText: 'BIB · 0001 · JETZT STARTEN',
     cta: 'LEADER-OS.DE',
     photo: stock('lead-portrait-1', 1080, 1080),
     photoFit: 'cover',
@@ -82,13 +82,13 @@ export const AD_SERIES = [
     palette: 'spark',
     topText: 'ZERTIFIKAT 0001\nLINKEDIN-READY',
     titleText: '30 TAGE.\nEIN NEUES DU.',
-    bottomText: 'CLASS 0001 · 100 PLÄTZE',
+    bottomText: '14 TAGE KOSTENLOS · OHNE KARTE',
     cta: 'LEADER-OS.DE',
     photo: stock('lead-portrait-3', 1080, 1920),
     photoFit: 'cover',
     caption:
       'Dreißig Tage. Elf Frameworks. Ein Coach der nie schläft. ' +
-      'Class 0001 hat 100 Plätze.',
+      'Starte 14 Tage kostenlos, ganz ohne Karte.',
   },
 
   // ─── B · Pain-First (Drill / Feedback / Verhandlung) ────────────
@@ -273,14 +273,14 @@ export const AD_SERIES = [
     format: '9x16',
     platform: 'stories',
     palette: 'rally',
-    topText: 'CLASS 0001\n100 PLÄTZE',
+    topText: 'DEIN SPRINT\nDEIN ZERTIFIKAT',
     titleText: 'BIB 0001\nSICHERN.',
-    bottomText: 'START · KW 28 · 2026',
+    bottomText: 'JETZT STARTEN · 14 TAGE KOSTENLOS',
     cta: 'JETZT DABEI',
     photo: stock('marathon-bib', 1080, 1920),
     photoFit: 'cover',
     caption:
-      'Die erste Class hat 100 Startnummern. Wer dabei ist, bekommt das ' +
+      'Starte deinen Sprint, wann du willst. Jeder bekommt das ' +
       'Zertifikat 0001 · handschriftlich von Wlad, mit dem Original-Siegel.',
   },
   {

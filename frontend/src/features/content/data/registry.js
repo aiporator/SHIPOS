@@ -98,7 +98,6 @@ import GehaltsverhandlungAlsFuehrungskraftDrehbuch from './articles/gehaltsverha
 import VomManagerZumDirectorWasWirklichAndersWird from './articles/vom-manager-zum-director-was-wirklich-anders-wird';
 import BurnoutBeiTopPerformernDieWarnsignale from './articles/burnout-bei-top-performern-die-warnsignale';
 import DieErsten7TageMitLeaderOs from './articles/die-ersten-7-tage-mit-leader-os';
-import Klasse0001WerReinkommtWerNicht from './articles/klasse-0001-wer-reinkommt-wer-nicht';
 import SprintVsPlusPlusWelcherPfad from './articles/sprint-vs-plus-plus-welcher-pfad';
 // Players'-Tribune-style narrative SEO bombs
 import briefAnMeinen28JaehrigenSelbst from './articles/brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde';
@@ -171,7 +170,6 @@ const ARTICLES = [
   VomManagerZumDirectorWasWirklichAndersWird,
   BurnoutBeiTopPerformernDieWarnsignale,
   DieErsten7TageMitLeaderOs,
-  Klasse0001WerReinkommtWerNicht,
   SprintVsPlusPlusWelcherPfad,
 
     // Published 2026-08-15 → 18, so they take Hero + Top Stories on /journal.
