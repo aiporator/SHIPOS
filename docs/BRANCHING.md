@@ -65,53 +65,103 @@ base and would delete current work (legal pages, CI guards, stripe-webhook). The
 correct pattern is the surgical cherry-pick we used for the folder feature and
 the RAG fixes — lift the one changed file onto a fresh branch off `mvpcode`.
 
-## One-time cleanup (current repo)
+## One-time cleanup (refreshed 2026-06-30, post-launch)
 
 GitHub's web UI can't bulk-delete, and this environment's git proxy blocks
-`push --delete`, so this is a manual pass in **Branches → (trash icon)**.
+`push --delete` (403), so run the command below **locally**, or do a manual pass
+in **Branches → (trash icon)**.
 
-**Safe to delete now** — fully contained in `mvpcode` (verified `git rev-list
-mvpcode..<branch>` = 0), not an open PR, not an archive:
+> The repo reached ~110 branches. Flip the auto-delete toggle (above) first —
+> that stops the bleeding — then clear the backlog once.
+
+**Safe to delete now** — fully contained in `mvpcode` (`git branch -r --merged
+origin/mvpcode`, plus the three squash-merged launch PRs), not an open PR, not an
+archive:
 
 ```
 chore/ci-hardening
-claude/csp-allowlist-fix
-claude/godmode-followup
-claude/godmode-launch-prep
-claude/launch-day-prep
-claude/security-hardening-tonight
+claude/add-vimeo-links-9cL3u
+claude/cross-tier-redirect
+claude/integrate-sentry-mcp-BV4Ev
+claude/rename-default-branch-KQrTc
+claude/shipping-mode-friday
+claude/sign-guy-dodge-band
 docs/system-overview
+emergent-iter-92.13
+merge/emergent-iter-92.13
 feat/enterprise-diagnosis-emails
 feat/enterprise-emails
+feature/folder-context-wingman
 fix/lockfile-guard-always-run
 fix/rag-context-budget
 fix/video-upload-size-limit
 fix/voice-prompt-framework-citation
-feature/folder-context-wingman   # merged via #49
+claude/footer-cleanup-mobile-polish    # squash-merged via PR #129
+claude/journal-next-level              # squash-merged via PR #140
+claude/journal-polish-glow             # squash-merged via PR #141
 ```
 
-**Triage (stale experiments, likely delete after a glance)** — these have
-commits not in `mvpcode`; confirm nothing unmerged is worth keeping, then delete:
+Run locally:
 
-```
-claude/add-supabase-mcp-server-wVHPR   claude/add-vimeo-links-9cL3u
-claude/auth-race-fixes                 claude/check-status-indicators-MlDyM
-claude/cleanup-ci-workflow-QiBAS       claude/framer-mcp-relay-Ot1Oh
-claude/install-supabase-cli-Z8CF9      claude/integrate-sentry-mcp-BV4Ev
-claude/legal-and-consent               claude/mcp-server-integration-WWmJL
-claude/rename-default-branch-KQrTc     claude/setup-posthog-eu-Oy6Ly
-docs/app-architecture                  feat/design-skills
-feat/stripe-admin-fn                   feat/taste-skill-mypath
-feat/taste-skill-sprint                fix/duplicate-imports
-fix/lockfile-sync                      fix/rag-everywhere
-fix/rag-simulations                    fix/vercel-build-complete
-fix/vercel-build-final                 fix/vercel-lockfile-emergency
-railway/fix-deploy-1d4120
+```bash
+git fetch --prune
+git push origin --delete \
+  chore/ci-hardening claude/add-vimeo-links-9cL3u claude/cross-tier-redirect \
+  claude/integrate-sentry-mcp-BV4Ev claude/rename-default-branch-KQrTc \
+  claude/shipping-mode-friday claude/sign-guy-dodge-band docs/system-overview \
+  emergent-iter-92.13 merge/emergent-iter-92.13 feat/enterprise-diagnosis-emails \
+  feat/enterprise-emails feature/folder-context-wingman fix/lockfile-guard-always-run \
+  fix/rag-context-budget fix/video-upload-size-limit fix/voice-prompt-framework-citation \
+  claude/footer-cleanup-mobile-polish claude/journal-next-level claude/journal-polish-glow
 ```
 
-**Keep**: `mvpcode`, `backup/mvpcode-pre-emergent-2026-05-17`, all
-`emergent-iter-*` / `iter-*-emergent` / `merge/emergent-iter-*`, and any branch
-with an open PR.
+**Leave until merged/closed** — all `dependabot/*` PRs (review → merge or close;
+they then auto-delete). Currently open: codeql-action-4, gitleaks-action-3,
+globals-17, react-resizable-panels-4 (major — test), zod-4 (major — test),
+frontend minor + patch groups, backend fastapi-0.138 (major — test), aiohttp,
+markdown-it-py, tiktoken, backend patch group.
 
-After this pass + the auto-delete toggle, the branch list stays at roughly
-`mvpcode` + a handful of in-flight `feat|fix|docs/*` + the archive snapshots.
+**Triage (unmerged, likely stale — confirm before deleting)** — have commits not
+in `mvpcode`; skim each, then delete:
+
+```
+feat/landing-*  feat/benefit-*  feat/poster-*  feat/sprint-mit-wlad-*
+claude/poster-*  claude/trust-*  claude/benefit-*  claude/skip-variant-on-posters
+claude/posters-revert-flag  claude/godmode-*  claude/journal-godmode-expansion
+claude/security-hardening-tonight  claude/launch-day-prep  claude/legal-and-consent
+claude/quiz-result-depth  claude/quick-check-mini-app  claude/modal-godmode
+claude/auth-race-fixes  claude/csp-allowlist-fix  claude/chapter07-voxel
+claude/check-status-indicators-MlDyM  claude/cleanup-ci-workflow-QiBAS
+claude/framer-mcp-relay-Ot1Oh  claude/mcp-server-integration-WWmJL
+claude/setup-posthog-eu-Oy6Ly  claude/add-supabase-mcp-server-wVHPR
+claude/wlad-images  claude/fix-xss-report-generator-9vIjG
+fix/rag-everywhere  fix/rag-simulations  fix/lockfile-sync  fix/duplicate-imports
+fix/vercel-build-complete  fix/vercel-build-final  fix/vercel-lockfile-emergency
+fix/node-engine-compat  fix/stripe-onetime-no-customer  fix/sexier-framework-correct-name
+feat/design-skills  feat/stripe-admin-fn  feat/taste-skill-mypath  feat/taste-skill-sprint
+feat/output-style-knowledge-transfer  feat/hybrid-rag-fusion  feat/framework-mastery-quality-audit
+feat/premium-polish-phase3  feat/revolut-premium-design-upgrade  feat/folder-surfaces
+feat/class-scarcity-godmode  feat/wlad-face-personal
+iter-80-emergent  iter-82-emergent  iter-83-emergent  iter92-emergent
+```
+
+**Ask the owner before touching**: `stefan/chat-improvements`,
+`railway/fix-deploy-1d4120`, `data/wlad-corpus-v3-fill-gaps`, and the `docs/*`
+working branches (`docs/branching-convention`, `docs/app-architecture`,
+`docs/vercel-project-rename`).
+
+**Keep (never delete)**: `mvpcode`, `backup/mvpcode-pre-emergent-2026-05-17`, and
+the `emergent-iter-*` / `iter-*-emergent` archive snapshots (restore-from, never
+merge whole — see above).
+
+### Target end-state
+
+After the toggle + this pass, `git branch -r` reads like a changelog:
+
+```
+mvpcode                        ← production (protected)
+backup/mvpcode-pre-emergent-…  ← frozen safety snapshot
+emergent-iter-* (archives)     ← restore-only
+feat/… fix/… (a handful)       ← only what's actively in flight
+dependabot/…                   ← transient, auto-managed
+```
