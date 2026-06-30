@@ -41,13 +41,16 @@ export const LANDING_META = {
   cohort: '0001',
   bib: 'BIB · 0001',
   cta: {
-    // Primary funnel-entry · 14-day trial on leaderos.de. The Sprint is
-    // promoted INSIDE the app after signup (email + dashboard upsell),
-    // not as the landing-page CTA. The diagnose is still available as
-    // a soft secondary path for visitors who want low-friction entry.
+    // Funnel (preferred order): (1) Beratungsgespräch · the consultative
+    // conversion we lead with · scrolls to the cal.com booking section.
+    // (2) Leader-Check · the free 10-min diagnose on leadercheck.de, the
+    // low-friction lead-magnet at the top of the funnel. (3) leaderos.de ·
+    // the app itself · 14 Tage kostenlos for visitors who want to start
+    // self-serve right now. All three converge on the same email_lower id.
+    beratung:  { label: 'Beratungsgespräch buchen', href: '/#beratung' },
+    diagnose:  { label: 'Kostenloser Leader-Check · 10 Min', href: 'https://leadercheck.de' },
     primary:   { label: 'Jetzt 14 Tage kostenlos testen', href: 'https://leaderos.de/signup?trial=14' },
     secondary: { label: 'Login', href: 'https://leaderos.de/login' },
-    diagnose:  { label: 'Diagnose · 10 Min', href: 'https://leadercheck.de' },
   },
   // Pricing kept in the data for the one section that explicitly sells
   // tiers (PricingLadder · further down the page) · the marketing

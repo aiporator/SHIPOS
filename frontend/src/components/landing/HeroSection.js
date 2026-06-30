@@ -181,12 +181,16 @@ export const HeroSection = () => (
         variants={FADE_UP}
         className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-6"
       >
+        {/* Primary · the Beratungsgespräch · our preferred conversion.
+            Scrolls to the cal.com booking section (#beratung). */}
         <PlusCircleCTA
-          href={LANDING_META.cta.primary.href}
-          testId="hero-cta-primary"
+          to={LANDING_META.cta.beratung.href}
+          testId="hero-cta-beratung"
         >
-          {LANDING_META.cta.primary.label}
+          {LANDING_META.cta.beratung.label}
         </PlusCircleCTA>
+        {/* Secondary · the free Leader-Check on leadercheck.de · the
+            low-friction lead-magnet at the top of the funnel. */}
         <a
           href={LANDING_META.cta.diagnose.href}
           target="_blank"
@@ -198,10 +202,31 @@ export const HeroSection = () => (
             +
           </span>
           <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
-            Diagnose · 10 Min · kostenlos
+            Kostenloser Leader-Check · 10 Min
           </span>
         </a>
       </motion.div>
+
+      {/* Tertiary · the app itself · for visitors who want to start
+          self-serve on leaderos.de right now. Quiet text-link so it
+          doesn't compete with the Beratungsgespräch. */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.5 }}
+        className="mt-5 text-center md:text-left text-[13px] md:text-[14px] text-foreground/60"
+      >
+        Lieber direkt loslegen?{' '}
+        <a
+          href={LANDING_META.cta.primary.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid="hero-cta-trial"
+          className="font-bold text-foreground underline decoration-1 underline-offset-4 decoration-foreground/30 hover:decoration-foreground transition-all"
+        >
+          14 Tage kostenlos auf leaderos.de →
+        </a>
+      </motion.p>
 
       {/* Mobile-only trust line under the CTAs · cements the no-risk
           feel without crowding the desktop layout. */}

@@ -77,36 +77,39 @@ export const FinalCTA = () => {
         </h2>
 
         <p className="mt-10 max-w-2xl text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-[17px] leading-[1.55] text-white/75">
-          Mach den kostenlosen Leader-Check · zehn Minuten, dein Score
-          sofort. Dann vierzehn Tage Leader-OS testen, ohne Karte, ohne
-          Risiko. Erst wenn es für dich passt, wirst du Teil von
-          Leader-OS.
+          Buch dir ein unverbindliches Beratungsgespräch · 30 Minuten, wir
+          finden gemeinsam heraus, ob Leader-OS zu dir passt. Oder mach den
+          kostenlosen Leader-Check, oder starte direkt 14 Tage kostenlos auf
+          leaderos.de · ohne Karte, ohne Risiko.
         </p>
 
         <div className="mt-12 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-8">
-          {/* Primary · der einzige mit Halo-Pulse damit die Hierarchie klar ist */}
+          {/* Primary · das Beratungsgespräch · der einzige mit Halo-Pulse
+              damit die Hierarchie klar ist (unsere bevorzugte Conversion). */}
           <PlusCircleCTA
-            href={LANDING_META.cta.primary.href}
-            testId="final-cta-primary"
+            to={LANDING_META.cta.beratung.href}
+            testId="final-cta-beratung"
             className="text-white"
           >
-            {LANDING_META.cta.primary.label}
+            {LANDING_META.cta.beratung.label}
           </PlusCircleCTA>
+          {/* Secondary · der kostenlose Leader-Check auf leadercheck.de */}
           <PlusCircleCTA
             href={LANDING_META.cta.diagnose.href}
             testId="final-cta-diagnose"
             halo={false}
             className="text-white/85 hover:text-white"
           >
-            Diagnose · 10 Min · kostenlos
+            Kostenloser Leader-Check
           </PlusCircleCTA>
+          {/* Tertiary · die App selbst · 14 Tage kostenlos auf leaderos.de */}
           <PlusCircleCTA
-            href={LANDING_META.cta.secondary.href}
-            testId="final-cta-secondary"
+            href={LANDING_META.cta.primary.href}
+            testId="final-cta-trial"
             halo={false}
             className="text-white/55 hover:text-white"
           >
-            Bereits Mitglied? Anmelden
+            14 Tage kostenlos auf leaderos.de
           </PlusCircleCTA>
         </div>
 
