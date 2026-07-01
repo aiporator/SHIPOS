@@ -242,6 +242,15 @@ async def register(data: UserRegister, request: Request, response: Response):
     await _create_session(user_id, ip_address, response, method="register")
     await record_user_action(user_id, "register")
 
+    # If this email opted into the free-video funnel, mark the lead registered
+    # so the email-only lead drip stops (the user drip covers them now).
+    try:
+        await db.free_video_leads.update_one(
+            {"email_lower": email}, {"$set": {"registered": True}}
+        )
+    except Exception:  # best-effort, never block signup
+        pass
+
     # Mirror to Supabase (fire-and-forget — does not block response)
     from services_supabase_sync import mirror_user_event_fire_and_forget
     mirror_user_event_fire_and_forget(
