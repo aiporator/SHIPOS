@@ -6,6 +6,8 @@ import { LandingFooter } from '../components/landing/LandingFooter';
 import { ShareBar } from '../features/content/components/ShareBar';
 import { applyPageMeta } from '../lib/pageMeta';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
+import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
+import { useTheme } from '../contexts/ThemeContext';
 
 /**
  * WladJachtchenkoPage · the canonical SERP-winner for "Wlad Jachtchenko".
@@ -490,6 +492,10 @@ const FAQ_JSON_LD = {
 };
 
 export default function WladJachtchenkoPage() {
+  // Depth is only added on the dark canvas · on the light/cream theme the
+  // page already has its editorial contrast and a glow would muddy it.
+  const isDark = useTheme()?.theme === 'dark';
+
   useEffect(() => {
     // Full OG/Twitter/canonical injection · so a shared /wlad-jachtchenko
     // link shows Wlad's portrait + bio in the preview card instead of the
@@ -575,7 +581,18 @@ export default function WladJachtchenkoPage() {
         {/* Hero · Person identity card · stacked on mobile with centered
             wordmark over the portrait, side-by-side on md+ for the
             editorial spec layout. */}
-        <section className="grid md:grid-cols-12 gap-10 md:gap-12 items-start">
+        <section className="relative isolate grid md:grid-cols-12 gap-10 md:gap-12 items-start">
+          {isDark && (
+            <div className="pointer-events-none absolute -inset-x-6 -top-20 -bottom-10 -z-10">
+              <DottedGlowBackground
+                gap={16}
+                radius={1.6}
+                color="rgba(255,255,255,0.28)"
+                glowColor="rgba(191,255,0,0.55)"
+                opacity={0.4}
+              />
+            </div>
+          )}
           <div className="md:col-span-5 mx-auto md:mx-0 w-full">
             <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden">
               <img
@@ -618,7 +635,7 @@ export default function WladJachtchenkoPage() {
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3">
               <Link
                 to="/journal/wer-ist-wlad-jachtchenko"
-                className="inline-flex items-center gap-2 px-5 h-12 bg-foreground hover:bg-brand text-white hover:text-foreground font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+                className="inline-flex items-center gap-2 px-5 h-12 bg-foreground hover:bg-[#BFFF00] text-background hover:text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
               >
                 Voller Lebenslauf
               </Link>
@@ -626,7 +643,7 @@ export default function WladJachtchenkoPage() {
                 href="https://leaderos.de/signup?trial=14"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 h-12 bg-brand hover:bg-white text-foreground font-bold text-[12.5px] uppercase tracking-[0.14em] border-2 border-foreground transition-colors"
+                className="inline-flex items-center gap-2 px-5 h-12 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] border-2 border-foreground transition-colors"
               >
                 Leader-OS 14 Tage testen
               </a>
@@ -953,7 +970,7 @@ export default function WladJachtchenkoPage() {
             <div className="md:col-span-5 md:text-right">
               <a
                 href="mailto:start@aiporate.com?subject=Presse-Anfrage%20zu%20Wlad%20Jachtchenko"
-                className="inline-flex items-center justify-center gap-2 px-6 h-12 bg-brand hover:bg-white text-foreground font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 h-12 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
               >
                 Presse-Anfrage senden
               </a>
