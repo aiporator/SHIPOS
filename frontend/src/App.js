@@ -60,6 +60,7 @@ const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterCo
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
 const EventPage = lazyWithRetry(() => import("./pages/EventPage"));
+const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
@@ -196,6 +197,10 @@ function AppRouter() {
         {/* Public · dated free launch event · high-conversion signup */}
         <Route path="/event" element={<EventPage />} />
         <Route path="/live" element={<Navigate to="/event" replace />} />
+        {/* Public · free 4-video lead-magnet funnel */}
+        <Route path="/gratis" element={<FreeVideosPage />} />
+        <Route path="/free" element={<Navigate to="/gratis" replace />} />
+        <Route path="/videos" element={<Navigate to="/gratis" replace />} />
         <Route path="/wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/about" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/ueber-wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />

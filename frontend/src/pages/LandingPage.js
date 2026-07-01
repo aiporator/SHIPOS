@@ -12,6 +12,7 @@ import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
 import { JournalTeaserSection } from '../components/landing/JournalTeaserSection';
+import { FreeVideoTeaser } from '../components/landing/FreeVideoTeaser';
 import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
 import { TrustProofSection } from '../components/landing/TrustProofSection';
@@ -128,6 +129,7 @@ export default function LandingPage() {
         <TrustProofSection />
         <WladKnowledgeInsideSection />
         <WladIntroVideo />
+        <FreeVideoTeaser />
         <ArchetypeQuizSection />
         <FreeToolsSection />
         <PlatformValueSection />
