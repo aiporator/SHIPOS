@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowUpRight, Check, Lock } from 'lucide-react';
+import { ArrowUpRight, Check, Lock, X } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
@@ -36,12 +36,43 @@ const BENEFITS = [
 // „Bekannt aus" · real press/TV (same set as the Wlad page).
 const MEDIA = ['DER SPIEGEL', 'BUSINESS INSIDER', 'SÜDDEUTSCHE ZEITUNG', 'RTL', 'ARD', 'PROSIEBEN', 'TEDX'];
 
-// Real, verifiable proof — no invented testimonials or prices.
+// Real, verifiable proof — numbers cross-checked against WladJachtchenkoPage.
 const PROOF = [
-  ['400 000+', 'trainierte Führungskräfte'],
-  ['3×', 'SPIEGEL-Bestseller'],
+  ['420 000+', 'Klienten weltweit seit 2007'],
+  ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
   ['4,9 / 5', 'Trustpilot · 388 Bewertungen'],
   ['14 Mio', 'Views auf Podcast & YouTube'],
+];
+
+// The Monday every overloaded leader recognizes · agitation before solution.
+// Each vignette maps onto one of the 4 videos (visibility, authority,
+// micromanagement, KI-native) so the pain → cure line is airtight.
+const PAIN = [
+  ['07:40', 'Dein Postfach entscheidet über deinen Tag — nicht du. 40 Mails, 3 Eskalationen, 0 Minuten zum Denken.'],
+  ['11:15', 'Im Meeting geht dein Vorschlag unter. Zehn Minuten später sagt ihn jemand lauter — und bekommt den Applaus.'],
+  ['16:50', 'Du kontrollierst Aufgaben nach, die du längst abgegeben hattest. Delegieren, das keins ist.'],
+  ['22:30', 'Und leise die Frage: Wer führt in drei Jahren — du, oder jemand, der KI-nativ arbeitet?'],
+];
+
+// Self-selection qualifier · raises intent, filters tire-kickers honestly.
+const FOR_YOU = [
+  'Du bist fachlich stark, wirst aber als Führungspersönlichkeit noch nicht gesehen',
+  'Du führst ein Team oder Projekt — oder stehst kurz davor',
+  'Du willst natürliche Autorität statt Druck oder Manipulation',
+  'Du gibst 4 Tage lang je ein paar Minuten, wenn der Gegenwert stimmt',
+];
+const NOT_FOR_YOU = [
+  'Du suchst einen Prompt-Katalog oder das nächste Tool-Tutorial',
+  'Du willst delegieren statt selbst verstehen — „soll sich HR drum kümmern"',
+  'Du erwartest, dass sich Führung ohne dein Zutun verändert',
+];
+
+// Recap of the full stack right before the final ask.
+const STACK_RECAP = [
+  'Alle 4 Videos — sofort freigeschaltet, kein Warten',
+  '4 Tage · je ein Kern-Prinzip per Mail, direkt anwendbar',
+  'Material aus Trainings mit 10.000 € Tagessatz',
+  '0 € · keine Karte · 1-Klick-Abmeldung jederzeit',
 ];
 
 const STEPS = [
@@ -55,6 +86,10 @@ const FAQ = [
   ['Für wen sind die Videos?', 'Für alle, die fachlich stark sind, aber als Führungspersönlichkeit endlich gesehen werden wollen — Teamleads, Projektmanager, Senior-Experten und alle, die es werden wollen. Auch für introvertierte, authentische Menschen, die ohne Manipulation führen.'],
   ['Bekomme ich jetzt Spam?', 'Nein. Du bekommst die 4 Videos plus gelegentlich echte Impulse. Ein Klick, und du bist wieder raus — jederzeit, in jeder Mail.'],
   ['Was passiert nach den 4 Videos?', 'Du kennst dann das Fundament von Wlads Methodik. Wenn du sie täglich mit WladBot drillen willst, kannst du Leader-OS 14 Tage kostenlos testen — musst du aber nicht.'],
+  ['Wie viel Zeit brauche ich?', '8 bis 12 Minuten pro Video, eins pro Tag. Die Serie ist bewusst so gebaut, dass sie in einen vollen Führungskalender passt — ein Prinzip pro Tag statt Binge-Watching ohne Umsetzung.'],
+  ['Ich habe keine KI-Vorkenntnisse. Ist das ein Problem?', 'Nein. Video 1 bis 3 sind reine Führungspraxis — Sichtbarkeit, Autorität, Delegation. Video 4 übersetzt das ins KI-Zeitalter, ohne dass du je ein Tool bedient haben musst.'],
+  ['Ich führe seit Jahren. Lohnt sich das trotzdem?', 'Gerade dann. Die ersten drei Videos sind ein Systematik-Check für Dinge, die du intuitiv machst — und Video 4 gibt dir den KI-Fahrplan, den es vor zwei Jahren schlicht noch nicht gab.'],
+  ['Was passiert mit meinen Daten?', 'Deine E-Mail wird für die Video-Serie genutzt, DSGVO-konform gespeichert und nicht weiterverkauft. Jede Mail hat einen 1-Klick-Abmeldelink — ein Klick, und du hörst nichts mehr von uns.'],
 ];
 
 const track = (event, props = {}) => {
@@ -218,7 +253,7 @@ export default function FreeVideosPage() {
     document.getElementById('optin')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
-  const stats = useMemo(() => [['400K+', 'Kunden'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
+  const stats = useMemo(() => [['420K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="free-videos-page">
@@ -284,6 +319,40 @@ export default function FreeVideosPage() {
           </div>
         </section>
 
+        {/* Pain · the Monday every overloaded leader recognizes (PAS: agitate
+            before the 3-step relief below). Each vignette maps to one video. */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Kennst du diese Woche?</p>
+            <h2 className="text-[26px] sm:text-[36px] md:text-[44px] leading-[1.02] tracking-[-0.03em] text-foreground mb-10" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+              Ein ganz normaler Montag<span className="text-brand not-italic">.</span>
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+              {PAIN.map(([time, text]) => (
+                <div key={time} className="border-2 border-foreground/15 p-5 md:p-6 flex gap-5">
+                  <div className="shrink-0 font-mono text-[14px] font-bold text-foreground/35 tabular-nums pt-0.5">{time}</div>
+                  <p className="text-[14.5px] leading-[1.55] text-foreground/75">{text}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10 max-w-3xl">
+              <p className="text-[15px] md:text-[16px] leading-[1.6] text-foreground/70">
+                Das Problem ist nicht dein Einsatz. Das Problem ist, dass dir Führung nie systematisch
+                beigebracht wurde — du hast sie nebenbei gelernt, unter Druck, ohne Plan.
+              </p>
+              <p className="mt-3 text-[15px] md:text-[16px] leading-[1.6] text-foreground font-bold">
+                Genau da setzen die 4 Videos an: ein Prinzip pro Tag, in Minuten anwendbar.
+              </p>
+              <button
+                onClick={unlocked ? () => videosRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }) : scrollToOptIn}
+                className="mt-7 inline-flex items-center justify-center gap-2 h-13 px-7 py-3.5 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+              >
+                {unlocked ? 'Zu deinen Videos' : 'Mit Video 1 anfangen'} <ArrowUpRight size={15} />
+              </button>
+            </div>
+          </div>
+        </section>
+
         {/* So funktioniert's · 3 steps (removes friction before the gate) */}
         <section className="border-t-2 border-foreground/12">
           <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20">
@@ -338,6 +407,35 @@ export default function FreeVideosPage() {
           </div>
         </section>
 
+        {/* Reason-why · the honest "Warum kostenlos?" kills the where's-the-catch
+            objection right after the visitor has seen the locked value. */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+            <div className="md:col-span-5">
+              <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Die ehrliche Antwort</p>
+              <h2 className="text-[30px] sm:text-[40px] md:text-[52px] leading-[0.98] tracking-[-0.035em] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                Warum<br />kostenlos<span className="text-brand not-italic">?</span>
+              </h2>
+            </div>
+            <div className="md:col-span-7 space-y-4 text-[15px] md:text-[16px] leading-[1.65] text-foreground/72">
+              <p>
+                Weil das die beste Werbung ist, die wir machen können. Statt dir zu <em>erzählen</em>,
+                dass Wlads Methodik funktioniert, zeigen wir sie dir — an vier Prinzipien, die du sofort
+                in deinem Alltag testen kannst.
+              </p>
+              <p>
+                Unser Kalkül, offen ausgesprochen: Ein Teil der Zuschauer will danach mehr und testet{' '}
+                <span className="text-foreground font-bold">Leader-OS 14 Tage kostenlos</span> — die
+                Plattform, auf der genau diese Methodik als tägliches System läuft. Die meisten nehmen
+                einfach die 4 Prinzipien mit und setzen sie um.
+              </p>
+              <p className="text-foreground font-bold">
+                Beides ist für uns ein Gewinn. Und für dich ist es in jedem Fall einer.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Authority · Wlad */}
         <section className="border-t-2 border-foreground/12">
           <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-8 md:gap-12 items-center">
@@ -353,8 +451,8 @@ export default function FreeVideosPage() {
               </h2>
               <p className="mt-4 text-[15px] leading-[1.6] text-foreground/72 max-w-2xl">
                 3× SPIEGEL-Bestseller-Autor, Europas führender Leadership-Coach. Von Allianz, BMW, ProSieben & Co.
-                für 10.000 € Tagessatz gebucht, über 10.000 Manager ausgebildet. In diesen 4 Videos bekommst du das
-                Fundament seiner Methodik — kostenlos.
+                für 10.000 € Tagessatz gebucht — über 420.000 Klienten weltweit seit 2007. In diesen 4 Videos
+                bekommst du das Fundament seiner Methodik — kostenlos.
               </p>
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5">
                 {PROOF.map(([big, cap]) => (
@@ -363,6 +461,49 @@ export default function FreeVideosPage() {
                     <div className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-foreground/50 leading-[1.4]">{cap}</div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Qualifier · for-you / not-for-you self-selection. Filtering honestly
+            raises intent AND conversion — the visitor argues themselves in. */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Ehrliche Einordnung</p>
+            <h2 className="text-[26px] sm:text-[36px] md:text-[44px] leading-[1.02] tracking-[-0.03em] text-foreground mb-10 max-w-3xl" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+              Für wen die Serie gebaut ist — und für wen nicht<span className="text-brand not-italic">.</span>
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+              <div className="border-2 border-brand/60 p-6 md:p-7">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-brand mb-5">▸ Für dich, wenn</p>
+                <ul className="space-y-3.5">
+                  {FOR_YOU.map((line) => (
+                    <li key={line} className="flex items-start gap-3 text-[14.5px] leading-[1.5] text-foreground/85">
+                      <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center bg-[#BFFF00] text-[#0A0A0A]">
+                        <Check size={13} strokeWidth={3} />
+                      </span>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border-2 border-foreground/15 p-6 md:p-7">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/45 mb-5">▸ Nicht für dich, wenn</p>
+                <ul className="space-y-3.5">
+                  {NOT_FOR_YOU.map((line) => (
+                    <li key={line} className="flex items-start gap-3 text-[14.5px] leading-[1.5] text-foreground/55">
+                      <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center border-2 border-foreground/25 text-foreground/40">
+                        <X size={12} strokeWidth={3} />
+                      </span>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 pt-5 border-t border-foreground/12 text-[13px] leading-[1.55] text-foreground/50">
+                  Das ist keine Pose — es spart uns beiden Zeit. Wenn du dich links wiederfindest,
+                  sind die nächsten 4 Tage gut investiert.
+                </p>
               </div>
             </div>
           </div>
@@ -411,6 +552,17 @@ export default function FreeVideosPage() {
               </>
             ) : (
               <div className="mt-8 max-w-xl mx-auto text-left">
+                {/* Stack recap · everything on the table before the final ask */}
+                <ul className="mb-7 space-y-2.5">
+                  {STACK_RECAP.map((line) => (
+                    <li key={line} className="flex items-start gap-3 text-[14.5px] leading-[1.5] text-foreground/80">
+                      <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center bg-[#BFFF00] text-[#0A0A0A]">
+                        <Check size={13} strokeWidth={3} />
+                      </span>
+                      {line}
+                    </li>
+                  ))}
+                </ul>
                 <OptInForm onUnlocked={unlock} idSuffix="-final" />
               </div>
             )}
