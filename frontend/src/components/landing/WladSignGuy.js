@@ -82,7 +82,7 @@ const WladBotFigure = () => {
       loading="lazy"
       decoding="async"
       onError={() => setFailed(true)}
-      className="h-full w-full rounded-full bg-[#0A0A0A] object-cover ring-2 ring-brand shadow-[0_10px_28px_-8px_rgba(0,0,0,0.5)]"
+      className="h-full w-full rounded-full bg-[#0A0A0A] object-cover object-[50%_16%] ring-2 ring-brand shadow-[0_10px_28px_-8px_rgba(0,0,0,0.5)]"
     />
   );
 };
