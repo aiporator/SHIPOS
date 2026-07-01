@@ -138,8 +138,8 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
             {!unlocked && (
               <>
                 <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/60" />
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-white border-2 border-white/40 backdrop-blur-sm transition-transform group-hover:scale-110">
-                  <Lock size={22} />
+                <span className="fv-chrome-disc absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center text-[#0A0A0A] transition-transform group-hover:scale-110">
+                  <Lock size={22} strokeWidth={2.5} />
                 </span>
                 <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/90">
                   Mit E-Mail freischalten
@@ -167,6 +167,14 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
   );
 };
 
+/**
+ * OptInForm · the "vault" unlock card.
+ *
+ * Deliberately the loudest element on the page: a chrome/metallic frame with
+ * a slow light-sheen sweep, a machined-metal lock emblem, and a glow-pulsing
+ * lime CTA. The metal says "valuable & locked", the lime says "one action
+ * opens it" — chrome is reserved for THIS moment so the eye lands here.
+ */
 const OptInForm = ({ onUnlocked, idSuffix = '' }) => {
   const [email, setEmail] = useState('');
   const [state, setState] = useState('idle'); // idle | loading | done | error
@@ -189,32 +197,55 @@ const OptInForm = ({ onUnlocked, idSuffix = '' }) => {
   };
 
   return (
-    <form onSubmit={submit} noValidate data-testid={`free-optin${idSuffix}`} className="w-full">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <input
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Deine beste E-Mail-Adresse"
-          aria-label="E-Mail-Adresse"
-          className="flex-1 h-14 px-5 bg-white/[0.05] border-2 border-white/20 focus:border-brand outline-none text-white text-[15px] placeholder:text-white/35 transition-colors"
-        />
-        <button
-          type="submit"
-          disabled={!valid || state === 'loading'}
-          className="h-14 px-7 bg-[#BFFF00] hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap"
-        >
-          {state === 'loading' ? 'Wird freigeschaltet…' : 'Jetzt 4 Videos gratis'}
-          {state !== 'loading' && <ArrowUpRight size={16} />}
-        </button>
+    <div className="fv-chrome-frame w-full" data-testid={`free-optin-card${idSuffix}`}>
+      <span className="fv-sheen" aria-hidden />
+      <div className="relative bg-[#0C0C0C] px-5 py-5 sm:px-7 sm:py-6">
+        {/* Emblem row · machined-metal lock + chrome wordmark */}
+        <div className="flex items-center gap-3.5 mb-5">
+          <span className="fv-chrome-disc shrink-0 w-11 h-11 flex items-center justify-center text-[#0A0A0A]">
+            <Lock size={17} strokeWidth={2.75} />
+          </span>
+          <div className="min-w-0">
+            <div className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-brand">
+              ▸ SOFORT-ZUGANG · KEIN KONTO NÖTIG
+            </div>
+            <div
+              className="fv-chrome-text text-[17px] sm:text-[19px] leading-tight uppercase tracking-[0.02em] truncate"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Alle 4 Videos freischalten
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={submit} noValidate data-testid={`free-optin${idSuffix}`} className="w-full">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Deine beste E-Mail-Adresse"
+              aria-label="E-Mail-Adresse"
+              className="flex-1 h-14 px-5 bg-white/[0.06] border-2 border-white/25 focus:border-brand focus:bg-white/[0.09] outline-none text-white text-[15px] placeholder:text-white/40 transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={!valid || state === 'loading'}
+              className="fv-cta-pulse h-14 px-7 bg-[#BFFF00] hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              {state === 'loading' ? 'Wird freigeschaltet…' : 'Jetzt 4 Videos gratis'}
+              {state !== 'loading' && <ArrowUpRight size={16} />}
+            </button>
+          </div>
+          <p className="mt-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">
+            100 % kostenlos · sofort freigeschaltet · 1 Video pro Tag per Mail · jederzeit abbestellbar
+          </p>
+        </form>
       </div>
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
-        100 % kostenlos · sofort freigeschaltet · 1 Video pro Tag per Mail · jederzeit abbestellbar
-      </p>
-    </form>
+    </div>
   );
 };
 
@@ -257,6 +288,25 @@ export default function FreeVideosPage() {
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="free-videos-page">
+      {/* Chrome/metallic detail system · scoped fv- classes, CSS-only (no images).
+          Chrome is reserved for the unlock moment: the opt-in card frame, the
+          lock emblems, and one hero word — so the metal never becomes wallpaper. */}
+      <style>{`
+        .fv-chrome-text{background:linear-gradient(180deg,#ffffff 0%,#d9d9d9 26%,#8f8f8f 47%,#f2f4f4 52%,#7f7f7f 68%,#e9e9e9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        .fv-chrome-frame{position:relative;overflow:hidden;padding:2px;background:linear-gradient(135deg,#f0f0f0 0%,#7d7d7d 20%,#fafafa 38%,#5f5f5f 55%,#d9d9d9 72%,#8a8a8a 88%,#f0f0f0 100%);box-shadow:0 0 0 1px rgba(0,0,0,.65),0 18px 50px -18px rgba(191,255,0,.28);}
+        .fv-chrome-disc{border-radius:9999px;background:conic-gradient(from 210deg,#f4f4f4,#8d8d8d 18%,#e6e6e6 34%,#6c6c6c 52%,#f0f0f0 68%,#9b9b9b 84%,#f4f4f4);box-shadow:inset 0 1px 2px rgba(255,255,255,.9),inset 0 -2px 4px rgba(0,0,0,.45),0 4px 14px rgba(0,0,0,.5);}
+        .fv-sheen{position:absolute;top:-40%;bottom:-40%;width:38%;transform:skewX(-18deg) translateX(-220%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:fvSheen 4.5s ease-in-out infinite;pointer-events:none;z-index:1;}
+        @keyframes fvSheen{0%,55%{transform:skewX(-18deg) translateX(-220%)}85%,100%{transform:skewX(-18deg) translateX(420%)}}
+        .fv-cta-pulse{animation:fvPulse 2.6s ease-in-out infinite;}
+        .fv-cta-pulse:hover,.fv-cta-pulse:disabled{animation:none;}
+        @keyframes fvPulse{0%,100%{box-shadow:0 0 0 0 rgba(191,255,0,.4)}50%{box-shadow:0 0 26px 5px rgba(191,255,0,.22)}}
+        @media (prefers-reduced-motion:reduce){.fv-sheen,.fv-cta-pulse{animation:none}}
+        /* Scoped chrome takeover of the shared nav logo — ONLY on this page.
+           The W tile goes machined-metal, the wordmark gets chrome text; the
+           lime "·" dot survives via its own color. Rest of the app unaffected. */
+        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="Leader-OS Startseite"] span[aria-hidden]:first-of-type{background:conic-gradient(from 210deg,#f4f4f4,#8d8d8d 18%,#e6e6e6 34%,#6c6c6c 52%,#f0f0f0 68%,#9b9b9b 84%,#f4f4f4) !important;box-shadow:inset 0 1px 2px rgba(255,255,255,.9),inset 0 -2px 4px rgba(0,0,0,.45),0 4px 16px -4px rgba(0,0,0,.6) !important;}
+        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="Leader-OS Startseite"] > div > span{background:linear-gradient(180deg,#ffffff 0%,#d9d9d9 26%,#8f8f8f 47%,#f2f4f4 52%,#7f7f7f 68%,#e9e9e9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+      `}</style>
       <LandingNav />
 
       <main id="main-content">
@@ -273,7 +323,7 @@ export default function FreeVideosPage() {
               className="text-[40px] sm:text-[64px] md:text-[88px] leading-[0.92] tracking-[-0.04em] text-foreground max-w-4xl"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              Führung beginnt<br />hier<span className="text-brand not-italic">.</span>
+              Führung beginnt<br /><span className="fv-chrome-text">hier</span><span className="text-brand not-italic">.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-foreground/70">
               Kostenlos von <span className="text-foreground font-semibold">Wlad Jachtchenko</span> · Europas führendem
@@ -570,15 +620,18 @@ export default function FreeVideosPage() {
         </section>
       </main>
 
-      {/* Sticky mobile CTA · persistent opt-in until unlocked */}
+      {/* Sticky mobile CTA · persistent opt-in until unlocked, chrome-framed */}
       {!unlocked && (
-        <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-t-2 border-brand/40 px-4 py-3">
-          <button
-            onClick={scrollToOptIn}
-            className="w-full inline-flex items-center justify-center gap-2 h-12 bg-[#BFFF00] text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em]"
-          >
-            4 Videos gratis freischalten <ArrowUpRight size={15} />
-          </button>
+        <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-t border-white/15 px-4 py-3">
+          <div className="fv-chrome-frame">
+            <span className="fv-sheen" aria-hidden />
+            <button
+              onClick={scrollToOptIn}
+              className="relative w-full inline-flex items-center justify-center gap-2 h-12 bg-[#BFFF00] text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em]"
+            >
+              <Lock size={14} strokeWidth={2.75} /> 4 Videos gratis freischalten <ArrowUpRight size={15} />
+            </button>
+          </div>
         </div>
       )}
 
