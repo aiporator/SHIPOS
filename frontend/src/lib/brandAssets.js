@@ -36,11 +36,13 @@ export const WLAD_AVATAR_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 export const WLAD_STAGE = LOCAL_STAGE;
 export const WLAD_STAGE_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 
-// WladBot 3.0 · the Pixar-style 3D render of WladBot · the single source of
-// truth for the bot's face across chat avatar, the floating mascot and the
-// branded blog thumbnail. Drop the file at frontend/public/wlad/wladbot3.0.png
-// to activate it everywhere; every consumer falls back gracefully until then.
-export const WLADBOT_AVATAR = '/wlad/wladbot3.0.png';
+// WladBot avatar · single source of truth for the bot's face across the
+// chat avatar, the floating mascot and the branded blog thumbnail. Points
+// at Wlad's real portrait so his actual face is used everywhere (the
+// wladbot3.0.png render was never shipped). Swap this one line to the
+// dedicated render once its file lands at frontend/public/wlad/.
+export const WLADBOT_AVATAR = '/wlad/wlad-portrait.webp';
+export const WLADBOT_AVATAR_FALLBACKS = ['/wlad/wlad-portrait.jpg'];
 
 /**
  * onError-Handler für <img>-Tags, der automatisch durch die
