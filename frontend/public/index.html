@@ -237,7 +237,21 @@
              uses 400 (body), 700 (semibold/labels), 900 (Outfit-Italic-Black
              display headlines). Dropping the unused 500/600/800 cuts the
              CSS + WOFF2 payload by ~40% with zero visual change. -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:ital,wght@0,400;0,700;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+        <!-- Non-render-blocking font load · the stylesheet request itself was
+             render-blocking (~1.9s on mobile 4G per PageSpeed). Load it async
+             via the media-swap pattern so first paint uses the system-font
+             fallback immediately, then swaps to Outfit/Inter once ready
+             (display=swap already governs the FOUT). <noscript> keeps it
+             working with JS disabled. -->
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:ital,wght@0,400;0,700;1,900&family=Instrument+Serif:ital@0;1&display=swap"
+          media="print"
+          onload="this.media='all'"
+        />
+        <noscript>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:ital,wght@0,400;0,700;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+        </noscript>
 
         <!-- Harmless Chrome bug: silence DataCloneError on PerformanceServerTiming -->
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
