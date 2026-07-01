@@ -5,6 +5,7 @@
 User-agent: *
 Allow: /
 Allow: /login
+Allow: /event
 Allow: /journal
 Allow: /journal/
 Allow: /wlad-jachtchenko

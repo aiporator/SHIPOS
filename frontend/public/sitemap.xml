@@ -32,6 +32,15 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- 2026-08-20 · Free live launch event · time-sensitive, high priority
+       until the event date. -->
+  <url>
+    <loc>https://leader-os.de/event</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <url>
     <loc>https://leader-os.de/journal</loc>
     <lastmod>2026-07-01</lastmod>
