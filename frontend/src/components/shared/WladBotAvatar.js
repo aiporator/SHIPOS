@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Zap } from 'lucide-react';
-import { WLADBOT_AVATAR } from '../../lib/brandAssets';
+import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS } from '../../lib/brandAssets';
 
 /**
  * WladBot-Avatar · Chat- und Bot-Kontext (NICHT auf Sales-/Coaching-Seiten).
@@ -42,7 +42,17 @@ export const WladBotAvatar = ({
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover object-[50%_18%]"
-          onError={() => setFailed(true)}
+          onError={(e) => {
+            // Chain: CDN render → real portrait (webp, jpg) → Zap glyph.
+            const el = e.currentTarget;
+            const i = Number(el.dataset.fb || 0);
+            if (i < WLADBOT_AVATAR_FALLBACKS.length) {
+              el.dataset.fb = String(i + 1);
+              el.src = WLADBOT_AVATAR_FALLBACKS[i];
+            } else {
+              setFailed(true);
+            }
+          }}
         />
       ) : (
         <Zap size={Math.max(10, Math.round(size * 0.45))} className="text-[#0A0A0A]" strokeWidth={2.5} />

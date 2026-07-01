@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { WLADBOT_AVATAR } from '../../lib/brandAssets';
+import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS } from '../../lib/brandAssets';
 
 /**
  * WladSignGuy · Mascot rechts unten der ein Schild hochhält und rotierend
@@ -81,7 +81,17 @@ const WladBotFigure = () => {
       height={64}
       loading="lazy"
       decoding="async"
-      onError={() => setFailed(true)}
+      onError={(e) => {
+        // Chain: CDN render → real portrait (webp, jpg) → pixel figure.
+        const el = e.currentTarget;
+        const i = Number(el.dataset.fb || 0);
+        if (i < WLADBOT_AVATAR_FALLBACKS.length) {
+          el.dataset.fb = String(i + 1);
+          el.src = WLADBOT_AVATAR_FALLBACKS[i];
+        } else {
+          setFailed(true);
+        }
+      }}
       className="h-full w-full rounded-full bg-[#0A0A0A] object-cover object-[50%_16%] ring-2 ring-brand shadow-[0_10px_28px_-8px_rgba(0,0,0,0.5)]"
     />
   );
