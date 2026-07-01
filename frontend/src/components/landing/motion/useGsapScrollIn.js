@@ -9,15 +9,19 @@ gsap.registerPlugin(ScrollTrigger);
  *
  * Three vocabularies, motivated by what the section is communicating:
  *
- *   'big-number'  · scrubs a giant background numeral as the section
- *                   enters viewport. Used in BenefitSection §-numbers,
- *                   the visual story is "this chapter has weight".
+ *   'big-number'  · fades a giant background numeral up once as the
+ *                   section enters viewport. Used in BenefitSection
+ *                   §-numbers, the visual story is "this chapter has weight".
  *   'card-stack'  · staggers a row of cards rising into place with a
  *                   slight scale-in. Used in PricingLadder. The story
  *                   is "compare these tiers as a single ladder".
- *   'word-reveal' · opacity-scrubs each word of a headline as the user
- *                   reaches it. Used in FinalCTA. The story is "read
- *                   this slowly, this is the closing line".
+ *   'word-reveal' · fades each word of a headline in once (staggered) as
+ *                   the user reaches it. Used in FinalCTA. The story is
+ *                   "read this slowly, this is the closing line".
+ *
+ * All three fire ONCE on entry (toggleActions play-none-none-none) rather
+ * than scrubbing to the scroll position · scroll-linked scrubbing forced
+ * work on every scroll tick and made the page feel like it stutters.
  *
  * Honors prefers-reduced-motion: in that case we set the final state
  * immediately and skip the trigger entirely.
@@ -47,18 +51,22 @@ export function useGsapScrollIn(kind, options = {}) {
           gsap.set(target, { opacity: 0.08, y: 0 });
           return;
         }
+        // Play-once on entry (was scroll-scrubbed · scrubbing tied the
+        // numeral's transform to every scroll tick and made the whole page
+        // feel like it stutters near this section). Fire-once keeps the
+        // reveal but frees the scroll thread.
         gsap.fromTo(
           target,
-          { opacity: 0, y: 60 },
+          { opacity: 0, y: 40 },
           {
             opacity: 0.08,
             y: 0,
-            ease: 'none',
+            duration: 0.7,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: root,
               start: 'top 80%',
-              end: 'top 30%',
-              scrub: true,
+              toggleActions: 'play none none none',
               invalidateOnRefresh: true,
             },
           },
@@ -99,18 +107,21 @@ export function useGsapScrollIn(kind, options = {}) {
           gsap.set(words, { opacity: 1 });
           return;
         }
+        // Play-once staggered fade-in (was opacity-scrubbed across the
+        // whole section · repainting many word spans on every scroll tick
+        // was a stutter source). Fire-once reads just as deliberately.
         gsap.fromTo(
           words,
           { opacity: 0.18 },
           {
             opacity: 1,
-            ease: 'none',
-            stagger: 0.04,
+            duration: 0.5,
+            ease: 'power2.out',
+            stagger: 0.05,
             scrollTrigger: {
               trigger: root,
-              start: 'top 70%',
-              end: 'bottom 60%',
-              scrub: true,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
               invalidateOnRefresh: true,
             },
           },
