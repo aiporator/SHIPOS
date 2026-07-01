@@ -59,6 +59,7 @@ const EmailUnsubscribePage = lazyWithRetry(() => import("./pages/EmailUnsubscrib
 const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterConfirmedPage"));
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
+const EventPage = lazyWithRetry(() => import("./pages/EventPage"));
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
@@ -192,6 +193,9 @@ function AppRouter() {
         <Route path="/journal/:slug" element={<ArticlePage />} />
         {/* Canonical SERP-winner for "Wlad Jachtchenko" searches · public, no auth */}
         <Route path="/wlad-jachtchenko" element={<WladJachtchenkoPage />} />
+        {/* Public · dated free launch event · high-conversion signup */}
+        <Route path="/event" element={<EventPage />} />
+        <Route path="/live" element={<Navigate to="/event" replace />} />
         <Route path="/wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/about" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/ueber-wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
