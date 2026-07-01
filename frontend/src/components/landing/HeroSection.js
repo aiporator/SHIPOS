@@ -145,12 +145,12 @@ export const HeroSection = () => (
           fontStyle: 'italic',
         }}
       >
-        Führung ist<br />Skill<span className="text-brand not-italic">.</span>
+        Führung ist<br />Fähigkeit<span className="text-brand not-italic">.</span>
       </motion.h1>
 
       {/* 3 / 4 · Subline · authority-claim + product-handle, no price up here.
-          Skill ist die Headline-Klammer · Skill ist trainierbar ist die
-          Versprechung · Wlads Methodik ist der Beleg · KI-Coach ist die
+          Fähigkeit ist die Headline-Klammer · Fähigkeit ist trainierbar ist
+          die Versprechung · Wlads Methodik ist der Beleg · KI-Coach ist die
           Distribution. Vier Beats, alle conversion-relevant, keiner ein Preis. */}
       <motion.p
         initial="hidden"
@@ -163,7 +163,7 @@ export const HeroSection = () => (
           fontWeight: 800,
         }}
       >
-        Skill ist <span className="text-brand">trainierbar</span>.{' '}
+        Fähigkeit ist <span className="text-brand">trainierbar</span>.{' '}
         <span className="text-foreground/55">Mit Wlads Methodik. 24/7 KI-Coach<span className="text-brand">.</span></span>
       </motion.p>
 
