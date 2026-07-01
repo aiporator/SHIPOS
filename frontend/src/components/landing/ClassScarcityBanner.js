@@ -47,7 +47,7 @@ export const ClassScarcityBanner = () => {
             <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
             <span className="relative w-1.5 h-1.5 rounded-full bg-brand" />
           </span>
-          WERDE TEIL
+          JETZT STARTEN
         </span>
 
         {/* Mono hairline separator */}
