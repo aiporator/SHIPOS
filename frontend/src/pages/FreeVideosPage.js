@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowUpRight, Check, Lock, Play } from 'lucide-react';
+import { ArrowUpRight, Check, Lock } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
@@ -44,11 +44,12 @@ const readUnlocked = () => {
 const VideoTile = ({ video, unlocked, onUnlockClick }) => {
   const [playing, setPlaying] = useState(false);
   const src = embedSrc(video);
+  const canPlay = unlocked && src;
 
   return (
     <article className="relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col">
       <div className="relative aspect-video bg-black overflow-hidden">
-        {unlocked && src && playing ? (
+        {canPlay && playing ? (
           <iframe
             title={video.title}
             src={`${src}${src.includes('?') ? '&' : '?'}autoplay=1`}
@@ -62,27 +63,31 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
             type="button"
             onClick={unlocked ? (src ? () => { setPlaying(true); track('free_video_play', { day: video.day }); } : undefined) : onUnlockClick}
             className="group absolute inset-0 h-full w-full"
-            aria-label={unlocked ? `Video ${video.day} abspielen` : 'Videos freischalten'}
+            aria-label={unlocked ? (src ? `Video ${video.day} abspielen` : 'Video folgt in Kürze') : 'Videos freischalten'}
           >
-            {/* Ambient brand texture behind the state icon */}
-            <span aria-hidden className="absolute inset-0 opacity-70">
-              <DottedGlowBackground gap={18} radius={1.6} color="rgba(255,255,255,0.16)" glowColor="rgba(191,255,0,0.4)" opacity={0.4} />
-            </span>
-            <span aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.85), rgba(10,10,10,0.35))' }} />
-            <span className="absolute left-4 top-4 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-brand">
-              ▸ Tag {video.day} · {video.duration}
-            </span>
-            <span className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center rounded-full ${unlocked && src ? 'bg-[#BFFF00] text-[#0A0A0A]' : 'bg-white/10 text-white border-2 border-white/30'} transition-transform group-hover:scale-110`}>
-              {unlocked ? (src ? <Play size={26} fill="currentColor" className="ml-0.5" /> : <Play size={24} />) : <Lock size={22} />}
-            </span>
+            {/* Branded poster thumbnail */}
+            <img
+              src={video.thumb}
+              alt={video.title}
+              loading="lazy"
+              decoding="async"
+              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${canPlay ? 'group-hover:scale-[1.03]' : ''}`}
+            />
+            {/* Locked / not-yet-available overlays · unlocked+playable shows the clean poster */}
             {!unlocked && (
-              <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/80">
-                🔒 Mit E-Mail freischalten
-              </span>
+              <>
+                <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/60" />
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-white border-2 border-white/40 backdrop-blur-sm transition-transform group-hover:scale-110">
+                  <Lock size={22} />
+                </span>
+                <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/90">
+                  Mit E-Mail freischalten
+                </span>
+              </>
             )}
             {unlocked && !src && (
-              <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/55">
-                Video wird bereitgestellt
+              <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-[#0A0A0A]/80 px-2.5 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-white/70">
+                Video folgt in Kürze
               </span>
             )}
           </button>
@@ -163,11 +168,11 @@ export default function FreeVideosPage() {
     track('free_videos_view');
 
     const restoreMeta = applyPageMeta({
-      title: '4 kostenlose Führungs-Videos · Wlad Jachtchenko · Leader-OS',
+      title: 'Führung beginnt hier · 4 kostenlose Videos · Wlad Jachtchenko',
       description:
-        'Hol dir 4 kostenlose Videos von Europas führendem Leadership-Coach Wlad Jachtchenko · ' +
-        'natürliche Autorität, weniger arbeiten, mehr bewirken. Ein Video pro Tag, direkt in dein Postfach.',
-      url: 'https://leader-os.de/gratis',
+        'Führung beginnt hier: 4 kostenlose Videos von Europas führendem Leadership-Coach Wlad ' +
+        'Jachtchenko · natürliche Autorität, weniger arbeiten, mehr bewirken. Ein Video pro Tag, direkt in dein Postfach.',
+      url: 'https://leader-os.de/fuehrung-beginnt-hier',
       image: 'https://leader-os.de/og-wlad.jpg',
     });
     return () => { restoreMeta(); if (!wasDark) root.classList.remove('dark'); };
@@ -195,13 +200,13 @@ export default function FreeVideosPage() {
           </div>
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 pt-14 md:pt-20 pb-16 md:pb-20">
             <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6">
-              ▸ Gratis · 4 Videos · sofort ansehen
+              ▸ Führung beginnt hier · 4 Videos · kostenlos
             </p>
             <h1
               className="text-[40px] sm:text-[64px] md:text-[88px] leading-[0.92] tracking-[-0.04em] text-foreground max-w-4xl"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              4 Videos, die dich zur Führungs&shy;kraft machen, der andere folgen<span className="text-brand not-italic">.</span>
+              Führung beginnt<br />hier<span className="text-brand not-italic">.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-foreground/70">
               Kostenlos von <span className="text-foreground font-semibold">Wlad Jachtchenko</span> · Europas führendem
