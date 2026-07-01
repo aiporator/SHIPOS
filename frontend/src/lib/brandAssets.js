@@ -39,14 +39,15 @@ export const WLAD_STAGE_FALLBACKS = [LOCAL_PORTRAIT_JPG];
 // WladBot avatar · single source of truth for the bot's face across the
 // chat avatar, the floating mascot and the branded blog thumbnail.
 //
-// This is the dedicated WladBot render (hosted on Higgsfield's CloudFront
-// CDN · the sandbox egress policy blocks that host so we can't self-host
-// it from here). It's whitelisted in vercel.json's CSP img-src. If the CDN
-// URL ever fails, every consumer falls back to the real Wlad portrait via
-// WLADBOT_AVATAR_FALLBACKS · never a broken frame.
-export const WLADBOT_AVATAR =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3DPsWNuTwY6JUd0ZsFXrevEFB06/hf_20260630_154508_ebf7cf19-2478-4d2b-9a10-a1aacd51c772.png';
-export const WLADBOT_AVATAR_FALLBACKS = ['/wlad/wlad-portrait.webp', '/wlad/wlad-portrait.jpg'];
+// The dedicated Pixar-style WladBot render, now self-hosted: re-encoded
+// from the 1.4 MB source PNG to a 13 KB 512² WebP. Fallback chain drops to
+// the original PNG, then the real Wlad portrait · never a broken frame.
+export const WLADBOT_AVATAR = '/wlad/wladbot3.0.webp';
+export const WLADBOT_AVATAR_FALLBACKS = [
+  '/wlad/wladbot3.0.png',
+  '/wlad/wlad-portrait.webp',
+  '/wlad/wlad-portrait.jpg',
+];
 
 /**
  * onError-Handler für <img>-Tags, der automatisch durch die
