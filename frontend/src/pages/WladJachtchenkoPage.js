@@ -156,9 +156,24 @@ const BOOKS = [
 // names are repeatedly cited on Wlad's public profiles (Argumentorik,
 // wlad-jachtchenko.com, redneragenturen.org, LinkedIn).
 const CLIENTS = [
-  'Allianz', 'BMW', 'Pro7', 'Westwing', '3M',
-  'Sky', 'Vodafone', 'Daimler', 'Bosch', 'Siemens',
-  'Telekom', 'Lufthansa',
+  'Allianz', 'BMW', 'Pro7', 'Trivago', 'Generali',
+  'Westwing', '3M', 'Sky', 'Vodafone', 'Daimler',
+  'Bosch', 'Siemens', 'Telekom', 'Lufthansa',
+];
+
+// „Bekannt aus" · press & TV outlets that have featured Wlad or his
+// SPIEGEL-bestseller work. Rendered as typographic wordmarks (our
+// design DNA prefers mono type over a logo-soup image row) so the row
+// stays crisp on both themes and needs no binary logo assets.
+const MEDIA = [
+  'DER SPIEGEL',
+  'BUSINESS INSIDER',
+  'SÜDDEUTSCHE ZEITUNG',
+  'RTL',
+  'ARD · DAS ERSTE',
+  'PROSIEBEN · GALILEO',
+  'TEDX',
+  'GREATOR',
 ];
 
 // Debating-competition awards from his early career (verified via
@@ -659,6 +674,27 @@ export default function WladJachtchenkoPage() {
           </div>
         </section>
 
+        {/* Bekannt aus · press/TV authority bar · the first thing a
+            cold visitor should see after the name. Typographic wordmarks,
+            no image logos · stays crisp on both themes. */}
+        <section className="mt-14 md:mt-16 border-y-2 border-foreground/15 py-6 md:py-7">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-8">
+            <p className="shrink-0 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong">
+              ▸ Bekannt aus
+            </p>
+            <ul className="flex flex-wrap items-center gap-x-6 md:gap-x-9 gap-y-2.5 justify-center sm:justify-start">
+              {MEDIA.map((m) => (
+                <li
+                  key={m}
+                  className="font-mono text-[12px] md:text-[13.5px] font-bold uppercase tracking-[0.14em] text-foreground/75"
+                >
+                  {m}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Facts box · Wikipedia-style for AI Overview lift */}
         <section className="mt-20 md:mt-28 grid md:grid-cols-12 gap-8 md:gap-12">
           <div className="md:col-span-5 text-center md:text-left">
@@ -891,26 +927,34 @@ export default function WladJachtchenkoPage() {
           </p>
         </section>
 
-        {/* Wlad's projects · the three properties he runs */}
+        {/* Wlad's projects · Leader-OS is the featured card · the whole
+            section is a conversion bridge for the 400 Masterclass alumni:
+            "you know the method — here's where it lives every day". */}
         <section className="mt-20 md:mt-28">
-          <div className="text-center md:text-left">
+          <div className="text-center md:text-left max-w-3xl">
             <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-              ▸ DREI PROJEKTE · ALLE LIVE
+              ▸ SO ARBEITEST DU WEITER MIT WLAD
             </p>
             <h2
               className="text-[28px] sm:text-[36px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
               style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
             >
-              Wo Wlad heute arbeitet<span className="text-brand not-italic">.</span>
+              Wlads Methodik · jetzt dein System<span className="text-brand not-italic">.</span>
             </h2>
+            <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
+              Du kennst die Methodik aus Büchern, Masterclass oder Podcast. In
+              Leader-OS drillst du sie täglich mit WladBot · 24/7, in 10 Minuten
+              pro Tag, bis Führung Reflex wird statt Theorie.
+            </p>
           </div>
-          <div className="mt-10 grid md:grid-cols-3 gap-5 md:gap-6">
+          <div className="mt-10 grid md:grid-cols-3 gap-5 md:gap-6 items-stretch">
             {[
               { name: 'Leader-OS',
                 sub: 'KI-Coaching-Plattform · seit 2026',
-                desc: 'Wlads Methodik in einer Plattform. WladBot 24/7, 11 drillbare Frameworks, 14 Tage kostenlos testen.',
-                href: 'https://leader-os.de',
-                cta: 'leader-os.de' },
+                desc: 'Wlads komplette Methodik als tägliches Training. WladBot 24/7, 11 drillbare Frameworks, messbarer Fortschritt. 14 Tage kostenlos, ohne Karte.',
+                href: 'https://leaderos.de/signup?trial=14',
+                cta: '14 Tage kostenlos testen',
+                featured: true },
               { name: 'Argumentorik-Akademie',
                 sub: 'Staatlich anerkannt · seit 2014',
                 desc: 'Sechs-monatige Ausbildung zum Argumentations-Coach. Mehrere tausend Absolventen.',
@@ -922,9 +966,21 @@ export default function WladJachtchenkoPage() {
                 href: 'https://podcast.wladjachtchenko.de',
                 cta: 'podcast.wladjachtchenko.de' },
             ].map((p) => (
-              <article key={p.name} className="border-2 border-foreground p-6 md:p-7 hover:bg-foreground/[0.03] transition-colors flex flex-col">
+              <article
+                key={p.name}
+                className={
+                  p.featured
+                    ? 'relative border-2 border-foreground bg-brand/[0.06] p-6 md:p-7 flex flex-col shadow-[6px_6px_0_0_rgba(0,0,0,0.06)]'
+                    : 'border-2 border-foreground/40 p-6 md:p-7 hover:bg-foreground/[0.03] transition-colors flex flex-col'
+                }
+              >
+                {p.featured && (
+                  <span className="absolute -top-3 left-6 px-2.5 py-1 bg-[#BFFF00] text-[#0A0A0A] font-mono text-[9.5px] font-bold uppercase tracking-[0.2em]">
+                    ★ Empfohlen für dich
+                  </span>
+                )}
                 <h3
-                  className="text-[22px] md:text-[26px] leading-[1.05] tracking-[-0.025em] text-foreground"
+                  className={`${p.featured ? 'mt-2 text-[26px] md:text-[30px]' : 'text-[22px] md:text-[26px]'} leading-[1.05] tracking-[-0.025em] text-foreground`}
                   style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
                 >
                   {p.name}<span className="text-brand-strong not-italic">.</span>
@@ -935,16 +991,82 @@ export default function WladJachtchenkoPage() {
                 <p className="mt-4 text-[14px] leading-[1.55] text-foreground/72 flex-1">
                   {p.desc}
                 </p>
-                <a
-                  href={p.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-foreground hover:text-brand-strong transition-colors"
-                >
-                  {p.cta} <ArrowUpRight size={13} />
-                </a>
+                {p.featured ? (
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center justify-center gap-2 h-11 px-5 bg-[#BFFF00] hover:bg-foreground text-[#0A0A0A] hover:text-background font-bold text-[12px] uppercase tracking-[0.14em] transition-colors"
+                  >
+                    {p.cta} <ArrowUpRight size={14} />
+                  </a>
+                ) : (
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-foreground hover:text-brand-strong transition-colors"
+                  >
+                    {p.cta} <ArrowUpRight size={13} />
+                  </a>
+                )}
               </article>
             ))}
+          </div>
+        </section>
+
+        {/* Conversion band · the money moment for Masterclass/event alumni.
+            Always-dark island with dotted-glow depth · the value props are
+            lifted from Wlad's own event copy (charisma, natural authority,
+            weniger arbeiten / mehr verdienen) and pointed at Leader-OS. */}
+        <section className="relative isolate mt-20 md:mt-28 overflow-hidden bg-[#0A0A0A] text-white px-6 py-14 sm:px-10 sm:py-16 md:px-14 md:py-20">
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <DottedGlowBackground
+              gap={16}
+              radius={1.8}
+              color="rgba(255,255,255,0.22)"
+              glowColor="rgba(191,255,0,0.6)"
+              opacity={0.5}
+            />
+          </div>
+          <div className="max-w-3xl">
+            <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-5">
+              ▸ Aus der Masterclass? Mach weiter.
+            </p>
+            <h2
+              className="text-[30px] sm:text-[42px] md:text-[58px] leading-[1.0] tracking-[-0.03em]"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Führen wie die<br />Top 1 %<span className="text-brand not-italic">.</span>
+            </h2>
+            <p className="mt-6 text-[15px] sm:text-[17px] leading-[1.6] text-white/75">
+              Natürliche Autorität, charismatische Ausstrahlung, Teams die von
+              allein Verantwortung übernehmen · weniger arbeiten, mehr bewirken.
+              Genau die Methodik, die Wlad DAX-Vorständen für 10.000 € Tagessatz
+              vermittelt · in Leader-OS drillst du sie täglich mit WladBot, für
+              den Preis eines Mittagessens.
+            </p>
+            <div className="mt-9 flex flex-col sm:flex-row flex-wrap gap-3">
+              <a
+                href="https://leaderos.de/signup?trial=14"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+              >
+                14 Tage kostenlos testen <ArrowUpRight size={15} />
+              </a>
+              <a
+                href="https://leadercheck.de"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 border-2 border-white/30 hover:border-brand text-white hover:text-brand font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+              >
+                Erst den Leader-Check · 10 Min
+              </a>
+            </div>
+            <p className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.2em] text-white/40">
+              14 Tage kostenlos · ohne Karte · jederzeit kündbar
+            </p>
           </div>
         </section>
 
