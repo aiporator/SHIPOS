@@ -110,9 +110,22 @@ export const FreeVideoFunnelSection = () => {
               </div>
               <h3 className="text-[15px] font-black tracking-tight leading-tight">{video.title}</h3>
               <p className="text-[12px] text-white/55 mt-1 leading-snug">{video.subtitle}</p>
+              {video.bullets?.[0] && (
+                <p className="text-[11.5px] text-white/70 mt-3 pt-3 border-t border-white/10 leading-snug">
+                  <span className="font-mono text-[8.5px] font-bold uppercase tracking-[0.18em] text-brand block mb-1">▸ Du lernst u.a.</span>
+                  {video.bullets[0]}
+                </p>
+              )}
             </motion.div>
           ))}
         </div>
+
+        {/* Reason-why · one honest line kills the "where's the catch" objection */}
+        <p className="mt-8 max-w-2xl text-[13.5px] leading-[1.6] text-white/55">
+          Warum kostenlos? Weil die Videos die beste Werbung sind, die wir machen können. Wer danach
+          mehr will, testet Leader-OS 14 Tage kostenlos — wer nicht, nimmt 4 Prinzipien mit.
+          <span className="text-white/75"> Beides ist okay.</span>
+        </p>
 
         {/* Email capture → register */}
         <div className="mt-12 max-w-xl">

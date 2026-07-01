@@ -23,6 +23,11 @@ export const FREE_VIDEOS = [
     vimeoId: '',
     blurb:
       'KI ist kein Werkzeug, das du „auch noch" bedienst — sie ist das Betriebssystem unter deiner Führung. Video 1 zeigt dir den ersten Hebel.',
+    bullets: [
+      'Warum „KI als Werkzeug" der teuerste Denkfehler deiner Karriere ist',
+      'Der 5-Minuten-Audit: wo dein Führungsalltag heute Zeit verbrennt',
+      'Das eine Prinzip, das KI-native Leader von allen anderen trennt',
+    ],
   },
   {
     id: 'fv2',
@@ -35,6 +40,11 @@ export const FREE_VIDEOS = [
     vimeoId: '',
     blurb:
       'Hör auf, Feuer zu löschen — triff Entscheidungen drei Züge im Voraus. Wie KI vom Spielzeug zum Frühwarnsystem für dein Team wird.',
+    bullets: [
+      'Raus aus dem Reaktions-Modus — ohne eine Minute mehr Arbeitszeit',
+      'Die 3-Züge-Methode: entscheiden, bevor das Problem auf dem Tisch liegt',
+      'Warum dein Team dir mehr vertraut, wenn KI deine Vorbereitung übernimmt',
+    ],
   },
   {
     id: 'fv3',
@@ -47,6 +57,11 @@ export const FREE_VIDEOS = [
     vimeoId: '',
     blurb:
       'Einzelne Aha-Momente verpuffen — Systeme bleiben. Der Wochen-Rhythmus, der KI fest in deine Führung einbaut.',
+    bullets: [
+      'Der 15-Minuten-Wochen-Rhythmus, der auch dann läuft, wenn der Kalender brennt',
+      'Warum Aha-Momente verpuffen — und was Systeme anders machen',
+      'Deine Checkliste für das erste KI-Führungs-Ritual (ab Woche 1)',
+    ],
   },
   {
     id: 'fv4',
@@ -60,6 +75,11 @@ export const FREE_VIDEOS = [
     vimeoId: '',
     blurb:
       'Du hast den Hebel, das Denkmodell und die Routine. Das Finale zeigt, wie Leader-OS all das für dich auf Autopilot stellt.',
+    bullets: [
+      'Wie du Hebel, Denkmodell und Routine auf Autopilot stellst',
+      'Dein konkreter 30-Tage-Plan nach der Serie',
+      'Der nächste Schritt — wenn du mehr willst (völlig freiwillig)',
+    ],
   },
 ];
 
