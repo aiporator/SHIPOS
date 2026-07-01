@@ -31,6 +31,30 @@ const BENEFITS = [
   'Dein 30-Tage-Fahrplan zur KI-nativen Führungskraft',
 ];
 
+// „Bekannt aus" · real press/TV (same set as the Wlad page).
+const MEDIA = ['DER SPIEGEL', 'BUSINESS INSIDER', 'SÜDDEUTSCHE ZEITUNG', 'RTL', 'ARD', 'PROSIEBEN', 'TEDX'];
+
+// Real, verifiable proof — no invented testimonials or prices.
+const PROOF = [
+  ['400 000+', 'trainierte Führungskräfte'],
+  ['3×', 'SPIEGEL-Bestseller'],
+  ['4,9 / 5', 'Trustpilot · 388 Bewertungen'],
+  ['14 Mio', 'Views auf Podcast & YouTube'],
+];
+
+const STEPS = [
+  ['01', 'E-Mail eintragen', 'Ein Feld, ein Klick — keine Kreditkarte, kein Konto nötig.'],
+  ['02', 'Sofort freischalten', 'Alle 4 Videos öffnen sich direkt hier auf der Seite.'],
+  ['03', 'Täglich 1 Video', 'Ab morgen bekommst du jeden Tag eins ins Postfach — dranbleiben zahlt sich aus.'],
+];
+
+const FAQ = [
+  ['Kostet das wirklich nichts?', 'Ja, komplett kostenlos. Keine Kreditkarte, kein Abo, keine versteckten Kosten. Wlad wird sonst für 10.000 € Tagessatz gebucht — diese 4 Videos sind ein echtes Geschenk, damit du siehst, wie er arbeitet.'],
+  ['Für wen sind die Videos?', 'Für alle, die fachlich stark sind, aber als Führungspersönlichkeit endlich gesehen werden wollen — Teamleads, Projektmanager, Senior-Experten und alle, die es werden wollen. Auch für introvertierte, authentische Menschen, die ohne Manipulation führen.'],
+  ['Bekomme ich jetzt Spam?', 'Nein. Du bekommst die 4 Videos plus gelegentlich echte Impulse. Ein Klick, und du bist wieder raus — jederzeit, in jeder Mail.'],
+  ['Was passiert nach den 4 Videos?', 'Du kennst dann das Fundament von Wlads Methodik. Wenn du sie täglich mit WladBot drillen willst, kannst du Leader-OS 14 Tage kostenlos testen — musst du aber nicht.'],
+];
+
 const track = (event, props = {}) => {
   if (typeof window !== 'undefined' && window.posthog?.capture) {
     try { window.posthog.capture(event, { surface: 'leader-os', funnel: 'free-videos', ...props }); } catch {}
@@ -86,8 +110,8 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
               </>
             )}
             {unlocked && !src && (
-              <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 bg-[#0A0A0A]/80 px-2.5 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-white/70">
-                Video folgt in Kürze
+              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-[#BFFF00] px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#0A0A0A]">
+                Bald verfügbar
               </span>
             )}
           </button>
@@ -240,6 +264,34 @@ export default function FreeVideosPage() {
           </div>
         </section>
 
+        {/* Bekannt aus · press credibility bar */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center gap-4 md:gap-8">
+            <p className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brand">▸ Bekannt aus</p>
+            <ul className="flex flex-wrap items-center gap-x-6 md:gap-x-8 gap-y-2.5">
+              {MEDIA.map((m) => (
+                <li key={m} className="font-mono text-[11.5px] md:text-[12.5px] font-bold uppercase tracking-[0.13em] text-foreground/60">{m}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* So funktioniert's · 3 steps (removes friction before the gate) */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-8">▸ So einfach geht's</p>
+            <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+              {STEPS.map(([n, t, d]) => (
+                <div key={n} className="border-2 border-foreground/15 p-6 md:p-7">
+                  <div className="text-[34px] leading-none text-brand tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{n}</div>
+                  <h3 className="mt-4 text-[18px] md:text-[20px] leading-[1.15] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{t}<span className="text-brand not-italic">.</span></h3>
+                  <p className="mt-2.5 text-[14px] leading-[1.55] text-foreground/65">{d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* The 4 videos · locked → unlocked */}
         <section ref={videosRef} id="videos" className="border-t-2 border-foreground/12 scroll-mt-20">
           <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-24">
@@ -296,7 +348,33 @@ export default function FreeVideosPage() {
                 für 10.000 € Tagessatz gebucht, über 10.000 Manager ausgebildet. In diesen 4 Videos bekommst du das
                 Fundament seiner Methodik — kostenlos.
               </p>
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5">
+                {PROOF.map(([big, cap]) => (
+                  <div key={cap} className="border-t-2 border-foreground/20 pt-3">
+                    <div className="text-[22px] md:text-[26px] leading-none text-foreground tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{big}</div>
+                    <div className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-foreground/50 leading-[1.4]">{cap}</div>
+                  </div>
+                ))}
+              </div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ · objection handling */}
+        <section className="border-t-2 border-foreground/12">
+          <div className="max-w-[860px] mx-auto px-5 md:px-10 py-16 md:py-24">
+            <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Kurz geklärt</p>
+            <h2 className="text-[26px] sm:text-[36px] md:text-[44px] leading-[1.02] tracking-[-0.03em] text-foreground mb-8" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+              Bevor du startest<span className="text-brand not-italic">.</span>
+            </h2>
+            <dl className="border-t-2 border-foreground/15">
+              {FAQ.map(([q, a]) => (
+                <div key={q} className="py-5 border-b border-foreground/15">
+                  <dt className="text-[16px] md:text-[18px] leading-[1.3] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{q}</dt>
+                  <dd className="mt-2 text-[14px] leading-[1.6] text-foreground/68">{a}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
@@ -331,6 +409,18 @@ export default function FreeVideosPage() {
           </div>
         </section>
       </main>
+
+      {/* Sticky mobile CTA · persistent opt-in until unlocked */}
+      {!unlocked && (
+        <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-t-2 border-brand/40 px-4 py-3">
+          <button
+            onClick={scrollToOptIn}
+            className="w-full inline-flex items-center justify-center gap-2 h-12 bg-[#BFFF00] text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em]"
+          >
+            4 Videos gratis freischalten <ArrowUpRight size={15} />
+          </button>
+        </div>
+      )}
 
       <LandingFooter />
     </div>
