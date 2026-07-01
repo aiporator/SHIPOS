@@ -27,8 +27,8 @@ import {
   freeVideoEmbedUrl,
   isFreeVideoReady,
   hasFreeVideoOptIn,
-  setFreeVideoOptIn,
 } from '../data/freeVideos';
+import { captureFreeVideoLead } from '../lib/leadCapture';
 
 const SIGNUP_URL = 'https://leaderos.de/login';
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -54,6 +54,7 @@ const FAQ = [
 ];
 
 function OptInForm({ source, onUnlock, cta = '4 Videos gratis freischalten', dark = true }) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -68,28 +69,8 @@ function OptInForm({ source, onUnlock, cta = '4 Videos gratis freischalten', dar
     setSubmitting(true);
     setError('');
 
-    if (typeof window !== 'undefined' && window.posthog?.capture) {
-      try {
-        window.posthog.identify(trimmed.toLowerCase());
-        window.posthog.capture('lead_captured', {
-          email: trimmed,
-          source,
-          campaign: 'leader-os-4-free-videos',
-          surface: 'leader-os',
-        });
-      } catch { /* posthog never blocks UX */ }
-    }
+    await captureFreeVideoLead({ email: trimmed, name, source });
 
-    try {
-      await fetch('/api/leader-check/intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed, source, campaign: 'leader-os-4-free-videos' }),
-        keepalive: true,
-      });
-    } catch { /* swallow · funnel continues */ }
-
-    setFreeVideoOptIn(trimmed);
     setSubmitting(false);
     onUnlock(trimmed);
   };
@@ -102,12 +83,23 @@ function OptInForm({ source, onUnlock, cta = '4 Videos gratis freischalten', dar
     <form onSubmit={submit} className="w-full max-w-xl" data-testid={`optin-${source}`}>
       <div className="flex flex-col sm:flex-row gap-3">
         <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Vorname"
+          aria-label="Vorname"
+          autoComplete="given-name"
+          className={`sm:w-40 px-4 h-14 border-2 focus:outline-none text-[15px] font-medium transition-all ${inputBase}`}
+          data-testid={`optin-name-${source}`}
+        />
+        <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="dein.name@firma.de"
           required
           aria-label="E-Mail-Adresse"
+          autoComplete="email"
           className={`flex-1 px-4 h-14 border-2 focus:outline-none text-[15px] font-medium transition-all ${inputBase}`}
           data-testid={`optin-email-${source}`}
         />

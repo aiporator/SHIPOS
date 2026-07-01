@@ -167,6 +167,10 @@ app.include_router(ab_testing_router)
 from routes.unsubscribe import router as unsubscribe_router  # noqa: E402
 app.include_router(unsubscribe_router)
 
+# Free-video funnel · durable lead capture + delivery (/gratis-videos squeeze page)
+from routes.free_videos import router as free_videos_router  # noqa: E402
+app.include_router(free_videos_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:

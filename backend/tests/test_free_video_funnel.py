@@ -75,3 +75,25 @@ def test_drip_email_final_day_has_trial_pitch():
     video = fv.FREE_VIDEOS_BY_ID["fv4"]
     _subject, html = free_video_drip_email("Sam", video, total=4)
     assert "14 Tage kostenlos" in html
+
+
+def test_lead_unsubscribe_token_roundtrip():
+    # Imports the route module (needs the backend env, as in CI); skip locally
+    # if the DB/env isn't wired.
+    try:
+        from routes.free_videos import (
+            make_lead_unsub_token,
+            _verify_lead_unsub_token,
+            lead_unsub_url,
+        )
+    except Exception as exc:  # pragma: no cover - env-dependent
+        import pytest
+        pytest.skip(f"route env unavailable: {exc}")
+
+    token = make_lead_unsub_token("alex@firma.de")
+    assert _verify_lead_unsub_token(token) == "alex@firma.de"
+    assert _verify_lead_unsub_token("garbage.token") is None
+    assert _verify_lead_unsub_token(token + "tamper") is None
+    assert lead_unsub_url("a@b.de").startswith(
+        "https://leaderos.de/api/free-videos/unsubscribe?token="
+    )

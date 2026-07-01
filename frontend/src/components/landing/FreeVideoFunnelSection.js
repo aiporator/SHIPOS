@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, PlayCircle } from 'lucide-react';
-import { FREE_VIDEOS, setFreeVideoOptIn } from '../../data/freeVideos';
+import { FREE_VIDEOS } from '../../data/freeVideos';
+import { captureFreeVideoLead } from '../../lib/leadCapture';
 
 /**
  * FreeVideoFunnelSection · the "4 kostenlose Videos" lead-magnet on the
@@ -32,34 +33,10 @@ export const FreeVideoFunnelSection = () => {
     setSubmitting(true);
     setError('');
 
-    if (typeof window !== 'undefined' && window.posthog?.capture) {
-      try {
-        window.posthog.identify(trimmed.toLowerCase());
-        window.posthog.capture('lead_captured', {
-          email: trimmed,
-          source: 'free-video-funnel',
-          campaign: 'leader-os-4-free-videos',
-          surface: 'leader-os',
-        });
-      } catch { /* posthog never blocks UX */ }
-    }
-
-    try {
-      await fetch('/api/leader-check/intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: trimmed,
-          source: 'free-video-funnel',
-          campaign: 'leader-os-4-free-videos',
-        }),
-        keepalive: true,
-      });
-    } catch { /* swallow · funnel continues */ }
+    await captureFreeVideoLead({ email: trimmed, source: 'free-video-funnel' });
 
     // Straight to the standalone series page with the videos unlocked · the
     // lead is already captured, so the visitor gets instant gratification.
-    setFreeVideoOptIn(trimmed);
     navigate('/gratis-videos?unlock=1');
   };
 

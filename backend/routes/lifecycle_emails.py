@@ -274,11 +274,71 @@ async def cron_free_video_drip(request: Request):
                 sent_total += 1
                 sent_by_day[log_type] = sent_by_day.get(log_type, 0) + 1
 
+    # ── Email-only leads (opted in on /gratis-videos, no account yet) ─────────
+    # Day 1 is sent instantly at capture time; here we send Day 2..N. Leads who
+    # later registered are skipped — the registered-user loop above covers them.
+    lead_sent = 0
+    lead_scanned = 0
+    from routes.free_videos import lead_unsub_url  # local import avoids cycle
+    lead_candidates = await db.free_video_leads.find(
+        {
+            "email": {"$exists": True, "$ne": ""},
+            "created_at": {"$gte": cutoff},
+            "unsubscribed": {"$ne": True},
+            "registered": {"$ne": True},
+        },
+        {"_id": 0, "email": 1, "name": 1, "created_at": 1, "drip_sent_days": 1},
+    ).to_list(5000)
+
+    for lead in lead_candidates:
+        lead_scanned += 1
+        email = lead["email"]
+        # If this lead has since created an account, let the user loop own them.
+        if await db.users.find_one({"email_lower": email}, {"_id": 0, "user_id": 1}):
+            await db.free_video_leads.update_one(
+                {"email_lower": email}, {"$set": {"registered": True}}
+            )
+            continue
+        days = _days_since(lead.get("created_at"))
+        if days is None:
+            continue
+        already_days = set(lead.get("drip_sent_days") or [])
+        name = lead.get("name") or email.split("@")[0]
+
+        for video in FREE_VIDEOS:
+            day = video["day"]
+            if day in already_days:
+                continue
+            if days < day - 0.25:
+                continue
+            if not free_video_ready(video):
+                skipped_no_video += 1
+                continue
+
+            subject, html = free_video_drip_email(
+                name, video, total=total, unsubscribe_link=lead_unsub_url(email),
+            )
+            result = await send_email(email, subject, html)
+            await db.email_log.insert_one({
+                "email": email, "type": f"free_video_lead_drip_d{day}",
+                "video_id": video["id"], "day": day,
+                "sent": result["sent"], "email_id": result.get("email_id"),
+                "error": result.get("error"), "sent_at": now.isoformat(),
+            })
+            if result["sent"]:
+                await db.free_video_leads.update_one(
+                    {"email_lower": email}, {"$addToSet": {"drip_sent_days": day}}
+                )
+                lead_sent += 1
+                already_days.add(day)
+
     return {
         "sent": sent_total,
         "scanned": scanned,
         "by_day": sent_by_day,
         "skipped_no_video": skipped_no_video,
+        "lead_sent": lead_sent,
+        "lead_scanned": lead_scanned,
     }
 
 
