@@ -179,5 +179,6 @@ Disallow: /
 # ════════════════════════════════════════════════════════════════════
 Sitemap: https://leader-os.de/sitemap-index.xml
 Sitemap: https://leader-os.de/sitemap.xml
+Sitemap: https://leader-os.de/sitemap-articles.xml
 Sitemap: https://leader-os.de/sitemap-image.xml
 Sitemap: https://leader-os.de/sitemap-news.xml
