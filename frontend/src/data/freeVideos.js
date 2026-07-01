@@ -21,6 +21,7 @@ export const FREE_VIDEOS = [
     day: 1,
     provider: 'vimeo',
     id: '', // ← paste video 1 id
+    thumb: '/videos/free/thumb-01.webp',
     title: 'Warum die meisten Führungskräfte unsichtbar bleiben.',
     hook: 'Der eine Denkfehler, der dich Beförderung, Gehalt und Respekt kostet — und wie du ihn heute abstellst.',
     duration: '8 Min',
@@ -29,6 +30,7 @@ export const FREE_VIDEOS = [
     day: 2,
     provider: 'vimeo',
     id: '', // ← paste video 2 id
+    thumb: '/videos/free/thumb-02.webp',
     title: 'Natürliche Autorität · ohne lauter zu werden.',
     hook: 'Die 3 Signale, an denen dein Team in 4 Sekunden entscheidet, ob es dir folgt.',
     duration: '11 Min',
@@ -37,6 +39,7 @@ export const FREE_VIDEOS = [
     day: 3,
     provider: 'vimeo',
     id: '', // ← paste video 3 id
+    thumb: '/videos/free/thumb-03.webp',
     title: 'Weniger arbeiten, mehr bewirken.',
     hook: 'Wie du dein Team dazu bringst, von allein Verantwortung zu übernehmen — Schluss mit Mikromanagement.',
     duration: '9 Min',
@@ -45,6 +48,7 @@ export const FREE_VIDEOS = [
     day: 4,
     provider: 'vimeo',
     id: '', // ← paste video 4 id
+    thumb: '/videos/free/thumb-04.webp',
     title: 'Dein 30-Tage-Plan zur KI-nativen Führungskraft.',
     hook: 'Der genaue Fahrplan, mit dem du Wlads Methodik in deinen Alltag bringst — in 10 Minuten pro Tag.',
     duration: '12 Min',

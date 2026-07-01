@@ -19,24 +19,24 @@ export const FreeVideoTeaser = () => (
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
         <div>
           <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
-            ▸ Gratis · 4 Videos · sofort ansehen
+            ▸ Führung beginnt hier · 4 Videos · kostenlos
           </p>
           <h2
             className="text-[30px] sm:text-[44px] md:text-[58px] leading-[0.98] tracking-[-0.035em] max-w-3xl"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            4 Videos, die dich zur Führungskraft machen<span className="text-brand not-italic">.</span>
+            Führung beginnt hier<span className="text-brand not-italic">.</span>
           </h2>
           <p className="mt-5 max-w-xl text-[15px] leading-[1.6] text-white/65">
-            Kostenlos von Wlad Jachtchenko · E-Mail eintragen, alle 4 sofort freischalten und
+            4 kostenlose Videos von Wlad Jachtchenko · E-Mail eintragen, alle 4 sofort freischalten und
             danach jeden Tag eins ins Postfach.
           </p>
         </div>
         <Link
-          to="/gratis"
+          to="/fuehrung-beginnt-hier"
           className="shrink-0 inline-flex items-center justify-center gap-2 h-14 px-8 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors"
         >
-          Gratis freischalten <ArrowUpRight size={16} />
+          Kostenlos freischalten <ArrowUpRight size={16} />
         </Link>
       </div>
 
@@ -44,20 +44,21 @@ export const FreeVideoTeaser = () => (
         {FREE_VIDEOS.map((v) => (
           <Link
             key={v.day}
-            to="/gratis"
-            className="group relative border-2 border-white/12 hover:border-brand/60 bg-white/[0.02] p-5 flex flex-col aspect-[4/5] transition-colors"
+            to="/fuehrung-beginnt-hier"
+            className="group relative border-2 border-white/12 hover:border-brand/60 overflow-hidden bg-black transition-colors"
           >
-            <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.2em] text-brand">
-              ▸ Tag {v.day} · {v.duration}
-            </span>
-            <h3
-              className="mt-3 text-[16px] md:text-[18px] leading-[1.15] tracking-[-0.02em] text-white flex-1"
-              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-            >
-              {v.title}
-            </h3>
-            <span className="mt-4 inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/60 group-hover:text-brand transition-colors">
-              <Lock size={13} /> Freischalten
+            <span className="relative block aspect-video overflow-hidden">
+              <img
+                src={v.thumb}
+                alt={v.title}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/40 group-hover:bg-[#0A0A0A]/20 transition-colors" />
+              <span className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 bg-[#0A0A0A]/75 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white/85 group-hover:text-brand transition-colors">
+                <Lock size={11} /> Freischalten
+              </span>
             </span>
           </Link>
         ))}
