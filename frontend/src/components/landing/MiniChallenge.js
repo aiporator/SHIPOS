@@ -103,6 +103,17 @@ export const MiniChallenge = () => {
     }
   };
 
+  const redeemCredits = () => {
+    if (creditsRedeemed) return;
+    setCreditsRedeemed(true);
+    trackPH('mini_challenge_credits_redeemed', { weakest: weakest?.key });
+    // Redeeming the 50 credits sends the visitor into Leader-OS to claim
+    // them on their account · short beat so the "EINGELÖST" state registers.
+    setTimeout(() => {
+      window.location.href = 'https://leaderos.de/login?bonus=welcome50';
+    }, 900);
+  };
+
   const choose = (opt) => {
     if (step === 0 && scores.ki === 0 && scores.rhet === 0 && scores.eq === 0) {
       trackPH('mini_challenge_started');
@@ -283,11 +294,11 @@ export const MiniChallenge = () => {
                   oder ein voller 1:1-Drill mit der {weakest.drill}.
                 </p>
                 <button
-                  onClick={() => setCreditsRedeemed(true)}
+                  onClick={redeemCredits}
                   disabled={creditsRedeemed}
                   className="mt-6 inline-flex items-center gap-2 px-6 py-3.5 bg-black text-brand text-[12px] font-bold uppercase tracking-[0.18em] hover:bg-black/85 disabled:opacity-60 transition-colors"
                 >
-                  {creditsRedeemed ? '✓ EINGELÖST' : '▸ EINLÖSEN'}
+                  {creditsRedeemed ? '✓ EINGELÖST · WEITER ZU LEADER-OS…' : '▸ 50 CREDITS EINLÖSEN'}
                 </button>
               </motion.div>
 
