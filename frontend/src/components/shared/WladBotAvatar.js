@@ -41,7 +41,7 @@ export const WladBotAvatar = ({
           height={size}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-[50%_18%]"
           onError={() => setFailed(true)}
         />
       ) : (
