@@ -698,11 +698,14 @@ def free_video_drip_email(
     total: int = 4,
     app_url: str = "https://leaderos.de",
     unsubscribe_link: str | None = None,
+    deeplink: str | None = None,
 ) -> tuple[str, str]:
-    """Daily drip email for the 4 free CTA videos (Day 1..4).
+    """Daily drip email for the 4 free videos (Day 1..4).
 
-    Deep-links to /free-videos (all videos unlocked there), highlighting the
-    one that is "new today". Subject lines are curiosity-first, not
+    Default deeplink is the in-app player /free-videos (registered users).
+    For email-only leads pass the PUBLIC funnel URL instead
+    (services_free_videos.PUBLIC_FUNNEL_URL) — they have no account yet and
+    must not hit a login wall. Subject lines are curiosity-first, not
     "watch this video". Open-rate optimized.
     """
     day = video["day"]
@@ -711,7 +714,7 @@ def free_video_drip_email(
     hook = video["hook"]
     takeaway = video["takeaway"]
     tag = video.get("duration", f"Video {day}")
-    deeplink = f"{app_url.rstrip('/')}/free-videos?v={video['id']}"
+    deeplink = deeplink or f"{app_url.rstrip('/')}/free-videos?v={video['id']}"
     is_final = day >= total
 
     unsub = (

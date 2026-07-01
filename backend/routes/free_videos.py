@@ -38,7 +38,9 @@ from pydantic import BaseModel, Field
 from config import db, logger
 from routes.admin import require_admin
 from services_email import send_email, free_video_drip_email, is_enabled as email_enabled
-from services_free_videos import FREE_VIDEOS, FREE_VIDEOS_BY_ID, is_ready, embed_url
+from services_free_videos import (
+    FREE_VIDEOS, FREE_VIDEOS_BY_ID, PUBLIC_FUNNEL_URL, is_ready, embed_url,
+)
 
 router = APIRouter(prefix="/api/free-videos", tags=["free-videos"])
 
@@ -198,6 +200,7 @@ async def capture_lead(payload: LeadPayload, request: Request):
         subject, html = free_video_drip_email(
             name or email.split("@")[0], fv1, total=len(FREE_VIDEOS),
             unsubscribe_link=lead_unsub_url(email),
+            deeplink=PUBLIC_FUNNEL_URL,  # lead has no account — no login wall
         )
         result = await send_email(email, subject, html)
         if result["sent"]:

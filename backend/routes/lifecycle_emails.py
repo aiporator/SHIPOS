@@ -22,7 +22,9 @@ from services_email import (
     free_video_drip_email,
     is_enabled as email_enabled,
 )
-from services_free_videos import FREE_VIDEOS, is_ready as free_video_ready
+from services_free_videos import (
+    FREE_VIDEOS, PUBLIC_FUNNEL_URL, is_ready as free_video_ready,
+)
 from routes.unsubscribe import unsubscribe_url
 from services_video_trial import (
     TRIAL_DAYS, TRIAL_VIDEO_LIMIT, TRIAL_ELIGIBLE_TIERS, _parse_dt,
@@ -317,6 +319,7 @@ async def cron_free_video_drip(request: Request):
 
             subject, html = free_video_drip_email(
                 name, video, total=total, unsubscribe_link=lead_unsub_url(email),
+                deeplink=PUBLIC_FUNNEL_URL,  # lead has no account — no login wall
             )
             result = await send_email(email, subject, html)
             await db.email_log.insert_one({

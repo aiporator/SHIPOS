@@ -60,11 +60,11 @@ const NewsletterConfirmedPage = lazyWithRetry(() => import("./pages/NewsletterCo
 const JournalIndex = lazyWithRetry(() => import("./features/content/pages/JournalIndex"));
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
 const EventPage = lazyWithRetry(() => import("./pages/EventPage"));
+const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
-const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
-const FreeVideoSeriesLanding = lazyWithRetry(() => import("./pages/FreeVideoSeriesLanding"));
+const FreeVideosMembersPage = lazyWithRetry(() => import("./pages/FreeVideosMembersPage"));
 const LeaderOsSyncPage = lazyWithRetry(() => import("./pages/LeaderOsSyncPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
@@ -167,7 +167,7 @@ function AppRouter() {
         <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/lern-videos" element={<ProtectedRoute><LearningVideosPage /></ProtectedRoute>} />
-        <Route path="/free-videos" element={<ProtectedRoute><FreeVideosPage /></ProtectedRoute>} />
+        <Route path="/free-videos" element={<ProtectedRoute><FreeVideosMembersPage /></ProtectedRoute>} />
         <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
         <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
@@ -201,6 +201,11 @@ function AppRouter() {
         {/* Public · dated free launch event · high-conversion signup */}
         <Route path="/event" element={<EventPage />} />
         <Route path="/live" element={<Navigate to="/event" replace />} />
+        {/* Public · free 4-video lead-magnet funnel · "Führung beginnt hier" */}
+        <Route path="/fuehrung-beginnt-hier" element={<FreeVideosPage />} />
+        <Route path="/gratis" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
+        <Route path="/free" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
+        <Route path="/videos" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
         <Route path="/wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/about" element={<Navigate to="/wlad-jachtchenko" replace />} />
         <Route path="/ueber-wlad" element={<Navigate to="/wlad-jachtchenko" replace />} />
@@ -214,11 +219,10 @@ function AppRouter() {
         <Route path="/system" element={<SystemHealth />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
 
-        {/* Standalone free-video-series squeeze/landing page · public,
-            lead-generating, runs on the marketing host (see LANDING_ALLOWED_ROUTES). */}
-        <Route path="/gratis-videos" element={<FreeVideoSeriesLanding />} />
-        <Route path="/free-video-series" element={<FreeVideoSeriesLanding />} />
-        <Route path="/videos" element={<Navigate to="/gratis-videos" replace />} />
+        {/* Legacy aliases for the free-video funnel · canonical page is
+            /fuehrung-beginnt-hier (see routes above with /gratis, /free, /videos). */}
+        <Route path="/gratis-videos" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
+        <Route path="/free-video-series" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
         {/* Branded 404 instead of silent Navigate-to-/ · lets Search
             Console flag broken external backlinks and gives users a
             "did you mean" surface with the 5 highest-intent destinations. */}

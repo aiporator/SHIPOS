@@ -157,13 +157,17 @@ hot paths) or unused indexes after schema churn.
 ## Free-video funnel + Leader-Check handoff
 
 ### The funnel
-- Public squeeze page: `/gratis-videos` (aliases `/free-video-series`, `/videos`).
-- On-landing teaser: `FreeVideoFunnelSection` on the main marketing page.
+- Public squeeze page: `/fuehrung-beginnt-hier` (aliases `/gratis`, `/free`,
+  `/videos`, `/gratis-videos`, `/free-video-series` — all redirect there).
+- On-landing teaser: `FreeVideoTeaser` on the main marketing page.
 - Gated player for registered users: `/free-videos` (sidebar → "4 Gratis-Videos").
-- Video source of truth: `backend/services_free_videos.py` +
-  `frontend/src/data/freeVideos.js` (keep in sync). Each slot resolves
-  `youtube_id → vimeo_id → drive_id`. A slot with no source is skipped
-  everywhere (page shows "in Kürze", drip never links it).
+- Video source of truth: `backend/services_free_videos.py` (emails) +
+  `frontend/src/data/freeVideos.js` (pages) — keep titles/sources in sync.
+  Each slot resolves `youtube → vimeo → drive`. A slot with no source is
+  skipped everywhere (page shows "in Kürze", drip never links it).
+- Email deeplinks: registered-user drip → `/free-videos?v=fvN` (app);
+  email-only lead drip → `PUBLIC_FUNNEL_URL` (`/fuehrung-beginnt-hier?unlock=1`,
+  no login wall).
 
 ### Leads (we own the data)
 - Every opt-in POSTs `/api/free-videos/lead` → durable `db.free_video_leads`
