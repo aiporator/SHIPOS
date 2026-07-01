@@ -71,7 +71,7 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
   const canPlay = unlocked && src;
 
   return (
-    <article className="relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col">
+    <article className="group/card relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col transition-all duration-300 hover:border-brand/40 hover:-translate-y-1 hover:shadow-[0_34px_70px_-34px_rgba(191,255,0,0.4)]">
       <div className="relative aspect-video bg-black overflow-hidden">
         {canPlay && playing ? (
           <iframe
@@ -168,7 +168,7 @@ const OptInForm = ({ onUnlocked, idSuffix = '' }) => {
           disabled={!valid || state === 'loading'}
           className="h-14 px-7 bg-[#BFFF00] hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap"
         >
-          {state === 'loading' ? 'Wird freigeschaltet…' : 'Jetzt 4 Videos gratis'}
+          {state === 'loading' ? 'Wird freigeschaltet…' : 'Jetzt 4 Videos sichern'}
           {state !== 'loading' && <ArrowUpRight size={16} />}
         </button>
       </div>
@@ -210,13 +210,35 @@ export default function FreeVideosPage() {
     document.getElementById('optin')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
-  const stats = useMemo(() => [['400K+', 'Kunden'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
+  const stats = useMemo(() => [['400K+', 'Kunden'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Videos']], []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen antialiased" data-testid="free-videos-page">
+    <div
+      className="relative overflow-hidden bg-background text-foreground min-h-[100dvh] antialiased"
+      data-testid="free-videos-page"
+      style={{
+        backgroundImage:
+          'radial-gradient(at 12% 6%, rgba(191,255,0,0.07) 0px, transparent 42%), ' +
+          'radial-gradient(at 88% 26%, rgba(191,255,0,0.05) 0px, transparent 48%), ' +
+          'radial-gradient(at 50% 102%, rgba(191,255,0,0.05) 0px, transparent 55%)',
+      }}
+    >
+      {/* Grain · breaks the digital flatness so the dark canvas reads premium
+          instead of a plain fill (redesign-skill surface upgrade). Fixed,
+          non-interactive, soft-light blended so it only textures — never dims. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-30 opacity-[0.05] mix-blend-soft-light"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: '190px 190px',
+        }}
+      />
+
       <LandingNav />
 
-      <main id="main-content">
+      <main id="main-content" className="relative z-10">
         {/* Hero · the opt-in */}
         <section className="relative isolate overflow-hidden">
           <div className="pointer-events-none absolute inset-0 -z-10">
@@ -282,10 +304,14 @@ export default function FreeVideosPage() {
             <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-8">▸ So einfach geht's</p>
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
               {STEPS.map(([n, t, d]) => (
-                <div key={n} className="border-2 border-foreground/15 p-6 md:p-7">
-                  <div className="text-[34px] leading-none text-brand tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{n}</div>
-                  <h3 className="mt-4 text-[18px] md:text-[20px] leading-[1.15] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{t}<span className="text-brand not-italic">.</span></h3>
-                  <p className="mt-2.5 text-[14px] leading-[1.55] text-foreground/65">{d}</p>
+                <div
+                  key={n}
+                  className="group relative border-2 border-foreground/15 p-6 md:p-7 bg-white/[0.015] transition-all duration-300 hover:-translate-y-1 hover:border-brand/45 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.35)]"
+                >
+                  <span aria-hidden className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'radial-gradient(at 90% 0%, rgba(191,255,0,0.10) 0px, transparent 55%)' }} />
+                  <div className="relative text-[34px] leading-none text-brand tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{n}</div>
+                  <h3 className="relative mt-4 text-[18px] md:text-[20px] leading-[1.15] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{t}<span className="text-brand not-italic">.</span></h3>
+                  <p className="relative mt-2.5 text-[14px] leading-[1.55] text-foreground/65">{d}</p>
                 </div>
               ))}
             </div>
@@ -293,7 +319,10 @@ export default function FreeVideosPage() {
         </section>
 
         {/* The 4 videos · locked → unlocked */}
-        <section ref={videosRef} id="videos" className="border-t-2 border-foreground/12 scroll-mt-20">
+        <section ref={videosRef} id="videos" className="relative isolate overflow-hidden border-t-2 border-foreground/12 scroll-mt-20">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-70">
+            <DottedGlowBackground gap={18} radius={1.6} color="rgba(255,255,255,0.14)" glowColor="rgba(191,255,0,0.45)" opacity={0.4} />
+          </div>
           <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-24">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 md:mb-12">
               <div>
@@ -417,7 +446,7 @@ export default function FreeVideosPage() {
             onClick={scrollToOptIn}
             className="w-full inline-flex items-center justify-center gap-2 h-12 bg-[#BFFF00] text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em]"
           >
-            4 Videos gratis freischalten <ArrowUpRight size={15} />
+            4 Videos kostenlos sichern <ArrowUpRight size={15} />
           </button>
         </div>
       )}
