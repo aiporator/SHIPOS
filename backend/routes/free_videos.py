@@ -27,7 +27,6 @@ import hashlib
 import hmac
 import json
 import os
-import re
 from datetime import datetime, timezone
 
 import httpx
@@ -44,7 +43,21 @@ from services_free_videos import (
 
 router = APIRouter(prefix="/api/free-videos", tags=["free-videos"])
 
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+def _is_valid_email(email: str) -> bool:
+    """Regex-free email sanity check.
+
+    Same semantics as the old ^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$ pattern (exactly
+    one @, no whitespace, domain has a dot with non-empty parts) but with no
+    backtracking — CodeQL flagged the regex as polynomial on attacker input.
+    """
+    if not email or len(email) > 320 or any(c.isspace() for c in email):
+        return False
+    local, sep, domain = email.partition("@")
+    if not sep or not local or "@" in domain:
+        return False
+    head, dot, tld = domain.rpartition(".")
+    return bool(dot and head and tld)
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
@@ -148,7 +161,7 @@ async def _forward_to_supabase(email_lower: str, meta: dict) -> None:
 async def capture_lead(payload: LeadPayload, request: Request):
     """Capture a free-video lead, deliver Video 1, and mirror to Supabase."""
     email = payload.email.strip().lower()
-    if not EMAIL_RE.match(email):
+    if not _is_valid_email(email):
         return {"ok": False, "error": "invalid_email"}
 
     name = (payload.name or "").strip()
@@ -283,7 +296,9 @@ async def lead_unsubscribe(token: str):
         {"email_lower": email},
         {"$set": {"unsubscribed": True, "unsubscribed_at": now}},
     )
-    logger.info("free-video lead unsubscribed: %s", email)
+    # Strip CR/LF before logging — the value originates from a user-supplied
+    # token payload (HMAC-verified, but defense-in-depth against log injection).
+    logger.info("free-video lead unsubscribed: %s", email.replace("\r", " ").replace("\n", " "))
     return HTMLResponse(_UNSUB_HTML.format(
         headline="Du bist abgemeldet",
         body="Du erhältst keine weiteren Videos dieser Serie. Kein Problem — du kannst jederzeit zurückkommen.",

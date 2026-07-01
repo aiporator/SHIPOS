@@ -89,6 +89,7 @@ def test_lead_unsubscribe_token_roundtrip():
     except Exception as exc:  # pragma: no cover - env-dependent
         import pytest
         pytest.skip(f"route env unavailable: {exc}")
+        return  # unreachable (skip raises) — makes control flow explicit
 
     token = make_lead_unsub_token("alex@firma.de")
     assert _verify_lead_unsub_token(token) == "alex@firma.de"

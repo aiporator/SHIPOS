@@ -21,9 +21,10 @@ def _mod(monkeypatch):
     try:
         import jwt  # noqa: F401
         from routes import auth
+        return auth
     except Exception as exc:  # pragma: no cover - env/crypto dependent
         pytest.skip(f"auth route env unavailable: {exc}")
-    return auth
+        raise  # unreachable (skip raises) — makes control flow explicit
 
 
 def _jwt(payload, secret="shared-secret-abc"):
@@ -61,4 +62,5 @@ def test_no_secret_configured_means_no_signing_secrets(monkeypatch):
         from routes import auth
     except Exception as exc:  # pragma: no cover
         pytest.skip(f"auth route env unavailable: {exc}")
+        return  # unreachable (skip raises) — makes control flow explicit
     assert auth._sync_signing_secrets() == []
