@@ -297,7 +297,7 @@ const FROM_WLAD = [
     title: 'Leadership-Summit · Q4.',
     description: 'Wlad live + die Leader-OS-Community. Live-Drills, Q&A, Klein-Format.',
     cta: 'Auf Warteliste',
-    to: '/#summit',
+    to: '/#newsletter-footer',
     external: false,
     tone: 'ink',
   },
