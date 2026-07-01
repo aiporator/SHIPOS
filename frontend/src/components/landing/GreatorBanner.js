@@ -45,7 +45,9 @@ export const GreatorBanner = () => {
             ▸ LIVE · GREATOR 2026
           </span>
           <a
-            href="#greator-event"
+            href="https://greator.com/coach/wlad-jachtchenko"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[12px] sm:text-[13px] font-bold tracking-[-0.005em] truncate hover:underline"
           >
             Triff Wlad live · LANXESS Arena Köln · 26.–27. Juni

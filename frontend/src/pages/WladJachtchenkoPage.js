@@ -7,6 +7,7 @@ import { ShareBar } from '../features/content/components/ShareBar';
 import { applyPageMeta } from '../lib/pageMeta';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
+import { WladMagicBox } from '../components/landing/WladMagicBox';
 import { useTheme } from '../contexts/ThemeContext';
 
 /**
@@ -1014,6 +1015,11 @@ export default function WladJachtchenkoPage() {
             ))}
           </div>
         </section>
+
+        {/* Wlad Magic Box · bundled media hub (podcast + TEDx/keynotes) */}
+        <div className="mt-20 md:mt-28">
+          <WladMagicBox />
+        </div>
 
         {/* Conversion band · the money moment for Masterclass/event alumni.
             Always-dark island with dotted-glow depth · the value props are
