@@ -10,6 +10,7 @@ import { captureFreeVideoLead } from '../lib/leadCapture';
 import { setFreeVideoOptIn } from '../data/freeVideos';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 import { FREE_VIDEOS, embedSrc } from '../data/freeVideos';
+import { PressMarquee } from '../components/landing/PressMarquee';
 
 /**
  * FreeVideosPage · /gratis · the free-video lead-magnet funnel.
@@ -33,8 +34,8 @@ const BENEFITS = [
   'Dein 30-Tage-Fahrplan zur KI-nativen Führungskraft',
 ];
 
-// „Bekannt aus" · real press/TV (same set as the Wlad page).
-const MEDIA = ['DER SPIEGEL', 'BUSINESS INSIDER', 'SÜDDEUTSCHE ZEITUNG', 'RTL', 'ARD', 'PROSIEBEN', 'TEDX'];
+// „Bekannt aus" now renders via the shared chrome PressMarquee (canonical
+// outlet set lives in components/landing/PressMarquee.js).
 
 // Real, verifiable proof — numbers cross-checked against WladJachtchenkoPage.
 const PROOF = [
@@ -357,15 +358,11 @@ export default function FreeVideosPage() {
           </div>
         </section>
 
-        {/* Bekannt aus · press credibility bar */}
+        {/* Bekannt aus · chrome wordmark marquee (shared PressMarquee) */}
         <section className="border-t-2 border-foreground/12">
-          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center gap-4 md:gap-8">
-            <p className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brand">▸ Bekannt aus</p>
-            <ul className="flex flex-wrap items-center gap-x-6 md:gap-x-8 gap-y-2.5">
-              {MEDIA.map((m) => (
-                <li key={m} className="font-mono text-[11.5px] md:text-[12.5px] font-bold uppercase tracking-[0.13em] text-foreground/60">{m}</li>
-              ))}
-            </ul>
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-7 md:py-8">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Bekannt aus</p>
+            <PressMarquee className="py-1" />
           </div>
         </section>
 

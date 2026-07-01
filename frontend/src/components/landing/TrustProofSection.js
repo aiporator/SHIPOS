@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Star, ArrowUpRight } from 'lucide-react';
+import { PressMarquee } from './PressMarquee';
 
 /**
  * TrustProofSection · honest social-proof wall.
@@ -172,19 +173,12 @@ export const TrustProofSection = () => {
           ))}
         </div>
 
-        {/* Press strip · "Bekannt aus" */}
+        {/* Press strip · "Bekannt aus" — chrome wordmark marquee */}
         <div className="mt-12 md:mt-14 pt-8 border-t border-white/10">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand mb-4 text-center md:text-left">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.26em] text-brand mb-5 text-center md:text-left">
             ▸ BEKANNT AUS
           </p>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 md:gap-x-8 gap-y-3 font-mono text-[11px] md:text-[12.5px] font-bold uppercase tracking-[0.2em] text-white/55">
-            {['ARD', 'ZDF', 'ntv', 'WELT', 'Wirtschaftswoche', 'Handelsblatt', 'FAZ', 'Galileo', 'TEDx'].map((m, i, arr) => (
-              <span key={m} className="flex items-center gap-x-6 md:gap-x-8">
-                <span>{m}</span>
-                {i < arr.length - 1 && <span aria-hidden className="opacity-25">·</span>}
-              </span>
-            ))}
-          </div>
+          <PressMarquee className="py-2" />
         </div>
       </div>
     </section>
