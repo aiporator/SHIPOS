@@ -43,6 +43,9 @@ export const LeadCaptureModal = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const triggered = useRef(false);
+  // Hard minimum dwell · the capture never opens before the visitor has
+  // spent 1 minute on the page, no matter which trigger fires.
+  const canShow = useRef(false);
   const navigate = useNavigate();
 
   const eligible = () => {
@@ -65,6 +68,7 @@ export const LeadCaptureModal = () => {
 
     const trigger = () => {
       if (triggered.current) return;
+      if (!canShow.current) return; // never before the 1-minute minimum
       armCooldown();
       setOpen(true);
     };
@@ -92,17 +96,20 @@ export const LeadCaptureModal = () => {
       zones.forEach((z) => observer.observe(z));
     }
 
-    // Mobile has no exit-intent (no mouseleave) · without these most phone
-    // visitors never see the capture, a big lead leak. Fire on deep scroll
-    // (≈58% of the page · strong intent) or after 45s on page, whichever
-    // comes first. Both respect the same cooldown + triggered guard.
+    // The capture is gated behind a 1-minute minimum dwell (canShow). After
+    // that gate opens it fires on its own; exit-intent and deep scroll can
+    // also open it, but never earlier. Mobile has no exit-intent, so the
+    // timed open + deep-scroll path is what phone visitors get.
     const onScroll = () => {
-      if (triggered.current) return;
+      if (triggered.current || !canShow.current) return;
       const reached = window.scrollY + window.innerHeight;
       const total = document.documentElement.scrollHeight;
       if (total > 0 && reached / total > 0.58) trigger();
     };
-    const dwellTimer = setTimeout(() => trigger(), 45000);
+    const dwellTimer = setTimeout(() => {
+      canShow.current = true;
+      trigger();
+    }, 60000);
 
     const onSubscribed = () => armCooldown();
     window.addEventListener('newsletter:subscribed', onSubscribed);
