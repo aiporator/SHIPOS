@@ -19,8 +19,10 @@ from services_email import (
     send_email, trial_reminder_email,
     drip_day1_email, drip_day3_email, drip_day7_email,
     video_drip_email, VIDEO_DRIP_VIDEOS,
+    free_video_drip_email,
     is_enabled as email_enabled,
 )
+from services_free_videos import FREE_VIDEOS, is_ready as free_video_ready
 from routes.unsubscribe import unsubscribe_url
 from services_video_trial import (
     TRIAL_DAYS, TRIAL_VIDEO_LIMIT, TRIAL_ELIGIBLE_TIERS, _parse_dt,
@@ -200,6 +202,86 @@ async def cron_drip_sequence(request: Request):
     return {"sent": sent_total, "scanned": scanned, "by_stage": sent_by_stage}
 
 
+@router.post("/cron/free-video-drip")
+async def cron_free_video_drip(request: Request):
+    """Daily free-video drip — sends Day 1..4 (one CTA video per day) after signup.
+
+    Day N fires once the user is ≥ N days old (with a 0.25-day grace so the
+    daily cron always catches it). Each day is sent exactly once (de-duped via
+    email_log). A video slot with no source yet is skipped, so we never link to
+    a broken video. Respects the shared `video_drip` unsubscribe group.
+    """
+    require_cron_auth(request)
+    if not email_enabled():
+        return {"sent": 0, "scanned": 0, "error": "RESEND_API_KEY not configured"}
+
+    now = datetime.now(timezone.utc)
+    total = len(FREE_VIDEOS)
+
+    sent_total = 0
+    sent_by_day = {}
+    scanned = 0
+    skipped_no_video = 0
+
+    # 4 days of drip + 3 days of buffer for late cron catches.
+    cutoff = (now - timedelta(days=total + 3)).isoformat()
+    candidates = await db.users.find(
+        {
+            "email": {"$exists": True, "$ne": ""},
+            "created_at": {"$gte": cutoff},
+            "unsubscribed_video_drip": {"$ne": True},
+            "unsubscribed_all": {"$ne": True},
+        },
+        {"_id": 0, "user_id": 1, "email": 1, "name": 1, "created_at": 1},
+    ).to_list(5000)
+
+    for u in candidates:
+        scanned += 1
+        days = _days_since(u.get("created_at"))
+        if days is None:
+            continue
+        name = u.get("name") or u["email"].split("@")[0]
+
+        for video in FREE_VIDEOS:
+            day = video["day"]
+            # Day N fires once the user is ≥ N days old.
+            if days < day - 0.25:
+                continue
+            if not free_video_ready(video):
+                skipped_no_video += 1
+                continue
+
+            log_type = f"free_video_drip_d{day}"
+            already = await db.email_log.find_one(
+                {"user_id": u["user_id"], "type": log_type}, {"_id": 0}
+            )
+            if already:
+                continue
+
+            subject, html = free_video_drip_email(
+                name, video, total=total,
+                unsubscribe_link=unsubscribe_url(u["user_id"], "video_drip"),
+            )
+            result = await send_email(u["email"], subject, html)
+            await db.email_log.insert_one({
+                "user_id": u["user_id"], "type": log_type,
+                "video_id": video["id"], "day": day,
+                "sent": result["sent"], "email_id": result.get("email_id"),
+                "error": result.get("error"),
+                "sent_at": now.isoformat(),
+            })
+            if result["sent"]:
+                sent_total += 1
+                sent_by_day[log_type] = sent_by_day.get(log_type, 0) + 1
+
+    return {
+        "sent": sent_total,
+        "scanned": scanned,
+        "by_day": sent_by_day,
+        "skipped_no_video": skipped_no_video,
+    }
+
+
 @router.get("/lifecycle/status")
 async def lifecycle_status():
     """Public health check for the lifecycle email system."""
@@ -208,6 +290,8 @@ async def lifecycle_status():
         "trial_reminder_days_before": list(TRIAL_REMINDER_DAYS_BEFORE),
         "drip_stages_days": [d for d, _, _ in DRIP_STAGES],
         "video_drip_weeks": [v["week"] for v in VIDEO_DRIP_VIDEOS],
+        "free_video_days": [v["day"] for v in FREE_VIDEOS],
+        "free_video_ready": [v["id"] for v in FREE_VIDEOS if free_video_ready(v)],
     }
 
 
