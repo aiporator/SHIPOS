@@ -76,3 +76,28 @@ export function freeVideoEmbedUrl(video) {
 export function isFreeVideoReady(video) {
   return Boolean(video && (video.youtubeId || video.vimeoId || video.driveId));
 }
+
+// ── Opt-in state (public squeeze page) ──────────────────────────────────────
+// The standalone /gratis-videos landing page reveals the videos inline once a
+// visitor gives their email — no account required (max opt-in rate). We only
+// remember the "has opted in" flag client-side; the actual lead is persisted
+// server-side via /api/leader-check/intent.
+export const FREE_VIDEO_OPTIN_KEY = 'leader_os_free_videos_optin';
+
+export function hasFreeVideoOptIn() {
+  if (typeof window === 'undefined') return false;
+  try {
+    return Boolean(localStorage.getItem(FREE_VIDEO_OPTIN_KEY));
+  } catch {
+    return false;
+  }
+}
+
+export function setFreeVideoOptIn(email) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(FREE_VIDEO_OPTIN_KEY, email || '1');
+  } catch {
+    /* ignore storage failures — the reveal still works for the session */
+  }
+}

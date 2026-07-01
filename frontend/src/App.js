@@ -64,6 +64,7 @@ const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
+const FreeVideoSeriesLanding = lazyWithRetry(() => import("./pages/FreeVideoSeriesLanding"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 
@@ -210,6 +211,12 @@ function AppRouter() {
         <Route path="/ads" element={<AdStudio />} />
         <Route path="/system" element={<SystemHealth />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+
+        {/* Standalone free-video-series squeeze/landing page · public,
+            lead-generating, runs on the marketing host (see LANDING_ALLOWED_ROUTES). */}
+        <Route path="/gratis-videos" element={<FreeVideoSeriesLanding />} />
+        <Route path="/free-video-series" element={<FreeVideoSeriesLanding />} />
+        <Route path="/videos" element={<Navigate to="/gratis-videos" replace />} />
         {/* Branded 404 instead of silent Navigate-to-/ · lets Search
             Console flag broken external backlinks and gives users a
             "did you mean" surface with the 5 highest-intent destinations. */}

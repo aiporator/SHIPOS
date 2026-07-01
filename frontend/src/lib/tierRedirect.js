@@ -31,6 +31,11 @@ export const LANDING_ALLOWED_ROUTES = [
   '/newsletter/confirmed',
   '/email/unsubscribe',
   '/thank-you',
+  // Standalone free-video-series squeeze/landing page · public lead-gen,
+  // must render on the marketing host (leader-os.de), not the app tier.
+  '/gratis-videos',
+  '/free-video-series',
+  '/videos',
   '/m/',
   '/f/',
   // Canonical SERP-winner for "Wlad Jachtchenko" + aliases. All live on

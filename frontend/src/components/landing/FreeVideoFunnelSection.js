@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, PlayCircle } from 'lucide-react';
-import { FREE_VIDEOS } from '../../data/freeVideos';
-import { LANDING_META } from '../../data/landingAssets';
+import { FREE_VIDEOS, setFreeVideoOptIn } from '../../data/freeVideos';
 
 /**
  * FreeVideoFunnelSection · the "4 kostenlose Videos" lead-magnet on the
@@ -20,8 +20,7 @@ export const FreeVideoFunnelSection = () => {
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-
-  const signupHref = LANDING_META?.cta?.primary?.href || 'https://leaderos.de/login';
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -58,12 +57,10 @@ export const FreeVideoFunnelSection = () => {
       });
     } catch { /* swallow · funnel continues */ }
 
-    // Off to registration · after sign-up the videos live at /free-videos and
-    // the Day 1-4 drip starts automatically.
-    const url = new URL(signupHref);
-    url.searchParams.set('email', trimmed);
-    url.searchParams.set('next', '/free-videos');
-    window.location.href = url.toString();
+    // Straight to the standalone series page with the videos unlocked · the
+    // lead is already captured, so the visitor gets instant gratification.
+    setFreeVideoOptIn(trimmed);
+    navigate('/gratis-videos?unlock=1');
   };
 
   return (
