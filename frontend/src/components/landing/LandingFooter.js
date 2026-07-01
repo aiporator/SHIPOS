@@ -51,20 +51,27 @@ const COL_SYSTEM = [
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
+// Mirrors the real leaderos.de dashboard nav (components/layout/Sidebar.js)
+// 1:1 — same routes, same labels, same order. Previously advertised tabs
+// the dashboard doesn't have (Lern-Videos, Downloads, /community) and was
+// missing real ones (Challenge, Aufgaben, Challengers, Events). Keep in
+// sync when the app sidebar changes.
 const COL_PLATTFORM = [
   { label: 'Dashboard',          href: 'https://leaderos.de/dashboard',     external: true },
-  { label: 'Chat · WladBot',     href: 'https://leaderos.de/chat',          external: true },
-  { label: 'Daily Check-In',     href: 'https://leaderos.de/daily-checkin', external: true },
-  { label: 'Tools',              href: 'https://leaderos.de/tools',         external: true },
+  { label: '30-Tage Challenge',  href: 'https://leaderos.de/challenge',     external: true },
+  { label: 'Täglicher Check-in', href: 'https://leaderos.de/daily-checkin', external: true },
+  { label: 'Aufgaben',           href: 'https://leaderos.de/tasks',         external: true },
+  { label: 'WladBot · Chat',     href: 'https://leaderos.de/chat',          external: true },
   { label: 'Simulationen',       href: 'https://leaderos.de/simulations',   external: true },
-  { label: 'Missions',           href: 'https://leaderos.de/missions',      external: true },
-  { label: 'Lern-Videos',        href: 'https://leaderos.de/lern-videos',   external: true },
-  { label: 'My Path',            href: 'https://leaderos.de/my-path',       external: true },
-  { label: 'Community',          href: 'https://leaderos.de/community',     external: true },
-  { label: 'Wlad-Universe',      href: 'https://leaderos.de/wlad-universe', external: true },
+  { label: 'Challengers',        href: 'https://leaderos.de/challengers',   external: true },
   { label: 'Playbooks',          href: 'https://leaderos.de/playbooks',     external: true },
+  { label: 'Video Analyse',      href: 'https://leaderos.de/missions',      external: true },
+  { label: 'Workflows',          href: 'https://leaderos.de/tools',         external: true },
+  { label: 'My Path',            href: 'https://leaderos.de/my-path',       external: true },
+  { label: 'Wlad-Universum',     href: 'https://leaderos.de/wlad-universe', external: true },
+  { label: 'Community',          href: 'https://leaderos.de/progress',      external: true },
+  { label: 'Events',             href: 'https://leaderos.de/events',        external: true },
   { label: 'Coaching',           href: 'https://leaderos.de/coaching',      external: true },
-  { label: 'Downloads',          href: 'https://leaderos.de/downloads',     external: true },
 ];
 
 const COL_EXPLORE = [
@@ -75,10 +82,9 @@ const COL_EXPLORE = [
   { label: 'Rhetorik & Kommunikation',      to: '/journal#cat-rhetorik' },
   { label: 'Rollen & Karriere',             to: '/journal#cat-rollen-karriere' },
   { label: 'Plattform & Leader-OS',          to: '/journal#cat-plattform' },
-  { label: 'Free Tools',                    to: '/#tools' },
+  { label: 'Free Tools',                    to: '/#free-tools' },
   { label: 'Podcast · Wlad spricht',        href: 'https://podcast.wladjachtchenko.de', external: true },
   { label: 'Bücher · 3 SPIEGEL-Bestseller', href: 'https://wladjachtchenko.de/buecher', external: true },
-  { label: 'Leadership-Summit',             to: '/#summit' },
   { label: 'FAQ',                           to: '/#faq' },
 ];
 
@@ -91,7 +97,6 @@ const COL_COMPANY = [
   { label: 'Enterprise',             href: 'https://leaderos.de/enterprise', external: true },
   { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladjachtchenko/', external: true },
   { label: 'start@aiporate.com',     href: 'mailto:start@aiporate.com' },
-  { label: 'Karriere',               to: '/#careers' },
   { label: 'Impressum',              to: '/impressum' },
   { label: 'Datenschutz',            to: '/datenschutz' },
   { label: 'AGB',                    to: '/agb' },
