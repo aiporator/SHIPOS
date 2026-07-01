@@ -18,6 +18,12 @@
       "permanent": false
     },
     {
+      "source": "/auth/sync",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-os\\.de" }],
+      "destination": "https://leaderos.de/auth/sync",
+      "permanent": false
+    },
+    {
       "source": "/(login|dashboard|onboarding|daily-checkin|chat|tools|simulations|missions|wlad-universe|leader-diagnose|video-challenge|challengers|tasks|playbooks|events|my-path|progress|community|lern-videos|learning-videos|wlad-control-x7k9q2|progress-old|coaching|downloads|payment-success|referral|auth-callback)(/.*)?",
       "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
       "destination": "https://leadercheck.de/$1$2",

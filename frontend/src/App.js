@@ -65,6 +65,7 @@ const ArticlePage = lazyWithRetry(() => import("./features/content/pages/Article
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
 const FreeVideoSeriesLanding = lazyWithRetry(() => import("./pages/FreeVideoSeriesLanding"));
+const LeaderOsSyncPage = lazyWithRetry(() => import("./pages/LeaderOsSyncPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 
@@ -145,6 +146,7 @@ function AppRouter() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/auth/magic" element={<MagicLinkVerifyPage />} />
+        <Route path="/auth/sync" element={<LeaderOsSyncPage />} />
         <Route path="/auth-callback" element={<AuthCallback />} />
         <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
