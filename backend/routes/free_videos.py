@@ -136,6 +136,60 @@ def _video_public(video: dict) -> dict:
     }
 
 
+async def bridge_lead_to_user(user_id: str, email_lower: str) -> bool:
+    """Bridge funnel attribution from a free-video lead onto the registered user.
+
+    Called from every path where a lead becomes a user (register, Google
+    session, leader-check sync, cron detection). Two effects:
+
+      1. Lead: marked registered (+ registered_user_id) — stops the
+         email-only drip; the registered-user drip owns them from here.
+      2. User: receives `funnel_attribution` (UTM, sources, referrer, landing
+         path, opt-in history, drip days received) + a `free-videos` meta_tag —
+         so the journey Landing → Lead → User is queryable end-to-end on the
+         user document, not buried in a side collection.
+
+    Idempotent and best-effort: returns False (never raises) when there is no
+    matching lead or the write fails — registration must never block on this.
+    """
+    try:
+        lead = await db.free_video_leads.find_one({"email_lower": email_lower}, {"_id": 0})
+        if not lead:
+            return False
+        now = datetime.now(timezone.utc).isoformat()
+        # First bridge wins for registered_at; re-bridges only refresh the link.
+        await db.free_video_leads.update_one(
+            {"email_lower": email_lower, "registered_at": {"$exists": False}},
+            {"$set": {"registered_at": now}},
+        )
+        await db.free_video_leads.update_one(
+            {"email_lower": email_lower},
+            {"$set": {"registered": True, "registered_user_id": user_id}},
+        )
+        attribution = {
+            "funnel": "free-video-series",
+            "sources": lead.get("sources") or [],
+            "utm": lead.get("utm") or {},
+            "referrer": lead.get("referrer") or "",
+            "landing_path": lead.get("landing_path") or "",
+            "campaign": lead.get("campaign") or "",
+            "lead_name": lead.get("name") or "",
+            "lead_created_at": lead.get("created_at"),
+            "optin_count": int(lead.get("optin_count", 1)),
+            "drip_days_received": sorted(lead.get("drip_sent_days") or []),
+            "bridged_at": now,
+        }
+        await db.users.update_one(
+            {"user_id": user_id},
+            {"$set": {"funnel_attribution": attribution},
+             "$addToSet": {"meta_tags": "free-videos"}},
+        )
+        return True
+    except Exception as exc:  # pragma: no cover - best-effort by contract
+        logger.warning("free-video lead bridge failed for user %s: %s", user_id, exc)
+        return False
+
+
 async def _forward_to_supabase(email_lower: str, meta: dict) -> None:
     """Best-effort mirror into the shared incomplete_attempts pipeline."""
     if not SUPABASE_URL or not (SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY):
@@ -268,6 +322,8 @@ async def list_leads(request: Request, limit: int = 200):
         "registered": registered,
         "delivered": delivered,
         "unsubscribed": unsubscribed,
+        # Lead → user conversion of the funnel, in percent (one decimal).
+        "conversion_rate": round(registered / total * 100, 1) if total else 0.0,
         "recent": recent,
     }
 

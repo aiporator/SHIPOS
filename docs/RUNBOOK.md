@@ -175,8 +175,16 @@ hot paths) or unused indexes after schema churn.
 - Video 1 is emailed instantly on first opt-in; the daily
   `/api/cron/free-video-drip` cron sends Day 2-4 to leads AND registered users
   (registered leads are skipped in the lead loop to avoid double-sends).
-- Admin view: `GET /api/free-videos/leads` (totals + recent). PostHog gets
-  `lead_captured` with full attribution.
+- Admin view: `GET /api/free-videos/leads` (totals + conversion rate +
+  recent). PostHog gets `lead_captured` with full attribution.
+- **Lead → user bridge**: on every registration path (email register, Google
+  session, leader-check sync, drip-cron detection) `bridge_lead_to_user()`
+  marks the lead registered (stops the email-only drip) AND copies the
+  acquisition data onto the user document as `users.funnel_attribution`
+  (funnel, sources, UTM, referrer, landing path, opt-in count, drip days
+  received, timestamps) + adds a `free-videos` meta_tag. The full journey
+  Landing → Lead → User is queryable on the user, not buried in the side
+  collection.
 - Required env: `RESEND_API_KEY` (email delivery), optional `CRON_SHARED_SECRET`
   (protects the cron), Supabase env (best-effort mirror to `incomplete_attempts`).
 

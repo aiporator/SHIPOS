@@ -281,7 +281,7 @@ async def cron_free_video_drip(request: Request):
     # later registered are skipped — the registered-user loop above covers them.
     lead_sent = 0
     lead_scanned = 0
-    from routes.free_videos import lead_unsub_url  # local import avoids cycle
+    from routes.free_videos import lead_unsub_url, bridge_lead_to_user  # local import avoids cycle
     lead_candidates = await db.free_video_leads.find(
         {
             "email": {"$exists": True, "$ne": ""},
@@ -295,11 +295,13 @@ async def cron_free_video_drip(request: Request):
     for lead in lead_candidates:
         lead_scanned += 1
         email = lead["email"]
-        # If this lead has since created an account, let the user loop own them.
-        if await db.users.find_one({"email_lower": email}, {"_id": 0, "user_id": 1}):
-            await db.free_video_leads.update_one(
-                {"email_lower": email}, {"$set": {"registered": True}}
-            )
+        # If this lead has since created an account, bridge the attribution
+        # onto the user and let the registered-user loop own them.
+        existing_user = await db.users.find_one(
+            {"email_lower": email}, {"_id": 0, "user_id": 1}
+        )
+        if existing_user:
+            await bridge_lead_to_user(existing_user["user_id"], email)
             continue
         days = _days_since(lead.get("created_at"))
         if days is None:

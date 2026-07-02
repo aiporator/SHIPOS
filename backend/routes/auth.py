@@ -242,14 +242,10 @@ async def register(data: UserRegister, request: Request, response: Response):
     await _create_session(user_id, ip_address, response, method="register")
     await record_user_action(user_id, "register")
 
-    # If this email opted into the free-video funnel, mark the lead registered
-    # so the email-only lead drip stops (the user drip covers them now).
-    try:
-        await db.free_video_leads.update_one(
-            {"email_lower": email}, {"$set": {"registered": True}}
-        )
-    except Exception:  # best-effort, never block signup
-        pass
+    # Free-video funnel bridge: stop the email-only lead drip AND copy the
+    # lead's acquisition data (UTM, sources, referrer…) onto this user.
+    from routes.free_videos import bridge_lead_to_user
+    await bridge_lead_to_user(user_id, email)
 
     # Mirror to Supabase (fire-and-forget — does not block response)
     from services_supabase_sync import mirror_user_event_fire_and_forget
@@ -392,6 +388,10 @@ async def google_session(request: Request, response: Response):
     # Generate a real JWT token (not the session_token)
     token = create_jwt_token(user_id)
     await _create_session(user_id, ip_address, response, method="google")
+
+    # Free-video funnel bridge (Google signups can be funnel leads too).
+    from routes.free_videos import bridge_lead_to_user
+    await bridge_lead_to_user(user_id, email.strip().lower())
 
     user = await db.users.find_one({"user_id": user_id}, {"_id": 0})
 
@@ -537,13 +537,10 @@ async def leader_os_sync(data: SyncExchange, request: Request, response: Respons
     token = create_jwt_token(user_id)
     await _create_session(user_id, ip_address, response, method="leader_check")
 
-    # This lead is now a registered user → stop the email-only free-video drip.
-    try:
-        await db.free_video_leads.update_one(
-            {"email_lower": email}, {"$set": {"registered": True}}
-        )
-    except Exception:  # best-effort, never block the login
-        pass
+    # Free-video funnel bridge: stop the email-only lead drip AND copy the
+    # lead's acquisition data onto this user (journey stays queryable).
+    from routes.free_videos import bridge_lead_to_user
+    await bridge_lead_to_user(user_id, email)
 
     if jti:
         await db.consumed_sync_tokens.insert_one({

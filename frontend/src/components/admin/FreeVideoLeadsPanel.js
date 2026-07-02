@@ -3,7 +3,7 @@ import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
 import api from '../../lib/api';
 import logger from '../../lib/logger';
-import { Loader2, Clapperboard, Mail, UserCheck, BellOff, Download } from 'lucide-react';
+import { Loader2, Clapperboard, Mail, UserCheck, BellOff, Download, TrendingUp } from 'lucide-react';
 
 /**
  * FreeVideoLeadsPanel · admin view of the /gratis-videos funnel leads.
@@ -97,10 +97,11 @@ export default function FreeVideoLeadsPanel({ de = true }) {
           <p className="text-[11px] text-muted-foreground/60">{de ? 'Leads konnten nicht geladen werden.' : 'Could not load leads.'}</p>
         ) : (
           <>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-5">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 mb-5">
               <StatPill icon={Clapperboard} label={de ? 'Leads gesamt' : 'Total leads'} value={data.total} color="text-[#6B8A00] dark:text-[#BFFF00]" />
               <StatPill icon={Mail} label={de ? 'Video 1 zugestellt' : 'Video 1 delivered'} value={data.delivered} color="text-sky-500" />
               <StatPill icon={UserCheck} label={de ? 'Registriert' : 'Registered'} value={data.registered} color="text-emerald-500" />
+              <StatPill icon={TrendingUp} label={de ? 'Conversion' : 'Conversion'} value={`${data.conversion_rate ?? 0}%`} color="text-[#7B3FE4]" />
               <StatPill icon={BellOff} label={de ? 'Abgemeldet' : 'Unsubscribed'} value={data.unsubscribed} color="text-rose-500" />
             </div>
 
