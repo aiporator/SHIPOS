@@ -216,6 +216,9 @@ export const LANDING_BENEFITS = [
     posterDesign: true,
     photoFallback: local('hf-03.webp'),
     photoFit: 'cover',
+    // Poster card sits lower in the split so it aligns with body+CTA
+    // instead of hanging at the headline edge (user feedback).
+    visualOffset: true,
   },
   {
     nr: '04',
@@ -266,14 +269,14 @@ export const LANDING_BENEFITS = [
     ],
     cta: 'Mehr Beweise',
     href: 'https://leadercheck.de',
-    variant: 'trust',
-    posterDesign: true,
-    photo: local('hf-05.webp'),
-    photoFallback: local('hf-05.webp'),
-    trustNumbers: [
-      { big: '400', suffix: 'TAUSEND', caption: 'Kunden weltweit' },
-      { big: '14',  suffix: 'MILLIONEN', caption: 'Views Podcast + YouTube' },
-    ],
+    // WladBot 3.0 card (avatar + pixel scan-grid + live status). The old
+    // numbers poster just duplicated the headline and cropped badly in the
+    // 4:5 frame (user feedback) — the numbers live in headline + specimen
+    // table, the card now shows WHO is behind them.
+    variant: 'wladbot30',
+    posterDesign: false,
+    photo: null,
+    photoFallback: null,
   },
   {
     nr: '06',

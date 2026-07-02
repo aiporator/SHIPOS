@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { PlusCircleCTA } from './PlusCircleCTA';
 import { useGsapScrollIn } from './motion/useGsapScrollIn';
+import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
 
 /**
  * BenefitSection · Type-first poster spread.
@@ -175,19 +176,76 @@ const ALT_BY_CODE = {
   KOMPLETT:      'Wlad Jachtchenko Voxel-Avatar mit OS-Würfel · WladBot Komplettbegleitung',
 };
 
+// WladBot 3.0 card body · §05 TRUST. Replaces the old numbers-poster (it
+// duplicated the section headline and cropped badly in the 4:5 frame).
+// Instead: the WladBot 3.0 render on a pixel scan-grid with live status —
+// the trust NUMBERS stay in the headline + specimen table where they belong.
+const WladBot30Body = () => (
+  <div className="absolute inset-0 bg-[#0A0A0A]">
+    {/* Pixel scan-grid · the "pixel look" nod, subtle so the avatar leads */}
+    <div
+      aria-hidden
+      className="absolute inset-0 opacity-[0.14]"
+      style={{
+        backgroundImage:
+          'linear-gradient(rgba(191,255,0,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(191,255,0,0.55) 1px, transparent 1px)',
+        backgroundSize: '14px 14px',
+      }}
+    />
+    {/* Lime aura behind the avatar */}
+    <div
+      aria-hidden
+      className="absolute inset-0"
+      style={{ background: 'radial-gradient(58% 42% at 50% 40%, rgba(191,255,0,0.18), transparent 70%)' }}
+    />
+
+    {/* Avatar · WladBot 3.0 render with the shared fallback chain */}
+    <div className="absolute inset-x-0 top-[44%] -translate-y-1/2 flex justify-center">
+      <div className="relative w-[58%] max-w-[220px] aspect-square">
+        <img
+          src={WLADBOT_AVATAR}
+          onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
+          alt="WladBot 3.0 · dein KI-Coach in Wlads Stimme · Leader-OS"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full rounded-full object-cover object-[50%_16%] bg-black ring-4 ring-brand shadow-[0_20px_60px_-15px_rgba(191,255,0,0.5)]"
+        />
+        {/* Live status dot */}
+        <span className="absolute bottom-2.5 right-2.5 w-5 h-5 rounded-full bg-brand ring-4 ring-[#0A0A0A] animate-pulse" aria-hidden />
+      </div>
+    </div>
+
+    {/* Nameplate + mini proof row */}
+    <div className="absolute inset-x-0 bottom-12 text-center px-4">
+      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-brand mb-1.5">▸ ONLINE · 24/7</div>
+      <div
+        className="text-white leading-none"
+        style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 'clamp(26px, 4vw, 36px)', letterSpacing: '-0.02em' }}
+      >
+        WladBot <span className="text-brand not-italic">3.0</span>
+      </div>
+      <div className="mt-2.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.2em] text-white/55">
+        400K+ KUNDEN · 14M VIEWS · 3× SPIEGEL
+      </div>
+    </div>
+  </div>
+);
+
 const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, code, isDark, posterDesign, headline }) => (
   <div
     className={`relative aspect-[4/5] w-full max-w-[480px] mx-auto md:mx-0 ${isDark ? 'border-2 border-white/15' : 'border-2 border-foreground'} ${posterDesign ? 'bg-background' : 'bg-foreground'} overflow-hidden`}
     data-testid={`benefit-photo-${nr}`}
   >
-    {photo ? (
+    {variant === 'wladbot30' ? (
+      <WladBot30Body />
+    ) : photo ? (
       <img
         src={photo}
         alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · Leader-OS Kapitel ${nr}` : `Leader-OS Kapitel ${nr}`)}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
-        className={`absolute inset-0 w-full h-full ${photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover object-center'}`}
+        className={`absolute inset-0 w-full h-full ${photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : photoFit === 'bottom' ? 'object-cover object-bottom' : 'object-cover object-center'}`}
         style={posterDesign ? undefined : { filter: 'grayscale(1) contrast(1.1) brightness(0.92)' }}
         onError={(e) => {
           if (photoFallback && e.currentTarget.src !== photoFallback) e.currentTarget.src = photoFallback;
@@ -198,8 +256,8 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     )}
 
     {/* GREEN halftone · only for default (photo) mode. Skipped for
-        posterDesign so the source artwork shows through pristine. */}
-    {!posterDesign && (
+        posterDesign and the self-rendering wladbot30 card. */}
+    {!posterDesign && variant !== 'wladbot30' && (
       <>
         <div
           aria-hidden
@@ -233,7 +291,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
         typography of the poster already conveys the variant's message
         (bib plate, startnummer, woman speaker), so re-rendering the
         code-generated graphic on top would duplicate the visual. */}
-    {!posterDesign && <VariantOverlay variant={variant} trustNumbers={trustNumbers} />}
+    {!posterDesign && variant !== 'wladbot30' && <VariantOverlay variant={variant} trustNumbers={trustNumbers} />}
 
     {/* Bottom strip */}
     <div className={`absolute bottom-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/55' : 'bg-white/90 text-foreground/55'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-t ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
@@ -363,7 +421,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-5"
+            className={`md:col-span-5 ${asset.visualOffset ? 'md:mt-14 lg:mt-24' : ''}`}
           >
             <PhotoCard
               photo={asset.photo}
