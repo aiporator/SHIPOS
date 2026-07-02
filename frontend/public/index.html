@@ -221,6 +221,12 @@
              land on leaderos.de · prefetch DNS so the cross-host nav is fast. -->
         <link rel="dns-prefetch" href="https://leaderos.de" />
         <link rel="dns-prefetch" href="https://leadercheck.de" />
+        <!-- Free-video funnel players · the lightbox embeds stream from
+             Drive today (Vimeo/YouTube-ready). Preconnect shaves the TLS
+             handshake off the first frame after the visitor hits play. -->
+        <link rel="preconnect" href="https://drive.google.com" />
+        <link rel="dns-prefetch" href="https://player.vimeo.com" />
+        <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
         <!-- High-value internal next-routes · /journal is the second-most
              visited page after /. Prefetch the bundle on idle so click is
              instant. -->

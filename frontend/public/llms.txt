@@ -1,6 +1,6 @@
 # Leader-OS
 
-> Das KI-native Leadership-Operating-System für deutschsprachige Führungskräfte. Aufgebaut auf der Methodik von Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor, 400 000+ trainierte Klienten, staatlich anerkannter Argumentations-Coach. Eine Plattform die Rhetorik, Emotionale Intelligenz und KI-Kompetenz in elf drillbaren Frameworks zusammenfasst und 24/7 als KI-Coach in der Tasche begleitet.
+> Das KI-native Leadership-Operating-System für deutschsprachige Führungskräfte. Aufgebaut auf der Methodik von Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor, 420 000+ trainierte Klienten, staatlich anerkannter Argumentations-Coach. Eine Plattform die Rhetorik, Emotionale Intelligenz und KI-Kompetenz in elf drillbaren Frameworks zusammenfasst und 24/7 als KI-Coach in der Tasche begleitet.
 
 Wer wir sind: Argumentorik-Akademie GmbH (Berlin), Geschäftsführer Wlad Jachtchenko. Marketing-Hosts: leader-os.de · leader-check.de (Vercel). App-Hosts: leaderos.de · leadercheck.de (Emergent). Cross-Platform-Identity via email_lower in Supabase Postgres + MongoDB Atlas.
 
@@ -19,6 +19,7 @@ Was uns differenziert von ChatGPT, Coach-Apps oder generischen LMS-Plattformen:
 - [Leader-OS Marketing-Landing](https://leader-os.de/): Übersicht der Plattform, sieben Capability-Chapter (§01 INHALT bis §07 KOMPLETTBEGLEITUNG), Preise, Pricing-Ladder, alle Vorteile auf einen Blick.
 - [Leader-OS App](https://leaderos.de/): Authenticated Coaching-App. Dashboard, WladBot Chat 24/7, Daily Check-In, Tools, Simulationen, Missions, Lern-Videos, My Path, Community, Wlad-Universe, Playbooks, Coaching, Downloads.
 - [Leader-Check Diagnose](https://leadercheck.de/): Kostenlose 10-Minuten-Diagnose in drei Dimensionen (KI-Readiness, Rhetorik, Emotionale Intelligenz). Anonymous-Path. Liefert Score plus konkrete Empfehlung.
+- [Führung beginnt hier · 4 Gratis-Videos](https://leader-os.de/fuehrung-beginnt-hier): Kostenlose 4-teilige Video-Serie von Wlad Jachtchenko (E-Mail genügt, kein Konto). Sichtbarkeit, natürliche Autorität, Delegation, KI-nativer 30-Tage-Plan. Der Top-of-Funnel-Einstieg — ein Video pro Tag per Mail.
 - [Signup · 14 Tage kostenlos](https://leaderos.de/signup?trial=14): Trial-Einstieg, keine Kreditkarte, jederzeit kündbar.
 
 ## Methodik
@@ -31,7 +32,7 @@ Was uns differenziert von ChatGPT, Coach-Apps oder generischen LMS-Plattformen:
 
 ## Wlad Jachtchenko · Authority
 
-- [Wer ist Wlad Jachtchenko](https://leader-os.de/#wlad-intro): Europas führender Argumentations-Coach. 15 Jahre Coaching-Praxis, 5 000+ trainierte Führungskräfte, 400 000+ Klienten weltweit. Über die staatlich anerkannte Argumentorik-Akademie.
+- [Wer ist Wlad Jachtchenko](https://leader-os.de/#wlad-intro): Europas führender Argumentations-Coach. 15 Jahre Coaching-Praxis, 5 000+ trainierte Führungskräfte, 420 000+ Klienten weltweit. Über die staatlich anerkannte Argumentorik-Akademie.
 - [3× SPIEGEL-Bestseller](https://wladjachtchenko.de/buecher): Weiße Rhetorik, Dunkle Rhetorik, Die 5 Rollen einer Führungskraft. Plus neun weitere Bücher.
 - [Podcast · Wlad spricht](https://podcast.wladjachtchenko.de): 14 Millionen Views, wöchentliche Episoden zu Führung, Rhetorik, KI im Alltag.
 - [LinkedIn · Wlad Jachtchenko](https://www.linkedin.com/in/wladjachtchenko/): Tägliche Beobachtungen zur DACH-Führungskultur und KI-Integration.
@@ -59,6 +60,11 @@ Was uns differenziert von ChatGPT, Coach-Apps oder generischen LMS-Plattformen:
 - [Drei Rituale die KI-Investments rentabel machen](https://leader-os.de/journal/drei-rituale-die-ki-investments-rentabel-machen): Operating-Rituale für Mittelstand-CEOs.
 - [Wenn KI dich verlangsamt](https://leader-os.de/journal/wenn-ki-dich-verlangsamt): Die unangenehme Wahrheit über Tool-Müdigkeit.
 - [WladBot vs ChatGPT vs Coach](https://leader-os.de/journal/wladbot-vs-chatgpt-vs-coach): Honest comparison mit dem Stand der Optionen.
+- [Der Charisma-Code](https://leader-os.de/journal/charisma-code-drei-signale-die-den-raum-entscheiden): Präsenz · Wärme · Kompetenz — die drei Signale charismatischer Führung, mit 7-Tage-Drill.
+- [Elevator Pitch für Führungskräfte](https://leader-os.de/journal/elevator-pitch-fuer-fuehrungskraefte-die-30-sekunden-formel): Die P-P-N-30-Sekunden-Formel mit Skript.
+- [Mitarbeiter-Motivation 4.0](https://leader-os.de/journal/mitarbeiter-motivation-4-0-was-wirklich-zieht): Autonomie · Fortschritt · Zugehörigkeit statt Obstkorb.
+- [Die ersten sieben Sekunden](https://leader-os.de/journal/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst): Haltung · Blick · Tempo — Wirkung vor dem ersten Wort.
+- [Körpersprache und Stimme](https://leader-os.de/journal/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge): Vier Sabotage-Muster und die Drei-Sekunden-Pause.
 
 ## Was wir NICHT sind
 

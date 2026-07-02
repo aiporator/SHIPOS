@@ -381,7 +381,50 @@ export default function FreeVideosPage() {
       url: 'https://leader-os.de/fuehrung-beginnt-hier',
       image: 'https://leader-os.de/og-wlad.jpg',
     });
-    return () => { restoreMeta(); if (!wasDark) root.classList.remove('dark'); };
+
+    // AEO · structured data for answer engines & rich results.
+    // FAQPage: the 8 objection-handling FAQs → Google FAQ rich result +
+    // direct answers in AI Overview/Perplexity. VideoObject: one entry per
+    // ready video → video rich results. Injected/removed with the page.
+    const base = 'https://leader-os.de';
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'FAQPage',
+          mainEntity: FAQ.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a },
+          })),
+        },
+        ...FREE_VIDEOS.filter((v) => embedSrc(v)).map((v) => ({
+          '@type': 'VideoObject',
+          name: v.title,
+          description: v.hook,
+          thumbnailUrl: `${base}${v.thumb}`,
+          uploadDate: '2026-07-01',
+          duration: `PT${parseInt(v.duration, 10) || 10}M`,
+          embedUrl: embedSrc(v),
+          publisher: {
+            '@type': 'Organization',
+            name: 'Leader-OS',
+            url: base,
+          },
+        })),
+      ],
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-fbh-jsonld', '1');
+    script.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(script);
+
+    return () => {
+      restoreMeta();
+      script.remove();
+      if (!wasDark) root.classList.remove('dark');
+    };
   }, []);
 
   const unlock = () => {
