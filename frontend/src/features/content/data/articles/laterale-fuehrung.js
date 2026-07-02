@@ -13,7 +13,7 @@ export default {
     'Techniken für Projektleiter und Matrix-Organisationen.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-29',
-  cover: '/wlad/wlad-portrait.jpg',
+  cover: '/wlad/wlad-portrait.webp',
   tags: ['Führung', 'Laterale Führung', 'Projektleitung', 'Methoden'],
   seo: {
     title: 'Laterale Führung: Definition + Methoden · Leader-OS',

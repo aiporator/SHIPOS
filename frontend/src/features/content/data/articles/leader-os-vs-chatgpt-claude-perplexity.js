@@ -13,7 +13,7 @@ export default {
     'wie Leader-OS sich rechnet. Matrix mit konkreten Use-Cases.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-26',
-  cover: '/wlad/wlad-portrait.jpg',
+  cover: '/wlad/wlad-portrait.webp',
   tags: ['Vergleich', 'ChatGPT', 'Claude', 'Perplexity', 'Tools'],
   seo: {
     title: 'Leader-OS vs ChatGPT, Claude, Perplexity: 2026',

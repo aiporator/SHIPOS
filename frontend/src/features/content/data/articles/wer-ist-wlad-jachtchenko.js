@@ -13,7 +13,7 @@ export default {
     'Millionen Podcast-Views. Die Methodik hinter Leader-OS in einem Profil.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-26',
-  cover: '/wlad/wlad-portrait.jpg',
+  cover: '/wlad/wlad-portrait.webp',
   tags: ['Wlad Jachtchenko', 'Authority', 'Methodik', 'Biographie'],
   seo: {
     title: 'Wer ist Wlad Jachtchenko? Argumentations-Coach',
