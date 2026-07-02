@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowUpRight, Check, Lock, X } from 'lucide-react';
+import { ArrowUpRight, Check, Lock, Play, X } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
@@ -103,57 +103,63 @@ const readUnlocked = () => {
   try { return localStorage.getItem(UNLOCK_KEY) === '1'; } catch { return false; }
 };
 
-const VideoTile = ({ video, unlocked, onUnlockClick }) => {
-  const [playing, setPlaying] = useState(false);
+/**
+ * VideoTile · simplified poster card. No inline iframe anymore — clicking a
+ * ready tile opens the cinema Lightbox (big, black, distraction-free). The
+ * tile itself just needs a clear play affordance: lime play-disc on hover-
+ * darkened poster + day/duration metadata.
+ */
+const VideoTile = ({ video, unlocked, onUnlockClick, onPlay }) => {
   const src = embedSrc(video);
   const canPlay = unlocked && src;
 
   return (
     <article className="relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col">
       <div className="relative aspect-video bg-black overflow-hidden">
-        {canPlay && playing ? (
-          <iframe
-            title={video.title}
-            src={`${src}${src.includes('?') ? '&' : '?'}autoplay=1`}
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-            allowFullScreen
+        <button
+          type="button"
+          onClick={canPlay ? () => onPlay(video) : (unlocked ? undefined : onUnlockClick)}
+          className="group absolute inset-0 h-full w-full"
+          aria-label={unlocked ? (src ? `Video ${video.day} abspielen` : 'Video folgt in Kürze') : 'Videos freischalten'}
+        >
+          {/* Branded poster thumbnail */}
+          <img
+            src={video.thumb}
+            alt={video.title}
             loading="lazy"
-            className="absolute inset-0 h-full w-full"
+            decoding="async"
+            className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${canPlay ? 'group-hover:scale-[1.03]' : ''}`}
           />
-        ) : (
-          <button
-            type="button"
-            onClick={unlocked ? (src ? () => { setPlaying(true); track('free_video_play', { day: video.day }); } : undefined) : onUnlockClick}
-            className="group absolute inset-0 h-full w-full"
-            aria-label={unlocked ? (src ? `Video ${video.day} abspielen` : 'Video folgt in Kürze') : 'Videos freischalten'}
-          >
-            {/* Branded poster thumbnail */}
-            <img
-              src={video.thumb}
-              alt={video.title}
-              loading="lazy"
-              decoding="async"
-              className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${canPlay ? 'group-hover:scale-[1.03]' : ''}`}
-            />
-            {/* Locked / not-yet-available overlays · unlocked+playable shows the clean poster */}
-            {!unlocked && (
-              <>
-                <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/60" />
-                <span className="fv-chrome-disc absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center text-[#0A0A0A] transition-transform group-hover:scale-110">
-                  <Lock size={22} strokeWidth={2.5} />
-                </span>
-                <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/90">
-                  Mit E-Mail freischalten
-                </span>
-              </>
-            )}
-            {unlocked && !src && (
-              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-[#BFFF00] px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#0A0A0A]">
-                Bald verfügbar
+          {/* Unlocked + ready · lime play affordance (the "it works" signal) */}
+          {canPlay && (
+            <>
+              <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/25 group-hover:bg-[#0A0A0A]/45 transition-colors" />
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center rounded-full bg-brand text-[#0A0A0A] shadow-[0_12px_36px_-8px_rgba(191,255,0,0.6)] transition-transform group-hover:scale-110">
+                <Play size={24} strokeWidth={2.5} className="ml-0.5" fill="currentColor" />
               </span>
-            )}
-          </button>
-        )}
+              <span className="absolute bottom-3 left-3 inline-flex items-center bg-[#0A0A0A]/80 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-brand">
+                ▸ TAG {video.day} · {video.duration}
+              </span>
+            </>
+          )}
+          {/* Locked · chrome vault disc */}
+          {!unlocked && (
+            <>
+              <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/60" />
+              <span className="fv-chrome-disc absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex h-16 w-16 items-center justify-center text-[#0A0A0A] transition-transform group-hover:scale-110">
+                <Lock size={22} strokeWidth={2.5} />
+              </span>
+              <span className="absolute bottom-4 left-4 right-4 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/90">
+                Mit E-Mail freischalten
+              </span>
+            </>
+          )}
+          {unlocked && !src && (
+            <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-[#BFFF00] px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#0A0A0A]">
+              Bald verfügbar
+            </span>
+          )}
+        </button>
       </div>
       <div className="p-5 md:p-6 flex flex-col flex-1">
         <h3
@@ -165,6 +171,98 @@ const VideoTile = ({ video, unlocked, onUnlockClick }) => {
         <p className="mt-2.5 text-[13.5px] leading-[1.55] text-white/60 flex-1">{video.hook}</p>
       </div>
     </article>
+  );
+};
+
+/**
+ * VideoLightbox · cinema mode. Full-black overlay, BIB-code header, one big
+ * 16:9 player, and a "Weiter"-rail to the next ready video (binge flow —
+ * every finished video is one step closer to the trial CTA). Esc/backdrop
+ * close. Simple by design: the video is the only bright thing on screen.
+ */
+const VideoLightbox = ({ video, onClose, onNext, nextVideo }) => {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  const src = embedSrc(video);
+  if (!src) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] bg-[#050505]/98 flex flex-col"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Video ${video.day}: ${video.title}`}
+      onClick={onClose}
+      data-testid="video-lightbox"
+    >
+      {/* BIB header */}
+      <div className="flex items-center justify-between px-4 md:px-8 h-14 border-b border-white/10 shrink-0" onClick={(e) => e.stopPropagation()}>
+        <div className="min-w-0 flex items-center gap-3">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-brand shrink-0">
+            ▸ TAG {video.day} / {FREE_VIDEOS.length}
+          </span>
+          <span className="hidden sm:block font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white/50 truncate">
+            {video.title} · {video.duration}
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Schließen"
+          className="w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+          data-testid="lightbox-close"
+        >
+          <X size={20} />
+        </button>
+      </div>
+
+      {/* Player */}
+      <div className="flex-1 flex items-center justify-center px-3 md:px-8 py-4 min-h-0" onClick={(e) => e.stopPropagation()}>
+        <div className="w-full max-w-5xl aspect-video bg-black border border-white/15">
+          <iframe
+            title={video.title}
+            src={`${src}${src.includes('?') ? '&' : '?'}autoplay=1`}
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+            allowFullScreen
+            className="h-full w-full"
+          />
+        </div>
+      </div>
+
+      {/* Next rail · binge flow */}
+      <div className="shrink-0 border-t border-white/10 px-4 md:px-8 py-3.5 flex items-center justify-between gap-4" onClick={(e) => e.stopPropagation()}>
+        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-white/40 hidden sm:block">
+          ESC ZUM SCHLIESSEN
+        </span>
+        {nextVideo ? (
+          <button
+            type="button"
+            onClick={onNext}
+            className="inline-flex items-center gap-2.5 px-5 h-11 bg-brand text-[#0A0A0A] font-bold text-[11.5px] uppercase tracking-[0.1em] hover:bg-white transition-colors ml-auto"
+            data-testid="lightbox-next"
+          >
+            Weiter · Tag {nextVideo.day}: {nextVideo.title.split(':')[0].split('·')[0].trim()} <ArrowUpRight size={14} />
+          </button>
+        ) : (
+          <a
+            href="https://leaderos.de/signup?trial=14"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-5 h-11 bg-brand text-[#0A0A0A] font-bold text-[11.5px] uppercase tracking-[0.1em] hover:bg-white transition-colors ml-auto"
+          >
+            Serie fertig · 14 Tage kostenlos weitermachen <ArrowUpRight size={14} />
+          </a>
+        )}
+      </div>
+    </div>
   );
 };
 
@@ -253,7 +351,16 @@ const OptInForm = ({ onUnlocked, idSuffix = '' }) => {
 export default function FreeVideosPage() {
   useTheme();
   const [unlocked, setUnlocked] = useState(false);
+  const [lightbox, setLightbox] = useState(null); // video object | null
   const videosRef = useRef(null);
+
+  const readyVideos = FREE_VIDEOS.filter((v) => embedSrc(v));
+  const openVideo = (video) => {
+    setLightbox(video);
+    track('free_video_play', { day: video.day, mode: 'lightbox' });
+  };
+  const nextAfter = (video) =>
+    readyVideos.find((v) => v.day > (video?.day ?? 0)) || null;
 
   useEffect(() => {
     const root = document.documentElement;
@@ -437,7 +544,7 @@ export default function FreeVideosPage() {
 
             <div className="grid md:grid-cols-2 gap-5 md:gap-6">
               {FREE_VIDEOS.map((v) => (
-                <VideoTile key={v.day} video={v} unlocked={unlocked} onUnlockClick={scrollToOptIn} />
+                <VideoTile key={v.day} video={v} unlocked={unlocked} onUnlockClick={scrollToOptIn} onPlay={openVideo} />
               ))}
             </div>
 
@@ -616,6 +723,16 @@ export default function FreeVideosPage() {
           </div>
         </section>
       </main>
+
+      {/* Cinema lightbox · one big player, next-rail for binge flow */}
+      {lightbox && (
+        <VideoLightbox
+          video={lightbox}
+          nextVideo={nextAfter(lightbox)}
+          onNext={() => openVideo(nextAfter(lightbox))}
+          onClose={() => setLightbox(null)}
+        />
+      )}
 
       {/* Sticky mobile CTA · persistent opt-in until unlocked, chrome-framed */}
       {!unlocked && (
