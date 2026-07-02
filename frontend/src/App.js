@@ -66,6 +66,7 @@ const ArticlePage = lazyWithRetry(() => import("./features/content/pages/Article
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
 const FreeVideosMembersPage = lazyWithRetry(() => import("./pages/FreeVideosMembersPage"));
 const LeaderOsSyncPage = lazyWithRetry(() => import("./pages/LeaderOsSyncPage"));
+const SalesRoomPage = lazyWithRetry(() => import("./pages/SalesRoomPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 
@@ -168,6 +169,9 @@ function AppRouter() {
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/lern-videos" element={<ProtectedRoute><LearningVideosPage /></ProtectedRoute>} />
         <Route path="/free-videos" element={<ProtectedRoute><FreeVideosMembersPage /></ProtectedRoute>} />
+        {/* Internal sales enablement room · login-gated, deliberately no
+            sidebar entry — the URL is shared internally with the sales team. */}
+        <Route path="/sales-room" element={<ProtectedRoute><SalesRoomPage /></ProtectedRoute>} />
         <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
         <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
