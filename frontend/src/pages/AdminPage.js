@@ -14,6 +14,7 @@ import {
 import { AuthHealthWidget } from '../components/admin/AuthHealthWidget';
 import { RagDebugStudio } from '../components/admin/RagDebugStudio';
 import { LearningVideosManager } from '../components/admin/LearningVideosManager';
+import FreeVideoLeadsPanel from '../components/admin/FreeVideoLeadsPanel';
 
 const TIER_COLORS = {
   free: 'bg-slate-400',
@@ -265,6 +266,11 @@ export default function AdminPage() {
             )}
           </CardContent>
         </Card>
+
+        {/* Free-Video Funnel · leads coming in from /gratis-videos */}
+        <div className="mt-6 mb-6">
+          <FreeVideoLeadsPanel de={de} />
+        </div>
 
         {/* RAG Debug Studio · diagnose WladBot's knowledge retrieval */}
         <div className="mt-2">

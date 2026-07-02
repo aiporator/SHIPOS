@@ -7,7 +7,7 @@ export default {
     'So sieht transformationale Führung wirklich aus — nicht als Theorie, sondern als trainierbares Verhalten.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-30',
-  cover: '/wlad/wlad-portrait.jpg',
+  cover: '/wlad/wlad-portrait.webp',
   tags: ['Führung', 'Transformationale Führung', 'Beispiele', 'Methoden'],
   seo: {
     title: 'Transformationale Führung: Beispiele aus dem Alltag',

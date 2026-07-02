@@ -130,8 +130,21 @@ import fachlicheFuehrungOhneDisziplinarischeVerantwortung from './articles/fachl
 import fuehrungsverantwortungWasBedeutetDas from './articles/fuehrungsverantwortung-was-bedeutet-das';
 import fuehrungskompetenzenDieWichtigsten from './articles/fuehrungskompetenzen-die-wichtigsten';
 import fuehrungskraeftetrainingFormateImVergleich from './articles/fuehrungskraeftetraining-formate-im-vergleich';
+// 2026-07-02 Reels-Serie · aus Wlads täglichen Führungstipps (@wlad.jachtchenko)
+import charismaCodeDreiSignale from './articles/charisma-code-drei-signale-die-den-raum-entscheiden';
+import elevatorPitchFuerFuehrungskraefte from './articles/elevator-pitch-fuer-fuehrungskraefte-die-30-sekunden-formel';
+import mitarbeiterMotivation40 from './articles/mitarbeiter-motivation-4-0-was-wirklich-zieht';
+import dieErstenSiebenSekunden from './articles/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst';
+import koerperspracheUndStimme from './articles/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge';
 
 const ARTICLES = [
+  // 2026-07-02 Reels-Serie · Wlads Kurzformat-Themen als Longform (Charisma,
+  // Pitch, Motivation, Wirkung) — Quelle: wladTopics + @wlad.jachtchenko
+  charismaCodeDreiSignale,
+  elevatorPitchFuerFuehrungskraefte,
+  mitarbeiterMotivation40,
+  dieErstenSiebenSekunden,
+  koerperspracheUndStimme,
   // 2026-06-29 leadership-development SEO pillars (compete with the academies)
   transformationaleFuehrung,
   lateraleFuehrung,

@@ -6,6 +6,24 @@ import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
 import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
+// Leader-Check → Leader-OS handoff · runs SYNCHRONOUSLY before anything else.
+// If a `sync_token` arrives on any path other than the dedicated receiver,
+// funnel it to /auth/sync (preserving the token + intended destination) so the
+// exchange happens before LandingPage's redirect logic can strip the query.
+// From a Landing host, redirectAppRoutesToAppTier() below then forwards
+// /auth/sync (with query intact) to the App host, where the cookie is valid.
+const _syncHandoff = () => {
+  if (typeof window === "undefined") return false;
+  const q = new URLSearchParams(window.location.search);
+  const token = q.get("sync_token");
+  if (!token || window.location.pathname === "/auth/sync") return false;
+  const next = q.get("next") || "/free-videos";
+  window.location.replace(
+    `/auth/sync?sync_token=${encodeURIComponent(token)}&next=${encodeURIComponent(next)}`,
+  );
+  return true;
+};
+
 // Cross-tier guard · runs SYNCHRONOUSLY before anything else mounts.
 // If a visitor hits an App route (e.g. /login, /dashboard, /auth/magic)
 // on a Landing host (leader-os.de, leader-check.de), hard-redirect to
@@ -13,7 +31,9 @@ import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 // instead of inside a useEffect avoids the brief flash of a non-functional
 // LoginPage on the wrong origin. Auth, magic-link cookies, and OAuth
 // callbacks must stay on a single origin to work.
-if (redirectAppRoutesToAppTier()) {
+if (_syncHandoff()) {
+  // Browser is navigating to /auth/sync · abort module init.
+} else if (redirectAppRoutesToAppTier()) {
   // Browser is navigating away · abort module init.
   // (React, Sentry, PostHog all stay un-booted on the wrong origin.)
 } else {

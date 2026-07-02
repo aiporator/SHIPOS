@@ -18,6 +18,12 @@
       "permanent": false
     },
     {
+      "source": "/auth/sync",
+      "has": [{ "type": "host", "value": "(?:www\\.)?leader-os\\.de" }],
+      "destination": "https://leaderos.de/auth/sync",
+      "permanent": false
+    },
+    {
       "source": "/(login|dashboard|onboarding|daily-checkin|chat|tools|simulations|missions|wlad-universe|leader-diagnose|video-challenge|challengers|tasks|playbooks|events|my-path|progress|community|lern-videos|learning-videos|wlad-control-x7k9q2|progress-old|coaching|downloads|payment-success|referral|auth-callback)(/.*)?",
       "has": [{ "type": "host", "value": "(?:www\\.)?leader-check\\.de" }],
       "destination": "https://leadercheck.de/$1$2",
@@ -68,7 +74,7 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://appleid.cdn-apple.com https://alcdn.msauth.net https://*.posthog.com https://*.sentry.io https://app.cal.com https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.stripe.com https://*.googleusercontent.com https://*.posthog.com https://i.vimeocdn.com https://picsum.photos https://fastly.picsum.photos https://customer-assets.emergentagent.com https://static.prod-images.emergentagent.com https://*.supabase.co https://*.clarity.ms https://i.ytimg.com https://i.scdn.co; connect-src 'self' https://*.supabase.co https://*.stripe.com https://accounts.google.com https://appleid.apple.com https://login.microsoftonline.com https://*.posthog.com https://*.sentry.io https://api.elevenlabs.io https://api.resend.com https://player.vimeo.com https://app.cal.com https://*.clarity.ms https://c.bing.com wss://*.supabase.co; frame-src 'self' https://accounts.google.com https://appleid.apple.com https://*.stripe.com https://js.stripe.com https://player.vimeo.com https://cal.com https://app.cal.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com https://drive.google.com; worker-src 'self' blob:; media-src 'self' blob: https://player.vimeo.com https://*.akamaized.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://appleid.cdn-apple.com https://alcdn.msauth.net https://*.posthog.com https://*.sentry.io https://app.cal.com https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.stripe.com https://*.googleusercontent.com https://*.posthog.com https://i.vimeocdn.com https://images.unsplash.com https://picsum.photos https://fastly.picsum.photos https://customer-assets.emergentagent.com https://static.prod-images.emergentagent.com https://*.supabase.co https://*.clarity.ms https://i.ytimg.com https://i.scdn.co; connect-src 'self' https://*.supabase.co https://*.stripe.com https://accounts.google.com https://appleid.apple.com https://login.microsoftonline.com https://*.posthog.com https://*.sentry.io https://api.elevenlabs.io https://api.resend.com https://player.vimeo.com https://app.cal.com https://*.clarity.ms https://c.bing.com wss://*.supabase.co; frame-src 'self' https://accounts.google.com https://appleid.apple.com https://*.stripe.com https://js.stripe.com https://player.vimeo.com https://cal.com https://app.cal.com https://open.spotify.com https://www.youtube-nocookie.com https://www.youtube.com https://drive.google.com; worker-src 'self' blob:; media-src 'self' blob: https://player.vimeo.com https://*.akamaized.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },

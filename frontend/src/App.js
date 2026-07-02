@@ -64,6 +64,8 @@ const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
 const LearningVideosPage = lazyWithRetry(() => import("./pages/LearningVideosPage"));
+const FreeVideosMembersPage = lazyWithRetry(() => import("./pages/FreeVideosMembersPage"));
+const LeaderOsSyncPage = lazyWithRetry(() => import("./pages/LeaderOsSyncPage"));
 const SharedMissionPage = lazyWithRetry(() => import("./pages/SharedMissionPage"));
 const SharedFolderPage = lazyWithRetry(() => import("./pages/SharedFolderPage"));
 
@@ -144,6 +146,7 @@ function AppRouter() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/auth/magic" element={<MagicLinkVerifyPage />} />
+        <Route path="/auth/sync" element={<LeaderOsSyncPage />} />
         <Route path="/auth-callback" element={<AuthCallback />} />
         <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
@@ -164,6 +167,7 @@ function AppRouter() {
         <Route path="/progress" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
         <Route path="/lern-videos" element={<ProtectedRoute><LearningVideosPage /></ProtectedRoute>} />
+        <Route path="/free-videos" element={<ProtectedRoute><FreeVideosMembersPage /></ProtectedRoute>} />
         <Route path="/learning-videos" element={<Navigate to="/lern-videos" replace />} />
         {/* Admin route is intentionally hidden behind a non-guessable path. Backend require_admin() still gates all /api/admin/* */}
         <Route path="/wlad-control-x7k9q2" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
@@ -214,6 +218,11 @@ function AppRouter() {
         <Route path="/ads" element={<AdStudio />} />
         <Route path="/system" element={<SystemHealth />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+
+        {/* Legacy aliases for the free-video funnel · canonical page is
+            /fuehrung-beginnt-hier (see routes above with /gratis, /free, /videos). */}
+        <Route path="/gratis-videos" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
+        <Route path="/free-video-series" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />
         {/* Branded 404 instead of silent Navigate-to-/ · lets Search
             Console flag broken external backlinks and gives users a
             "did you mean" surface with the 5 highest-intent destinations. */}

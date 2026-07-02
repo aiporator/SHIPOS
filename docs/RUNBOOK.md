@@ -154,6 +154,59 @@ Expected to be quiet at < 1k rows. Re-check at 100, 500, 1000 users; common
 flags would be missing indexes on FKs (we already added composites for the
 hot paths) or unused indexes after schema churn.
 
+## Free-video funnel + Leader-Check handoff
+
+### The funnel
+- Public squeeze page: `/fuehrung-beginnt-hier` (aliases `/gratis`, `/free`,
+  `/videos`, `/gratis-videos`, `/free-video-series` — all redirect there).
+- On-landing teaser: `FreeVideoTeaser` on the main marketing page.
+- Gated player for registered users: `/free-videos` (sidebar → "4 Gratis-Videos").
+- Video source of truth: `backend/services_free_videos.py` (emails) +
+  `frontend/src/data/freeVideos.js` (pages) — keep titles/sources in sync.
+  Each slot resolves `youtube → vimeo → drive`. A slot with no source is
+  skipped everywhere (page shows "in Kürze", drip never links it).
+- Email deeplinks: registered-user drip → `/free-videos?v=fvN` (app);
+  email-only lead drip → `PUBLIC_FUNNEL_URL` (`/fuehrung-beginnt-hier?unlock=1`,
+  no login wall).
+
+### Leads (we own the data)
+- Every opt-in POSTs `/api/free-videos/lead` → durable `db.free_video_leads`
+  (keyed by `email_lower`) with name + UTM + referrer + landing path + sources.
+- Video 1 is emailed instantly on first opt-in; the daily
+  `/api/cron/free-video-drip` cron sends Day 2-4 to leads AND registered users
+  (registered leads are skipped in the lead loop to avoid double-sends).
+- Admin view: `GET /api/free-videos/leads` (totals + conversion rate +
+  recent). PostHog gets `lead_captured` with full attribution.
+- **Lead → user bridge**: on every registration path (email register, Google
+  session, leader-check sync, drip-cron detection) `bridge_lead_to_user()`
+  marks the lead registered (stops the email-only drip) AND copies the
+  acquisition data onto the user document as `users.funnel_attribution`
+  (funnel, sources, UTM, referrer, landing path, opt-in count, drip days
+  received, timestamps) + adds a `free-videos` meta_tag. The full journey
+  Landing → Lead → User is queryable on the user, not buried in the side
+  collection.
+- Required env: `RESEND_API_KEY` (email delivery), optional `CRON_SHARED_SECRET`
+  (protects the cron), Supabase env (best-effort mirror to `incomplete_attempts`).
+
+### Leader-Check → Leader-OS sync handoff
+leader-check.de mints a short-lived `sync_token`; the user is redirected to
+**`https://leaderos.de/auth/sync?sync_token=…&next=/free-videos`**. This
+product verifies it at `POST /api/auth/leader-os-sync` and mints a first-party
+session (no second login), then lands the user in the funnel.
+
+- **Required env (this backend):** `SYNC_JWT_SECRET` — the HS256 secret SHARED
+  with the leader-check side (falls back to `REPORT_JWT_SECRET` if that's what
+  leader-check signs with). If neither is set the endpoint returns **503**
+  (fail-safe — it never mints a session on an unverifiable token).
+- Token contract: HS256 JWT, standard `exp`, email in
+  `email` / `user_email` / `e` / `sub`(if an email). Optional `typ`/`purpose`/
+  `scope` must be a sync purpose (a `report_token` is rejected). Optional `jti`
+  makes it single-use (replay-proof via `db.consumed_sync_tokens`).
+- Cross-host is handled by `vercel.json` (edge redirect `/auth/sync` on
+  leader-os.de → leaderos.de) + the synchronous `_syncHandoff()` guard in
+  `frontend/src/index.js`, so the token survives even if it hits the marketing
+  host or `/`.
+
 ## Rollback
 
 Migrations are recorded by name. To undo a specific migration, write a new

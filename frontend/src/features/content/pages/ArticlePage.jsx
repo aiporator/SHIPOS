@@ -11,7 +11,7 @@ import { ShareBar } from '../components/ShareBar';
 import { ArticleLeftRail, extractHeadings } from '../components/ArticleLeftRail';
 import { ArticleRightRail, ArticleMobileMiniApps } from '../components/ArticleRightRail';
 import { applySeoToDocument, applyArticleJsonLd, buildArticleSeo } from '../utils/seo';
-import { resolveCover } from '../utils/covers';
+import { localCoverPath } from '../utils/covers';
 
 const TYPE_LABEL = {
   article: 'ARTICLE',
@@ -62,11 +62,15 @@ export default function ArticlePage() {
   useEffect(() => {
     if (!article) return undefined;
     const seo = buildArticleSeo(article);
-    // Backfill the OG image with the resolved cover so social previews
-    // always have a real image even when the article omits an explicit
-    // `seo.ogImage`. resolveCover returns the article.cover override
-    // when present, otherwise a deterministic Unsplash CDN url.
-    if (!seo.ogImage) seo.ogImage = resolveCover(article, 'wide');
+    // Backfill the OG image so social previews always have a real image:
+    // explicit seo.ogImage → article.cover → bundled branded texture.
+    // og:image must be absolute — derive the base from the canonical URL.
+    // (Local assets, NOT the Unsplash fallback: images.unsplash.com isn't
+    // in the prod CSP img-src, so CDN heroes render blocked on prod.)
+    if (!seo.ogImage) {
+      const base = (seo.canonical || '').replace(/\/journal\/.*$/, '');
+      seo.ogImage = `${base}${localCoverPath(article)}`;
+    }
     const restoreSeo = applySeoToDocument(seo);
     const removeJsonLd = applyArticleJsonLd(article, seo);
     return () => {
@@ -80,7 +84,9 @@ export default function ArticlePage() {
   const date = new Date(article.publishedAt).toLocaleDateString('de-DE', {
     day: '2-digit', month: 'long', year: 'numeric',
   });
-  const heroCover = resolveCover(article, 'lead');
+  // Hero cover: explicit article.cover, else the bundled branded texture.
+  // Both are same-origin assets — always renderable, no CSP dependency.
+  const heroCover = article.cover || localCoverPath(article);
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid={`article-${article.slug}`}>

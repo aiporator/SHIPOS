@@ -102,6 +102,23 @@ export function resolveCover(article, shape = 'wide') {
 }
 
 /**
+ * Local branded cover · deterministic pick from the bundled texture set
+ * (/journal/covers/cover-01..10.webp, black canvas + lime accents).
+ *
+ * This is the PRIMARY fallback for article heroes and og:images: it ships
+ * with the app (no CDN dependency, no CSP entry needed) and keeps the
+ * journal reading as one branded set. Same slug always maps to the same
+ * texture. resolveCover (Unsplash) stays available for surfaces that
+ * explicitly want photography.
+ */
+export const LOCAL_COVER_COUNT = 10;
+
+export function localCoverPath(article) {
+  const idx = String((hash(article?.slug || '') % LOCAL_COVER_COUNT) + 1).padStart(2, '0');
+  return `/journal/covers/cover-${idx}.webp`;
+}
+
+/**
  * Convenience: a low-res blurred placeholder for the same photo ·
  * useful as a CSS background-image while the main img loads.
  */

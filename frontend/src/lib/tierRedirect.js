@@ -31,6 +31,14 @@ export const LANDING_ALLOWED_ROUTES = [
   '/newsletter/confirmed',
   '/email/unsubscribe',
   '/thank-you',
+  // Free-video funnel · public lead-gen squeeze page + aliases. Must render
+  // on the marketing host (leader-os.de) — the sitemap points there.
+  '/fuehrung-beginnt-hier',
+  '/gratis',
+  '/free',
+  '/videos',
+  '/gratis-videos',
+  '/free-video-series',
   '/m/',
   '/f/',
   // Canonical SERP-winner for "Wlad Jachtchenko" + aliases. All live on

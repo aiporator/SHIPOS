@@ -687,6 +687,90 @@ Hallo {name},
     return subject, _base_layout(body, preheader=f"Woche {week}: {subtitle} · {duration}")
 
 
+# ── Free-Video Funnel: Day 1-4 Daily Drip (Lead-Magnet) ──────────────────────
+# One video per day for 4 days after signup. Pulls the new user back into the
+# app (/free-videos) where all 4 are unlocked. Source of truth for the video
+# metadata is backend/services_free_videos.py — the drip only formats it.
+
+def free_video_drip_email(
+    name: str,
+    video: dict,
+    total: int = 4,
+    app_url: str = "https://leaderos.de",
+    unsubscribe_link: str | None = None,
+    deeplink: str | None = None,
+) -> tuple[str, str]:
+    """Daily drip email for the 4 free videos (Day 1..4).
+
+    Default deeplink is the in-app player /free-videos (registered users).
+    For email-only leads pass the PUBLIC funnel URL instead
+    (services_free_videos.PUBLIC_FUNNEL_URL) — they have no account yet and
+    must not hit a login wall. Subject lines are curiosity-first, not
+    "watch this video". Open-rate optimized.
+    """
+    day = video["day"]
+    title = video["title"]
+    subtitle = video["subtitle"]
+    hook = video["hook"]
+    takeaway = video["takeaway"]
+    tag = video.get("duration", f"Video {day}")
+    deeplink = deeplink or f"{app_url.rstrip('/')}/free-videos?v={video['id']}"
+    is_final = day >= total
+
+    unsub = (
+        f'<p style="font-size:10px;color:rgba(255,255,255,0.3);margin:20px 0 0;text-align:center;">'
+        f'<a href="{unsubscribe_link}" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Diese Video-Serie abbestellen</a>'
+        f'</p>' if unsubscribe_link else ''
+    )
+
+    # Curiosity-driven subject per day.
+    subjects = {
+        1: f"{name}, dein Video 1 ist freigeschaltet 🎬",
+        2: f"Tag 2: der Teil, den fast keiner kennt",
+        3: f"Tag 3: hier wird aus Wissen ein System",
+        4: f"Tag 4 — das Finale (und dein nächster Schritt)",
+    }
+    subject = subjects.get(day, f"Tag {day}: {title}")
+
+    cta_label = "▶︎ Zum Finale" if is_final else f"▶︎ Video {day} ansehen"
+    final_note = (
+        '<p style="font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.6;margin:18px 0 0;text-align:center;">'
+        'Alle 4 Videos bleiben in deinem Zugang gespeichert. Wenn du bereit bist, '
+        'startest du deine <strong style="color:#fff;">14 Tage kostenlos</strong>.'
+        '</p>' if is_final else
+        '<p style="font-size:11px;color:rgba(255,255,255,0.4);margin:24px 0 0;text-align:center;line-height:1.6;">'
+        f'Morgen kommt Video {day + 1} von {total}. Alle bereits freigeschalteten Videos findest du jederzeit in deinem Zugang.'
+        '</p>'
+    )
+
+    body = f"""
+<div style="font-size:9px;color:{BRAND_COLOR};letter-spacing:0.18em;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Gratis-Serie · Tag {day} / {total}</div>
+<h1 style="font-size:30px;line-height:1.1;font-weight:900;margin:0 0 8px;letter-spacing:-0.025em;">{title}</h1>
+<p style="font-size:13px;color:rgba(255,255,255,0.55);margin:0 0 24px;">{subtitle} · {tag}</p>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.92);line-height:1.55;margin:0 0 18px;">
+Hallo {name},
+</p>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6;margin:0 0 18px;">
+{hook}
+</p>
+
+<div style="background:rgba(191,255,0,0.05);border:1px solid rgba(191,255,0,0.18);border-radius:14px;padding:18px 22px;margin:22px 0;">
+  <div style="font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:900;text-transform:uppercase;margin-bottom:6px;">Dein Takeaway</div>
+  <p style="font-size:14px;color:#fff;margin:0;line-height:1.55;">{takeaway}</p>
+</div>
+
+<div style="text-align:center;padding:14px 0 4px;">
+  <a href="{deeplink}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:15px 36px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:-0.01em;">{cta_label}</a>
+</div>
+
+{final_note}
+{unsub}
+"""
+    return subject, _base_layout(body, preheader=f"Tag {day}/{total}: {subtitle}")
+
+
 # ── Launch Announcement (one-shot) ───────────────────────────────
 
 def launch_announcement_email(
