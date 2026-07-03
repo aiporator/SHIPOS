@@ -94,9 +94,32 @@ const Outro = ({ onRestart }) => (
 
 export const WladIntroVideo = () => {
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const [activeCue, setActiveCue] = useState(null);
   const [ended, setEnded] = useState(false);
   const [muted, setMuted] = useState(true);
+  // The mp4 is ~21 MB · autoPlay would force the full download on page
+  // load (autoplay overrides preload="metadata"). Mount the <video> only
+  // when the section approaches the viewport — 600px early so autoplay
+  // still feels instant when the user scrolls in.
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return undefined;
+    if (!('IntersectionObserver' in window)) { setInView(true); return undefined; }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const v = ref.current;
@@ -118,7 +141,8 @@ export const WladIntroVideo = () => {
       v.removeEventListener('ended', onEnded);
       v.removeEventListener('play', onPlay);
     };
-  }, []);
+    // Re-run when the lazily-mounted <video> appears (ref is null before).
+  }, [inView]);
 
   const toggleMute = () => {
     const v = ref.current;
@@ -138,6 +162,7 @@ export const WladIntroVideo = () => {
   return (
     <section
       id="wlad-intro"
+      ref={sectionRef}
       className="relative w-full bg-white border-y-2 border-black"
       aria-label="Wlad Intro Video"
     >
@@ -169,18 +194,28 @@ export const WladIntroVideo = () => {
         </div>
 
         <div className="relative aspect-[4/3] sm:aspect-video border-2 border-black overflow-hidden shadow-[4px_4px_0_0_#000] sm:shadow-[10px_10px_0_0_#000] bg-black">
-          <video
-            ref={ref}
-            src="/videos/wlad-intro.mp4"
-            autoPlay
-            muted
-            playsInline
-            loop={false}
-            preload="metadata"
-            poster="/landing/hf-04.webp"
-            className="w-full h-full object-cover object-center"
-            data-testid="wlad-intro-video"
-          />
+          {inView ? (
+            <video
+              ref={ref}
+              src="/videos/wlad-intro.mp4"
+              autoPlay
+              muted
+              playsInline
+              loop={false}
+              preload="metadata"
+              poster="/landing/hf-04.webp"
+              className="w-full h-full object-cover object-center"
+              data-testid="wlad-intro-video"
+            />
+          ) : (
+            <img
+              src="/landing/hf-04.webp"
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="w-full h-full object-cover object-center"
+            />
+          )}
 
           {/* Edge-darken-vignette für besser lesbare Cues */}
           {!ended && activeCue && (
