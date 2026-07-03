@@ -36,7 +36,7 @@ export const LandingNav = () => {
           : 'bg-background border-b border-foreground/[0.06] h-20'
       }`}
     >
-      <div className={`w-full px-6 md:px-12 lg:px-16 h-full flex items-center justify-between gap-6`}>
+      <div className={`w-full px-4 sm:px-6 md:px-12 lg:px-16 h-full flex items-center justify-between gap-3 sm:gap-6 min-w-0`}>
         <Link
           to="/"
           className="flex items-center gap-3 group shrink-0"
@@ -68,7 +68,7 @@ export const LandingNav = () => {
             cal.com booking section). All converge on the same email_lower
             identity, so offering the soft (check), self-serve (app) and
             consultative (call) paths side-by-side beats gating any of them. */}
-        <nav className="flex items-center gap-2 sm:gap-3">
+        <nav className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href="https://leaderos.de/login"
             target="_blank"
@@ -83,7 +83,7 @@ export const LandingNav = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`group inline-flex items-center gap-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background text-foreground font-bold uppercase tracking-[0.12em] transition-colors ${
-              scrolled ? 'h-10 px-3 text-[10px] sm:text-[11px]' : 'h-12 px-4 text-[10.5px] sm:text-[12px]'
+              scrolled ? 'h-10 px-2.5 sm:px-3 text-[10px] sm:text-[11px]' : 'h-12 px-2.5 sm:px-4 text-[10.5px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-diagnose"
           >
@@ -92,8 +92,8 @@ export const LandingNav = () => {
           </a>
           <Link
             to="/#beratung"
-            className={`group inline-flex items-center gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
-              scrolled ? 'h-10 px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-5 text-[11px] sm:text-[12px]'
+            className={`group inline-flex items-center gap-1.5 sm:gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-3 sm:px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-3 sm:px-5 text-[11px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-cta"
           >
