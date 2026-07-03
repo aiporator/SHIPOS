@@ -114,7 +114,7 @@ const VideoTile = ({ video, unlocked, onUnlockClick, onPlay }) => {
   const canPlay = unlocked && src;
 
   return (
-    <article className="relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col">
+    <article className="group/card relative border-2 border-white/12 bg-white/[0.02] overflow-hidden flex flex-col transition-all duration-300 hover:border-brand/40 hover:-translate-y-1 hover:shadow-[0_34px_70px_-34px_rgba(191,255,0,0.4)]">
       <div className="relative aspect-video bg-black overflow-hidden">
         <button
           type="button"
@@ -438,7 +438,27 @@ export default function FreeVideosPage() {
   const stats = useMemo(() => [['420K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen antialiased" data-testid="free-videos-page">
+    <div
+      className="relative overflow-hidden bg-background text-foreground min-h-[100dvh] antialiased"
+      data-testid="free-videos-page"
+      style={{
+        backgroundImage:
+          'radial-gradient(at 12% 6%, rgba(191,255,0,0.07) 0px, transparent 42%), ' +
+          'radial-gradient(at 88% 24%, rgba(191,255,0,0.05) 0px, transparent 48%), ' +
+          'radial-gradient(at 50% 102%, rgba(191,255,0,0.05) 0px, transparent 55%)',
+      }}
+    >
+      {/* Fixed grain · filmic texture over the dark canvas so it reads premium
+          next to the chrome system — non-interactive, soft-light, never dims. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-30 opacity-[0.05] mix-blend-soft-light"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: '190px 190px',
+        }}
+      />
       {/* Chrome/metallic detail system · scoped fv- classes, CSS-only (no images).
           Chrome is reserved for the unlock moment: the opt-in card frame, the
           lock emblems, and one hero word — so the metal never becomes wallpaper. */}
@@ -460,7 +480,7 @@ export default function FreeVideosPage() {
       `}</style>
       <LandingNav />
 
-      <main id="main-content">
+      <main id="main-content" className="relative z-10">
         {/* Hero · the opt-in */}
         <section className="relative isolate overflow-hidden">
           <div className="pointer-events-none absolute inset-0 -z-10">
@@ -556,7 +576,7 @@ export default function FreeVideosPage() {
             <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-8">▸ So einfach geht's</p>
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
               {STEPS.map(([n, t, d]) => (
-                <div key={n} className="border-2 border-foreground/15 p-6 md:p-7">
+                <div key={n} className="border-2 border-foreground/15 p-6 md:p-7 bg-white/[0.015] transition-all duration-300 hover:-translate-y-1 hover:border-brand/45 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.35)]">
                   <div className="text-[34px] leading-none text-brand tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{n}</div>
                   <h3 className="mt-4 text-[18px] md:text-[20px] leading-[1.15] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{t}<span className="text-brand not-italic">.</span></h3>
                   <p className="mt-2.5 text-[14px] leading-[1.55] text-foreground/65">{d}</p>
@@ -685,7 +705,7 @@ export default function FreeVideosPage() {
                   ))}
                 </ul>
               </div>
-              <div className="border-2 border-foreground/15 p-6 md:p-7">
+              <div className="border-2 border-foreground/15 p-6 md:p-7 bg-white/[0.015] transition-all duration-300 hover:-translate-y-1 hover:border-brand/45 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.35)]">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/45 mb-5">▸ Nicht für dich, wenn</p>
                 <ul className="space-y-3.5">
                   {NOT_FOR_YOU.map((line) => (
