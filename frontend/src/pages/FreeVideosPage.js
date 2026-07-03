@@ -8,7 +8,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { isValidEmail } from '../features/newsletter/lib/newsletterClient';
 import { captureFreeVideoLead } from '../lib/leadCapture';
 import { setFreeVideoOptIn } from '../data/freeVideos';
-import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
+import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 import { FREE_VIDEOS, embedSrc } from '../data/freeVideos';
 import { PressMarquee } from '../components/landing/PressMarquee';
 
@@ -621,6 +621,66 @@ export default function FreeVideosPage() {
                 </button>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* WladBot 3.0 · the character who accompanies the series. His face
+            + three coach-style tips in chat bubbles → "text him" CTA. Stacks
+            cleanly on mobile (avatar on top, bubbles below). */}
+        <section className="relative isolate overflow-hidden border-t-2 border-foreground/12">
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
+            <DottedGlowBackground gap={18} radius={1.6} color="rgba(255,255,255,0.14)" glowColor="rgba(191,255,0,0.45)" opacity={0.4} />
+          </div>
+          <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-24 grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+            <div className="md:col-span-4 flex md:block justify-center">
+              <div className="relative w-[220px] sm:w-[260px] md:w-full max-w-[320px]">
+                <span aria-hidden className="absolute inset-0 rounded-full bg-brand/20 blur-3xl" />
+                <img
+                  src={WLADBOT_AVATAR}
+                  onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
+                  alt="WladBot 3.0 · dein KI-Coach in Leader-OS"
+                  loading="lazy"
+                  decoding="async"
+                  className="relative w-full aspect-square rounded-full object-cover object-[50%_14%] bg-[#0A0A0A] ring-2 ring-brand shadow-[0_40px_90px_-40px_rgba(191,255,0,0.5)]"
+                />
+                <span className="absolute bottom-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-[#0A0A0A]/90 px-3 py-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-brand whitespace-nowrap">
+                  <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" /> WladBot 3.0 · online
+                </span>
+              </div>
+            </div>
+            <div className="md:col-span-8">
+              <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">▸ Dein Begleiter durch die Serie</p>
+              <h2 className="text-[28px] sm:text-[38px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                Das ist WladBot<span className="text-brand not-italic">.</span>
+              </h2>
+              <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-foreground/70">
+                Trainiert auf Wlads kompletter Methodik — 13 Bücher, 15 Jahre Coaching. In Leader-OS
+                begleitet er dich 24/7. Sein Rat zu den 4 Videos:
+              </p>
+              <div className="mt-6 space-y-3 max-w-2xl">
+                {[
+                  'Schau ein Video pro Tag — nicht alle vier am Stück. Ein Prinzip, das du morgen anwendest, schlägt vier, die du vergisst.',
+                  'Nimm dir nach jedem Video 2 Minuten und schreib den einen Satz auf, den du diese Woche testest.',
+                  'Und wenn du bei deinem echten Fall festhängst: schreib mir. Ich antworte in Wlads Methodik — in unter 30 Sekunden.',
+                ].map((tip, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="mt-1 font-mono text-[10px] font-bold text-brand tabular-nums shrink-0">0{i + 1}</span>
+                    <p className="border-2 border-foreground/15 bg-white/[0.02] px-4 py-3 text-[14px] leading-[1.55] text-foreground/85 rounded-tr-xl rounded-br-xl rounded-bl-xl">
+                      {tip}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <a
+                href="https://leaderos.de/chat"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('free_videos_wladbot_cta')}
+                className="mt-7 inline-flex items-center justify-center gap-2 h-12 px-6 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
+              >
+                Schreib WladBot <ArrowUpRight size={15} />
+              </a>
+            </div>
           </div>
         </section>
 

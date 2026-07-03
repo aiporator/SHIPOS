@@ -466,14 +466,14 @@ const CategorySection = ({ category, splitDirection = true }) => {
       className="newsroom-paper"
     >
       <div className="max-w-[1480px] mx-auto px-6 md:px-10 lg:px-14 pt-14 pb-4">
-        <div className="flex items-end justify-between border-b-[2px] border-foreground pb-3">
-          <div className="flex items-baseline gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-1 border-b-[2px] border-foreground pb-3">
+          <div className="flex flex-wrap items-baseline gap-x-3 min-w-0">
             <span className="text-[28px] md:text-[36px] text-brand-strong" style={serifItalic}>{category.name.split(' ')[0]}</span>
             {category.name.split(' ').slice(1).length > 0 && (
               <span className="text-[20px] md:text-[26px] text-foreground" style={condensed}>{category.name.split(' ').slice(1).join(' ').toUpperCase()}</span>
             )}
           </div>
-          <div className="flex items-center gap-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/60">
+          <div className="flex items-center gap-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/60 whitespace-nowrap">
             <span>{category.funnelLabel}</span>
             <span className="opacity-30">·</span>
             <span>{category.articles.length}</span>
