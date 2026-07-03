@@ -36,7 +36,7 @@ const FACTS = [
   ['Beruf',          'Argumentations-Coach · Bestseller-Autor · Gründer'],
   ['Bildung',        'LMU München (Jura, Politik, Geschichte, Komparatistik) · Columbia University (M.A. 2008)'],
   ['Stipendium',     'Studienstiftung des deutschen Volkes'],
-  ['Bücher',         '12 publiziert · 3× SPIEGEL-Bestseller'],
+  ['Bücher',         '13 publiziert · 3× SPIEGEL-Bestseller'],
   ['Klienten',       '420 000+ Führungskräfte weltweit'],
   ['Reichweite',     '14 Millionen Views auf Podcast + YouTube'],
   ['Podcast',        'Der Führungskräfte-Podcast · ~450 Folgen seit 2019'],
@@ -54,9 +54,14 @@ const FACTS = [
 // Nationalbibliothek catalog (GND 1172244065). Year + publisher +
 // ISBN where available so search-engines can resolve each book to its
 // canonical Book entity.
+// Every book carries a `slug` · the cover convention is
+// /wlad/books/<slug>.jpg (drop the real cover files there — see the
+// README in that folder). Cards + JSON-LD pick them up automatically;
+// until a file lands, the card renders a designed typographic spine.
 const BOOKS = [
   {
-    title: 'Schwarze Rhetorik',
+    slug: 'dunkle-rhetorik',
+    title: 'Dunkle Rhetorik',
     sub: 'Manipuliere, bevor du manipuliert wirst',
     year: 2018,
     publisher: 'Goldmann',
@@ -64,6 +69,7 @@ const BOOKS = [
     badge: '315 SEITEN',
   },
   {
+    slug: 'die-5-rollen-einer-fuehrungskraft',
     title: 'Die 5 Rollen einer Führungskraft',
     sub: 'Visionär · Vorbild · Coach · Konfliktlöser · Manager',
     year: 2020,
@@ -72,6 +78,7 @@ const BOOKS = [
     badge: 'SPIEGEL-Bestseller',
   },
   {
+    slug: 'weisse-rhetorik',
     title: 'Weiße Rhetorik',
     sub: 'Überzeugen statt manipulieren',
     year: 2021,
@@ -80,6 +87,7 @@ const BOOKS = [
     badge: 'SPIEGEL-Bestseller',
   },
   {
+    slug: 'die-rhetorik-der-top-performer',
     title: 'Die Rhetorik der Top-Performer',
     sub: 'Das Geheimnis hochwirksamer Redekunst',
     year: 2021,
@@ -88,6 +96,7 @@ const BOOKS = [
     badge: '190 SEITEN',
   },
   {
+    slug: 'satanische-verhandlungskunst',
     title: 'Satanische Verhandlungskunst',
     sub: 'Verhandeln auf höchstem Niveau',
     year: 2021,
@@ -96,6 +105,7 @@ const BOOKS = [
     badge: '253 SEITEN',
   },
   {
+    slug: 'das-geheimnis-der-erfolgreichen-alltagskommunikation',
     title: 'Das Geheimnis der erfolgreichen Alltagskommunikation',
     sub: 'Sechs Werkzeuge für klare Kommunikation',
     year: 2022,
@@ -104,6 +114,7 @@ const BOOKS = [
     badge: '192 SEITEN',
   },
   {
+    slug: 'die-koerpersprache-als-spiegelbild-deiner-seele',
     title: 'Die Körpersprache als Spiegelbild deiner Seele',
     sub: 'Nonverbale Signale lesen und gezielt einsetzen',
     year: 2022,
@@ -112,6 +123,7 @@ const BOOKS = [
     badge: '180 SEITEN',
   },
   {
+    slug: 'manipuliere-dich-gluecklich',
     title: 'Manipuliere dich glücklich',
     sub: 'Psychologische Techniken für mehr Zufriedenheit',
     year: 2022,
@@ -120,6 +132,7 @@ const BOOKS = [
     badge: 'SPIEGEL-Bestseller',
   },
   {
+    slug: 'redest-du-noch-oder-ueberzeugst-du-schon',
     title: 'Redest du noch oder überzeugst du schon',
     sub: 'Vom Anfänger zum Rhetoriker',
     year: 2022,
@@ -128,6 +141,7 @@ const BOOKS = [
     badge: 'SPIEGEL-Bestseller',
   },
   {
+    slug: 'die-kraft-der-positiven-psychologie',
     title: 'Die Kraft der Positiven Psychologie',
     sub: 'Resilienz, Optimismus, Selbstwirksamkeit',
     year: 2023,
@@ -136,6 +150,7 @@ const BOOKS = [
     badge: '240 SEITEN',
   },
   {
+    slug: '55-rhetorik-tipps-fuer-fuehrungskraefte',
     title: '55 Rhetorik-Tipps für Führungskräfte',
     sub: 'Hörbuch · Mitarbeiter und Kunden charmant überzeugen',
     year: 2023,
@@ -144,6 +159,7 @@ const BOOKS = [
     badge: 'HÖRBUCH',
   },
   {
+    slug: '55-fuehrungstipps-fuer-mitarbeitergespraeche',
     title: '55 Führungstipps für Mitarbeitergespräche',
     sub: 'Hörbuch · Motivieren, Feedback geben, Konflikte lösen',
     year: 2024,
@@ -151,7 +167,18 @@ const BOOKS = [
     isbn: null,
     badge: 'HÖRBUCH',
   },
+  {
+    slug: 'die-charismatische-fuehrungskraft',
+    title: 'Die charismatische Führungskraft',
+    sub: 'Werde ein Menschenmagnet für deine Mitarbeiter und Kunden',
+    year: 2024,
+    publisher: 'Remote',
+    isbn: null,
+    badge: 'NEU',
+  },
 ];
+
+const bookCoverUrl = (b) => `/wlad/books/${b.slug}.jpg`;
 
 // Companies whose executives have completed Wlad's trainings · these
 // names are repeatedly cited on Wlad's public profiles (Argumentorik,
@@ -348,10 +375,13 @@ const PERSON_JSON_LD = {
   author: BOOKS.map((b) => ({
     '@type': 'Book',
     name: b.title,
+    alternativeHeadline: b.sub,
     inLanguage: 'de',
     datePublished: String(b.year),
     publisher: { '@type': 'Organization', name: b.publisher },
     isbn: b.isbn || undefined,
+    image: `https://leader-os.de${bookCoverUrl(b)}`,
+    url: 'https://wladjachtchenko.de/buecher',
     author: { '@id': 'https://leader-os.de/wlad-jachtchenko#person' },
   })),
   sameAs: [
@@ -393,7 +423,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenko hat 12 Bücher veröffentlicht, davon drei SPIEGEL-Bestseller: Weiße Rhetorik (Überzeugung ohne Manipulation), Dunkle Rhetorik (Manipulation erkennen und abwehren) und Die 5 Rollen einer Führungskraft. Insgesamt über 250 000 verkaufte Exemplare.',
+          'Wlad Jachtchenko hat 13 Bücher veröffentlicht, davon drei SPIEGEL-Bestseller: Weiße Rhetorik (Überzeugung ohne Manipulation), Dunkle Rhetorik (Manipulation erkennen und abwehren) und Die 5 Rollen einer Führungskraft. Insgesamt über 250 000 verkaufte Exemplare.',
       },
     },
     {
@@ -737,7 +767,7 @@ export default function WladJachtchenkoPage() {
           <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end mb-10 md:mb-12">
             <div className="md:col-span-7 text-center md:text-left">
               <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-                ▸ BÜCHER · 12 PUBLIZIERT
+                ▸ BÜCHER · 13 PUBLIZIERT · ALLE AN EINEM ORT
               </p>
               <h2
                 className="text-[28px] sm:text-[36px] md:text-[52px] leading-[1.02] tracking-[-0.03em] text-foreground"
@@ -760,26 +790,56 @@ export default function WladJachtchenkoPage() {
               return (
                 <article
                   key={b.title}
-                  className={`border-2 ${isSpiegel ? 'border-foreground bg-brand/[0.04]' : 'border-foreground/40'} p-5 md:p-6 hover:bg-foreground/[0.04] transition-colors flex flex-col`}
+                  className={`group border-2 ${isSpiegel ? 'border-foreground bg-brand/[0.04]' : 'border-foreground/40'} overflow-hidden hover:bg-foreground/[0.04] hover:-translate-y-1 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.3)] transition-all duration-300 flex flex-col`}
                 >
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 ${isSpiegel ? 'bg-foreground text-background' : 'border border-foreground/30 text-foreground/55'} font-mono text-[9px] font-bold uppercase tracking-[0.18em]`}>
-                      {isSpiegel ? '★ SPIEGEL' : b.badge}
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-foreground/55">{b.year}</span>
+                  {/* Cover frame · real cover at /wlad/books/<slug>.jpg wins;
+                      until that file lands the designed typographic spine
+                      below shows through (img simply hides itself on 404). */}
+                  <div className="relative aspect-[2/3] max-h-[290px] overflow-hidden bg-[#0A0A0A]">
+                    <div className="absolute inset-0 flex flex-col justify-between p-4" aria-hidden>
+                      <span className="font-mono text-[8px] font-bold uppercase tracking-[0.24em] text-white/45">
+                        Wladislaw Jachtchenko
+                      </span>
+                      <span
+                        className="text-white text-[20px] leading-[1.05] tracking-[-0.02em]"
+                        style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                      >
+                        {b.title.replace(/\.$/, '')}<span className="text-brand not-italic">.</span>
+                      </span>
+                      <span className="font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-brand">
+                        ▸ {b.publisher} · {b.year}
+                      </span>
+                    </div>
+                    <img
+                      src={bookCoverUrl(b)}
+                      alt={`Buchcover: ${b.title} · Wladislaw Jachtchenko (${b.year})`}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px] bg-brand/80" />
                   </div>
-                  <h3
-                    className="text-[18px] md:text-[20px] leading-[1.1] tracking-[-0.02em] text-foreground"
-                    style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-                  >
-                    {b.title.replace(/\.$/, '')}<span className="text-brand-strong not-italic">.</span>
-                  </h3>
-                  <p className="mt-2 text-[12.5px] leading-[1.5] text-foreground/65 flex-1">
-                    {b.sub}
-                  </p>
-                  <div className="mt-4 pt-3 border-t border-foreground/10 font-mono text-[9.5px] uppercase tracking-[0.16em] text-foreground/45">
-                    ▸ {b.publisher}
-                    {b.isbn && <span className="block mt-0.5 normal-case tracking-normal text-[9px]">ISBN {b.isbn}</span>}
+                  <div className="p-5 md:p-6 flex flex-col flex-1">
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 ${isSpiegel ? 'bg-foreground text-background' : 'border border-foreground/30 text-foreground/55'} font-mono text-[9px] font-bold uppercase tracking-[0.18em]`}>
+                        {isSpiegel ? '★ SPIEGEL' : b.badge}
+                      </span>
+                      <span className="font-mono text-[10px] font-bold text-foreground/55">{b.year}</span>
+                    </div>
+                    <h3
+                      className="text-[18px] md:text-[20px] leading-[1.1] tracking-[-0.02em] text-foreground"
+                      style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                    >
+                      {b.title.replace(/\.$/, '')}<span className="text-brand-strong not-italic">.</span>
+                    </h3>
+                    <p className="mt-2 text-[12.5px] leading-[1.5] text-foreground/65 flex-1">
+                      {b.sub}
+                    </p>
+                    <div className="mt-4 pt-3 border-t border-foreground/10 font-mono text-[9.5px] uppercase tracking-[0.16em] text-foreground/45">
+                      ▸ {b.publisher}
+                      {b.isbn && <span className="block mt-0.5 normal-case tracking-normal text-[9px]">ISBN {b.isbn}</span>}
+                    </div>
                   </div>
                 </article>
               );
@@ -792,7 +852,7 @@ export default function WladJachtchenkoPage() {
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.14em] text-foreground hover:text-brand-strong transition-colors"
           >
-            Alle 12 Bücher ansehen <ArrowUpRight size={14} />
+            Alle 13 Bücher · Details & Kauf <ArrowUpRight size={14} />
           </a>
         </section>
 
@@ -846,7 +906,7 @@ export default function WladJachtchenkoPage() {
             </div>
             <div className="md:col-span-5 md:pb-3 text-center md:text-left">
               <p className="text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
-                Aus 12 Büchern destilliert: die fünf Thesen die Wlads
+                Aus 13 Büchern destilliert: die fünf Thesen die Wlads
                 Methodik tragen · jede mit Buchverweis für die tiefe
                 Recherche.
               </p>
