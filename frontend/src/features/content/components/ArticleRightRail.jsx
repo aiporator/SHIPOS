@@ -1,6 +1,68 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, MessageCircle, Sparkles, Check } from 'lucide-react';
 import { captureLeadershipIntent, wladbotUrlForIntent } from '../../../lib/leadershipIntent';
+import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../../lib/brandAssets';
+
+/**
+ * WebinarCard · sticky "join the free live webinar" card for the article
+ * rail (leads from blog traffic → the 20.08 Leader-OS live event). Editorial
+ * DNA, not the generic blue webinar look. Links to /event.
+ */
+const WebinarCard = () => {
+  const onClick = () => {
+    if (typeof window !== 'undefined' && window.posthog?.capture) {
+      try { window.posthog.capture('article_webinar_card_click', { surface: 'article-right-rail' }); } catch { /* never block */ }
+    }
+  };
+  return (
+    <a
+      href="https://leader-os.de/event"
+      onClick={onClick}
+      data-testid="article-webinar-card"
+      className="block border-2 border-foreground bg-background overflow-hidden group"
+    >
+      <div className="bg-foreground text-background px-4 py-2.5 flex items-center justify-between">
+        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.24em]">▸ Live-Webinar</span>
+        <span className="font-mono text-[9px] tracking-[0.14em] text-background/55">WBN · 2026</span>
+      </div>
+      <div className="p-4">
+        <dl className="space-y-2 mb-4">
+          <div className="flex gap-3">
+            <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Termin</dt>
+            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Mi, 20.08.2026 · 10 Uhr</dd>
+          </div>
+          <div className="flex gap-3">
+            <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Format</dt>
+            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Live · Q&A · Aufzeichnung</dd>
+          </div>
+        </dl>
+        <div className="flex items-center gap-2.5 pb-3 mb-3 border-b border-foreground/15">
+          <img
+            src={WLADBOT_AVATAR}
+            onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
+            alt="Wlad Jachtchenko"
+            loading="lazy"
+            className="w-9 h-9 rounded-full object-cover object-[50%_18%] bg-[#0A0A0A] ring-1 ring-brand shrink-0"
+          />
+          <div className="min-w-0">
+            <div className="text-[12px] font-bold text-foreground leading-tight">Wlad Jachtchenko</div>
+            <div className="text-[10.5px] text-foreground/55 leading-tight">3× SPIEGEL-Bestseller · live im Q&A</div>
+          </div>
+        </div>
+        <p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-brand-strong mb-1.5">Kostenloses Live-Webinar</p>
+        <h4
+          className="text-[19px] leading-[1.02] tracking-[-0.025em] text-foreground mb-4"
+          style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+        >
+          Führen wie die Top 1 %<span className="text-brand not-italic">.</span>
+        </h4>
+        <span className="flex items-center justify-center gap-1.5 bg-brand group-hover:bg-foreground group-hover:text-background text-foreground font-bold text-[11px] uppercase tracking-[0.14em] h-10 transition-colors">
+          Platz sichern · kostenlos <ArrowRight size={13} />
+        </span>
+      </div>
+    </a>
+  );
+};
 
 /**
  * ArticleRightRail · sticky engagement column on the right of long-form
@@ -299,11 +361,24 @@ const WladBotMini = ({ articleSlug, articleTitle }) => {
       data-testid="article-right-rail-wladbot"
       className="border-2 border-foreground bg-foreground text-background p-5"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <MessageCircle size={14} className="text-brand" />
-        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.26em] text-brand">
-          ▸ LÖS ES MIT WLADBOT
+      <div className="flex items-center gap-3 mb-3">
+        <span className="relative shrink-0">
+          <img
+            src={WLADBOT_AVATAR}
+            onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
+            alt="WladBot · dein KI-Coach"
+            loading="lazy"
+            className="w-11 h-11 rounded-full object-cover object-[50%_16%] bg-[#0A0A0A] ring-2 ring-brand"
+          />
+          <span aria-hidden className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-brand ring-2 ring-foreground" />
         </span>
+        <div>
+          <div className="flex items-center gap-1.5">
+            <MessageCircle size={13} className="text-brand" />
+            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-brand">WladBot · live</span>
+          </div>
+          <div className="text-[13px] font-bold text-background leading-tight mt-0.5">Frag Wlads KI-Coach</div>
+        </div>
       </div>
       <p className="text-[13px] leading-[1.5] text-background/80 mb-3">
         Was ist gerade deine größte Führungs-Herausforderung? Tipp sie
@@ -355,6 +430,7 @@ export const ArticleRightRail = ({ article }) => (
   <aside className="hidden lg:block w-[260px] shrink-0" aria-label="Mini-Apps + Engagement">
     <div className="sticky top-28 space-y-5">
       <Quiz articleSlug={article.slug} />
+      <WebinarCard />
       <NewsletterMini articleSlug={article.slug} />
       <WladBotMini articleSlug={article.slug} articleTitle={article.title} />
 
@@ -372,6 +448,7 @@ export const ArticleRightRail = ({ article }) => (
 export const ArticleMobileMiniApps = ({ article }) => (
   <div className="lg:hidden grid grid-cols-1 gap-4 my-8" aria-label="Mini-Apps">
     <Quiz articleSlug={article.slug} />
+    <WebinarCard />
     <NewsletterMini articleSlug={article.slug} />
     <WladBotMini articleSlug={article.slug} articleTitle={article.title} />
   </div>
