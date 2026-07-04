@@ -804,6 +804,80 @@ export default function FreeVideosPage() {
           </div>
         </section>
 
+        {/* Desire-closer · future-pacing: the week AFTER the 4 videos.
+            Only pre-unlock — its whole job is making the visitor want the
+            unlock. Thumbnails as a locked, tilted mosaic = visual pull. */}
+        {!unlocked && (
+          <section className="relative isolate overflow-hidden border-t-2 border-foreground/12">
+            <div className="pointer-events-none absolute inset-0 -z-10 opacity-60">
+              <DottedGlowBackground gap={18} radius={1.6} color="rgba(255,255,255,0.14)" glowColor="rgba(191,255,0,0.45)" opacity={0.4} />
+            </div>
+            <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-16 md:py-24 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              <div className="lg:col-span-6">
+                <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-4">
+                  ▸ Deine Woche · nach den 4 Videos
+                </p>
+                <h2
+                  className="text-[30px] sm:text-[40px] md:text-[52px] leading-[0.98] tracking-[-0.035em] text-foreground"
+                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+                >
+                  Stell dir nächsten<br />Montag vor<span className="text-brand not-italic">.</span>
+                </h2>
+                <ul className="mt-8 space-y-4">
+                  {[
+                    ['MO · 08:50', 'Du eröffnest das Meeting anders — und diesmal gehört dir der Raum. Video 1 hat dir gezeigt, warum man dich übersehen hat.'],
+                    ['DI · 14:30', 'Ein Senior widerspricht laut. Du bleibst ruhig und gewinnst — Autorität ist kein Lautstärke-Spiel (Video 2).'],
+                    ['DO · 17:00', 'Du gehst pünktlich. Dein Team liefert trotzdem — weil Delegieren endlich Delegieren ist (Video 3).'],
+                    ['FR · 11:00', 'Du skizzierst deinen 30-Tage-Plan zur KI-nativen Führungskraft (Video 4). Vorsprung, den man sieht.'],
+                  ].map(([time, line]) => (
+                    <li key={time} className="flex items-start gap-4">
+                      <span className="mt-0.5 shrink-0 font-mono text-[10.5px] font-bold uppercase tracking-[0.16em] text-brand tabular-nums">{time}</span>
+                      <p className="text-[14.5px] leading-[1.55] text-foreground/78">{line}</p>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={scrollToOptIn}
+                  className="mt-9 inline-flex items-center justify-center gap-2 h-14 px-8 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors"
+                  data-testid="closer-unlock-cta"
+                >
+                  Diese Woche freischalten <ArrowUpRight size={16} />
+                </button>
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/40">
+                  Kostenlos · sofort · nur deine E-Mail
+                </p>
+              </div>
+              {/* Locked thumbnail mosaic · tilted stack, lock badge */}
+              <div className="lg:col-span-6">
+                <div className="relative mx-auto max-w-[480px]">
+                  {FREE_VIDEOS.map((v, i) => (
+                    <div
+                      key={v.day}
+                      className={`${i === 0 ? 'relative' : 'absolute inset-x-0 top-0'} border-2 border-white/15 overflow-hidden shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]`}
+                      style={{
+                        transform: `rotate(${(i - 1.5) * 2.4}deg) translateY(${i * 26}px)`,
+                        zIndex: 10 - i,
+                      }}
+                    >
+                      <img src={v.thumb} alt={v.title} loading="lazy" decoding="async" className="w-full aspect-video object-cover" />
+                      <span aria-hidden className="absolute inset-0 bg-[#0A0A0A]/45" />
+                    </div>
+                  ))}
+                  <button
+                    onClick={scrollToOptIn}
+                    aria-label="Videos freischalten"
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#BFFF00] text-[#0A0A0A] shadow-[0_14px_40px_-8px_rgba(191,255,0,0.6)] transition-transform hover:scale-110"
+                  >
+                    <Lock size={24} />
+                  </button>
+                  {/* Spacer so the tilted stack's translateY doesn't clip */}
+                  <div aria-hidden style={{ height: 3 * 26 }} />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Final CTA */}
         <section className="relative isolate overflow-hidden border-t-2 border-foreground/12">
           <div className="pointer-events-none absolute inset-0 -z-10">
@@ -811,7 +885,7 @@ export default function FreeVideosPage() {
           </div>
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-20 md:py-24 text-center">
             <h2 className="text-[30px] sm:text-[44px] md:text-[56px] leading-[1.0] tracking-[-0.035em] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
-              {unlocked ? 'Bereit für den nächsten Schritt?' : 'Deine ersten 4 Videos warten.'}<span className="text-brand not-italic">.</span>
+              {unlocked ? 'Bereit für den nächsten Schritt' : 'Deine ersten 4 Videos warten'}<span className="text-brand not-italic">{unlocked ? '?' : '.'}</span>
             </h2>
             {unlocked ? (
               <>
