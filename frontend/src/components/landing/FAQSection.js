@@ -15,12 +15,12 @@ const FAQS = [
   {
     q: 'Was passiert nach den 30 Tagen, bleibt das System?',
     a:
-      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions mit Wlad und dem Drill-Channel will, upgradet auf Plus-Plus. Der Sprint ist das Onboarding. Das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
+      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions und dem Drill-Channel will, upgradet auf Leadership Plus Pro. Der Sprint ist das Onboarding. Das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
   },
   {
     q: 'Was kostet das genau?',
     a:
-      'Der Einstieg ist 14 Tage kostenlos, ohne Karte, jederzeit kündbar. In dieser Zeit hast du vollen Zugang zur Plattform · alle Frameworks, WladBot 24/7, alle Lernvideos. Wenn es für dich passt, wandelst du danach in den 30-Tage-Sprint mit 12 Monaten Mitgliedschaft (997 € einmalig) oder die volle 12-Monats-Begleitung Plus-Plus (4 797 € einmalig oder in drei Raten). Die Diagnose auf leadercheck.de bleibt unabhängig davon kostenlos. Kein Abo, keine automatische Verlängerung.',
+      'Der Einstieg ist 14 Tage kostenlos, ohne Karte, jederzeit kündbar. In dieser Zeit hast du vollen Zugang zur Plattform · alle Frameworks, WladBot 24/7, alle Lernvideos. Wenn es für dich passt, wandelst du danach in den 30-Tage-Sprint mit 12 Monaten Mitgliedschaft (997 € einmalig) oder die volle 12-Monats-Begleitung Leadership Plus Pro (4 797 € einmalig oder in drei Raten). Die Diagnose auf leadercheck.de bleibt unabhängig davon kostenlos. Kein Abo, keine automatische Verlängerung.',
   },
   {
     q: 'Warum sollte ich für die Diagnose dieselbe Email nutzen?',

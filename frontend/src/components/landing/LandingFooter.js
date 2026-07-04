@@ -297,7 +297,7 @@ export const LandingFooter = () => (
               className="flex items-baseline justify-between gap-3 py-1.5 text-slate-300 hover:text-white transition-colors"
               data-testid="footer-tier-plusplus"
             >
-              <span><span className="text-brand font-black">4 797 €</span> · Plus-Plus · OS-Jahr</span>
+              <span><span className="text-brand font-black">4 797 €</span> · Leadership Plus Pro · OS-Jahr</span>
               <span className="text-white/40 group-hover:text-brand">→</span>
             </a>
           </div>

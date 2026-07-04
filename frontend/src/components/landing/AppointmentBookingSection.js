@@ -307,7 +307,7 @@ export const AppointmentBookingSection = () => {
 
           <p className="mt-6 max-w-2xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/72">
             Du beschreibst dein Setup. Wir hören zu, fragen drei kurze Sachen
-            und sagen dir ehrlich: ob Sprint, Plus-Plus oder ein anderer Weg
+            und sagen dir ehrlich: ob Sprint, Leadership Plus Pro oder ein anderer Weg
             zu deinem aktuellen Punkt passt. <strong className="text-foreground">Keine Pitch-Folie. Kein Follow-up-Spam.</strong>
           </p>
 
@@ -339,7 +339,7 @@ export const AppointmentBookingSection = () => {
               {[
                 'Dein aktueller Stand auf KI · Rhetorik · Team · diagnostisch, nicht oberflächlich.',
                 'Wo dein größter Hebel sitzt · und ob er Tools, Methodik oder Identität ist.',
-                'Welches Tier passt · Sprint, Plus-Plus, Mentoring · oder ob Leader-OS gerade nicht dran ist.',
+                'Welches Tier passt · Sprint, Leadership Plus Pro, Mentoring · oder ob Leader-OS gerade nicht dran ist.',
                 'Eine konkrete Antwort auf deine Hauptfrage. Schriftlich nachgeliefert per Mail.',
                 'Kein Verkaufs-Druck, kein Follow-up-Spam, kein "buchst du jetzt?" am Ende.',
               ].map((b) => (

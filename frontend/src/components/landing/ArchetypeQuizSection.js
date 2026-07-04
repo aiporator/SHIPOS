@@ -150,7 +150,7 @@ const ARCHETYPES = {
     platform: [
       { title: 'Visions-Playbooks',          body: 'Frameworks für Strategie-Sprints, Quartalsplanung, KI-Roadmaps die wirklich landen.' },
       { title: 'Wochen-Sprint-Rituale',      body: 'Strukturierte Rhythmen die deine Vision in tägliche Realität übersetzen · egal ob solo oder mit Team.' },
-      { title: 'Coaching mit Wlad',          body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
+      { title: '1:1-Mentoring',          body: 'Persönliche Sparring-Calls für Strategen die ihre Architektur schärfen wollen.' },
     ],
   },
   leader: {
@@ -174,7 +174,7 @@ const ARCHETYPES = {
     platform: [
       { title: 'Deine Peer-Community',       body: 'Lerne mit anderen Führungskräften die vorausgehen statt nachzulaufen · echter Austausch auf Augenhöhe.' },
       { title: 'Beschleunigter Sprint',     body: 'Strukturierter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
-      { title: '1:1-Coaching mit Wlad',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
+      { title: '1:1-Mentoring',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
   },
 };

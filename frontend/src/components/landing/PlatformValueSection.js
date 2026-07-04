@@ -66,10 +66,10 @@ const FEATURES = [
   {
     bib: 'P·05',
     icon: Calendar,
-    title: 'Live mit Wlad',
+    title: 'Live-Sessions',
     headline: 'Monatlich · 90 Minuten.',
     body:
-      'Geschlossene Live-Session mit Wlad persönlich. Deine Fälle, ' +
+      'Geschlossene Live-Session im kleinen Kreis. Deine Fälle, ' +
       'hands-on Drill, kein generischer Massen-Webinar-Modus. ' +
       'Aufzeichnung + Notes nachgeliefert.',
     proof: 'PLUS-PLUS · MITGLIEDER-ONLY',
