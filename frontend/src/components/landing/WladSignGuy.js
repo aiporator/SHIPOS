@@ -165,10 +165,13 @@ export const WladSignGuy = ({ onOpen }) => {
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            bottom: bandActive ? 88 : 16,
+            // Mobile floats closer to the edge (8px) so the mascot sits low
+            // and out of the content's way; desktop keeps its 16px. When the
+            // conversion band is up, both hop above it.
+            bottom: bandActive ? 80 : undefined,
             transition: 'bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
-          className="fixed right-4 md:right-6 z-30 inline-flex items-end gap-2 group cursor-pointer"
+          className={`fixed right-4 md:right-6 z-30 inline-flex items-end gap-2 group cursor-pointer ${bandActive ? '' : 'bottom-2 md:bottom-4'}`}
         >
           {/* Wlad bobt sanft im Stand · kompakter als vorher (-25% Footprint) */}
           <motion.div

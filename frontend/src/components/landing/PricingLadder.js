@@ -22,6 +22,8 @@ const TIERS = [
     duration: '14 Tage · ohne Karte',
     price: '0 €',
     outcome: 'Voller Zugang · jederzeit kündbar',
+    packageLine: 'Das komplette OS zum Erleben — voller Zugang, nichts abgespeckt.',
+    audience: 'Für alle, die Leader-OS erst testen wollen',
     bullets: [
       'Komplette Leader-OS-Plattform',
       'WladBot 24/7 in deiner Tasche',
@@ -40,6 +42,8 @@ const TIERS = [
     duration: '10 Min',
     price: '0 €',
     outcome: 'Score · Empfehlung',
+    packageLine: 'Der ehrliche Standort-Check — bevor du irgendetwas investierst.',
+    audience: 'Für den Realitäts-Check vor dem Start',
     bullets: [
       'KI-Diagnose in drei Dimensionen',
       '30 Fragen · 10 Minuten · ehrlich beantwortet',
@@ -58,6 +62,8 @@ const TIERS = [
     priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
     scarcity: 'Alle Vorteile ab Tag 1 · werde Teil von Leader-OS',
+    packageLine: 'Das 30-Tage-Intensivprogramm plus 12 Monate Plattform-Mitgliedschaft — ein Kauf, ein Jahr System.',
+    audience: 'Für Leads, die in 30 Tagen echte Bewegung wollen',
     bullets: [
       'Alle elf Wlad-Frameworks gedrillt',
       'WladBot 24/7 in deiner Tasche',
@@ -78,6 +84,8 @@ const TIERS = [
     price: '4 797 €',
     priceSub: 'oder 3 × 1 599 €',
     outcome: 'Sprint + Drill-Channel + Live-Sessions',
+    packageLine: 'Das OS-Jahr: alle Kurse, Live-Formate, Drill-Channel, Community und WladBot — als ein System, 12 Monate lang.',
+    audience: 'Für Führungskräfte, die volles Enablement wollen',
     bullets: [
       'Alles aus dem Sprint',
       'Monatliche Live-Sessions im kleinen Kreis',
@@ -158,8 +166,10 @@ const VISIBLE_IDS = new Set(['trial', 'sprint', 'plusplus', 'diagnose']);
 const VISIBLE_TIERS = TIERS.filter((t) => VISIBLE_IDS.has(t.id));
 
 const TierCard = ({ tier }) => {
+  // Dark tier (Leadership Plus Pro) trades the plain black border for the
+  // machined-chrome frame — the site's premium/unlock signal.
   const bgClass = tier.dark
-    ? 'bg-[#0A0A0A] text-white border-2 border-black rounded-3xl'
+    ? 'bg-[#0A0A0A] text-white rounded-[22px]'
     : 'bg-white text-black border-2 border-black rounded-3xl';
   const accentLine = tier.accent
     ? 'before:absolute before:top-0 before:left-0 before:right-0 before:h-1 before:bg-brand before:content-[\'\'] before:rounded-t-3xl'
@@ -174,10 +184,10 @@ const TierCard = ({ tier }) => {
     ? 'hover:-translate-y-2 hover:shadow-[0_28px_60px_-20px_rgba(191,255,0,0.55)] hover:md:scale-[1.04]'
     : 'hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.15)]';
 
-  return (
+  const card = (
     <article
       data-testid={`tier-${tier.id}`}
-      className={`relative ${bgClass} ${accentLine} ${sprintLift} ${hoverLift} flex flex-col h-full transition-all duration-300 ease-out`}
+      className={`relative ${bgClass} ${accentLine} ${tier.dark ? '' : `${sprintLift} ${hoverLift}`} flex flex-col h-full transition-all duration-300 ease-out`}
     >
       {tier.badge && (
         <div className={`absolute -top-3 right-4 px-3 py-1 rounded-full font-mono text-[9px] font-bold tracking-[0.22em] uppercase shadow-md ${tier.accent || tier.id === 'plusplus' ? 'bg-brand text-black' : 'bg-black text-brand'}`}>
@@ -199,7 +209,8 @@ const TierCard = ({ tier }) => {
             fontSize: 'clamp(28px, 3vw, 40px)',
           }}
         >
-          {tier.name}<span className="text-brand">.</span>
+          <span className={tier.dark ? 'pl-chrome-text' : ''}>{tier.name}</span>
+          <span className="text-brand">.</span>
         </h3>
         <p className={`mt-1 text-[11px] font-mono uppercase tracking-[0.18em] ${tier.dark ? 'text-white/55' : 'text-black/55'}`}>
           {tier.duration}
@@ -226,6 +237,16 @@ const TierCard = ({ tier }) => {
         <p className={`mt-1 text-[13px] leading-[1.45] ${tier.dark ? 'text-white/75' : 'text-black/75'}`}>
           {tier.outcome}
         </p>
+        {tier.packageLine && (
+          <p className={`mt-3 text-[13px] leading-[1.55] font-semibold ${tier.dark ? 'text-white/90' : 'text-black/85'}`}>
+            {tier.packageLine}
+          </p>
+        )}
+        {tier.audience && (
+          <p className={`mt-2.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] ${tier.dark ? 'text-brand' : 'text-brand-strong'}`}>
+            ▸ {tier.audience}
+          </p>
+        )}
       </div>
 
       {/* Benefit-Strip · nur Sprint zeigt den Einladungs-Hinweis */}
@@ -248,7 +269,11 @@ const TierCard = ({ tier }) => {
       <ul className={`p-6 md:p-7 space-y-2.5 flex-1`}>
         {tier.bullets.map((b) => (
           <li key={b} className="flex items-start gap-3 text-[13px] leading-[1.45]">
-            <span className={`mt-1 inline-block w-1.5 h-1.5 shrink-0 ${tier.dark ? 'bg-brand' : 'bg-black'}`} />
+            {tier.dark ? (
+              <span aria-hidden className="pl-chrome-disc mt-0.5 inline-block w-3 h-3 shrink-0" />
+            ) : (
+              <span className="mt-1 inline-block w-1.5 h-1.5 shrink-0 bg-black" />
+            )}
             <span className={tier.dark ? 'text-white/85' : 'text-black/85'}>{b}</span>
           </li>
         ))}
@@ -270,6 +295,17 @@ const TierCard = ({ tier }) => {
       </div>
     </article>
   );
+
+  // Chrome wrapper for the premium tier · gradient "machined metal" frame
+  // (2px) with a lime-tinted lift on hover. Light tiers render bare.
+  if (tier.dark) {
+    return (
+      <div className="pl-chrome-frame rounded-3xl h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_70px_-28px_rgba(191,255,0,0.45)]">
+        {card}
+      </div>
+    );
+  }
+  return card;
 };
 
 export const PricingLadder = () => {
@@ -285,6 +321,13 @@ export const PricingLadder = () => {
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black"
     data-testid="pricing-ladder"
   >
+    {/* Machined-chrome recipes · scoped pl- classes (mirrors the funnel's
+        fv-chrome system) · used only on the premium tier card. */}
+    <style>{`
+      .pl-chrome-frame{position:relative;padding:2px;background:linear-gradient(135deg,#f0f0f0 0%,#7d7d7d 20%,#fafafa 38%,#5f5f5f 55%,#d9d9d9 72%,#8a8a8a 88%,#f0f0f0 100%);box-shadow:0 0 0 1px rgba(0,0,0,.65),0 22px 55px -24px rgba(191,255,0,.25);}
+      .pl-chrome-text{background:linear-gradient(180deg,#ffffff 0%,#d9d9d9 26%,#8f8f8f 47%,#f2f4f4 52%,#7f7f7f 68%,#e9e9e9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+      .pl-chrome-disc{border-radius:9999px;background:conic-gradient(from 210deg,#f4f4f4,#8d8d8d 18%,#e6e6e6 34%,#6c6c6c 52%,#f0f0f0 68%,#9b9b9b 84%,#f4f4f4);box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 -1px 2px rgba(0,0,0,.45);}
+    `}</style>
     <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-16 md:py-24">
 
       {/* Header */}
