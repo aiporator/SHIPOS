@@ -136,8 +136,8 @@ const PRICING = [
   ['Diagnose', '0 €', '10 Min · leadercheck.de', 'Vor-Termin-Hausaufgabe / Rollout-Messung'],
   ['Sprint', '997 €', '30 Tage + 12 Mon. Mitgliedschaft · einmalig', 'Einzelne Führungskraft · „Beliebt"'],
   ['Plus-Plus', '4.797 €', '12 Monate Enablement · oder 3 × 1.599 €', 'Ambitionierte Einzelkämpfer / kleine Teams'],
-  ['Mentoring 6', '14.800 €', '6 Monate · 1:1 mit Wlad', 'C-Level mit persönlichem Anspruch'],
-  ['Mentoring 12', '24.600 €', '12 Monate · 1:1 mit Wlad', 'Langfrist-Transformation Einzelperson'],
+  ['Mentoring 6', '14.800 €', '6 Monate · 1:1-Mentoring', 'C-Level mit persönlichem Anspruch'],
+  ['Mentoring 12', '24.600 €', '12 Monate · 1:1-Mentoring', 'Langfrist-Transformation Einzelperson'],
   ['Enterprise', 'ab 44.000 €', 'Team-Lizenz · Custom Track', 'Ab ~10 Führungskräften · Rollout + Reporting'],
 ];
 

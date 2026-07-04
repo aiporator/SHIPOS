@@ -4,7 +4,7 @@ import { useState } from 'react';
  * CoachingWaitlist · limitierte Warteliste für 1:1-Coaching mit Wlad.
  *
  * Scarcity-Anker. Kein direktes Kauf-Produkt · bewusst gating. Wer
- * 1:1 mit Wlad will, geht durch eine kuratierte Liste. Position:
+ * 1:1-Mentoring will, geht durch eine kuratierte Liste. Position:
  * zwischen ManifestoSection und Benefits, als ruhiger schwarzer
  * Block der den Übergang von Story zu Produkt-Sektionen markiert.
  *
@@ -88,7 +88,7 @@ export const CoachingWaitlist = () => {
               Wlad coacht persönlich nur eine Handvoll Führungskräfte pro
               Quartal. Sechs Wochen, sechs Sessions, eine Transformation.
               Kein Standard-Produkt. Bewerbung über die Warteliste.
-              Plus-Plus ist der direkte Weg dorthin: wer das OS-Jahr
+              Leadership Plus Pro ist der direkte Weg dorthin: wer das OS-Jahr
               durchzieht, bekommt Vorrang.
             </p>
 
@@ -103,7 +103,7 @@ export const CoachingWaitlist = () => {
               </li>
               <li className="grid grid-cols-12 gap-3 text-[12.5px] items-baseline">
                 <span className="col-span-3 font-mono text-brand font-bold tracking-[0.18em] uppercase text-[10px]">VORRANG</span>
-                <span className="col-span-9 text-white/80">Plus-Plus-User der letzten 12 Monate</span>
+                <span className="col-span-9 text-white/80">Leadership-Plus-Pro-User der letzten 12 Monate</span>
               </li>
               <li className="grid grid-cols-12 gap-3 text-[12.5px] items-baseline">
                 <span className="col-span-3 font-mono text-brand font-bold tracking-[0.18em] uppercase text-[10px]">INVEST</span>

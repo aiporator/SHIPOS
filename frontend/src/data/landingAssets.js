@@ -115,7 +115,7 @@ export const HOW_IT_WORKS = [
     title: 'Dein Operating System.',
     body:
       'Nach dem Sprint: voller Zugriff auf alle elf Frameworks, ' +
-      'WladBot 24/7, monatliche Live-Sessions mit Wlad und das ' +
+      'WladBot 24/7, monatliche Live-Sessions und das ' +
       'Leader-OS-Netzwerk.',
     cta: 'OS erkunden',
     href: 'https://leaderos.de/login',
@@ -313,7 +313,7 @@ export const LANDING_BENEFITS = [
     dark: true,
     body:
       'Plus-Plus ist kein Online-Kurs den du wegklickst. Es ist ' +
-      'echtes Enablement: tägliche Lernvideos, Live-Sessions mit Wlad ' +
+      'echtes Enablement: tägliche Lernvideos, Live-Sessions im kleinen Kreis ' +
       'persönlich, der Drill-Channel in dem du das Gelernte sofort ' +
       'auf deinen echten Führungsalltag anwendest, und WladBot der ' +
       'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher, du ' +
@@ -321,13 +321,13 @@ export const LANDING_BENEFITS = [
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],
       ['VID',  'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
-      ['LIV',  'LIVE MIT WLAD',  'Monatliche Sessions · live · ungeschnitten'],
+      ['LIV',  'LIVE-SESSIONS',  'Monatlich · live · ungeschnitten'],
       ['DRL',  'DRILL-CHANNEL',  'Theorie sofort am echten Fall umsetzen'],
       ['ENB',  'ENABLEMENT',     '12 Monate, bis es sitzt'],
       ['ZRT',  'ZERTIFIKAT',     'Mit deiner persönlichen Startnummer'],
       ['INV',  'INVESTITION',    '30-Tage 997 € · OS-Jahr 4 797 €'],
     ],
-    cta: 'Mit Wlad starten',
+    cta: 'Jetzt starten',
     href: 'https://leadercheck.de',
     variant: 'voxel',
     photo: local('p-07-dreibig-tage.webp'),

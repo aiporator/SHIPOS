@@ -21,7 +21,7 @@ const FADE_UP = {
  *
  * Stack discipline: four text elements only.
  *   1. Wlad-anker strip   (eyebrow / trust)
- *   2. Headline           ("Sprint mit Wlad.")
+ *   2. Headline           ("Führung ist Fähigkeit.")
  *   3. Subline            ("Dreißig Tage. Elf Frameworks. Ein KI-Coach...")
  *   4. CTA cluster        (primary + one secondary anchor)
  *
@@ -33,7 +33,7 @@ export const HeroSection = () => (
     id="hero"
     className="relative w-full overflow-hidden bg-background"
     data-testid="landing-hero"
-    aria-label="Sprint mit Wlad. 30 Tage zum Führungs-OS."
+    aria-label="Führung ist Fähigkeit. 30 Tage zum Führungs-OS."
   >
     {/* Subtle radial mesh, never the focus */}
     <div

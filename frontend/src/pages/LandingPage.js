@@ -22,6 +22,7 @@ import { PlatformValueSection } from '../components/landing/PlatformValueSection
 import { ManifestoSection } from '../components/landing/ManifestoSection';
 import { CoachingWaitlist } from '../components/landing/CoachingWaitlist';
 import { PricingLadder } from '../components/landing/PricingLadder';
+import { OfferProofSection } from '../components/landing/OfferProofSection';
 import { AppointmentBookingSection } from '../components/landing/AppointmentBookingSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
@@ -159,6 +160,7 @@ export default function LandingPage() {
         <MiniChallenge />
 
         <PricingLadder />
+        <OfferProofSection />
         <AppointmentBookingSection />
         <CoachingWaitlist />
         <FAQSection />

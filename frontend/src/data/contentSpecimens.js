@@ -293,7 +293,7 @@ export const POST_SERIES = [
     rows: [
       ['BOT', 'WLADBOT',        '24/7 Coach in Wlads Stimme'],
       ['VID', 'LERNVIDEOS',     'Jeden Tag eine neue Lektion'],
-      ['LIV', 'LIVE MIT WLAD',  'Monatlich · live · ungeschnitten'],
+      ['LIV', 'LIVE-SESSIONS',  'Monatlich · live · ungeschnitten'],
       ['CLS', 'COMMUNITY',       'Privater Channel · für alle Mitglieder'],
       ['CAL', 'STRATEGIE-CALL', 'Monatlich · klein · persönlich'],
       ['ZRT', 'ZERTIFIKAT',     'Mit deiner Startnummer 0001'],
