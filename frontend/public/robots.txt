@@ -6,6 +6,7 @@ User-agent: *
 Allow: /
 Allow: /login
 Allow: /event
+Allow: /webinar
 Allow: /fuehrung-beginnt-hier
 Allow: /journal
 Allow: /journal/
