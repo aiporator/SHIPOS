@@ -29,11 +29,11 @@ const local = (file) => `/landing/${file}`;
 const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
-  title: 'Leader-OS · Dein Führungs-OS. 14 Tage kostenlos testen.',
+  title: 'Leader-OS · Das Leadership Operating System. Kostenlos testen.',
   description:
-    'Elf Frameworks. Ein OS. WladBot-Coach 24/7. Wlad Jachtchenko · ' +
-    '3× SPIEGEL-Bestseller. 14 Tage kostenlos testen, ohne Karte, ' +
-    'ohne Risiko. Werde jetzt Teil von Leader-OS.',
+    'Leader-OS ist dein persönliches Leadership Operating System — mit ' +
+    'KI-Coach, täglichen Übungen und den Methoden von Wlad Jachtchenko, ' +
+    'damit du jeden Tag besser führst. 14 Tage kostenlos, ohne Karte.',
   url: 'https://leader-os.de',
   slogan: '14 Tage kostenlos.',
   // Kicker, gehört unter den ATF-Headline-Block.

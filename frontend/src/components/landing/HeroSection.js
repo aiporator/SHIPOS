@@ -145,13 +145,12 @@ export const HeroSection = () => (
           fontStyle: 'italic',
         }}
       >
-        Führung ist<br />Fähigkeit<span className="text-brand not-italic">.</span>
+        Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span>
       </motion.h1>
 
-      {/* 3 / 4 · Subline · authority-claim + product-handle, no price up here.
-          Fähigkeit ist die Headline-Klammer · Fähigkeit ist trainierbar ist
-          die Versprechung · Wlads Methodik ist der Beleg · KI-Coach ist die
-          Distribution. Vier Beats, alle conversion-relevant, keiner ein Preis. */}
+      {/* 3 / 4 · Subline · sells the PRODUCT, not the person: what Leader-OS
+          IS (the Leadership Operating System), what you do with it daily,
+          and Wlad as the method source — in that order. System > Motivation. */}
       <motion.p
         initial="hidden"
         animate="show"
@@ -163,8 +162,8 @@ export const HeroSection = () => (
           fontWeight: 800,
         }}
       >
-        Fähigkeit ist <span className="text-brand">trainierbar</span>.{' '}
-        <span className="text-foreground/55">Mit Wlads Methodik. 24/7 KI-Coach<span className="text-brand">.</span></span>
+        Mit einem <span className="text-brand">System</span> statt Motivation.{' '}
+        <span className="text-foreground/55">Leader-OS ist das erste Leadership Operating System — KI-Coach, tägliche Übungen und Wlads Methodik<span className="text-brand">.</span></span>
       </motion.p>
 
       {/* 4 / 4 · CTAs · centered on mobile so the call-to-action moment
@@ -181,13 +180,14 @@ export const HeroSection = () => (
         variants={FADE_UP}
         className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-6"
       >
-        {/* Primary · the Beratungsgespräch · our preferred conversion.
-            Scrolls to the cal.com booking section (#beratung). */}
+        {/* Primary · the free trial · "Kostenlos testen" is the product-first
+            conversion (the page sells Leader-OS, the trial proves it). The
+            Beratungsgespräch keeps its own section further down (#beratung). */}
         <PlusCircleCTA
-          to={LANDING_META.cta.beratung.href}
-          testId="hero-cta-beratung"
+          href={LANDING_META.cta.primary.href}
+          testId="hero-cta-trial"
         >
-          {LANDING_META.cta.beratung.label}
+          Kostenlos testen
         </PlusCircleCTA>
         {/* Secondary · the free Leader-Check on leadercheck.de · the
             low-friction lead-magnet at the top of the funnel. */}

@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { LandingNav } from '../components/landing/LandingNav';
 import { ClassScarcityBanner } from '../components/landing/ClassScarcityBanner';
 import { HeroSection } from '../components/landing/HeroSection';
+import { WhatIsLeaderOsSection } from '../components/landing/WhatIsLeaderOsSection';
 import { SprintSpecimenStrip } from '../components/landing/SprintSpecimenStrip';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
@@ -125,6 +126,7 @@ export default function LandingPage() {
 
       <main id="main-content">
         <HeroSection />
+        <WhatIsLeaderOsSection />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
         <TrustProofSection />
