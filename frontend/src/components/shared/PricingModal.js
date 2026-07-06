@@ -191,7 +191,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
             <div className="md:col-span-1 mb-2">
               <div className="text-center bg-brand/[0.06] border border-brand/20 rounded-2xl px-4 py-3" data-testid="pricing-upsell-banner">
                 <p className="text-[10px] uppercase tracking-[0.2em] font-black text-brand">Du hast Leadership OS</p>
-                <p className="text-[13px] font-bold mt-1" style={OUTFIT}>Bereit für 1:1 Coaching mit Wlad?</p>
+                <p className="text-[13px] font-bold mt-1" style={OUTFIT}>Bereit für 1:1 Coaching mit Wlads Team?</p>
                 <p className="text-[11px] text-muted-foreground mt-1">Upgrade auf OS PLUS · 12 Einzelcoachings inklusive</p>
               </div>
             </div>
