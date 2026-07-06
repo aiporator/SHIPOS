@@ -32,9 +32,10 @@ export default {
     { type: 'heading', level: 2, text: 'Hebel 01: Fünf Rollen der Führung.' },
     { type: 'framework', code: '5 ROLLEN', title: 'Identitäts-Klärung',
       explanation:
-        'Treiber, Stratege, Sparrings-Partner, Resilienz-Anker, Repräsentant. Jede Rolle hat ihren eigenen ' +
-        'Modus. Die meisten Gründer sind Treiber-only, mit gelegentlichen Stratege-Momenten. Sparrings-' +
-        'Partner-Modus für ihre Senior-Hires erkennen sie oft erst Monate zu spät. Das Framework macht sichtbar ' +
+        'Kommunikator, Manager, Team-Leader, Psychologe, Problemlöser. Jede Rolle hat ihren eigenen ' +
+        'Modus. Die meisten Gründer leben fast nur in Kommunikator und Manager, mit gelegentlichen ' +
+        'Problemlöser-Momenten in der Krise. Die Team-Leader-Rolle für ihre Senior-Hires — echtes Delegieren ' +
+        'statt Mitmachen — erkennen sie oft erst Monate zu spät. Das Framework macht sichtbar ' +
         'welche Rolle gerade dran ist und welche du gerade unterspielst.' },
     { type: 'heading', level: 2, text: 'Hebel 02: ALPEN für Gründer-Kalender.' },
     { type: 'paragraph', text:

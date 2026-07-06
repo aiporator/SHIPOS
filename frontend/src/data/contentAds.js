@@ -114,7 +114,7 @@ export const AD_SERIES = [
     format: '9x16',
     platform: 'stories',
     palette: 'blaze',
-    topText: 'TOWNHALL\nOHNE ANGST.',
+    topText: 'FIRMENREDE\nOHNE ANGST.',
     titleText: 'KLARE SKRIPTE\nSTATT BAUCH.',
     bottomText: 'WLADBOT · 24/7 · IN DEINER TASCHE',
     cta: 'LEADER-OS.DE',

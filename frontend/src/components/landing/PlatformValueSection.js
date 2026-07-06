@@ -48,7 +48,7 @@ const FEATURES = [
     headline: '15 Minuten am echten Fall.',
     body:
       'Kein Theorie-Bingo. Jeden Tag eine konkrete Übung an deiner ' +
-      'aktuellen Situation · Mitarbeitergespräch, Townhall, Konflikt. ' +
+      'aktuellen Situation · Mitarbeitergespräch, Firmenrede, Konflikt. ' +
       'Output-fokussiert, von Wlad kuratiert.',
     proof: '30 DRILLS IM SPRINT · 365 ÜBER 12 MONATE',
   },

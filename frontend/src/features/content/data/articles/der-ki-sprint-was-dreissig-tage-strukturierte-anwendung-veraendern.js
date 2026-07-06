@@ -29,7 +29,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Drei Beispiel-Profile aus den Daten.' },
     { type: 'paragraph', text: 'Profil A (Senior Engineering Manager, Series B): Reflex-Zeit B-W-W 78 → 19 Sek, Deep-Work +5,5 h/Woche, 17 wiederverwendete Prompts.' },
-    { type: 'paragraph', text: 'Profil B (HR-Direktorin Mittelstand): Reflex-Zeit SEXIER 120 → 35 Sek, neue Townhall-Mechanik mit halbierter Alignment-Welle, 11 wiederverwendete Prompts.' },
+    { type: 'paragraph', text: 'Profil B (HR-Direktorin Mittelstand): Reflex-Zeit SEXIER 120 → 35 Sek, neue Firmenrede-Mechanik mit halbierter Alignment-Welle, 11 wiederverwendete Prompts.' },
     { type: 'paragraph', text: 'Profil C (Gründerin Scaleup): Reflex-Zeit ALPEN-Streich-Routine 0 → 3x/Woche etabliert, +6 h/Woche Deep-Work, 9 wiederverwendete Prompts (kleinere Bibliothek weil weniger Direct Reports).' },
     { type: 'framework', code: 'SPRINT-DATA', title: 'Was 30 Tage messen', explanation: 'Mess-bar: Reflex-Zeit, Deep-Work-Zeit, Prompt-Bibliothek, Stale-Quote, Alignment-Welle. Nicht-mess-bar in 30 Tagen: Identitäts-Verschiebung, Umsatz-Lift, Team-Glück. Wer das Falsche misst, ist enttäuscht. Wer das Richtige misst, sieht den Effekt klar.' },
     { type: 'callout', tone: 'lime', text: 'Dreißig Tage strukturierte Anwendung produzieren messbare Skill-Verbesserungen · aber nicht magische Persönlichkeits-Verschiebungen. Wer ehrlich messen will, weiß was er bekommt.' },

@@ -21,7 +21,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Drei Zeichen dass du Reflex hast.' },
     { type: 'list', style: 'numbered', items: [
-      'Du formulierst unter Druck · ein heißes 1:1, ein hartes Townhall · den Eröffnungs-Satz in der Methodik ohne darüber nachzudenken.',
+      'Du formulierst unter Druck · ein heißes 1:1, eine harte Firmenrede · den Eröffnungs-Satz in der Methodik ohne darüber nachzudenken.',
       'Deine Reflex-Zeit (Sekunden zwischen Trigger und richtigem Skript) ist innerhalb von dreißig Tagen messbar gesunken.',
       'Andere bemerken den Stil-Wechsel · ohne dass du es kommuniziert hast.',
     ] },

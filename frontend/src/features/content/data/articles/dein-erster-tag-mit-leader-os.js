@@ -28,7 +28,7 @@ export default {
     { type: 'heading', level: 2, text: 'Minute 10 bis 25: Setup-Gespräch mit WladBot.' },
     { type: 'paragraph', text:
       'Der erste echte Drill ist kein Drill. Es ist ein Setup-Gespräch. WladBot fragt dich nach drei realen ' +
-      'Situationen aus den letzten zwei Wochen · ein 1:1, ein Townhall, eine Verhandlung. Du beschreibst sie ' +
+      'Situationen aus den letzten zwei Wochen · ein 1:1, eine Firmenrede, eine Verhandlung. Du beschreibst sie ' +
       'in deinen eigenen Worten. Der Bot speichert sie als Trainings-Cases für den restlichen Sprint.' },
     { type: 'callout', tone: 'lime', text:
       'Wichtig: ohne diese drei Cases drillst du gegen generische Beispiele. Mit ihnen drillst du gegen dein ' +

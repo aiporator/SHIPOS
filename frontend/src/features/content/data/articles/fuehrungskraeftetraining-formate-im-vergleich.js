@@ -73,7 +73,7 @@ export default {
       'Trainiert auf Wlad Jachtchenkos Methodik aus über 420 000 Coachings · konsistent statt Mischmasch aus drei Schulen.',
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Die Entscheidungs-Regel für jedes Format: Output schlägt Input. Es zählt nicht, wie viele Seminartage oder Kurs-Stunden du sammelst, sondern was sich in deinem nächsten 1:1, deiner nächsten Townhall, deiner nächsten Entscheidung messbar ändert.' },
+      'Die Entscheidungs-Regel für jedes Format: Output schlägt Input. Es zählt nicht, wie viele Seminartage oder Kurs-Stunden du sammelst, sondern was sich in deinem nächsten 1:1, deiner nächsten Firmenrede, deiner nächsten Entscheidung messbar ändert.' },
     { type: 'quote', text:
       'Coaching kostet 800 Euro pro Stunde und ist am Dienstagabend nicht erreichbar. Bücher altern. Frameworks bleiben hängen. Wir haben das Operating System gebaut, das diesen Engpass auflöst.',
       attribution: 'Wlad Jachtchenko' },

@@ -6,7 +6,7 @@ export default {
   description:
     'Die sieben Prompt-Vorlagen die ich jedem Klienten gebe. Kein generisches ' +
     '"sei mein Coach", sondern konkrete Skripte für Mitarbeitergespräch, ' +
-    'Townhall, Konflikt, Strategie und Feedback.',
+    'Firmenrede, Konflikt, Strategie und Feedback.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-08-19',
   cover: null,
@@ -44,7 +44,7 @@ export default {
     { type: 'paragraph', text: 'Funktioniert besser als jeder Coffee-Rant mit Kollegen. Antwort in 45 Sekunden, ohne Office-Politik.' },
 
     { type: 'heading', level: 2, text: 'Die anderen fünf.' },
-    { type: 'framework', code: 'P·7', title: 'Die restlichen fünf Prompts in einem Satz.', explanation: 'P3 · Townhall-Eröffnung in drei Varianten. P4 · Strategie-Annahmen stress-testen ("Welche meiner drei Annahmen ist am schwächsten?"). P5 · Schwierige Email vor dem Senden reviewen ("Wie wirkt das auf den Empfänger? Was wirft Fragen auf?"). P6 · Wochenplanung am Sonntag ("Hier sind meine 12 To-dos für nächste Woche. Welche drei sind die wahren Hebel?"). P7 · Karriere-Reflexion am Quartalsende ("Hier sind meine letzten 12 Wochen. Was würde ein guter Coach mir sagen das ich selbst nicht sehe?").' },
+    { type: 'framework', code: 'P·7', title: 'Die restlichen fünf Prompts in einem Satz.', explanation: 'P3 · Firmenrede-Eröffnung in drei Varianten. P4 · Strategie-Annahmen stress-testen ("Welche meiner drei Annahmen ist am schwächsten?"). P5 · Schwierige Email vor dem Senden reviewen ("Wie wirkt das auf den Empfänger? Was wirft Fragen auf?"). P6 · Wochenplanung am Sonntag ("Hier sind meine 12 To-dos für nächste Woche. Welche drei sind die wahren Hebel?"). P7 · Karriere-Reflexion am Quartalsende ("Hier sind meine letzten 12 Wochen. Was würde ein guter Coach mir sagen das ich selbst nicht sehe?").' },
 
     { type: 'paragraph', text: 'Wer alle sieben Prompts 30 Tage am Stück nutzt, hat seinen Job-Coach-Reflex umgebaut. Statt zu reagieren, fragst du. Statt zu warten, drehst du. Statt im Bauchgefühl, mit System.' },
 

@@ -62,24 +62,24 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: '02. Townhall-Roadmap strukturieren.',
+      text: '02. Firmenrede-Roadmap strukturieren.',
     },
     {
       type: 'paragraph',
       text:
-        'Du hast ein Quartals-Townhall vor dir. Sechzehn Bullets im Notion-Doc, kein Roter Faden. Ohne KI ' +
+        'Du hast eine Quartals-Firmenrede vor dir. Sechzehn Bullets im Notion-Doc, kein Roter Faden. Ohne KI ' +
         'verbringst du zwei Stunden damit, deine Inhalte in eine SEXIER-Struktur zu zwingen. Mit KI dauert es ' +
         'fünfzehn Minuten: du tippst die Bullets rein, fragst nach einer SEXIER-Strukturierung, prüfst ob ' +
-        'jeder Block einen Einwand-Vorwegnahme-Move enthält, kürzt das Pathos im dritten Block.',
+        'jeder Block einen Rebuttal-Move enthält, kürzt das Pathos im dritten Block.',
     },
     {
       type: 'framework',
       code: 'SEXIER',
       title: 'Argumentations-Modell',
       explanation:
-        'Sechs Schritte für jede gesprochene Argumentation: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, ' +
-        'Einwand-Vorwegnahme, Resumée. KI kann jede Bullet-Liste in dieses Schema sortieren · aber nur du ' +
-        'kannst das X-Beispiel mit einer echten Zahl aus deinem Quartal füllen.',
+        'Sechs Schritte für jede gesprochene Argumentation: Statement, Explanation, eXample, Impact, ' +
+        'Explanation of Impact, Rebuttal. KI kann jede Bullet-Liste in dieses Schema sortieren · aber nur du ' +
+        'kannst das eXample mit einer echten Zahl aus deinem Quartal füllen.',
     },
     {
       type: 'paragraph',
@@ -140,7 +140,7 @@ export default {
   seo: {
     title: 'KI für Führungskräfte: 3 Use Cases für heute',
     description:
-      'KI für Führungskräfte: drei sofort einsetzbare Use Cases · Skript-Vorbereitung, Townhall-Strukturierung, ' +
+      'KI für Führungskräfte: drei sofort einsetzbare Use Cases · Skript-Vorbereitung, Firmenrede-Strukturierung, ' +
       'Freitag-Reflexion. Plus drei Use Cases die du nicht brauchst. Von Wlad Jachtchenko.',
     keywords: [
       'KI für Führungskräfte',
@@ -149,7 +149,7 @@ export default {
       'Wlad Jachtchenko KI',
       'KI Use Cases Leadership',
       'SEXIER Argumentation',
-      'Townhall Vorbereitung',
+      'Firmenrede Vorbereitung',
     ],
   },
   related: ['die-feedback-formel-bww', 'warum-frameworks-nicht-im-kopf-bleiben'],

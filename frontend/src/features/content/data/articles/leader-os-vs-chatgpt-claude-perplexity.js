@@ -48,7 +48,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Wo sie für Führungskräfte versagen.' },
     { type: 'list', style: 'numbered', items: [
-      'Kein Kontext über DICH. Du beginnst jeden Chat bei Null. Der Bot weiß nicht dass du gestern ein 1:1 mit Marius hattest, dass dein Townhall am Freitag ist, dass dein letztes Quartal an Politik gescheitert ist. Du musst alles jedes Mal neu erklären · oder verzichten.',
+      'Kein Kontext über DICH. Du beginnst jeden Chat bei Null. Der Bot weiß nicht dass du gestern ein 1:1 mit Marius hattest, dass deine Firmenrede am Freitag ist, dass dein letztes Quartal an Politik gescheitert ist. Du musst alles jedes Mal neu erklären · oder verzichten.',
       'Keine Methodik. ChatGPT empfiehlt dir bei Feedback-Fragen einen Mix aus zehn Internet-Frameworks. Manche widersprechen sich. Du bekommst Optionen, nicht eine drillbare Methode.',
       'Keine Trainings-Struktur. Es gibt keinen 30-Tage-Pfad, keinen Drill-Channel, keine Progression. Du bist auf dich selbst gestellt um zu wissen was du wann üben solltest.',
       'Kein Sparring mit Identität. Die Antwort kommt von einem generischen Bot mit wechselnder Stimme. Kein konsistenter Coach, der dich kennt.',

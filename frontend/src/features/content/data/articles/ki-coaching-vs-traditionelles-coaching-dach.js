@@ -30,7 +30,7 @@ export default {
     { type: 'list', style: 'bullet', items: [
       'Methodische Wiederholung (B-W-W, SEXIER, ALPEN drillen).',
       'Kurzfristige Skript-Vorbereitung am echten Case.',
-      'Strukturierungs-Hilfe für Townhalls, QBRs, Investor-Decks.',
+      'Strukturierungs-Hilfe für Firmenreden, QBRs, Investor-Decks.',
       'Reflexions-Routine am Freitag in fünf Minuten.',
     ] },
     { type: 'framework', code: 'COMBO', title: 'Die ehrliche DACH-Antwort', explanation: 'Für die meisten Senior-Manager ist die Antwort beides: KI-Plattform für die methodische Wiederholung (LeaderOS) plus 1-2 klassische Coach-Termine pro Jahr für die Identitäts-Arbeit. Plus-Plus von LeaderOS bietet das bereits gebündelt: KI-Drill plus monatliche Live-Sessions mit Wlad persönlich.' },

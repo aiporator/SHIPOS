@@ -18,7 +18,7 @@ export default {
     { type: 'heading', level: 2, text: 'Hebel 02: Einen Pilot-Mitarbeiter wählen.' },
     { type: 'paragraph', text: 'Statt das ganze Team zu schulen, wähle einen High-Trust-Senior-IC und drillst ihn explizit drei Wochen. Du bezahlst seinen Sprint-Sitz aus deinem Budget. Er erlebt es. Er beschreibt es danach seinem eigenen Sub-Team. Multiplikator pro investierten 997 EUR: typisch 4-8 Folge-Sprints in den nächsten zwei Quartalen.' },
     { type: 'heading', level: 2, text: 'Hebel 03: Sichtbare Effekte zeigen, nicht erklären.' },
-    { type: 'paragraph', text: 'Nicht "ihr solltet ChatGPT nutzen". Sondern: in einer Stand-up-Eröffnung mit klarer SEXIER-Struktur, in einem präzisen B-W-W-Feedback, in einem Townhall ohne Alignment-Welle danach. Andere sehen den Effekt und fragen "wie machst du das?". Diese Frage ist die einzige Adoption-Variable die wirklich trägt.' },
+    { type: 'paragraph', text: 'Nicht "ihr solltet ChatGPT nutzen". Sondern: in einer Stand-up-Eröffnung mit klarer SEXIER-Struktur, in einem präzisen B-W-W-Feedback, in einer Firmenrede ohne Alignment-Welle danach. Andere sehen den Effekt und fragen "wie machst du das?". Diese Frage ist die einzige Adoption-Variable die wirklich trägt.' },
     { type: 'framework', code: 'MULTI', title: 'Drei Hebel ohne Predigt', explanation: 'Drei Prompts publizieren · einen Pilot-Mitarbeiter drillen · sichtbare Effekte zeigen statt sie zu erklären. Wer die drei kombiniert, hat in 90 Tagen mindestens drei direct reports auf einem höheren Skill-Niveau ohne Pflicht-Schulung.' },
     { type: 'heading', level: 2, text: 'Was du NICHT tun solltest.' },
     { type: 'list', style: 'bullet', items: [

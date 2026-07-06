@@ -14,7 +14,7 @@ export default {
   body: [
     { type: 'paragraph', text: 'Ein KI-Tool ohne Ritual ist ein Abo das du in neun Wochen kündigst oder vergisst. Drei einfache Rituale machen aus jedem Tool einen Hebel · und sie passen in jeden Wochenfluss.' },
     { type: 'heading', level: 2, text: 'Ritual 01: Montag-Morgen Prompt-Vorschau.' },
-    { type: 'paragraph', text: 'Zehn Minuten am Montag bevor die Meetings starten. Du listest die drei wichtigsten Konversationen der Woche (1:1, Townhall, Stakeholder-Termin) und schreibst für jede den Prompt für deine Vorbereitung. Effekt: deine Vorbereitung sinkt um die Hälfte, deine Klarheit steigt.' },
+    { type: 'paragraph', text: 'Zehn Minuten am Montag bevor die Meetings starten. Du listest die drei wichtigsten Konversationen der Woche (1:1, Firmenrede, Stakeholder-Termin) und schreibst für jede den Prompt für deine Vorbereitung. Effekt: deine Vorbereitung sinkt um die Hälfte, deine Klarheit steigt.' },
     { type: 'heading', level: 2, text: 'Ritual 02: Mittwoch-Mittag Prompt-Sharing.' },
     { type: 'paragraph', text: 'Fünf Minuten am Mittwoch. Du nimmst einen Prompt der diese Woche besonders gut funktioniert hat und teilst ihn in deinem Team-Slack-Channel. Eine Zeile Beschreibung, der Prompt, ein konkretes Beispiel-Output. Effekt: dein Team beginnt unbewusst zu kopieren und zu adaptieren. Multiplikator-Effekt nach drei Monaten.' },
     { type: 'heading', level: 2, text: 'Ritual 03: Freitag-Nachmittag Output-Bilanz.' },

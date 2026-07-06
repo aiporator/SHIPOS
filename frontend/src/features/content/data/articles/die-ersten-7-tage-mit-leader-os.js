@@ -42,7 +42,7 @@ export default {
     { type: 'heading', level: 2, text: 'Tag 6-7 · Erste Reflexion + Plan für Woche 2.' },
     { type: 'paragraph', text: 'Tag 6: Reflexion in WladBot, 4 Min. Was hat funktioniert, was nicht, was nimmst du in Woche 2 mit. Tag 7: Wlad-Vorlesung (12 Min Video) zu einem Thema das deine Diagnose als schwach markiert hat. Plus erste Live-Session-Einladung wenn du Plus-Plus hast.' },
 
-    { type: 'framework', code: '7·1', title: 'Die erste Woche in Zahlen.', explanation: 'Sieben Tage. ~2 Stunden Lernzeit insgesamt (verteilt auf 15-25 Min Slots). 7 echte Arbeit-Aufgaben mit Methodik gelöst (Email, 1:1, Feedback, Konflikt, Townhall-Vorbereitung, Reflexion, Diagnose). Drei Frameworks lebendig gemacht (B-W-W, Schlagfertigkeit, Daily-Drill). Eine Diagnose mit klarem Score. Eine Live-Session zugeordnet. Das ist der Funnel · nicht Wissen anhäufen, sondern Methodik einbauen.' },
+    { type: 'framework', code: '7·1', title: 'Die erste Woche in Zahlen.', explanation: 'Sieben Tage. ~2 Stunden Lernzeit insgesamt (verteilt auf 15-25 Min Slots). 7 echte Arbeit-Aufgaben mit Methodik gelöst (Email, 1:1, Feedback, Konflikt, Firmenrede-Vorbereitung, Reflexion, Diagnose). Drei Frameworks lebendig gemacht (B-W-W, Schlagfertigkeit, Daily-Drill). Eine Diagnose mit klarem Score. Eine Live-Session zugeordnet. Das ist der Funnel · nicht Wissen anhäufen, sondern Methodik einbauen.' },
 
     { type: 'callout', tone: 'dark', text: 'LeaderOS ist offen für alle · werde Teil davon und starte sofort. Ab Tag 1 hast du WladBot 24/7, elf drillbare Frameworks und ein Onboarding das deinen Diagnose-Score kennt und die 30 Tage auf dich zuschneidet. 14 Tage kostenlos, ohne Karte.' },
   ],

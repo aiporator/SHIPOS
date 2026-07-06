@@ -51,7 +51,7 @@ const QUESTIONS = [
     ],
   },
   {
-    q: 'Wenn dich morgen jemand zum Townhall ruft: Gefühl?',
+    q: 'Wenn dich morgen jemand zu einer Firmenrede ruft: Gefühl?',
     options: [
       { label: 'Energie, ich liebe die Bühne.',                 w: { ki: 1, rhet: 5, eq: 4 } },
       { label: 'OK, ich bereite mich gründlich vor.',           w: { ki: 3, rhet: 4, eq: 3 } },

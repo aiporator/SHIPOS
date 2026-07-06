@@ -18,7 +18,7 @@ export default {
     { type: 'heading', level: 2, text: 'Pfad 02: Plus-Plus (Continuous Drill).' },
     { type: 'paragraph', text: 'Sprint plus 12 Monate Begleitung. Monatliche Live-Sessions mit Wlad, Drill-Channel für Cases zwischendurch, Sprint-Historie als Context-Layer. Für Senior-Manager die methodische Tiefe UND menschliche Identitäts-Arbeit wollen. 4 797 EUR einmalig.' },
     { type: 'heading', level: 2, text: 'Pfad 03: Spezial-Kurse (Vertiefung).' },
-    { type: 'paragraph', text: 'Nach dem Sprint kannst du dich in spezifische Themen vertiefen: KI-Strategie für Mittelstand, Investor-Pitch-Vorbereitung, Townhall-Mastery, Konflikt-Drill. Jeder Spezial-Kurs ist 7-10 Tage Mikro-Drill in einem Sub-Thema.' },
+    { type: 'paragraph', text: 'Nach dem Sprint kannst du dich in spezifische Themen vertiefen: KI-Strategie für Mittelstand, Investor-Pitch-Vorbereitung, Firmenrede-Mastery, Konflikt-Drill. Jeder Spezial-Kurs ist 7-10 Tage Mikro-Drill in einem Sub-Thema.' },
     { type: 'heading', level: 2, text: 'Pfad 04: Team-Rollout (B2B).' },
     { type: 'paragraph', text: 'Wenn ein L&D-Sponsor zehn bis fünfzig Führungskräfte gleichzeitig auf LeaderOS bringen will: strukturierter Rollout-Plan mit Pilot-Kohorte, Kickoff, parallel-laufenden Sprints, Reflexions-Runde. Wir bringen den Playbook mit.' },
     { type: 'heading', level: 2, text: 'Welcher Pfad zu welchem Lern-Ziel.' },

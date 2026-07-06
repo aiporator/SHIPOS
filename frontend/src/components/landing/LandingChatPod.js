@@ -61,7 +61,7 @@ const FLOWS = {
         key: 'pain',
         options: [
           { label: 'Schwierige 1:1s · Feedback', value: '1on1', weight: 2 },
-          { label: 'Townhalls · Stakeholder', value: 'town', weight: 3 },
+          { label: 'Firmenreden · Stakeholder', value: 'town', weight: 3 },
           { label: 'Verhandlungen · Eskalationen', value: 'neg', weight: 3 },
           { label: 'KI-Hebel finden im Alltag', value: 'ki', weight: 2 },
         ],

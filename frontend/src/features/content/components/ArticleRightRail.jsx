@@ -336,7 +336,7 @@ const PROBLEM_SUGGESTIONS = [
   'Schwieriges Feedback-Gespräch',
   'Mein Team ist überlastet',
   'Konflikt im Team',
-  'Townhall vorbereiten',
+  'Firmenrede vorbereiten',
 ];
 
 const WladBotMini = ({ articleSlug, articleTitle }) => {

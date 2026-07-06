@@ -54,7 +54,7 @@ export default {
       'Kein Sparring im Moment des Bedarfs: die schwierige Situation kommt Dienstag 22:47 Uhr · der Trainer ist da nicht erreichbar. Genau dann bräuchtest du Hilfe.',
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Die Kernregel der Führungskräfteentwicklung: Output schlägt Input. Es zählt nicht, wie viele Seminartage du sammelst, sondern was sich in deinen 1:1-Gesprächen, Townhalls und Entscheidungen messbar ändert.' },
+      'Die Kernregel der Führungskräfteentwicklung: Output schlägt Input. Es zählt nicht, wie viele Seminartage du sammelst, sondern was sich in deinen 1:1-Gesprächen, Firmenreden und Entscheidungen messbar ändert.' },
     { type: 'heading', level: 2, text: 'Welche Formate wirklich wirken.' },
     { type: 'paragraph', text:
       'Wirksame Führungskräfteentwicklung hat vier Eigenschaften · egal ob als Seminar, Coaching oder Plattform:' },

@@ -56,7 +56,7 @@ export default {
     { type: 'heading', level: 2, text: 'Wo der Case schwach ist.' },
     { type: 'list', style: 'bullet', items: [
       'Die "26 000 EUR zurückgewonnene Manager-Zeit" sind nicht Cash. Sie verschwinden, wenn die Person stattdessen ihren Output reduziert anstatt ihn auf strategische Arbeit zu verlagern.',
-      'Selbst-Berichte über Skill-Verbesserung sind subjektiv. Wer Bias-arme Output-Messung will, muss eigene Metriken (Townhall-Alignment-Anfragen, 1:1-Tiefe-Score, NPS-Manager) tracken.',
+      'Selbst-Berichte über Skill-Verbesserung sind subjektiv. Wer Bias-arme Output-Messung will, muss eigene Metriken (Firmenrede-Alignment-Anfragen, 1:1-Tiefe-Score, NPS-Manager) tracken.',
       'Der ROI für die Top-2-Prozent-High-Performer ist überdurchschnittlich. Der ROI für mittelschwere Skeptiker ist niedriger. Eine 80-Prozent-Sprint-Completion-Rate ist gut, aber nicht 100 Prozent.',
     ] },
     { type: 'paragraph', text:

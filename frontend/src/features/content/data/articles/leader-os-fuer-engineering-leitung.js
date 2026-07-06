@@ -21,14 +21,14 @@ export default {
       'für SEXIER, Drei Säulen oder ALPEN aufgebaut hat. Bis sie als VP plötzlich sechzig Leute führen.' },
     { type: 'heading', level: 2, text: 'Die drei häufigsten Reibungspunkte.' },
     { type: 'list', style: 'numbered', items: [
-      'Townhalls die in Detail-Diskussionen kippen. Du wolltest eine Quartals-Roadmap kommunizieren, du hast eine Architektur-Diskussion bekommen.',
+      'Firmenreden die in Detail-Diskussionen kippen. Du wolltest eine Quartals-Roadmap kommunizieren, du hast eine Architektur-Diskussion bekommen.',
       '1:1s mit Senior-ICs die zu Coaching-Sessions ohne Ergebnis werden. Du gehst nach 30 Minuten mit dem Gefühl raus, dass nichts passiert ist.',
       'Verhandlungen mit Produkt- oder GTM-Counterparts wo du Daten hast, aber kein Skript für die Übergabe vom Datenpunkt zur Forderung.',
     ] },
     { type: 'heading', level: 2, text: 'Welche Frameworks am stärksten greifen.' },
     { type: 'paragraph', text:
       'In Sprint-Daten aus Engineering-Teilnehmern sehen wir drei Frameworks dominieren: SEXIER für die ' +
-      'Townhall-Struktur, B-W-W für die 1:1-Eröffnung, Drei Säulen für Verhandlungen mit nicht-technischen ' +
+      'Firmenrede-Struktur, B-W-W für die 1:1-Eröffnung, Drei Säulen für Verhandlungen mit nicht-technischen ' +
       'Stakeholdern.' },
     { type: 'framework', code: 'COMBO', title: 'Die Engineering-Kombi',
       explanation:
@@ -38,9 +38,9 @@ export default {
         'technischen Räumen.' },
     { type: 'heading', level: 2, text: 'Beispiel: VP Engineering, Series B.' },
     { type: 'paragraph', text:
-      'Lena (anonymisiert) hat in 30 Tagen ihre Townhall-Welle gedreht: von zwölf 1:1-Alignment-Anfragen ' +
-      'pro Townhall auf zwei. Ihr Sprint fokussierte sich auf SEXIER und Drei Säulen, weil ihre Diagnose ' +
-      'EQ-stark und Rhetorik-schwach war. Die volle Geschichte steht im Case Study "Wie Lena ihr Townhall drehte".' },
+      'Lena (anonymisiert) hat in 30 Tagen ihre Firmenrede-Welle gedreht: von zwölf 1:1-Alignment-Anfragen ' +
+      'pro Firmenrede auf zwei. Ihr Sprint fokussierte sich auf SEXIER und Drei Säulen, weil ihre Diagnose ' +
+      'EQ-stark und Rhetorik-schwach war. Die volle Geschichte steht im Case Study "Wie Lena ihre Firmenrede drehte".' },
     { type: 'heading', level: 2, text: 'Wie sich der Sprint an Engineering-Rhythmus anpasst.' },
     { type: 'list', style: 'bullet', items: [
       'On-Call-Wochen sind erkannt: WladBot reduziert in dieser Phase die tägliche Drill-Dauer auf fünf Minuten.',

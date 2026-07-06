@@ -47,7 +47,7 @@ export default {
     { type: 'list', style: 'numbered', items: [
       'Frameworks vor Tools. Eine KI-native Führungskraft hat eine begrenzte Bibliothek von Methodiken (Feedback-Formel, Verhandlungsstruktur, Rollen-Mapping) und nutzt KI um sie schneller anzuwenden · nicht um sie zu ersetzen.',
       'Reflex statt Tab-Open. KI ist im Reflex eingebaut. Wenn 22:47 Uhr eine schwierige Email kommt, formt sie keine ChatGPT-Suche · sie hat einen vorab trainierten Pfad.',
-      'Output-Messung statt Input-Stolz. Sie misst nicht wie viele KI-Tools sie nutzt. Sie misst was sich in den 1:1-Gesprächen geändert hat, in den Townhalls, in den Drei-Stunden-Strategie-Sitzungen.',
+      'Output-Messung statt Input-Stolz. Sie misst nicht wie viele KI-Tools sie nutzt. Sie misst was sich in den 1:1-Gesprächen geändert hat, in den Firmenreden, in den Drei-Stunden-Strategie-Sitzungen.',
       'Eigenes Wissen statt Halluzination. Sie weiß welche Antwort vom Modell halluziniert und welche aus eigener Kontextlage stammt · weil sie ihren Kontext aktiv pflegt (Sprint-Historie, Frameworks-Standard, Mitarbeiter-Profile).',
       'Methodik statt Vibes. Sie kann erklären welches Framework sie warum nutzt. Sie redet nicht von Game-Changer oder Synergy. Sie redet von B·W·W, Harvard-Verhandlung, 5-Rollen.',
     ] },
