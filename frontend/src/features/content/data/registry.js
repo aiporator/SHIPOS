@@ -79,6 +79,31 @@ import die5RollenEinerKiNativenFuehrungskraft from './articles/die-5-rollen-eine
 import in6MonatenZurKiNativenFuehrungskraft from './articles/in-6-monaten-zur-ki-nativen-fuehrungskraft';
 import schlagfertigkeitImKiZeitalter from './articles/schlagfertigkeit-im-ki-zeitalter';
 
+// ── 2026-07 · Training / Team-Training / Coaching cluster (DACH) ──
+// 20 SEO pillars competing on the "Führungskräftetraining" / "Teamtraining" /
+// "Leadership Coaching" head-terms owned by Haufe-Akademie & Co. Each links
+// back to fuehrungskraeftetraining-formate-im-vergleich as the anchor pillar.
+import fuehrungskraeftetrainingKostenWasEinGutesTrainingWirklichKostet from './articles/fuehrungskraeftetraining-kosten-was-ein-gutes-training-wirklich-kostet';
+import teamtrainingVsEinzelcoachingWasWirktWann from './articles/teamtraining-vs-einzelcoaching-was-wirkt-wann';
+import inhouseSchulungVsOffenesSeminarEntscheidungshilfe from './articles/inhouse-schulung-vs-offenes-seminar-entscheidungshilfe';
+import leadershipCoachingProgrammInternAufsetzenHrGuide from './articles/leadership-coaching-programm-intern-aufsetzen-hr-guide';
+import dieBestenFuehrungskraeftetrainings2026WoraufEsAnkommt from './articles/die-besten-fuehrungskraeftetrainings-2026-worauf-es-ankommt';
+import teambuildingVsTeamtrainingDerUnterschied from './articles/teambuilding-vs-teamtraining-der-unterschied';
+import roiVonFuehrungskraeftetrainingMessen from './articles/roi-von-fuehrungskraeftetraining-messen';
+import warumInhouseTrainingsNachSechsWochenVerpuffen from './articles/warum-inhouse-trainings-nach-sechs-wochen-verpuffen';
+import blendedLearningFuerFuehrungskraefte from './articles/blended-learning-fuer-fuehrungskraefte';
+import leadershipCoachingFuerFrauenInFuehrungspositionen from './articles/leadership-coaching-fuer-frauen-in-fuehrungspositionen';
+import groupCoachingVsEinzelcoachingFuerFuehrungskraefte from './articles/group-coaching-vs-einzelcoaching-fuer-fuehrungskraefte';
+import fuehrungskraefteCurriculumFuerDenMittelstandAufbauen from './articles/fuehrungskraefte-curriculum-fuer-den-mittelstand-aufbauen';
+import peerCoachingInFuehrungsteams from './articles/peer-coaching-in-fuehrungsteams';
+import ebbinghausVergessenskurveImFuehrungskraeftetraining from './articles/ebbinghaus-vergessenskurve-im-fuehrungskraeftetraining';
+import microLearningVsKlassischesSeminarFuerFuehrungskraefte from './articles/micro-learning-vs-klassisches-seminar-fuer-fuehrungskraefte';
+import fuehrungskraeftetrainingMitKiSkalierenTrainTheTrainer from './articles/fuehrungskraeftetraining-mit-ki-skalieren-train-the-trainer';
+import teamentwicklungNachTuckmanFuerFuehrungskraefte from './articles/teamentwicklung-nach-tuckman-fuer-fuehrungskraefte';
+import coachingZertifizierungFuerFuehrungskraefteIcfDbvcErklaert from './articles/coaching-zertifizierung-fuer-fuehrungskraefte-icf-dbvc-erklaert';
+import newWorkFuehrungstrainingWasSichSeitHomeofficeGeaendertHat from './articles/new-work-fuehrungstraining-was-sich-seit-homeoffice-geaendert-hat';
+import wieVieleTrainingstageBrauchtEineFuehrungskraftProJahr from './articles/wie-viele-trainingstage-braucht-eine-fuehrungskraft-pro-jahr';
+
 // ── 2026-08/09 expansion batch (20 new SEO articles) ──
 import ChatgptAlsCoPilot7PromptsFuerFuehrungskraefte from './articles/chatgpt-als-co-pilot-7-prompts-fuer-fuehrungskraefte';
 import ClaudeVsChatgptVsGeminiWelcheKiFuerWelchenJob from './articles/claude-vs-chatgpt-vs-gemini-welche-ki-fuer-welchen-job';
@@ -138,6 +163,28 @@ import dieErstenSiebenSekunden from './articles/die-ersten-sieben-sekunden-wie-f
 import koerperspracheUndStimme from './articles/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge';
 
 const ARTICLES = [
+  // 2026-07 · Training / Team-Training / Coaching cluster (DACH · 20 pillars)
+  fuehrungskraeftetrainingKostenWasEinGutesTrainingWirklichKostet,
+  teamtrainingVsEinzelcoachingWasWirktWann,
+  inhouseSchulungVsOffenesSeminarEntscheidungshilfe,
+  leadershipCoachingProgrammInternAufsetzenHrGuide,
+  dieBestenFuehrungskraeftetrainings2026WoraufEsAnkommt,
+  teambuildingVsTeamtrainingDerUnterschied,
+  roiVonFuehrungskraeftetrainingMessen,
+  warumInhouseTrainingsNachSechsWochenVerpuffen,
+  blendedLearningFuerFuehrungskraefte,
+  leadershipCoachingFuerFrauenInFuehrungspositionen,
+  groupCoachingVsEinzelcoachingFuerFuehrungskraefte,
+  fuehrungskraefteCurriculumFuerDenMittelstandAufbauen,
+  peerCoachingInFuehrungsteams,
+  ebbinghausVergessenskurveImFuehrungskraeftetraining,
+  microLearningVsKlassischesSeminarFuerFuehrungskraefte,
+  fuehrungskraeftetrainingMitKiSkalierenTrainTheTrainer,
+  teamentwicklungNachTuckmanFuerFuehrungskraefte,
+  coachingZertifizierungFuerFuehrungskraefteIcfDbvcErklaert,
+  newWorkFuehrungstrainingWasSichSeitHomeofficeGeaendertHat,
+  wieVieleTrainingstageBrauchtEineFuehrungskraftProJahr,
+
   // 2026-07-02 Reels-Serie · Wlads Kurzformat-Themen als Longform (Charisma,
   // Pitch, Motivation, Wirkung) — Quelle: wladTopics + @wlad.jachtchenko
   charismaCodeDreiSignale,

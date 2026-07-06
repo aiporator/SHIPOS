@@ -148,7 +148,7 @@ export function applyArticleJsonLd(article, seo) {
     url: 'https://leader-os.de/journal/wer-ist-wlad-jachtchenko',
     image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
     sameAs: [
-      'https://www.linkedin.com/in/wladjachtchenko/',
+      'https://www.linkedin.com/in/wladislawjachtchenko',
       'https://www.youtube.com/@WladTraining',
       'https://wladjachtchenko.de/buecher',
       'https://podcast.wladjachtchenko.de',

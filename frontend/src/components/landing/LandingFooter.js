@@ -96,7 +96,7 @@ const COL_COMPANY = [
   { label: 'Profile',                href: 'https://leaderos.de/profile',    external: true },
   { label: 'Referral · Empfehlung',  href: 'https://leaderos.de/referral',   external: true },
   { label: 'Enterprise',             href: 'https://leaderos.de/enterprise', external: true },
-  { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladjachtchenko/', external: true },
+  { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladislawjachtchenko', external: true },
   { label: 'start@aiporate.com',     href: 'mailto:start@aiporate.com' },
   { label: 'Impressum',              to: '/impressum' },
   { label: 'Datenschutz',            to: '/datenschutz' },

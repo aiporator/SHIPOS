@@ -171,6 +171,10 @@ app.include_router(unsubscribe_router)
 from routes.free_videos import router as free_videos_router  # noqa: E402
 app.include_router(free_videos_router)
 
+# Webinar funnel · durable anonymous lead capture + confirmation/reminder emails (/webinar squeeze page)
+from routes.webinar import router as webinar_router  # noqa: E402
+app.include_router(webinar_router)
+
 
 @app.get("/api/")
 async def root() -> dict[str, str]:

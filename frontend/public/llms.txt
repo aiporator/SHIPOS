@@ -35,7 +35,7 @@ Was uns differenziert von ChatGPT, Coach-Apps oder generischen LMS-Plattformen:
 - [Wer ist Wlad Jachtchenko](https://leader-os.de/#wlad-intro): Europas führender Argumentations-Coach. 15 Jahre Coaching-Praxis, 5 000+ trainierte Führungskräfte, 420 000+ Klienten weltweit. Über die staatlich anerkannte Argumentorik-Akademie.
 - [3× SPIEGEL-Bestseller](https://wladjachtchenko.de/buecher): Weiße Rhetorik, Dunkle Rhetorik, Die 5 Rollen einer Führungskraft. Plus neun weitere Bücher.
 - [Podcast · Wlad spricht](https://podcast.wladjachtchenko.de): 14 Millionen Views, wöchentliche Episoden zu Führung, Rhetorik, KI im Alltag.
-- [LinkedIn · Wlad Jachtchenko](https://www.linkedin.com/in/wladjachtchenko/): Tägliche Beobachtungen zur DACH-Führungskultur und KI-Integration.
+- [LinkedIn · Wlad Jachtchenko](https://www.linkedin.com/in/wladislawjachtchenko): Tägliche Beobachtungen zur DACH-Führungskultur und KI-Integration.
 
 ## Mitgliedschaft & Vorteile
 
@@ -66,12 +66,23 @@ Was uns differenziert von ChatGPT, Coach-Apps oder generischen LMS-Plattformen:
 - [Die ersten sieben Sekunden](https://leader-os.de/journal/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst): Haltung · Blick · Tempo — Wirkung vor dem ersten Wort.
 - [Körpersprache und Stimme](https://leader-os.de/journal/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge): Vier Sabotage-Muster und die Drei-Sekunden-Pause.
 
+## Führungskräftetraining, Teamtraining & Coaching · DACH
+
+- [Führungskräftetraining Formate im Vergleich](https://leader-os.de/journal/fuehrungskraeftetraining-formate-im-vergleich): Anker-Pillar · Inhouse, offenes Seminar, Blended Learning, Coaching im Überblick.
+- [Was ein gutes Führungskräftetraining wirklich kostet](https://leader-os.de/journal/fuehrungskraeftetraining-kosten-was-ein-gutes-training-wirklich-kostet): Realistische Preis-Bandbreiten im DACH-Markt.
+- [Teamtraining vs. Einzelcoaching](https://leader-os.de/journal/teamtraining-vs-einzelcoaching-was-wirkt-wann): Entscheidungskriterien — Problem im System oder in der Person?
+- [Inhouse-Schulung vs. offenes Seminar](https://leader-os.de/journal/inhouse-schulung-vs-offenes-seminar-entscheidungshilfe): Wann welches Format.
+- [Leadership-Coaching-Programm intern aufsetzen](https://leader-os.de/journal/leadership-coaching-programm-intern-aufsetzen-hr-guide): HR-Guide von der Zielgruppe bis zur Erfolgsmessung.
+- [ROI von Führungskräftetraining messen](https://leader-os.de/journal/roi-von-fuehrungskraeftetraining-messen): Ehrliche Kennzahlen jenseits der Zufriedenheits-Umfrage.
+- [Ebbinghaus-Vergessenskurve im Führungskräftetraining](https://leader-os.de/journal/ebbinghaus-vergessenskurve-im-fuehrungskraeftetraining): Warum Einmal-Events verpuffen, was Spaced Repetition bringt.
+- [Teamentwicklung nach Tuckman](https://leader-os.de/journal/teamentwicklung-nach-tuckman-fuer-fuehrungskraefte): Forming · Storming · Norming · Performing konkret angewendet.
+
 ## Was wir NICHT sind
 
 - Kein generischer KI-Kurs · wir bilden auf Wlads spezifischer Methodik aus.
 - Kein 1:1-Coaching im klassischen Stundensatz-Modell · Wlads Zeit ist der Bottleneck, daher nur sehr begrenzte Mentoring-Slots auf Warteliste.
 - Kein Abo-Lock-in · alle Tier einmalige Zahlungen, Mitgliedschaft endet automatisch.
-- Kein Massen-Webinar-Format · echte Peer-Community und monatliche Live-Sessions mit Wlad, in denen deine Fälle drankommen.
+- Kein anonymes Massen-Seminar ohne Follow-up · das kostenlose Live-Webinar (siehe [/webinar](https://leader-os.de/webinar)) ist der Einstieg, echte Peer-Community und monatliche Live-Sessions mit Wlad sind die Fortsetzung, in denen deine Fälle drankommen.
 
 ## Tone und Voice
 

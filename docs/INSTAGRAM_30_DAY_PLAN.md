@@ -89,6 +89,46 @@ ohne dass der Feed wie Werbung wirkt.
 - **Captions:** Erste Zeile = Hook (das ist alles, was ohne "mehr anzeigen" sichtbar ist). Kein Marketing-Sprech ("Game-Changer", "Synergy") — direkter, entschiedener Ton, wie im `llms.txt` Voice-Statement festgehalten.
 - **Hashtags (Basis-Set, an jeden Post anpassen):** `#Führung #Leadership #Rhetorik #Schlagfertigkeit #KIFührung #Führungskraft #NewWork #Softskills #Argumentorik #LeaderOS`
 
+## Design-ready · Asset-Checkliste für jeden Post
+
+Damit ein Designer ohne Rückfragen produzieren kann: exakte Maße, Marken-Tokens
+und welches reale Bild-Asset für welchen Post-Typ verwendet wird. Keine
+Stock-Fotos, keine KI-Renderings von Wlad — nur die Assets unten, alle bereits
+im Repo unter `frontend/public/wlad/`.
+
+### Canvas-Maße pro Format
+
+| Format | Maße (px) | Sicherheitszone |
+|---|---|---|
+| Reel / Story | 1080 × 1920 (9:16) | Text min. 250px von oben/unten (UI-Overlay von IG) |
+| Feed-Carousel | 1080 × 1350 (4:5) | Text min. 60px Rand |
+| Feed-Static (Zitat-Card) | 1080 × 1350 (4:5) | Zentrierter Text, min. 80px Rand |
+
+### Marken-Tokens (exakt aus `frontend/src/index.css`)
+
+- **Lime-Akzent:** `#BFFF00` — Satzzeichen, Zahlen, Akzent-Linien. Nie als Flächenfarbe für Text auf Weiß (Kontrast) — nur auf Schwarz `#0A0A0A`.
+- **Canvas:** `#0A0A0A` (Schwarz) für Zitat-Cards und Reel-Overlays.
+- **Typo:** Outfit, Weight 900 (Black), Italic für Headlines/Zahlen. Mono (BIB-Code-Stil) für Eyebrow/Kicker-Zeilen, IMMER Großbuchstaben, Tracking +0.18–0.24em.
+- **Satzzeichen-Signatur:** der Lime-Punkt hinter dem letzten Wort einer Headline (z. B. „Führung ist Fähigkeit`.`") — das ist die wiederkehrende visuelle Unterschrift der Marke, auf jeder Zitat-Card Pflicht.
+
+### Welches Bild-Asset für welchen Post-Typ
+
+| Post-Typ | Asset | Pfad |
+|---|---|---|
+| Reel-Intro-Frame / Autoritäts-Static | Wlad-Portrait (Studio, 4:5) | `frontend/public/wlad/wlad-portrait.jpg` (auch `.webp`) |
+| Zitat-Card mit Buch-Bezug | passendes Buchcover | `frontend/public/wlad/books/<slug>.jpg` (13 Cover vorhanden, benannt nach Buchtitel) |
+| Framework-Carousel (Deckblatt) | Portrait klein unten rechts + Lime-Rahmen | `wlad-portrait.jpg`, nie zentrales Element (siehe Format-Richtlinien oben) |
+| Bühnen-/Energie-Moment (optional, sobald geliefert) | `wlad-stage.jpg` (3:2, noch nicht im Repo — siehe `frontend/public/wlad/README.txt`) | folgt, Platzhalter bis dahin: Portrait |
+
+### Fertige Referenz-Komponenten im Repo (1:1 Design-Vorlage für Static-Cards)
+
+Statt neu zu entwerfen: die Zitat-Card- und Badge-Optik der Website 1:1 als
+Vorlage nehmen — beide sind bereits produktionsreif und zeigen exakt die
+Chrome/Lime-Behandlung, die auch auf Instagram funktioniert:
+
+- `frontend/src/components/landing/SprintSpecimenStrip.js` — Spec-Plate-Optik (Badge + Spalten-Trennlinien) für die „30 Tage in Zahlen"-Recap-Karussells (Tag 28).
+- `frontend/src/components/landing/WladAuthoritySection.js` — Portrait + Zahlen-Badges, Vorlage für die Autoritäts-Statics (Tag 3, 17, 24).
+
 ## Tracking
 
 - UTM auf jedem Bio-Link/Story-Swipe-Up: `?utm_source=instagram&utm_medium=social&utm_campaign=30day-launch&utm_content=day-N`

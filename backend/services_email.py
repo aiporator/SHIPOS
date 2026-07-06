@@ -771,6 +771,51 @@ Hallo {name},
     return subject, _base_layout(body, preheader=f"Tag {day}/{total}: {subtitle}")
 
 
+# ── Webinar Funnel: confirmation is `event_registration_email` /
+#    `event_reminder_email` above (a synthetic event dict works for both).
+#    This is the day-after follow-up for registrants who haven't started
+#    the trial yet — the explicit bridge from "attended/registered" to
+#    leaderos.de signup. ──────────────────────────────────────────────
+
+def webinar_followup_email(
+    name: str,
+    app_url: str = "https://leaderos.de",
+    unsubscribe_link: str | None = None,
+) -> tuple[str, str]:
+    """Day-after nudge: turn a webinar registrant into a trial signup."""
+    signup_url = f"{app_url.rstrip('/')}/signup?trial=14&utm_source=webinar&utm_medium=email&utm_campaign=webinar-2026-08-20"
+    unsub = (
+        f'<p style="font-size:10px;color:rgba(255,255,255,0.3);margin:20px 0 0;text-align:center;">'
+        f'<a href="{unsubscribe_link}" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Keine weiteren Mails zu diesem Webinar</a>'
+        f'</p>' if unsubscribe_link else ''
+    )
+    subject = f"{name}, und jetzt? Dein System statt nur Notizen."
+    body = f"""
+<div style="font-size:9px;color:{BRAND_COLOR};letter-spacing:0.18em;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Nach dem Webinar</div>
+<h1 style="font-size:28px;line-height:1.15;font-weight:900;margin:0 0 8px;letter-spacing:-0.025em;">Notizen verblassen. Ein System nicht.</h1>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.92);line-height:1.55;margin:0 0 18px;">
+Hallo {name},
+</p>
+<p style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6;margin:0 0 18px;">
+danke fürs Dabeisein. Das Webinar war der Impuls — die eigentliche Arbeit passiert nicht an einem Vormittag,
+sondern in den 30 Tagen danach. Genau dafür ist Leader-OS gebaut: WladBot als 24/7-Coach, tägliche
+Mikro-Drills statt Einmal-Event, dieselbe Methodik, die du gerade live gesehen hast.
+</p>
+
+<div style="background:rgba(191,255,0,0.05);border:1px solid rgba(191,255,0,0.18);border-radius:14px;padding:18px 22px;margin:22px 0;">
+  <div style="font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:900;text-transform:uppercase;margin-bottom:6px;">14 Tage kostenlos</div>
+  <p style="font-size:14px;color:#fff;margin:0;line-height:1.55;">Keine Kreditkarte. Voller Zugang. Jederzeit kündbar.</p>
+</div>
+
+<div style="text-align:center;padding:14px 0 4px;">
+  <a href="{signup_url}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:15px 36px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:-0.01em;">Jetzt 14 Tage kostenlos starten</a>
+</div>
+{unsub}
+"""
+    return subject, _base_layout(body, preheader="Der Impuls war das Webinar. Das System ist Leader-OS.")
+
+
 # ── Launch Announcement (one-shot) ───────────────────────────────
 
 def launch_announcement_email(

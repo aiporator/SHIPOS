@@ -386,7 +386,7 @@ const PERSON_JSON_LD = {
   })),
   sameAs: [
     'https://de.wikipedia.org/wiki/Wladislaw_Jachtchenko',
-    'https://www.linkedin.com/in/wladjachtchenko/',
+    'https://www.linkedin.com/in/wladislawjachtchenko',
     'https://www.instagram.com/wlad.jachtchenko/',
     'https://www.facebook.com/wladislawjachtchenko',
     'https://www.youtube.com/@WladTraining',
@@ -694,7 +694,7 @@ export default function WladJachtchenkoPage() {
                 Leader-OS 14 Tage testen
               </a>
               <a
-                href="https://www.linkedin.com/in/wladjachtchenko/"
+                href="https://www.linkedin.com/in/wladislawjachtchenko"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 h-12 text-foreground hover:text-brand-strong font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"

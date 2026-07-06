@@ -33,7 +33,7 @@ export const TAXONOMY = [
     description:
       'B-W-W, Harvard-Verhandlung, Schulz von Thun, Vier-Farben · die ' +
       'Klassiker richtig erklärt. Plus die KI-Verstärkung dahinter.',
-    tagMatches: ['Frameworks', 'Methodik', 'Skripte', 'Feedback'],
+    tagMatches: ['Frameworks', 'Methodik', 'Skripte', 'Feedback', 'Training', 'Coaching', 'Team'],
     funnelLabel: 'EVERGREEN',
   },
   {
