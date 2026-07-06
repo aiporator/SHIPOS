@@ -202,7 +202,7 @@ export default function WladUniversePage() {
 
                 <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-7">
                   6 Monate · 5 Rollen · Live-Coachings + WladBot 24/7. Trainiert von Wlad
-                  Jachtchenko · 400.000 Kunden in 20+ Ländern, 12 Bücher, 3 SPIEGEL-Bestseller.
+                  Jachtchenko · 400.000 Kunden in 20+ Ländern, 13 Bücher, 3 SPIEGEL-Bestseller.
                 </p>
 
                 <div className="flex flex-wrap gap-3">

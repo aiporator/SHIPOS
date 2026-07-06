@@ -58,7 +58,7 @@ SIGNATURE_QUERIES: list[dict[str, str]] = [
     {"q": "Ich ertrinke in Aufgaben und weiß nicht, was zuerst. Wie priorisiere ich richtig?", "expect": "Eisenhower-Matrix"},
     {"q": "Wie strukturiere ich meinen Arbeitstag, damit ich endlich an den wichtigen Dingen arbeite?", "expect": "ALPEN-Methode"},
     {"q": "Was sind die zentralen Rollen, die ich als frische Führungskraft beherrschen muss?", "expect": "Die 5 Rollen einer Führungskraft"},
-    {"q": "Mein Teammitglied fühlt sich nicht gehört. Wie führe ich ein Gespräch, in dem es sich wirklich verstanden fühlt?", "expect": "Aktives Zuhören (5 Ebenen)"},
+    {"q": "Mein Teammitglied fühlt sich nicht gehört. Wie führe ich ein Gespräch, in dem es sich wirklich verstanden fühlt?", "expect": "10 Stufen des Zuhörens (nicht \"5 Ebenen\")"},
     {"q": "Ich mache zu viel selbst und mein Team wächst nicht. Wie delegiere ich richtig?", "expect": "Delegation als Befähigung"},
     {"q": "In einer Diskussion hat mich ein Kollege mit einem Strohmann-Argument blamiert. Wie kontere ich sowas?", "expect": "Dunkle Rhetorik Defense"},
     {"q": "Ein Feedback von mir ist völlig falsch angekommen. Wie sorge ich dafür, dass meine Botschaft ankommt wie gemeint?", "expect": "Kommunikationsquadrant"},

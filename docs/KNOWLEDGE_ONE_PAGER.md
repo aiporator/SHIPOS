@@ -53,6 +53,26 @@ mehrere Artikel gefunden, die Frameworks komplett neu erfunden hatten
 Reihenfolge, falsche Wlad-Biografie-Fakten) — alle wurden in dieser
 Session korrigiert (siehe Commit-Historie).
 
+**Nachtrag (zweite, tiefere Durchsicht):** der SEXIER-Bug war nicht der
+einzige. Eine gezielte Prüfung aller Stellen, die "10 Stufen des Zuhörens"
+referenzieren, fand ein fabriziertes **"5 Ebenen"-Modell** (Ignorieren →
+So-tun-als-ob → Selektiv → Aufmerksam → Empathisch — bzw. in `checkin.py`
+sogar eine DRITTE, wieder andere Variante) direkt in sieben Live-Prompts/
+-Inhalten: `WLADBOT_SYSTEM_PROMPT` (services.py), `checkin.py`,
+`chat.py`s Rollen-Map, `quiz_bank.py` (eine Quiz-Frage, die das falsche
+Modell als "richtige" Antwort markierte), `challenge30.py` und
+`DownloadsPage.js` (echter Nutzer-Download, kein LLM). Anders als der
+Korpus-Chunk-Bug lagen diese ALLE in versioniertem Repo-Code — kein
+DB-Zugriff nötig, alle in dieser Session direkt gefixt. Ebenso gefixt:
+"12 Bücher" (stale, sollte 13 sein) in `WLADBOT_SYSTEM_PROMPT` und sechs
+weiteren Frontend-Dateien, eine überharte "nenne nur diese drei Bücher"-
+Regel im selben Prompt, und ein fabriziertes Kommunikationsquadrant in
+`checkin.py` ("Klar/Empathisch/Strukturiert/Mutig" statt Sache/
+Selbstoffenbarung/Beziehung/Appell). Details + zwei neue, NICHT
+code-fixbare offene Punkte (Dunkle- vs. Schwarze-Rhetorik-Namenskonflikt,
+Buchlisten-Diskrepanz Canon-vs-WladJachtchenkoPage) stehen in
+`docs/WLAD_CANON.md` unter "Offene Punkte".
+
 ## 3. Wie eine Antwort entsteht (Chat/Voice/Video)
 
 ```

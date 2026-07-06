@@ -49,7 +49,7 @@ export const WLAD_STATS = [
   { value: '400.000+', label: 'Kunden in 20+ Ländern' },
   { value: '14.000.000+', label: 'Podcast & YouTube Views' },
   { value: '250.000+', label: 'Buchverkäufe in 8 Ländern' },
-  { value: '12', label: 'Bücher · 3 SPIEGEL Bestseller' },
+  { value: '13', label: 'Bücher · 3 SPIEGEL Bestseller' },
 ];
 
 // Die staatlich zertifizierte 6-Monats-Führungskräfte-Ausbildung

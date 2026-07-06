@@ -40,7 +40,7 @@ const BENEFITS = [
 // Real, verifiable proof — numbers cross-checked against WladJachtchenkoPage.
 const PROOF = [
   ['400 000+', 'Klienten weltweit seit 2007'],
-  ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
+  ['3×', 'SPIEGEL-Bestseller · 13 Bücher'],
   ['4,9 / 5', 'Trustpilot · 388 Bewertungen'],
   ['14 Mio', 'Views auf Podcast & YouTube'],
 ];

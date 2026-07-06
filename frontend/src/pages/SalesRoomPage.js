@@ -72,7 +72,7 @@ const DEMO_FLOW = [
 // ── Verified strength numbers · safe to quote ────────────────────────────────
 const PROOF = [
   ['400K+', 'Klienten weltweit seit 2007'],
-  ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
+  ['3×', 'SPIEGEL-Bestseller · 13 Bücher'],
   ['14M', 'Views · Podcast + YouTube'],
   ['4.9/5', 'Trustpilot · 388 Bewertungen'],
   ['2.200+', 'Wlad-Lektionen im WladBot'],

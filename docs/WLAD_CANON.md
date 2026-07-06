@@ -146,6 +146,36 @@ Person."
 - **15 Argumentationstypen** (Buch "Weiße Rhetorik" Kap. 2).
 - **5 Wege der Widerlegung** (Buch "Weiße Rhetorik" Kap. 4).
 
+### Charisma-Code
+
+**Präsenz · Wärme · Kompetenz** — drei Signale, die in Sekunden entscheiden,
+ob ein Raum jemandem folgt. Teil von Wlads 13 offiziellen Keynote-Themen
+(Säule "Menschen begeistern", siehe `frontend/src/data/wladTopics.js`, direkt
+von wladislaw-jachtchenko.com gespiegelt).
+
+### Mitarbeiter-Motivation 4.0
+
+**Autonomie · Fortschritt · Zugehörigkeit** (A-F-Z). Ersetzt klassische
+Benefit-Motivation (Obstkorb, Bonus) durch drei Erlebnis-Hebel. Teil der
+13 offiziellen Keynote-Themen (Säule "Menschen begeistern").
+
+### Die 4 Gesprächstypen
+
+**Informieren · Überzeugen · Verhandeln · Konfrontieren** — jeder Typ
+verlangt eine andere Strategie; wer den Typ nicht erkennt, wählt oft das
+falsche Framework für die Situation.
+
+### Weitere der 13 offiziellen Keynote-Themen (noch ohne Detail-Definition hier)
+
+Diese sind auf wladislaw-jachtchenko.com als eigene Themenseiten geführt
+(siehe `frontend/src/data/wladTopics.js` für die vollständige Liste mit
+Original-URLs) und werden im Produkt aktiv referenziert, haben aber noch
+keine ausgeschriebene Framework-Definition in diesem Canon: Elevator Pitch,
+Business Storytelling, Psychologie der Überzeugung, Digitale Rhetorik,
+Effizienz & Effektivität, Change Management. Bevor eine RAG-Antwort oder ein
+neuer Artikel diese im Detail definiert, gegen wladislaw-jachtchenko.com
+verifizieren statt zu erfinden.
+
 ### Produktivität (übernommen, nicht ursprünglich Wlad)
 
 Wlad referenziert diese in *Die 5 Rollen einer Führungskraft* (Rolle 2:
@@ -156,6 +186,35 @@ Manager), kennzeichnet sie aber als externe Methoden, nicht als seine:
   Entscheidung / Nachkontrolle)
 - **Pareto-Prinzip** (80/20)
 - **SMART** (spezifisch / messbar / attraktiv / realistisch / terminiert)
+
+## Offene Punkte — brauchen externe Verifikation, nicht nur Code-Fix
+
+1. **"Dunkle Rhetorik" vs. "Schwarze Rhetorik".** Ein Teil des Produkts
+   (u. a. `WladJachtchenkoPage.js`, `WladAuthoritySection.js`,
+   `WladKnowledgeInsideSection.js`, `wladQuotes.js`, mehrere
+   RAG-Prompt-Dateien in `backend/data/prompts/wlad/`) zitiert "Schwarze
+   Rhetorik" als eigenständigen Buchtitel/Kurs (teils mit Jahr 2018 und
+   Verlag Goldmann — exakt die Angaben, die anderswo für "Dunkle Rhetorik"
+   stehen). Dieser Canon führt nur **"Dunkle Rhetorik"** als verifizierten
+   Titel. Zwei Möglichkeiten: (a) beide Namen meinen dasselbe Buch und der
+   Code hat eine Namens-Inkonsistenz, oder (b) "Schwarze Rhetorik" ist ein
+   eigenständiger, echter Titel/Kurs, der diesem Canon noch fehlt. Nicht
+   selbst auflösen — gegen wlad-jachtchenko.com oder direkt mit Wlad
+   verifizieren, dann diesen Canon + alle Fundstellen korrigieren.
+2. **Buchlisten-Diskrepanz.** Dieser Canon listet 10 verifizierte
+   Buchtitel; `frontend/src/pages/WladJachtchenkoPage.js`s `BOOKS`-Array
+   (gegen die Deutsche-Nationalbibliothek-GND geprüft, siehe Kommentar dort)
+   listet 13 Titel — die Schnittmenge ist nicht 1:1 deckungsgleich (z. B.
+   fehlen dort "Du bist der bessere Chef", "Überzeuge im Gespräch",
+   "Werde Menschenmagnet", "Führen durch Gründe"; hier fehlen "Die Rhetorik
+   der Top-Performer", "Satanische Verhandlungskunst" und zwei Hörbücher).
+   Beide Listen für sich sind intern konsistent, aber nicht gegeneinander
+   geprüft. Bevor "13 Bücher" mit einer vollständigen Titel-Aufzählung
+   kombiniert wird (z. B. in einem neuen Artikel oder einer RAG-Antwort),
+   beide Listen gegeneinander abgleichen und auf einen gemeinsamen Stand
+   bringen.
+3. **`layer202_drills`-Korpus-Chunk** (siehe oben) — lebt weiterhin
+   unkorrigiert in Supabase, kein DB-Zugriff in dieser Session verfügbar.
 
 ## Wann der Canon hilft
 
