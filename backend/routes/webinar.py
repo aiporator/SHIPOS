@@ -25,7 +25,6 @@ import hashlib
 import hmac
 import json
 import os
-import uuid
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 
