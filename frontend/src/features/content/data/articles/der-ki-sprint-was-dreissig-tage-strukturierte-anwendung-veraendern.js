@@ -23,7 +23,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Was sich NICHT messbar verändert (und das ist ehrlich).' },
     { type: 'list', style: 'bullet', items: [
-      'Identitäts-Verschiebungen ("wer bist du als Führungskraft"). Das verlangt Plus-Plus oder 1:1 mit Wlad.',
+      'Identitäts-Verschiebungen ("wer bist du als Führungskraft"). Das verlangt Plus-Plus oder 1:1 mit Wlads Team.',
       'Quartalsumsatz. Hier gibt es zu viele konfundierende Variablen.',
       'Team-Glück. Das hängt nicht primär von deiner Skill-Lift ab.',
     ] },

@@ -104,7 +104,7 @@ export default {
       type: 'paragraph',
       text:
         'Innerhalb von drei Minuten hast du drei konkrete Mikro-Experimente für die nächste Woche. Das ' +
-        'ersetzt kein 1:1 mit Wlad, aber es schließt die Lücke zwischen Quartals-Reviews.',
+        'ersetzt kein 1:1 mit Wlads Team, aber es schließt die Lücke zwischen Quartals-Reviews.',
     },
     {
       type: 'heading',

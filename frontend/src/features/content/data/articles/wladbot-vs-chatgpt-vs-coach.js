@@ -44,17 +44,17 @@ export default {
       'sich an die elf Frameworks und drillt dich auch wenn es unbequem wird.' },
     { type: 'paragraph', text:
       'Was er NICHT ist: ein Therapeut. Was er auch nicht ist: ein Quartals-Reflexions-Partner für tiefe ' +
-      'Identitäts-Arbeit. Dafür gibt es Plus-Plus mit echten Live-Sessions mit Wlad.' },
+      'Identitäts-Arbeit. Dafür gibt es Plus-Plus mit echten Live-Sessions mit Wlads Team.' },
     { type: 'framework', code: 'TRENN', title: 'Die Einsatz-Trennlinie',
       explanation:
-        'ChatGPT für Breite und Übersetzung. WladBot für Methodik und tägliches Drill. 1:1 mit Wlad für ' +
+        'ChatGPT für Breite und Übersetzung. WladBot für Methodik und tägliches Drill. 1:1 mit Wlads Team für ' +
         'Identitäts-Arbeit und Quartals-Reflexion. Wer die drei Slots sauber trennt, gewinnt Zeit. Wer einen ' +
         'der drei für alles verwendet, baut Frustration.' },
     { type: 'heading', level: 2, text: 'Drei konkrete Beispiele.' },
     { type: 'list', style: 'numbered', items: [
       'Du brauchst morgen früh ein erstes Feedback-Skript für deinen Senior. Du tippst es in WladBot, weil er weiß welchen B-W-W-Variante du diese Woche drillst.',
       'Du übersetzt deine Quartals-Roadmap ins Englische für deinen US-Investor. Du tippst sie in ChatGPT, weil das Modell sprachlich breit ist und du keine Methodik brauchst.',
-      'Du fragst dich, ob du nach dem Karriere-Sprung als VP wirklich noch der Architekt bleibst, der du sein willst. Das ist eine Identitäts-Frage. Du buchst eine 1:1-Session mit Wlad.',
+      'Du fragst dich, ob du nach dem Karriere-Sprung als VP wirklich noch der Architekt bleibst, der du sein willst. Das ist eine Identitäts-Frage. Du buchst eine 1:1-Session mit Wlads Team.',
     ] },
     { type: 'callout', tone: 'lime', text:
       'LeaderOS nimmt dir ChatGPT nicht weg. Es nimmt dir den Coach für die methodischen Drills ab. Den ' +

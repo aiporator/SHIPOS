@@ -143,7 +143,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Das ersetzt kein Coaching, kein Tagebuch und keinen 1:1 mit Wlad. Es kostet drei Minuten und liefert ' +
+        'Das ersetzt kein Coaching, kein Tagebuch und kein 1:1 mit Wlads Team. Es kostet drei Minuten und liefert ' +
         'dir eine Frage, die du sonst übersehen hättest. Das reicht für Freitag.',
     },
     {
