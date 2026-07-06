@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280" aria-labelledby="t06">
-  <title id="t06">STK-06 — Dreißig Tage Sprint · v2 Nike Editorial · 70×70mm</title>
+  <title id="t06">STK-06 — 30 Tage Sprint · v2 Nike Editorial · 70×70mm</title>
   <defs>
     <style>
       .bg{fill:#FFFFFF}
@@ -16,7 +16,7 @@
   <text class="mono ink" text-anchor="end" x="264" y="22" font-size="8.5" opacity="0.45">EIN NEUES DU</text>
 
   <!-- Massive headline two lines -->
-  <text class="display ink" x="16" y="88" font-size="46">Dreißig</text>
+  <text class="display ink" x="16" y="88" font-size="46">30<tspan class="lime">.</tspan></text>
   <text class="display ink" x="16" y="134" font-size="46">Tage<tspan class="lime">.</tspan></text>
   <text class="display ink" x="16" y="180" font-size="34" opacity="0.55">Ein neues Du<tspan class="lime">.</tspan></text>
 

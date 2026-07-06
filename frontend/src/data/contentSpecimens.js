@@ -268,12 +268,12 @@ export const POST_SERIES = [
     variant: 'bib',
     bib: 'SPRINT · 0001',
     eyebrow: 'BENEFIT 03 · SPRINT',
-    headline: 'Dreißig Tage.',
+    headline: '30 Tage.',
     accent: 'Ein neues Du.',
     body: 'Jeden Tag eine Frage. Jeden Tag ein Drill. Am Ende: Zertifikat 0001.',
     foot: 'BIB · 0001 · leader-os.de',
     caption:
-      'Dreißig Tage. Ein neues Du.\n\n' +
+      '30 Tage. Ein neues Du.\n\n' +
       'Der LeaderOS-Sprint ist kein Kurs. Es ist ein Training · ' +
       'jeden Tag eine Frage, jeden Tag ein Drill, jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst.\n\n' +

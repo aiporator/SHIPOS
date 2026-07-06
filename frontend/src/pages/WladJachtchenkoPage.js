@@ -459,7 +459,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenkos Kernsatz lautet: Führung ist Skill, Skill ist trainierbar. Konkret bedeutet das drillbare Frameworks statt Theorie · Harvard-Verhandlung, Schulz von Thuns Kommunikationsquadrat, Feedback-Formel BWW, ALPEN-Methode, Vier-Farben-Modell, Dunkle-Rhetorik-Defensive. Heute kombiniert mit KI-Coaching für 24/7-Verfügbarkeit.',
+          'Wlad Jachtchenkos Kernsatz lautet: Führung ist Fähigkeit, Fähigkeit ist trainierbar. Konkret bedeutet das drillbare Frameworks statt Theorie · Harvard-Verhandlung, Schulz von Thuns Kommunikationsquadrat, Feedback-Formel BWW, ALPEN-Methode, Vier-Farben-Modell, Dunkle-Rhetorik-Defensive. Heute kombiniert mit KI-Coaching für 24/7-Verfügbarkeit.',
       },
     },
     {
@@ -980,8 +980,8 @@ export default function WladJachtchenkoPage() {
             className="text-[28px] sm:text-[40px] md:text-[60px] lg:text-[72px] leading-[1.06] tracking-[-0.03em] text-foreground max-w-5xl text-center md:text-left mx-auto md:mx-0"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            „Führung ist Skill. Skill ist trainierbar.
-            Wer Skill für Talent hält, lernt nie zu führen<span className="text-brand not-italic">.</span>"
+            „Führung ist Fähigkeit. Fähigkeit ist trainierbar.
+            Wer Fähigkeit für Talent hält, lernt nie zu führen<span className="text-brand not-italic">.</span>"
           </blockquote>
           <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/55 text-center md:text-left">
             ▸ WLAD JACHTCHENKO · METHODIK-KERNSATZ

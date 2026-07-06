@@ -50,7 +50,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Die Methodik in einem Satz.' },
     { type: 'quote', text:
-      'Führung ist Skill. Skill ist trainierbar. Wer Skill für Talent hält, lernt nie zu führen.',
+      'Führung ist Fähigkeit. Fähigkeit ist trainierbar. Wer Fähigkeit für Talent hält, lernt nie zu führen.',
       attribution: 'Wlad Jachtchenko' },
     { type: 'paragraph', text:
       'Aus diesem Satz folgt alles andere. Drillbare Frameworks statt Theorie-Bingo. Daily reps statt einmal-Workshop. Methodik die der Bot ab 22:47 Uhr abrufen kann statt Coach der morgens nicht zurückruft.' },

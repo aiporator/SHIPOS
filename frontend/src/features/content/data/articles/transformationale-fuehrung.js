@@ -73,7 +73,7 @@ export default {
       'Wertschätzung: Führe pro Person ein 1:1 im Monat, in dem es NICHT um Tasks geht, sondern nur um: Wo willst du hin, was bremst dich, wie kann ich helfen.',
     ] },
     { type: 'quote', text:
-      'Führung ist Skill. Skill ist trainierbar. Wer Charisma für Talent hält, lernt nie zu führen.',
+      'Führung ist Fähigkeit. Fähigkeit ist trainierbar. Wer Charisma für Talent hält, lernt nie zu führen.',
       attribution: 'Wlad Jachtchenko' },
     { type: 'heading', level: 2, text: 'Wann transformationale Führung NICHT die richtige Wahl ist.' },
     { type: 'paragraph', text:

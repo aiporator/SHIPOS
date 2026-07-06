@@ -4,7 +4,7 @@
 // SPECIMEN-MAP (7 Mockup-Sheets in /public/landing/):
 //   hf-01  §01 INHALT          Elf Frameworks. Ein OS.
 //   hf-02  §02 IMMER WACH      24 Stunden. 7 Tage.
-//   hf-03  §03 SPRINT          Dreißig Tage. Ein neues Du.   (BIB-Plate)
+//   hf-03  §03 SPRINT          30 Tage. Ein neues Du.        (BIB-Plate)
 //   hf-04  §04 AUTHENTIZITÄT   Wlads Methodik. Live.          (Wlad-Portrait)
 //   hf-05  §05 TRUST           400 Tausend. 14 Millionen.    (Big numbers)
 //   hf-06  §06 ZERTIFIKAT      Zertifikat 0001.              (Urkunde)
@@ -196,7 +196,7 @@ export const LANDING_BENEFITS = [
     nr: '03',
     code: 'SPRINT',
     eyebrow: 'BENEFIT 03 · SPRINT',
-    headline: 'Dreißig Tage.',
+    headline: '30 Tage.',
     headlineAccent: 'Ein neues Du.',
     subline: 'Andere Sprints enden mit einem Zertifikat. Deiner mit einem System.',
     body:

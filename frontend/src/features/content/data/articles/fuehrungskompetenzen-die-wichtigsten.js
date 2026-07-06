@@ -69,7 +69,7 @@ export default {
     { type: 'paragraph', text:
       'Genau das ist der Unterschied zwischen einem Seminar und echter Führungskräfteentwicklung: nicht ein Event, sondern ein System, das dich über Wochen begleitet, bis die Kompetenz sitzt.' },
     { type: 'quote', text:
-      'Führung ist Skill. Skill ist trainierbar. Wer auf Talent wartet, wartet für immer.',
+      'Führung ist Fähigkeit. Fähigkeit ist trainierbar. Wer auf Talent wartet, wartet für immer.',
       attribution: 'Wlad Jachtchenko' },
     { type: 'callout', tone: 'neutral', text:
       'Kompetenz zeigt sich nicht im Seminarraum, wo alles glattläuft. Sie zeigt sich im Dienstag-22-Uhr-Gespräch, wenn der Mitarbeiter kündigen will und du keine Vorlage hast. Dafür trainierst du · nicht für das Zertifikat.' },
