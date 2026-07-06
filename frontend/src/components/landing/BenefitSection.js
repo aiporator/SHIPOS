@@ -60,7 +60,7 @@ const BibOverlay = () => (
         <span key={pos} aria-hidden className={`absolute ${pos} w-2 h-2 rounded-full border border-foreground/60 bg-white`} />
       ))}
       <div className="text-[9px] font-bold uppercase tracking-[0.26em] text-foreground/70 font-mono text-center">
-        LEADER-OS · STARTNR
+        LEADEROS · STARTNR
       </div>
       <div
         className="text-foreground leading-none text-center mt-2"
@@ -295,7 +295,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
 
     {/* Bottom strip */}
     <div className={`absolute bottom-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/55' : 'bg-white/90 text-foreground/55'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-t ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
-      <span>LEADER-OS</span>
+      <span>LEADEROS</span>
       <span>0001 · KOHORTE</span>
     </div>
   </div>
@@ -469,7 +469,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           </ul>
 
           <div className={`mt-6 pt-4 border-t ${isDark ? 'border-white/10' : 'border-foreground/10'} flex items-center justify-between text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/40' : 'text-foreground/40'}`}>
-            <span>LEADER-OS</span>
+            <span>LEADEROS</span>
             <span>{`Kapitel ${asset.nr} von ${String(total).padStart(2, '0')}`}</span>
           </div>
         </div>

@@ -43,7 +43,7 @@ export const ArticleCard = ({ article }) => {
           />
         ) : (
           <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]">
-            <WladBotThumbnail title={article.title} eyebrow={TYPE_LABEL[article.type] || 'LEADER·OS'} />
+            <WladBotThumbnail title={article.title} description={article.description} eyebrow={TYPE_LABEL[article.type] || 'LEADER·OS'} />
           </div>
         )}
         {/* Subtle bottom darkening so the type pill stays legible on any photo */}

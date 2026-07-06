@@ -655,7 +655,7 @@ export default function WladJachtchenkoPage() {
                 ▸ WLAD JACHTCHENKO
               </div>
               <div className="absolute bottom-3 right-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-white drop-shadow">
-                LEADER-OS · 2026
+                LEADEROS · 2026
               </div>
             </div>
           </div>

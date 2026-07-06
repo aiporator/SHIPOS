@@ -37,7 +37,7 @@ export const LoginBrandPanel = ({ features, de }) => {
 
           {/* Eyebrow */}
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-            ▸ MANIFEST · LEADER-OS
+            ▸ MANIFEST · LEADEROS
           </p>
 
           {/* Nike-style massive uppercase headline */}

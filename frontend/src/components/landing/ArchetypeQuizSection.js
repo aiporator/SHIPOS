@@ -518,11 +518,11 @@ export const ArchetypeQuizSection = () => {
                     </ul>
                   </div>
 
-                  {/* ── SCHRITT 03 · LEADER-OS · was die Plattform dir liefert ── */}
+                  {/* ── SCHRITT 03 · LEADEROS · was die Plattform dir liefert ── */}
                   <div className="mt-6 max-w-3xl border-2 border-black bg-background text-foreground p-6 md:p-8 relative">
                     {/* Lime corner tag */}
                     <div className="absolute -top-[2px] left-6 bg-brand text-black px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.22em]">
-                      ▸ DANACH · LEADER-OS
+                      ▸ DANACH · LEADEROS
                     </div>
                     <div className="flex items-center gap-2 mb-4 mt-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55">
                       <span>SCHRITT 03</span>

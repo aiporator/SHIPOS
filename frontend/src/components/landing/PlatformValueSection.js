@@ -144,7 +144,7 @@ export const PlatformValueSection = () => (
       <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-end mb-12 md:mb-16">
         <div className="md:col-span-8">
           <div className="flex items-center gap-3 mb-5 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong">
-            <span>▸ DIE PLATTFORM · LEADER-OS</span>
+            <span>▸ DIE PLATTFORM · LEADEROS</span>
             <span className="opacity-30">·</span>
             <span className="text-black/55">DAS BEKOMMST DU SOFORT</span>
           </div>

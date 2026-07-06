@@ -20,21 +20,21 @@ import { PlusCircleCTA } from '../components/landing/PlusCircleCTA';
 
 const COPY = {
   confirmed: {
-    eyebrow: '▸ FELDNOTIZEN · BESTÄTIGT',
+    eyebrow: '▸ KLARTEXT · BESTÄTIGT',
     headline: 'Du bist dabei',
     body:
-      'Deine Anmeldung ist bestätigt. Du bekommst Wlads Feldnotizen ab ' +
+      'Deine Anmeldung ist bestätigt. Du bekommst Wlads Klartext ab ' +
       'sofort · Notizen aus 400 000 Coachings, alle paar Wochen, kein Spam.',
   },
   already: {
-    eyebrow: '▸ FELDNOTIZEN · BEREITS AKTIV',
+    eyebrow: '▸ KLARTEXT · BEREITS AKTIV',
     headline: 'Alles startklar',
     body:
       'Diese Adresse war schon bestätigt · du bist also längst dabei. ' +
       'Nichts weiter zu tun.',
   },
   invalid: {
-    eyebrow: '▸ FELDNOTIZEN · LINK UNGÜLTIG',
+    eyebrow: '▸ KLARTEXT · LINK UNGÜLTIG',
     headline: 'Link abgelaufen',
     body:
       'Dieser Bestätigungs-Link ist ungültig oder abgelaufen. Trag dich ' +
@@ -50,7 +50,7 @@ export default function NewsletterConfirmedPage() {
   const copy = COPY[status];
 
   useEffect(() => {
-    document.title = 'Feldnotizen · Bestätigung · LeaderOS';
+    document.title = 'Klartext · Bestätigung · LeaderOS';
     // Defensive noindex even though robots.txt + meta cover it.
     const meta = document.createElement('meta');
     meta.name = 'robots';

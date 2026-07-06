@@ -197,7 +197,7 @@ export const LicenseKeySection = () => {
                   {/* Idle serial · the thing they are applying for */}
                   <div className="text-center mb-6">
                     <p className="font-mono text-[9px] font-bold uppercase tracking-[0.26em] text-white/45 mb-3">
-                      ▸ LEADER-OS · TEAM-LIZENZ-KEY
+                      ▸ LEADEROS · TEAM-LIZENZ-KEY
                     </p>
                     <div className="lk-chrome-text text-[26px] sm:text-[34px] leading-none tracking-[0.08em] font-mono font-black select-none" aria-hidden>
                       LOS-••••-••••

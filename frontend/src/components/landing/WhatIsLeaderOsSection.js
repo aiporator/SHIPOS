@@ -3,7 +3,7 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../li
 
 /**
  * WhatIsLeaderOsSection · answers "Was kaufe ich eigentlich?" directly
- * under the hero. Positioning brief: the page sells LEADER-OS (the daily
+ * under the hero. Positioning brief: the page sells LEADEROS (the daily
  * Leadership Operating System), Wlad is the trust anchor — not the product.
  *
  * Four beats, all situations/outcomes instead of features:

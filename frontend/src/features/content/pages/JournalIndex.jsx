@@ -713,7 +713,7 @@ const FREE_TOOLS = [
   {
     code: 'T·02',
     icon: MessagesSquare,
-    title: 'Feldnotizen-Newsletter',
+    title: 'Klartext-Newsletter',
     body: 'Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle paar Wochen. Frameworks, Skripte, Beobachtungen. Kein Spam.',
     cta: 'Newsletter abonnieren',
     href: '/#newsletter-footer',

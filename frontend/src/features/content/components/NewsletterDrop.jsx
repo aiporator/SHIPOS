@@ -16,7 +16,7 @@ export const NewsletterDrop = ({ articleSlug }) => (
   >
     <div className="max-w-2xl">
       <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-3 font-mono">
-        ▸ FELDNOTIZEN ABONNIEREN
+        ▸ KLARTEXT ABONNIEREN
       </p>
       <h3
         className="text-[26px] md:text-[34px] leading-[1.05] tracking-[-0.025em] text-foreground mb-3"

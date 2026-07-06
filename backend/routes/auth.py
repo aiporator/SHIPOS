@@ -408,7 +408,7 @@ async def google_session(request: Request, response: Response):
     return {"user": _safe_user_output(user), "token": token}
 
 
-# ========== LEADER-CHECK → LEADER-OS SYNC HANDOFF ==========
+# ========== LEADER-CHECK → LEADEROS SYNC HANDOFF ==========
 # The leader-check.de landing (separate Emergent backend) hands a signed,
 # short-lived `sync_token` to this product. We verify it here and mint a
 # first-party session — so a lead flows Landing → Product WITHOUT a second

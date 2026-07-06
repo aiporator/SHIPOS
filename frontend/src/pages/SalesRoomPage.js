@@ -379,7 +379,7 @@ export default function SalesRoomPage() {
 
       <footer className="border-t border-white/10">
         <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-8 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-white/35 flex flex-wrap justify-between gap-3">
-          <span>▸ SALES ROOM · LEADER-OS · INTERN</span>
+          <span>▸ SALES ROOM · LEADEROS · INTERN</span>
           <span>ZAHLEN: VERIFIZIERTER SATZ · PREISE: PRICING-LADDER · STAND {new Date().getFullYear()}</span>
         </div>
       </footer>

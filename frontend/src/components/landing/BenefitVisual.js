@@ -48,7 +48,7 @@ const SpecimenFrame = ({ children, code, nr, isDark, total = 5 }) => (
           : 'bg-background/85 backdrop-blur-sm border-t border-foreground/10 text-foreground/55'
       } text-[9px] font-bold uppercase tracking-[0.22em] font-mono`}
     >
-      <span>LEADER-OS</span>
+      <span>LEADEROS</span>
       <span>{`No. ${nr}/0${total}`}</span>
     </div>
   </div>
@@ -121,7 +121,7 @@ const BibBody = ({ isDark }) => (
           isDark ? 'text-white/75' : 'text-foreground/75'
         }`}
       >
-        LEADER-OS &nbsp;·&nbsp; INDIVIDUELL
+        LEADEROS &nbsp;·&nbsp; INDIVIDUELL
       </span>
 
       <span

@@ -86,7 +86,7 @@ export default function SharedMissionPage() {
               W
             </div>
             <div>
-              <p className="text-sm font-black tracking-tight">LEADER-OS</p>
+              <p className="text-sm font-black tracking-tight">LEADEROS</p>
               <p className="text-[9px] uppercase tracking-widest text-white/40">powered by WladBot</p>
             </div>
           </Link>
@@ -188,7 +188,7 @@ export default function SharedMissionPage() {
               <div className="w-3.5 h-3.5 rounded-sm bg-[#BFFF00] flex items-center justify-center">
                 <span className="text-[7px] font-black text-black leading-none">W</span>
               </div>
-              <span className="text-[8px] font-black uppercase tracking-[0.15em] text-[#BFFF00] leading-none">LEADER-OS</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] text-[#BFFF00] leading-none">LEADEROS</span>
             </div>
             <CardContent className="p-6 sm:p-8">
               <p className="text-[10px] font-black uppercase tracking-widest text-[#BFFF00] mb-3">

@@ -14,7 +14,7 @@ import { WladMark } from '../brand/WladMark';
  *    2. Four sitemap columns (SYSTEM · PLATTFORM · EXPLORE · COMPANY)
  *    3. Image-tile strip (Wlad portrait · Intro-Video poster · Brand-W
  *       sticker) · each linking out
- *    4. Newsletter capture (Feldnotizen)
+ *    4. Newsletter capture (Klartext)
  *    5. Investment + contact split
  *    6. BIB closing strip
  *
@@ -222,7 +222,7 @@ export const LandingFooter = () => (
           The /wlad-jachtchenko canonical page now carries the Meet-Wlad
           surface in full editorial layout. */}
 
-      {/* ── Newsletter · Feldnotizen opt-in ─────────────────────────────── */}
+      {/* ── Newsletter · Klartext opt-in ─────────────────────────────── */}
       <div
         id="newsletter-footer"
         data-newsletter-zone
@@ -233,7 +233,7 @@ export const LandingFooter = () => (
             className="text-[28px] md:text-[34px] leading-[0.95] tracking-[-0.03em] text-white"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Feldnotizen<span className="text-brand not-italic">.</span>
+            Klartext<span className="text-brand not-italic">.</span>
           </h3>
           <p className="mt-3 max-w-sm text-[13.5px] leading-[1.55] text-slate-400">
             Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle
@@ -320,7 +320,7 @@ export const LandingFooter = () => (
 
       {/* ── BIB strip ────────────────────────────────────────────────────── */}
       <div className="mt-10 pt-5 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[9.5px] uppercase tracking-[0.22em] font-bold text-white/35 font-mono">
-        <span>© {new Date().getFullYear()} <span className="text-brand">LEADER-OS</span> · AIPORATE</span>
+        <span>© {new Date().getFullYear()} <span className="text-brand">LEADEROS</span> · AIPORATE</span>
         <span>STAATLICH ANERKANNT · <span className="text-brand">400 000+ KLIENTEN</span> · 20 LÄNDER</span>
       </div>
     </div>

@@ -298,7 +298,7 @@ export const MiniChallenge = () => {
                   disabled={creditsRedeemed}
                   className="mt-6 inline-flex items-center gap-2 px-6 py-3.5 bg-black text-brand text-[12px] font-bold uppercase tracking-[0.18em] hover:bg-black/85 disabled:opacity-60 transition-colors"
                 >
-                  {creditsRedeemed ? '✓ EINGELÖST · WEITER ZU LEADER-OS…' : '▸ 50 CREDITS EINLÖSEN'}
+                  {creditsRedeemed ? '✓ EINGELÖST · WEITER ZU LEADEROS…' : '▸ 50 CREDITS EINLÖSEN'}
                 </button>
               </motion.div>
 
