@@ -117,7 +117,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Ich habe 13 Bücher geschrieben und über 420.000 Klienten trainiert — die immer wiederkehrende Beobachtung: ' +
+        'Ich habe 13 Bücher geschrieben und über 400.000 Klienten trainiert — die immer wiederkehrende Beobachtung: ' +
         'die Klienten mit dem größten Fortschritt waren nie die mit den meisten Trainingstagen, sondern die mit der ' +
         'konsequentesten täglichen Anwendung. LeaderOS ist genau darauf gebaut: der 30-Tage-Sprint ersetzt keine ' +
         'Tiefen-Workshops, aber er liefert die tägliche Wiederholung, die zwischen den seltenen großen Blöcken sonst ' +

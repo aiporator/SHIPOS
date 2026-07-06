@@ -14,7 +14,7 @@ import { PressMarquee } from './PressMarquee';
  *   - Trustpilot 4.9 / 388 reviews · Argumentorik GmbH (Wlad Jachtchenko)
  *   - Greator 4.7 / 995 reviews · Wlad's coach profile
  *   - LinkedIn Learning · 250 000+ course participants
- *   - 420 000+ trainierte Klienten · 14 Mio Views · 12 Bücher
+ *   - 400 000+ trainierte Klienten · 14 Mio Views · 12 Bücher
  *
  * Each platform stat links out to the source. The aggregate Review
  * schema below is attributed to the Argumentorik-Akademie (the entity
@@ -40,7 +40,7 @@ const REVIEW_PLATFORMS = [
 ];
 
 const HARD_NUMBERS = [
-  { big: '420K+', label: 'Trainierte Klienten', sub: 'In über 20 Ländern' },
+  { big: '400K+', label: 'Trainierte Klienten', sub: 'In über 20 Ländern' },
   { big: '250K+', label: 'LinkedIn-Learning', sub: 'Kurs-Teilnehmer' },
   { big: '14M',   label: 'Views', sub: 'Podcast + YouTube' },
   { big: '3×',    label: 'SPIEGEL-Bestseller', sub: '12 Bücher gesamt' },

@@ -53,20 +53,20 @@ export const VimeoIntroSection = () => (
           className="md:col-span-5"
         >
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand mb-6 font-mono">
-            ▸ INTRO · 90 SEKUNDEN
+            ▸ INTRO · 30 SEKUNDEN
           </p>
 
           <h2
             className="text-[40px] sm:text-[56px] md:text-[72px] lg:text-[88px] leading-[0.92] tracking-[-0.04em] text-white"
             style={{ fontFamily: 'Outfit, Inter, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Wlad in 90<br />
+            Wlad in 30<br />
             <span className="text-white/55">Sekunden</span>
             <span className="text-brand not-italic">.</span>
           </h2>
 
           <p className="mt-8 max-w-md text-[15px] md:text-[17px] leading-[1.55] text-white/70">
-            Bevor du dich entscheidest: schau ihm 90 Sekunden zu. Du
+            Bevor du dich entscheidest: schau ihm 30 Sekunden zu. Du
             wirst hören, warum Frameworks für ihn keine Theorie sind,
             und warum LeaderOS kein Kurs ist, sondern ein Training.
           </p>

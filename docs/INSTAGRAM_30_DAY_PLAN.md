@@ -7,7 +7,7 @@ verlinkt gezielt auf `/fuehrung-beginnt-hier` oder einen Journal-Artikel, die
 beide bereits live und lead-erfassend sind).
 
 Alle Zahlen/Fakten in den Captions sind der verifizierte Satz aus
-`WladJachtchenkoPage.js` — 420.000+ Klienten, 13 Bücher (3× SPIEGEL-Bestseller),
+`WladJachtchenkoPage.js` — 400.000+ Klienten, 13 Bücher (3× SPIEGEL-Bestseller),
 Trustpilot 4.9/5 (388 Bewertungen), 3× TEDx. Keine erfundenen Testimonials.
 
 ## Rhythmus (wöchentlich, 6 Posts/Woche + 1 Ruhetag)
@@ -47,7 +47,7 @@ ohne dass der Feed wie Werbung wirkt.
 |---|---|---|---|---|
 | 8 | Carousel | Harvard-Verhandlungsmethode | Sachebene trennen → Interessen statt Positionen → Optionen → Kriterien | `/journal/harvard-verhandlungsmethode-erklaert` |
 | 9 | Reel | Mitarbeiter-Motivation 4.0 | „Der Obstkorb hat noch nie jemanden motiviert." Autonomie · Fortschritt · Zugehörigkeit | `/journal/mitarbeiter-motivation-4-0-was-wirklich-zieht` |
-| 10 | Static-Zahl | 420.000+ Klienten | Große Zahl, Chrome-Optik, kurzer Kontext-Satz | **Funnel-CTA:** `/fuehrung-beginnt-hier` |
+| 10 | Static-Zahl | 400.000+ Klienten | Große Zahl, Chrome-Optik, kurzer Kontext-Satz | **Funnel-CTA:** `/fuehrung-beginnt-hier` |
 | 11 | Reel | Die ersten 7 Sekunden | Türrahmen-Trick — Wirkung vor dem ersten Wort | `/journal/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst` |
 | 12 | Carousel | Schulz von Thun · 4 Ohren | Sachinhalt · Selbstoffenbarung · Beziehung · Appell — an einem echten Beispielsatz durchdekliniert | `/journal/schulz-von-thun-kommunikationsquadrat-fuer-fuehrungskraefte` |
 | 13 | Reel | Konfliktgespräch-Skript | Die 3 Sätze, die ein eskalierendes Gespräch runterkühlen | `/journal/konfliktgespraech-fuehren-skript` |

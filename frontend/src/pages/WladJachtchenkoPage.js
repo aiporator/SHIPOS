@@ -37,7 +37,7 @@ const FACTS = [
   ['Bildung',        'LMU München (Jura, Politik, Geschichte, Komparatistik) · Columbia University (M.A. 2008)'],
   ['Stipendium',     'Studienstiftung des deutschen Volkes'],
   ['Bücher',         '13 publiziert · 3× SPIEGEL-Bestseller'],
-  ['Klienten',       '420 000+ Führungskräfte weltweit'],
+  ['Klienten',       '400 000+ Führungskräfte weltweit'],
   ['Reichweite',     '14 Millionen Views auf Podcast + YouTube'],
   ['Podcast',        'Der Führungskräfte-Podcast · ~450 Folgen seit 2019'],
   ['YouTube',        '80 000+ Abonnenten · Wlad Jachtchenko'],
@@ -486,7 +486,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenko hat Führungskräfte und Mitarbeiter zahlreicher bekannter Unternehmen trainiert · darunter Allianz, BMW, Pro7, Westwing, 3M, Sky, Vodafone, Daimler, Bosch, Siemens, Telekom und Lufthansa. Insgesamt über 420 000 Klienten weltweit seit 2007.',
+          'Wlad Jachtchenko hat Führungskräfte und Mitarbeiter zahlreicher bekannter Unternehmen trainiert · darunter Allianz, BMW, Pro7, Westwing, 3M, Sky, Vodafone, Daimler, Bosch, Siemens, Telekom und Lufthansa. Insgesamt über 400 000 Klienten weltweit seit 2007.',
       },
     },
     {

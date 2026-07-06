@@ -190,7 +190,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
           className="mt-1 text-[11px] md:text-[11.5px] uppercase tracking-[0.18em] text-foreground/55 font-mono"
         >
-          3× SPIEGEL-Bestseller · 420 000+ Kunden
+          3× SPIEGEL-Bestseller · 400 000+ Kunden
         </motion.p>
       </div>
 

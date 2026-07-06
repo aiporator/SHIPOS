@@ -13,6 +13,7 @@ import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
 import { ArchetypeQuizSection } from '../components/landing/ArchetypeQuizSection';
 import { JournalTeaserSection } from '../components/landing/JournalTeaserSection';
+import { WebinarTicketAd } from '../components/landing/WebinarTicketAd';
 import { FreeVideoTeaser } from '../components/landing/FreeVideoTeaser';
 import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
@@ -142,6 +143,9 @@ export default function LandingPage() {
         <HowItWorksSection />
         <VimeoIntroSection />
         <JournalTeaserSection />
+        <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-20">
+          <WebinarTicketAd placement="landing-page" />
+        </div>
         <ManifestoSection />
 
         {LANDING_BENEFITS.map((asset, idx) => (

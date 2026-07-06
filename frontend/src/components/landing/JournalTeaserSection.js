@@ -189,7 +189,7 @@ export const JournalTeaserSection = () => {
               <span className="hidden sm:inline opacity-30">·</span>
               <span>13 Bücher · 3× SPIEGEL-Bestseller</span>
               <span className="hidden sm:inline opacity-30">·</span>
-              <span>420.000+ trainierte Klienten</span>
+              <span>400.000+ trainierte Klienten</span>
             </motion.div>
           </div>
           <Link

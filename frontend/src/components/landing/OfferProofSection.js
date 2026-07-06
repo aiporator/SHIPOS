@@ -29,7 +29,7 @@ const TRUST = [
   ['4,9/5', 'Trustpilot · 388 Reviews'],
   ['4,7/5', 'Greator · 995 Reviews'],
   ['3×', 'TEDx-Speaker'],
-  ['420K+', 'Klienten weltweit'],
+  ['400K+', 'Klienten weltweit'],
 ];
 
 export const OfferProofSection = () => (

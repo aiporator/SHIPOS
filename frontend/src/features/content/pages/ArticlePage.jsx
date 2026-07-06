@@ -10,6 +10,7 @@ import { NewsletterDrop } from '../components/NewsletterDrop';
 import { ShareBar } from '../components/ShareBar';
 import { ArticleLeftRail, extractHeadings } from '../components/ArticleLeftRail';
 import { ArticleRightRail, ArticleMobileMiniApps } from '../components/ArticleRightRail';
+import { WebinarTicketAd } from '../../../components/landing/WebinarTicketAd';
 import { applySeoToDocument, applyArticleJsonLd, buildArticleSeo } from '../utils/seo';
 import { localCoverPath } from '../utils/covers';
 
@@ -190,6 +191,8 @@ export default function ArticlePage() {
                 articleTitle={article.title}
               />
             </article>
+
+            <WebinarTicketAd placement="article-body" className="mt-14 md:mt-16" />
 
             <ShareBar
               url={`https://leader-os.de/journal/${article.slug}`}

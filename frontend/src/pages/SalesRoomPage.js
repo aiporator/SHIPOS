@@ -19,7 +19,7 @@ import { WladMark } from '../components/brand/WladMark';
 // ── Copy-ready pitch (P-P-N) ─────────────────────────────────────────────────
 const PITCH_30S = `Führungskräfte verlieren heute Stunden pro Woche an Reaktions-Modus — und alle reden über KI, aber niemand zeigt ihnen, was das für IHRE Führung konkret heißt.
 
-LeaderOS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 420.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Sprint mit Zertifikat.
+LeaderOS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 400.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Sprint mit Zertifikat.
 
 Der Einstieg kostet nichts: 14 Tage voller Zugang, ohne Karte. Wollen Sie es einmal live sehen?`;
 
@@ -71,7 +71,7 @@ const DEMO_FLOW = [
 
 // ── Verified strength numbers · safe to quote ────────────────────────────────
 const PROOF = [
-  ['420K+', 'Klienten weltweit seit 2007'],
+  ['400K+', 'Klienten weltweit seit 2007'],
   ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
   ['14M', 'Views · Podcast + YouTube'],
   ['4.9/5', 'Trustpilot · 388 Bewertungen'],

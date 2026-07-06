@@ -119,7 +119,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Ich habe selbst über 420.000 Klienten begleitet und weiß, wie unterschiedlich die Passung zwischen Coach und ' +
+        'Ich habe selbst über 400.000 Klienten begleitet und weiß, wie unterschiedlich die Passung zwischen Coach und ' +
         'Klient ausfallen kann, selbst bei gleicher Zertifizierung. Genau das war einer der Gründe, LeaderOS zu ' +
         'bauen: WladBot ist kein Ersatz für einen zertifizierten Coach in komplexen Fällen, aber er ist täglich ' +
         'verfügbar, kennt deinen Kontext aus dem 30-Tage-Sprint, und schließt die Lücke zwischen den seltenen ' +

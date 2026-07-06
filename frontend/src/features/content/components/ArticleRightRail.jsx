@@ -5,8 +5,8 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../..
 
 /**
  * WebinarCard · sticky "join the free live webinar" card for the article
- * rail (leads from blog traffic → the 20.08 LeaderOS live event). Editorial
- * DNA, not the generic blue webinar look. Links to /event.
+ * rail (leads from blog traffic → the 20.08 webinar squeeze page). Editorial
+ * DNA, not the generic blue webinar look. Links to /webinar.
  */
 const WebinarCard = () => {
   const onClick = () => {
@@ -16,7 +16,7 @@ const WebinarCard = () => {
   };
   return (
     <a
-      href="https://leader-os.de/event"
+      href="https://leader-os.de/webinar"
       onClick={onClick}
       data-testid="article-webinar-card"
       className="block border-2 border-foreground bg-background overflow-hidden group"
@@ -54,7 +54,7 @@ const WebinarCard = () => {
           className="text-[19px] leading-[1.02] tracking-[-0.025em] text-foreground mb-4"
           style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Führen wie die Top 1 %<span className="text-brand not-italic">.</span>
+          Führe besser. Jeden Tag<span className="text-brand not-italic">.</span>
         </h4>
         <span className="flex items-center justify-center gap-1.5 bg-brand group-hover:bg-foreground group-hover:text-background text-foreground font-bold text-[11px] uppercase tracking-[0.14em] h-10 transition-colors">
           Platz sichern · kostenlos <ArrowRight size={13} />

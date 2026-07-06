@@ -39,7 +39,7 @@ const BENEFITS = [
 
 // Real, verifiable proof — numbers cross-checked against WladJachtchenkoPage.
 const PROOF = [
-  ['420 000+', 'Klienten weltweit seit 2007'],
+  ['400 000+', 'Klienten weltweit seit 2007'],
   ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
   ['4,9 / 5', 'Trustpilot · 388 Bewertungen'],
   ['14 Mio', 'Views auf Podcast & YouTube'],
@@ -435,7 +435,7 @@ export default function FreeVideosPage() {
     document.getElementById('optin')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
-  const stats = useMemo(() => [['420K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
+  const stats = useMemo(() => [['400K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
 
   return (
     <div
@@ -728,7 +728,7 @@ export default function FreeVideosPage() {
               </h2>
               <p className="mt-4 text-[15px] leading-[1.6] text-foreground/72 max-w-2xl">
                 3× SPIEGEL-Bestseller-Autor, Europas führender Leadership-Coach. Von Allianz, BMW, ProSieben & Co.
-                für 10.000 € Tagessatz gebucht — über 420.000 Klienten weltweit seit 2007. In diesen 4 Videos
+                für 10.000 € Tagessatz gebucht — über 400.000 Klienten weltweit seit 2007. In diesen 4 Videos
                 bekommst du das Fundament seiner Methodik — kostenlos.
               </p>
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5">

@@ -53,7 +53,7 @@ const AGENDA = [
 
 const AUTHORITY_BADGES = [
   ['13', 'Bücher · 3× SPIEGEL-Bestseller'],
-  ['420.000+', 'trainierte Klienten'],
+  ['400.000+', 'trainierte Klienten'],
   ['4,9/5', 'Trustpilot · 388 Bewertungen'],
   ['3×', 'TEDx-Talks'],
 ];
@@ -305,6 +305,28 @@ export default function WebinarPage() {
           </div>
           <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20 lg:flex lg:items-start lg:gap-14">
             <div className="lg:flex-1 lg:min-w-0">
+              {/* Mobile-only compact portrait · the desktop floating card
+                  below is hidden under lg, so without this a phone visitor
+                  would see zero photos until scrolling to the host strip. */}
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="lg:hidden flex items-center gap-3 mb-5"
+              >
+                <img
+                  src={WLAD_AVATAR}
+                  onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                  alt="Wlad Jachtchenko"
+                  width="44"
+                  height="44"
+                  fetchpriority="high"
+                  className="w-11 h-11 rounded-full object-cover object-top ring-2 ring-brand shrink-0"
+                />
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">
+                  Wlad Jachtchenko<br /><span className="text-foreground/35">Host &amp; Q&amp;A</span>
+                </div>
+              </motion.div>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -376,7 +398,7 @@ export default function WebinarPage() {
                   className="w-full aspect-[4/5] object-cover object-top grayscale-[15%]"
                 />
                 <div className="absolute -bottom-4 -left-4 bg-brand text-[#0A0A0A] px-4 py-2.5 shadow-[4px_4px_0_0_#0A0A0A]">
-                  <div className="text-[20px] tabular-nums leading-none" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>420.000+</div>
+                  <div className="text-[20px] tabular-nums leading-none" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>400.000+</div>
                   <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.14em]">trainierte Klienten</div>
                 </div>
               </motion.div>
@@ -427,7 +449,7 @@ export default function WebinarPage() {
               <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand mb-1.5">▸ Live dabei · im Q&A</p>
               <p className="text-[15px] leading-[1.55] text-foreground/75 max-w-2xl">
                 <span className="font-bold text-foreground">Wlad Jachtchenko</span> — 3× SPIEGEL-Bestseller-Autor,
-                420.000+ trainierte Klienten, Trustpilot 4,9/5. Seine Methodik ist das Fundament von LeaderOS.
+                400.000+ trainierte Klienten, Trustpilot 4,9/5. Seine Methodik ist das Fundament von LeaderOS.
                 Im Webinar zeigt er sie live — und beantwortet deine Fragen.
               </p>
             </div>

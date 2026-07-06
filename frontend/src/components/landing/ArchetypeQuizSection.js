@@ -642,7 +642,7 @@ export const ArchetypeQuizSection = () => {
         {/* Coda · micro social-proof */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
-          <span>▸ 420 000 KUNDEN</span>
+          <span>▸ 400 000 KUNDEN</span>
           <span>▸ LEADER-CHECK · 10 MIN · KOSTENLOS</span>
         </div>
       </div>

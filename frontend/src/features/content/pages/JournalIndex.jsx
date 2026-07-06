@@ -10,6 +10,7 @@ import { ArticleCover } from '../components/ArticleCover';
 import { WladBotThumbnail } from '../components/WladBotThumbnail';
 import { DottedGlowBackground } from '../../../components/shared/DottedGlowBackground';
 import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
+import { WebinarTicketAd } from '../../../components/landing/WebinarTicketAd';
 
 /**
  * JournalIndex · /journal · Newsroom-frontpage layout (godmode).
@@ -921,6 +922,11 @@ export default function JournalIndex() {
               {cat.code === 'C-02' && <FreeToolsStrip />}
               {cat.code === 'C-03' && <DiagnoseCTA />}
               {cat.code === 'C-04' && <KlasseCTA />}
+              {cat.code === 'C-05' && (
+                <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-10">
+                  <WebinarTicketAd placement="journal-index" />
+                </div>
+              )}
             </div>
           );
         })}
