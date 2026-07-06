@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { LANDING_META } from '../../data/landingAssets';
 import { PlusCircleCTA } from './PlusCircleCTA';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
+import { useABVariant, trackABConversion } from '../../lib/abTest';
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 24 },
@@ -12,6 +13,49 @@ const FADE_UP = {
   }),
 };
 
+// Headline entrance gets its own spring (a touch of bounce on the biggest
+// element on the page reads as confidence, not decoration — "more nice
+// motions" per design direction, kept to ONE spring moment so it doesn't
+// turn into a bouncy-castle page).
+const HEADLINE_SPRING = {
+  hidden: { opacity: 0, y: 36, scale: 0.97 },
+  show: {
+    opacity: 1, y: 0, scale: 1,
+    transition: { type: 'spring', stiffness: 210, damping: 22, mass: 0.9, delay: 0.06 },
+  },
+};
+
+/**
+ * A/B test: hero_copy_2026_07 · the just-shipped product-first repositioning
+ * ("Führe besser. Jeden Tag.") against the earlier, longer-running ATF copy
+ * ("Führung ist Fähigkeit.") that the team wants re-validated head-to-head.
+ * Assignment is sticky per visitor (see lib/abTest.js); exposure + CTA
+ * clicks are tagged with the variant in PostHog for downstream analysis.
+ */
+const HERO_VARIANTS = {
+  a: {
+    ariaLabel: 'Führung ist Fähigkeit. 30 Tage zum Führungs-OS.',
+    headline: <>Führung ist<br />Fähigkeit<span className="text-brand not-italic">.</span></>,
+    subline: (
+      <>
+        Fähigkeit ist <span className="text-brand">trainierbar</span>.{' '}
+        <span className="text-foreground/55">Mit Wlads Methodik. 24/7 KI-Coach<span className="text-brand">.</span></span>
+      </>
+    ),
+  },
+  b: {
+    ariaLabel: 'Führe besser. Jeden Tag. 30 Tage zum Führungs-OS.',
+    headline: <>Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span></>,
+    subline: (
+      <>
+        Mit einem <span className="text-brand">System</span> statt Motivation.{' '}
+        <span className="text-foreground/55">Leader-OS ist das erste Leadership Operating System — KI-Coach, tägliche Übungen und Wlads Methodik<span className="text-brand">.</span></span>
+      </>
+    ),
+  },
+};
+const HERO_AB_TEST = 'hero_copy_2026_07';
+
 /**
  * Hero · pure typography, zero image dependency.
  *
@@ -21,19 +65,25 @@ const FADE_UP = {
  *
  * Stack discipline: four text elements only.
  *   1. Wlad-anker strip   (eyebrow / trust)
- *   2. Headline           ("Führung ist Fähigkeit.")
- *   3. Subline            ("Dreißig Tage. Elf Frameworks. Ein KI-Coach...")
+ *   2. Headline           (A/B: "Führung ist Fähigkeit." vs "Führe besser. Jeden Tag.")
+ *   3. Subline            (paired with the headline variant)
  *   4. CTA cluster        (primary + one secondary anchor)
  *
  * Anything else (scarcity pill, trust-strip, scroll-cue) moves into a
  * dedicated band directly below so it doesn't crowd the moment.
  */
-export const HeroSection = () => (
+export const HeroSection = () => {
+  const variant = useABVariant(HERO_AB_TEST, Object.keys(HERO_VARIANTS));
+  const copy = HERO_VARIANTS[variant];
+  const onCtaClick = (cta) => trackABConversion(HERO_AB_TEST, variant, 'hero_cta_click', { cta });
+
+  return (
   <section
     id="hero"
     className="relative w-full overflow-hidden bg-background"
     data-testid="landing-hero"
-    aria-label="Führung ist Fähigkeit. 30 Tage zum Führungs-OS."
+    data-ab-variant={variant}
+    aria-label={copy.ariaLabel}
   >
     {/* Subtle radial mesh, never the focus */}
     <div
@@ -61,22 +111,33 @@ export const HeroSection = () => (
       [ 14 TAGE KOSTENLOS · OHNE KARTE · DIAGNOSE FREE ]
     </div>
 
-    {/* Background-W · Heron-Preston editorial ghost letterform.
+    {/* Background-W · Heron-Preston editorial ghost letterform. Chrome-metal
+        gradient (Fable-5 signature) + a very slow continuous drift so the
+        letterform reads as quietly alive, not a static watermark.
         Hidden on small phones so it never competes with the headline
         on a 375px screen; reintroduced softer on tablet, full on desktop. */}
     <motion.div
       aria-hidden
       initial={{ opacity: 0, scale: 1.04 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      animate={{ opacity: 1, scale: 1, x: [0, 10, 0] }}
+      transition={{
+        opacity: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },
+        scale: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },
+        x: { duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 1.4 },
+      }}
       className="hidden sm:flex absolute inset-y-0 right-[-8%] md:right-[-4%] w-[60%] md:w-[58%] items-center justify-end pointer-events-none select-none"
     >
       <span
-        className="text-[32vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em] text-foreground/[0.04]"
+        className="text-[32vw] md:text-[34vw] lg:text-[28vw] leading-none tracking-[-0.06em]"
         style={{
           fontFamily: 'Outfit, Inter, sans-serif',
           fontWeight: 900,
           fontStyle: 'italic',
+          background:
+            'linear-gradient(178deg, rgba(10,10,10,0.085) 0%, rgba(10,10,10,0.025) 38%, rgba(10,10,10,0.10) 52%, rgba(10,10,10,0.035) 66%, rgba(10,10,10,0.075) 100%)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent',
         }}
       >
         W
@@ -91,6 +152,7 @@ export const HeroSection = () => (
         <motion.div
           initial={{ opacity: 0, scale: 0.86 }}
           animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
@@ -128,16 +190,16 @@ export const HeroSection = () => (
           transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
           className="mt-1 text-[11px] md:text-[11.5px] uppercase tracking-[0.18em] text-foreground/55 font-mono"
         >
-          3× SPIEGEL-Bestseller · 400 000 Kunden
+          3× SPIEGEL-Bestseller · 420 000+ Kunden
         </motion.p>
       </div>
 
-      {/* 2 / 4 · Headline */}
+      {/* 2 / 4 · Headline · A/B variant, spring entrance */}
       <motion.h1
+        key={`headline-${variant}`}
         initial="hidden"
         animate="show"
-        custom={1}
-        variants={FADE_UP}
+        variants={HEADLINE_SPRING}
         className="text-center md:text-left text-[48px] sm:text-[88px] md:text-[136px] lg:text-[176px] leading-[0.86] sm:leading-[0.84] tracking-[-0.038em] sm:tracking-[-0.044em] md:tracking-[-0.048em] text-foreground"
         style={{
           fontFamily: 'Outfit, Inter, system-ui, sans-serif',
@@ -145,13 +207,12 @@ export const HeroSection = () => (
           fontStyle: 'italic',
         }}
       >
-        Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span>
+        {copy.headline}
       </motion.h1>
 
-      {/* 3 / 4 · Subline · sells the PRODUCT, not the person: what Leader-OS
-          IS (the Leadership Operating System), what you do with it daily,
-          and Wlad as the method source — in that order. System > Motivation. */}
+      {/* 3 / 4 · Subline · paired 1:1 with the headline variant above. */}
       <motion.p
+        key={`subline-${variant}`}
         initial="hidden"
         animate="show"
         custom={2}
@@ -162,8 +223,7 @@ export const HeroSection = () => (
           fontWeight: 800,
         }}
       >
-        Mit einem <span className="text-brand">System</span> statt Motivation.{' '}
-        <span className="text-foreground/55">Leader-OS ist das erste Leadership Operating System — KI-Coach, tägliche Übungen und Wlads Methodik<span className="text-brand">.</span></span>
+        {copy.subline}
       </motion.p>
 
       {/* 4 / 4 · CTAs · centered on mobile so the call-to-action moment
@@ -185,18 +245,25 @@ export const HeroSection = () => (
             Beratungsgespräch keeps its own section further down (#beratung). */}
         <PlusCircleCTA
           href={LANDING_META.cta.primary.href}
-          testId="hero-cta-trial"
+          testId="hero-cta-trial-primary"
+          onClick={() => onCtaClick('trial_primary')}
         >
           Kostenlos testen
         </PlusCircleCTA>
         {/* Secondary · the free Leader-Check on leadercheck.de · the
-            low-friction lead-magnet at the top of the funnel. */}
-        <a
+            low-friction lead-magnet at the top of the funnel. whileHover
+            lifts + tints lime before the full-invert active state lands,
+            so the affordance reads before the click commits. */}
+        <motion.a
           href={LANDING_META.cta.diagnose.href}
           target="_blank"
           rel="noopener noreferrer"
           data-testid="hero-cta-diagnose"
-          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background rounded-full px-5 py-3 active:scale-[0.98] transition-all"
+          onClick={() => onCtaClick('diagnose')}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+          className="group inline-flex items-center gap-3 border-2 border-foreground bg-background hover:bg-foreground hover:text-background rounded-full px-5 py-3"
         >
           <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background group-hover:bg-background group-hover:text-foreground font-black text-[13px] leading-none transition-colors" aria-hidden>
             +
@@ -204,7 +271,7 @@ export const HeroSection = () => (
           <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
             Kostenloser Leader-Check · 10 Min
           </span>
-        </a>
+        </motion.a>
       </motion.div>
 
       {/* Tertiary · the app itself · for visitors who want to start
@@ -221,7 +288,8 @@ export const HeroSection = () => (
           href={LANDING_META.cta.primary.href}
           target="_blank"
           rel="noopener noreferrer"
-          data-testid="hero-cta-trial"
+          data-testid="hero-cta-trial-tertiary"
+          onClick={() => onCtaClick('trial_tertiary')}
           className="font-bold text-foreground underline decoration-1 underline-offset-4 decoration-foreground/30 hover:decoration-foreground transition-all"
         >
           14 Tage kostenlos auf leaderos.de →
@@ -240,4 +308,5 @@ export const HeroSection = () => (
       </motion.p>
     </div>
   </section>
-);
+  );
+};
