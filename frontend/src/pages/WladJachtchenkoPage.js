@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
@@ -50,7 +51,7 @@ const FACTS = [
   ['Gegründet',      'LeaderOS (2026) · Argumentorik-Akademie'],
 ];
 
-// Full bibliography · 12 books verified against the Deutsche
+// Full bibliography · 13 books verified against the Deutsche
 // Nationalbibliothek catalog (GND 1172244065). Year + publisher +
 // ISBN where available so search-engines can resolve each book to its
 // canonical Book entity.
@@ -179,6 +180,14 @@ const BOOKS = [
 ];
 
 const bookCoverUrl = (b) => `/wlad/books/${b.slug}.jpg`;
+
+const CARD_REVEAL = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.5, delay: 0.045 * i, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
 
 // Companies whose executives have completed Wlad's trainings · these
 // names are repeatedly cited on Wlad's public profiles (Argumentorik,
@@ -639,8 +648,11 @@ export default function WladJachtchenkoPage() {
               />
             </div>
           )}
-          <div className="md:col-span-5 mx-auto md:mx-0 w-full">
-            <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden">
+          <motion.div
+            initial="hidden" animate="show" variants={CARD_REVEAL}
+            className="md:col-span-5 mx-auto md:mx-0 w-full"
+          >
+            <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden group">
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
@@ -649,7 +661,7 @@ export default function WladJachtchenkoPage() {
                 height="525"
                 fetchpriority="high"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[50%_25%]"
+                className="absolute inset-0 w-full h-full object-cover object-[50%_25%] transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 bg-white/95 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-foreground">
                 ▸ WLAD JACHTCHENKO
@@ -658,11 +670,14 @@ export default function WladJachtchenkoPage() {
                 LEADEROS · 2026
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="md:col-span-7 text-center md:text-left">
+          <motion.div
+            initial="hidden" animate="show" custom={1} variants={CARD_REVEAL}
+            className="md:col-span-7 text-center md:text-left"
+          >
             <div className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-              ▸ PERSON · WLAD JACHTCHENKO · EST. 2010
+              ▸ PERSON · WLAD JACHTCHENKO · EST. 2007
             </div>
             <h1
               className="text-[40px] sm:text-[56px] md:text-[88px] leading-[0.95] tracking-[-0.035em] text-foreground"
@@ -672,7 +687,7 @@ export default function WladJachtchenkoPage() {
             </h1>
             <p className="mt-6 mx-auto md:mx-0 text-[16px] sm:text-[17px] md:text-[19px] leading-[1.6] text-foreground/80 max-w-2xl">
               Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller.
-              Vierhunderttausend trainierte Klienten. Fünfzehn Jahre Coaching-Praxis.
+              Vierhunderttausend trainierte Klienten. Seit 2007 im Coaching.
               Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS.
             </p>
 
@@ -702,7 +717,7 @@ export default function WladJachtchenkoPage() {
                 LinkedIn <ArrowUpRight size={14} />
               </a>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Bekannt aus · press/TV authority bar · the first thing a
@@ -785,11 +800,16 @@ export default function WladJachtchenkoPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
-            {BOOKS.map((b) => {
+            {BOOKS.map((b, i) => {
               const isSpiegel = b.badge === 'SPIEGEL-Bestseller';
               return (
-                <article
+                <motion.article
                   key={b.title}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.3 }}
+                  custom={i}
+                  variants={CARD_REVEAL}
                   className={`group border-2 ${isSpiegel ? 'border-foreground bg-brand/[0.04]' : 'border-foreground/40'} overflow-hidden hover:bg-foreground/[0.04] hover:-translate-y-1 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.3)] transition-all duration-300 flex flex-col`}
                 >
                   {/* Cover frame · real cover at /wlad/books/<slug>.jpg wins;
@@ -841,7 +861,7 @@ export default function WladJachtchenkoPage() {
                       {b.isbn && <span className="block mt-0.5 normal-case tracking-normal text-[9px]">ISBN {b.isbn}</span>}
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>
