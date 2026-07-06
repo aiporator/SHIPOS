@@ -351,10 +351,10 @@ export const LeadCaptureModal = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="group w-full inline-flex items-center justify-center gap-3 px-5 h-13 py-3.5 bg-foreground hover:bg-brand text-white hover:text-foreground border-2 border-foreground text-[12.5px] font-bold uppercase tracking-[0.14em] active:scale-[0.985] transition-all disabled:opacity-60 shadow-[4px_4px_0_0_#BFFF00]"
+                  className="group w-full inline-flex items-center justify-center gap-3 px-5 h-13 py-3.5 bg-foreground hover:bg-brand text-background hover:text-[#0A0A0A] border-2 border-foreground text-[12.5px] font-bold uppercase tracking-[0.14em] active:scale-[0.985] transition-all disabled:opacity-60 shadow-[4px_4px_0_0_#BFFF00]"
                   data-testid="lead-modal-submit"
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-brand text-foreground group-hover:bg-foreground group-hover:text-brand text-base font-black leading-none transition-colors" aria-hidden>+</span>
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-brand text-[#0A0A0A] group-hover:bg-foreground group-hover:text-brand text-base font-black leading-none transition-colors" aria-hidden>+</span>
                   {submitting ? 'Wird gestartet…' : '14 Tage kostenlos starten'}
                 </button>
               </form>

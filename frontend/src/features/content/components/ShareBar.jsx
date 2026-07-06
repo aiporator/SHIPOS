@@ -97,7 +97,7 @@ export const ShareBar = ({ url, title, summary, slug }) => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackShare('x', slug)}
-            className="inline-flex items-center gap-1.5 px-3.5 h-10 bg-foreground hover:bg-brand hover:text-foreground text-white font-bold text-[11.5px] uppercase tracking-[0.12em] transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 h-10 bg-foreground hover:bg-brand text-background hover:text-[#0A0A0A] font-bold text-[11.5px] uppercase tracking-[0.12em] transition-colors"
             data-testid="share-x"
             aria-label="Auf X teilen"
           >

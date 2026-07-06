@@ -168,7 +168,7 @@ const SlotPreview = ({ availability, onPickSlot }) => (
           }
         }}
         data-testid="beratung-primary-cta"
-        className="inline-flex w-full items-center justify-center gap-2 h-14 bg-foreground hover:bg-brand text-white hover:text-foreground font-bold text-[13px] tracking-[0.04em] transition-colors uppercase"
+        className="inline-flex w-full items-center justify-center gap-2 h-14 bg-foreground hover:bg-brand text-background hover:text-[#0A0A0A] font-bold text-[13px] tracking-[0.04em] transition-colors uppercase"
       >
         Slot wählen
         <ArrowRight size={16} />

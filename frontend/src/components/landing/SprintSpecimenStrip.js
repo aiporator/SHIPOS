@@ -51,7 +51,7 @@ export const SprintSpecimenStrip = () => (
       <div className="flex items-center gap-3 py-5 pr-8 shrink-0">
         <span
           aria-hidden
-          className="inline-flex items-center justify-center w-10 h-10 bg-brand text-foreground font-mono text-[12px] font-black tracking-[0.06em]"
+          className="inline-flex items-center justify-center w-10 h-10 bg-brand text-[#0A0A0A] font-mono text-[12px] font-black tracking-[0.06em]"
         >
           00
         </span>
@@ -103,7 +103,7 @@ export const SprintSpecimenStrip = () => (
           whileHover={{ y: -2, boxShadow: '2px 2px 0 0 #0A0A0A' }}
           whileTap={{ y: 0, boxShadow: '0px 0px 0 0 #0A0A0A' }}
           transition={{ type: 'spring', stiffness: 420, damping: 22 }}
-          className="inline-flex items-center gap-2.5 h-12 px-6 bg-brand text-foreground border-2 border-foreground text-[11.5px] font-black uppercase tracking-[0.16em] shadow-[4px_4px_0_0_#0A0A0A]"
+          className="inline-flex items-center gap-2.5 h-12 px-6 bg-brand text-[#0A0A0A] border-2 border-foreground text-[11.5px] font-black uppercase tracking-[0.16em] shadow-[4px_4px_0_0_#0A0A0A]"
         >
           Jetzt starten <span aria-hidden>→</span>
         </motion.a>
@@ -113,7 +113,7 @@ export const SprintSpecimenStrip = () => (
     {/* ── Mobile · one ticker line + full-width CTA ────────────────────── */}
     <div className="md:hidden px-5 py-4">
       <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/70 whitespace-nowrap overflow-hidden">
-        <span className="inline-flex items-center justify-center w-6 h-6 bg-brand text-foreground text-[9px] font-black shrink-0" aria-hidden>00</span>
+        <span className="inline-flex items-center justify-center w-6 h-6 bg-brand text-[#0A0A0A] text-[9px] font-black shrink-0" aria-hidden>00</span>
         <span className="text-brand-strong">▸</span>
         <span className="text-foreground font-black">14 TAGE</span>
         <span className="text-foreground/30">·</span>
@@ -128,7 +128,7 @@ export const SprintSpecimenStrip = () => (
         target="_blank"
         rel="noopener noreferrer"
         data-testid="sprint-specimen-cta-mobile"
-        className="mt-3 flex items-center justify-center gap-2.5 h-12 w-full bg-brand text-foreground border-2 border-foreground text-[11.5px] font-black uppercase tracking-[0.16em] shadow-[3px_3px_0_0_#0A0A0A] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all"
+        className="mt-3 flex items-center justify-center gap-2.5 h-12 w-full bg-brand text-[#0A0A0A] border-2 border-foreground text-[11.5px] font-black uppercase tracking-[0.16em] shadow-[3px_3px_0_0_#0A0A0A] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all"
       >
         14 Tage kostenlos starten <span aria-hidden>→</span>
       </a>
