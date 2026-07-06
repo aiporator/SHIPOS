@@ -452,10 +452,10 @@ HEURISTIC_RULES = [
     (lambda m, c: isinstance(m.get("role"), int) and 1 <= m["role"] <= 5,
      "Die 5 Rollen einer Führungskraft"),
     # 3-Layer Elite-Leader framework foundational chunks
-    (lambda m, c: m.get("framework") == "3layer", "Leader-OS Framework"),
-    # Other Leader-OS meta frameworks (diagnostic / ecosystem / agents)
+    (lambda m, c: m.get("framework") == "3layer", "LeaderOS Framework"),
+    # Other LeaderOS meta frameworks (diagnostic / ecosystem / agents)
     (lambda m, c: m.get("framework") in {"diagnostic", "ecosystem", "agents"},
-     "Leader-OS Framework"),
+     "LeaderOS Framework"),
     # WladBot-expansion library (synthetic enrichment chunks)
     (lambda m, c: m.get("author") == "wladbot_expansion", "WladBot Expansion Library"),
     # Meta / resource pointers

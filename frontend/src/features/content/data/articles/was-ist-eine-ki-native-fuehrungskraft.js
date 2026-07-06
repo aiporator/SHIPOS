@@ -60,7 +60,7 @@ export default {
       'Würdest du heute mit Stift und Papier dieselbe Qualität von Entscheidung treffen können wie mit deinem KI-Stack?',
     ] },
     { type: 'callout', tone: 'neutral', text:
-      'Wenn du auf drei oder mehr Fragen nein sagst, bist du KI-Nutzer, noch nicht KI-nativ. Das ist nicht persönlich · es ist ein System-Problem. Genau dafür existiert Leader-OS.' },
+      'Wenn du auf drei oder mehr Fragen nein sagst, bist du KI-Nutzer, noch nicht KI-nativ. Das ist nicht persönlich · es ist ein System-Problem. Genau dafür existiert LeaderOS.' },
     { type: 'heading', level: 2, text: 'Wie wird man KI-nativ.' },
     { type: 'paragraph', text:
       'Drei Schritte, in der Reihenfolge.' },

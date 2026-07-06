@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Launch-day smoke test for Leader-OS.
+# Launch-day smoke test for LeaderOS.
 #
 # Hits the key public endpoints + a few internal checks, reports pass/fail
 # per probe, exits non-zero on any failure so it can run as a CI gate.
@@ -80,7 +80,7 @@ probe_contains() {
 }
 
 echo "════════════════════════════════════════════════════════════════"
-echo "  Leader-OS launch verification"
+echo "  LeaderOS launch verification"
 echo "  Base URL: $BASE_URL"
 echo "════════════════════════════════════════════════════════════════"
 echo

@@ -18,7 +18,7 @@ import { NEWS_BUCKETS, NEWS_ITEMS } from '../data/newsfeed';
  *      Off-Crypto / The Players' Tribune lovechild
  *   2. Front-page lede grid: big halftone-lime feature image (left) +
  *      dated news column (center) + Hot Stories sidebar (right)
- *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / Leader-OS
+ *   3. "Aus Wlad's Welt" news strip · Podcast / Bücher / LeaderOS
  *      live-counter / Leadership-Summit · 4 quick-access tiles
  *   4. Funnel CTA breaks weaved in between category sections
  *   5. Per-category newspaper-style spreads (image + headlines)
@@ -120,7 +120,7 @@ const Masthead = ({ totalArticles }) => (
             <li><Link to="/" className="text-foreground hover:text-brand-strong transition-colors">Wissensbasis</Link></li>
             <li><Link to="/#beratung" className="text-foreground hover:text-brand-strong transition-colors">Beratung</Link></li>
             {/* The two conversion actions · highlighted lime so people act:
-                the free Leader-Check diagnose, and signing in to Leader-OS. */}
+                the free Leader-Check diagnose, and signing in to LeaderOS. */}
             <li>
               <a href="https://leadercheck.de" target="_blank" rel="noopener noreferrer" className="text-brand-strong hover:text-foreground transition-colors" data-testid="journal-menu-diagnose">
                 Diagnose
@@ -128,7 +128,7 @@ const Masthead = ({ totalArticles }) => (
             </li>
             <li>
               <a href="https://leaderos.de/login" target="_blank" rel="noopener noreferrer" className="text-brand-strong hover:text-foreground transition-colors" data-testid="journal-menu-anmelden">
-                Bei Leader-OS anmelden
+                Bei LeaderOS anmelden
               </a>
             </li>
           </ul>
@@ -261,7 +261,7 @@ const FrontPageLede = ({ featureArticle, datedArticles, hotStories }) => {
 
 // ─────────────────────────────────────────────────────────────────────────
 // AUS WLAD'S WELT · News-strip mit 4 quick-access tiles
-// (Podcast · Bücher · Leader-OS · Leadership-Summit)
+// (Podcast · Bücher · LeaderOS · Leadership-Summit)
 // ─────────────────────────────────────────────────────────────────────────
 const FROM_WLAD = [
   {
@@ -285,7 +285,7 @@ const FROM_WLAD = [
   {
     label: 'WERDE TEIL',
     title: 'Alle Vorteile ab Tag 1.',
-    description: 'Volle Plattform, WladBot 24/7, elf Frameworks. 14 Tage kostenlos · ohne Karte. Werde Teil von Leader-OS.',
+    description: 'Volle Plattform, WladBot 24/7, elf Frameworks. 14 Tage kostenlos · ohne Karte. Werde Teil von LeaderOS.',
     cta: 'Jetzt dabei sein',
     to: '/#beratung',
     external: false,
@@ -295,7 +295,7 @@ const FROM_WLAD = [
   {
     label: 'SUMMIT',
     title: 'Leadership-Summit · Q4.',
-    description: 'Wlad live + die Leader-OS-Community. Live-Drills, Q&A, Klein-Format.',
+    description: 'Wlad live + die LeaderOS-Community. Live-Drills, Q&A, Klein-Format.',
     cta: 'Auf Warteliste',
     to: '/#newsletter-footer',
     external: false,
@@ -327,7 +327,7 @@ const FromWladStrip = () => (
           <span className="text-[24px] md:text-[32px] text-white" style={condensed}>WLAD'S WELT</span>
         </div>
         <div className="font-mono text-[10.5px] font-bold uppercase tracking-[0.26em] text-white/55">
-          ▸ Podcast · Bücher · Leader-OS · Summit
+          ▸ Podcast · Bücher · LeaderOS · Summit
         </div>
       </div>
 
@@ -745,7 +745,7 @@ const FREE_TOOLS = [
 const FreeToolsStrip = () => (
   <section
     id="free-tools"
-    aria-label="Free Tools von Leader-OS"
+    aria-label="Free Tools von LeaderOS"
     className="bg-[#0A0A0A] text-white"
     data-testid="journal-free-tools"
   >
@@ -873,9 +873,9 @@ export default function JournalIndex() {
       description:
         'Newsroom für KI-natives Führen · Frameworks, Skripte, Field-Notes aus ' +
         'Wlad Jachtchenkos Arbeit mit 400 000+ Klienten. Podcast, Bücher, ' +
-        'Leader-OS, Leadership-Summit.',
+        'LeaderOS, Leadership-Summit.',
       canonical: 'https://leader-os.de/journal',
-      keywords: ['KI Führung', 'Leadership Magazin', 'Wlad Jachtchenko', 'Schlagfertigkeit', 'Mitarbeiterführung', 'Beratungsgespräch', 'Leader-OS'],
+      keywords: ['KI Führung', 'Leadership Magazin', 'Wlad Jachtchenko', 'Schlagfertigkeit', 'Mitarbeiterführung', 'Beratungsgespräch', 'LeaderOS'],
       robots: 'index, follow, max-image-preview:large',
       ogImage: null,
     });

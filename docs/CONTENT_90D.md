@@ -1,4 +1,4 @@
-# 90-Tage Content-Kalender · Leader-OS
+# 90-Tage Content-Kalender · LeaderOS
 
 Vier Plattformen pro Tag: **LinkedIn · Instagram · Facebook · X**.
 Sprache: Du-Form, Deutsch. Stimme: Wlad Jachtchenko (RAG-Stimme).

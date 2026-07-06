@@ -210,7 +210,7 @@ const TrustStrip = () => (
     <img
       src={WLAD_AVATAR}
       onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-      alt="Wlad Jachtchenko · persönliches Beratungsgespräch zu Leader-OS buchen"
+      alt="Wlad Jachtchenko · persönliches Beratungsgespräch zu LeaderOS buchen"
       width="56"
       height="56"
       loading="lazy"
@@ -339,7 +339,7 @@ export const AppointmentBookingSection = () => {
               {[
                 'Dein aktueller Stand auf KI · Rhetorik · Team · diagnostisch, nicht oberflächlich.',
                 'Wo dein größter Hebel sitzt · und ob er Tools, Methodik oder Identität ist.',
-                'Welches Tier passt · Sprint, Leadership Plus Pro, Mentoring · oder ob Leader-OS gerade nicht dran ist.',
+                'Welches Tier passt · Sprint, Leadership Plus Pro, Mentoring · oder ob LeaderOS gerade nicht dran ist.',
                 'Eine konkrete Antwort auf deine Hauptfrage. Schriftlich nachgeliefert per Mail.',
                 'Kein Verkaufs-Druck, kein Follow-up-Spam, kein "buchst du jetzt?" am Ende.',
               ].map((b) => (

@@ -5,14 +5,14 @@ export default {
   slug: 'dein-erster-tag-mit-leader-os',
   type: 'guide',
   status: 'published',
-  title: 'Dein erster Tag mit Leader-OS.',
+  title: 'Dein erster Tag mit LeaderOS.',
   description:
     'Was passiert in den ersten 60 Minuten nach Sprint-Kauf. Ohne ' +
     'Marketing-Theater, von Login bis erstem Drill.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-24',
   cover: null,
-  tags: ['Leader-OS', 'Onboarding', 'Sprint'],
+  tags: ['LeaderOS', 'Onboarding', 'Sprint'],
   body: [
     { type: 'paragraph', text:
       'Wenn du den Sprint kaufst, will der erste Tag nicht zum nächsten Marketing-Funnel werden. Hier ist ' +
@@ -63,11 +63,11 @@ export default {
       'die Plattform und du siehst Tag 1 in real-time, an einem Case aus deinem Backlog.' },
   ],
   seo: {
-    title: 'Leader-OS Onboarding: dein erster Tag in 60 Minuten',
+    title: 'LeaderOS Onboarding: dein erster Tag in 60 Minuten',
     description:
-      'Leader-OS Onboarding Schritt für Schritt: Login, Sprint-Plan, Setup-Gespräch mit WladBot, erste ' +
+      'LeaderOS Onboarding Schritt für Schritt: Login, Sprint-Plan, Setup-Gespräch mit WladBot, erste ' +
       'Lektion und erster Drill am eigenen Case. 60 Minuten, kein Marketing-Theater. Von Wlad Jachtchenko.',
-    keywords: ['Leader-OS Onboarding', 'Sprint Tag 1', 'Wlad Sprint Ablauf', 'Leadership Onboarding 30 Tage', 'WladBot Setup'],
+    keywords: ['LeaderOS Onboarding', 'Sprint Tag 1', 'Wlad Sprint Ablauf', 'Leadership Onboarding 30 Tage', 'WladBot Setup'],
   },
   related: ['was-in-leader-os-drin-ist', 'leader-os-im-team-rollout'],
 };

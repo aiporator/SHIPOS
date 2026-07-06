@@ -187,7 +187,7 @@ def _format_email_html(user_name: str, browser: str, os_name: str,
       <a href="https://leaderos.de/profile?tab=security" style="display:inline-block;padding:12px 22px;background:#BFFF00;color:#0A0A0A;font-weight:700;text-decoration:none;border-radius:10px;">Konto sichern →</a>
     </div>
     <div style="padding:20px 32px;border-top:1px solid #1f2937;color:#64748b;font-size:12px;line-height:1.5;">
-      Diese Benachrichtigung wurde automatisch von WladBot · Leader-OS gesendet.<br/>
+      Diese Benachrichtigung wurde automatisch von WladBot · LeaderOS gesendet.<br/>
       Argumentorik-Akademie GmbH · leaderos.de
     </div>
   </div>

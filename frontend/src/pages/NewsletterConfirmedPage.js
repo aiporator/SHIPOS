@@ -50,7 +50,7 @@ export default function NewsletterConfirmedPage() {
   const copy = COPY[status];
 
   useEffect(() => {
-    document.title = 'Feldnotizen · Bestätigung · Leader-OS';
+    document.title = 'Feldnotizen · Bestätigung · LeaderOS';
     // Defensive noindex even though robots.txt + meta cover it.
     const meta = document.createElement('meta');
     meta.name = 'robots';

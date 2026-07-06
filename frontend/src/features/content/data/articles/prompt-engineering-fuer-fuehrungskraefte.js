@@ -32,7 +32,7 @@ export default {
     { type: 'paragraph', text: 'Im Sprint trainierst du Prompt Engineering an deinen drei häufigsten Konversations-Typen. WladBot ist bereits mit den Patterns vorkonfiguriert · du übst sie an Cases aus deinem Backlog.' },
   ],
   seo: {
-    title: 'Prompt Engineering für Führungskräfte · Leader-OS',
+    title: 'Prompt Engineering für Führungskräfte · LeaderOS',
     description: 'Prompt Engineering für Führungskräfte: vier Patterns, die KI-Antworten von generisch auf einsatzbereit heben. Ohne API-Geschwafel. Von Wlad Jachtchenko.',
     keywords: ['Prompt Engineering deutsch', 'Prompt Engineering Manager', 'ChatGPT Prompts Führung', 'KI Prompts Leadership', 'Prompt Patterns'],
   },

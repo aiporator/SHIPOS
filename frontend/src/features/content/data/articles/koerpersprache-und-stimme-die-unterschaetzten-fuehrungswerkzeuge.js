@@ -70,7 +70,7 @@ export default {
       type: 'callout',
       tone: 'lime',
       text:
-        'In Leader-OS kannst du dich beim Sprechen aufnehmen und bekommst Feedback auf Füllwörter, Satzmelodie ' +
+        'In LeaderOS kannst du dich beim Sprechen aufnehmen und bekommst Feedback auf Füllwörter, Satzmelodie ' +
         'und Tempo — dieselbe Analyse, mit der Wlad seine Keynotes vorbereitet.',
     },
     {

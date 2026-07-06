@@ -94,7 +94,7 @@ class _StripeNativeAdapter:
                     "currency": req.currency.lower(),
                     "unit_amount": int(round(req.amount * 100)),  # cents
                     "product_data": {
-                        "name": req.product_name or req.metadata.get("package_name") or "Leader-OS",
+                        "name": req.product_name or req.metadata.get("package_name") or "LeaderOS",
                     },
                 },
                 "quantity": 1,

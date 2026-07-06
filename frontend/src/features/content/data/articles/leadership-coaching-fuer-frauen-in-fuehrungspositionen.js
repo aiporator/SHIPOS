@@ -131,7 +131,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'In Leader-OS trainierst du genau solche Situationen im 30-Tage-Sprint an deinen eigenen, echten Fällen. ' +
+        'In LeaderOS trainierst du genau solche Situationen im 30-Tage-Sprint an deinen eigenen, echten Fällen. ' +
         'WladBot ist ein privater, urteilsfreier Raum, um eine schwierige Formulierung vor einem wichtigen ' +
         'Gespräch durchzuspielen, und die Drills lassen sich gezielt auf die wiederkehrenden Situationen zuschneiden, ' +
         'die tatsächlich anstehen, statt auf ein generisches Programm für alle.',

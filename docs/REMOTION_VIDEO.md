@@ -42,7 +42,7 @@ Mapping auf bestehende Landing-Sektionen:
 
 | Sekunde | Frame | Was |
 |---|---|---|
-| 0–3   | Logo-Reveal       | Schwarzer Canvas, Lime-`W` morpht zum Leader-OS-Logo |
+| 0–3   | Logo-Reveal       | Schwarzer Canvas, Lime-`W` morpht zum LeaderOS-Logo |
 | 3–9   | Hero-Tagline      | "Werde KI-nativ." Outfit-Italic von 0 auf 188px, Lime-Punkt pulst |
 | 9–14  | Dichotomie        | "KI bestimmt das Tempo." links · "Du den Kurs." rechts mit Lime-Splitter |
 | 14–20 | Track-Field       | SVG-Animation aus TrackFieldVisual.js, Läufer scrollt zum Ziel |

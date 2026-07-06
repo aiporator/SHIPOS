@@ -27,7 +27,7 @@ export default function AGBPage() {
         </p>
         <p>
           und ihren Kunden (im Folgenden „Nutzer") über die Nutzung der
-          Online-Plattform Leader-OS sowie damit verbundener Dienste.
+          Online-Plattform LeaderOS sowie damit verbundener Dienste.
         </p>
       </section>
 
@@ -35,7 +35,7 @@ export default function AGBPage() {
         <h2>§ 2 Leistungsbeschreibung</h2>
         <p>
           Der Anbieter stellt eine webbasierte Coaching- und Lernplattform
-          („Leader-OS") zur Verfügung. Die Plattform umfasst je nach
+          („LeaderOS") zur Verfügung. Die Plattform umfasst je nach
           gebuchtem Tarif unter anderem:
         </p>
         <ul>

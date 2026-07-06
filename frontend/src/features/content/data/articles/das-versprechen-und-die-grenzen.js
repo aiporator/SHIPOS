@@ -4,12 +4,12 @@ export default {
   status: 'published',
   title: 'Das Versprechen und die Grenzen.',
   description:
-    'Was wir mit Leader-OS konkret versprechen · und was ausdrücklich ' +
+    'Was wir mit LeaderOS konkret versprechen · und was ausdrücklich ' +
     'NICHT. Ehrlichkeit ist der erste Reflex den wir bauen wollen.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-15',
   cover: null,
-  tags: ['Leader-OS', 'Ehrlichkeit', 'Versprechen'],
+  tags: ['LeaderOS', 'Ehrlichkeit', 'Versprechen'],
   body: [
     { type: 'paragraph', text: 'Coaching-Marketing 2026 ist voller Versprechen die niemand einlöst. Hier ist unsere konkrete Liste · was wir tatsächlich versprechen, und was ausdrücklich nicht.' },
     { type: 'heading', level: 2, text: 'Wir versprechen.' },
@@ -39,9 +39,9 @@ export default {
     { type: 'paragraph', text: 'Wenn diese ehrliche Liste zu dir passt: die Diagnose ist der erste Schritt. Wenn du mehr Magie erwartest als wir liefern, geh zu einem anderen Anbieter · wir helfen dir nicht dort weiter wo wir nicht stark sind.' },
   ],
   seo: {
-    title: 'Leader-OS Versprechen: was du bekommst · und was nicht',
-    description: 'Das Leader-OS Versprechen ehrlich: messbare Skill-Verbesserung, Coaching-Garantie und lebenslanger Zugriff · aber keine Persönlichkeits-Transformation. Von Wlad Jachtchenko.',
-    keywords: ['Leader-OS Versprechen', 'Coaching Garantie', 'Ehrliches Leadership Training', 'Leadership Programm Erwartungen', 'Sprint Erwartung'],
+    title: 'LeaderOS Versprechen: was du bekommst · und was nicht',
+    description: 'Das LeaderOS Versprechen ehrlich: messbare Skill-Verbesserung, Coaching-Garantie und lebenslanger Zugriff · aber keine Persönlichkeits-Transformation. Von Wlad Jachtchenko.',
+    keywords: ['LeaderOS Versprechen', 'Coaching Garantie', 'Ehrliches Leadership Training', 'Leadership Programm Erwartungen', 'Sprint Erwartung'],
   },
   related: ['mehr-als-eine-transformation', 'leader-os-vs-klassisches-coaching'],
 };

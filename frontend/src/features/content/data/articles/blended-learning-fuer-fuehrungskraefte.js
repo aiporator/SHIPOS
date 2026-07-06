@@ -111,14 +111,14 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Der 30-Tage-Sprint in Leader-OS ist so gebaut, wie gutes Blended Learning sein sollte: tägliche ' +
+        'Der 30-Tage-Sprint in LeaderOS ist so gebaut, wie gutes Blended Learning sein sollte: tägliche ' +
         'Mikro-Inputs, sofortige Anwendung in echten Situationen, und WladBot als ständig verfügbarer ' +
         'Coaching-Layer dazwischen, der die Anwendung live korrigiert statt erst Wochen später in einem ' +
         'Abschlussgespräch.',
     },
   ],
   seo: {
-    title: 'Blended Learning für Führungskräfte: 70-20-10 · Leader-OS',
+    title: 'Blended Learning für Führungskräfte: 70-20-10 · LeaderOS',
     description:
       'Blended Learning für Führungskräfte: Warum reines E-Learning scheitert, was das 70-20-10-Modell dazu sagt, ' +
       'und wie gutes Blended-Design aussieht statt eines aufgeteilten Einmal-Events.',

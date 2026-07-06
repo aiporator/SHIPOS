@@ -5,7 +5,7 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../..
 
 /**
  * WebinarCard · sticky "join the free live webinar" card for the article
- * rail (leads from blog traffic → the 20.08 Leader-OS live event). Editorial
+ * rail (leads from blog traffic → the 20.08 LeaderOS live event). Editorial
  * DNA, not the generic blue webinar look. Links to /event.
  */
 const WebinarCard = () => {

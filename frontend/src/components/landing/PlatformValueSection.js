@@ -3,7 +3,7 @@ import { SpotlightCard } from './SpotlightCard';
 import { DottedGlowBackground } from '../shared/DottedGlowBackground';
 
 /**
- * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
+ * PlatformValueSection · "Das bekommst du sofort von LeaderOS".
  *
  * Sitzt VOR der ClassesRoadmapSection. Verkauft zuerst die Plattform ·
  * konkrete Deliverables, nicht den Identity-Shift. Die Klassen-Roadmap
@@ -14,7 +14,7 @@ import { DottedGlowBackground } from '../shared/DottedGlowBackground';
  * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets · die
  * Plattform ist das was du AB TAG 1 in der Hand hast.
  *
- * Closing-CTA-Strip bündelt die Leader-OS-Konditionen (30 Tage + 12 Monate)
+ * Closing-CTA-Strip bündelt die LeaderOS-Konditionen (30 Tage + 12 Monate)
  * + Preis + Button · damit der Übergang in den Sprint-Kauf einlippig ist.
  */
 
@@ -125,7 +125,7 @@ export const PlatformValueSection = () => (
   <section
     id="platform"
     data-testid="platform-value-section"
-    aria-label="Das bekommst du sofort von Leader-OS"
+    aria-label="Das bekommst du sofort von LeaderOS"
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black overflow-hidden"
   >
     {/* Subtle paper-grain so the section has texture and isn't a flat slab */}
@@ -157,7 +157,7 @@ export const PlatformValueSection = () => (
               fontSize: 'clamp(40px, 5.5vw, 88px)',
             }}
           >
-            Leader-OS ist die<br />
+            LeaderOS ist die<br />
             <span className="text-black/55">Plattform für KI-natives Führen</span>
             <span className="text-brand-strong not-italic">.</span>
           </h2>

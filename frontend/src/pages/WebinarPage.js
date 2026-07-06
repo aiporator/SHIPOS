@@ -241,7 +241,7 @@ export default function WebinarPage() {
     track('webinar_view');
 
     const restoreMeta = applyPageMeta({
-      title: 'Kostenloses Live-Webinar · Führe besser. Jeden Tag. · Leader-OS',
+      title: 'Kostenloses Live-Webinar · Führe besser. Jeden Tag. · LeaderOS',
       description:
         'Live-Webinar am 20.08.2026: Wie du mit einem Leadership Operating System jeden Tag besser führst — ' +
         'KI-Coach, tägliche Übungen, Wlads Methodik. Kostenlos, live, mit Q&A. Jetzt Platz sichern.',
@@ -254,7 +254,7 @@ export default function WebinarPage() {
     ld.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Event',
-      name: 'Führe besser. Jeden Tag. · Das kostenlose Leader-OS Live-Webinar',
+      name: 'Führe besser. Jeden Tag. · Das kostenlose LeaderOS Live-Webinar',
       startDate: '2026-08-20T10:00:00+02:00',
       endDate: '2026-08-20T11:30:00+02:00',
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
@@ -262,7 +262,7 @@ export default function WebinarPage() {
       location: { '@type': 'VirtualLocation', url: 'https://leader-os.de/webinar' },
       image: ['https://leader-os.de/og-wlad.jpg'],
       description: 'Kostenloses Live-Webinar: das Leadership Operating System für Führungskräfte.',
-      organizer: { '@type': 'Organization', name: 'Leader-OS', url: 'https://leader-os.de' },
+      organizer: { '@type': 'Organization', name: 'LeaderOS', url: 'https://leader-os.de' },
       performer: { '@type': 'Person', name: 'Wlad Jachtchenko' },
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: 'https://leader-os.de/webinar', validFrom: '2026-07-04T00:00:00+02:00' },
     });
@@ -282,7 +282,7 @@ export default function WebinarPage() {
         transition={{ duration: 0.6 }}
         className="max-w-[1100px] mx-auto px-5 md:px-10 pt-6 flex items-center justify-between"
       >
-        <Link to="/" className="flex items-center gap-3" aria-label="Leader-OS Startseite">
+        <Link to="/" className="flex items-center gap-3" aria-label="LeaderOS Startseite">
           <WladMark size={34} />
           <span className="font-black tracking-tight text-foreground text-[19px]" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.03em' }}>
             Leader<span className="text-brand mx-0.5">·</span>OS
@@ -303,54 +303,87 @@ export default function WebinarPage() {
           <div className="pointer-events-none absolute inset-0 -z-10">
             <DottedGlowBackground gap={16} radius={1.8} color="rgba(255,255,255,0.18)" glowColor="rgba(191,255,0,0.6)" opacity={0.5} />
           </div>
-          <div className="max-w-[1100px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-5"
-            >
-              {DATE_LINE}
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 30, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.05 }}
-              className="text-[40px] sm:text-[62px] md:text-[84px] leading-[0.94] tracking-[-0.04em] text-foreground max-w-4xl"
-              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-            >
-              Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span>
-            </motion.h1>
-            <motion.p
-              initial="hidden" animate="show" custom={1} variants={FADE_UP}
-              className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-foreground/70"
-            >
-              Das kostenlose Live-Webinar zum <span className="text-foreground font-semibold">Leadership Operating System</span>:
-              wie du Kommunikation, Entscheidungen und Führung täglich trainierst — mit KI-Coach,
-              System und den Methoden von Wlad Jachtchenko. Statt Motivation, die am Montag verpufft.
-            </motion.p>
+          <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20 lg:flex lg:items-start lg:gap-14">
+            <div className="lg:flex-1 lg:min-w-0">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-5"
+              >
+                {DATE_LINE}
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.05 }}
+                className="text-[40px] sm:text-[62px] md:text-[76px] leading-[0.94] tracking-[-0.04em] text-foreground max-w-4xl"
+                style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+              >
+                Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span>
+              </motion.h1>
+              <motion.p
+                initial="hidden" animate="show" custom={1} variants={FADE_UP}
+                className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-foreground/70"
+              >
+                Das kostenlose Live-Webinar zum <span className="text-foreground font-semibold">Leadership Operating System</span>:
+                wie du Kommunikation, Entscheidungen und Führung täglich trainierst — mit KI-Coach,
+                System und den Methoden von Wlad Jachtchenko. Statt Motivation, die am Montag verpufft.
+              </motion.p>
 
-            <ul className="mt-8 space-y-3 max-w-2xl">
-              {OUTCOMES.map((o, i) => (
-                <motion.li
-                  key={o}
-                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
-                  className="flex items-start gap-3 text-[15px] leading-[1.5] text-foreground/85"
-                >
-                  <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center bg-[#BFFF00] text-[#0A0A0A]">
-                    <Check size={13} strokeWidth={3} />
-                  </span>
-                  {o}
-                </motion.li>
-              ))}
-            </ul>
+              <ul className="mt-8 space-y-3 max-w-2xl">
+                {OUTCOMES.map((o, i) => (
+                  <motion.li
+                    key={o}
+                    initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
+                    className="flex items-start gap-3 text-[15px] leading-[1.5] text-foreground/85"
+                  >
+                    <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center bg-[#BFFF00] text-[#0A0A0A]">
+                      <Check size={13} strokeWidth={3} />
+                    </span>
+                    {o}
+                  </motion.li>
+                ))}
+              </ul>
 
-            <div className="mt-9"><Countdown /></div>
-            <ScarcityBar />
+              <div className="mt-9"><Countdown /></div>
+              <ScarcityBar />
 
-            <div ref={formRef} className="mt-9 max-w-2xl scroll-mt-24">
-              <RegisterForm idSuffix="-hero" />
+              <div ref={formRef} className="mt-9 max-w-2xl scroll-mt-24">
+                <RegisterForm idSuffix="-hero" />
+              </div>
             </div>
+
+            {/* Host visual · desktop only, the moment that reads "premium
+                event" instead of "text-only funnel page". Floating stat
+                card + soft chrome frame, gentle idle drift. */}
+            <motion.div
+              initial={{ opacity: 0, x: 24, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden lg:block lg:w-[340px] lg:shrink-0 relative"
+            >
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative border-2 border-foreground/15 bg-white/[0.03] p-3"
+              >
+                <img
+                  src={WLAD_AVATAR}
+                  onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                  alt="Wlad Jachtchenko"
+                  fetchpriority="high"
+                  className="w-full aspect-[4/5] object-cover object-top grayscale-[15%]"
+                />
+                <div className="absolute -bottom-4 -left-4 bg-brand text-[#0A0A0A] px-4 py-2.5 shadow-[4px_4px_0_0_#0A0A0A]">
+                  <div className="text-[20px] tabular-nums leading-none" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>420.000+</div>
+                  <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.14em]">trainierte Klienten</div>
+                </div>
+              </motion.div>
+              <div className="mt-8 pl-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.2em] text-foreground/45">
+                ▸ Wlad Jachtchenko · Host &amp; Q&amp;A
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -394,7 +427,7 @@ export default function WebinarPage() {
               <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand mb-1.5">▸ Live dabei · im Q&A</p>
               <p className="text-[15px] leading-[1.55] text-foreground/75 max-w-2xl">
                 <span className="font-bold text-foreground">Wlad Jachtchenko</span> — 3× SPIEGEL-Bestseller-Autor,
-                420.000+ trainierte Klienten, Trustpilot 4,9/5. Seine Methodik ist das Fundament von Leader-OS.
+                420.000+ trainierte Klienten, Trustpilot 4,9/5. Seine Methodik ist das Fundament von LeaderOS.
                 Im Webinar zeigt er sie live — und beantwortet deine Fragen.
               </p>
             </div>

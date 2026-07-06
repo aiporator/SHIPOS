@@ -146,9 +146,9 @@ Stripe-Live-Produkt unter Dashboard muss auch 4 797 € sein.
 In https://dashboard.stripe.com (Live-Mode oben rechts umschalten):
 
 1. **Products → New Product** anlegen für jeden Pricing-Tier:
-   - "Leader-OS Sprint" → Price: 997 € one-time
-   - "Leader-OS Plus-Plus" → Price: 4 797 € one-time
-   - "Leader-OS Plus-Plus · 3× Rate" → Price: 1 599 € (recurring? oder 3
+   - "LeaderOS Sprint" → Price: 997 € one-time
+   - "LeaderOS Plus-Plus" → Price: 4 797 € one-time
+   - "LeaderOS Plus-Plus · 3× Rate" → Price: 1 599 € (recurring? oder 3
      one-time-Sessions per Pricing-Manager)
 2. Product-IDs notieren (`prod_...`)
 3. **Webhooks → Add endpoint**:

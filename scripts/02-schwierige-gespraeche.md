@@ -1,6 +1,6 @@
 # Kurs 2: Schwierige Gespräche meistern (5 Folgen · ~7,5 Min/Folge)
 
-**Tier:** Leader-OS Standard
+**Tier:** LeaderOS Standard
 **Freigabe:** Folge 1 (kostenlose Vorschau) | Folgen 2–5 (kostenpflichtig)
 
 ---

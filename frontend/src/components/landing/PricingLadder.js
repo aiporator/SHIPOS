@@ -23,9 +23,9 @@ const TIERS = [
     price: '0 €',
     outcome: 'Voller Zugang · jederzeit kündbar',
     packageLine: 'Das komplette OS zum Erleben — voller Zugang, nichts abgespeckt.',
-    audience: 'Für alle, die Leader-OS erst testen wollen',
+    audience: 'Für alle, die LeaderOS erst testen wollen',
     bullets: [
-      'Komplette Leader-OS-Plattform',
+      'Komplette LeaderOS-Plattform',
       'WladBot 24/7 in deiner Tasche',
       'Elf Frameworks zum Ausprobieren',
       'Kein Abo, keine Karte, kein Risiko',
@@ -61,7 +61,7 @@ const TIERS = [
     price: '997 €',
     priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
-    scarcity: 'Alle Vorteile ab Tag 1 · werde Teil von Leader-OS',
+    scarcity: 'Alle Vorteile ab Tag 1 · werde Teil von LeaderOS',
     packageLine: 'Das 30-Tage-Intensivprogramm plus 12 Monate Plattform-Mitgliedschaft — ein Kauf, ein Jahr System.',
     audience: 'Für Leads, die in 30 Tagen echte Bewegung wollen',
     bullets: [

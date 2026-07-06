@@ -21,7 +21,7 @@ export default function ThankYouPage() {
   const email = params.get('email');
 
   useEffect(() => {
-    document.title = 'Danke · deine Diagnose startet · Leader-OS';
+    document.title = 'Danke · deine Diagnose startet · LeaderOS';
   }, []);
 
   return (

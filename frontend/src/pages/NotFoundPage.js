@@ -23,7 +23,7 @@ import { LandingFooter } from '../components/landing/LandingFooter';
  */
 export default function NotFoundPage() {
   useEffect(() => {
-    document.title = '404 · Seite nicht gefunden · Leader-OS';
+    document.title = '404 · Seite nicht gefunden · LeaderOS';
     const meta = document.createElement('meta');
     meta.name = 'robots';
     meta.content = 'noindex, nofollow';
@@ -57,11 +57,11 @@ export default function NotFoundPage() {
           <div className="md:col-span-5 md:pt-8">
             <ul className="border-t-2 border-foreground">
               {[
-                { to: '/', label: 'Leader-OS Landing', sub: 'Plattform-Übersicht' },
+                { to: '/', label: 'LeaderOS Landing', sub: 'Plattform-Übersicht' },
                 { to: '/wlad-jachtchenko', label: 'Wlad Jachtchenko', sub: 'Person · Bücher · Methodik' },
                 { to: '/journal', label: 'Feldnotizen', sub: '96 Artikel · KI Leadership' },
                 { to: '/journal/was-ist-eine-ki-native-fuehrungskraft', label: 'KI-nativ definiert', sub: 'Definition + 5 Merkmale' },
-                { to: '/journal/leader-os-vs-chatgpt-claude-perplexity', label: 'Tool-Vergleich', sub: 'Leader-OS vs Mainstream-KI' },
+                { to: '/journal/leader-os-vs-chatgpt-claude-perplexity', label: 'Tool-Vergleich', sub: 'LeaderOS vs Mainstream-KI' },
               ].map((link) => (
                 <li key={link.to} className="border-b border-foreground/15">
                   <Link

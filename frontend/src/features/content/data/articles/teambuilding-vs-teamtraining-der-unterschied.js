@@ -134,13 +134,13 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Leader-OS ersetzt kein Teambuilding. Persönliche Begegnung bleibt persönliche Begegnung. Aber es übernimmt ' +
+        'LeaderOS ersetzt kein Teambuilding. Persönliche Begegnung bleibt persönliche Begegnung. Aber es übernimmt ' +
         'den Skill-Teil systematisch: tägliche Mikro-Drills zu Feedback, Konfliktklärung und Kommunikation, die ' +
         'ein Team nicht an einem Offsite-Tag lernt, sondern über Wochen im echten Arbeitsalltag verankert.',
     },
   ],
   seo: {
-    title: 'Teambuilding vs. Teamtraining: Der Unterschied · Leader-OS',
+    title: 'Teambuilding vs. Teamtraining: Der Unterschied · LeaderOS',
     description:
       'Teambuilding vs. Teamtraining: Warum ein Escape Room kein Kommunikationsproblem löst und wann Firmen ' +
       'welches Format wirklich brauchen. Mit Entscheidungshilfe für HR und Team-Leads.',

@@ -47,7 +47,7 @@ const FACTS = [
   ['Trustpilot',     '4.9 / 5 · 388 Bewertungen (Argumentorik GmbH)'],
   ['Akademie',       'Argumentorik-Akademie · 6-monatige Ausbildung'],
   ['Coaching seit',  '2007 (nebenberuflich) · 2013 (hauptberuflich)'],
-  ['Gegründet',      'Leader-OS (2026) · Argumentorik-Akademie'],
+  ['Gegründet',      'LeaderOS (2026) · Argumentorik-Akademie'],
 ];
 
 // Full bibliography · 12 books verified against the Deutsche
@@ -267,7 +267,7 @@ const POSITIONS = [
       'empathischen Leadern auszubilden. Daher die mehrstufige Pyramide: ' +
       'Bücher (250 000+ Käufer), LinkedIn Learning (250 000+ Teilnehmer), ' +
       'Udemy (74 000+ Teilnehmer), Argumentorik-Akademie (6 Monate), ' +
-      'Leader-OS (KI-Coach 24/7).',
+      'LeaderOS (KI-Coach 24/7).',
   },
 ];
 
@@ -296,7 +296,7 @@ const PERSON_JSON_LD = {
   description:
     'Wlad Jachtchenko ist mehrfach ausgezeichneter Argumentations-Experte, TOP-Speaker in Europa, ' +
     'dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie sowie der KI-Coaching-' +
-    'Plattform Leader-OS. Seit 2007 trainiert er Politiker, Führungskräfte und Mitarbeiter ' +
+    'Plattform LeaderOS. Seit 2007 trainiert er Politiker, Führungskräfte und Mitarbeiter ' +
     'bekannter Unternehmen wie Allianz, BMW, Pro7, Westwing und 3M.',
   url: 'https://leader-os.de/wlad-jachtchenko',
   image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
@@ -327,7 +327,7 @@ const PERSON_JSON_LD = {
     {
       '@type': 'Organization',
       '@id': 'https://leader-os.de/#organization',
-      name: 'Leader-OS',
+      name: 'LeaderOS',
       url: 'https://leader-os.de',
     },
     {
@@ -414,7 +414,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenko ist Europas führender Argumentations-Coach, dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie. Seit 2010 trainiert er Führungskräfte aus DAX-Konzernen, Mittelstand und Startups in Boardroom-Rhetorik, Verhandlung und KI-nativer Führung. 2026 hat er die KI-Coaching-Plattform Leader-OS gestartet.',
+          'Wlad Jachtchenko ist Europas führender Argumentations-Coach, dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie. Seit 2010 trainiert er Führungskräfte aus DAX-Konzernen, Mittelstand und Startups in Boardroom-Rhetorik, Verhandlung und KI-nativer Führung. 2026 hat er die KI-Coaching-Plattform LeaderOS gestartet.',
       },
     },
     {
@@ -437,11 +437,11 @@ const FAQ_JSON_LD = {
     },
     {
       '@type': 'Question',
-      name: 'Was ist Leader-OS und welche Rolle spielt Wlad Jachtchenko?',
+      name: 'Was ist LeaderOS und welche Rolle spielt Wlad Jachtchenko?',
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Leader-OS ist die 2026 von Wlad Jachtchenko gegründete KI-Coaching-Plattform für Führungskräfte. Sie bündelt seine fünfzehnjährige Coaching-Methodik in elf drillbaren Frameworks plus WladBot · einen 24/7-KI-Coach trainiert auf 2 212 authentische Wlad-Lektionen.',
+          'LeaderOS ist die 2026 von Wlad Jachtchenko gegründete KI-Coaching-Plattform für Führungskräfte. Sie bündelt seine fünfzehnjährige Coaching-Methodik in elf drillbaren Frameworks plus WladBot · einen 24/7-KI-Coach trainiert auf 2 212 authentische Wlad-Lektionen.',
       },
     },
     {
@@ -450,7 +450,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Direkter Kontakt über start@aiporate.com (Argumentorik-Akademie GmbH, Berlin). Für Coaching-Anfragen gibt es Leader-OS · die Plattform ersetzt seine ausgebuchten 1:1-Slots durch WladBot und monatliche Live-Sessions in Leadership Plus Pro. Speaker-Anfragen für Keynotes laufen ebenfalls über die Email.',
+          'Direkter Kontakt über start@aiporate.com (Argumentorik-Akademie GmbH, Berlin). Für Coaching-Anfragen gibt es LeaderOS · die Plattform ersetzt seine ausgebuchten 1:1-Slots durch WladBot und monatliche Live-Sessions in Leadership Plus Pro. Speaker-Anfragen für Keynotes laufen ebenfalls über die Email.',
       },
     },
     {
@@ -531,7 +531,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir Leader-OS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
+          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir LeaderOS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
       },
     },
   ],
@@ -547,9 +547,9 @@ export default function WladJachtchenkoPage() {
     // link shows Wlad's portrait + bio in the preview card instead of the
     // generic homepage OG. Directly supports the ShareBar on this page.
     const restoreMeta = applyPageMeta({
-      title: 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, Leader-OS',
+      title: 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, LeaderOS',
       description:
-        'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS. Biographie, Bücher, Methodik, Kontakt.',
+        'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS. Biographie, Bücher, Methodik, Kontakt.',
       url: 'https://leader-os.de/wlad-jachtchenko',
       image: 'https://leader-os.de/og-wlad.jpg',
       imageAlt: 'Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller',
@@ -644,7 +644,7 @@ export default function WladJachtchenkoPage() {
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                alt="Wlad Jachtchenko · Europas führender Argumentations-Coach · 3× SPIEGEL-Bestseller · Gründer Leader-OS und Argumentorik-Akademie"
+                alt="Wlad Jachtchenko · Europas führender Argumentations-Coach · 3× SPIEGEL-Bestseller · Gründer LeaderOS und Argumentorik-Akademie"
                 width="420"
                 height="525"
                 fetchpriority="high"
@@ -673,7 +673,7 @@ export default function WladJachtchenkoPage() {
             <p className="mt-6 mx-auto md:mx-0 text-[16px] sm:text-[17px] md:text-[19px] leading-[1.6] text-foreground/80 max-w-2xl">
               Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller.
               Vierhunderttausend trainierte Klienten. Fünfzehn Jahre Coaching-Praxis.
-              Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS.
+              Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS.
             </p>
 
             {/* Quick CTAs · stacked + centered on mobile so each chip has a
@@ -691,7 +691,7 @@ export default function WladJachtchenkoPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 h-12 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] border-2 border-foreground transition-colors"
               >
-                Leader-OS 14 Tage testen
+                LeaderOS 14 Tage testen
               </a>
               <a
                 href="https://www.linkedin.com/in/wladislawjachtchenko"
@@ -988,7 +988,7 @@ export default function WladJachtchenkoPage() {
           </p>
         </section>
 
-        {/* Wlad's projects · Leader-OS is the featured card · the whole
+        {/* Wlad's projects · LeaderOS is the featured card · the whole
             section is a conversion bridge for the 400 Masterclass alumni:
             "you know the method — here's where it lives every day". */}
         <section className="mt-20 md:mt-28">
@@ -1004,13 +1004,13 @@ export default function WladJachtchenkoPage() {
             </h2>
             <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
               Du kennst die Methodik aus Büchern, Masterclass oder Podcast. In
-              Leader-OS drillst du sie täglich mit WladBot · 24/7, in 10 Minuten
+              LeaderOS drillst du sie täglich mit WladBot · 24/7, in 10 Minuten
               pro Tag, bis Führung Reflex wird statt Theorie.
             </p>
           </div>
           <div className="mt-10 grid md:grid-cols-3 gap-5 md:gap-6 items-stretch">
             {[
-              { name: 'Leader-OS',
+              { name: 'LeaderOS',
                 sub: 'KI-Coaching-Plattform · seit 2026',
                 desc: 'Wlads komplette Methodik als tägliches Training. WladBot 24/7, 11 drillbare Frameworks, messbarer Fortschritt. 14 Tage kostenlos, ohne Karte.',
                 href: 'https://leaderos.de/signup?trial=14',
@@ -1084,7 +1084,7 @@ export default function WladJachtchenkoPage() {
         {/* Conversion band · the money moment for Masterclass/event alumni.
             Always-dark island with dotted-glow depth · the value props are
             lifted from Wlad's own event copy (charisma, natural authority,
-            weniger arbeiten / mehr verdienen) and pointed at Leader-OS. */}
+            weniger arbeiten / mehr verdienen) and pointed at LeaderOS. */}
         <section className="relative isolate mt-20 md:mt-28 overflow-hidden bg-[#0A0A0A] text-white px-6 py-14 sm:px-10 sm:py-16 md:px-14 md:py-20">
           <div className="pointer-events-none absolute inset-0 -z-10">
             <DottedGlowBackground
@@ -1109,7 +1109,7 @@ export default function WladJachtchenkoPage() {
               Natürliche Autorität, charismatische Ausstrahlung, Teams die von
               allein Verantwortung übernehmen · weniger arbeiten, mehr bewirken.
               Genau die Methodik, die Wlad DAX-Vorständen für 10.000 € Tagessatz
-              vermittelt · in Leader-OS drillst du sie täglich mit WladBot, für
+              vermittelt · in LeaderOS drillst du sie täglich mit WladBot, für
               den Preis eines Mittagessens.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row flex-wrap gap-3">
@@ -1178,7 +1178,7 @@ export default function WladJachtchenkoPage() {
         <ShareBar
           url="https://leader-os.de/wlad-jachtchenko"
           title="Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller"
-          summary="Europas führender Argumentations-Coach. Fünfzehn Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und Leader-OS."
+          summary="Europas führender Argumentations-Coach. Fünfzehn Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und LeaderOS."
           slug="wlad-jachtchenko"
         />
       </main>

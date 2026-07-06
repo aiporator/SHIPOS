@@ -163,7 +163,7 @@ export default {
     },
   ],
   seo: {
-    title: 'ChatGPT Prompts für Führungskräfte: 5 Skripte · Leader-OS',
+    title: 'ChatGPT Prompts für Führungskräfte: 5 Skripte · LeaderOS',
     description:
       'Fünf ChatGPT-Prompts für Führungskräfte zum Kopieren: B-W-W Feedback, SEXIER für Townhalls, ' +
       'Einwand-Vorwegnahme, EQ-Diagnose fürs 1:1, Freitag-Reflexion. Von Wlad Jachtchenko.',

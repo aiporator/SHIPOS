@@ -1,4 +1,4 @@
-# 🚀 Claude Code Handoff — Leader-OS / WladBot Go-Live
+# 🚀 Claude Code Handoff — LeaderOS / WladBot Go-Live
 
 **Übergabezeitpunkt**: Iter 80 finalisiert. Pod-State sauber. Bereit für GitHub-Sync + Sentry/PostHog Live-Switch via Claude Code.
 

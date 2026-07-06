@@ -124,7 +124,7 @@ export const LicenseKeySection = () => {
             <span className="text-white/55">Dein ganzes Team</span><span className="text-brand not-italic">.</span>
           </h2>
           <p className="mt-6 max-w-xl text-[15px] md:text-[16.5px] leading-[1.6] text-white/72">
-            Ab zehn Führungskräften wird Leader-OS zur Team-Lizenz: ein Rollout, eine Diagnose-Baseline,
+            Ab zehn Führungskräften wird LeaderOS zur Team-Lizenz: ein Rollout, eine Diagnose-Baseline,
             ein Reporting — und WladBot mit dem Kontext eures Unternehmens. Beantrage den Key,
             wir melden uns <span className="text-white font-bold">innerhalb von 24 Stunden</span> mit eurem Angebot.
           </p>

@@ -33,7 +33,7 @@ export const FinalCTA = () => {
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Starte deine Leader-OS Reise"
+    aria-label="Starte deine LeaderOS Reise"
     data-testid="landing-final-cta"
   >
     {/* Chrome text treatment · scoped to this section, animated light band
@@ -106,7 +106,7 @@ export const FinalCTA = () => {
 
         <p className="mt-10 max-w-2xl text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-[17px] leading-[1.55] text-white/75">
           Buch dir ein unverbindliches Beratungsgespräch · 30 Minuten, wir
-          finden gemeinsam heraus, ob Leader-OS zu dir passt. Oder mach den
+          finden gemeinsam heraus, ob LeaderOS zu dir passt. Oder mach den
           kostenlosen Leader-Check, oder starte direkt 14 Tage kostenlos auf
           leaderos.de · ohne Karte, ohne Risiko.
         </p>

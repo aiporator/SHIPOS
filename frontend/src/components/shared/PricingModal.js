@@ -150,7 +150,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
               <Crown size={15} className="text-brand" />
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-brand font-black">Leader-OS · Pricing</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-brand font-black">LeaderOS · Pricing</div>
               <h2 className="text-base md:text-lg font-black text-foreground" style={{ ...OUTFIT, letterSpacing: '-0.02em' }}>
                 Wähle deinen Pfad
               </h2>

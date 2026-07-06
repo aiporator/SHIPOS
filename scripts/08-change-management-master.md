@@ -137,9 +137,9 @@ Und Folge 10 bringt alles zusammen: Die permanente Change-Organisation. Wie du e
 
 Change Management ist keine Projektmanagement-Disziplin. Es ist eine Führungsdisziplin. Und die Führungskräfte, die sie beherrschen, sind die, die ihre Organisationen durch die nächsten zehn Jahre navigieren werden — während andere an ihren eigenen Transformationen scheitern.
 
-Dieser Kurs ist Teil von **Leader-OS PLUS** — alle zehn Kurse, zwölf Live-Coachings mit mir, und ein Netzwerk von Führungskräften, die auf dem gleichen Niveau arbeiten.
+Dieser Kurs ist Teil von **LeaderOS PLUS** — alle zehn Kurse, zwölf Live-Coachings mit mir, und ein Netzwerk von Führungskräften, die auf dem gleichen Niveau arbeiten.
 
-Leader-OS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
+LeaderOS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
 
 Wir sehen uns in Folge 2.
 

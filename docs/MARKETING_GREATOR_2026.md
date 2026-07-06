@@ -1,4 +1,4 @@
-# Leader-OS @ Greator Festival 2026 — Marketing Asset Package
+# LeaderOS @ Greator Festival 2026 — Marketing Asset Package
 
 > **Event:** Greator Festival 2026 · 26.–27. Juni 2026 · LANXESS Arena Köln
 > **Headcount:** ~12 000 Self-Optimization-Tribe (Coaches, Solo-Founder,
@@ -79,7 +79,7 @@ für den jeweiligen Avatar funktioniert.
 
 ### C) Personalleitung · "Mein Team braucht KI-Skills"
 
-> *"Wir haben Leader-OS so gebaut dass es auch im Unternehmens-Kontext
+> *"Wir haben LeaderOS so gebaut dass es auch im Unternehmens-Kontext
 > funktioniert. Wir hosten einen WladBot der nur eure Frameworks und
 > eure Tonalität kennt — auf eurer Infrastruktur, mit Audit-Logs und
 > Single-Sign-On. AI Ownership statt SaaS-Abhängigkeit. Lass uns kurz
@@ -119,7 +119,7 @@ für den jeweiligen Avatar funktioniert.
 
 > *"Wlad ist seit 2008 in Köln, hat Rhetorik für DAX und Mittelstand
 > trainiert. Drei SPIEGEL-Bestseller, 14 Millionen Views auf YouTube.
-> Leader-OS ist seine Methodik als KI — das, was du sonst in einem 8h
+> LeaderOS ist seine Methodik als KI — das, was du sonst in einem 8h
 > Seminar lernst, bekommst du jetzt 24/7 als persönlichen Coach. Hier ist
 > ein Sticker, das ist umsonst — die Diagnose auch. 5 Minuten, kein Kauf."*
 > → Sticker + QR-Code-Card.
@@ -229,7 +229,7 @@ Offline-Cache via Service-Worker (Greator-WLAN ist instabil).
 
 **Tag +7:**
 - Sizzle live auf Wlads LinkedIn + YouTube + Insta-Reels.
-- "Greator 2026 Recap" Newsletter an die volle Leader-OS Liste (Subject: *"14 Sekunden vor der Lanxess Arena: was wir mitgenommen haben."*).
+- "Greator 2026 Recap" Newsletter an die volle LeaderOS Liste (Subject: *"14 Sekunden vor der Lanxess Arena: was wir mitgenommen haben."*).
 
 **Tag +30:**
 - Lead-Nurturing-Email-Sequenz an alle Greator-Diagnose-Leads ist durch:

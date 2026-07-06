@@ -2,7 +2,7 @@ export default {
   slug: 'leader-os-fuer-cto-und-tech-vorstand',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für CTO und Tech-Vorstand.',
+  title: 'LeaderOS für CTO und Tech-Vorstand.',
   description:
     'Auf der Grenze zwischen Architektur und Boardroom. Die drei ' +
     'spezifischen Skill-Lücken die CTOs typischerweise unterspielen · ' +
@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-04',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'CTO'],
+  tags: ['LeaderOS', 'Use Case', 'CTO'],
   body: [
     { type: 'paragraph', text: 'CTOs sind 2026 in einer einzigartigen Lage: sie sind technisch Senior-Operatoren, mussten sich aber innerhalb von zwei Jahren in Boardroom-Kommunikation transformieren. Die meisten überspringen den Zwischenschritt und improvisieren. Hier sind die drei Lücken die wir in Sprint-Daten am häufigsten sehen.' },
     { type: 'heading', level: 2, text: 'Lücke 01: Pathos in Boardroom-Kommunikation.' },

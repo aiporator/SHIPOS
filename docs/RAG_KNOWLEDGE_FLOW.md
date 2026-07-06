@@ -91,7 +91,7 @@ sources             4 (book, transcript, framework, manual)
 | --- | --: | --- |
 | `wlad_books_v1` | 451 | Wlad's published books (curated + raw) |
 | `wlad_courses_v1` | 1043 | Live weekly course transcripts + Argumentorik training cards |
-| `leader_os_framework` | 18 | Leader-OS in-house frameworks (3-layer model, role cards, drills) |
+| `leader_os_framework` | 18 | LeaderOS in-house frameworks (3-layer model, role cards, drills) |
 
 ## The two single-points-of-truth, for reviewers
 

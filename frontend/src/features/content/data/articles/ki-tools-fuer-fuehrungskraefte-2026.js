@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-03',
   cover: null,
-  tags: ['KI', 'Tools', 'Leader-OS'],
+  tags: ['KI', 'Tools', 'LeaderOS'],
   body: [
     { type: 'paragraph', text: 'Es gibt im Juni 2026 mehr als zwölftausend KI-Tools auf Product Hunt mit dem Tag "leadership". Davon brauchst du fünf. Hier ist die kurze Liste.' },
     { type: 'heading', level: 2, text: '01. ChatGPT oder Claude für breite Sparring-Arbeit.' },

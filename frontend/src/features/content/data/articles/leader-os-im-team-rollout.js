@@ -5,15 +5,15 @@ export default {
   slug: 'leader-os-im-team-rollout',
   type: 'guide',
   status: 'published',
-  title: 'Leader-OS im Team-Rollout.',
+  title: 'LeaderOS im Team-Rollout.',
   description:
-    'Zehn bis fünfzig Führungskräfte gleichzeitig auf Leader-OS bringen, ' +
+    'Zehn bis fünfzig Führungskräfte gleichzeitig auf LeaderOS bringen, ' +
     'ohne dass es nach Top-Down-Pflicht-Tool aussieht. Ein erprobter Vier-' +
     'Wochen-Rollout-Plan.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-26',
   cover: null,
-  tags: ['Leader-OS', 'B2B', 'Rollout'],
+  tags: ['LeaderOS', 'B2B', 'Rollout'],
   body: [
     { type: 'paragraph', text:
       'Ein Tool top-down einzuführen ist die einfachste Art, es scheitern zu lassen. Wenn deine Führungs-' +
@@ -65,9 +65,9 @@ export default {
       'Playbook mit und passen ihn an deine Organisation an.' },
   ],
   seo: {
-    title: 'Leader-OS im Team-Rollout: der 4-Wochen-Plan (B2B)',
+    title: 'LeaderOS im Team-Rollout: der 4-Wochen-Plan (B2B)',
     description:
-      'Team-Rollout von Leader-OS: der erprobte Vier-Wochen-Plan für zehn bis fünfzig ' +
+      'Team-Rollout von LeaderOS: der erprobte Vier-Wochen-Plan für zehn bis fünfzig ' +
       'Führungskräfte. Completion-Rate 78-85 Prozent. Von Wlad Jachtchenko.',
     keywords: ['Leadership Tool Rollout', 'Team Coaching Rollout', 'B2B Leadership Programm', 'Team Sprint Implementation', 'Wlad Jachtchenko Team'],
   },

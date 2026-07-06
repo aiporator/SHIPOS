@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-30',
   cover: null,
-  tags: ['Identität', 'Framework', 'Leader-OS'],
+  tags: ['Identität', 'Framework', 'LeaderOS'],
   body: [
     { type: 'paragraph', text: 'Die meisten Führungskräfte denken sie hätten eine Rolle: Führungskraft. Falsch. Sie haben fünf. Welche Rolle gerade dran ist, entscheidet die Situation · nicht die Job-Beschreibung.' },
     { type: 'heading', level: 2, text: 'Rolle 01: Treiber.' },

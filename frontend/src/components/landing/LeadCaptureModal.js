@@ -227,7 +227,7 @@ export const LeadCaptureModal = () => {
                 <img
                   src={WLAD_AVATAR}
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · Leader-OS für jede Führungskraft offen"
+                  alt="Wlad Jachtchenko · Argumentations-Coach und Autor · LeaderOS für jede Führungskraft offen"
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-[50%_18%]"

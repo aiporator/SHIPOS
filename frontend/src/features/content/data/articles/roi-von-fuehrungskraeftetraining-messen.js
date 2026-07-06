@@ -122,14 +122,14 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Leader-OS löst das Attributionsproblem nicht, das kann kein Tool. Aber es liefert wenigstens einen ' +
+        'LeaderOS löst das Attributionsproblem nicht, das kann kein Tool. Aber es liefert wenigstens einen ' +
         'lückenlosen Datentrail: Drill-Completion, Sprint-Fortschritt und Kompetenz-Scores über 30 Tage, die sich ' +
         'sauber neben eNPS- oder 360-Grad-Daten legen lassen, statt eines einzigen Zufriedenheits-Werts direkt nach ' +
         'einem Seminartag.',
     },
   ],
   seo: {
-    title: 'ROI von Führungskräftetraining messen: Kennzahlen · Leader-OS',
+    title: 'ROI von Führungskräftetraining messen: Kennzahlen · LeaderOS',
     description:
       'ROI von Führungskräftetraining messen: Kirkpatrick-Modell, konkrete Kennzahlen wie Fluktuation, eNPS und ' +
       '360-Grad-Delta, plus ehrliche Grenzen der Attribution. Von Wlad Jachtchenko.',

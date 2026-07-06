@@ -30,7 +30,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/transformationale-vs-transaktionale-fuehrung',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Transformationale vs. transaktionale Führung · Leader-OS',
+    ogImageAlt: 'Transformationale vs. transaktionale Führung · LeaderOS',
   },
   body: [
     {
@@ -144,7 +144,7 @@ export default {
       text:
         'Beide Stile sind trainierbar. Kein Talent, sondern Handwerk — du übst die transaktionale Klarheit und den ' +
         'transformationalen Hebel, bis beide sitzen und du im Moment entscheiden kannst, welchen du ziehst. ' +
-        'Bei Leader-OS bekommst du genau das: drillbare Frameworks für beide Stile und den WladBot, der dir 24/7 ' +
+        'Bei LeaderOS bekommst du genau das: drillbare Frameworks für beide Stile und den WladBot, der dir 24/7 ' +
         'an deinem echten Fall spiegelt, welcher Hebel gerade passt. Output über Input — du trainierst, bis es greift.',
     },
     {

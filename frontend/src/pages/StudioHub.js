@@ -100,7 +100,7 @@ const SurfaceCard = ({ s }) => (
 
 export default function StudioHub() {
   useEffect(() => {
-    document.title = 'Studio · Leader-OS';
+    document.title = 'Studio · LeaderOS';
   }, []);
 
   return (

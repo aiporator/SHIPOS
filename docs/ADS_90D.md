@@ -1,4 +1,4 @@
-# 90-Tage Ads-Playbook · Leader-OS
+# 90-Tage Ads-Playbook · LeaderOS
 
 3 parallele Funnels, je 3 Creatives pro Plattform, A/B-fähig.
 Alle CTAs landen auf `leader-check.de/?utm_source=…&utm_medium=…&utm_campaign=…`

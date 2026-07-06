@@ -36,7 +36,7 @@ export const ArticleCard = ({ article }) => {
         {hasCover ? (
           <img
             src={article.cover}
-            alt={`${article.title.replace(/\.$/, '')} · Leader-OS Journal · Wlad Jachtchenko`}
+            alt={`${article.title.replace(/\.$/, '')} · LeaderOS Journal · Wlad Jachtchenko`}
             loading="lazy"
             decoding="async"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"

@@ -2,17 +2,17 @@ export default {
   slug: 'leader-os-fuer-mittelstand-ceo',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für Mittelstand-CEOs.',
+  title: 'LeaderOS für Mittelstand-CEOs.',
   description:
     'Familienunternehmen 50 bis 500 Mitarbeiter: die spezifischen ' +
-    'Reibungspunkte zwischen Tradition und KI-Era. Wie Leader-OS in ' +
+    'Reibungspunkte zwischen Tradition und KI-Era. Wie LeaderOS in ' +
     'diese Generation passt, ohne wie ein Tech-Start-up zu klingen.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-04',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'Mittelstand'],
+  tags: ['LeaderOS', 'Use Case', 'Mittelstand'],
   body: [
-    { type: 'paragraph', text: 'Mittelständische CEOs in DACH stehen 2026 zwischen zwei Welten: die Tradition der Familienunternehmens-Führung (klare Hierarchie, Loyalität, langer Atem) und die KI-Era die ein anderes Tempo verlangt. Leader-OS ist gebaut um diesen Übergang nicht zur Krise zu machen.' },
+    { type: 'paragraph', text: 'Mittelständische CEOs in DACH stehen 2026 zwischen zwei Welten: die Tradition der Familienunternehmens-Führung (klare Hierarchie, Loyalität, langer Atem) und die KI-Era die ein anderes Tempo verlangt. LeaderOS ist gebaut um diesen Übergang nicht zur Krise zu machen.' },
     { type: 'heading', level: 2, text: 'Drei Reibungspunkte spezifisch für den Mittelstand.' },
     { type: 'list', style: 'numbered', items: [
       'Senior-Hires aus dem Tech-Sektor erwarten Führung im "Coach-Modus" statt "Patriarch-Modus". Wer das nicht umstellt, verliert die besten Hires nach sechs Monaten.',
@@ -22,7 +22,7 @@ export default {
     { type: 'heading', level: 2, text: 'Welche Frameworks am stärksten greifen.' },
     { type: 'paragraph', text: 'Aus 47 Sprint-Teilnehmern aus dem DACH-Mittelstand sehen wir drei Frameworks dominieren: 5 Rollen der Führung (Identitäts-Klärung für den Wechsel vom Treiber zum Strategen), Drei Säulen für Aufsichtsrat-Kommunikation, B-W-W für die schwierigen Senior-Gespräche die anstehen.' },
     { type: 'framework', code: 'MITTEL', title: 'Mittelstand-Kombi', explanation: '5 Rollen für die Identitäts-Frage "wer bin ich als CEO 2026?". Drei Säulen für die Aufsichtsrat-Kommunikation. B-W-W für die Senior-Konversationen die anstehen · Generationswechsel, KI-Strategie, Konsolidierungs-Entscheidungen.' },
-    { type: 'heading', level: 2, text: 'Was Leader-OS NICHT bietet.' },
+    { type: 'heading', level: 2, text: 'Was LeaderOS NICHT bietet.' },
     { type: 'list', style: 'bullet', items: [
       'Keine M&A-Beratung. Wir lehren Führung, nicht Bilanz-Analyse.',
       'Keine Familien-Therapie. Wenn die echte Spannung familiär ist, brauchst du einen anderen Berater zusätzlich.',
@@ -34,8 +34,8 @@ export default {
     { type: 'paragraph', text: 'Für eine konkrete Empfehlung: 30-Min-Beratung. Wir hören uns deine Situation an und sagen ehrlich ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
-    title: 'Leader-OS für Mittelstand-CEOs: KI-Era trifft Tradition',
-    description: 'Leadership für Mittelstand-CEOs zwischen Familienunternehmen und KI-Era: drei Reibungspunkte, die stärksten Frameworks und was Leader-OS bewusst nicht bietet. Von Wlad Jachtchenko.',
+    title: 'LeaderOS für Mittelstand-CEOs: KI-Era trifft Tradition',
+    description: 'Leadership für Mittelstand-CEOs zwischen Familienunternehmen und KI-Era: drei Reibungspunkte, die stärksten Frameworks und was LeaderOS bewusst nicht bietet. Von Wlad Jachtchenko.',
     keywords: ['Mittelstand CEO Coaching', 'Familienunternehmen Führung', 'Generationswechsel Coaching', 'DACH Mittelstand KI', 'Wlad Jachtchenko Mittelstand'],
   },
   related: ['der-business-case-fuer-leader-os', '5-rollen-der-fuehrung-nach-wlad-jachtchenko'],

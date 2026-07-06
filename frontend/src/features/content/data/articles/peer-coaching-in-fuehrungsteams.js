@@ -26,10 +26,10 @@ export default {
     { type: 'quote', text: 'Peer-Coaching ohne Regeln ist keine günstige Alternative zum Coaching. Es ist eine teure Zeitverschwendung mit gutem Gewissen.', attribution: 'Wlad, Argumentorik-Akademie 2024' },
     { type: 'heading', level: 2, text: 'Wo Peer-Coaching an seine Grenzen kommt.' },
     { type: 'paragraph', text: 'Peer-Coaching ersetzt kein professionelles Coaching bei tiefgreifenden persönlichen Themen – wenn eine Führungskraft mit Selbstzweifeln, Erschöpfung oder einem echten Konflikt mit der eigenen Führungsrolle kämpft, braucht sie einen ausgebildeten Coach, keine gleichrangigen Kollegen. Peer-Coaching ist am stärksten bei operativen, wiederkehrenden Führungsfragen – und genau dort, wo klassisches Coaching aus Budgetgründen ohnehin nicht flächendeckend eingesetzt werden kann.' },
-    { type: 'paragraph', text: 'Leader-OS bringt genau diese Struktur, die Peer-Coaching braucht, in den digitalen Alltag: Der 30-Tage-Sprint gibt jeder Führungskraft dieselben konkreten Übungssituationen vor, sodass Peer-Gespräche einen gemeinsamen Bezugsrahmen haben, statt bei null zu starten. Und wenn zwischen den Peer-Runden eine akute Frage auftaucht, steht WladBot als sofortiger Sparringspartner bereit – ohne auf das nächste Gruppentreffen warten zu müssen.' },
+    { type: 'paragraph', text: 'LeaderOS bringt genau diese Struktur, die Peer-Coaching braucht, in den digitalen Alltag: Der 30-Tage-Sprint gibt jeder Führungskraft dieselben konkreten Übungssituationen vor, sodass Peer-Gespräche einen gemeinsamen Bezugsrahmen haben, statt bei null zu starten. Und wenn zwischen den Peer-Runden eine akute Frage auftaucht, steht WladBot als sofortiger Sparringspartner bereit – ohne auf das nächste Gruppentreffen warten zu müssen.' },
   ],
   seo: {
-    title: 'Peer-Coaching in Führungsteams: Format & Regeln · Leader-OS',
+    title: 'Peer-Coaching in Führungsteams: Format & Regeln · LeaderOS',
     description: 'Peer-Coaching in Führungsteams strukturiert aufsetzen: das richtige Format, klare Regeln und die drei häufigsten Fallstricke, die es zur Jammer-Runde machen.',
     keywords: ['Peer-Coaching Führungskräfte', 'Peer-Coaching Format', 'kollegiale Beratung Führung', 'Führungsteam Coaching', 'Peer-Coaching Regeln'],
   },

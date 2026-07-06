@@ -1,4 +1,4 @@
-// Leader-OS Landing-Page content · Mockup-aligned (Direction A v3).
+// LeaderOS Landing-Page content · Mockup-aligned (Direction A v3).
 // Athletic Editorial × Heron-Preston specimen-sheet aesthetic.
 //
 // SPECIMEN-MAP (7 Mockup-Sheets in /public/landing/):
@@ -29,9 +29,9 @@ const local = (file) => `/landing/${file}`;
 const wlad = (file) => `/wlad/${file}`;
 
 export const LANDING_META = {
-  title: 'Leader-OS · Das Leadership Operating System. Kostenlos testen.',
+  title: 'LeaderOS · Das Leadership Operating System. Kostenlos testen.',
   description:
-    'Leader-OS ist dein persönliches Leadership Operating System — mit ' +
+    'LeaderOS ist dein persönliches Leadership Operating System — mit ' +
     'KI-Coach, täglichen Übungen und den Methoden von Wlad Jachtchenko, ' +
     'damit du jeden Tag besser führst. 14 Tage kostenlos, ohne Karte.',
   url: 'https://leader-os.de',
@@ -116,7 +116,7 @@ export const HOW_IT_WORKS = [
     body:
       'Nach dem Sprint: voller Zugriff auf alle elf Frameworks, ' +
       'WladBot 24/7, monatliche Live-Sessions und das ' +
-      'Leader-OS-Netzwerk.',
+      'LeaderOS-Netzwerk.',
     cta: 'OS erkunden',
     href: 'https://leaderos.de/login',
     external: true,
@@ -288,11 +288,11 @@ export const LANDING_BENEFITS = [
     body:
       'Jeder Sprint endet mit einem persönlichen Zertifikat, ' +
       'signiert von Wlad Jachtchenko, mit deiner Startnummer 0001 ' +
-      'und dem offiziellen Leader-OS-Siegel. Teilbar auf LinkedIn.',
+      'und dem offiziellen LeaderOS-Siegel. Teilbar auf LinkedIn.',
     detail: [
       ['SIG', 'UNTERSCHRIFT',  'Wlad Jachtchenko · handschriftlich'],
       ['NR.', 'STARTNUMMER',   '0001 · Individuell'],
-      ['SEA', 'SIEGEL',        'Goldfolie · Leader-OS Wappen'],
+      ['SEA', 'SIEGEL',        'Goldfolie · LeaderOS Wappen'],
       ['SHA', 'SHAREABLE',     'LinkedIn · CV · Profil'],
     ],
     cta: 'Erstes Zertifikat freischalten',

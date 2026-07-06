@@ -6,7 +6,7 @@
  *
  * Page Goal:
  *   1. Social-Proof: zeige Score + Wlad's Einschätzung
- *   2. Conversion: prominenter CTA "Jetzt selbst testen → Leader-OS"
+ *   2. Conversion: prominenter CTA "Jetzt selbst testen → LeaderOS"
  *   3. Authenticity: Username + Avatar, Wlad-Logo Watermark
  *
  * Public route · no auth required. Backend redacts PII (no full transcript).
@@ -267,7 +267,7 @@ export default function SharedMissionPage() {
               </Button>
             </div>
             <p className="text-[10px] font-bold uppercase tracking-widest opacity-60 mt-5">
-              Powered by Leader-OS · WladBot · KI-Coach
+              Powered by LeaderOS · WladBot · KI-Coach
             </p>
           </CardContent>
         </Card>

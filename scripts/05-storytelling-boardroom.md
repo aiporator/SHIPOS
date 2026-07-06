@@ -1,6 +1,6 @@
 # Kurs 5: Storytelling im Boardroom (7 Folgen · ~6,5 Min/Folge)
 
-**Tier:** Leader-OS Standard
+**Tier:** LeaderOS Standard
 **Freigabe:** Folge 1 (kostenlose Vorschau) | Folgen 2–7 (kostenpflichtig)
 
 ---

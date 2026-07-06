@@ -471,7 +471,7 @@ class SyncExchange(BaseModel):
 
 @router.post("/leader-os-sync")
 async def leader_os_sync(data: SyncExchange, request: Request, response: Response):
-    """Exchange a leader-check `sync_token` for a first-party Leader-OS session."""
+    """Exchange a leader-check `sync_token` for a first-party LeaderOS session."""
     if not _sync_signing_secrets():
         # Fail safe — never mint a session when we can't verify the token.
         raise HTTPException(status_code=503, detail="Leader-Check sync ist nicht konfiguriert.")

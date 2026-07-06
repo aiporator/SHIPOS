@@ -43,7 +43,7 @@ export default {
 
     { type: 'framework', code: 'G·3', title: 'Das Drehbuch in einem Block.', explanation: 'Eröffnung: "Mein Vorschlag · 30 Min, drei Themen." (15 Sek). Anker setzen: drei messbare Erfolge + zwei Markt-Datenpunkte + ein Ziel (5 Min). Zahl: ruhig nennen, ohne Rechtfertigung. Schweigen. Auf Gegen-Reaktion: "Was wäre für dich ein guter Mittelweg?". Bei Vertagung: Termin festhalten. Mehr braucht es nicht. Üben mit echtem Mensch, ChatGPT-Voice oder WladBot.' },
 
-    { type: 'callout', tone: 'dark', text: 'WladBot in Leader-OS simuliert dein konkretes Gegenüber (CEO / HR / Direkter Vorgesetzter) inklusive seines üblichen Style. Du übst das Drehbuch in safe space, bis es Reflex ist. Im Schnitt: 4-5 Drills, dann reale Verhandlung mit 30% weniger Stress. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'WladBot in LeaderOS simuliert dein konkretes Gegenüber (CEO / HR / Direkter Vorgesetzter) inklusive seines üblichen Style. Du übst das Drehbuch in safe space, bis es Reflex ist. Im Schnitt: 4-5 Drills, dann reale Verhandlung mit 30% weniger Stress. Buch ein unverbindliches Beratungsgespräch.' },
   ],
   related: [
     'gehaltsgespraech-vorbereiten-skript',

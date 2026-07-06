@@ -31,7 +31,7 @@ export default {
     { type: 'paragraph', text: 'Im Sprint baust du SEXIER an deinen echten Roadmaps mit Live-Korrektur. Im Plus-Plus probst du das Townhall einmal mit Wlad selbst, ungeschnitten, dreißig Minuten Feedback.' },
   ],
   seo: {
-    title: 'Townhall-Rede strukturieren: SEXIER-Methode · Leader-OS',
+    title: 'Townhall-Rede strukturieren: SEXIER-Methode · LeaderOS',
     description: 'Townhall-Rede strukturieren mit SEXIER: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, Einwand-Vorwegnahme, Resumée · sechzehn Minuten, keine Alignment-Welle danach. Von Wlad Jachtchenko.',
     keywords: ['Townhall vorbereiten', 'Townhall Rede Struktur', 'SEXIER Methode', 'All-Hands Vorbereitung', 'Quartals-Townhall', 'Public Speaking Manager'],
   },

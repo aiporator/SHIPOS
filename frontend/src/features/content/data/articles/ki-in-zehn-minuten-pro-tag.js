@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-14',
   cover: null,
-  tags: ['Leader-OS', 'Routine', 'Zugänglichkeit'],
+  tags: ['LeaderOS', 'Routine', 'Zugänglichkeit'],
   body: [
     { type: 'paragraph', text: 'Manchmal hast du keine fünfzehn Minuten am Stück. On-Call-Woche, Fundraising-Sprint, Familien-Krise. Hier ist die Zehn-Minuten-Variante die in diese Phasen passt.' },
     { type: 'heading', level: 2, text: 'Drei-Block-Routine, je drei Minuten.' },
@@ -33,7 +33,7 @@ export default {
     { type: 'paragraph', text: 'WladBot erkennt eingebaut wenn du eine Krise-Phase signalisierst und schlägt automatisch die Zehn-Minuten-Variante vor · ohne dass du es bewusst einstellen musst.' },
   ],
   seo: {
-    title: 'KI in 10 Minuten pro Tag · Leader-OS',
+    title: 'KI in 10 Minuten pro Tag · LeaderOS',
     description: 'KI in 10 Minuten pro Tag: die Drei-Block-Routine, die selbst in On-Call-Wochen und Fundraising-Phasen hält. So bleibst du im Drill. Von Wlad Jachtchenko.',
     keywords: ['KI 10 Minuten', 'Mikro-Routine Manager', 'Sprint Pause vermeiden', 'KI in stressigen Wochen', 'Leadership Routine kurz'],
   },

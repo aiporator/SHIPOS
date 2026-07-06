@@ -1,4 +1,4 @@
-// Paid-Ad-Creatives · Netflix-Bites-DNA für Leader-OS.
+// Paid-Ad-Creatives · Netflix-Bites-DNA für LeaderOS.
 //
 // Look: ein einziger saturierter Farbblock, gecroppter Mensch im
 // Moment der Aktion (lesen · sprechen · entscheiden · zuhören),
@@ -212,7 +212,7 @@ export const AD_SERIES = [
     caption:
       'SEXIER · Statement, Explanation, Example, Impact, Exception, ' +
       'Resolution. Das Argumentations-Modell, das in jeder Verhandlung ' +
-      'trägt. Eines von 11 Frameworks im Leader-OS.',
+      'trägt. Eines von 11 Frameworks im LeaderOS.',
   },
   {
     id: 'AD-F-02',

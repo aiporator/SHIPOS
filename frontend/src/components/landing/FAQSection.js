@@ -30,7 +30,7 @@ const FAQS = [
   {
     q: 'Wie unterscheidet sich das von ChatGPT oder einem normalen Coaching?',
     a:
-      'ChatGPT kennt das halbe Internet, aber nicht dich und nicht die Methodik. Ein 1-zu-1-Coach kennt dich, ist aber nicht um 22:47 Uhr verfügbar und kostet pro Stunde, was bei Leader-OS einen ganzen Sprint kostet. WladBot ist beides zusammen: trainiert auf 2 212 authentische Wlad-Chunks und einer Context-Schicht, die deinen Sprint, deine Frameworks-Historie und deine letzten Drills kennt.',
+      'ChatGPT kennt das halbe Internet, aber nicht dich und nicht die Methodik. Ein 1-zu-1-Coach kennt dich, ist aber nicht um 22:47 Uhr verfügbar und kostet pro Stunde, was bei LeaderOS einen ganzen Sprint kostet. WladBot ist beides zusammen: trainiert auf 2 212 authentische Wlad-Chunks und einer Context-Schicht, die deinen Sprint, deine Frameworks-Historie und deine letzten Drills kennt.',
   },
   {
     q: 'Wie sicher sind meine Daten?',

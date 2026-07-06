@@ -168,7 +168,7 @@ Im **echten Browser**, nicht curl. Reihenfolge:
 ## Wenn alles 🟢 — bist du live
 
 Was du dann machst:
-1. Tweet/LinkedIn-Post: "Leader-OS ist live"
+1. Tweet/LinkedIn-Post: "LeaderOS ist live"
 2. Newsletter-Mail an deine Liste
 3. Erste 10 User einladen (Direct-DMs)
 4. Schlafen

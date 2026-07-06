@@ -28,10 +28,10 @@ export default {
     { type: 'heading', level: 2, text: 'Wann die Kombination der richtige Weg ist.' },
     { type: 'paragraph', text: 'In der Praxis ist die Frage selten "entweder oder", sondern "was kommt zuerst und was folgt danach". Ein bewährtes Muster: ein initiales Seminar oder ein Kick-off-Workshop, um ein Thema gemeinsam einzuführen und Beziehungen im Team zu stärken – gefolgt von Wochen oder Monaten mit täglichem Micro-Learning, das die Inhalte des Seminars wiederholt, vertieft und in den echten Alltag der Führungskraft überträgt. Ohne diese zweite Phase verpufft die erste fast immer.' },
     { type: 'quote', text: 'Ein Seminar ist der Startschuss. Ohne das, was danach passiert, war es nur ein teurer Tag mit gutem Gefühl.', attribution: 'Wlad, Argumentorik-Akademie 2024' },
-    { type: 'paragraph', text: 'Leader-OS ist als reines Micro-Learning-Format konzipiert, gerade weil es für Führungskräfte gebaut wurde, die keine zwei Tage am Stück erübrigen können, aber trotzdem echten Fortschritt wollen. Der 30-Tage-Sprint liefert tägliche Mikro-Drills von wenigen Minuten, WladBot steht als Sparringspartner bereit, wann immer eine konkrete Situation ansteht – für Unternehmen, die zusätzlich punktuelle Präsenz-Workshops einsetzen, ist Leader-OS die Nachbereitung, die dafür sorgt, dass das Seminar nicht nach vier Wochen vergessen ist.' },
+    { type: 'paragraph', text: 'LeaderOS ist als reines Micro-Learning-Format konzipiert, gerade weil es für Führungskräfte gebaut wurde, die keine zwei Tage am Stück erübrigen können, aber trotzdem echten Fortschritt wollen. Der 30-Tage-Sprint liefert tägliche Mikro-Drills von wenigen Minuten, WladBot steht als Sparringspartner bereit, wann immer eine konkrete Situation ansteht – für Unternehmen, die zusätzlich punktuelle Präsenz-Workshops einsetzen, ist LeaderOS die Nachbereitung, die dafür sorgt, dass das Seminar nicht nach vier Wochen vergessen ist.' },
   ],
   seo: {
-    title: 'Micro-Learning vs. klassisches Seminar: Vergleich · Leader-OS',
+    title: 'Micro-Learning vs. klassisches Seminar: Vergleich · LeaderOS',
     description: 'Micro-Learning vs. klassisches Seminar für Führungskräfte im direkten Vergleich – Vor- und Nachteile, wann welches Format passt und wann die Kombination sinnvoll ist.',
     keywords: ['Micro-Learning Führungskräfte', 'Micro-Learning vs Seminar', 'Führungskräftetraining digital', 'Seminar vs digitales Lernen', 'Micro-Learning Vorteile'],
   },

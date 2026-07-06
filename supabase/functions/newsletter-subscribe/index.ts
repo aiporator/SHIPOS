@@ -46,7 +46,7 @@ const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 function confirmHtml(confirmUrl: string): string {
   return `<!doctype html><html><body style="font-family:-apple-system,system-ui,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#0a0a0a;">
-  <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5a7a00;font-weight:700;margin:0 0 16px;">▸ Leader-OS · Feldnotizen</p>
+  <p style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5a7a00;font-weight:700;margin:0 0 16px;">▸ LeaderOS · Feldnotizen</p>
   <h1 style="font-weight:800;font-size:24px;line-height:1.15;margin:0 0 12px;">Noch ein Klick.</h1>
   <p style="font-size:15px;line-height:1.55;color:#333;">Bestätige deine Anmeldung zu den Feldnotizen — Wlads Notizen aus 400 000 Coachings, alle paar Wochen, kein Spam.</p>
   <p style="margin:28px 0;">
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: RESEND_FROM_EMAIL,
         to: [email],
-        subject: "Bestätige deine Anmeldung — Leader-OS Feldnotizen",
+        subject: "Bestätige deine Anmeldung — LeaderOS Feldnotizen",
         html: confirmHtml(confirmUrl),
       }),
     });

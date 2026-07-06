@@ -101,7 +101,7 @@ export default function ArticlePage() {
         <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[640px] bg-[#0A0A0A]">
           <img
             src={heroCover}
-            alt={article.seo?.ogImageAlt || `${article.title.replace(/\.$/, '')} · Leader-OS Feldnotizen · Wlad Jachtchenko`}
+            alt={article.seo?.ogImageAlt || `${article.title.replace(/\.$/, '')} · LeaderOS Feldnotizen · Wlad Jachtchenko`}
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
             fetchpriority="high"

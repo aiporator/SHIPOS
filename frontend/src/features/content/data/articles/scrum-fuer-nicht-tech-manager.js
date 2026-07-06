@@ -42,7 +42,7 @@ export default {
 
     { type: 'paragraph', text: 'Wer diese sechs Begriffe (Sprint · Daily · Retro · Velocity · Backlog · DoD) drauf hat, kann mit jedem Engineering-Team auf Augenhöhe reden. Mehr brauchst du nicht · der Rest ist Detail das die Software-Leute klären.' },
 
-    { type: 'callout', tone: 'dark', text: 'In Leader-OS lernst du nicht Scrum · du lernst Wlads 5-Rollen-Modell für KI-natives Führen. Aber das System ist verwandt: 30 Tage, klare Liste, Daily-Drill, Retro am Ende. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
+    { type: 'callout', tone: 'dark', text: 'In LeaderOS lernst du nicht Scrum · du lernst Wlads 5-Rollen-Modell für KI-natives Führen. Aber das System ist verwandt: 30 Tage, klare Liste, Daily-Drill, Retro am Ende. Werde Teil von LeaderOS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'sprint-oder-marathon',

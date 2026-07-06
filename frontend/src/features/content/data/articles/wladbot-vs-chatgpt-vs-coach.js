@@ -13,7 +13,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-24',
   cover: null,
-  tags: ['Leader-OS', 'WladBot', 'KI'],
+  tags: ['LeaderOS', 'WladBot', 'KI'],
   body: [
     { type: 'paragraph', text:
       'Wenn jemand fragt "ist WladBot besser als ChatGPT", ist die Frage falsch gestellt. Es geht nicht um ' +
@@ -57,11 +57,11 @@ export default {
       'Du fragst dich, ob du nach dem Karriere-Sprung als VP wirklich noch der Architekt bleibst, der du sein willst. Das ist eine Identitäts-Frage. Du buchst eine 1:1-Session mit Wlad.',
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Leader-OS nimmt dir ChatGPT nicht weg. Es nimmt dir den Coach für die methodischen Drills ab. Den ' +
+      'LeaderOS nimmt dir ChatGPT nicht weg. Es nimmt dir den Coach für die methodischen Drills ab. Den ' +
       'echten 1:1-Coach behältst du für die Identitäts-Themen. Drei Werkzeuge, drei klare Slots.' },
     { type: 'paragraph', text:
       'Wenn du wissen willst welche der drei Lücken bei dir aktuell die größte ist, ist die Diagnose der ' +
-      'Startpunkt. Sie sagt dir nicht "kauf Leader-OS". Sie sagt dir ehrlich wo dein größter Hebel liegt.' },
+      'Startpunkt. Sie sagt dir nicht "kauf LeaderOS". Sie sagt dir ehrlich wo dein größter Hebel liegt.' },
   ],
   seo: {
     title: 'WladBot vs ChatGPT vs Coach: der ehrliche Vergleich',

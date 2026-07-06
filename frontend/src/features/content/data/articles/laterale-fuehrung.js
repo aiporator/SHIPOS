@@ -16,7 +16,7 @@ export default {
   cover: '/wlad/wlad-portrait.webp',
   tags: ['Führung', 'Laterale Führung', 'Projektleitung', 'Methoden'],
   seo: {
-    title: 'Laterale Führung: Definition + Methoden · Leader-OS',
+    title: 'Laterale Führung: Definition + Methoden · LeaderOS',
     description:
       'Laterale Führung erklärt: führen ohne disziplinarische Macht. ' +
       'Definition, die drei Hebel nach Kühl & Schnelle, konkrete Techniken ' +
@@ -34,7 +34,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/laterale-fuehrung',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Laterale Führung · Führen ohne Weisungsbefugnis · Leader-OS',
+    ogImageAlt: 'Laterale Führung · Führen ohne Weisungsbefugnis · LeaderOS',
   },
   body: [
     { type: 'paragraph', text:
@@ -68,7 +68,7 @@ export default {
       'Die unbequeme Wahrheit: laterale Führung ist HÄRTER als disziplinarische, nicht weicher. Du musst jeden Tag neu überzeugen, was ein Vorgesetzter anordnen könnte. Genau deshalb sind gute laterale Führungskräfte so wertvoll · und so selten.' },
     { type: 'heading', level: 2, text: 'Laterale Führung lernen.' },
     { type: 'paragraph', text:
-      'Weil laterale Führung reine Skill-Arbeit ist (Vertrauen, Verhandlung, Kommunikation), lässt sie sich besonders gut drillen. In Leader-OS übst du die Harvard-Verhandlung, die Feedback-Formel und Konflikt-Skripte an deinen echten Projektsituationen · mit WladBot als Sparring für das Gespräch, das morgen ansteht.' },
+      'Weil laterale Führung reine Skill-Arbeit ist (Vertrauen, Verhandlung, Kommunikation), lässt sie sich besonders gut drillen. In LeaderOS übst du die Harvard-Verhandlung, die Feedback-Formel und Konflikt-Skripte an deinen echten Projektsituationen · mit WladBot als Sparring für das Gespräch, das morgen ansteht.' },
     { type: 'diagnostic', prompt: 'Welche laterale Situation steckt dir gerade fest?', options: [
       { label: 'Niemand zieht mit, ich habe keine Macht', category: 'conflict' },
       { label: 'Projektteam aus mehreren Abteilungen', category: 'delegation' },

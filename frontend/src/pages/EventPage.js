@@ -9,11 +9,11 @@ import { subscribe, isValidEmail } from '../features/newsletter/lib/newsletterCl
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 
 /**
- * EventPage · /event · the free LIVE launch event for Leader-OS.
+ * EventPage · /event · the free LIVE launch event for LeaderOS.
  *
  * A dated, high-conversion registration page (20.08.2026) built to onboard
  * cold traffic + the Masterclass alumni into a free live event, then into
- * the Leader-OS trial. Copy is lifted from Wlad's own event framing
+ * the LeaderOS trial. Copy is lifted from Wlad's own event framing
  * (charisma, natürliche Autorität, weniger arbeiten / mehr verdienen).
  *
  * Design: always-dark premium canvas (we force the dark theme on mount and
@@ -98,8 +98,8 @@ const FAQ = [
        'Aufzeichnung · deshalb lohnt es sich, live dabei zu sein.',
   },
   {
-    q: 'Was hat das mit Leader-OS zu tun?',
-    a: 'Das Event ist der Live-Auftakt zu Leader-OS · Wlads KI-Coaching-Plattform. Du ' +
+    q: 'Was hat das mit LeaderOS zu tun?',
+    a: 'Das Event ist der Live-Auftakt zu LeaderOS · Wlads KI-Coaching-Plattform. Du ' +
        'erlebst die Methodik live und kannst sie danach täglich mit WladBot weitertrainieren ' +
        '· 14 Tage kostenlos, ohne Karte.',
   },
@@ -231,7 +231,7 @@ export default function EventPage() {
     root.classList.add('dark');
 
     const restoreMeta = applyPageMeta({
-      title: 'Leader-OS LIVE · Das Leadership-Event mit Wlad Jachtchenko · 20.08.2026',
+      title: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko · 20.08.2026',
       description:
         'Kostenloses Live-Event am 20.–21.08.2026 mit Europas führendem Leadership-Coach ' +
         'Wlad Jachtchenko. In 2 Tagen zur charismatischen Führungspersönlichkeit · ' +
@@ -246,7 +246,7 @@ export default function EventPage() {
     ld.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Event',
-      name: 'Leader-OS LIVE · Das Leadership-Event mit Wlad Jachtchenko',
+      name: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko',
       startDate: '2026-08-20T10:00:00+02:00',
       endDate: '2026-08-21T16:00:00+02:00',
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
@@ -258,7 +258,7 @@ export default function EventPage() {
       image: ['https://leader-os.de/og-wlad.jpg'],
       description:
         'Kostenloses 2-Tage-Live-Event zur charismatischen Führung mit Wlad Jachtchenko.',
-      organizer: { '@type': 'Organization', name: 'Leader-OS', url: 'https://leader-os.de' },
+      organizer: { '@type': 'Organization', name: 'LeaderOS', url: 'https://leader-os.de' },
       performer: { '@type': 'Person', name: 'Wlad Jachtchenko' },
       offers: {
         '@type': 'Offer',

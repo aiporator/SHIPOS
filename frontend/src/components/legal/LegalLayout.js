@@ -8,7 +8,7 @@ export default function LegalLayout({ title, children }) {
           <Link to="/" className="text-sm text-white/60 hover:text-white transition-colors">
             ← Zurück
           </Link>
-          <div className="text-sm font-medium tracking-wide">Leader-OS</div>
+          <div className="text-sm font-medium tracking-wide">LeaderOS</div>
         </div>
       </header>
 

@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-13',
   cover: null,
-  tags: ['Leader-OS', 'System', 'Philosophie'],
+  tags: ['LeaderOS', 'System', 'Philosophie'],
   body: [
     { type: 'paragraph', text: 'Wer von einem großen Umbruch träumt, wird selten umgebaut. Wer eine kleine Routine ändert und drei Monate durchhält, wird strukturell anders. Das ist die Wahrheit hinter "System statt Transformation".' },
     { type: 'heading', level: 2, text: 'Beispiel 01: Stand-up-Eröffnung.' },

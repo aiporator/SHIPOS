@@ -1,4 +1,4 @@
-# 90-Tage Content-Strategie · Leader-OS
+# 90-Tage Content-Strategie · LeaderOS
 
 Quelle der Stimme: Wlad Jachtchenkos Frameworks (siehe `docs/SCHEMA.md` ·
 2212 RAG-Chunks). Quelle der CTAs: `leader-check.de` (Diagnose, kostenlos).

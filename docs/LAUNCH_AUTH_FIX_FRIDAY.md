@@ -34,7 +34,7 @@ curl -sS https://leaderos.de/api/auth/providers | jq
 #     "magic_link": true
 #   },
 #   "google_client_id": "482961656741-…apps.googleusercontent.com",
-#                                                ↑ NEW Leader-OS Production ID
+#                                                ↑ NEW LeaderOS Production ID
 #   "apple_service_id": "",
 #   "microsoft_client_id": "",
 #   "microsoft_tenant": "common"
@@ -193,7 +193,7 @@ checklist below.
    Any mismatch between the env var on the backend and the OAuth
    client in Google Cloud Console = silent 401 on `/google/callback`.
 
-   The new "Leader-OS Production" client is `482961656741-…`.
+   The new "LeaderOS Production" client is `482961656741-…`.
    The old client is `448733563313-…`. If the smoke-test in step 1a
    shows the old ID, redeploy the Emergent project with the new env
    value (Emergent does NOT hot-reload env changes · you must

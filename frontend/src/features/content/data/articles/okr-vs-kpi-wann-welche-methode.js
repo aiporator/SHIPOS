@@ -11,7 +11,7 @@ export default {
   cover: null,
   tags: ['Methodik', 'OKR', 'KPI', 'Frameworks', 'Strategie'],
   seo: {
-    title: 'OKR vs KPI: wann welche Methode · Leader-OS',
+    title: 'OKR vs KPI: wann welche Methode · LeaderOS',
     description:
       'OKR vs KPI klar getrennt: OKR für Veränderung, KPI für Stabilität. ' +
       'Mit konkreten Beispielen und der Anti-Pattern-Liste, die jeder Manager kennen muss.',
@@ -43,7 +43,7 @@ export default {
 
     { type: 'framework', code: 'OK·3', title: 'Die drei Fragen vor jedem OKR-Set-Up.', explanation: 'Erstens: ist das ein RICHTUNGSWECHSEL oder ein KPI-Tuning? Wenn KPI-Tuning, gehört es nicht ins OKR-System. Zweitens: wenn wir es erreichen, sieht das Unternehmen am Quartalsende anders aus? Wenn nein, ist es nicht ambitiös genug. Drittens: ist das Key Result MESSBAR (Zahl) und ZEITGEBUNDEN (Quartalsende)? Wenn nein, ist es ein Wunsch, kein OKR.' },
 
-    { type: 'callout', tone: 'dark', text: 'Leader-OS nutzt OKRs als Trainingseinheit. Du setzt am Anfang des 30-Tage-Sprints drei persönliche OKRs für deine Führungs-Evolution · am Ende wirst du gemessen. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
+    { type: 'callout', tone: 'dark', text: 'LeaderOS nutzt OKRs als Trainingseinheit. Du setzt am Anfang des 30-Tage-Sprints drei persönliche OKRs für deine Führungs-Evolution · am Ende wirst du gemessen. Werde Teil von LeaderOS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'sprint-oder-marathon',

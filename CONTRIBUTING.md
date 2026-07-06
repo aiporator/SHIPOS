@@ -1,4 +1,4 @@
-# Contributing to Leader-OS
+# Contributing to LeaderOS
 
 Two-line summary: every change goes through a PR, and PR-required status
 checks decide whether mvpcode accepts it. If you push directly to mvpcode

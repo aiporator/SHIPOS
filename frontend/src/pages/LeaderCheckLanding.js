@@ -577,7 +577,7 @@ export default function LeaderCheckLanding() {
                 </span>
               </a>
               <p className="text-[11px] text-black/45 italic max-w-md text-center">
-                Wenn du dann später Leader-OS ausprobieren willst ·
+                Wenn du dann später LeaderOS ausprobieren willst ·
                 nimm dort die gleiche E-Mail. Dann erkennen wir dich
                 und können vom ersten Tag persönlich werden.
               </p>

@@ -4,13 +4,13 @@ export default {
   status: 'published',
   title: 'Für jeden Mitarbeiter · nicht nur für Führungskräfte.',
   description:
-    'Wer KI-Hebel will, muss nicht zwingend Manager sein. Wie Leader-OS ' +
+    'Wer KI-Hebel will, muss nicht zwingend Manager sein. Wie LeaderOS ' +
     'auch für Senior-ICs, Tech-Leads ohne formelle Personalverantwortung ' +
     'und Solo-Spezialisten Effekt liefert.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-15',
   cover: null,
-  tags: ['Leader-OS', 'Zugang', 'IC'],
+  tags: ['LeaderOS', 'Zugang', 'IC'],
   body: [
     { type: 'paragraph', text: 'Die meisten Leadership-Programme adressieren Führungskräfte mit Personalverantwortung. Das ist ein zu enger Filter. Wer heute in DACH einen Tech-Lead-Titel ohne direct reports hat, oder ein Senior-IC mit Domain-Verantwortung ist, hat dieselben Skill-Lücken · und ähnlich starke Hebel.' },
     { type: 'heading', level: 2, text: 'Drei nicht-Manager-Profile die vom Sprint profitieren.' },
@@ -29,7 +29,7 @@ export default {
   ],
   seo: {
     title: 'Leadership ohne Personalverantwortung: für jeden',
-    description: 'Leadership ohne Personalverantwortung: drei Profile, die vom Leader-OS Sprint profitieren – Senior IC, Tech-Lead ohne direct reports, Solo-Spezialist. Von Wlad Jachtchenko.',
+    description: 'Leadership ohne Personalverantwortung: drei Profile, die vom LeaderOS Sprint profitieren – Senior IC, Tech-Lead ohne direct reports, Solo-Spezialist. Von Wlad Jachtchenko.',
     keywords: ['Leadership Sprint IC', 'Senior IC Coaching', 'Tech Lead Coaching', 'Solo Spezialist Skill', 'Leadership ohne Personalverantwortung'],
   },
   related: ['damit-es-jeder-schafft-die-zugaenglichkeits-philosophie', 'leader-os-fuer-neu-befoerderte-leads'],

@@ -1,4 +1,4 @@
-# fly.toml — Leader-OS Python backend
+# fly.toml — LeaderOS Python backend
 # Drop at the repo root (or wherever `fly launch` is run from).
 # Assumes backend/ contains your FastAPI app and a Dockerfile.
 #

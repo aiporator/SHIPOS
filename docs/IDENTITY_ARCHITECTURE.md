@@ -1,4 +1,4 @@
-# Identity Architecture — Leader-OS / WladBot
+# Identity Architecture — LeaderOS / WladBot
 
 > Single source of truth for: who is a user, what id system represents them,
 > and how that id propagates across MongoDB, Supabase, PostHog, and Sentry.

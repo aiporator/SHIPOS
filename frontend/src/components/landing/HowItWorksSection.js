@@ -13,7 +13,7 @@ const useHowToJsonLd = () => {
     const data = {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
-      name: 'Wie werde ich eine KI-native Führungskraft mit Leader-OS',
+      name: 'Wie werde ich eine KI-native Führungskraft mit LeaderOS',
       description:
         'Drei-Schritt-Pfad von der kostenlosen Diagnose über den 30-Tage-Sprint ' +
         'zur langfristigen Plattform-Mitgliedschaft. Methodik von Wlad Jachtchenko, ' +
@@ -65,7 +65,7 @@ export const HowItWorksSection = () => {
   <section
     id="how-it-works"
     className="relative w-full bg-background overflow-hidden"
-    aria-label="So funktioniert Leader-OS"
+    aria-label="So funktioniert LeaderOS"
     data-testid="how-it-works"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-24 md:py-32">

@@ -7,7 +7,7 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../li
  * Leadership Operating System), Wlad is the trust anchor — not the product.
  *
  * Four beats, all situations/outcomes instead of features:
- *   1. Was ist Leader-OS? (kein Kurs / keine Bibliothek / kein Chatbot →
+ *   1. Was ist LeaderOS? (kein Kurs / keine Bibliothek / kein Chatbot →
  *      begleitet dich bei echten Führungs-Situationen)
  *   2. Situation-Demo: "Morgen hast du ein schwieriges Feedbackgespräch.
  *      Frag WladBot." (the feature translated into a moment)
@@ -57,15 +57,15 @@ const BOT_DELIVERS = [
 export const WhatIsLeaderOsSection = () => (
   <section
     id="was-ist-leader-os"
-    aria-label="Was ist Leader-OS"
+    aria-label="Was ist LeaderOS"
     className="relative w-full bg-background border-b-2 border-foreground/10"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-24">
-      {/* Beat 1 · Was ist Leader-OS? */}
+      {/* Beat 1 · Was ist LeaderOS? */}
       <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
         <div className="md:col-span-5">
           <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4">
-            ▸ Was ist Leader-OS?
+            ▸ Was ist LeaderOS?
           </p>
           <h2
             className="text-[30px] sm:text-[42px] md:text-[54px] leading-[0.98] tracking-[-0.035em] text-foreground"
@@ -77,7 +77,7 @@ export const WhatIsLeaderOsSection = () => (
             Betriebssystem<span className="text-brand not-italic">.</span>
           </h2>
           <p className="mt-5 text-[15px] leading-[1.6] text-foreground/70 max-w-md">
-            Leader-OS begleitet dich jeden Tag bei den echten Situationen,
+            LeaderOS begleitet dich jeden Tag bei den echten Situationen,
             die Führungskräfte erleben:
           </p>
           <ul className="mt-4 flex flex-wrap gap-2">
@@ -137,7 +137,7 @@ export const WhatIsLeaderOsSection = () => (
           </div>
           {/* Kombiniert-Zeile unter der Demo-Card */}
           <div className="mt-6 border-2 border-foreground/15 p-5 md:p-6">
-            <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand-strong mb-3">▸ Dafür kombiniert Leader-OS</p>
+            <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand-strong mb-3">▸ Dafür kombiniert LeaderOS</p>
             <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
               {COMBINES.map((c) => (
                 <li key={c} className="flex items-start gap-2.5 text-[13.5px] leading-[1.45] text-foreground/80">

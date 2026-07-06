@@ -7,7 +7,7 @@ import { SpotlightCard } from './SpotlightCard';
  *
  * Zweck: viraler Top-of-Funnel-Magnet. Jedes Tool ist ein eigenständiges
  * KI-Werkzeug das ohne Login funktioniert, gleichzeitig aber den User
- * sanft ins Leader-OS-Onboarding zieht.
+ * sanft ins LeaderOS-Onboarding zieht.
  *
  * Drei der vier Tools verlinken auf bereits existierende Surfaces auf
  * der Landing (Anchor-Scroll), das vierte führt zur tiefen Diagnose
@@ -183,7 +183,7 @@ export const FreeToolsSection = () => (
         <p className="mt-6 text-[16px] md:text-[18px] leading-[1.6] text-foreground/70">
           Vier kostenlose Werkzeuge die dich nicht nur testen · sie bringen dir
           direkt Wert. Mach den Archetyp-Check, finde deinen Hebel, frag den
-          WladBot. Onboarding ohne Reibung. Wenn du tiefer willst, ist Leader-OS
+          WladBot. Onboarding ohne Reibung. Wenn du tiefer willst, ist LeaderOS
           der nächste Schritt.
         </p>
       </div>

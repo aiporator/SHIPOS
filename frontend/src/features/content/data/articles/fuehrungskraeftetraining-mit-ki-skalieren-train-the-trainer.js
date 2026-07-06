@@ -2,8 +2,8 @@
  * Article: Führungskräftetraining mit KI skalieren (Train-the-Trainer).
  *
  * L&D / internal-trainer audience. General principles for scaling
- * internal leadership training with AI tools, not Leader-OS-specific —
- * Leader-OS shows up as one example at the end.
+ * internal leadership training with AI tools, not LeaderOS-specific —
+ * LeaderOS shows up as one example at the end.
  */
 export default {
   slug: 'fuehrungskraeftetraining-mit-ki-skalieren-train-the-trainer',
@@ -118,12 +118,12 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: 'Leader-OS als ein Beispiel für dieses Prinzip',
+      text: 'LeaderOS als ein Beispiel für dieses Prinzip',
     },
     {
       type: 'paragraph',
       text:
-        'Ich habe über 420.000 Klienten begleitet, bevor ich Leader-OS gebaut habe — und genau an diesem Engpass ' +
+        'Ich habe über 420.000 Klienten begleitet, bevor ich LeaderOS gebaut habe — und genau an diesem Engpass ' +
         'gescheitert: Nachbereitung skaliert nicht über einen einzelnen Trainer. Der 30-Tage-Sprint und WladBot sind ' +
         'meine Antwort darauf, nicht die einzig mögliche. Wer intern trainiert, kann dasselbe Prinzip mit eigenen ' +
         'Tools bauen — die drei Phasen bleiben gleich, egal welches System dahinter steht.',

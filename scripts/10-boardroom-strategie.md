@@ -147,9 +147,9 @@ Und Folge 11: Die CEO-Board-Dynamik. Das komplexeste Verhältnis in der Unterneh
 
 Boardroom-Strategie ist das Spiel, das niemand dir an der Business School beibringt. Nicht in MBA-Programmen. Nicht in Führungskräfte-Seminaren. Es wird gelernt durch Erfahrung — oder durch Coaching von jemandem, der es hunderte Male gesehen hat.
 
-Dieser Kurs ist Teil von **Leader-OS PLUS** — alle zehn Kurse, zwölf Live-Coachings mit mir persönlich. Für Führungskräfte, die nicht nur gut führen wollen, sondern die politischen Systeme verstehen wollen, in denen Führung stattfindet.
+Dieser Kurs ist Teil von **LeaderOS PLUS** — alle zehn Kurse, zwölf Live-Coachings mit mir persönlich. Für Führungskräfte, die nicht nur gut führen wollen, sondern die politischen Systeme verstehen wollen, in denen Führung stattfindet.
 
-Leader-OS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
+LeaderOS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
 
 Wir sehen uns in Folge 2.
 

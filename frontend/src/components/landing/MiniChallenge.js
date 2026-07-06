@@ -107,7 +107,7 @@ export const MiniChallenge = () => {
     if (creditsRedeemed) return;
     setCreditsRedeemed(true);
     trackPH('mini_challenge_credits_redeemed', { weakest: weakest?.key });
-    // Redeeming the 50 credits sends the visitor into Leader-OS to claim
+    // Redeeming the 50 credits sends the visitor into LeaderOS to claim
     // them on their account · short beat so the "EINGELÖST" state registers.
     setTimeout(() => {
       window.location.href = 'https://leaderos.de/login?bonus=welcome50';

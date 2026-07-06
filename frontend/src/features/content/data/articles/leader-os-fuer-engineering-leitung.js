@@ -5,7 +5,7 @@ export default {
   slug: 'leader-os-fuer-engineering-leitung',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für Engineering-Leitung.',
+  title: 'LeaderOS für Engineering-Leitung.',
   description:
     'Tech-Lead bis VP Engineering: was die spezifischen Reibungspunkte ' +
     'sind, welche der elf Frameworks am stärksten greifen, und wie der ' +
@@ -13,7 +13,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-25',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'Engineering'],
+  tags: ['LeaderOS', 'Use Case', 'Engineering'],
   body: [
     { type: 'paragraph', text:
       'Engineering-Verantwortliche teilen ein Muster: technisch brillant, kommunikativ unterdimensioniert. ' +
@@ -56,9 +56,9 @@ export default {
       'deinem Backlog und gehen Live durch den ersten Drill.' },
   ],
   seo: {
-    title: 'Leader-OS für Engineering-Leitung: CTO, VP, Tech-Lead',
+    title: 'LeaderOS für Engineering-Leitung: CTO, VP, Tech-Lead',
     description:
-      'Leader-OS für Engineering-Leitung: die drei Reibungspunkte, die stärksten Frameworks ' +
+      'LeaderOS für Engineering-Leitung: die drei Reibungspunkte, die stärksten Frameworks ' +
       'und wie der Sprint sich an deinen Rhythmus anpasst. Von Wlad Jachtchenko.',
     keywords: ['Engineering Leadership Coaching', 'VP Engineering Training', 'Tech Lead Kommunikation', 'CTO Coaching KI', 'Wlad Jachtchenko Engineering'],
   },

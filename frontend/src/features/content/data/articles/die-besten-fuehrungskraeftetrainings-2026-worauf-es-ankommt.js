@@ -112,7 +112,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Leader-OS wurde entlang genau dieser vier Kriterien gebaut, nicht danach benannt: jeder Drill läuft an ' +
+        'LeaderOS wurde entlang genau dieser vier Kriterien gebaut, nicht danach benannt: jeder Drill läuft an ' +
         'deinem echten Fall, die Wiederholung ist täglich über den 30-Tage-Sprint eingebaut, die Methodik stammt ' +
         'aus über 420.000 begleiteten Coaching-Fällen von Wlad Jachtchenko, und Fortschritt sowie Anwendungsquote ' +
         'sind sichtbar statt nur gefühlt. Das ersetzt kein persönliches Coaching für jede Situation — aber es ist ' +

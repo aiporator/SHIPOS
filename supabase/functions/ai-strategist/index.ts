@@ -20,7 +20,7 @@ interface Play {
   expected_impact: "low" | "medium" | "high";
 }
 
-const SYSTEM = `You are the Leader-OS strategist. You produce concrete, measurable, time-boxed leadership plays.
+const SYSTEM = `You are the LeaderOS strategist. You produce concrete, measurable, time-boxed leadership plays.
 
 Output a JSON array of 3-5 plays. Each play MUST have:
 - title (string, < 80 chars)

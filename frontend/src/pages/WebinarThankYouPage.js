@@ -14,7 +14,7 @@ import { applyPageMeta } from '../lib/pageMeta';
  *
  * Kept separate from the generic /thank-you (leader-check funnel) because
  * the next steps differ completely: add-to-calendar, and — per the explicit
- * growth goal — a direct bridge into starting the Leader-OS trial NOW
+ * growth goal — a direct bridge into starting the LeaderOS trial NOW
  * instead of waiting for the webinar date.
  */
 
@@ -24,14 +24,14 @@ const WEBINAR_END = new Date('2026-08-20T11:30:00+02:00');
 const googleCalendarUrl = () => {
   const fmt = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
   const details = encodeURIComponent(
-    'Live-Webinar: das Leadership Operating System für Führungskräfte.\n\nJoin via Leader-OS: https://leader-os.de/webinar'
+    'Live-Webinar: das Leadership Operating System für Führungskräfte.\n\nJoin via LeaderOS: https://leader-os.de/webinar'
   );
   return (
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('Führe besser. Jeden Tag. · Live-Webinar') +
     `&dates=${fmt(WEBINAR_START)}/${fmt(WEBINAR_END)}` +
     `&details=${details}` +
-    '&location=' + encodeURIComponent('Online — Leader-OS')
+    '&location=' + encodeURIComponent('Online — LeaderOS')
   );
 };
 
@@ -53,8 +53,8 @@ export default function WebinarThankYouPage() {
     root.classList.add('dark');
 
     const restoreMeta = applyPageMeta({
-      title: 'Platz gesichert · Live-Webinar · Leader-OS',
-      description: 'Dein Platz im kostenlosen Leader-OS Live-Webinar ist reserviert. Zum Kalender hinzufügen und direkt weitermachen.',
+      title: 'Platz gesichert · Live-Webinar · LeaderOS',
+      description: 'Dein Platz im kostenlosen LeaderOS Live-Webinar ist reserviert. Zum Kalender hinzufügen und direkt weitermachen.',
       url: 'https://leader-os.de/webinar/danke',
       image: 'https://leader-os.de/og-wlad.jpg',
     });
@@ -65,7 +65,7 @@ export default function WebinarThankYouPage() {
   return (
     <div className="bg-background text-foreground min-h-[100dvh] antialiased" data-testid="webinar-thank-you-page">
       <header className="max-w-[1100px] mx-auto px-5 md:px-10 pt-6 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3" aria-label="Leader-OS Startseite">
+        <Link to="/" className="flex items-center gap-3" aria-label="LeaderOS Startseite">
           <WladMark size={34} />
           <span className="font-black tracking-tight text-foreground text-[19px]" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.03em' }}>
             Leader<span className="text-brand mx-0.5">·</span>OS
@@ -96,9 +96,9 @@ export default function WebinarThankYouPage() {
           className="mt-6 max-w-xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/70"
         >
           {email ? (
-            <>Wir haben <strong className="text-foreground">{email}</strong> vorgemerkt und dir eine Bestätigung geschickt — inklusive Kalender-Link. 24h und 1h vor dem Webinar meldet sich Leader-OS automatisch nochmal.</>
+            <>Wir haben <strong className="text-foreground">{email}</strong> vorgemerkt und dir eine Bestätigung geschickt — inklusive Kalender-Link. 24h und 1h vor dem Webinar meldet sich LeaderOS automatisch nochmal.</>
           ) : (
-            <>Deine Anmeldung ist bestätigt — check deine Mails. 24h und 1h vor dem Webinar meldet sich Leader-OS automatisch nochmal.</>
+            <>Deine Anmeldung ist bestätigt — check deine Mails. 24h und 1h vor dem Webinar meldet sich LeaderOS automatisch nochmal.</>
           )}
         </motion.p>
 
@@ -130,7 +130,7 @@ export default function WebinarThankYouPage() {
             Du musst nicht bis August warten<span className="text-brand not-italic">.</span>
           </h2>
           <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-foreground/65">
-            Das Webinar ist der Impuls. Leader-OS ist das System, das danach trägt — WladBot als
+            Das Webinar ist der Impuls. LeaderOS ist das System, das danach trägt — WladBot als
             24/7-Coach, tägliche Mikro-Drills, dieselbe Methodik. Starte deine 14 Tage kostenlos
             schon jetzt, ganz ohne auf den Termin zu warten.
           </p>

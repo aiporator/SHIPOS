@@ -269,7 +269,7 @@ const ARTICLES = [
   derKiSprintWasDreissigTageStrukturierteAnwendungVeraendern,
   dasVersprechenUndDieGrenzen,
 
-  // Plattform-Hub: Why / What / Use-Cases for Leader-OS
+  // Plattform-Hub: Why / What / Use-Cases for LeaderOS
   warumLeaderOs,
   wasInLeaderOsDrinIst,
   deinErsterTagMitLeaderOs,

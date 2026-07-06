@@ -19,7 +19,7 @@ import { WladMark } from '../components/brand/WladMark';
 // ── Copy-ready pitch (P-P-N) ─────────────────────────────────────────────────
 const PITCH_30S = `Führungskräfte verlieren heute Stunden pro Woche an Reaktions-Modus — und alle reden über KI, aber niemand zeigt ihnen, was das für IHRE Führung konkret heißt.
 
-Leader-OS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 420.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Sprint mit Zertifikat.
+LeaderOS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 420.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Sprint mit Zertifikat.
 
 Der Einstieg kostet nichts: 14 Tage voller Zugang, ohne Karte. Wollen Sie es einmal live sehen?`;
 
@@ -106,7 +106,7 @@ const OBJECTIONS = [
   },
   {
     q: '„Unsere Leute haben keine Zeit."',
-    a: 'Genau deshalb: Das System ist auf 10–15 Minuten pro Tag gebaut — ein Drill, eine Frage, eine Reflexion. Die Alternative sind 2-Tages-Seminare, aus denen nach 3 Wochen nichts übrig ist. Zeitmangel ist kein Einwand gegen Leader-OS, sondern das stärkste Argument dafür.',
+    a: 'Genau deshalb: Das System ist auf 10–15 Minuten pro Tag gebaut — ein Drill, eine Frage, eine Reflexion. Die Alternative sind 2-Tages-Seminare, aus denen nach 3 Wochen nichts übrig ist. Zeitmangel ist kein Einwand gegen LeaderOS, sondern das stärkste Argument dafür.',
   },
   {
     q: '„Was ist mit Datenschutz?"',
@@ -114,7 +114,7 @@ const OBJECTIONS = [
   },
   {
     q: '„Wir haben schon Coaching / eine Academy."',
-    a: 'Perfekt — Leader-OS ersetzt das nicht, es schließt die Lücke DAZWISCHEN: die 29 Tage im Monat, an denen kein Coach verfügbar ist. Ihr Coaching setzt Impulse, Leader-OS macht daraus tägliche Praxis. Fragen Sie Ihre Coaches: Woran scheitert Transfer? An der Zeit zwischen den Sessions.',
+    a: 'Perfekt — LeaderOS ersetzt das nicht, es schließt die Lücke DAZWISCHEN: die 29 Tage im Monat, an denen kein Coach verfügbar ist. Ihr Coaching setzt Impulse, LeaderOS macht daraus tägliche Praxis. Fragen Sie Ihre Coaches: Woran scheitert Transfer? An der Zeit zwischen den Sessions.',
   },
   {
     q: '„KI ist doch nur Hype."',
@@ -161,7 +161,7 @@ export default function SalesRoomPage() {
   const [openObjection, setOpenObjection] = useState(null);
 
   useEffect(() => {
-    document.title = 'Sales Room · Intern · Leader-OS';
+    document.title = 'Sales Room · Intern · LeaderOS';
     const root = document.documentElement;
     const wasDark = root.classList.contains('dark');
     root.classList.add('dark');

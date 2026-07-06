@@ -13,7 +13,7 @@ mitigate within **14 days** for high-severity issues.
 ## Scope
 
 This repository contains schema definitions, dashboard view catalogs, and
-Claude Code wiring for the Leader-OS Supabase project (`srujvjjncrszhaaxepxf`).
+Claude Code wiring for the LeaderOS Supabase project (`srujvjjncrszhaaxepxf`).
 Front-end code, Edge Function source, and production credentials are **not**
 in this repo.
 

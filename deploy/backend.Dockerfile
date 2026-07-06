@@ -1,4 +1,4 @@
-# backend/Dockerfile — Leader-OS FastAPI backend
+# backend/Dockerfile — LeaderOS FastAPI backend
 # Slim Python 3.11 + ffmpeg (needed for the LEADER-OS-8 audio extraction fix option B)
 # Multi-stage build keeps the final image small (~250MB)
 

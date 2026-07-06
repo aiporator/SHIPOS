@@ -37,7 +37,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/fuehrungskraeftetraining-formate-im-vergleich',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Führungskräftetraining · Formate im Vergleich · Leader-OS',
+    ogImageAlt: 'Führungskräftetraining · Formate im Vergleich · LeaderOS',
   },
   body: [
     { type: 'paragraph', text:
@@ -63,9 +63,9 @@ export default {
       'Stärken: skalierbar und günstig, flexibel im eigenen Tempo, breite Themen-Auswahl jederzeit verfügbar.',
       'Schwächen: oft passiv · zuschauen ist nicht können. Kein Druck zur Anwendung, kein Sparring am echten Fall, und entsprechend hohe Abbruchquoten.',
     ] },
-    { type: 'heading', level: 2, text: 'KI-gestütztes Training (Leader-OS).' },
+    { type: 'heading', level: 2, text: 'KI-gestütztes Training (LeaderOS).' },
     { type: 'paragraph', text:
-      'Das jüngste Format kombiniert, was die anderen einzeln können · drillbare Frameworks plus einen KI-Coach, der deine echte Situation kennt. Genau dort setzt Leader-OS an: nicht noch mehr Input, sondern strukturierte Wiederholung, bis Methode zu Reflex wird.' },
+      'Das jüngste Format kombiniert, was die anderen einzeln können · drillbare Frameworks plus einen KI-Coach, der deine echte Situation kennt. Genau dort setzt LeaderOS an: nicht noch mehr Input, sondern strukturierte Wiederholung, bis Methode zu Reflex wird.' },
     { type: 'list', style: 'bullet', items: [
       'Drillbare Frameworks statt Theorie-Sammlung · Feedback-Formel, Harvard-Verhandlung, die 5 Rollen, wieder und wieder geübt.',
       'WladBot als KI-Coach, der deinen echten Fall kennt · 24/7 erreichbar, Antwort in Sekunden, genau im Moment des Bedarfs.',
@@ -80,7 +80,7 @@ export default {
     { type: 'callout', tone: 'neutral', text:
       'Das beste Format ist nicht das teuerste, sondern das, das dich täglich übt · im Moment des Bedarfs, am echten Fall, lange genug, bis es sitzt.' },
     { type: 'paragraph', text:
-      'Wenn du gerade zwischen den Formaten stehst · probier es einfach aus. Leader-OS gibt es vierzehn Tage kostenlos, ohne Karte. Oder starte mit dem kostenlosen 10-Minuten-Leader-Check, der dir zeigt, wo deine größten Hebel liegen, bevor du dich für irgendein Format entscheidest.' },
+      'Wenn du gerade zwischen den Formaten stehst · probier es einfach aus. LeaderOS gibt es vierzehn Tage kostenlos, ohne Karte. Oder starte mit dem kostenlosen 10-Minuten-Leader-Check, der dir zeigt, wo deine größten Hebel liegen, bevor du dich für irgendein Format entscheidest.' },
     { type: 'diagnostic', prompt: 'Welches Format suchst du gerade?', options: [
       { label: 'Schnell ein Skill für ein konkretes Gespräch', category: 'communication' },
       { label: 'Konflikte im Team in den Griff bekommen', category: 'conflict' },
@@ -88,6 +88,6 @@ export default {
       { label: 'Mein Team auf Leistung führen', category: 'performance' },
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Weiterführend: der Überblick in Führungskräfteentwicklung · warum so viele Trainings verpuffen in Warum 90 Prozent aller KI-Trainings scheitern · und die direkte Gegenüberstellung Leader-OS vs. klassisches Coaching. Mach den kostenlosen Leader-Check.' },
+      'Weiterführend: der Überblick in Führungskräfteentwicklung · warum so viele Trainings verpuffen in Warum 90 Prozent aller KI-Trainings scheitern · und die direkte Gegenüberstellung LeaderOS vs. klassisches Coaching. Mach den kostenlosen Leader-Check.' },
   ],
 };

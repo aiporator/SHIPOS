@@ -121,13 +121,13 @@ def _google_calendar_url() -> str:
     end = start + timedelta(minutes=WEBINAR_DURATION_MIN)
     fmt = "%Y%m%dT%H%M%SZ"
     dates = f"{start.strftime(fmt)}/{end.strftime(fmt)}"
-    details = f"{WEBINAR_EVENT['description']}\n\nJoin via Leader-OS: {WEBINAR_JOIN_URL}"
+    details = f"{WEBINAR_EVENT['description']}\n\nJoin via LeaderOS: {WEBINAR_JOIN_URL}"
     return (
         "https://www.google.com/calendar/render?action=TEMPLATE"
         f"&text={quote(WEBINAR_EVENT['title'])}"
         f"&dates={dates}"
         f"&details={quote(details)}"
-        f"&location={quote('Online — Leader-OS')}"
+        f"&location={quote('Online — LeaderOS')}"
     )
 
 
@@ -335,7 +335,7 @@ async def cron_reminders(request: Request):
 
 @router.post("/cron/webinar-followup")
 async def cron_followup(request: Request):
-    """Day-after nudge toward the Leader-OS trial (call once daily).
+    """Day-after nudge toward the LeaderOS trial (call once daily).
 
     Only fires once the event is at least 20h in the past (so it always
     lands ~1 day after, tolerant of cron jitter) and skips leads that

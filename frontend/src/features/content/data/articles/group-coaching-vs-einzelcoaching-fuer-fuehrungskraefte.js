@@ -27,10 +27,10 @@ export default {
     { type: 'heading', level: 2, text: 'Kombinationsmodelle, die in der Praxis funktionieren.' },
     { type: 'paragraph', text: 'Die erfolgreichsten Programme, die ich in den letzten Jahren begleitet habe, arbeiten selten mit einem reinen Format. Ein typisches Modell: monatliches Gruppen-Coaching als fester Rhythmus, ergänzt durch zwei bis vier Einzelsitzungen pro Jahr, die eine Führungskraft bei Bedarf abrufen kann. Das hält die Grundkosten planbar und schafft trotzdem einen Ventil für die Fälle, die wirklich vertrauliche 1:1-Zeit brauchen.' },
     { type: 'quote', text: 'Die Frage ist nie Gruppe oder Einzel. Die Frage ist, welches Problem gerade auf dem Tisch liegt.', attribution: 'Wlad, Argumentorik-Akademie 2024' },
-    { type: 'paragraph', text: 'Leader-OS wurde genau für die Lücke gebaut, die zwischen diesen beiden klassischen Formaten entsteht: den täglichen, kleinen Momenten, in denen weder ein Gruppentermin noch ein Einzelcoaching verfügbar ist. WladBot steht als 1:1-Sparringspartner rund um die Uhr bereit, wenn eine Führungskraft um 22 Uhr eine schwierige Mail formulieren muss, während der 30-Tage-Sprint mit seinen täglichen Mikro-Drills die Struktur liefert, die sonst nur ein Gruppenprogramm bieten könnte – nur skalierbar auf beliebig viele Führungskräfte gleichzeitig.' },
+    { type: 'paragraph', text: 'LeaderOS wurde genau für die Lücke gebaut, die zwischen diesen beiden klassischen Formaten entsteht: den täglichen, kleinen Momenten, in denen weder ein Gruppentermin noch ein Einzelcoaching verfügbar ist. WladBot steht als 1:1-Sparringspartner rund um die Uhr bereit, wenn eine Führungskraft um 22 Uhr eine schwierige Mail formulieren muss, während der 30-Tage-Sprint mit seinen täglichen Mikro-Drills die Struktur liefert, die sonst nur ein Gruppenprogramm bieten könnte – nur skalierbar auf beliebig viele Führungskräfte gleichzeitig.' },
   ],
   seo: {
-    title: 'Group-Coaching vs. Einzelcoaching: Der Vergleich · Leader-OS',
+    title: 'Group-Coaching vs. Einzelcoaching: Der Vergleich · LeaderOS',
     description: 'Group-Coaching vs. Einzelcoaching für Führungskräfte im direkten Vergleich: Kosten, Tiefe, Wirkmechanismen und wann Kombinationsmodelle Sinn ergeben.',
     keywords: ['Group-Coaching Führungskräfte', 'Einzelcoaching Führungskräfte', 'Gruppen-Coaching Kosten', 'Coaching-Format Vergleich', 'Führungskräfte-Coaching Budget'],
   },

@@ -1,5 +1,5 @@
 # Kurs 1: Rhetorik-Grundlagen (6 Folgen · ~7 Min/Folge)
-**Tier:** Leader-OS (€997) · **Folge 1 = FREE Preview**
+**Tier:** LeaderOS (€997) · **Folge 1 = FREE Preview**
 
 ---
 
@@ -61,7 +61,7 @@
 
 ### [06:30–07:00] CTA
 
-> Diese Folge war kostenlos. Die nächsten 5 sind Teil von Leader-OS — dem ersten KI-gestützten Leadership-System, das dich nicht nur informiert, sondern trainiert. Mit personalisiertem Coaching, Video-Missionen und einem KI-Coach, der Wlad Jachtchenkos Methodik kennt.
+> Diese Folge war kostenlos. Die nächsten 5 sind Teil von LeaderOS — dem ersten KI-gestützten Leadership-System, das dich nicht nur informiert, sondern trainiert. Mit personalisiertem Coaching, Video-Missionen und einem KI-Coach, der Wlad Jachtchenkos Methodik kennt.
 >
 > leader-os.de — starte deinen 30-Tage-Sprint. Jetzt.
 

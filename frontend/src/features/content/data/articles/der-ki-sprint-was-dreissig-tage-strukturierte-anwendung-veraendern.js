@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-15',
   cover: null,
-  tags: ['Leader-OS', 'Sprint', 'Daten'],
+  tags: ['LeaderOS', 'Sprint', 'Daten'],
   body: [
     { type: 'paragraph', text: 'Wir haben über 240 Sprint-Teilnehmer in 2025-2026 anonymisiert vermessen. Hier ist was sich konkret zeigt · und was nicht.' },
     { type: 'heading', level: 2, text: 'Was sich messbar verändert.' },
@@ -38,7 +38,7 @@ export default {
   seo: {
     title: 'KI-Sprint: was 30 Tage messbar verändern',
     description: 'KI-Sprint Ergebnisse: Vorher-Nachher-Daten aus 240 Teilnehmern · Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote. Was 30 Tage messen und was nicht. Von Wlad Jachtchenko.',
-    keywords: ['Sprint Ergebnisse', 'Leader-OS Daten', 'Wlad Sprint Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Sprint Output'],
+    keywords: ['Sprint Ergebnisse', 'LeaderOS Daten', 'Wlad Sprint Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Sprint Output'],
   },
   related: ['output-messen-im-ki-zeitalter', 'der-business-case-fuer-leader-os'],
 };

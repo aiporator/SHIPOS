@@ -43,7 +43,7 @@ export default {
 
     { type: 'framework', code: 'D·3', title: 'Drei Shifts in einem Satz.', explanation: 'Strukturen bauen statt Pläne machen. Information aktiv holen (Skip-Levels) statt warten bis sie kommt. Kritik akzeptieren statt versuchen geliebt zu sein. Wer diese drei Shifts NICHT macht, scheitert oder geht selbst nach 18 Monaten · die meisten Director-Wechsel in DACH dauern unter 24 Monate.' },
 
-    { type: 'callout', tone: 'dark', text: 'In Leader-OS ist der Director-Shift ein eigenes Modul (Woche 4). Mit Drill auf Strukturarbeit, Skip-Level-Skripten, Kritik-Verarbeitung. Im Schnitt: Director-Klienten landen 70% schneller im "ich komme klar" Modus. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
+    { type: 'callout', tone: 'dark', text: 'In LeaderOS ist der Director-Shift ein eigenes Modul (Woche 4). Mit Drill auf Strukturarbeit, Skip-Level-Skripten, Kritik-Verarbeitung. Im Schnitt: Director-Klienten landen 70% schneller im "ich komme klar" Modus. Werde Teil von LeaderOS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'brief-an-meinen-28-jaehrigen-selbst-bevor-ich-team-lead-wurde',

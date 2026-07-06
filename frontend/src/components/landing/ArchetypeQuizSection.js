@@ -80,7 +80,7 @@ const buildCtaUrl = (base, { archetype }) => {
 //   essence       · wer du jetzt bist (2-3 Sätze)
 //   gap           · was dich aufhält (Lime-Akzent)
 //   diagnose[3]   · was leadercheck.de dir konkret zeigt
-//   platform[3]   · was Leader-OS dir konkret liefert
+//   platform[3]   · was LeaderOS dir konkret liefert
 //
 // Ziel: nach dem Quiz hat der User verstanden was BEIDE Produkte sind
 // und warum sie für ihn relevant sind. Nicht generisch.

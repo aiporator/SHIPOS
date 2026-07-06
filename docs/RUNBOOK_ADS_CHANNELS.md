@@ -26,7 +26,7 @@ eigene UTM-Konvention. Nichts mischen.
 - Meta-Pixel installiert. Status: **noch nicht im Code**. Wenn ihr
   bereit seid: ich kann das Pixel + Conversions-API in einem
   Cookie-Consent-Hook einbauen.
-- Wlad-Profil und Leader-OS-Page sind beide im Business-Manager.
+- Wlad-Profil und LeaderOS-Page sind beide im Business-Manager.
 
 ### Conversions tracken
 
@@ -105,7 +105,7 @@ kannst du deutlich höheren CPL akzeptieren weil der Deal größer ist.
 - TikTok-Pixel (analog Meta).
 - Format-Preset: `9x16` (Vollbild) → AD-A-03, AD-B-02, AD-F-02, AD-H-01.
 - Content-Pattern: 0–3 Sek Hook, 3–9 Sek Pain, 9–15 Sek Lösung
-  (Leader-OS), 15-Sek CTA. Standbilder hier funktionieren als
+  (LeaderOS), 15-Sek CTA. Standbilder hier funktionieren als
   Title-Card / End-Card eines Videos, nicht als Standalone.
 
 ## 4. Google Search

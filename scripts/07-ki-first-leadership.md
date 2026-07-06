@@ -129,11 +129,11 @@ Und Folge 12 — die letzte — bringt alles zusammen: Die KI-native Führungskr
 
 ### [10:15–11:00] CTA
 
-Das war Folge 1 von KI-First Leadership. Wenn du die Geschwindigkeit gespürt hast — wenn du verstanden hast, dass das hier kein optionaler Trend ist, sondern die fundamentale Verschiebung deiner Branche — dann ist Leader-OS PLUS der nächste Schritt.
+Das war Folge 1 von KI-First Leadership. Wenn du die Geschwindigkeit gespürt hast — wenn du verstanden hast, dass das hier kein optionaler Trend ist, sondern die fundamentale Verschiebung deiner Branche — dann ist LeaderOS PLUS der nächste Schritt.
 
-**Leader-OS PLUS** gibt dir alle zehn Kurse plus zwölf Live-Coachings mit mir persönlich. Nicht weil du Motivation brauchst — sondern weil die KI-Transformation deiner Führungsarbeit Sparring braucht.
+**LeaderOS PLUS** gibt dir alle zehn Kurse plus zwölf Live-Coachings mit mir persönlich. Nicht weil du Motivation brauchst — sondern weil die KI-Transformation deiner Führungsarbeit Sparring braucht.
 
-Die Details findest du auf **leader-os.de**. Leader-OS PLUS — alle 10 Kurse + 12x Coaching.
+Die Details findest du auf **leader-os.de**. LeaderOS PLUS — alle 10 Kurse + 12x Coaching.
 
 Wir sehen uns in Folge 2.
 

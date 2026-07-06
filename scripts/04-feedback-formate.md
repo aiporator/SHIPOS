@@ -1,6 +1,6 @@
 # Kurs 4: Feedback-Formate — SBI & WWW (5 Folgen · ~7 Min/Folge)
 
-**Tier:** Leader-OS Standard
+**Tier:** LeaderOS Standard
 **Freigabe:** Folge 1 (kostenlose Vorschau) | Folgen 2–5 (kostenpflichtig)
 
 ---

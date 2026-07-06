@@ -16,7 +16,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/bran
  *
  * Position auf der Landing: SLOT 03 (direkt nach SprintSpecimen, vor
  * dem ersten Intro-Video) · wer hier landet versteht in 8 Sekunden
- * WER hinter Leader-OS steht und warum das nicht der nächste KI-
+ * WER hinter LeaderOS steht und warum das nicht der nächste KI-
  * Influencer ist.
  */
 
@@ -67,12 +67,12 @@ const CREDENTIALS = [
     headline: '10+ Jahre Wissen verdichtet',
     body:
       'Alles aus Wlads Coachings, Frameworks und Büchern · plus vieles mehr ' +
-      'aus über 10 Jahren Praxis · steckt heute in Leader-OS drin.',
+      'aus über 10 Jahren Praxis · steckt heute in LeaderOS drin.',
   },
 ];
 
 // JSON-LD Person markup: füllt den Google Knowledge Graph für "Wlad
-// Jachtchenko" und stitched alle Marken (Leader-OS, Leadercheck,
+// Jachtchenko" und stitched alle Marken (LeaderOS, Leadercheck,
 // Argumentorik-Akademie) zu einer Identität zusammen. Wir injizieren
 // ein einziges sauberes Script-Tag; bei Unmount wieder weg.
 const useWladJsonLd = () => {
@@ -86,9 +86,9 @@ const useWladJsonLd = () => {
       '@type': 'Person',
       name: 'Wlad Jachtchenko',
       alternateName: ['Wladislaw Jachtchenko', 'Wlad'],
-      jobTitle: 'Founder, Leader-OS · Top-Speaker · 3× SPIEGEL-Bestseller-Autor',
+      jobTitle: 'Founder, LeaderOS · Top-Speaker · 3× SPIEGEL-Bestseller-Autor',
       description:
-        'Wlad Jachtchenko ist 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und Erfinder von Leader-OS. Über 400 000 Klienten in Rhetorik, Verhandlung und KI-nativem Führen ausgebildet.',
+        'Wlad Jachtchenko ist 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und Erfinder von LeaderOS. Über 400 000 Klienten in Rhetorik, Verhandlung und KI-nativem Führen ausgebildet.',
       url: 'https://leader-os.de',
       image: 'https://leader-os.de/wlad-headshot.jpg',
       knowsAbout: [
@@ -107,7 +107,7 @@ const useWladJsonLd = () => {
       ],
       worksFor: {
         '@type': 'Organization',
-        name: 'Leader-OS',
+        name: 'LeaderOS',
         url: 'https://leader-os.de',
       },
       award: [
@@ -151,7 +151,7 @@ export const WladAuthoritySection = () => {
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS und Argumentorik-Akademie"
+                alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor, Gründer LeaderOS und Argumentorik-Akademie"
                 width="320"
                 height="320"
                 loading="lazy"
@@ -192,7 +192,7 @@ export const WladAuthoritySection = () => {
             <p className="mt-5 max-w-2xl text-[15px] md:text-[16.5px] leading-[1.6] text-white/65">
               Alles was Wlad in über 10 Jahren in Coachings, Frameworks und
               Büchern entwickelt hat · und noch viel mehr · steckt heute in
-              Leader-OS. Nicht als Kurs-Bibliothek, sondern als tägliches
+              LeaderOS. Nicht als Kurs-Bibliothek, sondern als tägliches
               System.
             </p>
           </div>

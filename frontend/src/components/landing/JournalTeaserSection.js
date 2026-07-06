@@ -127,7 +127,7 @@ export const JournalTeaserSection = () => {
     <section
       id="journal"
       data-testid="journal-teaser-section"
-      aria-label="Feldnotizen · das Journal von Leader-OS"
+      aria-label="Feldnotizen · das Journal von LeaderOS"
       className="border-y-2 border-black/[0.06] bg-[#FAFAF7]"
     >
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">

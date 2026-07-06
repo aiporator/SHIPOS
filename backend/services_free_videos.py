@@ -106,7 +106,7 @@ FREE_VIDEOS = [
         ),
         "takeaway": (
             "Du hast deinen konkreten 30-Tage-Plan — und weißt genau, wie es "
-            "mit Leader-OS weitergeht, wenn du mehr willst."
+            "mit LeaderOS weitergeht, wenn du mehr willst."
         ),
     },
 ]

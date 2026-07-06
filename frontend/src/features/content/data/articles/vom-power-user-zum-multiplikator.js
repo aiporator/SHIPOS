@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-14',
   cover: null,
-  tags: ['Leader-OS', 'Team', 'Multiplikator'],
+  tags: ['LeaderOS', 'Team', 'Multiplikator'],
   body: [
     { type: 'paragraph', text: 'Power-User in Führungs-Rollen haben oft ein Multiplikator-Problem: sie gewinnen vier Stunden pro Woche, ihr Team gewinnt null. Hier sind die drei Hebel die das ändern.' },
     { type: 'heading', level: 2, text: 'Hebel 01: Drei Prompts veröffentlichen.' },

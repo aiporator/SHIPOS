@@ -187,7 +187,7 @@ export default function WladUniversePage() {
                 <div className="flex items-center gap-2 mb-4">
                   <Library size={13} className="text-brand" />
                   <span className="text-[10px] uppercase tracking-[0.2em] font-black text-brand">
-                    Leader-OS · Wlad-Universum
+                    LeaderOS · Wlad-Universum
                   </span>
                 </div>
 

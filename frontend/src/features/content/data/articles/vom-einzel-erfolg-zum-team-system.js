@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-12',
   cover: null,
-  tags: ['Leader-OS', 'Team', 'Multiplikator'],
+  tags: ['LeaderOS', 'Team', 'Multiplikator'],
   body: [
     { type: 'paragraph', text: 'Du hast den Sprint absolviert. Du gewinnst pro Woche vier Stunden Deep-Work. Dein 1:1 läuft fokussierter. Wie überträgst du das auf dein Team · ohne als KI-Evangelist zu klingen?' },
     { type: 'heading', level: 2, text: 'Schicht 01: Implizites Sharing über Methodik.' },

@@ -1,11 +1,11 @@
 /**
- * Article 2/10 · product walkthrough. What's inside Leader-OS.
+ * Article 2/10 · product walkthrough. What's inside LeaderOS.
  */
 export default {
   slug: 'was-in-leader-os-drin-ist',
   type: 'guide',
   status: 'published',
-  title: 'Was in Leader-OS drin ist.',
+  title: 'Was in LeaderOS drin ist.',
   description:
     'Drei Schichten: Methodik, KI-Coach, Sprint. Plus die Mechanik die ' +
     'aus einem 30-Tage-Programm einen lebenslangen Werkzeugkasten macht. ' +
@@ -13,10 +13,10 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-23',
   cover: null,
-  tags: ['Leader-OS', 'Product', 'Frameworks'],
+  tags: ['LeaderOS', 'Product', 'Frameworks'],
   body: [
     { type: 'paragraph', text:
-      'Wer einmal in Leader-OS reingeschaut hat, weiß: das ist kein Video-Kurs in Tarnung. Es ist ein System ' +
+      'Wer einmal in LeaderOS reingeschaut hat, weiß: das ist kein Video-Kurs in Tarnung. Es ist ein System ' +
       'mit drei Schichten, einer Mechanik und einer klaren Rolle für jeden Teil. Hier ist was du am ersten ' +
       'Tag siehst.' },
     { type: 'heading', level: 2, text: 'Schicht 1: Die elf Frameworks.' },
@@ -61,14 +61,14 @@ export default {
       'fügt zwölf Monate Live-Begleitung mit Wlad persönlich dazu.' },
     { type: 'paragraph', text:
       'Wenn dich das überzeugt, ist die Diagnose der Startpunkt. Sie kostet zehn Minuten und sagt dir ehrlich ' +
-      'ob deine größte Lücke aktuell von Leader-OS adressiert wird oder nicht.' },
+      'ob deine größte Lücke aktuell von LeaderOS adressiert wird oder nicht.' },
   ],
   seo: {
-    title: 'Was ist in Leader-OS drin? Die 3 Schichten erklärt',
+    title: 'Was ist in LeaderOS drin? Die 3 Schichten erklärt',
     description:
-      'Was steckt in Leader-OS? Drei Schichten: elf Wlad-Frameworks, WladBot als 24/7-KI-Coach, ' +
+      'Was steckt in LeaderOS? Drei Schichten: elf Wlad-Frameworks, WladBot als 24/7-KI-Coach, ' +
       '30-Tage-Sprint. Plus lebenslanger Zugriff. Von Wlad Jachtchenko.',
-    keywords: ['Leader-OS Inhalt', 'Leader-OS Frameworks', 'WladBot', '30-Tage Sprint Wlad', 'Leadership Operating System Inhalt'],
+    keywords: ['LeaderOS Inhalt', 'LeaderOS Frameworks', 'WladBot', '30-Tage Sprint Wlad', 'Leadership Operating System Inhalt'],
   },
   related: ['warum-leader-os', 'dein-erster-tag-mit-leader-os'],
 };

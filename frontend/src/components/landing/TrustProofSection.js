@@ -5,10 +5,10 @@ import { PressMarquee } from './PressMarquee';
 /**
  * TrustProofSection · honest social-proof wall.
  *
- * INTEGRITY NOTE: Leader-OS launched in 2026 and has no product reviews
+ * INTEGRITY NOTE: LeaderOS launched in 2026 and has no product reviews
  * yet. We do NOT fabricate testimonials. Instead this section surfaces
  * Wlad Jachtchenko's REAL, externally-verifiable reputation · the
- * methodik behind Leader-OS · with outbound links so a sceptical
+ * methodik behind LeaderOS · with outbound links so a sceptical
  * visitor can check every number at its source:
  *
  *   - Trustpilot 4.9 / 388 reviews · Argumentorik GmbH (Wlad Jachtchenko)
@@ -18,7 +18,7 @@ import { PressMarquee } from './PressMarquee';
  *
  * Each platform stat links out to the source. The aggregate Review
  * schema below is attributed to the Argumentorik-Akademie (the entity
- * those reviews actually describe), not to the brand-new Leader-OS
+ * those reviews actually describe), not to the brand-new LeaderOS
  * product · so the structured data is truthful and penalty-safe.
  */
 
@@ -48,7 +48,7 @@ const HARD_NUMBERS = [
 
 // Aggregate Review schema · attributed to the entity the reviews
 // actually describe (the academy / Wlad's body of work), NOT the
-// new Leader-OS product. Truthful + penalty-safe.
+// new LeaderOS product. Truthful + penalty-safe.
 const REVIEW_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'EducationalOrganization',
@@ -109,7 +109,7 @@ export const TrustProofSection = () => {
           </div>
           <div className="md:col-span-5 md:pb-2 text-center md:text-left">
             <p className="text-[15px] md:text-[16.5px] leading-[1.6] text-white/72">
-              Leader-OS ist neu · aber Wlads Methodik ist es nicht. Jede
+              LeaderOS ist neu · aber Wlads Methodik ist es nicht. Jede
               Zahl hier kannst du an der Quelle nachprüfen. Wir verlinken
               direkt dorthin.
             </p>

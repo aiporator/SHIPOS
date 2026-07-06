@@ -167,12 +167,12 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 // Operating-System". Each entry maps the chapter code to an SEO-shaped
 // sentence that describes the visible asset AND the chapter's claim.
 const ALT_BY_CODE = {
-  INHALT:        'Leader-OS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
+  INHALT:        'LeaderOS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
   WLADBOT:       'WladBot · KI-Coach 24/7 in Wlads Stimme · trainiert auf 2 212 Wlad-Lektionen',
-  SPRINT:        '30-Tage-Sprint · Leader-OS Startnummer Plate · deine Führungs-Evolution',
-  WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS',
-  TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · Leader-OS',
-  ZERTIFIKAT:    'Leader-OS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',
+  SPRINT:        '30-Tage-Sprint · LeaderOS Startnummer Plate · deine Führungs-Evolution',
+  WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer LeaderOS',
+  TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · LeaderOS',
+  ZERTIFIKAT:    'LeaderOS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',
   KOMPLETT:      'Wlad Jachtchenko Voxel-Avatar mit OS-Würfel · WladBot Komplettbegleitung',
 };
 
@@ -205,7 +205,7 @@ const WladBot30Body = () => (
         <img
           src={WLADBOT_AVATAR}
           onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
-          alt="WladBot 3.0 · dein KI-Coach in Wlads Stimme · Leader-OS"
+          alt="WladBot 3.0 · dein KI-Coach in Wlads Stimme · LeaderOS"
           loading="lazy"
           decoding="async"
           className="w-full h-full rounded-full object-cover object-[50%_16%] bg-black ring-4 ring-brand shadow-[0_20px_60px_-15px_rgba(191,255,0,0.5)]"
@@ -241,7 +241,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     ) : photo ? (
       <img
         src={photo}
-        alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · Leader-OS Kapitel ${nr}` : `Leader-OS Kapitel ${nr}`)}
+        alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · LeaderOS Kapitel ${nr}` : `LeaderOS Kapitel ${nr}`)}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"

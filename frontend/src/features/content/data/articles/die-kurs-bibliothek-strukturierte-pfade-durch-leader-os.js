@@ -2,7 +2,7 @@ export default {
   slug: 'die-kurs-bibliothek-strukturierte-pfade-durch-leader-os',
   type: 'guide',
   status: 'published',
-  title: 'Die Kurs-Bibliothek: strukturierte Pfade durch Leader-OS.',
+  title: 'Die Kurs-Bibliothek: strukturierte Pfade durch LeaderOS.',
   description:
     'Sechs Spezial-Kurse die nach dem Sprint zur Verfügung stehen. ' +
     'Welcher Kurs für welche konkrete Skill-Vertiefung passt · und ' +
@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-13',
   cover: null,
-  tags: ['Leader-OS', 'Kurse', 'Sprint'],
+  tags: ['LeaderOS', 'Kurse', 'Sprint'],
   body: [
     { type: 'paragraph', text: 'Sprint ist der Eingang. Plus-Plus die Begleitung. Die Spezial-Kurse sind die Vertiefung. Hier sind die sechs aktuellen Kurs-Pfade die du nach dem Sprint einsetzen kannst.' },
     { type: 'heading', level: 2, text: 'Kurs 01: Investor-Pitch-Mastery (7 Tage).' },
@@ -30,9 +30,9 @@ export default {
     { type: 'paragraph', text: 'Welcher Kurs zu deinem aktuellen Quartal passt: 30-Min-Beratung. Wir schauen auf deinen Sprint-Score plus dein Quartals-Backlog und schlagen die zwei sinnvollsten Spezial-Kurse vor.' },
   ],
   seo: {
-    title: 'Leader-OS Kurse: 6 Spezial-Pfade im Überblick',
-    description: 'Leader-OS Kurse im Überblick: sechs Spezial-Pfade nach dem Sprint · Investor-Pitch, Townhall, Verhandlung, Konflikt, KI-Strategie, 90-Tage-Beförderung. 297 EUR pro Kurs. Von Wlad Jachtchenko.',
-    keywords: ['Leader-OS Kurse', 'Spezial Kurse Führung', 'Townhall Kurs', 'Investor Pitch Training', 'Verhandlungs Kurs DACH'],
+    title: 'LeaderOS Kurse: 6 Spezial-Pfade im Überblick',
+    description: 'LeaderOS Kurse im Überblick: sechs Spezial-Pfade nach dem Sprint · Investor-Pitch, Townhall, Verhandlung, Konflikt, KI-Strategie, 90-Tage-Beförderung. 297 EUR pro Kurs. Von Wlad Jachtchenko.',
+    keywords: ['LeaderOS Kurse', 'Spezial Kurse Führung', 'Townhall Kurs', 'Investor Pitch Training', 'Verhandlungs Kurs DACH'],
   },
   related: ['die-leader-os-kurs-architektur', 'mehr-als-eine-transformation'],
 };

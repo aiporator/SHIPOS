@@ -49,7 +49,7 @@ const HERO_VARIANTS = {
     subline: (
       <>
         Mit einem <span className="text-brand">System</span> statt Motivation.{' '}
-        <span className="text-foreground/55">Leader-OS ist das erste Leadership Operating System — KI-Coach, tägliche Übungen und Wlads Methodik<span className="text-brand">.</span></span>
+        <span className="text-foreground/55">LeaderOS ist das erste Leadership Operating System — KI-Coach, tägliche Übungen und Wlads Methodik<span className="text-brand">.</span></span>
       </>
     ),
   },
@@ -167,7 +167,7 @@ export const HeroSection = () => {
           <img
             src={WLAD_AVATAR}
             onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-            alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie · Leader-OS"
+            alt="Wlad Jachtchenko · 3× SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie · LeaderOS"
             width="72"
             height="72"
             fetchpriority="high"
@@ -241,7 +241,7 @@ export const HeroSection = () => {
         className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-6"
       >
         {/* Primary · the free trial · "Kostenlos testen" is the product-first
-            conversion (the page sells Leader-OS, the trial proves it). The
+            conversion (the page sells LeaderOS, the trial proves it). The
             Beratungsgespräch keeps its own section further down (#beratung). */}
         <PlusCircleCTA
           href={LANDING_META.cta.primary.href}
