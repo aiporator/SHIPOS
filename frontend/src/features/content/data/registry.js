@@ -161,8 +161,52 @@ import elevatorPitchFuerFuehrungskraefte from './articles/elevator-pitch-fuer-fu
 import mitarbeiterMotivation40 from './articles/mitarbeiter-motivation-4-0-was-wirklich-zieht';
 import dieErstenSiebenSekunden from './articles/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst';
 import koerperspracheUndStimme from './articles/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge';
+// 2026-07-11 → 2026-07-20 · viral leadership/AI/communication expansion (20
+// articles) · AI-leadership crossover, communication-framework deep-dives,
+// narrative/personal-essay pieces.
+import shadowKiWarumDeinTeamHeimlichChatgptNutzt from './articles/shadow-ki-warum-dein-team-heimlich-chatgpt-nutzt';
+import die10StufenDesZuhoerensWladsModellErklaert from './articles/die-10-stufen-des-zuhoerens-wlads-modell-erklaert';
+import die4GespraechstypenInformierenUeberzeugenVerhandelnKonfrontieren from './articles/die-4-gespraechstypen-informieren-ueberzeugen-verhandeln-konfrontieren';
+import fuehrungsEinsamkeitWarumNiemandDarueberSpricht from './articles/fuehrungs-einsamkeit-warum-niemand-darueber-spricht';
+import dieDreiSaetzeDieGuteVonSchlechtenChefsUnterscheiden from './articles/die-drei-saetze-die-gute-von-schlechten-chefs-unterscheiden';
+import warumKiDichZuEinemSchlechterenZuhoererMacht from './articles/warum-ki-dich-zu-einem-schlechteren-zuhoerer-macht';
+import micromanagementErkennenBeiDirSelbst from './articles/micromanagement-erkennen-bei-dir-selbst';
+import wieDuEinTeamUebernimmstDasDichNichtWollte from './articles/wie-du-ein-team-uebernimmst-das-dich-nicht-wollte';
+import stilleKuendigungErkennenBevorSiePassiert from './articles/stille-kuendigung-erkennen-bevor-sie-passiert';
+import einsZuEinsImKiZeitalterWasBotsNichtKoennen from './articles/1-zu-1s-im-ki-zeitalter-was-bots-nicht-koennen';
+import kiGenerierteMitarbeiterbewertungenDieFallstricke from './articles/ki-generierte-mitarbeiterbewertungen-die-fallstricke';
+import warumOpenDoorPolicyNichtFunktioniert from './articles/warum-open-door-policy-nicht-funktioniert';
+import kiBiasInBefoerderungsentscheidungen from './articles/ki-bias-in-befoerderungsentscheidungen';
+import dieErsteFuehrungsentscheidungDieIchBereutHabe from './articles/die-erste-fuehrungsentscheidung-die-ich-bereut-habe';
+import warumEhrlicheKiDirMehrHilftAlsEinHoeflicherChef from './articles/warum-ehrliche-ki-dir-mehr-hilft-als-ein-hoeflicher-chef';
+import eMailsDieAutoritaetZeigenDreiRegeln from './articles/e-mails-die-autoritaet-zeigen-drei-regeln';
+import schwierigeNachrichtenAsyncUeberbringenSlackTeams from './articles/schwierige-nachrichten-async-ueberbringen-slack-teams';
+import warumDieBestenChefsDieSchlechtestenMentorenSind from './articles/warum-die-besten-chefs-die-schlechtesten-mentoren-sind';
+import derKiKompetenzGapZwischenJuniorUndSeniorFuehrungskraeften from './articles/der-ki-kompetenz-gap-zwischen-junior-und-senior-fuehrungskraeften';
+import wieDuNeinSagstOhneUnbeliebtZuWerden from './articles/wie-du-nein-sagst-ohne-unbeliebt-zu-werden';
 
 const ARTICLES = [
+  // 2026-07-11 → 2026-07-20 · viral leadership/AI/communication expansion
+  shadowKiWarumDeinTeamHeimlichChatgptNutzt,
+  die10StufenDesZuhoerensWladsModellErklaert,
+  die4GespraechstypenInformierenUeberzeugenVerhandelnKonfrontieren,
+  fuehrungsEinsamkeitWarumNiemandDarueberSpricht,
+  dieDreiSaetzeDieGuteVonSchlechtenChefsUnterscheiden,
+  warumKiDichZuEinemSchlechterenZuhoererMacht,
+  micromanagementErkennenBeiDirSelbst,
+  wieDuEinTeamUebernimmstDasDichNichtWollte,
+  stilleKuendigungErkennenBevorSiePassiert,
+  einsZuEinsImKiZeitalterWasBotsNichtKoennen,
+  kiGenerierteMitarbeiterbewertungenDieFallstricke,
+  warumOpenDoorPolicyNichtFunktioniert,
+  kiBiasInBefoerderungsentscheidungen,
+  dieErsteFuehrungsentscheidungDieIchBereutHabe,
+  warumEhrlicheKiDirMehrHilftAlsEinHoeflicherChef,
+  eMailsDieAutoritaetZeigenDreiRegeln,
+  schwierigeNachrichtenAsyncUeberbringenSlackTeams,
+  warumDieBestenChefsDieSchlechtestenMentorenSind,
+  derKiKompetenzGapZwischenJuniorUndSeniorFuehrungskraeften,
+  wieDuNeinSagstOhneUnbeliebtZuWerden,
   // 2026-07 · Training / Team-Training / Coaching cluster (DACH · 20 pillars)
   fuehrungskraeftetrainingKostenWasEinGutesTrainingWirklichKostet,
   teamtrainingVsEinzelcoachingWasWirktWann,
