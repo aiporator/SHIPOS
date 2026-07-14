@@ -33,7 +33,7 @@ const WebinarCard = () => {
           </div>
           <div className="flex gap-3">
             <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Format</dt>
-            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Live · Q&A · Aufzeichnung</dd>
+            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Live · 90 Min · Q&A</dd>
           </div>
         </dl>
         <div className="flex items-center gap-2.5 pb-3 mb-3 border-b border-foreground/15">

@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Check, Star } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import {
+  ArrowUpRight, Check, Star, PlayCircle, CalendarCheck, MessageCircleQuestion,
+  Sparkles, Timer, BellRing, ShieldCheck, Gift,
+} from 'lucide-react';
 import { LandingFooter } from '../components/landing/LandingFooter';
-import { DottedGlowBackground } from '../components/shared/DottedGlowBackground';
 import { applyPageMeta } from '../lib/pageMeta';
 import { isValidEmail } from '../features/newsletter/lib/newsletterClient';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
@@ -12,35 +14,62 @@ import { WladMark } from '../components/brand/WladMark';
 /**
  * WebinarPage · /webinar · the SQUEEZE page for the free live webinar.
  *
- * One page, one goal: the registration. Unlike /event (the full editorial
- * event page) this is the high-converting funnel version: minimal chrome
- * (logo only, no nav exits), outcome-first copy per the product-positioning
- * brief (sell the SYSTEM, Wlad is the trust anchor).
+ * 2026-07 redesign: LIGHT theme. White canvas, soft-gray section bands,
+ * rounded cards, generous whitespace — friendly, premium, approachable —
+ * while keeping the LeaderOS accent system (ink + lime, Outfit display,
+ * mono eyebrows) instead of generic SaaS blue so the funnel still reads
+ * unmistakably as this brand (see frontend/DESIGN.md).
+ *
+ * One page, one goal: the registration. Minimal chrome (logo only, no nav
+ * exits), outcome-first copy (sell the SYSTEM, Wlad is the trust anchor).
  *
  * Buying triggers, all honest (no fabricated numbers):
  *   Urgency    · live countdown to the real date
  *   Scarcity   · REAL registrant count from /api/webinar/stats, capped at a
  *                real published capacity (Zoom-room-size constraint, not a
  *                fake "3 spots left" lie)
- *   Authority  · Wlad's verified credentials as a badge strip
- *   Proof      · real registrant count doubles as social proof
+ *   Authority  · Wlad's verified credentials (speaker section + badge strip)
+ *   Proof      · real review-platform ratings (Trustpilot/Greator), never
+ *                invented person-testimonials
  *   Risk-off   · 100% free, no card, unsubscribe anytime
- *   Clarity    · exact agenda timeline + outcome bullets
+ *   Clarity    · exact agenda timeline + outcome cards + honest "das
+ *                bekommst du" list (calendar invite, reminders — the things
+ *                the backend actually sends; no recording is promised
+ *                because the webinar is live-only)
  *
  * Registration posts to the dedicated backend funnel (routes/webinar.py),
- * which sends an instant confirmation + calendar link and later drives the
- * 24h/1h reminder + day-after "start your trial" emails — then routes to
- * a dedicated /webinar/danke thank-you page (not just an inline swap) so
- * the confirmation moment can carry its own CTAs toward leaderos.de.
+ * which sends an instant confirmation + Google-Calendar link and later the
+ * 24h/1h reminders + day-after "start your trial" email — then routes to
+ * the /webinar/danke thank-you page.
  */
 
 const WEBINAR_TS = new Date('2026-08-20T10:00:00+02:00').getTime();
 const DATE_LINE = 'DO 20. AUGUST 2026 · 10:00 UHR · LIVE · ONLINE';
 
-const OUTCOMES = [
-  'Wie du schwierige Mitarbeitergespräche souverän führst — mit Struktur statt Bauchgefühl',
-  'Wie du mit einem KI-Coach jeden Tag trainierst, statt einmal im Jahr ein Seminar zu besuchen',
-  'Der 30-Tage-Plan, mit dem Führung vom Vorsatz zum System wird',
+// Same 30-second Wlad intro used on the landing page (VimeoIntroSection) —
+// a real, existing asset; the preview section reuses it instead of
+// promising a webinar-trailer that doesn't exist.
+const PREVIEW_VIMEO_ID = '1197728183';
+const PREVIEW_SRC =
+  `https://player.vimeo.com/video/${PREVIEW_VIMEO_ID}` +
+  '?badge=0&autopause=0&player_id=0&app_id=58479&byline=0&portrait=0&title=0';
+
+const LEARN_CARDS = [
+  ['Schwierige Gespräche führen', 'Mit Struktur statt Bauchgefühl — das Skript für Kritik, Konflikt und Kündigung.'],
+  ['Der Charisma-Code live', 'Präsenz · Wärme · Kompetenz — die drei Signale, in Echtzeit demonstriert.'],
+  ['Täglich trainieren mit KI', 'Wie ein KI-Coach aus einem Seminar-Wochenende ein tägliches System macht.'],
+  ['Der 30-Tage-Plan', 'Wie Führung vom Vorsatz zum System wird — Schritt für Schritt.'],
+  ['Ein echter Live-Case', 'Eine reale Führungssituation aus der Community, gemeinsam durchgearbeitet.'],
+  ['Deine Fragen im Q&A', 'Wlad beantwortet live, was dich gerade wirklich beschäftigt.'],
+];
+
+const WHY_ATTEND = [
+  [Timer, 'Nur 90 Minuten', 'Kompakt und ohne Füllstoff — jede Minute hat einen Zweck.'],
+  [MessageCircleQuestion, 'Live Q&A mit Wlad', 'Keine Konserve: du fragst, Wlad antwortet direkt.'],
+  [Sparkles, 'Erprobte Frameworks', 'Methoden aus 13 Büchern und 400.000+ trainierten Klienten.'],
+  [CalendarCheck, 'Kalender + Erinnerung', 'Google-Calendar-Einladung sofort per Mail, Erinnerung vor dem Start.'],
+  [ShieldCheck, '100 % kostenlos', 'Keine Karte, kein Haken. Nur deine E-Mail — jederzeit abmeldbar.'],
+  [BellRing, 'Sofort anwendbar', 'Du gehst mit konkreten Sätzen und Schritten raus, nicht mit Theorie.'],
 ];
 
 const AGENDA = [
@@ -58,10 +87,28 @@ const AUTHORITY_BADGES = [
   ['3×', 'TEDx-Talks'],
 ];
 
+// Real, verifiable review platforms — linked at the source. We deliberately
+// do NOT render invented person-testimonials with stock photos.
+const REVIEW_PLATFORMS = [
+  ['Trustpilot', '4,9', '388 Bewertungen', 'Argumentorik · Wlad Jachtchenko', 'https://uk.trustpilot.com/review/argumentorik.com'],
+  ['Greator', '4,7', '995 Bewertungen', 'Coach-Profil Wlad Jachtchenko', 'https://greator.com/coach/wlad-jachtchenko'],
+];
+
+// Only things the funnel actually delivers (routes/webinar.py + emails).
+const INCLUDED = [
+  'Google-Calendar-Einladung — sofort nach der Anmeldung per Mail',
+  'Erinnerungs-Mails 24 Stunden und 1 Stunde vor dem Start',
+  'Live-Q&A — deine Frage kommt dran, nicht nur die aus dem Skript',
+  'Der kostenlose Leader-Check im Anschluss — dein Führungsprofil in 10 Minuten',
+  '14-Tage-Zugang zu LeaderOS zum Ausprobieren — ohne Karte, jederzeit kündbar',
+];
+
 const FAQ = [
   ['Kostet das etwas?', 'Nein. Das Webinar ist komplett kostenlos — keine Karte, kein Haken. Du brauchst nur deine E-Mail.'],
+  ['Wie lange dauert es?', '90 Minuten — von 10:00 bis etwa 11:30 Uhr, inklusive Live-Q&A.'],
   ['Gibt es eine Aufzeichnung?', 'Nein, das Webinar ist live. Genau deshalb lohnt es sich: du kannst deine Fragen direkt im Q&A stellen.'],
-  ['Für wen ist es?', 'Für Führungskräfte und alle, die es werden wollen — Teamleads, Projektmanager, Senior-Experten. Keine KI-Vorkenntnisse nötig.'],
+  ['Brauche ich Vorkenntnisse?', 'Nein. Für Führungskräfte und alle, die es werden wollen — Teamleads, Projektmanager, Senior-Experten. Keine KI-Vorkenntnisse nötig.'],
+  ['Kann ich Fragen stellen?', 'Ja — das Q&A ist fester Teil der Agenda (ab 11:15 Uhr). Wlad beantwortet live.'],
 ];
 
 const track = (event, props = {}) => {
@@ -93,22 +140,51 @@ const FADE_UP = {
   }),
 };
 
+/** Animated stat counter · counts up once when scrolled into view. Falls
+ * back to the plain string for non-numeric values ("4,9/5", "3×"). */
+const CountUpValue = ({ value }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const numeric = /^[\d.]+\+?$/.test(value.replace(/\./g, ''))
+    ? parseInt(value.replace(/[^\d]/g, ''), 10)
+    : null;
+  const [display, setDisplay] = useState(numeric === null ? value : '0');
+
+  useEffect(() => {
+    if (!inView || numeric === null) return;
+    const started = performance.now();
+    const dur = 1200;
+    let raf;
+    const tick = (t) => {
+      const p = Math.min(1, (t - started) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const n = Math.round(numeric * eased);
+      setDisplay(n.toLocaleString('de-DE') + (value.includes('+') ? '+' : ''));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, numeric, value]);
+
+  return <span ref={ref} className="tabular-nums">{numeric === null ? value : display}</span>;
+};
+
 const Countdown = () => {
   const { d, h, m, s } = useCountdown(WEBINAR_TS);
   return (
-    <div className="flex gap-2.5 sm:gap-3">
+    <div className="flex gap-2.5 sm:gap-3" aria-label="Countdown bis zum Webinar">
       {[['Tage', d], ['Std', h], ['Min', m], ['Sek', s]].map(([label, val], i) => (
         <motion.div
           key={label}
           initial={{ opacity: 0, y: 12, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center justify-center w-[64px] h-[64px] sm:w-[76px] sm:h-[76px] border-2 border-white/15 bg-white/[0.03]"
+          className="flex flex-col items-center justify-center w-[64px] h-[64px] sm:w-[76px] sm:h-[76px] rounded-2xl bg-white border border-[#111111]/10 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]"
         >
-          <span className="tabular-nums leading-none text-brand text-[24px] sm:text-[30px]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+          <span className="tabular-nums leading-none text-[#111111] text-[24px] sm:text-[30px]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
             {String(val).padStart(2, '0')}
           </span>
-          <span className="mt-1 font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-white/45">{label}</span>
+          <span className="mt-1 font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-[#707072]">{label}</span>
         </motion.div>
       ))}
     </div>
@@ -141,13 +217,13 @@ const ScarcityBar = () => {
       className="mt-6 max-w-md"
       data-testid="webinar-scarcity-bar"
     >
-      <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.14em] text-white/55 mb-1.5">
+      <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.14em] text-[#707072] mb-1.5">
         <span>{stats.registered} bereits angemeldet</span>
         <span>{stats.spots_left} Plätze frei</span>
       </div>
-      <div className="h-1.5 w-full bg-white/10 overflow-hidden">
+      <div className="h-2 w-full rounded-full bg-[#111111]/8 overflow-hidden">
         <motion.div
-          className="h-full bg-brand"
+          className="h-full rounded-full bg-[#BFFF00]"
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
@@ -205,7 +281,7 @@ const RegisterForm = ({ idSuffix = '' }) => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Deine beste E-Mail-Adresse"
           aria-label="E-Mail-Adresse"
-          className="flex-1 h-14 px-5 bg-white/[0.05] border-2 border-white/20 focus:border-brand outline-none text-white text-[15px] placeholder:text-white/35 transition-colors"
+          className="flex-1 h-14 px-5 rounded-full bg-white border border-[#111111]/15 focus:border-[#111111] outline-none text-[#111111] text-[15px] placeholder:text-[#9e9ea0] transition-colors shadow-[0_10px_30px_-20px_rgba(17,17,17,0.2)]"
         />
         <motion.button
           type="submit"
@@ -213,16 +289,16 @@ const RegisterForm = ({ idSuffix = '' }) => {
           whileHover={valid ? { y: -2 } : {}}
           whileTap={valid ? { scale: 0.97 } : {}}
           transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-          className="h-14 px-7 bg-[#BFFF00] hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap"
+          className="h-14 px-7 rounded-full bg-[#111111] hover:bg-[#BFFF00] hover:text-[#111111] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap"
         >
           {state === 'loading' ? 'Wird reserviert…' : 'Platz sichern · kostenlos'}
           {state !== 'loading' && <ArrowUpRight size={16} />}
         </motion.button>
       </div>
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
+      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#707072]">
         100 % kostenlos · live · begrenzte Plätze · jederzeit abmeldbar
         {state === 'error' && (
-          <span className="block mt-1.5 tracking-normal normal-case text-[12px] text-red-400">
+          <span className="block mt-1.5 tracking-normal normal-case text-[12px] text-red-600">
             Das hat nicht geklappt — bitte E-Mail prüfen und erneut senden.
           </span>
         )}
@@ -231,13 +307,35 @@ const RegisterForm = ({ idSuffix = '' }) => {
   );
 };
 
+const SectionEyebrow = ({ children }) => (
+  <motion.p
+    initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
+    className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#5A7700] mb-3"
+  >
+    {children}
+  </motion.p>
+);
+
+const SectionHeadline = ({ children, className = '' }) => (
+  <motion.h2
+    initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
+    className={`text-[28px] sm:text-[40px] leading-[1.02] tracking-[-0.035em] text-[#111111] ${className}`}
+    style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+  >
+    {children}
+  </motion.h2>
+);
+
 export default function WebinarPage() {
   const formRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
+    // Light theme is the design of this page — force it so a dark-mode
+    // visitor still gets the bright, friendly funnel, restore on leave.
     const root = document.documentElement;
     const wasDark = root.classList.contains('dark');
-    root.classList.add('dark');
+    root.classList.remove('dark');
     track('webinar_view');
 
     const restoreMeta = applyPageMeta({
@@ -268,13 +366,17 @@ export default function WebinarPage() {
     });
     document.head.appendChild(ld);
 
-    return () => { restoreMeta(); ld.remove(); if (!wasDark) root.classList.remove('dark'); };
+    return () => { restoreMeta(); ld.remove(); if (wasDark) root.classList.add('dark'); };
   }, []);
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const scrollToVideo = () => {
+    track('webinar_preview_click');
+    videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   return (
-    <div className="bg-background text-foreground min-h-[100dvh] antialiased" data-testid="webinar-page">
+    <div className="bg-white text-[#111111] min-h-[100dvh] antialiased" data-testid="webinar-page">
       {/* Squeeze chrome · logo only, no nav exits */}
       <motion.header
         initial={{ opacity: 0, y: -12 }}
@@ -284,30 +386,36 @@ export default function WebinarPage() {
       >
         <Link to="/" className="flex items-center gap-3" aria-label="LeaderOS Startseite">
           <WladMark size={34} />
-          <span className="font-black tracking-tight text-foreground text-[19px]" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.03em' }}>
-            Leader<span className="text-brand mx-0.5">·</span>OS
+          <span className="font-black tracking-tight text-[#111111] text-[19px]" style={{ fontFamily: 'Outfit, sans-serif', letterSpacing: '-0.03em' }}>
+            Leader<span className="text-[#5A7700] mx-0.5">·</span>OS
           </span>
         </Link>
         <motion.span
-          animate={{ opacity: [0.6, 1, 0.6] }}
+          animate={{ opacity: [0.65, 1, 0.65] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand"
+          className="inline-flex items-center gap-2 rounded-full bg-[#BFFF00]/25 px-3.5 py-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#111111]"
         >
-          ▸ Live-Webinar · kostenlos
+          <span className="w-1.5 h-1.5 rounded-full bg-[#111111] inline-block" />
+          Live-Webinar · kostenlos
         </motion.span>
       </motion.header>
 
       <main id="main-content">
-        {/* Hero + inline registration */}
+        {/* ── Hero · light, airy, inline registration ─────────────────── */}
         <section className="relative isolate overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <DottedGlowBackground gap={16} radius={1.8} color="rgba(255,255,255,0.18)" glowColor="rgba(191,255,0,0.6)" opacity={0.5} />
-          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10"
+            style={{
+              backgroundImage:
+                'radial-gradient(at 80% 0%, rgba(191,255,0,0.16) 0px, transparent 50%), ' +
+                'radial-gradient(at 0% 65%, rgba(191,255,0,0.08) 0px, transparent 50%), ' +
+                'linear-gradient(#ffffff, #fafafa)',
+            }}
+          />
           <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20 lg:flex lg:items-start lg:gap-14">
             <div className="lg:flex-1 lg:min-w-0">
-              {/* Mobile-only compact portrait · the desktop floating card
-                  below is hidden under lg, so without this a phone visitor
-                  would see zero photos until scrolling to the host strip. */}
+              {/* Mobile-only compact portrait */}
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -321,17 +429,18 @@ export default function WebinarPage() {
                   width="44"
                   height="44"
                   fetchpriority="high"
-                  className="w-11 h-11 rounded-full object-cover object-top ring-2 ring-brand shrink-0"
+                  className="w-11 h-11 rounded-full object-cover object-top ring-2 ring-[#BFFF00] shrink-0"
                 />
-                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">
-                  Wlad Jachtchenko<br /><span className="text-foreground/35">Host &amp; Q&amp;A</span>
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#707072]">
+                  Wlad Jachtchenko<br /><span className="text-[#9e9ea0]">Host &amp; Q&amp;A</span>
                 </div>
               </motion.div>
+
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
-                className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/55 mb-5"
+                className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#707072] mb-5"
               >
                 {DATE_LINE}
               </motion.p>
@@ -339,34 +448,41 @@ export default function WebinarPage() {
                 initial={{ opacity: 0, y: 30, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.05 }}
-                className="text-[40px] sm:text-[62px] md:text-[76px] leading-[0.94] tracking-[-0.04em] text-foreground max-w-4xl"
+                className="text-[40px] sm:text-[62px] md:text-[76px] leading-[0.94] tracking-[-0.04em] text-[#111111] max-w-4xl"
                 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
               >
-                Führe besser.<br />Jeden Tag<span className="text-brand not-italic">.</span>
+                Führe besser.<br />Jeden Tag<span className="text-[#5A7700] not-italic">.</span>
               </motion.h1>
               <motion.p
                 initial="hidden" animate="show" custom={1} variants={FADE_UP}
-                className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-foreground/70"
+                className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-[#4b4b4d]"
               >
-                Das kostenlose Live-Webinar zum <span className="text-foreground font-semibold">Leadership Operating System</span>:
+                Das kostenlose Live-Webinar zum <span className="text-[#111111] font-semibold">Leadership Operating System</span>:
                 wie du Kommunikation, Entscheidungen und Führung täglich trainierst — mit KI-Coach,
                 System und den Methoden von Wlad Jachtchenko. Statt Motivation, die am Montag verpufft.
               </motion.p>
 
-              <ul className="mt-8 space-y-3 max-w-2xl">
-                {OUTCOMES.map((o, i) => (
-                  <motion.li
-                    key={o}
-                    initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
-                    className="flex items-start gap-3 text-[15px] leading-[1.5] text-foreground/85"
-                  >
-                    <span className="mt-0.5 inline-flex w-5 h-5 shrink-0 items-center justify-center bg-[#BFFF00] text-[#0A0A0A]">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
-                    {o}
-                  </motion.li>
-                ))}
-              </ul>
+              {/* Primary + secondary CTA */}
+              <motion.div
+                initial="hidden" animate="show" custom={2} variants={FADE_UP}
+                className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3"
+              >
+                <motion.button
+                  onClick={scrollToForm}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                  className="h-14 px-8 rounded-full bg-[#111111] text-white hover:bg-[#BFFF00] hover:text-[#111111] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  Platz sichern · kostenlos <ArrowUpRight size={16} />
+                </motion.button>
+                <button
+                  onClick={scrollToVideo}
+                  className="h-14 px-6 rounded-full border border-[#111111]/20 hover:border-[#111111] text-[#111111] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 bg-white"
+                >
+                  <PlayCircle size={17} /> Vorschau ansehen
+                </button>
+              </motion.div>
 
               <div className="mt-9"><Countdown /></div>
               <ScarcityBar />
@@ -376,9 +492,7 @@ export default function WebinarPage() {
               </div>
             </div>
 
-            {/* Host visual · desktop only, the moment that reads "premium
-                event" instead of "text-only funnel page". Floating stat
-                card + soft chrome frame, gentle idle drift. */}
+            {/* Host visual · desktop only */}
             <motion.div
               initial={{ opacity: 0, x: 24, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -388,30 +502,30 @@ export default function WebinarPage() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative border-2 border-foreground/15 bg-white/[0.03] p-3"
+                className="relative rounded-3xl bg-white border border-[#111111]/10 p-3 shadow-[0_30px_60px_-30px_rgba(17,17,17,0.25)]"
               >
                 <img
                   src={WLAD_AVATAR}
                   onError={withFallback(WLAD_AVATAR_FALLBACKS)}
                   alt="Wlad Jachtchenko"
                   fetchpriority="high"
-                  className="w-full aspect-[4/5] object-cover object-top grayscale-[15%]"
+                  className="w-full aspect-[4/5] object-cover object-top rounded-2xl"
                 />
-                <div className="absolute -bottom-4 -left-4 bg-brand text-[#0A0A0A] px-4 py-2.5 shadow-[4px_4px_0_0_#0A0A0A]">
+                <div className="absolute -bottom-4 -left-4 rounded-2xl bg-[#BFFF00] text-[#111111] px-4 py-2.5 shadow-[0_16px_30px_-14px_rgba(17,17,17,0.4)]">
                   <div className="text-[20px] tabular-nums leading-none" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>400.000+</div>
                   <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.14em]">trainierte Klienten</div>
                 </div>
               </motion.div>
-              <div className="mt-8 pl-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.2em] text-foreground/45">
+              <div className="mt-8 pl-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.2em] text-[#9e9ea0]">
                 ▸ Wlad Jachtchenko · Host &amp; Q&amp;A
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Authority badge strip · verified facts only, no fabricated proof */}
-        <section className="border-t-2 border-foreground/12">
-          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-8 md:py-9">
+        {/* ── Authority badge strip with animated counters ─────────────── */}
+        <section className="border-t border-[#111111]/8 bg-white">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-9 md:py-10">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
               {AUTHORITY_BADGES.map(([value, label], i) => (
                 <motion.div
@@ -419,122 +533,289 @@ export default function WebinarPage() {
                   initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
                   className="text-center sm:text-left"
                 >
-                  <div className="text-[26px] sm:text-[32px] text-foreground tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
-                    {value}<span className="text-brand not-italic">.</span>
+                  <div className="text-[26px] sm:text-[32px] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                    <CountUpValue value={value} /><span className="text-[#5A7700] not-italic">.</span>
                   </div>
-                  <div className="mt-0.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-foreground/50">{label}</div>
+                  <div className="mt-0.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#707072]">{label}</div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Host strip · Wlad as trust anchor, not the product */}
-        <section className="border-t-2 border-foreground/12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[1100px] mx-auto px-5 md:px-10 py-10 md:py-12 flex flex-col sm:flex-row items-start sm:items-center gap-6"
-          >
-            <img
-              src={WLAD_AVATAR}
-              onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-              alt="Wlad Jachtchenko"
-              loading="lazy"
-              className="w-20 h-20 rounded-full object-cover object-[50%_20%] ring-2 ring-brand shrink-0"
-            />
-            <div>
-              <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand mb-1.5">▸ Live dabei · im Q&A</p>
-              <p className="text-[15px] leading-[1.55] text-foreground/75 max-w-2xl">
-                <span className="font-bold text-foreground">Wlad Jachtchenko</span> — 3× SPIEGEL-Bestseller-Autor,
-                400.000+ trainierte Klienten, Trustpilot 4,9/5. Seine Methodik ist das Fundament von LeaderOS.
-                Im Webinar zeigt er sie live — und beantwortet deine Fragen.
-              </p>
-            </div>
-          </motion.div>
+        {/* ── Video preview ────────────────────────────────────────────── */}
+        <section ref={videoRef} className="bg-[#fafafa] border-t border-[#111111]/8 scroll-mt-16">
+          <div className="max-w-[900px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Vorschau · 30 Sekunden</SectionEyebrow>
+            <SectionHeadline className="mb-4">Sieh, worum es geht<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <motion.p
+              initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
+              className="text-[15px] leading-[1.6] text-[#4b4b4d] max-w-xl mb-8"
+            >
+              30 Sekunden Wlad — damit du weißt, wer da spricht und wie er spricht.
+              Kein Marketing-Sprech, keine Buzzwords. So läuft auch das Webinar.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="relative rounded-3xl overflow-hidden bg-[#111111] shadow-[0_40px_80px_-40px_rgba(17,17,17,0.4)]"
+            >
+              <div className="aspect-video">
+                <iframe
+                  src={PREVIEW_SRC}
+                  title="Wlad Jachtchenko in 30 Sekunden"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  className="w-full h-full"
+                />
+              </div>
+            </motion.div>
+          </div>
         </section>
 
-        {/* Agenda · exact timeline, buying trigger via clarity/specificity */}
-        <section className="border-t-2 border-foreground/12">
+        {/* ── What you'll learn · rounded cards ────────────────────────── */}
+        <section className="bg-white border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Inhalte</SectionEyebrow>
+            <SectionHeadline className="mb-10">Das lernst du in 90 Minuten<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              {LEARN_CARDS.map(([title, desc], i) => (
+                <motion.div
+                  key={title}
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }} custom={i} variants={FADE_UP}
+                  whileHover={{ y: -4 }}
+                  className="rounded-3xl bg-[#fafafa] border border-[#111111]/8 p-6 transition-shadow hover:shadow-[0_24px_50px_-30px_rgba(17,17,17,0.3)]"
+                >
+                  <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-[#BFFF00] text-[#111111] mb-4">
+                    <Check size={15} strokeWidth={3} />
+                  </span>
+                  <h3 className="text-[17px] text-[#111111] mb-1.5" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{title}</h3>
+                  <p className="text-[13.5px] leading-[1.55] text-[#707072]">{desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Why attend · icon cards ──────────────────────────────────── */}
+        <section className="bg-[#fafafa] border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Warum dabei sein</SectionEyebrow>
+            <SectionHeadline className="mb-10">Kein Fluff. Nur Substanz<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              {WHY_ATTEND.map(([Icon, title, desc], i) => (
+                <motion.div
+                  key={title}
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }} custom={i} variants={FADE_UP}
+                  className="flex items-start gap-4 rounded-3xl bg-white border border-[#111111]/8 p-6"
+                >
+                  <span className="inline-flex w-11 h-11 shrink-0 items-center justify-center rounded-2xl bg-[#BFFF00]/25 text-[#111111]">
+                    <Icon size={20} />
+                  </span>
+                  <div>
+                    <h3 className="text-[15.5px] text-[#111111] mb-1" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{title}</h3>
+                    <p className="text-[13px] leading-[1.55] text-[#707072]">{desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Speaker · trust anchor ───────────────────────────────────── */}
+        <section className="bg-white border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-10 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-4"
+            >
+              <div className="rounded-3xl overflow-hidden border border-[#111111]/10 shadow-[0_30px_60px_-35px_rgba(17,17,17,0.35)]">
+                <img
+                  src={WLAD_AVATAR}
+                  onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                  alt="Wlad Jachtchenko · Host des Webinars"
+                  loading="lazy"
+                  className="w-full aspect-[4/5] object-cover object-top"
+                />
+              </div>
+            </motion.div>
+            <div className="md:col-span-8">
+              <SectionEyebrow>▸ Dein Host</SectionEyebrow>
+              <SectionHeadline className="mb-5">Wlad Jachtchenko<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+              <motion.p
+                initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
+                className="text-[15.5px] leading-[1.65] text-[#4b4b4d] max-w-2xl mb-6"
+              >
+                Europas führender Argumentations-Coach. Seit 2007 im Coaching, Gründer der
+                Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS. Seine Methodik
+                ist das Fundament des Webinars — und er ist live dabei, nicht nur auf der Folie:
+                das komplette Q&amp;A beantwortet er selbst.
+              </motion.p>
+              <motion.ul
+                initial="hidden" whileInView="show" viewport={{ once: true }} custom={3} variants={FADE_UP}
+                className="flex flex-wrap gap-2.5"
+              >
+                {['3× SPIEGEL-Bestseller-Autor', '13 Bücher', '400.000+ trainierte Klienten', '3× TEDx', 'LinkedIn-Learning · 250.000+ Teilnehmer'].map((chip) => (
+                  <li key={chip} className="rounded-full bg-[#fafafa] border border-[#111111]/10 px-4 py-2 text-[12.5px] font-semibold text-[#39393b]">
+                    {chip}
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Social proof · real platform ratings, no invented quotes ─── */}
+        <section className="bg-[#fafafa] border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Bewertungen · verifizierbar</SectionEyebrow>
+            <SectionHeadline className="mb-10">Was Klienten sagen<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-5 max-w-3xl">
+              {REVIEW_PLATFORMS.map(([name, rating, count, sub, href], i) => (
+                <motion.a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }} custom={i} variants={FADE_UP}
+                  whileHover={{ y: -4 }}
+                  className="rounded-3xl bg-white border border-[#111111]/8 p-7 transition-shadow hover:shadow-[0_24px_50px_-30px_rgba(17,17,17,0.3)] group"
+                >
+                  <div className="flex items-center gap-1 mb-4" aria-hidden>
+                    {[...Array(5)].map((_, s) => (
+                      <Star key={s} size={16} className="text-[#111111] fill-[#BFFF00]" />
+                    ))}
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-[34px] leading-none text-[#111111] tabular-nums" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{rating}</span>
+                    <span className="text-[13px] text-[#707072]">/ 5 · {count}</span>
+                  </div>
+                  <div className="mt-2 text-[14px] font-bold text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif' }}>{name}</div>
+                  <div className="text-[12px] text-[#9e9ea0]">{sub}</div>
+                  <div className="mt-3 font-mono text-[9.5px] font-bold uppercase tracking-[0.18em] text-[#5A7700] opacity-0 group-hover:opacity-100 transition-opacity">
+                    Zur Quelle <ArrowUpRight size={10} className="inline" />
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+            <p className="mt-5 font-mono text-[9.5px] uppercase tracking-[0.18em] text-[#9e9ea0] max-w-3xl">
+              ▸ Beide Bewertungsprofile sind öffentlich — klick dich rein und prüf selbst.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Agenda · timeline ────────────────────────────────────────── */}
+        <section className="bg-white border-t border-[#111111]/8">
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <motion.p
-              initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
-              className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-brand mb-3"
-            >
-              ▸ Ablauf · 90 Minuten
-            </motion.p>
-            <motion.h2
-              initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
-              className="text-[28px] sm:text-[40px] leading-[1.0] tracking-[-0.035em] text-foreground mb-10"
-              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-            >
-              Genau das erwartet dich<span className="text-brand not-italic">.</span>
-            </motion.h2>
-            <ol className="space-y-0">
+            <SectionEyebrow>▸ Ablauf · 90 Minuten</SectionEyebrow>
+            <SectionHeadline className="mb-10">Genau das erwartet dich<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <ol className="relative border-l-2 border-[#111111]/10 ml-3 space-y-0">
               {AGENDA.map(([time, title, desc], i) => (
                 <motion.li
                   key={time}
                   initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
-                  className="flex gap-5 py-4 border-b border-foreground/12 last:border-b-0"
+                  className="relative pl-8 pb-8 last:pb-0"
                 >
-                  <span className="shrink-0 w-14 font-mono text-[13px] font-bold text-brand tabular-nums pt-0.5">{time}</span>
-                  <div>
-                    <p className="text-[15.5px] font-bold text-foreground" style={{ fontFamily: 'Outfit, sans-serif' }}>{title}</p>
-                    <p className="mt-0.5 text-[13.5px] leading-[1.5] text-foreground/60">{desc}</p>
-                  </div>
+                  <span aria-hidden className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#BFFF00] ring-4 ring-white" />
+                  <span className="font-mono text-[12px] font-bold text-[#5A7700] tabular-nums">{time}</span>
+                  <p className="mt-0.5 text-[16px] font-bold text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif' }}>{title}</p>
+                  <p className="mt-0.5 text-[13.5px] leading-[1.55] text-[#707072]">{desc}</p>
                 </motion.li>
               ))}
             </ol>
           </div>
         </section>
 
-        {/* Mini-FAQ + final ask */}
-        <section className="relative isolate overflow-hidden border-t-2 border-foreground/12">
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <DottedGlowBackground gap={16} radius={1.8} color="rgba(255,255,255,0.2)" glowColor="rgba(191,255,0,0.6)" opacity={0.5} />
-          </div>
+        {/* ── Das bekommst du · honest deliverables ────────────────────── */}
+        <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <dl className="border-t-2 border-foreground/15 mb-12">
+            <SectionEyebrow>▸ Inklusive</SectionEyebrow>
+            <SectionHeadline className="mb-8">Das bekommst du mit der Anmeldung<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <motion.div
+              initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} custom={1} variants={FADE_UP}
+              className="rounded-3xl bg-white border border-[#111111]/8 p-7 md:p-9"
+            >
+              <ul className="space-y-4">
+                {INCLUDED.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[14.5px] leading-[1.55] text-[#39393b]">
+                    <span className="mt-0.5 inline-flex w-6 h-6 shrink-0 items-center justify-center rounded-full bg-[#BFFF00] text-[#111111]">
+                      <Gift size={13} strokeWidth={2.5} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── FAQ ──────────────────────────────────────────────────────── */}
+        <section className="bg-white border-t border-[#111111]/8">
+          <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Häufige Fragen</SectionEyebrow>
+            <SectionHeadline className="mb-8">Kurz beantwortet<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <dl className="space-y-3">
               {FAQ.map(([q, a], i) => (
                 <motion.div
                   key={q}
-                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.7 }} custom={i} variants={FADE_UP}
-                  className="py-4 border-b border-foreground/15"
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
+                  className="rounded-2xl bg-[#fafafa] border border-[#111111]/8 px-6 py-5"
                 >
-                  <dt className="text-[15.5px] leading-[1.3] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{q}</dt>
-                  <dd className="mt-1.5 text-[13.5px] leading-[1.55] text-foreground/65">{a}</dd>
+                  <dt className="text-[15.5px] leading-[1.3] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{q}</dt>
+                  <dd className="mt-1.5 text-[13.5px] leading-[1.55] text-[#707072]">{a}</dd>
                 </motion.div>
               ))}
             </dl>
-            <div className="text-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <h2 className="text-[28px] sm:text-[40px] md:text-[48px] leading-[1.0] tracking-[-0.035em] text-foreground" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
-                  Sichere dir deinen Platz<span className="text-brand not-italic">.</span>
-                </h2>
-                <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-foreground/50 flex items-center justify-center gap-1.5">
-                  <Star size={11} className="text-brand fill-brand" /> {DATE_LINE}
-                </p>
-              </motion.div>
-              <div className="mt-7 max-w-xl mx-auto text-left">
-                <RegisterForm idSuffix="-final" />
-              </div>
+          </div>
+        </section>
+
+        {/* ── Final CTA ────────────────────────────────────────────────── */}
+        <section className="relative isolate overflow-hidden border-t border-[#111111]/8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10"
+            style={{
+              backgroundImage:
+                'radial-gradient(at 50% 100%, rgba(191,255,0,0.18) 0px, transparent 55%), ' +
+                'linear-gradient(#ffffff, #fafafa)',
+            }}
+          />
+          <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-24 text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <h2 className="text-[30px] sm:text-[44px] md:text-[52px] leading-[1.0] tracking-[-0.035em] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                Sichere dir deinen Platz<span className="text-[#5A7700] not-italic">.</span>
+              </h2>
+              <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[#707072] flex items-center justify-center gap-1.5">
+                <Star size={11} className="text-[#5A7700] fill-[#BFFF00]" /> {DATE_LINE}
+              </p>
+            </motion.div>
+            <div className="mt-8 flex justify-center"><Countdown /></div>
+            <div className="mt-8 max-w-xl mx-auto text-left">
+              <RegisterForm idSuffix="-final" />
             </div>
+            <p className="mt-5 font-mono text-[9.5px] uppercase tracking-[0.18em] text-[#9e9ea0]">
+              ▸ Kalender-Einladung kommt sofort per Mail · Erinnerung vor dem Start
+            </p>
           </div>
         </section>
       </main>
 
       {/* Sticky mobile CTA */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0A0A0A]/95 backdrop-blur border-t-2 border-brand/40 px-4 py-3">
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-[#111111]/10 px-4 py-3 shadow-[0_-12px_30px_-20px_rgba(17,17,17,0.25)]">
         <button
           onClick={scrollToForm}
-          className="w-full inline-flex items-center justify-center gap-2 h-12 bg-[#BFFF00] text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em]"
+          className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-full bg-[#111111] text-white font-bold text-[12.5px] uppercase tracking-[0.14em]"
         >
           Platz sichern · kostenlos <ArrowUpRight size={15} />
         </button>

@@ -48,9 +48,10 @@ export default function WebinarThankYouPage() {
   const email = params.get('email');
 
   useEffect(() => {
+    // Match the light /webinar funnel — force light, restore on leave.
     const root = document.documentElement;
     const wasDark = root.classList.contains('dark');
-    root.classList.add('dark');
+    root.classList.remove('dark');
 
     const restoreMeta = applyPageMeta({
       title: 'Platz gesichert · Live-Webinar · LeaderOS',
@@ -59,7 +60,7 @@ export default function WebinarThankYouPage() {
       image: 'https://leader-os.de/og-wlad.jpg',
     });
 
-    return () => { restoreMeta(); if (!wasDark) root.classList.remove('dark'); };
+    return () => { restoreMeta(); if (wasDark) root.classList.add('dark'); };
   }, []);
 
   return (
