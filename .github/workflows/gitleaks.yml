@@ -17,6 +17,10 @@ on:
 
 permissions:
   contents: read
+  # gitleaks-action@v2 lists the PR's commits via the API on pull_request
+  # events; without this the call 403s ("Resource not accessible by
+  # integration") and the job fails even when no secret was found.
+  pull-requests: read
 
 jobs:
   scan:
