@@ -118,37 +118,76 @@ export default function WebinarThankYouPage() {
           </motion.a>
         </motion.div>
 
-        {/* The explicit growth bridge: don't make them wait for August. */}
+        {/* Ascension step 1 · the 4-video series is the featured bonus —
+            the promise made on /webinar ("schaltest du auf der Bestätigungs-
+            seite frei") is kept HERE. One video per day per mail, so the
+            registrant arrives at the webinar already warmed up. */}
         <motion.section
           initial="hidden" animate="show" custom={3} variants={FADE_UP}
           className="mt-16 pt-12 border-t-2 border-foreground/12"
         >
-          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-brand mb-4">▸ WÄHREND DU WARTEST</p>
+          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-brand mb-4">▸ DEIN TEILNEHMER-BONUS · SCHRITT 1 VON 2</p>
           <h2
             className="text-[26px] sm:text-[36px] leading-[1.0] tracking-[-0.03em] text-foreground max-w-xl"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Du musst nicht bis August warten<span className="text-brand not-italic">.</span>
+            Schalte jetzt die 4-teilige Videoserie frei<span className="text-brand not-italic">.</span>
           </h2>
           <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-foreground/65">
-            Das Webinar ist der Impuls. LeaderOS ist das System, das danach trägt — WladBot als
-            24/7-Coach, tägliche Mikro-Drills, dieselbe Methodik. Starte deine 14 Tage kostenlos
-            schon jetzt, ganz ohne auf den Termin zu warten.
+            Damit du maximal vom Webinar profitierst: „Führung beginnt hier" — vier Videos
+            von Wlad, ein Video pro Tag in dein Postfach. Wer die Serie vorher gesehen hat,
+            holt aus den 90 Minuten Live-Session doppelt so viel raus.
           </p>
-          <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+
+          <ol className="mt-7 max-w-xl space-y-2.5">
+            {[
+              ['Warum die meisten Führungskräfte unsichtbar bleiben', '8 Min'],
+              ['Natürliche Autorität — ohne lauter zu werden', '11 Min'],
+              ['Weniger arbeiten, mehr bewirken', '9 Min'],
+              ['Dein 30-Tage-Plan zur KI-nativen Führungskraft', '12 Min'],
+            ].map(([title, duration], i) => (
+              <li key={title} className="flex items-center gap-3.5 border-2 border-foreground/10 px-4 py-3">
+                <span
+                  className="shrink-0 inline-flex w-7 h-7 items-center justify-center bg-brand text-[#0A0A0A] text-[12.5px] font-black"
+                  style={{ fontFamily: 'Outfit, sans-serif' }}
+                >
+                  {i + 1}
+                </span>
+                <span className="flex-1 text-[13.5px] font-semibold text-foreground leading-[1.35]">{title}</span>
+                <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.14em] text-foreground/40">{duration}</span>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-7">
             <PlusCircleCTA
-              href="https://leaderos.de/signup?trial=14&utm_source=webinar&utm_medium=thankyou&utm_campaign=webinar-2026-08-20"
-              testId="webinar-thankyou-cta-trial"
+              href="/fuehrung-beginnt-hier?utm_source=webinar&utm_medium=thankyou&utm_campaign=webinar-2026-08-20"
+              testId="webinar-thankyou-cta-videos"
             >
-              14 Tage kostenlos starten
+              Videoserie freischalten · kostenlos
             </PlusCircleCTA>
-            <Link
-              to="/fuehrung-beginnt-hier"
+          </div>
+        </motion.section>
+
+        {/* Ascension step 2 · the trial bridge — don't make them wait. */}
+        <motion.section
+          initial="hidden" animate="show" custom={4} variants={FADE_UP}
+          className="mt-14 pt-10 border-t border-foreground/10"
+        >
+          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/45 mb-4">▸ SCHRITT 2 · WENN DU NICHT WARTEN WILLST</p>
+          <p className="max-w-xl text-[15px] leading-[1.6] text-foreground/65">
+            Das Webinar ist der Impuls. LeaderOS ist das System, das danach trägt — WladBot als
+            24/7-Coach, tägliche Mikro-Drills, dieselbe Methodik. Du kannst deine 14 Tage
+            kostenlos schon jetzt starten, ganz ohne auf den Termin zu warten.
+          </p>
+          <div className="mt-6">
+            <a
+              href="https://leaderos.de/signup?trial=14&utm_source=webinar&utm_medium=thankyou&utm_campaign=webinar-2026-08-20"
+              data-testid="webinar-thankyou-cta-trial"
               className="text-[12px] font-bold uppercase tracking-[0.2em] text-foreground/55 hover:text-foreground transition-colors"
-              data-testid="webinar-thankyou-cta-videos"
             >
-              Oder: 4 Gratis-Videos ansehen →
-            </Link>
+              14 Tage kostenlos starten →
+            </a>
           </div>
         </motion.section>
       </main>
