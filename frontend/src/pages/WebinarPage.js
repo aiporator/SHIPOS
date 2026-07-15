@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import {
   ArrowUpRight, Check, Star, PlayCircle, CalendarCheck, MessageCircleQuestion,
-  Sparkles, Timer, BellRing, ShieldCheck, Gift,
+  Sparkles, Timer, BellRing, ShieldCheck, Gift, Users, BookOpen,
 } from 'lucide-react';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { applyPageMeta } from '../lib/pageMeta';
@@ -92,6 +92,24 @@ const AUTHORITY_BADGES = [
 const REVIEW_PLATFORMS = [
   ['Trustpilot', '4,9', '388 Bewertungen', 'Argumentorik · Wlad Jachtchenko', 'https://uk.trustpilot.com/review/argumentorik.com'],
   ['Greator', '4,7', '995 Bewertungen', 'Coach-Profil Wlad Jachtchenko', 'https://greator.com/coach/wlad-jachtchenko'],
+];
+
+// Who the webinar genuinely fits — plus one honest "not for you" line so
+// the registration list stays high-intent instead of just long.
+const AUDIENCE = [
+  ['Teamleads & neue Führungskräfte', 'Du führst seit Kurzem — und merkst, dass Fachkompetenz allein nicht reicht.'],
+  ['Erfahrene Manager & Directors', 'Du führst lange genug, um zu wissen, was ein Seminar-Wochenende NICHT verändert.'],
+  ['Senior-Experten vor dem Sprung', 'Die Führungsrolle kommt — du willst vorbereitet sein statt hineinzustolpern.'],
+];
+
+// A real taste of the knowledge behind the webinar · exact canonical
+// definitions (docs/WLAD_CANON.md), each linking to its journal deep-dive —
+// the teaser IS correct content, not marketing-vague hints.
+const FRAMEWORK_PEEK = [
+  ['SEXIER-Modell', 'Statement · Explanation · eXample · Impact · Explanation of Impact · Rebuttal — die sechsstufige Argumentations-Architektur für strittige Thesen.', '/journal/die-5-argumentations-levels-von-behauptung-bis-sexier'],
+  ['Feedbackformel B·W·W', 'Beobachtung + Wirkung + Wunsch. Nie „Du bist…", immer „Ich habe beobachtet, dass…" — das Skript für jedes schwierige Gespräch.', '/journal/die-feedback-formel-bww'],
+  ['10 Stufen des Zuhörens', 'Von Stufe 1 (nicht zuhören) bis Stufe 10 (Stille als Zuhören). 80 % aller Führungskräfte hängen auf Stufe 2 fest: auf die eigene Antwort warten.', '/journal/die-10-stufen-des-zuhoerens-wlads-modell-erklaert'],
+  ['Die 5 Rollen einer Führungskraft', 'Kommunikator · Manager · Team-Leader · Psychologe · Problemlöser — und warum die meisten eine der fünf systematisch weglassen.', '/journal/5-rollen-der-fuehrung-nach-wlad-jachtchenko'],
 ];
 
 // Only things the funnel actually delivers (routes/webinar.py + emails).
@@ -366,7 +384,22 @@ export default function WebinarPage() {
     });
     document.head.appendChild(ld);
 
-    return () => { restoreMeta(); ld.remove(); if (wasDark) root.classList.add('dark'); };
+    // FAQPage schema · mirrors the on-page FAQ 1:1 (AEO: eligible for FAQ
+    // rich results + directly quotable by AI answer engines).
+    const ldFaq = document.createElement('script');
+    ldFaq.type = 'application/ld+json';
+    ldFaq.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQ.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    });
+    document.head.appendChild(ldFaq);
+
+    return () => { restoreMeta(); ld.remove(); ldFaq.remove(); if (wasDark) root.classList.add('dark'); };
   }, []);
 
   const scrollToForm = () => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -625,8 +658,39 @@ export default function WebinarPage() {
           </div>
         </section>
 
-        {/* ── Speaker · trust anchor ───────────────────────────────────── */}
+        {/* ── Für wen · audience fit keeps the list high-intent ────────── */}
         <section className="bg-white border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Für wen</SectionEyebrow>
+            <SectionHeadline className="mb-10">Du bist hier richtig, wenn<span className="text-[#5A7700] not-italic">…</span></SectionHeadline>
+            <div className="grid sm:grid-cols-3 gap-4 md:gap-5">
+              {AUDIENCE.map(([title, desc], i) => (
+                <motion.div
+                  key={title}
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }} custom={i} variants={FADE_UP}
+                  className="rounded-3xl bg-[#fafafa] border border-[#111111]/8 p-6"
+                >
+                  <span className="inline-flex w-11 h-11 items-center justify-center rounded-2xl bg-[#BFFF00]/25 text-[#111111] mb-4">
+                    <Users size={20} />
+                  </span>
+                  <h3 className="text-[16px] text-[#111111] mb-1.5" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{title}</h3>
+                  <p className="text-[13.5px] leading-[1.55] text-[#707072]">{desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            <motion.p
+              initial="hidden" whileInView="show" viewport={{ once: true }} custom={3} variants={FADE_UP}
+              className="mt-6 text-[13.5px] leading-[1.55] text-[#707072] max-w-2xl"
+            >
+              Ehrlich gesagt: wenn du nur einen Motivations-Kick suchst und danach alles beim Alten
+              bleiben soll, sind die 90 Minuten woanders besser investiert. Das Webinar ist für
+              Leute, die ein System wollen.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ── Speaker · trust anchor ───────────────────────────────────── */}
+        <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -662,11 +726,49 @@ export default function WebinarPage() {
                 className="flex flex-wrap gap-2.5"
               >
                 {['3× SPIEGEL-Bestseller-Autor', '13 Bücher', '400.000+ trainierte Klienten', '3× TEDx', 'LinkedIn-Learning · 250.000+ Teilnehmer'].map((chip) => (
-                  <li key={chip} className="rounded-full bg-[#fafafa] border border-[#111111]/10 px-4 py-2 text-[12.5px] font-semibold text-[#39393b]">
+                  <li key={chip} className="rounded-full bg-white border border-[#111111]/10 px-4 py-2 text-[12.5px] font-semibold text-[#39393b]">
                     {chip}
                   </li>
                 ))}
               </motion.ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Frameworks preview · the teaser IS correct knowledge ─────── */}
+        <section className="bg-white border-t border-[#111111]/8">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionEyebrow>▸ Die Methodik dahinter</SectionEyebrow>
+            <SectionHeadline className="mb-4">Ein Vorgeschmack auf Wlads Frameworks<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <motion.p
+              initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
+              className="text-[15px] leading-[1.6] text-[#4b4b4d] max-w-2xl mb-10"
+            >
+              Kein Geheimwissen hinter der Anmelde-Wand — hier sind vier der Frameworks aus
+              Wlads Büchern, exakt so, wie sie im Webinar und in LeaderOS trainiert werden.
+              Zum Nachlesen verlinkt, zum Können brauchst du den Drill.
+            </motion.p>
+            <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
+              {FRAMEWORK_PEEK.map(([name, def, href], i) => (
+                <motion.div
+                  key={name}
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.4 }} custom={i} variants={FADE_UP}
+                  whileHover={{ y: -4 }}
+                  className="rounded-3xl bg-[#fafafa] border border-[#111111]/8 p-7 transition-shadow hover:shadow-[0_24px_50px_-30px_rgba(17,17,17,0.3)]"
+                >
+                  <span className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-[#BFFF00] text-[#111111] mb-4">
+                    <BookOpen size={16} />
+                  </span>
+                  <h3 className="text-[17px] text-[#111111] mb-2" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800 }}>{name}</h3>
+                  <p className="text-[13.5px] leading-[1.6] text-[#4b4b4d] mb-4">{def}</p>
+                  <Link
+                    to={href}
+                    className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#5A7700] hover:text-[#111111] transition-colors"
+                  >
+                    Zum Deep-Dive im Journal <ArrowUpRight size={11} />
+                  </Link>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

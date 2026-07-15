@@ -184,8 +184,12 @@ import schwierigeNachrichtenAsyncUeberbringenSlackTeams from './articles/schwier
 import warumDieBestenChefsDieSchlechtestenMentorenSind from './articles/warum-die-besten-chefs-die-schlechtesten-mentoren-sind';
 import derKiKompetenzGapZwischenJuniorUndSeniorFuehrungskraeften from './articles/der-ki-kompetenz-gap-zwischen-junior-und-senior-fuehrungskraeften';
 import wieDuNeinSagstOhneUnbeliebtZuWerden from './articles/wie-du-nein-sagst-ohne-unbeliebt-zu-werden';
+import die5ArgumentationsLevelsVonBehauptungBisSexier from './articles/die-5-argumentations-levels-von-behauptung-bis-sexier';
 
 const ARTICLES = [
+  // 2026-07-21 · canon-gap framework pillar (5 Argumentations-Levels — the
+  // architecture SEXIER lives in as Level 4; source: WLAD_CANON.md)
+  die5ArgumentationsLevelsVonBehauptungBisSexier,
   // 2026-07-11 → 2026-07-20 · viral leadership/AI/communication expansion
   shadowKiWarumDeinTeamHeimlichChatgptNutzt,
   die10StufenDesZuhoerensWladsModellErklaert,
