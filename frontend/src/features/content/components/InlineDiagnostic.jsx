@@ -92,7 +92,7 @@ export const InlineDiagnostic = ({ block, articleSlug, articleTitle }) => {
         <button
           type="button"
           onClick={() => go(custom, null)}
-          className="h-11 px-5 inline-flex items-center justify-center gap-1.5 bg-brand hover:bg-foreground hover:text-background text-foreground font-bold text-[12px] uppercase tracking-[0.12em] transition-colors"
+          className="h-11 px-5 inline-flex items-center justify-center gap-1.5 bg-brand hover:bg-foreground hover:text-background text-[#0A0A0A] font-bold text-[12px] uppercase tracking-[0.12em] transition-colors"
           data-testid="diagnostic-cta"
         >
           {custom.trim() ? 'Lösung holen' : 'WladBot fragen'} <ArrowRight size={14} />

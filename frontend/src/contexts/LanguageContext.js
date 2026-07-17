@@ -156,12 +156,12 @@ const translations = {
     'report.finalizing': 'Finalisiere Report',
 
     // Upsell - Enhanced with Wlad Jachtchenko
-    'upsell.title': 'Premium Leadership Programm mit Wlad',
-    'upsell.subtitle': 'Erhalte personalisiertes 1:1 Coaching von Wlad Jachtchenko, erweiterte KI-Simulationen und deinen kompletten Leadership-Transformationsplan.',
+    'upsell.title': 'Premium Leadership Programm mit Wlads Team',
+    'upsell.subtitle': 'Erhalte personalisiertes 1:1 Coaching von Wlads Team, erweiterte KI-Simulationen und deinen kompletten Leadership-Transformationsplan.',
     'upsell.cta': 'Transformation starten',
     'upsell.noCreditCard': 'Strategiegespräch buchen',
     'upsell.features': [
-      'Persönliche 1:1 Coaching Sessions mit Wlad',
+      'Persönliche 1:1 Coaching Sessions mit Wlads Team',
       'Alle Frameworks aus "Die Kunst der Überzeugung"',
       'Erweiterte KI-Simulationen & Analyse',
       'Lebenslanger Zugang zu allen Premium-Features',
@@ -169,7 +169,7 @@ const translations = {
       'Monatlicher Fortschritts-Report',
     ],
     'upsell.bookCall': 'Persönliches Strategiegespräch buchen',
-    'upsell.bookCallSub': '15 Min · 1:1 mit Wlad · unverbindlich',
+    'upsell.bookCallSub': '15 Min · 1:1 mit Wlads Team · unverbindlich',
 
     // Funnel / Diagnostic
     'funnel.heroTitle': 'Dein Leadership-Profil in 10 Minuten.',

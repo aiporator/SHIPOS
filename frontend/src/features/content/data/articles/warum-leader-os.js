@@ -1,11 +1,11 @@
 /**
- * Article 1/10 · platform manifesto. Why Leader-OS exists at all.
+ * Article 1/10 · platform manifesto. Why LeaderOS exists at all.
  */
 export default {
   slug: 'warum-leader-os',
   type: 'article',
   status: 'published',
-  title: 'Warum es Leader-OS gibt.',
+  title: 'Warum es LeaderOS gibt.',
   description:
     'Coaching kostet 800 Euro pro Stunde und ist am Dienstagabend ' +
     'nicht erreichbar. Bücher altern. Frameworks bleiben hängen. Wir ' +
@@ -13,7 +13,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-23',
   cover: null,
-  tags: ['Leader-OS', 'Manifesto', 'KI'],
+  tags: ['LeaderOS', 'Manifesto', 'KI'],
   body: [
     { type: 'paragraph', text:
       'Wir haben fünfzehn Jahre Führungskräfte trainiert. Drei SPIEGEL-Bestseller, vierhunderttausend Teilnehmer, ' +
@@ -29,9 +29,9 @@ export default {
       'Jeder der drei Engpässe ist für sich lösbar. Der Punkt ist: niemand hat sie zusammen gelöst. Ein 24/7 ' +
       'verfügbarer Coach in deiner Tasche, mit Wlads Methodik, der dich beim Drill am echten Fall korrigiert · ' +
       'das hat es vorher nicht gegeben.' },
-    { type: 'heading', level: 2, text: 'Was Leader-OS ist.' },
+    { type: 'heading', level: 2, text: 'Was LeaderOS ist.' },
     { type: 'paragraph', text:
-      'Leader-OS ist kein Kurs. Es ist ein Operating System für Führungskräfte. Drei Schichten greifen ineinander: ' +
+      'LeaderOS ist kein Kurs. Es ist ein Operating System für Führungskräfte. Drei Schichten greifen ineinander: ' +
       'die elf Wlad-Frameworks als Methodik, der WladBot als 24/7-Sparrings-Partner, ein 30-Tage-Sprint der diese ' +
       'beiden in einen Reflex verwandelt. Jede Schicht alleine ist hilfreich. Erst zusammen entsteht das System.' },
     { type: 'framework', code: 'OS', title: 'Drei Schichten',
@@ -39,7 +39,7 @@ export default {
         'Schicht 1: Methodik. Elf Frameworks von SEXIER bis ALPEN, jeder ist im echten Coaching erprobt. ' +
         'Schicht 2: KI-Coach. WladBot ist auf 2200 Wlad-Lektionen trainiert und kennt deinen Sprint-Score. ' +
         'Schicht 3: Sprint. 30 Tage täglicher Drill, der die Frameworks in deine Reflex-Bibliothek brennt.' },
-    { type: 'heading', level: 2, text: 'Was Leader-OS nicht ist.' },
+    { type: 'heading', level: 2, text: 'Was LeaderOS nicht ist.' },
     { type: 'list', style: 'bullet', items: [
       'Kein Selbsthilfe-Kurs mit Videos die du nie öffnest.',
       'Kein Coaching-Marketplace mit anonymen Coaches und schwankender Qualität.',
@@ -50,16 +50,16 @@ export default {
       'Drei Wochen Reflex-Bildung, dreißig Drills am echten Fall, ein KI-Coach der deine Stilhistorie kennt · ' +
       'das ist der Trade, den wir vorschlagen.' },
     { type: 'paragraph', text:
-      'Die kostenlose Diagnose auf leadercheck.de zeigt dir in zehn Minuten, ob Leader-OS gerade dein größter ' +
+      'Die kostenlose Diagnose auf leadercheck.de zeigt dir in zehn Minuten, ob LeaderOS gerade dein größter ' +
       'Hebel ist. Wenn der Score sagt: "deine Lücke ist Strategie, nicht Skill", machen wir dich nicht zum Kunden. ' +
       'Wenn er sagt: "Skill", ist der Sprint der schnellste Weg sie zu schließen.' },
   ],
   seo: {
-    title: 'Warum Leader-OS: das Führungs-Betriebssystem',
+    title: 'Warum LeaderOS: das Führungs-Betriebssystem',
     description:
-      'Warum es Leader-OS gibt: die drei Engpässe der Führungs-Entwicklung · teures Coaching, ' +
+      'Warum es LeaderOS gibt: die drei Engpässe der Führungs-Entwicklung · teures Coaching, ' +
       'Bücher, Seminare · gelöst mit Frameworks, KI-Coach und Sprint. Von Wlad Jachtchenko.',
-    keywords: ['Leader-OS', 'Wlad Jachtchenko Plattform', 'KI Leadership Operating System', 'Führungskräfte System', 'Coaching Alternative'],
+    keywords: ['LeaderOS', 'Wlad Jachtchenko Plattform', 'KI Leadership Operating System', 'Führungskräfte System', 'Coaching Alternative'],
   },
   related: ['was-in-leader-os-drin-ist', 'wladbot-vs-chatgpt-vs-coach'],
 };

@@ -58,7 +58,7 @@ SIGNATURE_QUERIES: list[dict[str, str]] = [
     {"q": "Ich ertrinke in Aufgaben und weiß nicht, was zuerst. Wie priorisiere ich richtig?", "expect": "Eisenhower-Matrix"},
     {"q": "Wie strukturiere ich meinen Arbeitstag, damit ich endlich an den wichtigen Dingen arbeite?", "expect": "ALPEN-Methode"},
     {"q": "Was sind die zentralen Rollen, die ich als frische Führungskraft beherrschen muss?", "expect": "Die 5 Rollen einer Führungskraft"},
-    {"q": "Mein Teammitglied fühlt sich nicht gehört. Wie führe ich ein Gespräch, in dem es sich wirklich verstanden fühlt?", "expect": "Aktives Zuhören (5 Ebenen)"},
+    {"q": "Mein Teammitglied fühlt sich nicht gehört. Wie führe ich ein Gespräch, in dem es sich wirklich verstanden fühlt?", "expect": "10 Stufen des Zuhörens (nicht \"5 Ebenen\")"},
     {"q": "Ich mache zu viel selbst und mein Team wächst nicht. Wie delegiere ich richtig?", "expect": "Delegation als Befähigung"},
     {"q": "In einer Diskussion hat mich ein Kollege mit einem Strohmann-Argument blamiert. Wie kontere ich sowas?", "expect": "Dunkle Rhetorik Defense"},
     {"q": "Ein Feedback von mir ist völlig falsch angekommen. Wie sorge ich dafür, dass meine Botschaft ankommt wie gemeint?", "expect": "Kommunikationsquadrant"},
@@ -69,6 +69,12 @@ SIGNATURE_QUERIES: list[dict[str, str]] = [
     {"q": "Zwei meiner besten Leute sind im offenen Konflikt. Wie moderiere ich das?", "expect": "Wlads Konfliktgespräch / 4 Gesprächstypen"},
     {"q": "Ein guter Mitarbeiter hat innerlich gekündigt. Wie motiviere ich ihn nachhaltig wieder?", "expect": "Mitarbeiter-Motivation 4.0"},
     {"q": "Wie überzeuge ich ehrlich und ohne Manipulation, auch wenn die Fakten gegen mich stehen?", "expect": "Weiße Rhetorik"},
+    # Explicit SEXIER probe: this framework had a documented corpus-chunk bug
+    # (layer202_drills used Repeat/Implications/Evidence instead of the real
+    # Rebuttal/Impact/Explanation of Impact — see docs/WLAD_CANON.md). WLAD_HARD_RULES
+    # now hard-codes the correct definition, but nothing in this signature set
+    # actually probed SEXIER directly until now — this closes that regression gap.
+    {"q": "Ich muss nächste Woche eine wichtige Firmenrede halten und will sie strukturiert und überzeugend aufbauen. Wie gehe ich vor?", "expect": "SEXIER-Modell (Statement/Explanation/eXample/Impact/Explanation of Impact/Rebuttal)"},
 ]
 
 

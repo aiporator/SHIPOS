@@ -5,15 +5,15 @@ export default {
   slug: 'leader-os-fuer-scaleup-gruender',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für Scaleup-Gründer.',
+  title: 'LeaderOS für Scaleup-Gründer.',
   description:
     'Series A bis Series C: was sich im Führungs-Alltag bricht, sobald ' +
     'das Team über zwanzig Leute geht. Und welche zwei Frameworks aus ' +
-    'Leader-OS dir die meiste Zeit zurückgeben.',
+    'LeaderOS dir die meiste Zeit zurückgeben.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-25',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'Founder'],
+  tags: ['LeaderOS', 'Use Case', 'Founder'],
   body: [
     { type: 'paragraph', text:
       'Gründer in der Series A bis C teilen ein Muster: ein Jahr früher konntest du dein Team in einer ' +
@@ -32,9 +32,10 @@ export default {
     { type: 'heading', level: 2, text: 'Hebel 01: Fünf Rollen der Führung.' },
     { type: 'framework', code: '5 ROLLEN', title: 'Identitäts-Klärung',
       explanation:
-        'Treiber, Stratege, Sparrings-Partner, Resilienz-Anker, Repräsentant. Jede Rolle hat ihren eigenen ' +
-        'Modus. Die meisten Gründer sind Treiber-only, mit gelegentlichen Stratege-Momenten. Sparrings-' +
-        'Partner-Modus für ihre Senior-Hires erkennen sie oft erst Monate zu spät. Das Framework macht sichtbar ' +
+        'Kommunikator, Manager, Team-Leader, Psychologe, Problemlöser. Jede Rolle hat ihren eigenen ' +
+        'Modus. Die meisten Gründer leben fast nur in Kommunikator und Manager, mit gelegentlichen ' +
+        'Problemlöser-Momenten in der Krise. Die Team-Leader-Rolle für ihre Senior-Hires — echtes Delegieren ' +
+        'statt Mitmachen — erkennen sie oft erst Monate zu spät. Das Framework macht sichtbar ' +
         'welche Rolle gerade dran ist und welche du gerade unterspielst.' },
     { type: 'heading', level: 2, text: 'Hebel 02: ALPEN für Gründer-Kalender.' },
     { type: 'paragraph', text:
@@ -61,9 +62,9 @@ export default {
       'ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
-    title: 'Leader-OS für Scaleup-Gründer: Series A bis C',
+    title: 'LeaderOS für Scaleup-Gründer: Series A bis C',
     description:
-      'Leader-OS für Scaleup-Gründer: was im Series-A-bis-C-Alltag bricht und zwei Hebel-Frameworks, ' +
+      'LeaderOS für Scaleup-Gründer: was im Series-A-bis-C-Alltag bricht und zwei Hebel-Frameworks, ' +
       'die am schnellsten Reibung aus deiner Führung nehmen. Von Wlad Jachtchenko.',
     keywords: ['Scaleup Founder Coaching', 'Startup CEO Leadership', 'Series A Coaching', 'Gründer Coaching KI', 'Wlad Jachtchenko Founder'],
   },

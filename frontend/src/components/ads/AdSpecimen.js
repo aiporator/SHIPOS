@@ -1,7 +1,7 @@
 import { AD_PALETTES } from '../../data/contentAds';
 
 /**
- * AdSpecimen · Netflix-Bites-DNA für Leader-OS-Werbeflächen.
+ * AdSpecimen · Netflix-Bites-DNA für LeaderOS-Werbeflächen.
  *
  * Komposition pro Tile:
  *   - voller Hintergrund in `palette.bg` (gesättigte Brand-Farbe)

@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-10',
   cover: null,
-  tags: ['Leader-OS', 'Routine', 'Sprint'],
+  tags: ['LeaderOS', 'Routine', 'Sprint'],
   body: [
     { type: 'paragraph', text: 'Fünfzehn Minuten pro Tag klingt nach wenig. In deinem Kalender ist es enorm. Hier ist warum die Slot-Wahl wichtiger ist als die Slot-Länge.' },
     { type: 'heading', level: 2, text: 'Slot-Option A: morgens vor dem ersten Meeting.' },
@@ -33,7 +33,7 @@ export default {
     { type: 'paragraph', text: 'Wenn du gerade entscheidest welcher Slot zu dir passt: in der 30-Min-Beratung simulieren wir gemeinsam deinen typischen Wochenfluss und finden den robustesten Slot für dich.' },
   ],
   seo: {
-    title: 'Mikro-Drills: 15 Minuten pro Tag · Leader-OS',
+    title: 'Mikro-Drills: 15 Minuten pro Tag · LeaderOS',
     description: 'Mikro-Drills mit 15 Minuten pro Tag: drei Slot-Optionen, was in den 15 Minuten passiert und die Anti-Patterns. Passt in jede Woche. Von Wlad Jachtchenko.',
     keywords: ['Mikro Drills', 'KI Training 15 Minuten', 'Sprint Routine', 'Kurze Lern-Routinen', 'Leadership Routine'],
   },

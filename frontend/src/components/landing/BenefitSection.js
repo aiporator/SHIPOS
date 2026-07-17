@@ -60,7 +60,7 @@ const BibOverlay = () => (
         <span key={pos} aria-hidden className={`absolute ${pos} w-2 h-2 rounded-full border border-foreground/60 bg-white`} />
       ))}
       <div className="text-[9px] font-bold uppercase tracking-[0.26em] text-foreground/70 font-mono text-center">
-        LEADER-OS · STARTNR
+        LEADEROS · STARTNR
       </div>
       <div
         className="text-foreground leading-none text-center mt-2"
@@ -167,12 +167,12 @@ const VariantOverlay = ({ variant, trustNumbers }) => {
 // Operating-System". Each entry maps the chapter code to an SEO-shaped
 // sentence that describes the visible asset AND the chapter's claim.
 const ALT_BY_CODE = {
-  INHALT:        'Leader-OS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
+  INHALT:        'LeaderOS Inhalt · elf Frameworks von Wlad Jachtchenko in einer Plattform',
   WLADBOT:       'WladBot · KI-Coach 24/7 in Wlads Stimme · trainiert auf 2 212 Wlad-Lektionen',
-  SPRINT:        '30-Tage-Sprint · Leader-OS Startnummer Plate · deine Führungs-Evolution',
-  WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer Leader-OS',
-  TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · Leader-OS',
-  ZERTIFIKAT:    'Leader-OS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',
+  SPRINT:        '30-Tage-Sprint · LeaderOS Startnummer Plate · deine Führungs-Evolution',
+  WLAD:          'Wlad Jachtchenko · Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer LeaderOS',
+  TRUST:         '400 000 Klienten, 14 Millionen Views · Wlad Jachtchenko Autorität-Beweis · LeaderOS',
+  ZERTIFIKAT:    'LeaderOS Zertifikat 0001 · personalisierte Startnummer von Wlad Jachtchenko',
   KOMPLETT:      'Wlad Jachtchenko Voxel-Avatar mit OS-Würfel · WladBot Komplettbegleitung',
 };
 
@@ -205,7 +205,7 @@ const WladBot30Body = () => (
         <img
           src={WLADBOT_AVATAR}
           onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
-          alt="WladBot 3.0 · dein KI-Coach in Wlads Stimme · Leader-OS"
+          alt="WladBot 3.0 · dein KI-Coach in Wlads Stimme · LeaderOS"
           loading="lazy"
           decoding="async"
           className="w-full h-full rounded-full object-cover object-[50%_16%] bg-black ring-4 ring-brand shadow-[0_20px_60px_-15px_rgba(191,255,0,0.5)]"
@@ -241,7 +241,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
     ) : photo ? (
       <img
         src={photo}
-        alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · Leader-OS Kapitel ${nr}` : `Leader-OS Kapitel ${nr}`)}
+        alt={ALT_BY_CODE[code] || (headline ? `${headline.replace(/\.$/, '')} · LeaderOS Kapitel ${nr}` : `LeaderOS Kapitel ${nr}`)}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
@@ -295,7 +295,7 @@ const PhotoCard = ({ photo, photoFallback, photoFit, variant, trustNumbers, nr, 
 
     {/* Bottom strip */}
     <div className={`absolute bottom-0 inset-x-0 flex items-center justify-between px-3.5 py-2 z-10 ${isDark ? 'bg-[#0A0A0A]/90 text-white/55' : 'bg-white/90 text-foreground/55'} backdrop-blur-sm text-[9px] font-bold uppercase tracking-[0.22em] font-mono border-t ${isDark ? 'border-white/10' : 'border-foreground/10'}`}>
-      <span>LEADER-OS</span>
+      <span>LEADEROS</span>
       <span>0001 · KOHORTE</span>
     </div>
   </div>
@@ -469,7 +469,7 @@ export const BenefitSection = ({ asset, index, anchor, total = 7 }) => {
           </ul>
 
           <div className={`mt-6 pt-4 border-t ${isDark ? 'border-white/10' : 'border-foreground/10'} flex items-center justify-between text-[9.5px] font-bold uppercase tracking-[0.22em] font-mono ${isDark ? 'text-white/40' : 'text-foreground/40'}`}>
-            <span>LEADER-OS</span>
+            <span>LEADEROS</span>
             <span>{`Kapitel ${asset.nr} von ${String(total).padStart(2, '0')}`}</span>
           </div>
         </div>

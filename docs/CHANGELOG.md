@@ -1,6 +1,6 @@
 # Changelog
 
-All notable Supabase + repo changes for Leader-OS, in the order applied.
+All notable Supabase + repo changes for LeaderOS, in the order applied.
 Migrations are recorded by name in the Supabase project's migration history.
 
 ## Database migrations
@@ -28,7 +28,7 @@ non-blocking — see `docs/LAUNCH_FIX.md §6`:
 |--------|------|
 | `Add Supabase MCP server config`        | `.mcp.json` for project-scoped Supabase MCP. |
 | `Add Supabase agent skills`             | `.claude/skills/supabase`, `.claude/skills/supabase-postgres-best-practices`, `skills-lock.json`. |
-| `Add Leader-OS docs (CLAUDE.md, ...)`   | `CLAUDE.md`, `docs/SCHEMA.md`, `docs/DASHBOARD.md`, `docs/RUNBOOK.md`. |
+| `Add LeaderOS docs (CLAUDE.md, ...)`   | `CLAUDE.md`, `docs/SCHEMA.md`, `docs/DASHBOARD.md`, `docs/RUNBOOK.md`. |
 | `Enable Vercel Claude Code plugin`      | `.claude/settings.json` enabling `vercel@claude-plugins-official`. |
 | `docs: pre-launch readiness + CHANGELOG` | This file + RUNBOOK status update. |
 

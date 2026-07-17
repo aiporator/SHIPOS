@@ -9,7 +9,10 @@ import { DottedGlowBackground } from '../shared/DottedGlowBackground';
 const CLOSING_LINES = [
   { text: 'Wer heute zögert,', tone: 'fg' },
   { text: 'führt morgen unter jemandem,', tone: 'muted' },
-  { text: 'der nicht gezögert hat.', tone: 'fg' },
+  // Fable-5 chrome moment · the payoff line is set in animated metal —
+  // the one display-level chrome treatment on the landing (same family
+  // as the funnel page's vault), reserved for the closing punch.
+  { text: 'der nicht gezögert hat.', tone: 'chrome' },
 ];
 
 /**
@@ -30,9 +33,16 @@ export const FinalCTA = () => {
   <section
     id="final-cta"
     className="relative w-full bg-[#0A0A0A] text-white overflow-hidden"
-    aria-label="Starte deine Leader-OS Reise"
+    aria-label="Starte deine LeaderOS Reise"
     data-testid="landing-final-cta"
   >
+    {/* Chrome text treatment · scoped to this section, animated light band
+        travels through the metal. Respects prefers-reduced-motion. */}
+    <style>{`
+      .fcta-chrome{background:linear-gradient(100deg,#f4f4f4 0%,#8d8d8d 20%,#ffffff 36%,#6e6e6e 54%,#e8e8e8 72%,#989898 86%,#f4f4f4 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:fctaShine 7s linear infinite;}
+      @keyframes fctaShine{to{background-position:-220% 0}}
+      @media (prefers-reduced-motion:reduce){.fcta-chrome{animation:none}}
+    `}</style>
     {/* Atmospheric lime mesh · subtle, no distraction */}
     <div
       aria-hidden
@@ -75,11 +85,15 @@ export const FinalCTA = () => {
                 if (/^\s+$/.test(token)) return <span key={tokenIdx}>{token}</span>;
                 const isLast = lineIdx === CLOSING_LINES.length - 1 && token.endsWith('.');
                 const display = isLast ? token.replace(/\.$/, '') : token;
+                const toneClass =
+                  line.tone === 'muted' ? 'text-white/55'
+                  : line.tone === 'chrome' ? 'fcta-chrome'
+                  : 'text-white';
                 return (
                   <span
                     key={tokenIdx}
                     data-word
-                    className={`inline-block ${line.tone === 'muted' ? 'text-white/55' : 'text-white'}`}
+                    className={`inline-block ${toneClass}`}
                   >
                     {display}
                     {isLast && <span className="text-brand not-italic">.</span>}
@@ -92,7 +106,7 @@ export const FinalCTA = () => {
 
         <p className="mt-10 max-w-2xl text-center md:text-left mx-auto md:mx-0 text-[15px] md:text-[17px] leading-[1.55] text-white/75">
           Buch dir ein unverbindliches Beratungsgespräch · 30 Minuten, wir
-          finden gemeinsam heraus, ob Leader-OS zu dir passt. Oder mach den
+          finden gemeinsam heraus, ob LeaderOS zu dir passt. Oder mach den
           kostenlosen Leader-Check, oder starte direkt 14 Tage kostenlos auf
           leaderos.de · ohne Karte, ohne Risiko.
         </p>

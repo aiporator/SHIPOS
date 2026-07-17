@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-11',
   cover: null,
-  tags: ['Leader-OS', 'Philosophie', 'Transformation'],
+  tags: ['LeaderOS', 'Philosophie', 'Transformation'],
   body: [
     { type: 'paragraph', text: '"Transformation" ist 2026 in der Führungskräfte-Branche das überstrapazierteste Wort. Jeder verspricht eine. Niemand definiert was sie ist. Hier ist warum wir es bewusst nicht nutzen · und was wir stattdessen liefern.' },
     { type: 'heading', level: 2, text: 'Das Problem mit Transformation.' },
@@ -32,7 +32,7 @@ export default {
   seo: {
     title: 'Mehr als eine Transformation: Lern-Architektur',
     description: 'Warum wir das Wort „Transformation" meiden und von Lern-Architektur sprechen: drei konkrete Unterschiede zwischen Einmal-Erlebnis und Werkzeug für 30 Jahre Karriere. Von Wlad Jachtchenko.',
-    keywords: ['Mehr als Transformation', 'Leadership Architektur', 'Leader-OS Philosophie', 'Lernsystem Führung', 'Skill statt Erlebnis'],
+    keywords: ['Mehr als Transformation', 'Leadership Architektur', 'LeaderOS Philosophie', 'Lernsystem Führung', 'Skill statt Erlebnis'],
   },
   related: ['die-leader-os-kurs-architektur', 'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie'],
 };

@@ -14,7 +14,7 @@ import { WladMark } from '../brand/WladMark';
  *    2. Four sitemap columns (SYSTEM · PLATTFORM · EXPLORE · COMPANY)
  *    3. Image-tile strip (Wlad portrait · Intro-Video poster · Brand-W
  *       sticker) · each linking out
- *    4. Newsletter capture (Feldnotizen)
+ *    4. Newsletter capture (Klartext)
  *    5. Investment + contact split
  *    6. BIB closing strip
  *
@@ -48,7 +48,7 @@ const COL_SYSTEM = [
   { label: '6-Monats-Curriculum',          to: '/journal/in-6-monaten-zur-ki-nativen-fuehrungskraft' },
   { label: 'Die 5 Rollen',                 to: '/journal/die-5-rollen-einer-ki-nativen-fuehrungskraft' },
   { label: 'Leadership-Diagnose',          href: 'https://leadercheck.de', external: true },
-  { label: 'Werde Teil von Leader-OS',      to: '/#klassen' },
+  { label: 'Werde Teil von LeaderOS',      to: '/#klassen' },
   { label: 'Beratungsgespräch buchen',     to: '/#beratung', focal: true },
 ];
 
@@ -82,7 +82,7 @@ const COL_EXPLORE = [
   { label: 'Methoden & Frameworks',         to: '/journal#cat-methoden' },
   { label: 'Rhetorik & Kommunikation',      to: '/journal#cat-rhetorik' },
   { label: 'Rollen & Karriere',             to: '/journal#cat-rollen-karriere' },
-  { label: 'Plattform & Leader-OS',          to: '/journal#cat-plattform' },
+  { label: 'Plattform & LeaderOS',          to: '/journal#cat-plattform' },
   { label: 'Free Tools',                    to: '/#free-tools' },
   { label: 'Podcast · Wlad spricht',        href: 'https://podcast.wladjachtchenko.de', external: true },
   { label: 'Bücher · 3 SPIEGEL-Bestseller', href: 'https://wladjachtchenko.de/buecher', external: true },
@@ -96,7 +96,7 @@ const COL_COMPANY = [
   { label: 'Profile',                href: 'https://leaderos.de/profile',    external: true },
   { label: 'Referral · Empfehlung',  href: 'https://leaderos.de/referral',   external: true },
   { label: 'Enterprise',             href: 'https://leaderos.de/enterprise', external: true },
-  { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladjachtchenko/', external: true },
+  { label: 'Wlad auf LinkedIn',      href: 'https://www.linkedin.com/in/wladislawjachtchenko', external: true },
   { label: 'start@aiporate.com',     href: 'mailto:start@aiporate.com' },
   { label: 'Impressum',              to: '/impressum' },
   { label: 'Datenschutz',            to: '/datenschutz' },
@@ -175,7 +175,7 @@ export const LandingFooter = () => (
           <Link
             to="/"
             className="flex items-center gap-4 mb-6 group"
-            aria-label="Leader-OS Startseite"
+            aria-label="LeaderOS Startseite"
           >
             <WladMark size={56} animated />
             <div>
@@ -196,7 +196,7 @@ export const LandingFooter = () => (
             400 000+ Klienten in 20 Ländern.
           </p>
 
-          {/* Invitation Pill · werde Teil von Leader-OS */}
+          {/* Invitation Pill · werde Teil von LeaderOS */}
           <div className="mt-7 inline-flex items-center gap-2.5 px-3.5 py-2 border-2 border-brand bg-brand/[0.10] text-[10px] font-bold uppercase tracking-[0.22em] text-brand font-mono">
             <span className="relative inline-flex w-2 h-2">
               <span className="absolute inset-0 rounded-full bg-brand animate-ping opacity-75" />
@@ -222,7 +222,7 @@ export const LandingFooter = () => (
           The /wlad-jachtchenko canonical page now carries the Meet-Wlad
           surface in full editorial layout. */}
 
-      {/* ── Newsletter · Feldnotizen opt-in ─────────────────────────────── */}
+      {/* ── Newsletter · Klartext opt-in ─────────────────────────────── */}
       <div
         id="newsletter-footer"
         data-newsletter-zone
@@ -233,7 +233,7 @@ export const LandingFooter = () => (
             className="text-[28px] md:text-[34px] leading-[0.95] tracking-[-0.03em] text-white"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            Feldnotizen<span className="text-brand not-italic">.</span>
+            Klartext<span className="text-brand not-italic">.</span>
           </h3>
           <p className="mt-3 max-w-sm text-[13.5px] leading-[1.55] text-slate-400">
             Wlads Notizen aus 400 000 Coachings. Eine kurze E-Mail alle
@@ -320,7 +320,7 @@ export const LandingFooter = () => (
 
       {/* ── BIB strip ────────────────────────────────────────────────────── */}
       <div className="mt-10 pt-5 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[9.5px] uppercase tracking-[0.22em] font-bold text-white/35 font-mono">
-        <span>© {new Date().getFullYear()} <span className="text-brand">LEADER-OS</span> · AIPORATE</span>
+        <span>© {new Date().getFullYear()} <span className="text-brand">LEADEROS</span> · AIPORATE</span>
         <span>STAATLICH ANERKANNT · <span className="text-brand">400 000+ KLIENTEN</span> · 20 LÄNDER</span>
       </div>
     </div>

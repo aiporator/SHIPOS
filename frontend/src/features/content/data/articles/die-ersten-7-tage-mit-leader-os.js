@@ -2,18 +2,18 @@ export default {
   slug: 'die-ersten-7-tage-mit-leader-os',
   type: 'article',
   status: 'published',
-  title: 'Die ersten sieben Tage mit Leader-OS · Tag für Tag.',
+  title: 'Die ersten sieben Tage mit LeaderOS · Tag für Tag.',
   description:
     'Was du Tag 1, Tag 3, Tag 7 konkret machst. Welche Drills laufen. ' +
     'Welche Methodik im Vordergrund steht. Damit du nicht im "noch lernen" stehen bleibst.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-09-05',
   cover: null,
-  tags: ['Plattform', 'Leader-OS', 'Sprint', 'Onboarding'],
+  tags: ['Plattform', 'LeaderOS', 'Sprint', 'Onboarding'],
   seo: {
-    title: 'Leader-OS erste 7 Tage: Tag-für-Tag-Anleitung',
+    title: 'LeaderOS erste 7 Tage: Tag-für-Tag-Anleitung',
     description:
-      'Leader-OS erste 7 Tage: was du an Tag 1, 3, 5 und 7 konkret tust – Drills, ' +
+      'LeaderOS erste 7 Tage: was du an Tag 1, 3, 5 und 7 konkret tust – Drills, ' +
       'Methodik, WladBot-Setup. Die Sprint-Eröffnung Schritt für Schritt erklärt.',
     canonical: 'https://leader-os.de/journal/die-ersten-7-tage-mit-leader-os',
     keywords: [
@@ -42,9 +42,9 @@ export default {
     { type: 'heading', level: 2, text: 'Tag 6-7 · Erste Reflexion + Plan für Woche 2.' },
     { type: 'paragraph', text: 'Tag 6: Reflexion in WladBot, 4 Min. Was hat funktioniert, was nicht, was nimmst du in Woche 2 mit. Tag 7: Wlad-Vorlesung (12 Min Video) zu einem Thema das deine Diagnose als schwach markiert hat. Plus erste Live-Session-Einladung wenn du Plus-Plus hast.' },
 
-    { type: 'framework', code: '7·1', title: 'Die erste Woche in Zahlen.', explanation: 'Sieben Tage. ~2 Stunden Lernzeit insgesamt (verteilt auf 15-25 Min Slots). 7 echte Arbeit-Aufgaben mit Methodik gelöst (Email, 1:1, Feedback, Konflikt, Townhall-Vorbereitung, Reflexion, Diagnose). Drei Frameworks lebendig gemacht (B-W-W, Schlagfertigkeit, Daily-Drill). Eine Diagnose mit klarem Score. Eine Live-Session zugeordnet. Das ist der Funnel · nicht Wissen anhäufen, sondern Methodik einbauen.' },
+    { type: 'framework', code: '7·1', title: 'Die erste Woche in Zahlen.', explanation: 'Sieben Tage. ~2 Stunden Lernzeit insgesamt (verteilt auf 15-25 Min Slots). 7 echte Arbeit-Aufgaben mit Methodik gelöst (Email, 1:1, Feedback, Konflikt, Firmenrede-Vorbereitung, Reflexion, Diagnose). Drei Frameworks lebendig gemacht (B-W-W, Schlagfertigkeit, Daily-Drill). Eine Diagnose mit klarem Score. Eine Live-Session zugeordnet. Das ist der Funnel · nicht Wissen anhäufen, sondern Methodik einbauen.' },
 
-    { type: 'callout', tone: 'dark', text: 'Leader-OS ist offen für alle · werde Teil davon und starte sofort. Ab Tag 1 hast du WladBot 24/7, elf drillbare Frameworks und ein Onboarding das deinen Diagnose-Score kennt und die 30 Tage auf dich zuschneidet. 14 Tage kostenlos, ohne Karte.' },
+    { type: 'callout', tone: 'dark', text: 'LeaderOS ist offen für alle · werde Teil davon und starte sofort. Ab Tag 1 hast du WladBot 24/7, elf drillbare Frameworks und ein Onboarding das deinen Diagnose-Score kennt und die 30 Tage auf dich zuschneidet. 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'dein-erster-tag-mit-leader-os',

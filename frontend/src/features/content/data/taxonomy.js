@@ -33,7 +33,7 @@ export const TAXONOMY = [
     description:
       'B-W-W, Harvard-Verhandlung, Schulz von Thun, Vier-Farben · die ' +
       'Klassiker richtig erklärt. Plus die KI-Verstärkung dahinter.',
-    tagMatches: ['Frameworks', 'Methodik', 'Skripte', 'Feedback'],
+    tagMatches: ['Frameworks', 'Methodik', 'Skripte', 'Feedback', 'Training', 'Coaching', 'Team'],
     funnelLabel: 'EVERGREEN',
   },
   {
@@ -62,12 +62,12 @@ export const TAXONOMY = [
   {
     code: 'C-05',
     slug: 'plattform',
-    name: 'Plattform & Leader-OS',
-    tagline: 'Was Leader-OS ist, wie der Sprint läuft, für wen es passt.',
+    name: 'Plattform & LeaderOS',
+    tagline: 'Was LeaderOS ist, wie der Sprint läuft, für wen es passt.',
     description:
       'Konkretes über die Plattform, den 30-Tage-Sprint und alle Vorteile, ' +
       'die du ab Tag 1 bekommst.',
-    tagMatches: ['Plattform', 'Sprint', 'Leader-OS'],
+    tagMatches: ['Plattform', 'Sprint', 'LeaderOS'],
     funnelLabel: 'WIE GEHT ES WEITER',
   },
 ];

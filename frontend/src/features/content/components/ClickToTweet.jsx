@@ -77,7 +77,7 @@ export const ClickToTweet = ({ text, attribution, articleSlug, articleUrl }) => 
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => track('x')}
-          className="inline-flex items-center gap-1.5 px-3 h-9 bg-foreground hover:bg-brand hover:text-foreground text-white font-bold text-[10.5px] uppercase tracking-[0.14em] transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 h-9 bg-foreground hover:bg-brand hover:text-[#0A0A0A] text-background font-bold text-[10.5px] uppercase tracking-[0.14em] transition-colors"
           data-testid="ctt-x"
           aria-label="Diesen Satz auf X teilen"
         >

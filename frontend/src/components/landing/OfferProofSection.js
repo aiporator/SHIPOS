@@ -19,7 +19,7 @@ const DELIVERABLES = [
   ['K·04', 'LIVE', 'Monatliche Live-Sessions', 'Geschlossene Live-Sessions im kleinen Kreis · echte Fälle, Q&A, ungeschnitten.'],
   ['K·05', 'DRILL', 'Drill-Channel', 'Theorie sofort am echten Fall: deine Situationen werden im Channel seziert und gedrillt.'],
   ['K·06', 'ZUGANG', '12 Monate Plattform', 'Voller Zugang zu allem · Simulationen, Playbooks, Video-Analyse, Workflows, Challenges.'],
-  ['K·07', 'PEERS', 'Leader-OS Community', 'Führungskräfte auf demselben Weg · Austausch, Accountability, Challengers.'],
+  ['K·07', 'PEERS', 'LeaderOS Community', 'Führungskräfte auf demselben Weg · Austausch, Accountability, Challengers.'],
   ['K·08', 'PROOF', 'Zertifikat', 'Sprint-Abschluss mit persönlicher Startnummer · LinkedIn-ready.'],
 ];
 
@@ -29,7 +29,7 @@ const TRUST = [
   ['4,9/5', 'Trustpilot · 388 Reviews'],
   ['4,7/5', 'Greator · 995 Reviews'],
   ['3×', 'TEDx-Speaker'],
-  ['420K+', 'Klienten weltweit'],
+  ['400K+', 'Klienten weltweit'],
 ];
 
 export const OfferProofSection = () => (

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
  * ClassScarcityBanner · top-of-page editorial invite strip.
  *
  * Benefit-led, inklusiv: führt mit dem kostenlosen Leader-Check und der
- * Einladung, Teil von Leader-OS zu werden · keine Scarcity, keine
+ * Einladung, Teil von LeaderOS zu werden · keine Scarcity, keine
  * Seat-Counts. Dismissible per Session.
  *
  * Editorial single-line: lime live-dot, mono BIB-code separators,
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
  */
 
 // The banner leads with the free Leader-Check action and a clear invite
-// to join Leader-OS · benefit-first, no counters the visitor can't
+// to join LeaderOS · benefit-first, no counters the visitor can't
 // verify. Only the per-session dismiss flag remains.
 const STORAGE_DISMISS = 'leaderos_charter_0001_dismissed';
 
@@ -36,7 +36,7 @@ export const ClassScarcityBanner = () => {
   return (
     <div
       role="complementary"
-      aria-label="Werde Teil von Leader-OS. Starte mit dem kostenlosen Leader-Check."
+      aria-label="Werde Teil von LeaderOS. Starte mit dem kostenlosen Leader-Check."
       data-testid="class-scarcity-banner"
       className="relative z-50 w-full bg-[#0A0A0A] text-white"
     >
@@ -59,7 +59,7 @@ export const ClassScarcityBanner = () => {
             visitor can't verify. */}
         <p className="flex-1 min-w-0 truncate text-[12px] sm:text-[13px] font-medium tracking-tight text-white/85">
           <span className="text-white">10 Minuten Leader-Check</span>
-          <span className="text-white/55"> · finde in zehn Minuten heraus wo du stehst und ob Leader-OS zu dir passt.</span>
+          <span className="text-white/55"> · finde in zehn Minuten heraus wo du stehst und ob LeaderOS zu dir passt.</span>
         </p>
 
         {/* Inline CTA · the free Leader-Check is the micro-conversion

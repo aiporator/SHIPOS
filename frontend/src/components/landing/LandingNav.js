@@ -40,7 +40,7 @@ export const LandingNav = () => {
         <Link
           to="/"
           className="flex items-center gap-3 group shrink-0"
-          aria-label="Leader-OS Startseite"
+          aria-label="LeaderOS Startseite"
         >
           <WladMark size={scrolled ? 32 : 40} animated />
           <div className="leading-none">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Feldnotizen · Leader-OS Journal RSS feed.
+  Feldnotizen · LeaderOS Journal RSS feed.
   Generated 2026-06-26 for the launch.
 
   Why RSS still matters in 2026:
@@ -23,14 +23,14 @@
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Leader-OS Feldnotizen · von Wlad Jachtchenko</title>
+    <title>LeaderOS Feldnotizen · von Wlad Jachtchenko</title>
     <link>https://leader-os.de/journal</link>
     <atom:link href="https://leader-os.de/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Methodik, Felderfahrungen und KI-Praxis für Führungskräfte · von Wlad Jachtchenko, 3× SPIEGEL-Bestseller, 400 000+ trainierte Klienten, Gründer der Argumentorik-Akademie und Leader-OS.</description>
+    <description>Methodik, Felderfahrungen und KI-Praxis für Führungskräfte · von Wlad Jachtchenko, 3× SPIEGEL-Bestseller, 400 000+ trainierte Klienten, Gründer der Argumentorik-Akademie und LeaderOS.</description>
     <language>de-DE</language>
     <copyright>© Argumentorik-Akademie GmbH, Berlin</copyright>
     <managingEditor>start@aiporate.com (Wlad Jachtchenko)</managingEditor>
-    <webMaster>start@aiporate.com (Leader-OS Team)</webMaster>
+    <webMaster>start@aiporate.com (LeaderOS Team)</webMaster>
     <pubDate>Fri, 26 Jun 2026 06:00:00 +0200</pubDate>
     <lastBuildDate>Fri, 26 Jun 2026 06:00:00 +0200</lastBuildDate>
     <category>Leadership</category>
@@ -40,7 +40,7 @@
     <ttl>180</ttl>
     <image>
       <url>https://leader-os.de/logo-512.png</url>
-      <title>Leader-OS Feldnotizen</title>
+      <title>LeaderOS Feldnotizen</title>
       <link>https://leader-os.de/journal</link>
       <width>512</width>
       <height>512</height>
@@ -49,7 +49,7 @@
     <item>
       <title>Wer ist Wlad Jachtchenko</title>
       <link>https://leader-os.de/journal/wer-ist-wlad-jachtchenko</link>
-      <description>Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller, 400 000 trainierte Klienten, 15 Jahre Coaching-Praxis. Die Methodik hinter Leader-OS in einem Profil.</description>
+      <description>Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller, 400 000 trainierte Klienten, 15 Jahre Coaching-Praxis. Die Methodik hinter LeaderOS in einem Profil.</description>
       <pubDate>Fri, 26 Jun 2026 06:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://leader-os.de/journal/wer-ist-wlad-jachtchenko</guid>
       <dc:creator>Wlad Jachtchenko</dc:creator>
@@ -69,7 +69,7 @@
     </item>
 
     <item>
-      <title>Leader-OS vs ChatGPT vs Claude vs Perplexity</title>
+      <title>LeaderOS vs ChatGPT vs Claude vs Perplexity</title>
       <link>https://leader-os.de/journal/leader-os-vs-chatgpt-claude-perplexity</link>
       <description>Ehrlicher Vergleich für Führungskräfte. Wo generische KI-Tools glänzen, wo sie versagen, und wann eine spezialisierte Plattform sich rechnet.</description>
       <pubDate>Fri, 26 Jun 2026 06:00:00 +0200</pubDate>
@@ -80,7 +80,7 @@
     </item>
 
     <item>
-      <title>Warum es Leader-OS gibt</title>
+      <title>Warum es LeaderOS gibt</title>
       <link>https://leader-os.de/journal/warum-leader-os</link>
       <description>Coaching kostet 800 Euro pro Stunde und ist am Dienstagabend nicht erreichbar. Bücher altern. Frameworks bleiben hängen. Wir haben das Operating System gebaut, das diesen Engpass auflöst.</description>
       <pubDate>Tue, 23 Jun 2026 06:00:00 +0200</pubDate>

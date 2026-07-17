@@ -27,10 +27,10 @@ export default {
     { type: 'paragraph', text: 'Mehr Tools? Verstärkt das Problem. Längere Prompts? Mehr Komplexität ohne mehr Output. Ein KI-Berater? Ein Kunde mehr für ihn, ein Bericht mehr für dich. Die einzige Lösung die in den Daten konsistent funktioniert: eine methodische Anwendungs-Routine, die in deinen bestehenden Wochenfluss eingebaut ist · nicht zusätzlich darüber.' },
     { type: 'framework', code: 'PARADOX', title: 'Drei Mechanismen', explanation: 'Tool-Sammlung ohne Methodik · Output-Drift (mehr Zeit für gleichen Output) · Komplexitäts-Wachstum (mehr Volumen, gleicher Effekt). Wer einen der drei nicht erkennt, verstärkt ihn unbewusst. Wer alle drei erkennt, hat die halbe Lösung.' },
     { type: 'callout', tone: 'lime', text: 'Das Paradox ist kein Persönlichkeits-Defizit. Es ist die Default-Konsequenz von Tools die ohne Methodik eingeführt werden. Niemand zeigt dir wie du methodisch Effekt aus KI ziehst · du musst es bauen.' },
-    { type: 'paragraph', text: 'Leader-OS wurde explizit gegen das KI-Produktivitäts-Paradox gebaut. Nicht "noch ein Tool", sondern ein System das in dreißig Tagen aus deiner Tool-Nutzung einen Reflex macht. Die kostenlose Diagnose zeigt dir in zehn Minuten welcher der drei Mechanismen bei DIR der dominante ist.' },
+    { type: 'paragraph', text: 'LeaderOS wurde explizit gegen das KI-Produktivitäts-Paradox gebaut. Nicht "noch ein Tool", sondern ein System das in dreißig Tagen aus deiner Tool-Nutzung einen Reflex macht. Die kostenlose Diagnose zeigt dir in zehn Minuten welcher der drei Mechanismen bei DIR der dominante ist.' },
   ],
   seo: {
-    title: 'KI-Produktivitäts-Paradox: 3 Ursachen · Leader-OS',
+    title: 'KI-Produktivitäts-Paradox: 3 Ursachen · LeaderOS',
     description: 'KI-Produktivitäts-Paradox erklärt: warum 78% der Führungskräfte KI nutzen, aber nur 14% einen Output-Lift messen. Drei Mechanismen, vier Symptome, eine Lösung. Von Wlad Jachtchenko.',
     keywords: ['KI Produktivität', 'AI Productivity Paradox', 'ChatGPT Effekt', 'KI ROI Führungskraft', 'KI ohne Output', 'KI Zeit verschwendet'],
   },

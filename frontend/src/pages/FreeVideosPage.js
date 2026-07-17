@@ -39,8 +39,8 @@ const BENEFITS = [
 
 // Real, verifiable proof — numbers cross-checked against WladJachtchenkoPage.
 const PROOF = [
-  ['420 000+', 'Klienten weltweit seit 2007'],
-  ['3×', 'SPIEGEL-Bestseller · 12 Bücher'],
+  ['400 000+', 'Klienten weltweit seit 2007'],
+  ['3×', 'SPIEGEL-Bestseller · 13 Bücher'],
   ['4,9 / 5', 'Trustpilot · 388 Bewertungen'],
   ['14 Mio', 'Views auf Podcast & YouTube'],
 ];
@@ -86,7 +86,7 @@ const FAQ = [
   ['Kostet das wirklich nichts?', 'Ja, komplett kostenlos. Keine Kreditkarte, kein Abo, keine versteckten Kosten. Wlad wird sonst für 10.000 € Tagessatz gebucht — diese 4 Videos sind ein echtes Geschenk, damit du siehst, wie er arbeitet.'],
   ['Für wen sind die Videos?', 'Für alle, die fachlich stark sind, aber als Führungspersönlichkeit endlich gesehen werden wollen — Teamleads, Projektmanager, Senior-Experten und alle, die es werden wollen. Auch für introvertierte, authentische Menschen, die ohne Manipulation führen.'],
   ['Bekomme ich jetzt Spam?', 'Nein. Du bekommst die 4 Videos plus gelegentlich echte Impulse. Ein Klick, und du bist wieder raus — jederzeit, in jeder Mail.'],
-  ['Was passiert nach den 4 Videos?', 'Du kennst dann das Fundament von Wlads Methodik. Wenn du sie täglich mit WladBot drillen willst, kannst du Leader-OS 14 Tage kostenlos testen — musst du aber nicht.'],
+  ['Was passiert nach den 4 Videos?', 'Du kennst dann das Fundament von Wlads Methodik. Wenn du sie täglich mit WladBot drillen willst, kannst du LeaderOS 14 Tage kostenlos testen — musst du aber nicht.'],
   ['Wie viel Zeit brauche ich?', '8 bis 12 Minuten pro Video, eins pro Tag. Die Serie ist bewusst so gebaut, dass sie in einen vollen Führungskalender passt — ein Prinzip pro Tag statt Binge-Watching ohne Umsetzung.'],
   ['Ich habe keine KI-Vorkenntnisse. Ist das ein Problem?', 'Nein. Video 1 bis 3 sind reine Führungspraxis — Sichtbarkeit, Autorität, Delegation. Video 4 übersetzt das ins KI-Zeitalter, ohne dass du je ein Tool bedient haben musst.'],
   ['Ich führe seit Jahren. Lohnt sich das trotzdem?', 'Gerade dann. Die ersten drei Videos sind ein Systematik-Check für Dinge, die du intuitiv machst — und Video 4 gibt dir den KI-Fahrplan, den es vor zwei Jahren schlicht noch nicht gab.'],
@@ -408,7 +408,7 @@ export default function FreeVideosPage() {
           embedUrl: embedSrc(v),
           publisher: {
             '@type': 'Organization',
-            name: 'Leader-OS',
+            name: 'LeaderOS',
             url: base,
           },
         })),
@@ -435,7 +435,7 @@ export default function FreeVideosPage() {
     document.getElementById('optin')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
-  const stats = useMemo(() => [['420K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
+  const stats = useMemo(() => [['400K+', 'Klienten'], ['3×', 'SPIEGEL'], ['14 Mio', 'Views'], ['4', 'Gratis-Videos']], []);
 
   return (
     <div
@@ -475,8 +475,8 @@ export default function FreeVideosPage() {
         /* Scoped chrome takeover of the shared nav logo — ONLY on this page.
            The W tile goes machined-metal, the wordmark gets chrome text; the
            lime "·" dot survives via its own color. Rest of the app unaffected. */
-        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="Leader-OS Startseite"] span[aria-hidden]:first-of-type{background:conic-gradient(from 210deg,#f4f4f4,#8d8d8d 18%,#e6e6e6 34%,#6c6c6c 52%,#f0f0f0 68%,#9b9b9b 84%,#f4f4f4) !important;box-shadow:inset 0 1px 2px rgba(255,255,255,.9),inset 0 -2px 4px rgba(0,0,0,.45),0 4px 16px -4px rgba(0,0,0,.6) !important;}
-        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="Leader-OS Startseite"] > div > span{background:linear-gradient(180deg,#ffffff 0%,#d9d9d9 26%,#8f8f8f 47%,#f2f4f4 52%,#7f7f7f 68%,#e9e9e9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="LeaderOS Startseite"] span[aria-hidden]:first-of-type{background:conic-gradient(from 210deg,#f4f4f4,#8d8d8d 18%,#e6e6e6 34%,#6c6c6c 52%,#f0f0f0 68%,#9b9b9b 84%,#f4f4f4) !important;box-shadow:inset 0 1px 2px rgba(255,255,255,.9),inset 0 -2px 4px rgba(0,0,0,.45),0 4px 16px -4px rgba(0,0,0,.6) !important;}
+        [data-testid="free-videos-page"] [data-testid="landing-nav"] a[aria-label="LeaderOS Startseite"] > div > span{background:linear-gradient(180deg,#ffffff 0%,#d9d9d9 26%,#8f8f8f 47%,#f2f4f4 52%,#7f7f7f 68%,#e9e9e9 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
       `}</style>
       <LandingNav />
 
@@ -638,7 +638,7 @@ export default function FreeVideosPage() {
                 <img
                   src={WLADBOT_AVATAR}
                   onError={withFallback(WLADBOT_AVATAR_FALLBACKS)}
-                  alt="WladBot 3.0 · dein KI-Coach in Leader-OS"
+                  alt="WladBot 3.0 · dein KI-Coach in LeaderOS"
                   loading="lazy"
                   decoding="async"
                   className="relative w-full aspect-square rounded-full object-cover object-[50%_14%] bg-[#0A0A0A] ring-2 ring-brand shadow-[0_40px_90px_-40px_rgba(191,255,0,0.5)]"
@@ -654,7 +654,7 @@ export default function FreeVideosPage() {
                 Das ist WladBot<span className="text-brand not-italic">.</span>
               </h2>
               <p className="mt-4 max-w-2xl text-[15px] leading-[1.6] text-foreground/70">
-                Trainiert auf Wlads kompletter Methodik — 13 Bücher, 15 Jahre Coaching. In Leader-OS
+                Trainiert auf Wlads kompletter Methodik — 13 Bücher, 15 Jahre Coaching. In LeaderOS
                 begleitet er dich 24/7. Sein Rat zu den 4 Videos:
               </p>
               <div className="mt-6 space-y-3 max-w-2xl">
@@ -702,7 +702,7 @@ export default function FreeVideosPage() {
               </p>
               <p>
                 Unser Kalkül, offen ausgesprochen: Ein Teil der Zuschauer will danach mehr und testet{' '}
-                <span className="text-foreground font-bold">Leader-OS 14 Tage kostenlos</span> — die
+                <span className="text-foreground font-bold">LeaderOS 14 Tage kostenlos</span> — die
                 Plattform, auf der genau diese Methodik als tägliches System läuft. Die meisten nehmen
                 einfach die 4 Prinzipien mit und setzen sie um.
               </p>
@@ -728,7 +728,7 @@ export default function FreeVideosPage() {
               </h2>
               <p className="mt-4 text-[15px] leading-[1.6] text-foreground/72 max-w-2xl">
                 3× SPIEGEL-Bestseller-Autor, Europas führender Leadership-Coach. Von Allianz, BMW, ProSieben & Co.
-                für 10.000 € Tagessatz gebucht — über 420.000 Klienten weltweit seit 2007. In diesen 4 Videos
+                für 10.000 € Tagessatz gebucht — über 400.000 Klienten weltweit seit 2007. In diesen 4 Videos
                 bekommst du das Fundament seiner Methodik — kostenlos.
               </p>
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5">
@@ -890,7 +890,7 @@ export default function FreeVideosPage() {
             {unlocked ? (
               <>
                 <p className="mt-5 text-[15px] sm:text-[17px] leading-[1.55] text-foreground/70 max-w-xl mx-auto">
-                  Willst du die komplette Methodik täglich mit WladBot drillen? Teste Leader-OS 14 Tage kostenlos.
+                  Willst du die komplette Methodik täglich mit WladBot drillen? Teste LeaderOS 14 Tage kostenlos.
                 </p>
                 <a
                   href="https://leaderos.de/signup?trial=14"
@@ -898,7 +898,7 @@ export default function FreeVideosPage() {
                   rel="noopener noreferrer"
                   className="mt-8 inline-flex items-center justify-center gap-2 h-14 px-8 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors"
                 >
-                  Leader-OS 14 Tage kostenlos <ArrowUpRight size={16} />
+                  LeaderOS 14 Tage kostenlos <ArrowUpRight size={16} />
                 </a>
               </>
             ) : (

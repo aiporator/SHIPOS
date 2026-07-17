@@ -80,7 +80,7 @@ const buildCtaUrl = (base, { archetype }) => {
 //   essence       · wer du jetzt bist (2-3 Sätze)
 //   gap           · was dich aufhält (Lime-Akzent)
 //   diagnose[3]   · was leadercheck.de dir konkret zeigt
-//   platform[3]   · was Leader-OS dir konkret liefert
+//   platform[3]   · was LeaderOS dir konkret liefert
 //
 // Ziel: nach dem Quiz hat der User verstanden was BEIDE Produkte sind
 // und warum sie für ihn relevant sind. Nicht generisch.
@@ -518,11 +518,11 @@ export const ArchetypeQuizSection = () => {
                     </ul>
                   </div>
 
-                  {/* ── SCHRITT 03 · LEADER-OS · was die Plattform dir liefert ── */}
+                  {/* ── SCHRITT 03 · LEADEROS · was die Plattform dir liefert ── */}
                   <div className="mt-6 max-w-3xl border-2 border-black bg-background text-foreground p-6 md:p-8 relative">
                     {/* Lime corner tag */}
                     <div className="absolute -top-[2px] left-6 bg-brand text-black px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.22em]">
-                      ▸ DANACH · LEADER-OS
+                      ▸ DANACH · LEADEROS
                     </div>
                     <div className="flex items-center gap-2 mb-4 mt-3 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-foreground/55">
                       <span>SCHRITT 03</span>
@@ -642,7 +642,7 @@ export const ArchetypeQuizSection = () => {
         {/* Coda · micro social-proof */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/45">
           <span>▸ 3× SPIEGEL-BESTSELLER</span>
-          <span>▸ 420 000 KUNDEN</span>
+          <span>▸ 400 000 KUNDEN</span>
           <span>▸ LEADER-CHECK · 10 MIN · KOSTENLOS</span>
         </div>
       </div>

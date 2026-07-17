@@ -147,7 +147,7 @@ export default {
     },
   ],
   seo: {
-    title: 'Feedback-Formel B-W-W: Skript + Beispiele · Leader-OS',
+    title: 'Feedback-Formel B-W-W: Skript + Beispiele · LeaderOS',
     description:
       'Feedback-Formel B-W-W: Beobachtung, Wirkung, Wunsch · die Drei-Satz-Formel, die harte Gespräche in zwölf ' +
       'Sekunden öffnet, ohne das Gegenüber zu verlieren. Mit Drill-Varianten. Von Wlad Jachtchenko.',

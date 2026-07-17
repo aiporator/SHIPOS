@@ -113,7 +113,7 @@ Vercel host-based rewrites in `vercel.json` gelöst:
 | `leader-check.de` | `/sitemap-leader-check.xml` | `/robots-leader-check.txt` |
 
 Beim Editieren der Routen-Listen: immer **beide** Files anpassen.
-Default ist Leader-OS — Leader-Check ist override.
+Default ist LeaderOS — Leader-Check ist override.
 
 ## Data-Sync — IST-Zustand (Stand 2026-06-20)
 

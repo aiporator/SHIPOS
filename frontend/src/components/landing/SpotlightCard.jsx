@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 /**
  * SpotlightCard · Aceternity-style "Card Spotlight" hand-built for the
- * Leader-OS lime/black editorial brand (CRA — no shadcn registry).
+ * LeaderOS lime/black editorial brand (CRA — no shadcn registry).
  *
  * A lime radial glow tracks the cursor inside the card on hover, layered
  * UNDER the content (z-0) so the black editorial frame + typography stay

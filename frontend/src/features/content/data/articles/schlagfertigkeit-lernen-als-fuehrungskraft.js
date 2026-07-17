@@ -16,7 +16,7 @@ export default {
     { type: 'heading', level: 2, text: 'Technik 01: Die Reframing-Frage.' },
     { type: 'paragraph', text: 'Wenn dich jemand mit einer angreifenden Frage konfrontiert, drehe sie höflich um. "Wie meinst du das genau?" gewinnt dir drei Sekunden Zeit und zwingt den Angreifer seinen Punkt zu schärfen. Oft löst sich der Angriff dabei selbst auf.' },
     { type: 'heading', level: 2, text: 'Technik 02: Das benennende Pause.' },
-    { type: 'paragraph', text: 'Bei harten Bemerkungen im Townhall oder Stand-up: pause drei Sekunden, benenne die Beobachtung. "Das ist ein starker Vorwurf, lass mich das einordnen." Dann zwei Sätze als Antwort. Wer sofort reagiert, klingt defensiv. Wer drei Sekunden pausiert, klingt souverän.' },
+    { type: 'paragraph', text: 'Bei harten Bemerkungen in der Firmenrede oder im Stand-up: pause drei Sekunden, benenne die Beobachtung. "Das ist ein starker Vorwurf, lass mich das einordnen." Dann zwei Sätze als Antwort. Wer sofort reagiert, klingt defensiv. Wer drei Sekunden pausiert, klingt souverän.' },
     { type: 'heading', level: 2, text: 'Technik 03: Die Drei-Wort-Antwort.' },
     { type: 'paragraph', text: 'Manche Angriffe verdienen keine ausführliche Antwort. "Das stimmt nicht." Drei Wörter, klar, ohne Verteidigung. Wer auf einen Vorwurf mit zwei Absätzen antwortet, validiert ihn. Wer mit drei Wörtern antwortet und weiter spricht, depriorisiert ihn.' },
     { type: 'framework', code: 'SCHLAG', title: 'Drei Techniken', explanation: 'Reframing-Frage ("wie meinst du das"), benennende Pause ("starker Vorwurf, lass mich einordnen"), Drei-Wort-Antwort ("das stimmt nicht"). Welche Technik passt, hängt vom Angriff und vom Publikum ab. Wer alle drei beherrscht, hat Optionen.' },

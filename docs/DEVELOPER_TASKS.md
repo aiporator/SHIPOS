@@ -1,4 +1,4 @@
-# Developer Tasks · Leader-OS
+# Developer Tasks · LeaderOS
 
 > A scoped engineering brief for the developer joining the project.
 > Read [`/ONBOARDING.md`](../ONBOARDING.md) first — it explains the

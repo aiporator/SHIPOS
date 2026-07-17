@@ -1,4 +1,4 @@
-# Runbook — Leader-OS
+# Runbook — LeaderOS
 
 Project ref: `srujvjjncrszhaaxepxf` · Region: `eu-north-1`
 
@@ -188,7 +188,7 @@ hot paths) or unused indexes after schema churn.
 - Required env: `RESEND_API_KEY` (email delivery), optional `CRON_SHARED_SECRET`
   (protects the cron), Supabase env (best-effort mirror to `incomplete_attempts`).
 
-### Leader-Check → Leader-OS sync handoff
+### Leader-Check → LeaderOS sync handoff
 leader-check.de mints a short-lived `sync_token`; the user is redirected to
 **`https://leaderos.de/auth/sync?sync_token=…&next=/free-videos`**. This
 product verifies it at `POST /api/auth/leader-os-sync` and mints a first-party

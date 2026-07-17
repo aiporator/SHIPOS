@@ -2,7 +2,7 @@
  * Pillar · "transformationale Führung" / transformational leadership.
  * High-volume B2B-DACH keyword owned today by Haufe-Akademie & co.
  * Built to out-rank them: tighter definition, the four I as a drillable
- * model, Wlad voice, AI-Overview-shaped H2s, soft Leader-OS funnel.
+ * model, Wlad voice, AI-Overview-shaped H2s, soft LeaderOS funnel.
  */
 export default {
   slug: 'transformationale-fuehrung',
@@ -37,7 +37,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/transformationale-fuehrung',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Transformationale Führung · Definition + 4 Dimensionen · Leader-OS',
+    ogImageAlt: 'Transformationale Führung · Definition + 4 Dimensionen · LeaderOS',
   },
   body: [
     { type: 'paragraph', text:
@@ -73,7 +73,7 @@ export default {
       'Wertschätzung: Führe pro Person ein 1:1 im Monat, in dem es NICHT um Tasks geht, sondern nur um: Wo willst du hin, was bremst dich, wie kann ich helfen.',
     ] },
     { type: 'quote', text:
-      'Führung ist Skill. Skill ist trainierbar. Wer Charisma für Talent hält, lernt nie zu führen.',
+      'Führung ist Fähigkeit. Fähigkeit ist trainierbar. Wer Charisma für Talent hält, lernt nie zu führen.',
       attribution: 'Wlad Jachtchenko' },
     { type: 'heading', level: 2, text: 'Wann transformationale Führung NICHT die richtige Wahl ist.' },
     { type: 'paragraph', text:
@@ -82,7 +82,7 @@ export default {
       'Transformationale Führung ist die Default-Einstellung für ruhige See und die langfristige Team-Entwicklung. Direktive Führung ist der Notfall-Modus. Transaktionale Führung ist das Fundament darunter. Du brauchst alle drei · und das Urteil, wann welcher dran ist.' },
     { type: 'heading', level: 2, text: 'Transformationale Führung lernen.' },
     { type: 'paragraph', text:
-      'Die vier Dimensionen sind Verhaltensweisen, keine Persönlichkeitsmerkmale · also drillbar. In Leader-OS ist das einer der Kern-Pfade: du bekommst pro Dimension wöchentliche Mikro-Drills an deinen echten Fällen, WladBot als 24/7-Sparring für die schwierigen Gespräche, und eine Diagnose, die dir zeigt, welche der vier I bei dir schon sitzt und welche noch hakt.' },
+      'Die vier Dimensionen sind Verhaltensweisen, keine Persönlichkeitsmerkmale · also drillbar. In LeaderOS ist das einer der Kern-Pfade: du bekommst pro Dimension wöchentliche Mikro-Drills an deinen echten Fällen, WladBot als 24/7-Sparring für die schwierigen Gespräche, und eine Diagnose, die dir zeigt, welche der vier I bei dir schon sitzt und welche noch hakt.' },
     { type: 'diagnostic', prompt: 'Wo hakt es bei dir gerade?', options: [
       { label: 'Ein Mitarbeiter zieht nicht mit', category: 'performance' },
       { label: 'Mein Team folgt der Richtung nicht', category: 'communication' },

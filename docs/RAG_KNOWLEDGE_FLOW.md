@@ -1,5 +1,12 @@
 # How Wlad's knowledge flows into every surface
 
+> **Chunk counts and the retrieval mechanism below are stale** (this doc
+> predates the hybrid vector+lexical RRF retrieval and the corpus has
+> grown to 2212 chunks since). For current numbers and architecture, see
+> `docs/KNOWLEDGE_ONE_PAGER.md`. This file is kept for the per-surface
+> route/file mapping in the table below, which is still structurally
+> accurate.
+
 Last verified: 2026-06-05 after the 996-chunk net-new ingest (corpus: **609 → 1605 chunks**).
 
 This document maps every user-facing AI surface to the exact code paths
@@ -91,7 +98,7 @@ sources             4 (book, transcript, framework, manual)
 | --- | --: | --- |
 | `wlad_books_v1` | 451 | Wlad's published books (curated + raw) |
 | `wlad_courses_v1` | 1043 | Live weekly course transcripts + Argumentorik training cards |
-| `leader_os_framework` | 18 | Leader-OS in-house frameworks (3-layer model, role cards, drills) |
+| `leader_os_framework` | 18 | LeaderOS in-house frameworks (3-layer model, role cards, drills) |
 
 ## The two single-points-of-truth, for reviewers
 

@@ -31,11 +31,11 @@ export function buildArticleSeo(article) {
   const explicit = article.seo ?? {};
   const base = getSiteBase();
   return {
-    title: explicit.title ?? `${article.title} · Feldnotizen · Leader-OS`,
+    title: explicit.title ?? `${article.title} · Feldnotizen · LeaderOS`,
     description: explicit.description ?? article.description ?? '',
     canonical: explicit.canonical ?? `${base}/journal/${article.slug}`,
     ogImage: explicit.ogImage ?? article.cover ?? null,
-    ogImageAlt: explicit.ogImageAlt ?? article.title ?? 'Leader-OS',
+    ogImageAlt: explicit.ogImageAlt ?? article.title ?? 'LeaderOS',
     keywords: explicit.keywords ?? article.tags ?? [],
     robots: explicit.robots ?? 'index, follow, max-image-preview:large',
   };
@@ -140,15 +140,15 @@ export function applyArticleJsonLd(article, seo) {
     name: 'Wlad Jachtchenko',
     givenName: 'Wlad',
     familyName: 'Jachtchenko',
-    jobTitle: 'Argumentations-Coach · Bestseller-Autor · Gründer Leader-OS',
+    jobTitle: 'Argumentations-Coach · Bestseller-Autor · Gründer LeaderOS',
     description:
       'Europas führender Argumentations-Coach. 3× SPIEGEL-Bestseller, ' +
       '400 000+ trainierte Klienten, 15 Jahre Coaching-Praxis. Gründer der ' +
-      'Argumentorik-Akademie und Leader-OS.',
+      'Argumentorik-Akademie und LeaderOS.',
     url: 'https://leader-os.de/journal/wer-ist-wlad-jachtchenko',
     image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
     sameAs: [
-      'https://www.linkedin.com/in/wladjachtchenko/',
+      'https://www.linkedin.com/in/wladislawjachtchenko',
       'https://www.youtube.com/@WladTraining',
       'https://wladjachtchenko.de/buecher',
       'https://podcast.wladjachtchenko.de',
@@ -179,7 +179,7 @@ export function applyArticleJsonLd(article, seo) {
     publisher: {
       '@type': 'Organization',
       '@id': 'https://leader-os.de/#organization',
-      name: 'Leader-OS',
+      name: 'LeaderOS',
       url: 'https://leader-os.de',
       logo: {
         '@type': 'ImageObject',
@@ -206,7 +206,7 @@ export function applyArticleJsonLd(article, seo) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Leader-OS', item: 'https://leader-os.de/' },
+      { '@type': 'ListItem', position: 1, name: 'LeaderOS', item: 'https://leader-os.de/' },
       { '@type': 'ListItem', position: 2, name: 'Feldnotizen', item: 'https://leader-os.de/journal' },
       { '@type': 'ListItem', position: 3, name: article.title.replace(/\.$/, ''), item: seo.canonical },
     ],

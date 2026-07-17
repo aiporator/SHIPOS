@@ -63,7 +63,7 @@ async def send_email(
 # ── Email Templates ─────────────────────────────────────────────
 
 def _base_layout(body_html: str, preheader: str = "", bib_code: str = "0001") -> str:
-    """Wrap content in Leader-OS Nike-DNA email shell.
+    """Wrap content in LeaderOS Nike-DNA email shell.
 
     Sharp corners (no border-radius), 2px borders, Outfit-Italic-Black
     headlines, BIB-code monospace metadata bar, lime accent on black
@@ -74,7 +74,7 @@ def _base_layout(body_html: str, preheader: str = "", bib_code: str = "0001") ->
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark only">
-<title>Leader-OS</title></head>
+<title>LeaderOS</title></head>
 <body style="margin:0;padding:0;background:#EDEDED;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">{preheader}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EDEDED;padding:32px 16px;">
@@ -109,7 +109,7 @@ def _base_layout(body_html: str, preheader: str = "", bib_code: str = "0001") ->
   <tr><td style="padding:20px 28px 24px;border-top:1px solid rgba(255,255,255,0.10);">
     <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;margin-bottom:8px;">▸ CLASS · 0001</div>
     <p style="font-size:10px;color:rgba(255,255,255,0.40);margin:0;line-height:1.65;">
-      Du erhältst diese Email weil du Teil von Leader-OS bist.<br>
+      Du erhältst diese Email weil du Teil von LeaderOS bist.<br>
       Wlad Jachtchenko · 2 500+ Führungskräfte · Startups bis DAX.
     </p>
   </td></tr>
@@ -286,7 +286,7 @@ Danke, dass du den Accelerator-Weg gehst. Deine heutige Rate ist fällig:
 
 def signup_welcome_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Sent right after a user creates their account (free tier). Nike-DNA."""
-    subject = f"Willkommen bei Leader-OS, {name}."
+    subject = f"Willkommen bei LeaderOS, {name}."
     dashboard_url = f"{app_url.rstrip('/')}/dashboard"
     coaching_url = f"{app_url.rstrip('/')}/coaching"
     body = f"""
@@ -351,7 +351,7 @@ Du hast gerade dein Leadership-Operating-System aktiviert — die KI-Plattform, 
 Bereit für mehr? <a href="{coaching_url}" style="color:{BRAND_COLOR};font-weight:700;text-decoration:none;">Class 0001 freischalten ▸</a>
 </p>
 """
-    return subject, _base_layout(body, preheader=f"Dein Leader-OS-Account ist live, {name}. Erster Schritt: 5 Minuten.")
+    return subject, _base_layout(body, preheader=f"Dein LeaderOS-Account ist live, {name}. Erster Schritt: 5 Minuten.")
 
 
 # ── Stripe Receipt (after successful payment, in addition to tier_welcome) ───
@@ -361,7 +361,7 @@ def stripe_receipt_email(name: str, package_name: str, amount: float, currency: 
                          app_url: str = "https://leaderos.de") -> tuple[str, str]:
     """Receipt email after a successful Stripe payment. Includes tier benefits + receipt info."""
     currency_symbol = "€" if currency.lower() == "eur" else currency.upper() + " "
-    subject = f"Zahlung bestätigt · {currency_symbol}{amount:.2f} · Leader-OS"
+    subject = f"Zahlung bestätigt · {currency_symbol}{amount:.2f} · LeaderOS"
     dashboard_url = f"{app_url.rstrip('/')}/dashboard"
     body = f"""
 <div style="background:linear-gradient(135deg,rgba(191,255,0,0.12),rgba(154,204,0,0.04));border:1px solid rgba(191,255,0,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;">
@@ -438,7 +438,7 @@ def drip_day1_email(name: str, app_url: str = "https://leaderos.de") -> tuple[st
     body = f"""
 <div style="background:linear-gradient(135deg,rgba(191,255,0,0.10),rgba(154,204,0,0.02));border:1px solid rgba(191,255,0,0.18);border-radius:14px;padding:16px 20px;margin-bottom:24px;">
   <div style="font-size:10px;letter-spacing:0.2em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">Tag 1 · Foundation</div>
-  <div style="font-size:22px;font-weight:900;line-height:1.25;letter-spacing:-0.02em;">{name}, das ist das System hinter Leader-OS.</div>
+  <div style="font-size:22px;font-weight:900;line-height:1.25;letter-spacing:-0.02em;">{name}, das ist das System hinter LeaderOS.</div>
 </div>
 <p style="font-size:14px;color:rgba(255,255,255,0.78);line-height:1.7;margin:0 0 18px;">
 Wlad Jachtchenko hat über 15 Jahre 5.000+ Führungskräfte trainiert. Sein System ruht auf <b>3 Säulen</b>:
@@ -455,7 +455,7 @@ Wlad Jachtchenko hat über 15 Jahre 5.000+ Führungskräfte trainiert. Sein Syst
   <a href="{chat_url}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px;">Zu WladBot</a>
 </div>
 """
-    return subject, _base_layout(body, preheader="3 Säulen, 1 System: Wie Leader-OS funktioniert.")
+    return subject, _base_layout(body, preheader="3 Säulen, 1 System: Wie LeaderOS funktioniert.")
 
 
 def drip_day3_email(name: str, app_url: str = "https://leaderos.de") -> tuple[str, str]:
@@ -515,7 +515,7 @@ Aber das ist erst die Spitze. <b>Leadership OS Standard</b> öffnet das volle Sy
 Kein Risiko: 30 Tage Geld-zurück, ohne Wenn und Aber.
 </p>
 """
-    return subject, _base_layout(body, preheader="Was sich nach 30 Tagen Leader-OS ändert.")
+    return subject, _base_layout(body, preheader="Was sich nach 30 Tagen LeaderOS ändert.")
 
 
 # ── Monthly Leadership Scorecard (Accelerator-only) ─────────────────────────
@@ -769,6 +769,51 @@ Hallo {name},
 {unsub}
 """
     return subject, _base_layout(body, preheader=f"Tag {day}/{total}: {subtitle}")
+
+
+# ── Webinar Funnel: confirmation is `event_registration_email` /
+#    `event_reminder_email` above (a synthetic event dict works for both).
+#    This is the day-after follow-up for registrants who haven't started
+#    the trial yet — the explicit bridge from "attended/registered" to
+#    leaderos.de signup. ──────────────────────────────────────────────
+
+def webinar_followup_email(
+    name: str,
+    app_url: str = "https://leaderos.de",
+    unsubscribe_link: str | None = None,
+) -> tuple[str, str]:
+    """Day-after nudge: turn a webinar registrant into a trial signup."""
+    signup_url = f"{app_url.rstrip('/')}/signup?trial=14&utm_source=webinar&utm_medium=email&utm_campaign=webinar-2026-08-20"
+    unsub = (
+        f'<p style="font-size:10px;color:rgba(255,255,255,0.3);margin:20px 0 0;text-align:center;">'
+        f'<a href="{unsubscribe_link}" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Keine weiteren Mails zu diesem Webinar</a>'
+        f'</p>' if unsubscribe_link else ''
+    )
+    subject = f"{name}, und jetzt? Dein System statt nur Notizen."
+    body = f"""
+<div style="font-size:9px;color:{BRAND_COLOR};letter-spacing:0.18em;font-weight:900;text-transform:uppercase;margin-bottom:8px;">Nach dem Webinar</div>
+<h1 style="font-size:28px;line-height:1.15;font-weight:900;margin:0 0 8px;letter-spacing:-0.025em;">Notizen verblassen. Ein System nicht.</h1>
+
+<p style="font-size:15px;color:rgba(255,255,255,0.92);line-height:1.55;margin:0 0 18px;">
+Hallo {name},
+</p>
+<p style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.6;margin:0 0 18px;">
+danke fürs Dabeisein. Das Webinar war der Impuls — die eigentliche Arbeit passiert nicht an einem Vormittag,
+sondern in den 30 Tagen danach. Genau dafür ist LeaderOS gebaut: WladBot als 24/7-Coach, tägliche
+Mikro-Drills statt Einmal-Event, dieselbe Methodik, die du gerade live gesehen hast.
+</p>
+
+<div style="background:rgba(191,255,0,0.05);border:1px solid rgba(191,255,0,0.18);border-radius:14px;padding:18px 22px;margin:22px 0;">
+  <div style="font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:900;text-transform:uppercase;margin-bottom:6px;">14 Tage kostenlos</div>
+  <p style="font-size:14px;color:#fff;margin:0;line-height:1.55;">Keine Kreditkarte. Voller Zugang. Jederzeit kündbar.</p>
+</div>
+
+<div style="text-align:center;padding:14px 0 4px;">
+  <a href="{signup_url}" style="display:inline-block;background:{BRAND_COLOR};color:{BRAND_DARK};padding:15px 36px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:-0.01em;">Jetzt 14 Tage kostenlos starten</a>
+</div>
+{unsub}
+"""
+    return subject, _base_layout(body, preheader="Der Impuls war das Webinar. Das System ist LeaderOS.")
 
 
 # ── Launch Announcement (one-shot) ───────────────────────────────

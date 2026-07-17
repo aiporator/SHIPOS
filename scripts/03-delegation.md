@@ -1,6 +1,6 @@
 # Kurs 3: Delegation wie ein Profi (4 Folgen · ~7 Min/Folge)
 
-**Tier:** Leader-OS Standard
+**Tier:** LeaderOS Standard
 **Freigabe:** Folge 1 (kostenlose Vorschau) | Folgen 2–4 (kostenpflichtig)
 
 ---

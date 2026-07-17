@@ -1,5 +1,5 @@
 # Kurs 6: Meeting-Rhetorik (4 Folgen · ~8 Min/Folge)
-**Tier:** Leader-OS (€997) · **Folge 1 = FREE Preview**
+**Tier:** LeaderOS (€997) · **Folge 1 = FREE Preview**
 
 ---
 

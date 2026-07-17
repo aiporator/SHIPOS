@@ -3,7 +3,7 @@
  * / "Training and Development". This is the head-term that Haufe-Akademie,
  * DAM and Hees own as category pages. Our angle to out-rank: this is the
  * comparison + buyer's-guide page that names the real options honestly
- * and positions Leader-OS as the KI-native alternative.
+ * and positions LeaderOS as the KI-native alternative.
  */
 export default {
   slug: 'fuehrungskraefteentwicklung-leadership-development',
@@ -38,7 +38,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/fuehrungskraefteentwicklung-leadership-development',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Führungskräfteentwicklung · Leadership Development · Leader-OS',
+    ogImageAlt: 'Führungskräfteentwicklung · Leadership Development · LeaderOS',
   },
   body: [
     { type: 'paragraph', text:
@@ -54,7 +54,7 @@ export default {
       'Kein Sparring im Moment des Bedarfs: die schwierige Situation kommt Dienstag 22:47 Uhr · der Trainer ist da nicht erreichbar. Genau dann bräuchtest du Hilfe.',
     ] },
     { type: 'callout', tone: 'lime', text:
-      'Die Kernregel der Führungskräfteentwicklung: Output schlägt Input. Es zählt nicht, wie viele Seminartage du sammelst, sondern was sich in deinen 1:1-Gesprächen, Townhalls und Entscheidungen messbar ändert.' },
+      'Die Kernregel der Führungskräfteentwicklung: Output schlägt Input. Es zählt nicht, wie viele Seminartage du sammelst, sondern was sich in deinen 1:1-Gesprächen, Firmenreden und Entscheidungen messbar ändert.' },
     { type: 'heading', level: 2, text: 'Welche Formate wirklich wirken.' },
     { type: 'paragraph', text:
       'Wirksame Führungskräfteentwicklung hat vier Eigenschaften · egal ob als Seminar, Coaching oder Plattform:' },
@@ -68,7 +68,7 @@ export default {
     { type: 'list', style: 'bullet', items: [
       'Klassisches Seminar (Haufe, Akademien): gut für den ersten Wissens-Input und Networking. Schwäche: der Transfer in den Alltag · genau hier verpufft der Effekt ohne Folge-Struktur.',
       '1:1-Coaching: stärkster Transfer, aber teuer (300–800 €/Std) und nicht 24/7 verfügbar. Die Zeit des Coaches ist der Engpass.',
-      'KI-gestützte Plattform (Leader-OS): kombiniert beides · drillbare Frameworks plus ein KI-Coach (WladBot), der deine Situation kennt und 24/7 verfügbar ist. Trainiert auf Wlad Jachtchenkos Methodik aus 420 000 Coachings. Schließt genau den Transfer-Gap, an dem Seminare scheitern.',
+      'KI-gestützte Plattform (LeaderOS): kombiniert beides · drillbare Frameworks plus ein KI-Coach (WladBot), der deine Situation kennt und 24/7 verfügbar ist. Trainiert auf Wlad Jachtchenkos Methodik aus 420 000 Coachings. Schließt genau den Transfer-Gap, an dem Seminare scheitern.',
     ] },
     { type: 'quote', text:
       'Coaching kostet 800 Euro pro Stunde und ist am Dienstagabend nicht erreichbar. Bücher altern. Frameworks bleiben hängen. Wir haben das Operating System gebaut, das diesen Engpass auflöst.',
@@ -86,7 +86,7 @@ export default {
       'Führungskräfteentwicklung ist kein Zertifikat, das man abhakt · es ist eine Praxis. Die beste Investition ist nicht das teuerste Seminar, sondern das Format, das dich täglich übt und im Moment des Bedarfs begleitet.' },
     { type: 'heading', level: 2, text: 'Der nächste Schritt.' },
     { type: 'paragraph', text:
-      'Leader-OS ist Führungskräfteentwicklung als Operating System: elf drillbare Frameworks, WladBot als 24/7-Coach, tägliche Mikro-Drills an deinen echten Fällen, eine Diagnose, die dir zeigt wo du stehst. Vierzehn Tage kostenlos testen, ohne Karte. Oder starte mit dem kostenlosen 10-Minuten-Leader-Check.' },
+      'LeaderOS ist Führungskräfteentwicklung als Operating System: elf drillbare Frameworks, WladBot als 24/7-Coach, tägliche Mikro-Drills an deinen echten Fällen, eine Diagnose, die dir zeigt wo du stehst. Vierzehn Tage kostenlos testen, ohne Karte. Oder starte mit dem kostenlosen 10-Minuten-Leader-Check.' },
     { type: 'diagnostic', prompt: 'Was willst du als Führungskraft als Erstes verbessern?', options: [
       { label: 'Feedback & schwierige Gespräche', category: 'communication' },
       { label: 'Delegieren & Zeit zurückgewinnen', category: 'delegation' },

@@ -11,9 +11,9 @@ export default {
   cover: null,
   tags: ['Plattform', 'Pricing', 'Sprint', 'Plus-Plus'],
   seo: {
-    title: 'Sprint vs Plus-Plus: welcher Leader-OS Pfad?',
+    title: 'Sprint vs Plus-Plus: welcher LeaderOS Pfad?',
     description:
-      'Leader-OS Sprint (997 €) oder Plus-Plus (4 797 €): welcher Pfad passt zu ' +
+      'LeaderOS Sprint (997 €) oder Plus-Plus (4 797 €): welcher Pfad passt zu ' +
       'welcher Situation und welchem Budget. Ehrliche Entscheidungs-Hilfe von Wlad ' +
       'Jachtchenko.',
     canonical: 'https://leader-os.de/journal/sprint-vs-plus-plus-welcher-pfad',
@@ -31,7 +31,7 @@ export default {
     { type: 'paragraph', text: 'Wir haben zwei Tiers · Sprint und Plus-Plus. Hier ehrlich, ohne Sales-Sprache, wer welchen Pfad nehmen soll.' },
 
     { type: 'heading', level: 2, text: 'Sprint · 997 € · 30 Tage + 12 Monate Mitgliedschaft.' },
-    { type: 'paragraph', text: 'Du bekommst: 30 Tage intensiver Drill mit allen 11 Frameworks, WladBot 24/7, Daily-Lernvideos, Leader-OS-Community als Peer-Kreis (Lifetime). Danach 12 Monate Mitgliedschaft · voller Plattform-Zugang, WladBot bleibt, Updates ohne Aufpreis.' },
+    { type: 'paragraph', text: 'Du bekommst: 30 Tage intensiver Drill mit allen 11 Frameworks, WladBot 24/7, Daily-Lernvideos, LeaderOS-Community als Peer-Kreis (Lifetime). Danach 12 Monate Mitgliedschaft · voller Plattform-Zugang, WladBot bleibt, Updates ohne Aufpreis.' },
     { type: 'paragraph', text: 'Sprint passt für dich wenn: du ein konkretes Methodik-Problem hast und in 30 Tagen substantielle Bewegung willst, ohne dass du LIVE mit Wlad sprechen musst. Du bist Disziplin-getrieben, brauchst nicht das wöchentliche Coaching-Push.' },
 
     { type: 'heading', level: 2, text: 'Plus-Plus · 4 797 € · OS-Jahr mit Live-Sessions.' },

@@ -187,7 +187,7 @@ export default function WladUniversePage() {
                 <div className="flex items-center gap-2 mb-4">
                   <Library size={13} className="text-brand" />
                   <span className="text-[10px] uppercase tracking-[0.2em] font-black text-brand">
-                    Leader-OS · Wlad-Universum
+                    LeaderOS · Wlad-Universum
                   </span>
                 </div>
 
@@ -202,7 +202,7 @@ export default function WladUniversePage() {
 
                 <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed mb-7">
                   6 Monate · 5 Rollen · Live-Coachings + WladBot 24/7. Trainiert von Wlad
-                  Jachtchenko · 400.000 Kunden in 20+ Ländern, 12 Bücher, 3 SPIEGEL-Bestseller.
+                  Jachtchenko · 400.000 Kunden in 20+ Ländern, 13 Bücher, 3 SPIEGEL-Bestseller.
                 </p>
 
                 <div className="flex flex-wrap gap-3">

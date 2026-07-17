@@ -1,4 +1,4 @@
-# 90-Tage Content-Strategie · Leader-OS
+# 90-Tage Content-Strategie · LeaderOS
 
 Quelle der Stimme: Wlad Jachtchenkos Frameworks (siehe `docs/SCHEMA.md` ·
 2212 RAG-Chunks). Quelle der CTAs: `leader-check.de` (Diagnose, kostenlos).
@@ -51,7 +51,7 @@ Jede Plattform **eine eigene Übersetzung** desselben Insights:
 | 09    | Schlagfertigkeit   | VERBALE REFLEXE     | Was sage ich JETZT?           |
 | 10    | Zeit-Methodik      | ALPEN               | Wie strukturiere ich den Tag? |
 | 11    | Verhandeln         | HARVARD-METHODE     | Win-Win statt Konflikt        |
-| 12    | KI-Native werden   | LEADER-OS           | KI als Co-Pilot der Führung   |
+| 12    | KI-Native werden   | LEADEROS           | KI als Co-Pilot der Führung   |
 | 13    | Trust + Sprint     | SOCIAL PROOF        | Was Teilnehmer berichten      |
 
 90 Tage = 13 Wochen × 7 Tage = **91 Tage**. Tag 91 ist Launch-Recap.

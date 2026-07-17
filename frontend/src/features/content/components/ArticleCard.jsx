@@ -36,14 +36,14 @@ export const ArticleCard = ({ article }) => {
         {hasCover ? (
           <img
             src={article.cover}
-            alt={`${article.title.replace(/\.$/, '')} · Leader-OS Journal · Wlad Jachtchenko`}
+            alt={`${article.title.replace(/\.$/, '')} · LeaderOS Journal · Wlad Jachtchenko`}
             loading="lazy"
             decoding="async"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
         ) : (
           <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]">
-            <WladBotThumbnail title={article.title} eyebrow={TYPE_LABEL[article.type] || 'LEADER·OS'} />
+            <WladBotThumbnail title={article.title} description={article.description} eyebrow={TYPE_LABEL[article.type] || 'LEADER·OS'} />
           </div>
         )}
         {/* Subtle bottom darkening so the type pill stays legible on any photo */}

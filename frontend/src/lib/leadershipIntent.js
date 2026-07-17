@@ -46,7 +46,7 @@ const CATEGORY_SIGNALS = {
     'gespräch', 'kritik', 'bewertung', 'unterperform',
   ],
   communication: [
-    'kommunik', 'townhall', 'town hall', 'präsentation', 'rede', 'meeting', 'rhetorik',
+    'kommunik', 'firmenrede', 'präsentation', 'rede', 'meeting', 'rhetorik',
     'überzeug', 'durchdring', 'gehört werden', 'schlagfertig', 'verhandl',
     'communication', 'presentation', 'negotiat', 'persuad',
   ],

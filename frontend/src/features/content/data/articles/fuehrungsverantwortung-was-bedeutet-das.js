@@ -24,7 +24,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/fuehrungsverantwortung-was-bedeutet-das',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Führungsverantwortung · Definition + Ebenen · Leader-OS',
+    ogImageAlt: 'Führungsverantwortung · Definition + Ebenen · LeaderOS',
   },
   body: [
     {
@@ -95,7 +95,7 @@ export default {
     },
     {
       type: 'paragraph',
-      text: 'Diese Ebenen lassen sich nicht durch Lesen lernen, sondern nur durch Üben — am besten in echten Situationen mit echtem Feedback. Genau dafür ist Leader-OS gebaut: Du trainierst die Skills der Verantwortung — delegieren, Ergebnisse einfordern, Menschen entwickeln, unbequeme Gespräche führen — in konkreten Szenarien aus deinem Alltag. Und der WladBot steht dir 24/7 zur Seite, wenn du gerade vor einer Entscheidung sitzt und einen klaren Kopf brauchst.',
+      text: 'Diese Ebenen lassen sich nicht durch Lesen lernen, sondern nur durch Üben — am besten in echten Situationen mit echtem Feedback. Genau dafür ist LeaderOS gebaut: Du trainierst die Skills der Verantwortung — delegieren, Ergebnisse einfordern, Menschen entwickeln, unbequeme Gespräche führen — in konkreten Szenarien aus deinem Alltag. Und der WladBot steht dir 24/7 zur Seite, wenn du gerade vor einer Entscheidung sitzt und einen klaren Kopf brauchst.',
     },
     {
       type: 'diagnostic',

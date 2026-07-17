@@ -10,6 +10,7 @@ import { NewsletterDrop } from '../components/NewsletterDrop';
 import { ShareBar } from '../components/ShareBar';
 import { ArticleLeftRail, extractHeadings } from '../components/ArticleLeftRail';
 import { ArticleRightRail, ArticleMobileMiniApps } from '../components/ArticleRightRail';
+import { WebinarTicketAd } from '../../../components/landing/WebinarTicketAd';
 import { applySeoToDocument, applyArticleJsonLd, buildArticleSeo } from '../utils/seo';
 import { localCoverPath } from '../utils/covers';
 
@@ -101,7 +102,7 @@ export default function ArticlePage() {
         <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[640px] bg-[#0A0A0A]">
           <img
             src={heroCover}
-            alt={article.seo?.ogImageAlt || `${article.title.replace(/\.$/, '')} · Leader-OS Feldnotizen · Wlad Jachtchenko`}
+            alt={article.seo?.ogImageAlt || `${article.title.replace(/\.$/, '')} · LeaderOS Feldnotizen · Wlad Jachtchenko`}
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
             fetchpriority="high"
@@ -190,6 +191,8 @@ export default function ArticlePage() {
                 articleTitle={article.title}
               />
             </article>
+
+            <WebinarTicketAd placement="article-body" className="mt-14 md:mt-16" />
 
             <ShareBar
               url={`https://leader-os.de/journal/${article.slug}`}

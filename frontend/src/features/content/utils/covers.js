@@ -54,7 +54,7 @@ const POOL = {
     '1500648767791-00dcc994a43e', // portrait monochrome
     '1521119989659-a83eee488004', // portrait standing window
   ],
-  // Plattform & Leader-OS · products, screens, architecture, sets
+  // Plattform & LeaderOS · products, screens, architecture, sets
   'C-05': [
     '1497366216548-37526070297c', // architecture corridor
     '1497366811353-6870744d04b2', // workspace minimal

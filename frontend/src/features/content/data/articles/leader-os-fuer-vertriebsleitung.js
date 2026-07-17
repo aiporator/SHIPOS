@@ -2,7 +2,7 @@ export default {
   slug: 'leader-os-fuer-vertriebsleitung',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für Vertriebsleitung.',
+  title: 'LeaderOS für Vertriebsleitung.',
   description:
     'CRO, VP Sales, Vertriebsleitung Mittelstand. Drei Frameworks die in ' +
     'der Pipeline-Phase und der Forecast-Phase typischerweise den ' +
@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-04',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'Sales'],
+  tags: ['LeaderOS', 'Use Case', 'Sales'],
   body: [
     { type: 'paragraph', text: 'Vertriebsleitung in DACH 2026 ist eine harte Rolle: zwischen aggressivem Pipeline-Druck, Coaching der Account Executives und Forecast-Genauigkeit dem CEO gegenüber. Hier sind die Frameworks die in Sprint-Daten aus Sales-Verantwortlichen am stärksten greifen.' },
     { type: 'heading', level: 2, text: 'Framework 01: Harvard für AE-Coaching.' },

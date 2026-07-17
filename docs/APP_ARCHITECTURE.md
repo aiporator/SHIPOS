@@ -1,4 +1,4 @@
-# Leader-OS Application Architecture
+# LeaderOS Application Architecture
 
 > Audience: investors, new developers, CEO.
 > Last updated: 2026-05-25.
@@ -8,7 +8,7 @@
 
 ## 1. Product Overview
 
-**Leader-OS** is a KI-powered leadership training platform built for German
+**LeaderOS** is a KI-powered leadership training platform built for German
 Fuehrungskraefte (executives and managers). It combines AI coaching, video
 courses, leadership diagnostics, and structured learning journeys into a
 single SaaS product based on the methodology of Wlad Jachtchenko

@@ -5,7 +5,7 @@ export default {
   title: 'Drei Säulen der Überzeugung: Logos, Ethos, Pathos.',
   description:
     'Aristoteles war Marketing-Profi vor zweitausend Jahren. Wie du seine ' +
-    'drei Säulen heute in Townhalls, Investor-Pitchs und Stakeholder-Calls ' +
+    'drei Säulen heute in Firmenreden, Investor-Pitchs und Stakeholder-Calls ' +
     'einsetzt · ohne theatralisch zu werden.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-30',
@@ -22,7 +22,7 @@ export default {
     { type: 'framework', code: '3 SÄULEN', title: 'Aristoteles, modernisiert', explanation: 'Logos für die Logik (Daten, Benchmarks). Ethos für die Glaubwürdigkeit (Track Record, Position). Pathos für die emotionale Konsequenz (was passiert mit dir / dem Team). Wer eine der drei weglässt, verliert ein Drittel der Räume.' },
     { type: 'heading', level: 2, text: 'Wann welche Säule dominiert.' },
     { type: 'list', style: 'bullet', items: [
-      'Engineering-Townhall: Logos dominant (70%), Ethos und Pathos je 15%.',
+      'Engineering-Firmenrede: Logos dominant (70%), Ethos und Pathos je 15%.',
       'Investor-Pitch: alle drei gleich (33% / 33% / 33%) · wer Pathos fehlt, scheitert an Series B.',
       'Sales-Kunde Verhandlung: Pathos dominant (50%), Logos 30%, Ethos 20%.',
       'Krisen-Kommunikation an Team: Ethos zuerst (50%), dann Pathos (30%), zuletzt Logos (20%).',
@@ -33,7 +33,7 @@ export default {
   ],
   seo: {
     title: 'Logos, Ethos, Pathos: die drei Säulen der Überzeugung',
-    description: 'Logos, Ethos, Pathos verstehen und anwenden: die drei Säulen der Überzeugung für Townhall, Investor-Pitch, Sales-Verhandlung und Krisen-Kommunikation. Von Wlad Jachtchenko.',
+    description: 'Logos, Ethos, Pathos verstehen und anwenden: die drei Säulen der Überzeugung für Firmenrede, Investor-Pitch, Sales-Verhandlung und Krisen-Kommunikation. Von Wlad Jachtchenko.',
     keywords: ['Drei Säulen der Überzeugung', 'Aristoteles Rhetorik', 'Logos Ethos Pathos', 'Überzeugung Führungskraft', 'Persuasion Manager'],
   },
   related: ['townhall-rede-strukturieren-sexier', 'harvard-verhandlungsmethode-erklaert'],

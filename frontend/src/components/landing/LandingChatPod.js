@@ -61,7 +61,7 @@ const FLOWS = {
         key: 'pain',
         options: [
           { label: 'Schwierige 1:1s · Feedback', value: '1on1', weight: 2 },
-          { label: 'Townhalls · Stakeholder', value: 'town', weight: 3 },
+          { label: 'Firmenreden · Stakeholder', value: 'town', weight: 3 },
           { label: 'Verhandlungen · Eskalationen', value: 'neg', weight: 3 },
           { label: 'KI-Hebel finden im Alltag', value: 'ki', weight: 2 },
         ],
@@ -101,7 +101,7 @@ const FLOWS = {
         min: 7,
         title: 'Live-Demo.',
         body:
-          'Du kennst deine Baustelle · schau dir Leader-OS am eigenen Use-Case an. ' +
+          'Du kennst deine Baustelle · schau dir LeaderOS am eigenen Use-Case an. ' +
           '20 Minuten, Live, mit dem Team.',
         primary: { label: 'Demo buchen · 20 Min', href: 'https://cal.com/leaderos/demo' },
         secondary: { label: 'Erst Diagnose machen', href: 'https://leadercheck.de' },
@@ -164,7 +164,7 @@ const FLOWS = {
         title: 'Bist schon weit.',
         body:
           'Du hast Basics drin. Die 30-Fragen-Diagnose zeigt dir die feinen ' +
-          'Lücken · und Leader-OS schließt sie systematisch in 30 Tagen.',
+          'Lücken · und LeaderOS schließt sie systematisch in 30 Tagen.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
         secondary: { label: 'Direkt Beratung · 30 Min', href: 'https://cal.com/leaderos/beratung' },
       },
@@ -175,7 +175,7 @@ const FLOWS = {
           'Du arbeitest schon bewusst · aber mit Lücken. Die volle Diagnose ' +
           'sagt dir genau, wo der Hebel am größten ist.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
-        secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
+        secondary: { label: 'LeaderOS ansehen', href: 'https://leaderos.de' },
       },
       {
         min: 0,
@@ -184,7 +184,7 @@ const FLOWS = {
           'Du fängst quasi bei Null an · das ist der beste Zeitpunkt, um ' +
           'sauber aufzubauen. Diagnose zeigt dir, womit du startest.',
         primary: { label: 'Volle Diagnose · 10 Min', href: 'https://leadercheck.de' },
-        secondary: { label: 'Leader-OS ansehen', href: 'https://leaderos.de' },
+        secondary: { label: 'LeaderOS ansehen', href: 'https://leaderos.de' },
       },
     ],
   },

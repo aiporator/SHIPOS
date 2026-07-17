@@ -94,7 +94,7 @@ export default function SystemHealth() {
   };
 
   useEffect(() => {
-    document.title = 'System · Leader-OS Health';
+    document.title = 'System · LeaderOS Health';
     reload();
   }, []);
 

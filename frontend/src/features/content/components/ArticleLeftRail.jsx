@@ -87,7 +87,7 @@ export const ArticleLeftRail = ({ headings, slug }) => {
           >
             14 Tage<br/>kostenlos<span className="text-brand not-italic">.</span>
           </h4>
-          <p className="text-[12px] leading-[1.5] text-background/70 mb-4">
+          <p className="text-[12px] leading-[1.5] text-background/85 mb-4">
             Volle Plattform. Kein Risiko. Jederzeit kündbar.
           </p>
           <a
@@ -95,7 +95,7 @@ export const ArticleLeftRail = ({ headings, slug }) => {
             target="_blank"
             rel="noopener noreferrer"
             data-testid="article-left-rail-cta"
-            className="inline-flex items-center gap-1.5 bg-brand hover:bg-white text-foreground font-bold text-[11px] uppercase tracking-[0.14em] px-3 h-9 transition-colors"
+            className="inline-flex items-center gap-1.5 bg-brand hover:bg-white text-[#0A0A0A] font-bold text-[11px] uppercase tracking-[0.14em] px-3 h-9 transition-colors"
           >
             Starten <ArrowRight size={13} />
           </a>

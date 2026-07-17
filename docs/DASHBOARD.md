@@ -41,7 +41,7 @@ order by last_session_at desc;
 
 ## In-app dashboard
 
-The Leader-OS app frontend calls `dashboard_summary(days_param := N)` which
+The LeaderOS app frontend calls `dashboard_summary(days_param := N)` which
 returns a single JSONB document with everything the in-app dashboard renders
 (KPIs, funnel, channels, layers, cohorts, daily, plays).
 

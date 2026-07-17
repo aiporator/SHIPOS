@@ -184,7 +184,7 @@ export const AppPreviewSection = () => (
   <section
     id="app-preview"
     className="relative w-full bg-background overflow-hidden border-t border-foreground/10"
-    aria-label="Wie sieht Leader-OS von innen aus?"
+    aria-label="Wie sieht LeaderOS von innen aus?"
     data-testid="landing-app-preview"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-24 md:py-32">

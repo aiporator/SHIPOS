@@ -49,7 +49,7 @@ export const WLAD_STATS = [
   { value: '400.000+', label: 'Kunden in 20+ Ländern' },
   { value: '14.000.000+', label: 'Podcast & YouTube Views' },
   { value: '250.000+', label: 'Buchverkäufe in 8 Ländern' },
-  { value: '12', label: 'Bücher · 3 SPIEGEL Bestseller' },
+  { value: '13', label: 'Bücher · 3 SPIEGEL Bestseller' },
 ];
 
 // Die staatlich zertifizierte 6-Monats-Führungskräfte-Ausbildung
@@ -58,7 +58,7 @@ export const WLAD_AUSBILDUNG = {
   subtitle: '6 Monate · 5 Rollen · Live-Coachings + WladBot · ZFU-zertifiziert',
   url: 'https://www.argumentorik.com/fuehrungskraefte-ausbildung/',
   format: [
-    { title: '2× wöchentlich Live-Coachings', desc: '25 wichtigste Leadership-Themen · live mit dem Leader-OS-Team' },
+    { title: '2× wöchentlich Live-Coachings', desc: '25 wichtigste Leadership-Themen · live mit dem LeaderOS-Team' },
     { title: 'Wöchentliches 1:1-Feedback', desc: 'Du schickst Übungen ein, Wlad und Team antworten persönlich' },
     { title: 'Wöchentliche Übungs-Abende', desc: 'Harte Konflikte in geschütztem Raum durchspielen' },
     { title: 'Networking & Live-Events', desc: 'Vernetze dich mit Führungskräften ähnlicher Größenordnung' },

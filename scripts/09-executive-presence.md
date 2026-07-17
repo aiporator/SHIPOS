@@ -131,9 +131,9 @@ Und Folge 8: Krisen-Präsenz — die ultimative Prüfung. Wenn alles zusammenbri
 
 Executive Presence ist der Unterschied zwischen „brillant, aber übersehen" und „die Person, an der niemand vorbeikommt". Es ist trainierbar. Es ist messbar. Und es ist der vielleicht größte Hebel für deine Karriere, den du bisher nicht genutzt hast.
 
-Dieser Kurs ist Teil von **Leader-OS PLUS** — zehn Kurse, zwölf Live-Coachings und die Möglichkeit, deine Präsenz mit direktem Feedback von mir zu entwickeln.
+Dieser Kurs ist Teil von **LeaderOS PLUS** — zehn Kurse, zwölf Live-Coachings und die Möglichkeit, deine Präsenz mit direktem Feedback von mir zu entwickeln.
 
-Leader-OS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
+LeaderOS PLUS — alle 10 Kurse + 12x Coaching. Alle Details auf **leader-os.de**.
 
 Wir sehen uns in Folge 2.
 

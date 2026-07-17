@@ -1,5 +1,5 @@
 /**
- * WladMark · Cool curvy "W" mark for Leader-OS (Iter 92.5).
+ * WladMark · Cool curvy "W" mark for LeaderOS (Iter 92.5).
  *
  * Design v3: The previous iteration was too geometric / chart-bar-y.
  * Mert wanted "cooler & geschwungen" · a flowing W that reads like a

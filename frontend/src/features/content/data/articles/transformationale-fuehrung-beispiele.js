@@ -26,7 +26,7 @@ export default {
     ],
     canonical: 'https://leader-os.de/journal/transformationale-fuehrung-beispiele',
     ogImage: 'https://leader-os.de/og-wlad.jpg',
-    ogImageAlt: 'Transformationale Führung · Beispiele · Leader-OS',
+    ogImageAlt: 'Transformationale Führung · Beispiele · LeaderOS',
   },
   body: [
     {
@@ -154,7 +154,7 @@ export default {
     },
     {
       type: 'paragraph',
-      text: 'Die gute Nachricht: Jede der vier Dimensionen ist trainierbar. In Leader-OS findest du ' +
+      text: 'Die gute Nachricht: Jede der vier Dimensionen ist trainierbar. In LeaderOS findest du ' +
         'drillbare Mikro-Drills pro Dimension — kurze, konkrete Übungen für genau die Situationen ' +
         'aus diesem Artikel: das schwierige 1:1, die hinterfragte Idee, das sinnstiftende Standup. ' +
         'Und wenn du um 23 Uhr vor einem heiklen Gespräch sitzt, sparrt der WladBot 24/7 mit dir, ' +

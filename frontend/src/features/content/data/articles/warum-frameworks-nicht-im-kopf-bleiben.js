@@ -65,15 +65,15 @@ export default {
         'Die meisten Frameworks sind in einem Lehrbuch-Beispiel hängengeblieben. SEXIER, das Argumentations-' +
         'Modell von Wlad, klingt auf der Folie wie ein Akronym. Im echten Verhandlungs-Setting mit einem ' +
         'Senior-Stakeholder klingt es plötzlich nach etwas anderem: nach dem konkreten Satz, den du um ' +
-        '14:32 Uhr im Townhall liefern musst.',
+        '14:32 Uhr in der Firmenrede liefern musst.',
     },
     {
       type: 'framework',
       code: 'SEXIER',
       title: 'Das Argumentations-Modell',
       explanation:
-        'Ein Sechs-Schritte-Pfad durch jede Verhandlung: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, ' +
-        'Einwand-Vorwegnahme, Resumée. Auf der Folie sieht es nach Theorie aus. Beim dritten Drill am ' +
+        'Ein Sechs-Schritte-Pfad durch jede Verhandlung: Statement, Explanation, eXample, Impact, ' +
+        'Explanation of Impact, Rebuttal. Auf der Folie sieht es nach Theorie aus. Beim dritten Drill am ' +
         'eigenen Fall wird es zu deinem Default-Reflex.',
     },
     {
@@ -107,7 +107,7 @@ export default {
       items: [
         'Lesen fühlt sich an wie verstehen · es ist Wiedererkennen.',
         'Abrufen entsteht durch dreißig wiederholte Anwendungen, nicht durch ein neues Buch.',
-        'Generische Modelle treffen keinen Townhall · geübte Skripte schon.',
+        'Generische Modelle treffen keine Firmenrede · geübte Skripte schon.',
         'Verfügbarkeit ist die unterschätzte Dimension. Coach um 22:47 Uhr oder nichts.',
       ],
     },
@@ -120,7 +120,7 @@ export default {
     },
   ],
   seo: {
-    title: 'Warum Frameworks nicht im Kopf bleiben · Leader-OS',
+    title: 'Warum Frameworks nicht im Kopf bleiben · LeaderOS',
     description:
       'Warum 80 Prozent aller Leadership-Frameworks nach zwei Wochen verschwinden · Field Note aus ' +
       '400.000 Coachings, drei Mechanismen und ein konkreter Trade. Von Wlad Jachtchenko.',

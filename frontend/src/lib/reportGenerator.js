@@ -103,7 +103,7 @@ export async function downloadHTMLReport({ title, subtitle, date, sections, scor
       </div>
       <div class="cta-box">
         <h3>Bereit für das nächste Level?</h3>
-        <p>Buche ein 1:1 Coaching mit Wlad Jachtchenko für persönliches Feedback.</p>
+        <p>Buche ein 1:1 Coaching mit Wlads Team für persönliches Feedback.</p>
         <p><strong>wladbot.com/coaching</strong></p>
       </div>
     `;

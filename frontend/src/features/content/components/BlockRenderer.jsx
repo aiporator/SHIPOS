@@ -93,7 +93,7 @@ const Framework = ({ block }) => (
   <section className="my-10 border-2 border-foreground p-5 md:p-7 relative">
     <div
       aria-hidden
-      className="absolute top-0 right-0 bg-brand text-foreground px-2.5 py-1 text-[10px] font-mono font-black uppercase tracking-[0.18em]"
+      className="absolute top-0 right-0 bg-brand text-[#0A0A0A] px-2.5 py-1 text-[10px] font-mono font-black uppercase tracking-[0.18em]"
     >
       Framework
     </div>

@@ -113,7 +113,7 @@ export const POST_SERIES = [
       'Statement → Explanation → Example → Impact → Exception → ' +
       'Resolution. Das Modell, mit dem Wlad seit Jahren Menschen ' +
       'in Verhandlungen wieder klar bringt.\n\n' +
-      'Eines von elf Frameworks im Leader-OS. → leader-os.de',
+      'Eines von elf Frameworks im LeaderOS. → leader-os.de',
   },
   {
     id: 'B-02',
@@ -137,7 +137,7 @@ export const POST_SERIES = [
       'Drei Säulen, auf denen jede Überzeugungs-Situation steht: ' +
       'die Logik (Logos), die Person (Ethos), die Emotion (Pathos). ' +
       'Wer eine vergisst, verliert die Hälfte des Raums.\n\n' +
-      'Eines von elf Frameworks im Leader-OS.',
+      'Eines von elf Frameworks im LeaderOS.',
   },
   {
     id: 'B-03',
@@ -185,7 +185,7 @@ export const POST_SERIES = [
       'Drei der häufigsten Tricks in Diskussionen · und der einfache ' +
       'Konter dazu. Du musst nicht aggressiver werden. Du musst nur ' +
       'sehen, was gespielt wird.\n\n' +
-      'Eines von elf Frameworks im Leader-OS.',
+      'Eines von elf Frameworks im LeaderOS.',
   },
   {
     id: 'B-05',
@@ -238,7 +238,7 @@ export const POST_SERIES = [
       '400 Tausend Kunden. 14 Millionen Views. 3 SPIEGEL-Bestseller.\n\n' +
       'Wlad Jachtchenkos Methodik ist nicht neu. Sie ist seit Jahren ' +
       'in der Praxis erprobt · in Konzernen, im Mittelstand, in ' +
-      'Verhandlungen, die niemand mitbekommt. Jetzt im Leader-OS.\n\n' +
+      'Verhandlungen, die niemand mitbekommt. Jetzt im LeaderOS.\n\n' +
       '→ leader-os.de',
   },
   {
@@ -268,13 +268,13 @@ export const POST_SERIES = [
     variant: 'bib',
     bib: 'SPRINT · 0001',
     eyebrow: 'BENEFIT 03 · SPRINT',
-    headline: 'Dreißig Tage.',
+    headline: '30 Tage.',
     accent: 'Ein neues Du.',
     body: 'Jeden Tag eine Frage. Jeden Tag ein Drill. Am Ende: Zertifikat 0001.',
     foot: 'BIB · 0001 · leader-os.de',
     caption:
-      'Dreißig Tage. Ein neues Du.\n\n' +
-      'Der Leader-OS-Sprint ist kein Kurs. Es ist ein Training · ' +
+      '30 Tage. Ein neues Du.\n\n' +
+      'Der LeaderOS-Sprint ist kein Kurs. Es ist ein Training · ' +
       'jeden Tag eine Frage, jeden Tag ein Drill, jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst.\n\n' +
       'BIB 0001 jetzt starten. → leader-os.de',

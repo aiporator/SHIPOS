@@ -5,7 +5,7 @@ export default {
   slug: 'der-business-case-fuer-leader-os',
   type: 'guide',
   status: 'published',
-  title: 'Der Business Case für Leader-OS.',
+  title: 'Der Business Case für LeaderOS.',
   description:
     'Vier konkrete ROI-Hebel mit Größenordnungen, die du als Entscheider ' +
     'gegen 997 EUR pro Sitz rechnen kannst. Inklusive der Stellen wo der ' +
@@ -13,16 +13,16 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-26',
   cover: null,
-  tags: ['Leader-OS', 'Business Case', 'ROI'],
+  tags: ['LeaderOS', 'Business Case', 'ROI'],
   body: [
     { type: 'paragraph', text:
       'Leadership-Training hat einen schlechten Ruf bei Finanz-Entscheidern, und das aus gutem Grund. Drei ' +
       'Tage Off-Site für 8 000 EUR pro Teilnehmer, gemessen wird "Wohlbefinden", ROI wird nie zurückgekoppelt. ' +
-      'Hier ist warum Leader-OS sich anders rechnet · und wo der Case auch ehrlich Lücken hat.' },
+      'Hier ist warum LeaderOS sich anders rechnet · und wo der Case auch ehrlich Lücken hat.' },
     { type: 'heading', level: 2, text: 'Hebel 01: Eingesparte Coaching-Stunden.' },
     { type: 'paragraph', text:
       'Wenn du heute pro Führungskraft 6 Stunden externes Coaching pro Jahr buchst, kostet das zwischen ' +
-      '1 800 und 4 800 EUR (300-800 EUR/Stunde). Leader-OS substituiert nicht alles davon, aber typischer- ' +
+      '1 800 und 4 800 EUR (300-800 EUR/Stunde). LeaderOS substituiert nicht alles davon, aber typischer- ' +
       'weise drei bis vier Stunden. Annahme: 1 500 EUR Einsparung pro Person pro Jahr.' },
     { type: 'heading', level: 2, text: 'Hebel 02: Zurückgewonnene Manager-Zeit.' },
     { type: 'paragraph', text:
@@ -40,14 +40,14 @@ export default {
       'frisch beförderter Lead, der nach drei Monaten merkt "ich werde hier nicht entwickelt", kündigt ' +
       'innerhalb der ersten zwölf Monate. Reine Wiederbesetzungs-Kosten: 50-150 Prozent des Jahresgehalts.' },
     { type: 'paragraph', text:
-      'Wenn Leader-OS in deiner 60-Personen-Lead-Kohorte ein Prozent weniger Fluktuation produziert, sparen ' +
+      'Wenn LeaderOS in deiner 60-Personen-Lead-Kohorte ein Prozent weniger Fluktuation produziert, sparen ' +
       'sich diese 60 000 EUR an Recruiting-Kosten · bei Sprint-Investment von 60 mal 997 EUR = 60 000 EUR. ' +
       'Break-Even bei einem Prozent reduzierter Fluktuation, alles darüber ist Reingewinn.' },
     { type: 'heading', level: 2, text: 'Hebel 04: Vermiedene Eskalations-Kosten.' },
     { type: 'paragraph', text:
       'Drei nicht-geführte schwierige Konversationen pro Quartal kosten dich typischerweise eine Eskalation ' +
       'pro Halbjahr. Eine Eskalation mit Abfindung im Senior-Bereich kostet 30 000-100 000 EUR. Selbst wenn ' +
-      'Leader-OS nur eine pro Jahr vermeidet (durch besseres B-W-W-Drill), ist der Case sehr robust.' },
+      'LeaderOS nur eine pro Jahr vermeidet (durch besseres B-W-W-Drill), ist der Case sehr robust.' },
     { type: 'framework', code: 'ROI', title: 'Vier Hebel im Überblick',
       explanation:
         'Eingesparte Coaching-Stunden (~1 500 EUR/Person/Jahr) + zurückgewonnene Manager-Zeit (~26 000 EUR/Person/' +
@@ -56,7 +56,7 @@ export default {
     { type: 'heading', level: 2, text: 'Wo der Case schwach ist.' },
     { type: 'list', style: 'bullet', items: [
       'Die "26 000 EUR zurückgewonnene Manager-Zeit" sind nicht Cash. Sie verschwinden, wenn die Person stattdessen ihren Output reduziert anstatt ihn auf strategische Arbeit zu verlagern.',
-      'Selbst-Berichte über Skill-Verbesserung sind subjektiv. Wer Bias-arme Output-Messung will, muss eigene Metriken (Townhall-Alignment-Anfragen, 1:1-Tiefe-Score, NPS-Manager) tracken.',
+      'Selbst-Berichte über Skill-Verbesserung sind subjektiv. Wer Bias-arme Output-Messung will, muss eigene Metriken (Firmenrede-Alignment-Anfragen, 1:1-Tiefe-Score, NPS-Manager) tracken.',
       'Der ROI für die Top-2-Prozent-High-Performer ist überdurchschnittlich. Der ROI für mittelschwere Skeptiker ist niedriger. Eine 80-Prozent-Sprint-Completion-Rate ist gut, aber nicht 100 Prozent.',
     ] },
     { type: 'paragraph', text:
@@ -64,7 +64,7 @@ export default {
       'Excel-Vorlage mit und passen die Zahlen auf deine Organisation an.' },
   ],
   seo: {
-    title: 'Business Case Leadership-Training: 4 ROI-Hebel · Leader-OS',
+    title: 'Business Case Leadership-Training: 4 ROI-Hebel · LeaderOS',
     description:
       'Business Case für Leadership-Training: vier ROI-Hebel mit Größenordnungen · Coaching-Stunden, ' +
       'Manager-Zeit, Senior-Fluktuation, Eskalations-Kosten. Mit ehrlichen Grenzen. Von Wlad Jachtchenko.',

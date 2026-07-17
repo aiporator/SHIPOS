@@ -35,7 +35,7 @@ export const ArticleCover = ({
   }
   return (
     <div className={`relative ${wrapClassName}`}>
-      <WladBotThumbnail title={article?.title || ''} eyebrow={eyebrow} />
+      <WladBotThumbnail title={article?.title || ''} description={article?.description || ''} eyebrow={eyebrow} />
     </div>
   );
 };

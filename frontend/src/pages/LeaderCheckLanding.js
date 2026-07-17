@@ -38,7 +38,7 @@ const DIMENSIONS = [
     name: 'Rhetorik',
     body:
       'Wie klar argumentierst du? Wie sicher trägst du eine Position ' +
-      'im Townhall, im 1:1, in der schwierigen Verhandlung?',
+      'in der Firmenrede, im 1:1, in der schwierigen Verhandlung?',
   },
   {
     code: '§03',
@@ -498,7 +498,7 @@ export default function LeaderCheckLanding() {
                     </p>
                     <p className="mt-3 text-[13px] leading-[1.5] text-black/65">
                       Du hast bereits ein starkes KI- und EQ-Profil. Was fehlt
-                      ist die klare Argumentations-Struktur in Townhalls und
+                      ist die klare Argumentations-Struktur in Firmenreden und
                       schwierigen 1:1s. Wlads 3-Säulen-Framework (Logos · Ethos
                       · Pathos) schließt das in ~3 Wochen.
                     </p>
@@ -577,7 +577,7 @@ export default function LeaderCheckLanding() {
                 </span>
               </a>
               <p className="text-[11px] text-black/45 italic max-w-md text-center">
-                Wenn du dann später Leader-OS ausprobieren willst ·
+                Wenn du dann später LeaderOS ausprobieren willst ·
                 nimm dort die gleiche E-Mail. Dann erkennen wir dich
                 und können vom ersten Tag persönlich werden.
               </p>

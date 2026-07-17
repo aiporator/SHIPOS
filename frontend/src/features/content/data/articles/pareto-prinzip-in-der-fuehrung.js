@@ -41,7 +41,7 @@ export default {
     { type: 'heading', level: 2, text: 'Die 80/20-Audit-Frage.' },
     { type: 'framework', code: 'P·1', title: 'Eine Frage pro Quartal.', explanation: 'Quartalsweise: schreibe 10 wiederkehrende Aktivitäten auf (Meetings, Mailing-Sessions, 1:1s, Strategie-Reviews etc.). Markiere die zwei die 80% des Wertes liefern. Markiere die zwei die nur Theater sind. Kürze die zweite Gruppe. Verdoppele die erste Gruppe · aber NICHT bei Coaching-1:1s. Da bleibt jeder Mensch wichtig.' },
 
-    { type: 'callout', tone: 'dark', text: 'In Leader-OS läuft jeder durch eine Pareto-Auditierung in Woche zwei. Median-Ergebnis: 7 Stunden Theater pro Woche eliminiert, 3 Stunden mehr Coaching-Zeit für Mitarbeiter dazu. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte.' },
+    { type: 'callout', tone: 'dark', text: 'In LeaderOS läuft jeder durch eine Pareto-Auditierung in Woche zwei. Median-Ergebnis: 7 Stunden Theater pro Woche eliminiert, 3 Stunden mehr Coaching-Zeit für Mitarbeiter dazu. Werde Teil von LeaderOS · 14 Tage kostenlos, ohne Karte.' },
   ],
   related: [
     'der-tag-an-dem-ich-aufhoerte-zu-pushen',

@@ -150,7 +150,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
               <Crown size={15} className="text-brand" />
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-brand font-black">Leader-OS · Pricing</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-brand font-black">LeaderOS · Pricing</div>
               <h2 className="text-base md:text-lg font-black text-foreground" style={{ ...OUTFIT, letterSpacing: '-0.02em' }}>
                 Wähle deinen Pfad
               </h2>
@@ -191,7 +191,7 @@ export const PricingModal = ({ onClose, defaultTier = 'leadership_os' }) => {
             <div className="md:col-span-1 mb-2">
               <div className="text-center bg-brand/[0.06] border border-brand/20 rounded-2xl px-4 py-3" data-testid="pricing-upsell-banner">
                 <p className="text-[10px] uppercase tracking-[0.2em] font-black text-brand">Du hast Leadership OS</p>
-                <p className="text-[13px] font-bold mt-1" style={OUTFIT}>Bereit für 1:1 Coaching mit Wlad?</p>
+                <p className="text-[13px] font-bold mt-1" style={OUTFIT}>Bereit für 1:1 Coaching mit Wlads Team?</p>
                 <p className="text-[11px] text-muted-foreground mt-1">Upgrade auf OS PLUS · 12 Einzelcoachings inklusive</p>
               </div>
             </div>

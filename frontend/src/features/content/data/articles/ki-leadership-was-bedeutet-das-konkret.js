@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-28',
   cover: null,
-  tags: ['KI', 'Leader-OS', 'Definition'],
+  tags: ['KI', 'LeaderOS', 'Definition'],
   body: [
     { type: 'paragraph', text: 'KI Leadership ist 2026 eines der überstrapaziertesten Wörter im Management-Vokabular. Jeder zweite LinkedIn-Post nutzt es, fast niemand definiert es. Hier ist die klare Trennlinie.' },
     { type: 'heading', level: 2, text: 'Drei Definitions-Schichten.' },
@@ -19,7 +19,7 @@ export default {
       'KI-gestützte Führung: du nutzt KI als Sparring-Partner für konkrete Führungs-Entscheidungen (Skripte, Reflexion, Strukturierung). Mittlere Schicht.',
       'KI als strategischer Hebel: du baust dein Team-Operating-Model so um, dass KI nicht Tool sondern Mitarbeiter ist. Höchste Schicht.',
     ] },
-    { type: 'paragraph', text: 'Die meisten reden über Schicht 3, leben aber in Schicht 1. Das ist die Lücke die Leader-OS schließt.' },
+    { type: 'paragraph', text: 'Die meisten reden über Schicht 3, leben aber in Schicht 1. Das ist die Lücke die LeaderOS schließt.' },
     { type: 'heading', level: 2, text: 'Was KI Leadership nicht ist.' },
     { type: 'list', style: 'bullet', items: [
       'Es ist nicht "ich nutze ChatGPT für meine Emails".',

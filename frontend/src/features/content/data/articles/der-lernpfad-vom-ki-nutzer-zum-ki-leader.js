@@ -9,7 +9,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-12',
   cover: null,
-  tags: ['Leader-OS', 'Lernpfad', 'Karriere'],
+  tags: ['LeaderOS', 'Lernpfad', 'Karriere'],
   body: [
     { type: 'paragraph', text: 'Niemand wird in einer Woche KI-Leader. Aber jeder kann in zwölf Wochen eine Stufe aufsteigen. Hier ist das Stufen-Modell.' },
     { type: 'heading', level: 2, text: 'Stufe 01: KI-Nutzer.' },

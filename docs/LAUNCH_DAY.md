@@ -1,6 +1,6 @@
 # Launch Day — operational playbook
 
-The 90-minute go-live sequence for Leader-OS first cohort. Run top-to-bottom.
+The 90-minute go-live sequence for LeaderOS first cohort. Run top-to-bottom.
 Each phase has explicit verification steps; do **not** skip them.
 
 State at start (verify before beginning):
@@ -92,10 +92,10 @@ For each, use **exactly** these IDs (match what the backend expects):
 
 | Product ID | Name | Price | Type | Billing |
 |---|---|---|---|---|
-| `leadership_os` | Leader-OS — One-Time | €997 | One-time | — |
-| `leadership_os_2x` | Leader-OS — 2x €550 | €550 | Recurring | 1 month, 2 cycles |
-| `leadership_os_12x` | Leader-OS — 12x €99 | €99 | Recurring | 1 month, 12 cycles |
-| `leadership_os_plus` | Leader-OS Plus | €4,447 | One-time | — |
+| `leadership_os` | LeaderOS — One-Time | €997 | One-time | — |
+| `leadership_os_2x` | LeaderOS — 2x €550 | €550 | Recurring | 1 month, 2 cycles |
+| `leadership_os_12x` | LeaderOS — 12x €99 | €99 | Recurring | 1 month, 12 cycles |
+| `leadership_os_plus` | LeaderOS Plus | €4,447 | One-time | — |
 
 Settings → Products → New product. Make sure the **internal ID** field matches
 exactly (Stripe shows this as "Lookup key" or "Product ID" depending on UI version).
@@ -106,7 +106,7 @@ Currency: **EUR**. Tax: configure per your VAT setup.
 Stripe Dashboard → Developers → Webhooks → **Add endpoint**.
 
 - Endpoint URL: `https://leader-os.de/api/payments/webhook/stripe`
-- Description: `Leader-OS production webhook`
+- Description: `LeaderOS production webhook`
 - Events to listen for (these are what `backend/routes/payments.py` handles):
   - `checkout.session.completed`
   - `customer.subscription.created`

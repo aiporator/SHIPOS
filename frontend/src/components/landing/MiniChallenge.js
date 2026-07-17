@@ -51,7 +51,7 @@ const QUESTIONS = [
     ],
   },
   {
-    q: 'Wenn dich morgen jemand zum Townhall ruft: Gefühl?',
+    q: 'Wenn dich morgen jemand zu einer Firmenrede ruft: Gefühl?',
     options: [
       { label: 'Energie, ich liebe die Bühne.',                 w: { ki: 1, rhet: 5, eq: 4 } },
       { label: 'OK, ich bereite mich gründlich vor.',           w: { ki: 3, rhet: 4, eq: 3 } },
@@ -107,7 +107,7 @@ export const MiniChallenge = () => {
     if (creditsRedeemed) return;
     setCreditsRedeemed(true);
     trackPH('mini_challenge_credits_redeemed', { weakest: weakest?.key });
-    // Redeeming the 50 credits sends the visitor into Leader-OS to claim
+    // Redeeming the 50 credits sends the visitor into LeaderOS to claim
     // them on their account · short beat so the "EINGELÖST" state registers.
     setTimeout(() => {
       window.location.href = 'https://leaderos.de/login?bonus=welcome50';
@@ -298,7 +298,7 @@ export const MiniChallenge = () => {
                   disabled={creditsRedeemed}
                   className="mt-6 inline-flex items-center gap-2 px-6 py-3.5 bg-black text-brand text-[12px] font-bold uppercase tracking-[0.18em] hover:bg-black/85 disabled:opacity-60 transition-colors"
                 >
-                  {creditsRedeemed ? '✓ EINGELÖST · WEITER ZU LEADER-OS…' : '▸ 50 CREDITS EINLÖSEN'}
+                  {creditsRedeemed ? '✓ EINGELÖST · WEITER ZU LEADEROS…' : '▸ 50 CREDITS EINLÖSEN'}
                 </button>
               </motion.div>
 

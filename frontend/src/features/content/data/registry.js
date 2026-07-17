@@ -79,6 +79,31 @@ import die5RollenEinerKiNativenFuehrungskraft from './articles/die-5-rollen-eine
 import in6MonatenZurKiNativenFuehrungskraft from './articles/in-6-monaten-zur-ki-nativen-fuehrungskraft';
 import schlagfertigkeitImKiZeitalter from './articles/schlagfertigkeit-im-ki-zeitalter';
 
+// ── 2026-07 · Training / Team-Training / Coaching cluster (DACH) ──
+// 20 SEO pillars competing on the "Führungskräftetraining" / "Teamtraining" /
+// "Leadership Coaching" head-terms owned by Haufe-Akademie & Co. Each links
+// back to fuehrungskraeftetraining-formate-im-vergleich as the anchor pillar.
+import fuehrungskraeftetrainingKostenWasEinGutesTrainingWirklichKostet from './articles/fuehrungskraeftetraining-kosten-was-ein-gutes-training-wirklich-kostet';
+import teamtrainingVsEinzelcoachingWasWirktWann from './articles/teamtraining-vs-einzelcoaching-was-wirkt-wann';
+import inhouseSchulungVsOffenesSeminarEntscheidungshilfe from './articles/inhouse-schulung-vs-offenes-seminar-entscheidungshilfe';
+import leadershipCoachingProgrammInternAufsetzenHrGuide from './articles/leadership-coaching-programm-intern-aufsetzen-hr-guide';
+import dieBestenFuehrungskraeftetrainings2026WoraufEsAnkommt from './articles/die-besten-fuehrungskraeftetrainings-2026-worauf-es-ankommt';
+import teambuildingVsTeamtrainingDerUnterschied from './articles/teambuilding-vs-teamtraining-der-unterschied';
+import roiVonFuehrungskraeftetrainingMessen from './articles/roi-von-fuehrungskraeftetraining-messen';
+import warumInhouseTrainingsNachSechsWochenVerpuffen from './articles/warum-inhouse-trainings-nach-sechs-wochen-verpuffen';
+import blendedLearningFuerFuehrungskraefte from './articles/blended-learning-fuer-fuehrungskraefte';
+import leadershipCoachingFuerFrauenInFuehrungspositionen from './articles/leadership-coaching-fuer-frauen-in-fuehrungspositionen';
+import groupCoachingVsEinzelcoachingFuerFuehrungskraefte from './articles/group-coaching-vs-einzelcoaching-fuer-fuehrungskraefte';
+import fuehrungskraefteCurriculumFuerDenMittelstandAufbauen from './articles/fuehrungskraefte-curriculum-fuer-den-mittelstand-aufbauen';
+import peerCoachingInFuehrungsteams from './articles/peer-coaching-in-fuehrungsteams';
+import ebbinghausVergessenskurveImFuehrungskraeftetraining from './articles/ebbinghaus-vergessenskurve-im-fuehrungskraeftetraining';
+import microLearningVsKlassischesSeminarFuerFuehrungskraefte from './articles/micro-learning-vs-klassisches-seminar-fuer-fuehrungskraefte';
+import fuehrungskraeftetrainingMitKiSkalierenTrainTheTrainer from './articles/fuehrungskraeftetraining-mit-ki-skalieren-train-the-trainer';
+import teamentwicklungNachTuckmanFuerFuehrungskraefte from './articles/teamentwicklung-nach-tuckman-fuer-fuehrungskraefte';
+import coachingZertifizierungFuerFuehrungskraefteIcfDbvcErklaert from './articles/coaching-zertifizierung-fuer-fuehrungskraefte-icf-dbvc-erklaert';
+import newWorkFuehrungstrainingWasSichSeitHomeofficeGeaendertHat from './articles/new-work-fuehrungstraining-was-sich-seit-homeoffice-geaendert-hat';
+import wieVieleTrainingstageBrauchtEineFuehrungskraftProJahr from './articles/wie-viele-trainingstage-braucht-eine-fuehrungskraft-pro-jahr';
+
 // ── 2026-08/09 expansion batch (20 new SEO articles) ──
 import ChatgptAlsCoPilot7PromptsFuerFuehrungskraefte from './articles/chatgpt-als-co-pilot-7-prompts-fuer-fuehrungskraefte';
 import ClaudeVsChatgptVsGeminiWelcheKiFuerWelchenJob from './articles/claude-vs-chatgpt-vs-gemini-welche-ki-fuer-welchen-job';
@@ -136,8 +161,78 @@ import elevatorPitchFuerFuehrungskraefte from './articles/elevator-pitch-fuer-fu
 import mitarbeiterMotivation40 from './articles/mitarbeiter-motivation-4-0-was-wirklich-zieht';
 import dieErstenSiebenSekunden from './articles/die-ersten-sieben-sekunden-wie-fuehrung-wirkt-bevor-du-sprichst';
 import koerperspracheUndStimme from './articles/koerpersprache-und-stimme-die-unterschaetzten-fuehrungswerkzeuge';
+// 2026-07-11 → 2026-07-20 · viral leadership/AI/communication expansion (20
+// articles) · AI-leadership crossover, communication-framework deep-dives,
+// narrative/personal-essay pieces.
+import shadowKiWarumDeinTeamHeimlichChatgptNutzt from './articles/shadow-ki-warum-dein-team-heimlich-chatgpt-nutzt';
+import die10StufenDesZuhoerensWladsModellErklaert from './articles/die-10-stufen-des-zuhoerens-wlads-modell-erklaert';
+import die4GespraechstypenInformierenUeberzeugenVerhandelnKonfrontieren from './articles/die-4-gespraechstypen-informieren-ueberzeugen-verhandeln-konfrontieren';
+import fuehrungsEinsamkeitWarumNiemandDarueberSpricht from './articles/fuehrungs-einsamkeit-warum-niemand-darueber-spricht';
+import dieDreiSaetzeDieGuteVonSchlechtenChefsUnterscheiden from './articles/die-drei-saetze-die-gute-von-schlechten-chefs-unterscheiden';
+import warumKiDichZuEinemSchlechterenZuhoererMacht from './articles/warum-ki-dich-zu-einem-schlechteren-zuhoerer-macht';
+import micromanagementErkennenBeiDirSelbst from './articles/micromanagement-erkennen-bei-dir-selbst';
+import wieDuEinTeamUebernimmstDasDichNichtWollte from './articles/wie-du-ein-team-uebernimmst-das-dich-nicht-wollte';
+import stilleKuendigungErkennenBevorSiePassiert from './articles/stille-kuendigung-erkennen-bevor-sie-passiert';
+import einsZuEinsImKiZeitalterWasBotsNichtKoennen from './articles/1-zu-1s-im-ki-zeitalter-was-bots-nicht-koennen';
+import kiGenerierteMitarbeiterbewertungenDieFallstricke from './articles/ki-generierte-mitarbeiterbewertungen-die-fallstricke';
+import warumOpenDoorPolicyNichtFunktioniert from './articles/warum-open-door-policy-nicht-funktioniert';
+import kiBiasInBefoerderungsentscheidungen from './articles/ki-bias-in-befoerderungsentscheidungen';
+import dieErsteFuehrungsentscheidungDieIchBereutHabe from './articles/die-erste-fuehrungsentscheidung-die-ich-bereut-habe';
+import warumEhrlicheKiDirMehrHilftAlsEinHoeflicherChef from './articles/warum-ehrliche-ki-dir-mehr-hilft-als-ein-hoeflicher-chef';
+import eMailsDieAutoritaetZeigenDreiRegeln from './articles/e-mails-die-autoritaet-zeigen-drei-regeln';
+import schwierigeNachrichtenAsyncUeberbringenSlackTeams from './articles/schwierige-nachrichten-async-ueberbringen-slack-teams';
+import warumDieBestenChefsDieSchlechtestenMentorenSind from './articles/warum-die-besten-chefs-die-schlechtesten-mentoren-sind';
+import derKiKompetenzGapZwischenJuniorUndSeniorFuehrungskraeften from './articles/der-ki-kompetenz-gap-zwischen-junior-und-senior-fuehrungskraeften';
+import wieDuNeinSagstOhneUnbeliebtZuWerden from './articles/wie-du-nein-sagst-ohne-unbeliebt-zu-werden';
+import die5ArgumentationsLevelsVonBehauptungBisSexier from './articles/die-5-argumentations-levels-von-behauptung-bis-sexier';
 
 const ARTICLES = [
+  // 2026-07-21 · canon-gap framework pillar (5 Argumentations-Levels — the
+  // architecture SEXIER lives in as Level 4; source: WLAD_CANON.md)
+  die5ArgumentationsLevelsVonBehauptungBisSexier,
+  // 2026-07-11 → 2026-07-20 · viral leadership/AI/communication expansion
+  shadowKiWarumDeinTeamHeimlichChatgptNutzt,
+  die10StufenDesZuhoerensWladsModellErklaert,
+  die4GespraechstypenInformierenUeberzeugenVerhandelnKonfrontieren,
+  fuehrungsEinsamkeitWarumNiemandDarueberSpricht,
+  dieDreiSaetzeDieGuteVonSchlechtenChefsUnterscheiden,
+  warumKiDichZuEinemSchlechterenZuhoererMacht,
+  micromanagementErkennenBeiDirSelbst,
+  wieDuEinTeamUebernimmstDasDichNichtWollte,
+  stilleKuendigungErkennenBevorSiePassiert,
+  einsZuEinsImKiZeitalterWasBotsNichtKoennen,
+  kiGenerierteMitarbeiterbewertungenDieFallstricke,
+  warumOpenDoorPolicyNichtFunktioniert,
+  kiBiasInBefoerderungsentscheidungen,
+  dieErsteFuehrungsentscheidungDieIchBereutHabe,
+  warumEhrlicheKiDirMehrHilftAlsEinHoeflicherChef,
+  eMailsDieAutoritaetZeigenDreiRegeln,
+  schwierigeNachrichtenAsyncUeberbringenSlackTeams,
+  warumDieBestenChefsDieSchlechtestenMentorenSind,
+  derKiKompetenzGapZwischenJuniorUndSeniorFuehrungskraeften,
+  wieDuNeinSagstOhneUnbeliebtZuWerden,
+  // 2026-07 · Training / Team-Training / Coaching cluster (DACH · 20 pillars)
+  fuehrungskraeftetrainingKostenWasEinGutesTrainingWirklichKostet,
+  teamtrainingVsEinzelcoachingWasWirktWann,
+  inhouseSchulungVsOffenesSeminarEntscheidungshilfe,
+  leadershipCoachingProgrammInternAufsetzenHrGuide,
+  dieBestenFuehrungskraeftetrainings2026WoraufEsAnkommt,
+  teambuildingVsTeamtrainingDerUnterschied,
+  roiVonFuehrungskraeftetrainingMessen,
+  warumInhouseTrainingsNachSechsWochenVerpuffen,
+  blendedLearningFuerFuehrungskraefte,
+  leadershipCoachingFuerFrauenInFuehrungspositionen,
+  groupCoachingVsEinzelcoachingFuerFuehrungskraefte,
+  fuehrungskraefteCurriculumFuerDenMittelstandAufbauen,
+  peerCoachingInFuehrungsteams,
+  ebbinghausVergessenskurveImFuehrungskraeftetraining,
+  microLearningVsKlassischesSeminarFuerFuehrungskraefte,
+  fuehrungskraeftetrainingMitKiSkalierenTrainTheTrainer,
+  teamentwicklungNachTuckmanFuerFuehrungskraefte,
+  coachingZertifizierungFuerFuehrungskraefteIcfDbvcErklaert,
+  newWorkFuehrungstrainingWasSichSeitHomeofficeGeaendertHat,
+  wieVieleTrainingstageBrauchtEineFuehrungskraftProJahr,
+
   // 2026-07-02 Reels-Serie · Wlads Kurzformat-Themen als Longform (Charisma,
   // Pitch, Motivation, Wirkung) — Quelle: wladTopics + @wlad.jachtchenko
   charismaCodeDreiSignale,
@@ -222,7 +317,7 @@ const ARTICLES = [
   derKiSprintWasDreissigTageStrukturierteAnwendungVeraendern,
   dasVersprechenUndDieGrenzen,
 
-  // Plattform-Hub: Why / What / Use-Cases for Leader-OS
+  // Plattform-Hub: Why / What / Use-Cases for LeaderOS
   warumLeaderOs,
   wasInLeaderOsDrinIst,
   deinErsterTagMitLeaderOs,

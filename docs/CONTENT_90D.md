@@ -1,4 +1,4 @@
-# 90-Tage Content-Kalender · Leader-OS
+# 90-Tage Content-Kalender · LeaderOS
 
 Vier Plattformen pro Tag: **LinkedIn · Instagram · Facebook · X**.
 Sprache: Du-Form, Deutsch. Stimme: Wlad Jachtchenko (RAG-Stimme).
@@ -944,7 +944,7 @@ Beobachte dich heute.
 ### D48 · Sa · Buch-Drop (Wlad SPIEGEL)
 🟦 LI (kurz): Wlads „Dunkle Rhetorik" war Wochen auf SPIEGEL-Liste. 80.000 Verkäufe. Wenn du die Techniken vertiefen willst — das Buch ist der Klassiker. Wer's lieber kompakt mag: WladBot kennt jeden Chunk.
 🟪 IG Story: Buch-Drop
-🟦FB: Wlad hat über 12 Bücher geschrieben. Drei davon SPIEGEL. Wer das Original will: hier.
+🟦FB: Wlad hat 13 Bücher geschrieben. Drei davon SPIEGEL. Wer das Original will: hier.
 ⬛ X: Buch oder Bot. Beides Wlad.
 **CTA**: Sprint 0001
 
@@ -1227,10 +1227,10 @@ Beobachte dich heute.
 ## WOCHE 13 · TRUST + SPRINT-RECAP
 
 ### D85 · Mo · Wer ist Wlad
-🟦 LI: 400.000 Kunden weltweit. 3× SPIEGEL-Bestseller. 14M Views auf Podcast + YouTube. Staatlich zertifizierte Argumentorik-Ausbildung. Über 12 Bücher. Genau diese Methodik hat er in WladBot gegossen — nicht als generisches LLM, sondern als RAG auf 2.212 authentischen Wlad-Chunks.
+🟦 LI: 400.000 Kunden weltweit. 3× SPIEGEL-Bestseller. 14M Views auf Podcast + YouTube. Staatlich zertifizierte Argumentorik-Ausbildung. 13 Bücher. Genau diese Methodik hat er in WladBot gegossen — nicht als generisches LLM, sondern als RAG auf 2.212 authentischen Wlad-Chunks.
 🟪 IG: Slides Wer-Wlad · 5) → leader-check.de
 🟦FB: Wlad live nur 30 Mal pro Jahr buchbar. WladBot 24/7. Mathematik.
-⬛ X: 400K · 14M · 3×SPIEGEL · 12 Bücher · 1 Bot.
+⬛ X: 400K · 14M · 3×SPIEGEL · 13 Bücher · 1 Bot.
 **CTA**: leader-check.de
 
 ### D86 · Di · Was Teilnehmer berichten

@@ -36,7 +36,7 @@ DIESE zuerst geladen. Falls fehlen, fallback zu hf-XX.png Mockup.
   p-06-bib-0001.jpg
     §06 ZERTIFIKAT (Zertifikat 0001. LinkedIn-ready.)
     Inhalt: 0001 Marathon-Startnummer
-             "LEADER-OS KOHORTE 01 · FÜHRUNG IST EIN HANDWERK"
+             "LEADEROS KOHORTE 01 · FÜHRUNG IST EIN HANDWERK"
     Aspect: 4:5 hochkant
     Format: JPG, ≤ 600 KB
 

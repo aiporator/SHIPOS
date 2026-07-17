@@ -46,10 +46,12 @@ export const PlusCircleCTA = ({
   testId,
   external = true,
   halo = true,
+  onClick,
 }) => {
   const sharedProps = {
     className: `${baseClasses} ${className}`,
     'data-testid': testId,
+    onClick,
   };
 
   const inner = (

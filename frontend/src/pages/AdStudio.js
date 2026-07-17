@@ -21,7 +21,7 @@ export default function AdStudio() {
   const [nativeId, setNativeId] = useState(null);
 
   useEffect(() => {
-    document.title = 'Ad-Studio · Leader-OS Paid Creatives';
+    document.title = 'Ad-Studio · LeaderOS Paid Creatives';
   }, []);
 
   const ads = AD_SERIES.filter((a) => {

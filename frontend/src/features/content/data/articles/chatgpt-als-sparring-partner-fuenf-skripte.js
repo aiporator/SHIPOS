@@ -59,7 +59,7 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: '02. SEXIER-Strukturierung für Vortrag oder Townhall.',
+      text: '02. SEXIER-Strukturierung für Vortrag oder Firmenrede.',
     },
     {
       type: 'paragraph',
@@ -70,7 +70,7 @@ export default {
       type: 'callout',
       tone: 'neutral',
       text:
-        '"Hier sind die Kern-Bullets meines nächsten Townhalls: [Liste]. Strukturiere sie nach der SEXIER-Methode: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, Einwand-Vorwegnahme, Resumée. Schlage für jeden Schritt einen Satz vor. Markiere wo ich ein konkretes X-Beispiel mit einer Zahl ergänzen muss."',
+        '"Hier sind die Kern-Bullets meiner nächsten Firmenrede: [Liste]. Strukturiere sie nach der SEXIER-Methode: Situation, Erklärung, X-Beispiel, Ihr-Vorteil, Einwand-Vorwegnahme, Resumée. Schlage für jeden Schritt einen Satz vor. Markiere wo ich ein konkretes X-Beispiel mit einer Zahl ergänzen muss."',
     },
     {
       type: 'paragraph',
@@ -143,7 +143,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Das ersetzt kein Coaching, kein Tagebuch und keinen 1:1 mit Wlad. Es kostet drei Minuten und liefert ' +
+        'Das ersetzt kein Coaching, kein Tagebuch und kein 1:1 mit Wlads Team. Es kostet drei Minuten und liefert ' +
         'dir eine Frage, die du sonst übersehen hättest. Das reicht für Freitag.',
     },
     {
@@ -163,9 +163,9 @@ export default {
     },
   ],
   seo: {
-    title: 'ChatGPT Prompts für Führungskräfte: 5 Skripte · Leader-OS',
+    title: 'ChatGPT Prompts für Führungskräfte: 5 Skripte · LeaderOS',
     description:
-      'Fünf ChatGPT-Prompts für Führungskräfte zum Kopieren: B-W-W Feedback, SEXIER für Townhalls, ' +
+      'Fünf ChatGPT-Prompts für Führungskräfte zum Kopieren: B-W-W Feedback, SEXIER für Firmenreden, ' +
       'Einwand-Vorwegnahme, EQ-Diagnose fürs 1:1, Freitag-Reflexion. Von Wlad Jachtchenko.',
     keywords: [
       'ChatGPT Prompts Führungskräfte',

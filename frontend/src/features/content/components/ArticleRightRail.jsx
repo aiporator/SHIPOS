@@ -5,8 +5,8 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../..
 
 /**
  * WebinarCard · sticky "join the free live webinar" card for the article
- * rail (leads from blog traffic → the 20.08 Leader-OS live event). Editorial
- * DNA, not the generic blue webinar look. Links to /event.
+ * rail (leads from blog traffic → the 20.08 webinar squeeze page). Editorial
+ * DNA, not the generic blue webinar look. Links to /webinar.
  */
 const WebinarCard = () => {
   const onClick = () => {
@@ -16,7 +16,7 @@ const WebinarCard = () => {
   };
   return (
     <a
-      href="https://leader-os.de/event"
+      href="https://leader-os.de/webinar"
       onClick={onClick}
       data-testid="article-webinar-card"
       className="block border-2 border-foreground bg-background overflow-hidden group"
@@ -33,7 +33,7 @@ const WebinarCard = () => {
           </div>
           <div className="flex gap-3">
             <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Format</dt>
-            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Live · Q&A · Aufzeichnung</dd>
+            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Live · 90 Min · Q&A</dd>
           </div>
         </dl>
         <div className="flex items-center gap-2.5 pb-3 mb-3 border-b border-foreground/15">
@@ -54,9 +54,9 @@ const WebinarCard = () => {
           className="text-[19px] leading-[1.02] tracking-[-0.025em] text-foreground mb-4"
           style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
-          Führen wie die Top 1 %<span className="text-brand not-italic">.</span>
+          Führe besser. Jeden Tag<span className="text-brand not-italic">.</span>
         </h4>
-        <span className="flex items-center justify-center gap-1.5 bg-brand group-hover:bg-foreground group-hover:text-background text-foreground font-bold text-[11px] uppercase tracking-[0.14em] h-10 transition-colors">
+        <span className="flex items-center justify-center gap-1.5 bg-brand group-hover:bg-foreground group-hover:text-background text-[#0A0A0A] font-bold text-[11px] uppercase tracking-[0.14em] h-10 transition-colors">
           Platz sichern · kostenlos <ArrowRight size={13} />
         </span>
       </div>
@@ -181,7 +181,7 @@ const Quiz = ({ articleSlug }) => {
           href={cta.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 bg-brand hover:bg-foreground hover:text-background text-foreground font-bold text-[11px] uppercase tracking-[0.14em] px-3 h-10 transition-colors w-full justify-center"
+          className="inline-flex items-center gap-1.5 bg-brand hover:bg-foreground hover:text-background text-[#0A0A0A] font-bold text-[11px] uppercase tracking-[0.14em] px-3 h-10 transition-colors w-full justify-center"
         >
           {cta.label} <ArrowRight size={13} />
         </a>
@@ -317,7 +317,7 @@ const NewsletterMini = ({ articleSlug }) => {
       <button
         type="submit"
         disabled={state === 'sending'}
-        className="w-full h-10 bg-foreground hover:bg-brand hover:text-foreground text-background font-bold text-[11px] uppercase tracking-[0.14em] transition-colors disabled:opacity-60"
+        className="w-full h-10 bg-foreground hover:bg-brand hover:text-[#0A0A0A] text-background font-bold text-[11px] uppercase tracking-[0.14em] transition-colors disabled:opacity-60"
       >
         {state === 'sending' ? 'wird abgeschickt…' : 'Abonnieren'}
       </button>
@@ -336,7 +336,7 @@ const PROBLEM_SUGGESTIONS = [
   'Schwieriges Feedback-Gespräch',
   'Mein Team ist überlastet',
   'Konflikt im Team',
-  'Townhall vorbereiten',
+  'Firmenrede vorbereiten',
 ];
 
 const WladBotMini = ({ articleSlug, articleTitle }) => {
@@ -404,7 +404,7 @@ const WladBotMini = ({ articleSlug, articleTitle }) => {
             key={s}
             type="button"
             onClick={() => setProblem(s)}
-            className="px-2 py-1 border border-background/25 hover:border-brand hover:text-brand text-background/70 text-[10.5px] leading-none transition-colors"
+            className="px-2 py-1 border border-background/40 hover:border-brand hover:text-brand text-background/90 text-[10.5px] leading-none transition-colors"
           >
             {s}
           </button>
@@ -414,12 +414,12 @@ const WladBotMini = ({ articleSlug, articleTitle }) => {
       <button
         type="button"
         onClick={() => go(problem)}
-        className="w-full inline-flex items-center justify-center gap-1.5 bg-brand hover:bg-white text-foreground font-bold text-[11.5px] uppercase tracking-[0.14em] h-10 transition-colors"
+        className="w-full inline-flex items-center justify-center gap-1.5 bg-brand hover:bg-white text-[#0A0A0A] font-bold text-[11.5px] uppercase tracking-[0.14em] h-10 transition-colors"
         data-testid="wladbot-funnel-cta"
       >
         {problem.trim() ? 'Lösung holen' : 'WladBot fragen'} <ArrowRight size={13} />
       </button>
-      <p className="mt-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-background/45 text-center">
+      <p className="mt-2.5 font-mono text-[9px] uppercase tracking-[0.18em] text-background/70 text-center">
         ▸ Antwort in 30 Sek · kostenlos starten
       </p>
     </div>

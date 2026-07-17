@@ -48,7 +48,7 @@ const SpecimenFrame = ({ children, code, nr, isDark, total = 5 }) => (
           : 'bg-background/85 backdrop-blur-sm border-t border-foreground/10 text-foreground/55'
       } text-[9px] font-bold uppercase tracking-[0.22em] font-mono`}
     >
-      <span>LEADER-OS</span>
+      <span>LEADEROS</span>
       <span>{`No. ${nr}/0${total}`}</span>
     </div>
   </div>
@@ -59,7 +59,7 @@ const PhotoBody = ({ photo, photoFallback, isDark, photoFit, alt }) => (
     {photo ? (
       <img
         src={photo}
-        alt={alt || 'Wlad Jachtchenko · Leader-OS · KI-Coach für Führungskräfte'}
+        alt={alt || 'Wlad Jachtchenko · LeaderOS · KI-Coach für Führungskräfte'}
         className={`absolute inset-0 w-full h-full ${
           photoFit === 'portrait' ? 'object-cover object-[50%_25%]' : 'object-cover'
         } ${isDark ? 'opacity-80' : 'opacity-95'}`}
@@ -121,7 +121,7 @@ const BibBody = ({ isDark }) => (
           isDark ? 'text-white/75' : 'text-foreground/75'
         }`}
       >
-        LEADER-OS &nbsp;·&nbsp; INDIVIDUELL
+        LEADEROS &nbsp;·&nbsp; INDIVIDUELL
       </span>
 
       <span
@@ -156,7 +156,7 @@ const TrustBody = ({ photo, isDark, trustNumbers = [] }) => {
       {photo && (
         <img
           src={photo}
-          alt="Wlad Jachtchenko · 400 000 Klienten, 14 Millionen Views · Autorität-Beweis für Leader-OS"
+          alt="Wlad Jachtchenko · 400 000 Klienten, 14 Millionen Views · Autorität-Beweis für LeaderOS"
           className="absolute right-0 bottom-10 h-[55%] w-[55%] object-cover object-right opacity-70"
           loading="lazy"
           decoding="async"

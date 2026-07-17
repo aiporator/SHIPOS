@@ -6,7 +6,7 @@ import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
 import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
-// Leader-Check → Leader-OS handoff · runs SYNCHRONOUSLY before anything else.
+// Leader-Check → LeaderOS handoff · runs SYNCHRONOUSLY before anything else.
 // If a `sync_token` arrives on any path other than the dedicated receiver,
 // funnel it to /auth/sync (preserving the token + intended destination) so the
 // exchange happens before LandingPage's redirect logic can strip the query.

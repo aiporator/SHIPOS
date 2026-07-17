@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 /**
- * CoachingWaitlist · limitierte Warteliste für 1:1-Coaching mit Wlad.
+ * CoachingWaitlist · limitierte Warteliste für 1:1-Coaching mit Wlads Team.
  *
  * Scarcity-Anker. Kein direktes Kauf-Produkt · bewusst gating. Wer
  * 1:1-Mentoring will, geht durch eine kuratierte Liste. Position:

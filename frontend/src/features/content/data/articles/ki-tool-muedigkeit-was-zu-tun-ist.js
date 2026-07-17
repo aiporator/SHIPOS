@@ -33,7 +33,7 @@ export default {
     { type: 'paragraph', text: 'Im Sprint diagnostizieren wir mit dir welche drei Tools FÜR DICH der robuste Stack sind. Plus die methodische Anwendungs-Routine die aus drei Tools täglichen Output macht.' },
   ],
   seo: {
-    title: 'KI-Tool-Müdigkeit: was zu tun ist · Leader-OS',
+    title: 'KI-Tool-Müdigkeit: was zu tun ist · LeaderOS',
     description: 'KI-Tool-Müdigkeit aufräumen in vier Schritten: alle Tools listen, tägliche markieren, andere streichen, maximal drei behalten · so endet der Abo-Frust. Von Wlad Jachtchenko.',
     keywords: ['KI Tool Müdigkeit', 'ChatGPT Tool Stack', 'AI Tools aufräumen', 'KI Abo kündigen', 'Tool Hygiene Manager'],
   },

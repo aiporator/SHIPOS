@@ -11,7 +11,7 @@ export default {
   cover: null,
   tags: ['Rhetorik', 'Storytelling', 'Pixar', 'Skripte'],
   seo: {
-    title: 'Storytelling für Führungskräfte: Pixar-Formel · Leader-OS',
+    title: 'Storytelling für Führungskräfte: Pixar-Formel · LeaderOS',
     description:
       'Storytelling für Führungskräfte mit Pixars 6-Satz-Formel: wie du aus Slides ' +
       'Geschichten machst, die im Boardroom ankommen — in 90 Sekunden. Von Wlad Jachtchenko.',
@@ -38,12 +38,12 @@ export default {
     { type: 'paragraph', text: '6) "Bis schließlich…" · die Auflösung. Wie die neue Welt aussieht.' },
 
     { type: 'heading', level: 2, text: 'Beispiel · ein Strategie-Pitch.' },
-    { type: 'paragraph', text: '"Es war einmal ein Mittelstand der Software-Tools wie Werkzeug nutzte · Excel, Slack, Trello. Jeden Tag verlor er ein bisschen Effizienz an die Konkurrenz die schon KI nutzte. Bis eines Tages ChatGPT 5 auf den Markt kam und auch der konservativste Kunde plötzlich verstand: das wird Standard. Deshalb begannen alle gleichzeitig zu kaufen, ohne System, ohne Methodik. Deshalb wuchs die Frustration: 200K investiert, kein messbarer ROI. Bis schließlich Leader-OS die Methodik mitliefert die das KI-Investment in echtes Output verwandelt."' },
+    { type: 'paragraph', text: '"Es war einmal ein Mittelstand der Software-Tools wie Werkzeug nutzte · Excel, Slack, Trello. Jeden Tag verlor er ein bisschen Effizienz an die Konkurrenz die schon KI nutzte. Bis eines Tages ChatGPT 5 auf den Markt kam und auch der konservativste Kunde plötzlich verstand: das wird Standard. Deshalb begannen alle gleichzeitig zu kaufen, ohne System, ohne Methodik. Deshalb wuchs die Frustration: 200K investiert, kein messbarer ROI. Bis schließlich LeaderOS die Methodik mitliefert die das KI-Investment in echtes Output verwandelt."' },
     { type: 'paragraph', text: '90 Sekunden. Hat eine Spannungsbogen. Endet mit deiner Lösung. Jede C-Level-Person bleibt dran.' },
 
     { type: 'framework', code: 'P·6', title: 'Pixar-Formel als Drehbuch-Block.', explanation: 'Vor jeder wichtigen Präsentation: schreib die sechs Sätze auf einen Index-Karton. ZUERST die Sätze ausdrücken, DANN die Slides bauen. Niemals umgekehrt. Slides sind Begleitung, nicht Skript. Wer mit Slides anfängt, landet in Bullet-Point-Hölle. Wer mit der Pixar-Formel anfängt, hat eine Geschichte die ankommt.' },
 
-    { type: 'callout', tone: 'dark', text: 'WladBot in Leader-OS kann jede deiner Präsentationen durch die Pixar-Formel testen. Paste deinen Pitch, kriegst zurück: hier ist deine Disruption, hier deine Auflösung, das ist die Lücke. In 30 Sekunden ein Story-Audit das sonst 60 Min Coaching dauert. Buch ein unverbindliches Beratungsgespräch.' },
+    { type: 'callout', tone: 'dark', text: 'WladBot in LeaderOS kann jede deiner Präsentationen durch die Pixar-Formel testen. Paste deinen Pitch, kriegst zurück: hier ist deine Disruption, hier deine Auflösung, das ist die Lücke. In 30 Sekunden ein Story-Audit das sonst 60 Min Coaching dauert. Buch ein unverbindliches Beratungsgespräch.' },
   ],
   related: [
     'townhall-speeches-die-7-minuten-regel',

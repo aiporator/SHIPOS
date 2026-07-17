@@ -10,7 +10,7 @@ export default {
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-05',
   cover: null,
-  tags: ['Karriere', 'Engineering', 'Leader-OS'],
+  tags: ['Karriere', 'Engineering', 'LeaderOS'],
   body: [
     { type: 'paragraph', text: 'Wer zum ersten Mal CTO oder VP Engineering wird, fällt typischerweise in eine von zwei Fallen: entweder bleibst du Architekt mit Führungs-Aufgaben oder du wirst Manager der seine technische Substanz verliert. Die ersten 100 Tage entscheiden welche.' },
     { type: 'heading', level: 2, text: 'Woche 1-2: Daten sammeln, nicht entscheiden.' },

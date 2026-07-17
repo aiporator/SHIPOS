@@ -26,7 +26,7 @@ export default {
     { type: 'list', style: 'numbered', items: [
       'Du bist nach einer KI-Session emotional dünner als vorher. Dein Körper sagt dir dass die Konversation kein KI-Slot war.',
       'Du brauchst nach der KI-Vorbereitung mehr Bearbeitung als Selbst-Schreiben gedauert hätte. Das ist Effizienz-Verlust.',
-      'Du fühlst dich generischer im Output. Dein Team merkt es als "der Townhall klang heute anders".',
+      'Du fühlst dich generischer im Output. Dein Team merkt es als "die Firmenrede klang heute anders".',
     ] },
     { type: 'callout', tone: 'lime', text: 'Bewusste Nicht-Nutzung ist genauso wichtig wie bewusste Nutzung. Wer alles in KI verlagert, verliert seine eigene Stimme.' },
     { type: 'paragraph', text: 'Im Sprint trainierst du explizit diese Trennlinie. WladBot wird dich aktiv warnen wenn du gerade einen Anti-Slot in ein Drill schiebst · und dir vorschlagen statt KI eine menschliche Konversation zu führen.' },

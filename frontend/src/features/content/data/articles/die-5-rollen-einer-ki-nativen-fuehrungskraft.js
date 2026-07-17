@@ -32,10 +32,10 @@ export default {
     { type: 'heading', level: 2, text: 'Was passiert wenn du ALLE fünf mit KI verstärkst.' },
     { type: 'paragraph', text: 'Die Zahlen aus den letzten 30 Klienten die alle fünf Rollen mit KI durchziehen, 30 Tage Sprint: median 7-12 Stunden zurückgewonnene Zeit pro Woche, halbierte Entscheidungs-Zyklen, deutlich klarere Kommunikation laut Team-Feedback. Eine Rolle alleine bringt 1-2 Stunden. Alle fünf bringen einen kompletten Arbeitstag pro Woche.' },
     { type: 'paragraph', text: 'Das ist nicht "KI nutzen". Das ist KI-nativ führen.' },
-    { type: 'callout', tone: 'lime', text: 'Genau diese fünf Rollen-Routinen sind in Leader-OS verbaut · als tägliche Mikro-Drills am echten Fall, nicht als Theorie. Plus elf drillbare Frameworks und WladBot 24/7. Werde Teil von Leader-OS · 14 Tage kostenlos, ohne Karte. Hier reinschauen: leader-os.de/#klassen' },
+    { type: 'callout', tone: 'lime', text: 'Genau diese fünf Rollen-Routinen sind in LeaderOS verbaut · als tägliche Mikro-Drills am echten Fall, nicht als Theorie. Plus elf drillbare Frameworks und WladBot 24/7. Werde Teil von LeaderOS · 14 Tage kostenlos, ohne Karte. Hier reinschauen: leader-os.de/#klassen' },
   ],
   seo: {
-    title: 'Die 5 Rollen einer KI-nativen Führungskraft · Leader-OS',
+    title: 'Die 5 Rollen einer KI-nativen Führungskraft · LeaderOS',
     description: 'Die 5 Rollen einer KI-nativen Führungskraft: Vorausschauer, Entscheider, Kommunikator, Verstärker, Verteidiger — jede mit einer konkreten KI-Routine. Von Wlad Jachtchenko.',
   },
   related: [

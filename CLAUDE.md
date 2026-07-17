@@ -1,7 +1,7 @@
-# Leader-OS — Claude Code briefing
+# LeaderOS — Claude Code briefing
 
 This repo (`aiporator/shipos`, branch **`mvpcode`**) is the single source of
-truth for the Leader-OS product. Everything lives here:
+truth for the LeaderOS product. Everything lives here:
 
 ```
 shipos/

@@ -1,4 +1,4 @@
-# Leader-OS — System One-Pager
+# LeaderOS — System One-Pager
 
 **Status:** ACTIVE_HEALTHY · Postgres 17 · Region `eu-north-1` · Project `srujvjjncrszhaaxepxf`
 **Repo branch:** `claude/rename-default-branch-KQrTc`

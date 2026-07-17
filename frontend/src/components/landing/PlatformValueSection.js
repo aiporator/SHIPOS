@@ -3,7 +3,7 @@ import { SpotlightCard } from './SpotlightCard';
 import { DottedGlowBackground } from '../shared/DottedGlowBackground';
 
 /**
- * PlatformValueSection · "Das bekommst du sofort von Leader-OS".
+ * PlatformValueSection · "Das bekommst du sofort von LeaderOS".
  *
  * Sitzt VOR der ClassesRoadmapSection. Verkauft zuerst die Plattform ·
  * konkrete Deliverables, nicht den Identity-Shift. Die Klassen-Roadmap
@@ -14,7 +14,7 @@ import { DottedGlowBackground } from '../shared/DottedGlowBackground';
  * messbar etwas bringt. Wir wiederholen NICHT die Class-Bullets · die
  * Plattform ist das was du AB TAG 1 in der Hand hast.
  *
- * Closing-CTA-Strip bündelt die Leader-OS-Konditionen (30 Tage + 12 Monate)
+ * Closing-CTA-Strip bündelt die LeaderOS-Konditionen (30 Tage + 12 Monate)
  * + Preis + Button · damit der Übergang in den Sprint-Kauf einlippig ist.
  */
 
@@ -48,7 +48,7 @@ const FEATURES = [
     headline: '15 Minuten am echten Fall.',
     body:
       'Kein Theorie-Bingo. Jeden Tag eine konkrete Übung an deiner ' +
-      'aktuellen Situation · Mitarbeitergespräch, Townhall, Konflikt. ' +
+      'aktuellen Situation · Mitarbeitergespräch, Firmenrede, Konflikt. ' +
       'Output-fokussiert, von Wlad kuratiert.',
     proof: '30 DRILLS IM SPRINT · 365 ÜBER 12 MONATE',
   },
@@ -125,7 +125,7 @@ export const PlatformValueSection = () => (
   <section
     id="platform"
     data-testid="platform-value-section"
-    aria-label="Das bekommst du sofort von Leader-OS"
+    aria-label="Das bekommst du sofort von LeaderOS"
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black overflow-hidden"
   >
     {/* Subtle paper-grain so the section has texture and isn't a flat slab */}
@@ -144,7 +144,7 @@ export const PlatformValueSection = () => (
       <div className="grid md:grid-cols-12 gap-6 md:gap-10 items-end mb-12 md:mb-16">
         <div className="md:col-span-8">
           <div className="flex items-center gap-3 mb-5 font-mono text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong">
-            <span>▸ DIE PLATTFORM · LEADER-OS</span>
+            <span>▸ DIE PLATTFORM · LEADEROS</span>
             <span className="opacity-30">·</span>
             <span className="text-black/55">DAS BEKOMMST DU SOFORT</span>
           </div>
@@ -157,7 +157,7 @@ export const PlatformValueSection = () => (
               fontSize: 'clamp(40px, 5.5vw, 88px)',
             }}
           >
-            Leader-OS ist die<br />
+            LeaderOS ist die<br />
             <span className="text-black/55">Plattform für KI-natives Führen</span>
             <span className="text-brand-strong not-italic">.</span>
           </h2>

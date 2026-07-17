@@ -21,7 +21,7 @@ function welcomeHtml(displayName: string, planLabel: string | null): string {
     : "";
   return `<!doctype html><html><body style="font-family: -apple-system, system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px;">
   <h1 style="font-weight: 600; font-size: 22px;">${greeting}</h1>
-  <p>Willkommen bei Leader-OS.</p>
+  <p>Willkommen bei LeaderOS.</p>
   ${planLine}
   <p>Dein Cockpit: <a href="${APP_URL}" style="color: #2563eb;">${APP_URL}</a></p>
   <p>Wenn du in den nächsten Tagen einen kurzen Check-in willst, antworte einfach auf diese E-Mail.</p>
@@ -87,7 +87,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         from: RESEND_FROM_EMAIL,
         to: [user.email],
-        subject: "Willkommen bei Leader-OS",
+        subject: "Willkommen bei LeaderOS",
         html: welcomeHtml(user.full_name ?? "", planLabel),
       }),
     });

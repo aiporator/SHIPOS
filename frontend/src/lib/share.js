@@ -31,9 +31,9 @@ export const buildOgImageUrl = (userId) => {
 
 const buildText = ({ score, tierLabel, lang = 'de' }) => {
   if (lang === 'de') {
-    return `Mein Leader-Score: ${score}/100 · ${tierLabel}. 🚀\n\nGetestet mit Leader-OS, dem KI Leadership System von Wlad Jachtchenko. Werde KI-native Führungskraft in 30 Tagen.`;
+    return `Mein Leader-Score: ${score}/100 · ${tierLabel}. 🚀\n\nGetestet mit LeaderOS, dem KI Leadership System von Wlad Jachtchenko. Werde KI-native Führungskraft in 30 Tagen.`;
   }
-  return `My Leader-Score: ${score}/100 · ${tierLabel}. 🚀\n\nTested with Leader-OS, the AI Leadership System by Wlad Jachtchenko. Become an AI-native leader in 30 days.`;
+  return `My Leader-Score: ${score}/100 · ${tierLabel}. 🚀\n\nTested with LeaderOS, the AI Leadership System by Wlad Jachtchenko. Become an AI-native leader in 30 days.`;
 };
 
 /**

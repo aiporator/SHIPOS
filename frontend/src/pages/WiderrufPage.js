@@ -69,7 +69,7 @@ info@argumentorik.com
 
 Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*)
 abgeschlossenen Vertrag über den Kauf der folgenden
-Dienstleistung: Leader-OS [Tier-Name]
+Dienstleistung: LeaderOS [Tier-Name]
 
 Bestellt am (*) / erhalten am (*):
 Name des/der Verbraucher(s):
@@ -84,7 +84,7 @@ info@argumentorik.com
 
 I/we (*) hereby give notice that I/we (*) withdraw from
 my/our (*) contract for the purchase of the following
-service: Leader-OS [Tier name]
+service: LeaderOS [Tier name]
 
 Ordered on (*) / received on (*):
 Name of consumer(s):

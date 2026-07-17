@@ -2,7 +2,7 @@
  * LeaderOsSyncPage · /auth/sync — receives the leader-check.de handoff.
  *
  * leader-check redirects here with `?sync_token=<jwt>` (and optional `?next=`).
- * We exchange it for a first-party Leader-OS session (httponly cookie) and drop
+ * We exchange it for a first-party LeaderOS session (httponly cookie) and drop
  * the visitor straight into the funnel — no second login. Default landing is
  * /free-videos so a fresh lead sees their videos immediately.
  *

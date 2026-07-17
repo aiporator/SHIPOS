@@ -79,7 +79,7 @@ export default {
       type: 'paragraph',
       text:
         'Der Charisma-Code ist bewusst klein gehalten: drei Signale, keine zwanzig Persönlichkeitsdimensionen. ' +
-        'Genau deshalb funktioniert er unter Druck — im Townhall, im Konfliktgespräch, im Pitch. Du musst dir ' +
+        'Genau deshalb funktioniert er unter Druck — in der Firmenrede, im Konfliktgespräch, im Pitch. Du musst dir ' +
         'nur eine Frage stellen: Welches der drei Signale fehlt gerade?',
     },
   ],

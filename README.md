@@ -1,4 +1,4 @@
-# Leader-OS
+# LeaderOS
 
 > **New here? Read [`ONBOARDING.md`](./ONBOARDING.md) first.** It's the
 > single map of the whole system — domains, data stores, local setup,

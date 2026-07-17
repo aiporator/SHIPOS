@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { LandingNav } from '../components/landing/LandingNav';
 import { LandingFooter } from '../components/landing/LandingFooter';
@@ -37,7 +38,7 @@ const FACTS = [
   ['Bildung',        'LMU München (Jura, Politik, Geschichte, Komparatistik) · Columbia University (M.A. 2008)'],
   ['Stipendium',     'Studienstiftung des deutschen Volkes'],
   ['Bücher',         '13 publiziert · 3× SPIEGEL-Bestseller'],
-  ['Klienten',       '420 000+ Führungskräfte weltweit'],
+  ['Klienten',       '400 000+ Führungskräfte weltweit'],
   ['Reichweite',     '14 Millionen Views auf Podcast + YouTube'],
   ['Podcast',        'Der Führungskräfte-Podcast · ~450 Folgen seit 2019'],
   ['YouTube',        '80 000+ Abonnenten · Wlad Jachtchenko'],
@@ -47,10 +48,10 @@ const FACTS = [
   ['Trustpilot',     '4.9 / 5 · 388 Bewertungen (Argumentorik GmbH)'],
   ['Akademie',       'Argumentorik-Akademie · 6-monatige Ausbildung'],
   ['Coaching seit',  '2007 (nebenberuflich) · 2013 (hauptberuflich)'],
-  ['Gegründet',      'Leader-OS (2026) · Argumentorik-Akademie'],
+  ['Gegründet',      'LeaderOS (2026) · Argumentorik-Akademie'],
 ];
 
-// Full bibliography · 12 books verified against the Deutsche
+// Full bibliography · 13 books verified against the Deutsche
 // Nationalbibliothek catalog (GND 1172244065). Year + publisher +
 // ISBN where available so search-engines can resolve each book to its
 // canonical Book entity.
@@ -180,6 +181,14 @@ const BOOKS = [
 
 const bookCoverUrl = (b) => `/wlad/books/${b.slug}.jpg`;
 
+const CARD_REVEAL = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.5, delay: 0.045 * i, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
 // Companies whose executives have completed Wlad's trainings · these
 // names are repeatedly cited on Wlad's public profiles (Argumentorik,
 // wlad-jachtchenko.com, redneragenturen.org, LinkedIn).
@@ -267,7 +276,7 @@ const POSITIONS = [
       'empathischen Leadern auszubilden. Daher die mehrstufige Pyramide: ' +
       'Bücher (250 000+ Käufer), LinkedIn Learning (250 000+ Teilnehmer), ' +
       'Udemy (74 000+ Teilnehmer), Argumentorik-Akademie (6 Monate), ' +
-      'Leader-OS (KI-Coach 24/7).',
+      'LeaderOS (KI-Coach 24/7).',
   },
 ];
 
@@ -296,7 +305,7 @@ const PERSON_JSON_LD = {
   description:
     'Wlad Jachtchenko ist mehrfach ausgezeichneter Argumentations-Experte, TOP-Speaker in Europa, ' +
     'dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie sowie der KI-Coaching-' +
-    'Plattform Leader-OS. Seit 2007 trainiert er Politiker, Führungskräfte und Mitarbeiter ' +
+    'Plattform LeaderOS. Seit 2007 trainiert er Politiker, Führungskräfte und Mitarbeiter ' +
     'bekannter Unternehmen wie Allianz, BMW, Pro7, Westwing und 3M.',
   url: 'https://leader-os.de/wlad-jachtchenko',
   image: 'https://leader-os.de/wlad/wlad-portrait.jpg',
@@ -327,7 +336,7 @@ const PERSON_JSON_LD = {
     {
       '@type': 'Organization',
       '@id': 'https://leader-os.de/#organization',
-      name: 'Leader-OS',
+      name: 'LeaderOS',
       url: 'https://leader-os.de',
     },
     {
@@ -386,7 +395,7 @@ const PERSON_JSON_LD = {
   })),
   sameAs: [
     'https://de.wikipedia.org/wiki/Wladislaw_Jachtchenko',
-    'https://www.linkedin.com/in/wladjachtchenko/',
+    'https://www.linkedin.com/in/wladislawjachtchenko',
     'https://www.instagram.com/wlad.jachtchenko/',
     'https://www.facebook.com/wladislawjachtchenko',
     'https://www.youtube.com/@WladTraining',
@@ -414,7 +423,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenko ist Europas führender Argumentations-Coach, dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie. Seit 2010 trainiert er Führungskräfte aus DAX-Konzernen, Mittelstand und Startups in Boardroom-Rhetorik, Verhandlung und KI-nativer Führung. 2026 hat er die KI-Coaching-Plattform Leader-OS gestartet.',
+          'Wlad Jachtchenko ist Europas führender Argumentations-Coach, dreifacher SPIEGEL-Bestseller-Autor und Gründer der Argumentorik-Akademie. Seit 2010 trainiert er Führungskräfte aus DAX-Konzernen, Mittelstand und Startups in Boardroom-Rhetorik, Verhandlung und KI-nativer Führung. 2026 hat er die KI-Coaching-Plattform LeaderOS gestartet.',
       },
     },
     {
@@ -437,11 +446,11 @@ const FAQ_JSON_LD = {
     },
     {
       '@type': 'Question',
-      name: 'Was ist Leader-OS und welche Rolle spielt Wlad Jachtchenko?',
+      name: 'Was ist LeaderOS und welche Rolle spielt Wlad Jachtchenko?',
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Leader-OS ist die 2026 von Wlad Jachtchenko gegründete KI-Coaching-Plattform für Führungskräfte. Sie bündelt seine fünfzehnjährige Coaching-Methodik in elf drillbaren Frameworks plus WladBot · einen 24/7-KI-Coach trainiert auf 2 212 authentische Wlad-Lektionen.',
+          'LeaderOS ist die 2026 von Wlad Jachtchenko gegründete KI-Coaching-Plattform für Führungskräfte. Sie bündelt seine fünfzehnjährige Coaching-Methodik in elf drillbaren Frameworks plus WladBot · einen 24/7-KI-Coach trainiert auf 2 212 authentische Wlad-Lektionen.',
       },
     },
     {
@@ -450,7 +459,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Direkter Kontakt über start@aiporate.com (Argumentorik-Akademie GmbH, Berlin). Für Coaching-Anfragen gibt es Leader-OS · die Plattform ersetzt seine ausgebuchten 1:1-Slots durch WladBot und monatliche Live-Sessions in Leadership Plus Pro. Speaker-Anfragen für Keynotes laufen ebenfalls über die Email.',
+          'Direkter Kontakt über start@aiporate.com (Argumentorik-Akademie GmbH, Berlin). Für Coaching-Anfragen gibt es LeaderOS · die Plattform ersetzt seine ausgebuchten 1:1-Slots durch WladBot und monatliche Live-Sessions in Leadership Plus Pro. Speaker-Anfragen für Keynotes laufen ebenfalls über die Email.',
       },
     },
     {
@@ -459,7 +468,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenkos Kernsatz lautet: Führung ist Skill, Skill ist trainierbar. Konkret bedeutet das drillbare Frameworks statt Theorie · Harvard-Verhandlung, Schulz von Thuns Kommunikationsquadrat, Feedback-Formel BWW, ALPEN-Methode, Vier-Farben-Modell, Dunkle-Rhetorik-Defensive. Heute kombiniert mit KI-Coaching für 24/7-Verfügbarkeit.',
+          'Wlad Jachtchenkos Kernsatz lautet: Führung ist Fähigkeit, Fähigkeit ist trainierbar. Konkret bedeutet das drillbare Frameworks statt Theorie · Harvard-Verhandlung, Schulz von Thuns Kommunikationsquadrat, Feedback-Formel BWW, ALPEN-Methode, Vier-Farben-Modell, Dunkle-Rhetorik-Defensive. Heute kombiniert mit KI-Coaching für 24/7-Verfügbarkeit.',
       },
     },
     {
@@ -486,7 +495,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          'Wlad Jachtchenko hat Führungskräfte und Mitarbeiter zahlreicher bekannter Unternehmen trainiert · darunter Allianz, BMW, Pro7, Westwing, 3M, Sky, Vodafone, Daimler, Bosch, Siemens, Telekom und Lufthansa. Insgesamt über 420 000 Klienten weltweit seit 2007.',
+          'Wlad Jachtchenko hat Führungskräfte und Mitarbeiter zahlreicher bekannter Unternehmen trainiert · darunter Allianz, BMW, Pro7, Westwing, 3M, Sky, Vodafone, Daimler, Bosch, Siemens, Telekom und Lufthansa. Insgesamt über 400 000 Klienten weltweit seit 2007.',
       },
     },
     {
@@ -531,7 +540,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir Leader-OS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
+          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir LeaderOS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
       },
     },
   ],
@@ -547,9 +556,9 @@ export default function WladJachtchenkoPage() {
     // link shows Wlad's portrait + bio in the preview card instead of the
     // generic homepage OG. Directly supports the ShareBar on this page.
     const restoreMeta = applyPageMeta({
-      title: 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, Leader-OS',
+      title: 'Wlad Jachtchenko · Argumentations-Coach · Bio, Bücher, LeaderOS',
       description:
-        'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS. Biographie, Bücher, Methodik, Kontakt.',
+        'Wlad Jachtchenko: Europas führender Argumentations-Coach, 3× SPIEGEL-Bestseller-Autor, Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS. Biographie, Bücher, Methodik, Kontakt.',
       url: 'https://leader-os.de/wlad-jachtchenko',
       image: 'https://leader-os.de/og-wlad.jpg',
       imageAlt: 'Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller',
@@ -639,30 +648,36 @@ export default function WladJachtchenkoPage() {
               />
             </div>
           )}
-          <div className="md:col-span-5 mx-auto md:mx-0 w-full">
-            <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden">
+          <motion.div
+            initial="hidden" animate="show" variants={CARD_REVEAL}
+            className="md:col-span-5 mx-auto md:mx-0 w-full"
+          >
+            <div className="relative aspect-[4/5] w-full max-w-[420px] mx-auto md:mx-0 bg-foreground/5 border-2 border-foreground overflow-hidden group">
               <img
                 src={WLAD_AVATAR}
                 onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                alt="Wlad Jachtchenko · Europas führender Argumentations-Coach · 3× SPIEGEL-Bestseller · Gründer Leader-OS und Argumentorik-Akademie"
+                alt="Wlad Jachtchenko · Europas führender Argumentations-Coach · 3× SPIEGEL-Bestseller · Gründer LeaderOS und Argumentorik-Akademie"
                 width="420"
                 height="525"
                 fetchpriority="high"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[50%_25%]"
+                className="absolute inset-0 w-full h-full object-cover object-[50%_25%] transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 bg-white/95 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-foreground">
                 ▸ WLAD JACHTCHENKO
               </div>
               <div className="absolute bottom-3 right-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-white drop-shadow">
-                LEADER-OS · 2026
+                LEADEROS · 2026
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="md:col-span-7 text-center md:text-left">
+          <motion.div
+            initial="hidden" animate="show" custom={1} variants={CARD_REVEAL}
+            className="md:col-span-7 text-center md:text-left"
+          >
             <div className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-              ▸ PERSON · WLAD JACHTCHENKO · EST. 2010
+              ▸ PERSON · WLAD JACHTCHENKO · EST. 2007
             </div>
             <h1
               className="text-[40px] sm:text-[56px] md:text-[88px] leading-[0.95] tracking-[-0.035em] text-foreground"
@@ -672,8 +687,8 @@ export default function WladJachtchenkoPage() {
             </h1>
             <p className="mt-6 mx-auto md:mx-0 text-[16px] sm:text-[17px] md:text-[19px] leading-[1.6] text-foreground/80 max-w-2xl">
               Europas führender Argumentations-Coach. Drei SPIEGEL-Bestseller.
-              Vierhunderttausend trainierte Klienten. Fünfzehn Jahre Coaching-Praxis.
-              Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform Leader-OS.
+              Vierhunderttausend trainierte Klienten. Seit 2007 im Coaching.
+              Gründer der Argumentorik-Akademie und der KI-Coaching-Plattform LeaderOS.
             </p>
 
             {/* Quick CTAs · stacked + centered on mobile so each chip has a
@@ -691,10 +706,10 @@ export default function WladJachtchenkoPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 h-12 bg-[#BFFF00] hover:bg-white text-[#0A0A0A] font-bold text-[12.5px] uppercase tracking-[0.14em] border-2 border-foreground transition-colors"
               >
-                Leader-OS 14 Tage testen
+                LeaderOS 14 Tage testen
               </a>
               <a
-                href="https://www.linkedin.com/in/wladjachtchenko/"
+                href="https://www.linkedin.com/in/wladislawjachtchenko"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 h-12 text-foreground hover:text-brand-strong font-bold text-[12.5px] uppercase tracking-[0.14em] transition-colors"
@@ -702,7 +717,7 @@ export default function WladJachtchenkoPage() {
                 LinkedIn <ArrowUpRight size={14} />
               </a>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* Bekannt aus · press/TV authority bar · the first thing a
@@ -785,11 +800,16 @@ export default function WladJachtchenkoPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
-            {BOOKS.map((b) => {
+            {BOOKS.map((b, i) => {
               const isSpiegel = b.badge === 'SPIEGEL-Bestseller';
               return (
-                <article
+                <motion.article
                   key={b.title}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.3 }}
+                  custom={i}
+                  variants={CARD_REVEAL}
                   className={`group border-2 ${isSpiegel ? 'border-foreground bg-brand/[0.04]' : 'border-foreground/40'} overflow-hidden hover:bg-foreground/[0.04] hover:-translate-y-1 hover:shadow-[0_28px_60px_-30px_rgba(191,255,0,0.3)] transition-all duration-300 flex flex-col`}
                 >
                   {/* Cover frame · real cover at /wlad/books/<slug>.jpg wins;
@@ -841,7 +861,7 @@ export default function WladJachtchenkoPage() {
                       {b.isbn && <span className="block mt-0.5 normal-case tracking-normal text-[9px]">ISBN {b.isbn}</span>}
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>
@@ -980,15 +1000,15 @@ export default function WladJachtchenkoPage() {
             className="text-[28px] sm:text-[40px] md:text-[60px] lg:text-[72px] leading-[1.06] tracking-[-0.03em] text-foreground max-w-5xl text-center md:text-left mx-auto md:mx-0"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
-            „Führung ist Skill. Skill ist trainierbar.
-            Wer Skill für Talent hält, lernt nie zu führen<span className="text-brand not-italic">.</span>"
+            „Führung ist Fähigkeit. Fähigkeit ist trainierbar.
+            Wer Fähigkeit für Talent hält, lernt nie zu führen<span className="text-brand not-italic">.</span>"
           </blockquote>
           <p className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-foreground/55 text-center md:text-left">
             ▸ WLAD JACHTCHENKO · METHODIK-KERNSATZ
           </p>
         </section>
 
-        {/* Wlad's projects · Leader-OS is the featured card · the whole
+        {/* Wlad's projects · LeaderOS is the featured card · the whole
             section is a conversion bridge for the 400 Masterclass alumni:
             "you know the method — here's where it lives every day". */}
         <section className="mt-20 md:mt-28">
@@ -1004,13 +1024,13 @@ export default function WladJachtchenkoPage() {
             </h2>
             <p className="mt-4 text-[14.5px] md:text-[15.5px] leading-[1.6] text-foreground/70">
               Du kennst die Methodik aus Büchern, Masterclass oder Podcast. In
-              Leader-OS drillst du sie täglich mit WladBot · 24/7, in 10 Minuten
+              LeaderOS drillst du sie täglich mit WladBot · 24/7, in 10 Minuten
               pro Tag, bis Führung Reflex wird statt Theorie.
             </p>
           </div>
           <div className="mt-10 grid md:grid-cols-3 gap-5 md:gap-6 items-stretch">
             {[
-              { name: 'Leader-OS',
+              { name: 'LeaderOS',
                 sub: 'KI-Coaching-Plattform · seit 2026',
                 desc: 'Wlads komplette Methodik als tägliches Training. WladBot 24/7, 11 drillbare Frameworks, messbarer Fortschritt. 14 Tage kostenlos, ohne Karte.',
                 href: 'https://leaderos.de/signup?trial=14',
@@ -1084,7 +1104,7 @@ export default function WladJachtchenkoPage() {
         {/* Conversion band · the money moment for Masterclass/event alumni.
             Always-dark island with dotted-glow depth · the value props are
             lifted from Wlad's own event copy (charisma, natural authority,
-            weniger arbeiten / mehr verdienen) and pointed at Leader-OS. */}
+            weniger arbeiten / mehr verdienen) and pointed at LeaderOS. */}
         <section className="relative isolate mt-20 md:mt-28 overflow-hidden bg-[#0A0A0A] text-white px-6 py-14 sm:px-10 sm:py-16 md:px-14 md:py-20">
           <div className="pointer-events-none absolute inset-0 -z-10">
             <DottedGlowBackground
@@ -1109,7 +1129,7 @@ export default function WladJachtchenkoPage() {
               Natürliche Autorität, charismatische Ausstrahlung, Teams die von
               allein Verantwortung übernehmen · weniger arbeiten, mehr bewirken.
               Genau die Methodik, die Wlad DAX-Vorständen für 10.000 € Tagessatz
-              vermittelt · in Leader-OS drillst du sie täglich mit WladBot, für
+              vermittelt · in LeaderOS drillst du sie täglich mit WladBot, für
               den Preis eines Mittagessens.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row flex-wrap gap-3">
@@ -1178,7 +1198,7 @@ export default function WladJachtchenkoPage() {
         <ShareBar
           url="https://leader-os.de/wlad-jachtchenko"
           title="Wlad Jachtchenko · Argumentations-Coach · 3× SPIEGEL-Bestseller"
-          summary="Europas führender Argumentations-Coach. Fünfzehn Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und Leader-OS."
+          summary="Europas führender Argumentations-Coach. Fünfzehn Jahre Coaching-Praxis. Gründer der Argumentorik-Akademie und LeaderOS."
           slug="wlad-jachtchenko"
         />
       </main>

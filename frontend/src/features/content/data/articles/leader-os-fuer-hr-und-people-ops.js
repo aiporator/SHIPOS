@@ -5,22 +5,22 @@ export default {
   slug: 'leader-os-fuer-hr-und-people-ops',
   type: 'case-study',
   status: 'published',
-  title: 'Leader-OS für HR und People Ops.',
+  title: 'LeaderOS für HR und People Ops.',
   description:
     'Wenn deine Aufgabe ist Führungskräfte zu entwickeln, nicht selbst ' +
-    'eine zu sein: wie Leader-OS in eine bestehende L&D-Architektur passt ' +
+    'eine zu sein: wie LeaderOS in eine bestehende L&D-Architektur passt ' +
     'und welche Datenpunkte du als Programm-Owner bekommst.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-25',
   cover: null,
-  tags: ['Leader-OS', 'Use Case', 'People Ops'],
+  tags: ['LeaderOS', 'Use Case', 'People Ops'],
   body: [
     { type: 'paragraph', text:
       'HR und People Ops haben ein eigenes Problem mit Leadership-Programmen: jeder Anbieter verspricht ' +
       'Transformation, niemand liefert Daten. Du als Programm-Owner musst am Ende des Quartals erklären was ' +
       'das Programm bewirkt hat · und hast nur Selbst-Berichte deiner Führungskräfte.' },
     { type: 'paragraph', text:
-      'Leader-OS ist auf zwei Dimensionen angepasst: nahtloser Einbau in deine L&D-Architektur und ehrliche ' +
+      'LeaderOS ist auf zwei Dimensionen angepasst: nahtloser Einbau in deine L&D-Architektur und ehrliche ' +
       'Daten für deine Reports.' },
     { type: 'heading', level: 2, text: 'Was du als Programm-Owner siehst.' },
     { type: 'list', style: 'bullet', items: [
@@ -34,10 +34,10 @@ export default {
       '"Anna hat ihre B-W-W-Reflex-Zeit von 22 Sekunden auf 8 Sekunden gesenkt".' },
     { type: 'heading', level: 2, text: 'Einbau in deine L&D-Architektur.' },
     { type: 'paragraph', text:
-      'Leader-OS ersetzt KEIN bestehendes Mentoring-Programm. Es schließt die Lücke zwischen Onboarding ' +
+      'LeaderOS ersetzt KEIN bestehendes Mentoring-Programm. Es schließt die Lücke zwischen Onboarding ' +
       '("Welcome to Leadership") und High-Touch-Mentoring. Klassische Architektur:' },
     { type: 'list', style: 'numbered', items: [
-      'Onboarding-Sprint nach Beförderung · Leader-OS, 30 Tage. Pro Person 997 EUR.',
+      'Onboarding-Sprint nach Beförderung · LeaderOS, 30 Tage. Pro Person 997 EUR.',
       'Ongoing Drill-Channel via Plus-Plus · für High Performer die nach dem Sprint mehr wollen.',
       'High-Touch Mentoring nur für die Top-2 Prozent · 1:1 mit Wlad, durch Plus-Plus-Warteliste.',
     ] },
@@ -47,7 +47,7 @@ export default {
     { type: 'heading', level: 2, text: 'Beispiel-Setup: Mittelstand, 80 Führungskräfte.' },
     { type: 'paragraph', text:
       'Eine HR-Verantwortliche aus einem 800-Personen-Mittelständler beschreibt ihren Rollout so: alle ' +
-      'sechzig neu beförderten Lead-Rollen pro Jahr bekommen einen Leader-OS-Sprint im ersten Monat nach ' +
+      'sechzig neu beförderten Lead-Rollen pro Jahr bekommen einen LeaderOS-Sprint im ersten Monat nach ' +
       'der Beförderung. Die zwanzig High-Performer aus der bestehenden Senior-Schicht bekommen Plus-Plus. ' +
       'Drei VPs sind in der Mentoring-12-Warteliste. Gesamt-Budget: 80 Personen.' },
     { type: 'framework', code: 'STAFF', title: 'L&D-Layering',
@@ -66,9 +66,9 @@ export default {
       'Beispiel-Setup aus deiner Branche mit und zeigen dir wie das Reporting aussieht.' },
   ],
   seo: {
-    title: 'Leader-OS für HR und People Ops: L&D mit KI',
+    title: 'LeaderOS für HR und People Ops: L&D mit KI',
     description:
-      'Leader-OS für HR und People Ops: wie es in eine bestehende L&D-Architektur ' +
+      'LeaderOS für HR und People Ops: wie es in eine bestehende L&D-Architektur ' +
       'passt · Sprint für neue Leads, Plus-Plus für High Performer, Mentoring für ' +
       'Top-Talent. Plus Reporting für Programm-Owner.',
     keywords: ['Leadership Programm HR', 'People Ops Leadership Development', 'L&D Leadership Training KI', 'HR Leadership Tool', 'Wlad Jachtchenko Enterprise'],

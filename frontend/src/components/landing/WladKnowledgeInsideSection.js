@@ -1,7 +1,7 @@
 import { BookText, Layers, MessagesSquare, Compass, Zap, Crown } from 'lucide-react';
 
 /**
- * WladKnowledgeInsideSection · was steckt von Wlad in Leader-OS drin.
+ * WladKnowledgeInsideSection · was steckt von Wlad in LeaderOS drin.
  *
  * Direkter Nachsatz zur WladAuthoritySection. Antwort auf die Frage
  * "okay, der Mann ist krass · aber was kommt davon bei MIR an?"
@@ -79,7 +79,7 @@ export const WladKnowledgeInsideSection = () => (
   <section
     id="wlad-in-leaderos"
     data-testid="wlad-knowledge-inside-section"
-    aria-label="Was von Wlad in Leader-OS steckt"
+    aria-label="Was von Wlad in LeaderOS steckt"
     className="border-y-2 border-black/[0.06] bg-background"
   >
     <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-20 md:py-28">

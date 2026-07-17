@@ -1,4 +1,4 @@
-"""Tests for the leader-check → Leader-OS sync-token receiver (routes/auth.py).
+"""Tests for the leader-check → LeaderOS sync-token receiver (routes/auth.py).
 
 Covers the security-critical bits: signature/secret verification, expiry,
 purpose guard (a report_token must NOT be accepted as a login), and identity

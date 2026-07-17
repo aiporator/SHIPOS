@@ -1,4 +1,4 @@
-# Leader-OS · Developer Onboarding
+# LeaderOS · Developer Onboarding
 
 > **Read this first.** It's the single map of the whole system. Everything
 > else in `docs/` is a deep-dive you reach for once you know where you are.
@@ -10,7 +10,7 @@ Last verified: 2026-06-26.
 
 ## 1. The one-paragraph mental model
 
-Leader-OS is **one Git repo** that ships **four websites** on **two
+LeaderOS is **one Git repo** that ships **four websites** on **two
 different hosting platforms**. There is a marketing side and an app side,
 each with a "branded" domain (hyphen) and an "app" domain (no hyphen).
 The marketing sites are a React single-page app on Vercel. The app sites
@@ -188,7 +188,7 @@ concern:
 **Auth providers:**
 | Var | What |
 |---|---|
-| `GOOGLE_CLIENT_ID` | Google OAuth client (the "Leader-OS Production" one: `482961656741-…`) |
+| `GOOGLE_CLIENT_ID` | Google OAuth client (the "LeaderOS Production" one: `482961656741-…`) |
 | `APPLE_SERVICE_ID` / `APPLE_CLIENT_ID` | Apple Sign-In (optional) |
 | `MICROSOFT_CLIENT_ID` / `MICROSOFT_TENANT` | Microsoft (optional) |
 | `MAGIC_LINK_TTL_MIN` | magic-link expiry (default 15) |

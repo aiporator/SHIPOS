@@ -1,4 +1,4 @@
-# 🚀 Leader-OS · Deploy Manifest
+# 🚀 LeaderOS · Deploy Manifest
 
 > Iter 92.13 · Stand 26.02.26 · Ziel: Stripe LIVE auf `leader-os.de`
 
@@ -39,7 +39,7 @@
    ```
    https://leader-os.de/api/webhook/stripe
    ```
-3. **Description:** `Leader-OS Production Webhook`
+3. **Description:** `LeaderOS Production Webhook`
 4. **Events to send** — wähle exakt diese 4:
    - `checkout.session.completed` ← der wichtigste (Tier-Aktivierung)
    - `checkout.session.async_payment_succeeded` ← SEPA / Klarna nachträglich

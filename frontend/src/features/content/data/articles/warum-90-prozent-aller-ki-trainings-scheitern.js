@@ -21,7 +21,7 @@ export default {
     { type: 'paragraph', text: 'Klassisches Training-Erfolgsmaß: NPS-Bewertung der Teilnehmer. "Würden Sie weiterempfehlen?" sagt nichts über Output-Change. Erfolgreiche Trainings messen Reflex-Zeit, Output-Lift, Anwendungs-Quote.' },
     { type: 'heading', level: 2, text: 'Die eine Variable die immer vorhanden ist.' },
     { type: 'paragraph', text: 'In allen erfolgreichen Trainings (die zehn Prozent) gibt es täglichen Drill am echten Case mit unmittelbarer Korrektur. Nicht "wöchentliches Drill". Nicht "ich schaue mal in mein Notion-Doc". Täglich. Echt. Korrigiert.' },
-    { type: 'paragraph', text: 'Genau das ist die Mechanik des Leader-OS-Sprints. Dreißig Tage täglich, dreißig echte Cases, WladBot als Korrektur-Layer.' },
+    { type: 'paragraph', text: 'Genau das ist die Mechanik des LeaderOS-Sprints. Dreißig Tage täglich, dreißig echte Cases, WladBot als Korrektur-Layer.' },
     { type: 'framework', code: '90/10', title: 'Erfolgs-Variable', explanation: '90 Prozent scheitern: Theorie-Last, kein Tomorrow-Anker, falsche Messung. 10 Prozent funktionieren: täglicher Drill am echten Case mit unmittelbarer Korrektur. Wer eine der drei Eigenschaften der 90 Prozent in seinem Training hat, ist statistisch in der scheiternden Gruppe.' },
     { type: 'heading', level: 2, text: 'Drei Tests für jedes KI-Training das du erwägst.' },
     { type: 'list', style: 'numbered', items: [
@@ -29,7 +29,7 @@ export default {
       'Frage: "Wie wird der Output-Change in sechs Wochen gemessen?" Wenn die Antwort "Selbst-Bericht" ist, scheitert das Training.',
       'Frage: "Bekomme ich Korrektur in unter 24 Stunden auf jeden Drill?" Wenn die Antwort "wir treffen uns wieder in zwei Wochen" ist, scheitert das Training.',
     ] },
-    { type: 'callout', tone: 'lime', text: 'Das ist keine Werbung für Leader-OS · das ist die ehrliche Markt-Realität. Frag jedes Training-Angebot die drei Tests durch, bevor du investierst.' },
+    { type: 'callout', tone: 'lime', text: 'Das ist keine Werbung für LeaderOS · das ist die ehrliche Markt-Realität. Frag jedes Training-Angebot die drei Tests durch, bevor du investierst.' },
     { type: 'paragraph', text: 'Wenn du gerade entscheidest welches KI-Leadership-Training für dein Team passt: 30-Min-Beratung. Wir besprechen ehrlich was die 90-Prozent-Fallen sind und ob unser Setup zu deinem Team passt · oder nicht.' },
   ],
   seo: {

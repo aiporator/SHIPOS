@@ -25,7 +25,7 @@ export default function SpecimenStudio() {
   const [nativeId, setNativeId] = useState(null);
 
   useEffect(() => {
-    document.title = 'Specimen-Studio · Leader-OS Content';
+    document.title = 'Specimen-Studio · LeaderOS Content';
   }, []);
 
   const posts = POST_SERIES.filter((p) =>

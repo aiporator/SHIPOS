@@ -5,7 +5,7 @@ import { ArrowRight, Lock, Sparkles } from 'lucide-react';
  *
  * Diese Section sitzt NACH dem PlatformValueSection (das den primären
  * Sprint-Value verkauft). Hier zeigen wir dem User: "Du bekommst aber
- * nicht nur die Foundation · wer bei Leader-OS startet, hat Zugang zu
+ * nicht nur die Foundation · wer bei LeaderOS startet, hat Zugang zu
  * drei weiteren Stufen die noch kommen." Das macht das Angebot dichter
  * ohne das Hauptversprechen zu verwässern.
  *
@@ -130,7 +130,7 @@ export const ClassesRoadmapSection = () => (
   <section
     id="klassen"
     data-testid="classes-roadmap-section"
-    aria-label="Bonus · Was bei Leader-OS noch alles auf dich wartet"
+    aria-label="Bonus · Was bei LeaderOS noch alles auf dich wartet"
     className="border-y-2 border-black/[0.06] bg-[#0A0A0A] text-white relative overflow-hidden"
   >
     {/* Subtle lime ambient · softer than before since this is a secondary section */}
@@ -163,7 +163,7 @@ export const ClassesRoadmapSection = () => (
         </div>
         <div className="md:col-span-5 md:pb-3">
           <p className="text-[15px] md:text-[16.5px] leading-[1.6] text-white/75">
-            Wer bei Leader-OS startet, bekommt automatisch
+            Wer bei LeaderOS startet, bekommt automatisch
             <strong className="text-white"> Zugang zu allem was noch kommt</strong> ·
             AI Agents Builder, Custom AI Setup, Revenue Skills. Ein Pfad,
             vier Stufen · alle Vorteile ab Tag 1.
@@ -185,7 +185,7 @@ export const ClassesRoadmapSection = () => (
       {/* Soft anchor back to the Sprint CTA · no giant block this time, just a one-liner */}
       <div className="mt-12 md:mt-14 pt-7 border-t border-white/12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
         <p className="text-[14px] md:text-[15.5px] leading-[1.5] text-white/70 max-w-2xl">
-          Du startest mit der vollen Leader-OS-Plattform.
+          Du startest mit der vollen LeaderOS-Plattform.
           Alles andere kommt automatisch dazu.
         </p>
         <a

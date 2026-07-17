@@ -1,5 +1,5 @@
 /**
- * Article: Wie Lena ihr Townhall drehte.
+ * Article: Wie Lena ihre Firmenrede drehte.
  *
  * Case study type. Narrative format with a concrete before/after,
  * an identifiable trigger moment, and a clean outcome. Proves the
@@ -9,15 +9,15 @@ export default {
   slug: 'wie-lena-ihr-townhall-drehte',
   type: 'case-study',
   status: 'published',
-  title: 'Wie Lena ihr Townhall drehte.',
+  title: 'Wie Lena ihre Firmenrede drehte.',
   description:
     'VP Engineering, Series-B Startup, sechzig Leute im Raum. Sie ' +
-    'hatte zwei Townhalls hintereinander verloren. Was im dritten anders ' +
+    'hatte zwei Firmenreden hintereinander verloren. Was im dritten anders ' +
     'war. Ein Sprint, ein Framework, vier Wochen Drill.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-17',
   cover: null,
-  tags: ['Case Study', 'Rhetorik', 'Townhall'],
+  tags: ['Case Study', 'Rhetorik', 'Firmenrede'],
   body: [
     {
       type: 'paragraph',
@@ -29,8 +29,8 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Im Januar hatte sie zwei Townhalls hintereinander verloren. Verloren heißt: nach beiden gab es eine Welle ' +
-        'an 1:1-Anfragen ihrer Tech-Leads die sich "alignen" wollten. Wenn dein Townhall funktioniert, gibt es keine ' +
+        'Im Januar hatte sie zwei Firmenreden hintereinander verloren. Verloren heißt: nach beiden gab es eine Welle ' +
+        'an 1:1-Anfragen ihrer Tech-Leads die sich "alignen" wollten. Wenn deine Firmenrede funktioniert, gibt es keine ' +
         'Alignment-Anfragen danach. Wenn nicht, kommt die Welle.',
     },
     {
@@ -60,16 +60,16 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Die ersten zehn Tage waren reines SEXIER-Training. Sechs Schritte: Situation, Erklärung, X-Beispiel, ' +
-        'Ihr-Vorteil, Einwand-Vorwegnahme, Resumée. Jede Übung kam aus Lenas echtem Backlog. Sie tippte ihre aktuelle ' +
-        'Townhall-Roadmap in den Bot, der Bot strukturierte sie nach SEXIER, sie las laut, der Bot korrigierte den ' +
+        'Die ersten zehn Tage waren reines SEXIER-Training. Sechs Schritte: Statement, Explanation, eXample, ' +
+        'Impact, Explanation of Impact, Rebuttal. Jede Übung kam aus Lenas echtem Backlog. Sie tippte ihre aktuelle ' +
+        'Firmenrede-Roadmap in den Bot, der Bot strukturierte sie nach SEXIER, sie las laut, der Bot korrigierte den ' +
         'Sub-Skript der zu vage war.',
     },
     {
       type: 'paragraph',
       text:
-        'Am Tag 7 hatte sie ein Skript für die nächste Townhall. Sechzehn Minuten gesprochene Zeit, drei klar ' +
-        'getrennte Blöcke, jeder mit einem X-Beispiel das aus dem aktuellen Quartal kam. Kein einziger generischer ' +
+        'Am Tag 7 hatte sie ein Skript für die nächste Firmenrede. Sechzehn Minuten gesprochene Zeit, drei klar ' +
+        'getrennte Blöcke, jeder mit einem eXample das aus dem aktuellen Quartal kam. Kein einziger generischer ' +
         'Strategie-Satz.',
     },
     {
@@ -101,32 +101,32 @@ export default {
       text:
         'Im Plus-Plus gibt es alle zwei Wochen einen Live-Termin mit Wlad. Lena nutzte den ihres Sprints für eine ' +
         'volle Vortrags-Probe. Sechzehn Minuten ungeschnitten, dann zwanzig Minuten Wlad-Feedback. Drei Korrekturen ' +
-        'kamen heraus: das X-Beispiel im zweiten Block war zu lang, der Einwand-Vorwegnahme-Block war zu defensiv, ' +
+        'kamen heraus: das eXample im zweiten Block war zu lang, der Rebuttal-Block war zu defensiv, ' +
         'der Pathos-Anker im dritten Block war ein zwei-Sätze-Move statt einer kompletten Story.',
     },
     {
       type: 'paragraph',
       text:
         'Lena übte die drei Korrekturen weitere zwei Tage. Tag 29 las sie das Skript zum letzten Mal vor dem WladBot, ' +
-        'der korrigierte zwei Wort-Wahl-Details. Tag 30 war der echte Townhall.',
+        'der korrigierte zwei Wort-Wahl-Details. Tag 30 war die echte Firmenrede.',
     },
     {
       type: 'heading',
       level: 2,
-      text: 'Was im dritten Townhall passierte.',
+      text: 'Was bei der dritten Firmenrede passierte.',
     },
     {
       type: 'paragraph',
       text:
         'Die Welle der Alignment-Anfragen kam nicht. Stattdessen kamen zwei E-Mails von Tech-Leads die schrieben: ' +
         '"Ich verstehe jetzt zum ersten Mal woran wir das nächste Quartal arbeiten." Eine davon kam vom Tech-Lead ' +
-        'der bei den zwei vorherigen Townhalls am lautesten gegen die Roadmap argumentiert hatte.',
+        'der bei den zwei vorherigen Firmenreden am lautesten gegen die Roadmap argumentiert hatte.',
     },
     {
       type: 'paragraph',
       text:
         'Sechs Wochen später, im Zwischenbericht den Lena uns schickte, hatte sich der erste sichtbare Effekt ' +
-        'gezeigt: die Anzahl der Engineering-1:1-Anfragen pro Townhall war von zwölf auf zwei gefallen. Ihr Kalender ' +
+        'gezeigt: die Anzahl der Engineering-1:1-Anfragen pro Firmenrede war von zwölf auf zwei gefallen. Ihr Kalender ' +
         'gewann pro Woche etwa vier Stunden. Ihre Tech-Leads gewann jeweils ein Item Klarheit. Beide Seiten arbeiteten ' +
         'an mehr Output bei weniger Meta-Diskussion.',
     },
@@ -160,12 +160,12 @@ export default {
     },
   ],
   seo: {
-    title: 'Townhall-Speech Case Study: wie Lena sie drehte',
+    title: 'Firmenrede Case Study: wie Lena sie drehte',
     description:
-      'Townhall Case Study: VP Engineering, Series-B, zwei Townhalls verloren. Wie ein 30-Tage-' +
+      'Firmenrede Case Study: VP Engineering, Series-B, zwei Firmenreden verloren. Wie ein 30-Tage-' +
       'Sprint mit SEXIER und Drei Säulen die dritte drehte · inklusive Output-Zahlen. Von Wlad Jachtchenko.',
     keywords: [
-      'Townhall Speech',
+      'Firmenrede halten',
       'Public Speaking Engineering Leader',
       'SEXIER Framework',
       'Drei Säulen Rhetorik',

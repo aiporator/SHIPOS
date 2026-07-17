@@ -37,7 +37,7 @@ leader-check.de         →    Result eingegeben   →  start.leader-check.de
 
 ### Subdomain 1: `app.leader-os.de`
 
-**In Emergent (Projekt: Leader-OS App):**
+**In Emergent (Projekt: LeaderOS App):**
 1. Settings → Custom Domains → Add `app.leader-os.de`
 2. Notier was Emergent als Target gibt (CNAME oder A)
 
