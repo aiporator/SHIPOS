@@ -16,7 +16,10 @@ Ad / Organic / QR-Ticket-Anzeige
         ↓
 Opt-in                 (E-Mail · routes/webinar.py → Bestätigung + Kalender)
         ↓
-/webinar/danke         (Schritt 1: 4-Videoserie freischalten · Schritt 2: Trial)
+/webinar/danke         (Schritt 1: 4-Videoserie freischalten · Referral-Share · Schritt 2: Trial)
+/webinar/live          (Warteraum · Countdown, Ablauf, Kalender, Late-Registration —
+                        WEBINAR_JOIN_URL env auf https://leader-os.de/webinar/live setzen,
+                        damit die Reminder-Mails hierher zeigen)
         ↓
 4 kostenlose Videos    (/fuehrung-beginnt-hier · 1 Video/Tag per Mail)
         ↓

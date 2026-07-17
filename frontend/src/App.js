@@ -50,6 +50,7 @@ const StudioHub = lazyWithRetry(() => import("./pages/StudioHub"));
 const SystemHealth = lazyWithRetry(() => import("./pages/SystemHealth"));
 const ThankYouPage = lazyWithRetry(() => import("./pages/ThankYouPage"));
 const WebinarThankYouPage = lazyWithRetry(() => import("./pages/WebinarThankYouPage"));
+const WebinarLivePage = lazyWithRetry(() => import("./pages/WebinarLivePage"));
 const Challenge30Page = lazyWithRetry(() => import("./pages/Challenge30Page"));
 const DownloadsPage = lazyWithRetry(() => import("./pages/DownloadsPage"));
 const ImpressumPage = lazyWithRetry(() => import("./pages/ImpressumPage"));
@@ -210,6 +211,8 @@ function AppRouter() {
         {/* Squeeze funnel for the free live webinar */}
         <Route path="/webinar" element={<WebinarPage />} />
         <Route path="/webinar/danke" element={<WebinarThankYouPage />} />
+        {/* Waiting room · reminder emails (WEBINAR_JOIN_URL) point here */}
+        <Route path="/webinar/live" element={<WebinarLivePage />} />
         {/* Public · free 4-video lead-magnet funnel · "Führung beginnt hier" */}
         <Route path="/fuehrung-beginnt-hier" element={<FreeVideosPage />} />
         <Route path="/gratis" element={<Navigate to="/fuehrung-beginnt-hier" replace />} />

@@ -74,7 +74,7 @@ export default function WebinarThankYouPage() {
         </Link>
       </header>
 
-      <main id="main-content" className="max-w-[820px] mx-auto px-5 md:px-10 pt-14 md:pt-20 pb-24">
+      <main id="main-content" className="max-w-[820px] mx-auto px-5 md:px-10 pt-14 md:pt-20 pb-24 flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -86,7 +86,7 @@ export default function WebinarThankYouPage() {
 
         <motion.h1
           initial="hidden" animate="show" variants={FADE_UP}
-          className="text-[36px] sm:text-[56px] md:text-[68px] leading-[0.95] tracking-[-0.04em] text-foreground max-w-2xl"
+          className="text-balance text-[36px] sm:text-[56px] md:text-[68px] leading-[0.95] tracking-[-0.04em] text-foreground max-w-2xl"
           style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
         >
           Platz gesichert<span className="text-brand not-italic">.</span>
@@ -94,7 +94,7 @@ export default function WebinarThankYouPage() {
 
         <motion.p
           initial="hidden" animate="show" custom={1} variants={FADE_UP}
-          className="mt-6 max-w-xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/70"
+          className="text-balance mt-6 max-w-xl text-[16px] md:text-[18px] leading-[1.55] text-foreground/70"
         >
           {email ? (
             <>Wir haben <strong className="text-foreground">{email}</strong> vorgemerkt und dir eine Bestätigung geschickt — inklusive Kalender-Link. 24h und 1h vor dem Webinar meldet sich LeaderOS automatisch nochmal.</>
@@ -124,22 +124,22 @@ export default function WebinarThankYouPage() {
             registrant arrives at the webinar already warmed up. */}
         <motion.section
           initial="hidden" animate="show" custom={3} variants={FADE_UP}
-          className="mt-16 pt-12 border-t-2 border-foreground/12"
+          className="mt-16 pt-12 border-t-2 border-foreground/12 w-full"
         >
           <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-brand mb-4">▸ DEIN TEILNEHMER-BONUS · SCHRITT 1 VON 2</p>
           <h2
-            className="text-[26px] sm:text-[36px] leading-[1.0] tracking-[-0.03em] text-foreground max-w-xl"
+            className="text-balance text-[26px] sm:text-[36px] leading-[1.0] tracking-[-0.03em] text-foreground max-w-xl mx-auto"
             style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
           >
             Schalte jetzt die 4-teilige Videoserie frei<span className="text-brand not-italic">.</span>
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-foreground/65">
+          <p className="text-balance mt-4 max-w-xl mx-auto text-[15px] leading-[1.6] text-foreground/65">
             Damit du maximal vom Webinar profitierst: „Führung beginnt hier" — vier Videos
             von Wlad, ein Video pro Tag in dein Postfach. Wer die Serie vorher gesehen hat,
             holt aus den 90 Minuten Live-Session doppelt so viel raus.
           </p>
 
-          <ol className="mt-7 max-w-xl space-y-2.5">
+          <ol className="mt-7 max-w-xl mx-auto text-left space-y-2.5">
             {[
               ['Warum die meisten Führungskräfte unsichtbar bleiben', '8 Min'],
               ['Natürliche Autorität — ohne lauter zu werden', '11 Min'],
@@ -159,7 +159,7 @@ export default function WebinarThankYouPage() {
             ))}
           </ol>
 
-          <div className="mt-7">
+          <div className="mt-7 flex justify-center">
             <PlusCircleCTA
               href="/fuehrung-beginnt-hier?utm_source=webinar&utm_medium=thankyou&utm_campaign=webinar-2026-08-20"
               testId="webinar-thankyou-cta-videos"
@@ -169,13 +169,44 @@ export default function WebinarThankYouPage() {
           </div>
         </motion.section>
 
-        {/* Ascension step 2 · the trial bridge — don't make them wait. */}
+        {/* Referral loop · a registrant recommending the webinar to a
+            colleague is the cheapest lead source we have. Plain share
+            intents, no tracking params beyond utm. */}
         <motion.section
           initial="hidden" animate="show" custom={4} variants={FADE_UP}
-          className="mt-14 pt-10 border-t border-foreground/10"
+          className="mt-14 pt-10 border-t border-foreground/10 w-full"
+        >
+          <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-brand mb-4">▸ KENNST DU JEMANDEN, DER FÜHREN MUSS?</p>
+          <p className="text-balance max-w-xl mx-auto text-[15px] leading-[1.6] text-foreground/65">
+            Das Webinar ist kostenlos — und zu zweit diskutiert es sich besser.
+            Lade eine Kollegin oder einen Kollegen ein:
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {[
+              ['WhatsApp', `https://wa.me/?text=${encodeURIComponent('Kostenloses Live-Webinar mit Wlad Jachtchenko (3× SPIEGEL-Bestseller) am 20.08. — Führung täglich trainieren statt einmal im Jahr Seminar: https://leader-os.de/webinar?utm_source=share-whatsapp&utm_medium=referral&utm_campaign=webinar-2026-08-20')}`],
+              ['LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://leader-os.de/webinar?utm_source=share-linkedin&utm_medium=referral&utm_campaign=webinar-2026-08-20')}`],
+              ['E-Mail', `mailto:?subject=${encodeURIComponent('Kostenloses Live-Webinar: Führung wird trainiert')}&body=${encodeURIComponent('Hi,\n\nam 20.08. um 10 Uhr zeigt Wlad Jachtchenko (3× SPIEGEL-Bestseller) live, wie Führung täglich trainierbar wird — kostenlos, mit Q&A.\n\nHier anmelden: https://leader-os.de/webinar?utm_source=share-email&utm_medium=referral&utm_campaign=webinar-2026-08-20')}`],
+            ].map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 h-11 px-5 border-2 border-foreground/20 hover:border-foreground text-foreground text-[11.5px] font-bold uppercase tracking-[0.14em] transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Ascension step 2 · the trial bridge — don't make them wait. */}
+        <motion.section
+          initial="hidden" animate="show" custom={5} variants={FADE_UP}
+          className="mt-14 pt-10 border-t border-foreground/10 w-full"
         >
           <p className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-foreground/45 mb-4">▸ SCHRITT 2 · WENN DU NICHT WARTEN WILLST</p>
-          <p className="max-w-xl text-[15px] leading-[1.6] text-foreground/65">
+          <p className="text-balance max-w-xl mx-auto text-[15px] leading-[1.6] text-foreground/65">
             Das Webinar ist der Impuls. LeaderOS ist das System, das danach trägt — WladBot als
             24/7-Coach, tägliche Mikro-Drills, dieselbe Methodik. Du kannst deine 14 Tage
             kostenlos schon jetzt starten, ganz ohne auf den Termin zu warten.

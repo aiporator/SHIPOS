@@ -51,6 +51,15 @@ const STATS = [
   ['20+', 'Länder'],
   ['4,9/5', 'Trustpilot · 388 Bewertungen'],
   ['3×', 'SPIEGEL-Bestseller · 13 Bücher'],
+  ['14 Mio.', 'Views · Podcast + YouTube'],
+  ['250.000+', 'verkaufte Bücher'],
+];
+
+// Press & TV outlets that have featured Wlad or his bestseller work —
+// typographic wordmarks (same verified set as the bio page).
+const MEDIA = [
+  'DER SPIEGEL', 'BUSINESS INSIDER', 'SÜDDEUTSCHE ZEITUNG', 'RTL',
+  'ARD · DAS ERSTE', 'PROSIEBEN · GALILEO', 'TEDX', 'GREATOR',
 ];
 
 // Companies whose executives have completed Wlad's trainings — the same
@@ -108,6 +117,15 @@ const FREE_VIDEOS = [
   ['Natürliche Autorität — ohne lauter zu werden', '11 Min'],
   ['Weniger arbeiten, mehr bewirken', '9 Min'],
   ['Dein 30-Tage-Plan zur KI-nativen Führungskraft', '12 Min'],
+];
+
+// Exact timeline · clarity/specificity is itself a buying trigger.
+const AGENDA = [
+  ['10:00', 'Check-in & Warm-up', 'Kurz ankommen — worum es in den nächsten 90 Minuten geht.'],
+  ['10:05', 'Der Charisma-Code live', 'Präsenz · Wärme · Kompetenz — die drei Signale, in Echtzeit demonstriert.'],
+  ['10:25', 'Das Leadership Operating System', 'Wie WladBot, tägliche Drills und die 11 Frameworks zusammenspielen.'],
+  ['10:55', 'Live-Case aus der Community', 'Eine echte Führungssituation, gemeinsam durchgearbeitet.'],
+  ['11:15', 'Q&A mit Wlad', 'Deine Fragen, direkt beantwortet.'],
 ];
 
 // Canon-correct framework teasers (docs/WLAD_CANON.md) → journal deep-dives.
@@ -328,23 +346,33 @@ const RegisterForm = ({ idSuffix = '' }) => {
   );
 };
 
-const SectionEyebrow = ({ children, light = false }) => (
-  <motion.p
-    initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
-    className={`font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] mb-3 ${light ? 'text-[#BFFF00]' : 'text-[#5A7700]'}`}
-  >
-    {children}
-  </motion.p>
-);
-
-const SectionHeadline = ({ children, className = '', light = false }) => (
-  <motion.h2
-    initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
-    className={`text-[28px] sm:text-[40px] leading-[1.02] tracking-[-0.035em] ${light ? 'text-white' : 'text-[#111111]'} ${className}`}
-    style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-  >
-    {children}
-  </motion.h2>
+/** Centered section header · eyebrow + balanced headline + optional intro.
+ * The whole funnel sits on one center axis (Hormozi composition); grids
+ * below stay left-aligned per card for readability. */
+const SectionHeader = ({ eyebrow, headline, intro, light = false }) => (
+  <div className="text-center mb-10 md:mb-12">
+    <motion.p
+      initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
+      className={`font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] mb-3 ${light ? 'text-[#BFFF00]' : 'text-[#5A7700]'}`}
+    >
+      {eyebrow}
+    </motion.p>
+    <motion.h2
+      initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
+      className={`text-balance mx-auto max-w-3xl text-[28px] sm:text-[40px] leading-[1.05] tracking-[-0.035em] ${light ? 'text-white' : 'text-[#111111]'}`}
+      style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+    >
+      {headline}
+    </motion.h2>
+    {intro && (
+      <motion.p
+        initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
+        className="text-balance mx-auto mt-4 max-w-2xl text-[15px] leading-[1.6] text-[#4b4b4d]"
+      >
+        {intro}
+      </motion.p>
+    )}
+  </div>
 );
 
 /** Full-bleed ink statement band · the Hormozi "big sentence" moment. */
@@ -361,7 +389,7 @@ const StatementBand = ({ eyebrow, children }) => (
       )}
       <motion.p
         initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
-        className="text-[26px] sm:text-[38px] md:text-[46px] leading-[1.08] tracking-[-0.03em] text-white"
+        className="text-balance text-[26px] sm:text-[38px] md:text-[46px] leading-[1.08] tracking-[-0.03em] text-white"
         style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
       >
         {children}
@@ -464,95 +492,83 @@ export default function WebinarPage() {
                 'linear-gradient(#ffffff, #fafafa)',
             }}
           />
-          <div className="max-w-[1200px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20">
-            <div className="lg:flex lg:items-start lg:gap-14">
-              <div className="lg:flex-1 lg:min-w-0">
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#707072] mb-5"
-                >
-                  {DATE_LINE}
-                </motion.p>
-                <motion.h1
-                  initial={{ opacity: 0, y: 30, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.05 }}
-                  className="text-[34px] sm:text-[50px] md:text-[62px] leading-[1.0] tracking-[-0.04em] text-[#111111] max-w-4xl"
-                  style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-                >
-                  Die meisten Führungskräfte trainieren nie<span className="text-[#5A7700] not-italic">.</span><br />
-                  <span className="text-[#4b4b4d]">Deshalb führen sie jedes Jahr dieselben schwierigen Gespräche.</span>
-                </motion.h1>
-                <motion.p
-                  initial="hidden" animate="show" custom={1} variants={FADE_UP}
-                  className="mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-[#4b4b4d]"
-                >
-                  Im kostenlosen Live-Webinar zeigt dir 3× SPIEGEL-Bestseller-Autor{' '}
-                  <span className="text-[#111111] font-semibold">Wlad Jachtchenko</span> das erste
-                  Leadership Operating System, mit dem Führung täglich trainiert wird — unterstützt durch KI.
-                </motion.p>
+          <div className="max-w-[1000px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20 flex flex-col items-center text-center">
+            {/* Host chip · face above the fold without breaking the axis */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-6 rounded-full bg-white border border-[#111111]/10 pl-1.5 pr-4 py-1.5 shadow-[0_10px_30px_-20px_rgba(17,17,17,0.3)]"
+            >
+              <img
+                src={WLAD_AVATAR}
+                onError={withFallback(WLAD_AVATAR_FALLBACKS)}
+                alt="Wlad Jachtchenko"
+                width="36"
+                height="36"
+                fetchpriority="high"
+                className="w-9 h-9 rounded-full object-cover object-top ring-2 ring-[#BFFF00]"
+              />
+              <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#39393b]">
+                Wlad Jachtchenko · 3× SPIEGEL-Bestseller · Host &amp; Q&amp;A
+              </span>
+            </motion.div>
 
-                <motion.div
-                  initial="hidden" animate="show" custom={2} variants={FADE_UP}
-                  className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4"
-                >
-                  <motion.button
-                    onClick={scrollToForm}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                    className="h-14 px-8 rounded-full bg-[#111111] text-white hover:bg-[#BFFF00] hover:text-[#111111] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2"
-                  >
-                    Ja, ich möchte teilnehmen <ArrowUpRight size={16} />
-                  </motion.button>
-                  <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
-                    {['Keine Kreditkarte', '100 % kostenlos', 'Live', 'Keine Aufzeichnung'].map((t) => (
-                      <li key={t} className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#707072]">
-                        <Check size={11} className="text-[#5A7700]" strokeWidth={3} /> {t}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#707072] mb-5"
+            >
+              {DATE_LINE}
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.05 }}
+              className="text-balance text-[34px] sm:text-[50px] md:text-[60px] leading-[1.02] tracking-[-0.04em] text-[#111111] max-w-4xl"
+              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+            >
+              Die meisten Führungskräfte trainieren nie<span className="text-[#5A7700] not-italic">.</span>{' '}
+              <span className="text-[#4b4b4d]">Deshalb führen sie jedes Jahr dieselben schwierigen Gespräche.</span>
+            </motion.h1>
+            <motion.p
+              initial="hidden" animate="show" custom={1} variants={FADE_UP}
+              className="text-balance mt-6 max-w-2xl text-[16px] sm:text-[19px] leading-[1.55] text-[#4b4b4d]"
+            >
+              Im kostenlosen Live-Webinar zeigt dir 3× SPIEGEL-Bestseller-Autor{' '}
+              <span className="text-[#111111] font-semibold">Wlad Jachtchenko</span> das erste
+              Leadership Operating System, mit dem Führung täglich trainiert wird — unterstützt durch KI.
+            </motion.p>
 
-              {/* Emotional Wlad portrait · real photo, desktop */}
-              <motion.div
-                initial={{ opacity: 0, x: 24, scale: 0.96 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="hidden lg:block lg:w-[320px] lg:shrink-0 relative"
+            <motion.div
+              initial="hidden" animate="show" custom={2} variants={FADE_UP}
+              className="mt-8 flex flex-col items-center gap-4"
+            >
+              <motion.button
+                onClick={scrollToForm}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                className="h-14 px-8 rounded-full bg-[#111111] text-white hover:bg-[#BFFF00] hover:text-[#111111] font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2"
               >
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                  className="relative rounded-3xl bg-white border border-[#111111]/10 p-3 shadow-[0_30px_60px_-30px_rgba(17,17,17,0.25)]"
-                >
-                  <img
-                    src={WLAD_AVATAR}
-                    onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                    alt="Wlad Jachtchenko"
-                    fetchpriority="high"
-                    className="w-full aspect-[4/5] object-cover object-top rounded-2xl"
-                  />
-                  <div className="absolute -bottom-4 -left-4 rounded-2xl bg-[#BFFF00] text-[#111111] px-4 py-2.5 shadow-[0_16px_30px_-14px_rgba(17,17,17,0.4)]">
-                    <div className="text-[20px] tabular-nums leading-none" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>400.000+</div>
-                    <div className="mt-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.14em]">trainierte Klienten</div>
-                  </div>
-                </motion.div>
-                <div className="mt-8 pl-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.2em] text-[#9e9ea0]">
-                  ▸ Wlad Jachtchenko · Host &amp; Q&amp;A
-                </div>
-              </motion.div>
-            </div>
+                Ja, ich möchte teilnehmen <ArrowUpRight size={16} />
+              </motion.button>
+              <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1.5">
+                {['Keine Kreditkarte', '100 % kostenlos', 'Live', 'Keine Aufzeichnung'].map((t) => (
+                  <li key={t} className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[#707072]">
+                    <Check size={11} className="text-[#5A7700]" strokeWidth={3} /> {t}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-            {/* Video · immediately after the hook, not buried below */}
+            {/* Video · immediately after the hook, centered on the axis */}
             <motion.div
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-12 md:mt-14 relative rounded-3xl overflow-hidden bg-[#111111] shadow-[0_40px_80px_-40px_rgba(17,17,17,0.4)] max-w-[900px]"
+              className="mt-12 md:mt-14 relative rounded-3xl overflow-hidden bg-[#111111] shadow-[0_40px_80px_-40px_rgba(17,17,17,0.4)] w-full max-w-[860px]"
             >
               <div className="aspect-video">
                 <iframe
@@ -565,9 +581,9 @@ export default function WebinarPage() {
               </div>
             </motion.div>
 
-            <div className="mt-10"><Countdown /></div>
-            <ScarcityBar />
-            <div ref={formRef} className="mt-9 max-w-2xl scroll-mt-24">
+            <div className="mt-10 flex justify-center"><Countdown /></div>
+            <div className="w-full flex flex-col items-center"><ScarcityBar /></div>
+            <div ref={formRef} className="mt-9 w-full max-w-2xl scroll-mt-24 text-left">
               <RegisterForm idSuffix="-hero" />
             </div>
           </div>
@@ -576,34 +592,48 @@ export default function WebinarPage() {
         {/* ── BEWEIS · social proof immediately after the hook ─────────── */}
         <section className="border-t border-[#111111]/8 bg-white">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-10 md:py-12">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mb-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 mb-10">
               {STATS.map(([value, label], i) => (
                 <motion.div
                   key={label}
                   initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
-                  className="text-center sm:text-left"
+                  className="text-center"
                 >
-                  <div className="text-[26px] sm:text-[32px] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                  <div className="text-[24px] sm:text-[28px] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
                     <CountUpValue value={value} /><span className="text-[#5A7700] not-italic">.</span>
                   </div>
-                  <div className="mt-0.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#707072]">{label}</div>
+                  <div className="mt-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#707072]">{label}</div>
                 </motion.div>
               ))}
             </div>
+            {/* Press wordmarks · "bekannt aus", typographic, both themes-crisp */}
+            <motion.div
+              initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
+              className="border-t border-[#111111]/8 pt-7 text-center"
+            >
+              <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-[#9e9ea0] mb-4">
+                ▸ Bekannt aus
+              </p>
+              <ul className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+                {MEDIA.map((m) => (
+                  <li key={m} className="font-mono text-[12px] md:text-[13px] font-bold uppercase tracking-[0.14em] text-[#4b4b4d]">{m}</li>
+                ))}
+              </ul>
+            </motion.div>
             {/* Client wordmarks · typographic, verifiable, no logo-soup images */}
             <motion.div
               initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
-              className="border-t border-[#111111]/8 pt-7"
+              className="border-t border-[#111111]/8 mt-7 pt-7 text-center"
             >
               <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.24em] text-[#9e9ea0] mb-4">
                 ▸ Führungskräfte dieser Unternehmen haben Wlads Trainings durchlaufen
               </p>
-              <ul className="flex flex-wrap items-center gap-x-7 gap-y-2.5">
+              <ul className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
                 {CLIENTS.map((c) => (
                   <li key={c} className="font-mono text-[12px] md:text-[13px] font-bold uppercase tracking-[0.14em] text-[#707072]">{c}</li>
                 ))}
               </ul>
-              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
+              <div className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2">
                 {REVIEW_PLATFORMS.map(([name, rating, count, href]) => (
                   <a
                     key={name}
@@ -623,23 +653,13 @@ export default function WebinarPage() {
 
         {/* ── PROBLEM eskalieren · the week everyone recognizes ────────── */}
         <section className="bg-[#fafafa] border-t border-[#111111]/8">
-          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
-            <div className="md:col-span-5">
-              <SectionEyebrow>▸ Das Problem</SectionEyebrow>
-              <SectionHeadline className="mb-5">
-                Führung scheitert heute nicht am Wissen. Sie scheitert am Alltag<span className="text-[#5A7700] not-italic">.</span>
-              </SectionHeadline>
-              <motion.p
-                initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
-                className="text-[15px] leading-[1.65] text-[#4b4b4d]"
-              >
-                Jeder weiß, dass man Feedback geben sollte. Jeder weiß, dass man Konflikte
-                früh anspricht. Jeder weiß, dass gute Kommunikation wichtig ist.
-                Warum passiert es trotzdem nicht? Weil Wissen kein Verhalten ist —
-                und der Kalender jede gute Absicht frisst.
-              </motion.p>
-            </div>
-            <div className="md:col-span-7">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionHeader
+              eyebrow="▸ Das Problem"
+              headline={<>Führung scheitert heute nicht am Wissen. Sie scheitert am Alltag<span className="text-[#5A7700] not-italic">.</span></>}
+              intro="Jeder weiß, dass man Feedback geben sollte. Jeder weiß, dass man Konflikte früh anspricht. Jeder weiß, dass gute Kommunikation wichtig ist. Warum passiert es trotzdem nicht? Weil Wissen kein Verhalten ist — und der Kalender jede gute Absicht frisst."
+            />
+            <div className="max-w-2xl mx-auto">
               <ol className="space-y-3">
                 {WEEK.map(([day, text, isPunchline], i) => (
                   <motion.li
@@ -663,10 +683,10 @@ export default function WebinarPage() {
         {/* ── NEUE OPPORTUNITY · Führung als Training ──────────────────── */}
         <section className="bg-white">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Die neue Möglichkeit</SectionEyebrow>
-            <SectionHeadline className="mb-8 max-w-3xl">
-              Was wäre, wenn Führung so trainierbar wäre wie Fitness<span className="text-[#5A7700] not-italic">?</span>
-            </SectionHeadline>
+            <SectionHeader
+              eyebrow="▸ Die neue Möglichkeit"
+              headline={<>Was wäre, wenn Führung so trainierbar wäre wie Fitness<span className="text-[#5A7700] not-italic">?</span></>}
+            />
             <div className="grid sm:grid-cols-3 gap-4 md:gap-5 mb-12">
               {TRIPLES.map(([not_, but], i) => (
                 <motion.div
@@ -721,8 +741,10 @@ export default function WebinarPage() {
         {/* ── MECHANISMUS · what the webinar teaches ───────────────────── */}
         <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Inhalte</SectionEyebrow>
-            <SectionHeadline className="mb-10">Das lernst du in 90 Minuten<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <SectionHeader
+              eyebrow="▸ Inhalte"
+              headline={<>Das lernst du in 90 Minuten<span className="text-[#5A7700] not-italic">.</span></>}
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {LEARN_CARDS.map(([title, desc], i) => (
                 <motion.div
@@ -746,11 +768,37 @@ export default function WebinarPage() {
           Die Zukunft gehört nicht den besten Führungskräften. Sondern denen, die am schnellsten besser werden<span className="text-[#BFFF00] not-italic">.</span>
         </StatementBand>
 
+        {/* ── DETAILS · exact agenda, minute by minute ─────────────────── */}
+        <section className="bg-white">
+          <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
+            <SectionHeader
+              eyebrow="▸ Der genaue Ablauf · 90 Minuten"
+              headline={<>Keine Überraschungen. Nur Substanz<span className="text-[#5A7700] not-italic">.</span></>}
+            />
+            <ol className="relative border-l-2 border-[#111111]/10 ml-3 space-y-0 max-w-xl mx-auto">
+              {AGENDA.map(([time, title, desc], i) => (
+                <motion.li
+                  key={time}
+                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.6 }} custom={i} variants={FADE_UP}
+                  className="relative pl-8 pb-8 last:pb-0"
+                >
+                  <span aria-hidden className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[#BFFF00] ring-4 ring-white" />
+                  <span className="font-mono text-[12px] font-bold text-[#5A7700] tabular-nums">{time}</span>
+                  <p className="mt-0.5 text-[16px] font-bold text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif' }}>{title}</p>
+                  <p className="mt-0.5 text-[13.5px] leading-[1.55] text-[#707072]">{desc}</p>
+                </motion.li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         {/* ── VALUE STACK ──────────────────────────────────────────────── */}
         <section className="bg-white">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Value Stack</SectionEyebrow>
-            <SectionHeadline className="mb-10">Im Webinar bekommst du Zugriff auf<span className="text-[#5A7700] not-italic">:</span></SectionHeadline>
+            <SectionHeader
+              eyebrow="▸ Value Stack"
+              headline={<>Im Webinar bekommst du Zugriff auf<span className="text-[#5A7700] not-italic">:</span></>}
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {VALUE_STACK.map(([Icon, title, desc], i) => (
                 <motion.div
@@ -768,7 +816,7 @@ export default function WebinarPage() {
                 </motion.div>
               ))}
             </div>
-            <div className="mt-9">
+            <div className="mt-9 flex justify-center">
               <motion.button
                 onClick={scrollToForm}
                 initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
@@ -785,16 +833,11 @@ export default function WebinarPage() {
         {/* ── REVEAL · die 4 kostenlosen Videos ────────────────────────── */}
         <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Teilnehmer-Bonus</SectionEyebrow>
-            <SectionHeadline className="mb-4">Dazu: die 4-teilige Videoserie<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
-            <motion.p
-              initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
-              className="text-[15px] leading-[1.6] text-[#4b4b4d] max-w-2xl mb-10"
-            >
-              „Führung beginnt hier" — vier Videos von Wlad, ein Video pro Tag in dein Postfach.
-              Als Webinar-Teilnehmer schaltest du die Serie direkt auf der Bestätigungsseite frei,
-              damit du vorbereitet in den Termin gehst.
-            </motion.p>
+            <SectionHeader
+              eyebrow="▸ Teilnehmer-Bonus"
+              headline={<>Dazu: die 4-teilige Videoserie<span className="text-[#5A7700] not-italic">.</span></>}
+              intro={'„Führung beginnt hier" — vier Videos von Wlad, ein Video pro Tag in dein Postfach. Als Webinar-Teilnehmer schaltest du die Serie direkt auf der Bestätigungsseite frei, damit du vorbereitet in den Termin gehst.'}
+            />
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
               {FREE_VIDEOS.map(([title, duration], i) => (
                 <motion.div
@@ -835,8 +878,19 @@ export default function WebinarPage() {
               </div>
             </motion.div>
             <div className="md:col-span-8">
-              <SectionEyebrow>▸ Dein Host · die Geschichte</SectionEyebrow>
-              <SectionHeadline className="mb-5">Warum es LeaderOS gibt<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+              <motion.p
+                initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP}
+                className="font-mono text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#5A7700] mb-3"
+              >
+                ▸ Dein Host · die Geschichte
+              </motion.p>
+              <motion.h2
+                initial="hidden" whileInView="show" viewport={{ once: true }} custom={1} variants={FADE_UP}
+                className="text-balance text-[28px] sm:text-[40px] leading-[1.05] tracking-[-0.035em] text-[#111111] mb-5"
+                style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
+              >
+                Warum es LeaderOS gibt<span className="text-[#5A7700] not-italic">.</span>
+              </motion.h2>
               <motion.div
                 initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
                 className="space-y-4 text-[15.5px] leading-[1.65] text-[#4b4b4d] max-w-2xl"
@@ -873,19 +927,19 @@ export default function WebinarPage() {
           </div>
         </section>
 
+        <StatementBand eyebrow="▸ Wlads Kernsatz">
+          „Führung ist Fähigkeit. Fähigkeit ist trainierbar<span className="text-[#BFFF00] not-italic">.</span>"
+          <span className="block mt-5 font-mono not-italic text-[10px] font-bold uppercase tracking-[0.26em] text-white/50">— Wlad Jachtchenko</span>
+        </StatementBand>
+
         {/* ── BEWEIS II · die Frameworks (der Mechanismus ist echt) ────── */}
         <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Die Methodik dahinter</SectionEyebrow>
-            <SectionHeadline className="mb-4">Ein Vorgeschmack auf Wlads Frameworks<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
-            <motion.p
-              initial="hidden" whileInView="show" viewport={{ once: true }} custom={2} variants={FADE_UP}
-              className="text-[15px] leading-[1.6] text-[#4b4b4d] max-w-2xl mb-10"
-            >
-              Kein Geheimwissen hinter der Anmelde-Wand — hier sind vier der Frameworks aus
-              Wlads Büchern, exakt so, wie sie im Webinar und in LeaderOS trainiert werden.
-              Zum Nachlesen verlinkt, zum Können brauchst du den Drill.
-            </motion.p>
+            <SectionHeader
+              eyebrow="▸ Die Methodik dahinter"
+              headline={<>Ein Vorgeschmack auf Wlads Frameworks<span className="text-[#5A7700] not-italic">.</span></>}
+              intro="Kein Geheimwissen hinter der Anmelde-Wand — hier sind vier der Frameworks aus Wlads Büchern, exakt so, wie sie im Webinar und in LeaderOS trainiert werden. Zum Nachlesen verlinkt, zum Können brauchst du den Drill."
+            />
             <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
               {FRAMEWORK_PEEK.map(([name, def, href], i) => (
                 <motion.div
@@ -914,8 +968,10 @@ export default function WebinarPage() {
         {/* ── ECHTE SCARCITY · reasons, not fake counters ──────────────── */}
         <section className="bg-white border-t border-[#111111]/8">
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Warum live dabei sein</SectionEyebrow>
-            <SectionHeadline className="mb-8">Vier ehrliche Gründe<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <SectionHeader
+              eyebrow="▸ Warum live dabei sein"
+              headline={<>Vier ehrliche Gründe<span className="text-[#5A7700] not-italic">.</span></>}
+            />
             <ol className="space-y-3 mb-8">
               {LIVE_REASONS.map((reason, i) => (
                 <motion.li
@@ -941,8 +997,10 @@ export default function WebinarPage() {
         {/* ── FAQ ──────────────────────────────────────────────────────── */}
         <section className="bg-[#fafafa] border-t border-[#111111]/8">
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
-            <SectionEyebrow>▸ Häufige Fragen</SectionEyebrow>
-            <SectionHeadline className="mb-8">Kurz beantwortet<span className="text-[#5A7700] not-italic">.</span></SectionHeadline>
+            <SectionHeader
+              eyebrow="▸ Häufige Fragen"
+              headline={<>Kurz beantwortet<span className="text-[#5A7700] not-italic">.</span></>}
+            />
             <dl className="space-y-3">
               {FAQ.map(([q, a], i) => (
                 <motion.div
@@ -976,8 +1034,8 @@ export default function WebinarPage() {
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="text-[28px] sm:text-[40px] md:text-[48px] leading-[1.05] tracking-[-0.035em] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
-                In einem Jahr wirst du sowieso geführt haben.<br />
+              <h2 className="text-balance text-[28px] sm:text-[40px] md:text-[48px] leading-[1.05] tracking-[-0.035em] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>
+                In einem Jahr wirst du sowieso geführt haben.
                 Die einzige Frage: mit System — oder mit Bauchgefühl<span className="text-[#5A7700] not-italic">?</span>
               </h2>
               <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[#707072] flex items-center justify-center gap-1.5">
