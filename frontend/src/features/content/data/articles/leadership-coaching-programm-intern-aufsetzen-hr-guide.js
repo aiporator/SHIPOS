@@ -117,8 +117,8 @@ export default {
       type: 'paragraph',
       text:
         'LeaderOS lässt sich in genau dieses Vier-Bausteine-Modell einsetzen, ohne den Budget-Baustein zu ' +
-        'sprengen: die Zielgruppe kann die ganze Führungsebene sein, weil der 30-Tage-Sprint pro Kopf einen ' +
-        'Bruchteil des externen Stundensatzes kostet. Die Messung ist eingebaut — Sprint-Fortschritt und ' +
+        'sprengen: die Zielgruppe kann die ganze Führungsebene sein, weil die 30-Tage-Challenge pro Kopf einen ' +
+        'Bruchteil des externen Stundensatzes kostet. Die Messung ist eingebaut — Challenge-Fortschritt und ' +
         'Anwendungsquote sind sichtbar, nicht nur ein Zufriedenheits-Score am Ende.',
     },
   ],

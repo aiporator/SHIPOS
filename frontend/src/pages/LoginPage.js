@@ -17,12 +17,12 @@ import { useAuthProviders } from '../lib/authProviders';
 import { getLastLogin, forgetLogin, displayEmail } from '../lib/recentLogins';
 
 const getFeatures = (de) => (de ? [
-  { t: '30-Tage KI-Leadership Sprint', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
+  { t: '30-Tage KI-Leadership-Challenge', s: '300 Fragen, tägliche Challenges, AI Roleplays' },
   { t: '16 Video-Missionen mit KI-Analyse', s: 'Kamera an, Rede halten, sofort KI-Bewertung' },
   { t: 'Persönlicher KI-Coach · 24/7', s: 'Dein WladBot kennt Wlads Methodik in- und auswendig' },
   { t: 'Täglich KI-Business Briefing', s: 'Trends, Leader-Zitate, strategische Insights' },
 ] : [
-  { t: '30-Day AI Leadership Sprint', s: '300 questions, daily challenges, AI roleplays' },
+  { t: '30-Day AI Leadership Challenge', s: '300 questions, daily challenges, AI roleplays' },
   { t: '16 Video Missions with AI Analysis', s: 'Camera on, give speech, instant AI scoring' },
   { t: 'Personal AI Coach · 24/7', s: 'Your WladBot knows Wlad\'s methodology inside out' },
   { t: 'Daily AI Business Briefing', s: 'Trends, leader quotes, strategic insights' },
@@ -138,7 +138,7 @@ export default function LoginPage() {
 
   const subheading = useMemo(() => {
     if (isMagic) return de ? 'Gib deine E-Mail ein, wir senden dir einen sicheren 1-Klick-Link.' : 'Enter your email, we\'ll send a secure 1-click link.';
-    if (isRegister) return de ? 'Starte deinen KI-Leadership Sprint · 3 Sessions kostenlos.' : 'Start your AI Leadership sprint · 3 sessions free.';
+    if (isRegister) return de ? 'Starte deine KI-Leadership-Challenge · 3 Sessions kostenlos.' : 'Start your AI Leadership challenge · 3 sessions free.';
     return de ? 'Schön dich wiederzusehen.' : 'Good to see you again.';
   }, [isMagic, isRegister, de]);
 

@@ -10,7 +10,7 @@ export default {
   slug: 'sprint-oder-marathon',
   type: 'article',
   status: 'published',
-  title: 'Sprint oder Marathon.',
+  title: 'Challenge oder Marathon.',
   description:
     'Warum dreißig Tage präziser sind als zwölf Monate, und wann der ' +
     'umgekehrte Fall stimmt. Eine ehrliche Trennlinie zwischen den zwei ' +
@@ -37,7 +37,7 @@ export default {
     {
       type: 'heading',
       level: 2,
-      text: 'Wann der Sprint richtig ist.',
+      text: 'Wann die Challenge richtig ist.',
     },
     {
       type: 'list',
@@ -68,8 +68,8 @@ export default {
       type: 'callout',
       tone: 'lime',
       text:
-        'Plus-Plus ist beides: der Sprint baut den Werkzeugkasten in dreißig Tagen, die zwölf Monate ' +
-        'danach sind der Sparrings-Partner. Wer beides braucht, fängt mit Sprint an.',
+        'Plus-Plus ist beides: die Challenge baut den Werkzeugkasten in dreißig Tagen, die zwölf Monate ' +
+        'danach sind der Sparrings-Partner. Wer beides braucht, fängt mit der Challenge an.',
     },
     {
       type: 'heading',
@@ -89,7 +89,7 @@ export default {
       text:
         'Wer eine konkrete Lücke hat, schließt sie in dreißig Tagen · oder erkennt schnell, dass die ' +
         'Lücke gar nicht das echte Problem war.',
-      attribution: 'Wlad, aus dem Sprint-Briefing 2026',
+      attribution: 'Wlad, aus dem Challenge-Briefing 2026',
     },
     {
       type: 'paragraph',
@@ -100,14 +100,14 @@ export default {
     },
   ],
   seo: {
-    title: 'Sprint oder Marathon: 30 Tage vs 12 Monate Coaching',
+    title: 'Challenge oder Marathon: 30 Tage vs 12 Monate Coaching',
     description:
-      'Sprint oder Marathon? Warum 30 Tage präziser sind als zwölf Monate Coaching und welche ' +
+      'Challenge oder Marathon? Warum 30 Tage präziser sind als zwölf Monate Coaching und welche ' +
       'Fehlentscheidung die meisten treffen. Von Wlad Jachtchenko.',
     keywords: [
-      'Sprint Coaching',
-      'Leadership Sprint',
-      'Wlad Jachtchenko Sprint',
+      'Challenge Coaching',
+      'Leadership-Challenge',
+      'Wlad Jachtchenko Challenge',
       '30 Tage Programm',
       'Coaching Dauer',
       'Skill Acquisition',

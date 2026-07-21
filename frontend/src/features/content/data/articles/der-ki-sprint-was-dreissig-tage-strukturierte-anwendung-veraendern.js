@@ -2,9 +2,9 @@ export default {
   slug: 'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',
   type: 'article',
   status: 'published',
-  title: 'Der KI-Sprint: was 30 Tage strukturierte Anwendung verändern.',
+  title: 'Die KI-Challenge: was 30 Tage strukturierte Anwendung verändern.',
   description:
-    'Konkrete Vorher-Nachher-Daten aus 240 Sprint-Teilnehmern. ' +
+    'Konkrete Vorher-Nachher-Daten aus 240 Challenge-Teilnehmern. ' +
     'Was sich in 30 Tagen statistisch tatsächlich messen lässt · und ' +
     'was nicht.',
   author: 'Wlad Jachtchenko',
@@ -12,14 +12,14 @@ export default {
   cover: null,
   tags: ['LeaderOS', 'Sprint', 'Daten'],
   body: [
-    { type: 'paragraph', text: 'Wir haben über 240 Sprint-Teilnehmer in 2025-2026 anonymisiert vermessen. Hier ist was sich konkret zeigt · und was nicht.' },
+    { type: 'paragraph', text: 'Wir haben über 240 Challenge-Teilnehmer in 2025-2026 anonymisiert vermessen. Hier ist was sich konkret zeigt · und was nicht.' },
     { type: 'heading', level: 2, text: 'Was sich messbar verändert.' },
     { type: 'list', style: 'numbered', items: [
       'Reflex-Zeit für B-W-W-Eröffnungen: median von 90 Sek auf 22 Sek. (240 Teilnehmer, Median über alle Cases am Tag 1 und Tag 30.)',
       'Zurückgewonnene Deep-Work-Stunden pro Woche: median 4,2 h. Bandbreite 1,8 bis 8,5 h.',
       'Anzahl wiederverwendeter Prompts nach 30 Tagen: median 14, Bandbreite 6 bis 28.',
       '1:1-Stale-Konversations-Quote: median sank von 38 auf 14 Prozent (Konversationen ohne nächste konkrete Aktion).',
-      'Rückfragen aus Team-Meetings ohne klares Ergebnis: median sank um 51 Prozent in den 30 Tagen nach Sprint-Ende.',
+      'Rückfragen aus Team-Meetings ohne klares Ergebnis: median sank um 51 Prozent in den 30 Tagen nach Challenge-Ende.',
     ] },
     { type: 'heading', level: 2, text: 'Was sich NICHT messbar verändert (und das ist ehrlich).' },
     { type: 'list', style: 'bullet', items: [
@@ -36,9 +36,9 @@ export default {
     { type: 'paragraph', text: 'Wer wissen will welche der fünf messbaren Verbesserungen FÜR DICH den größten Hebel hätte: die Diagnose ist der schnellste Indikator.' },
   ],
   seo: {
-    title: 'KI-Sprint: was 30 Tage messbar verändern',
-    description: 'KI-Sprint Ergebnisse: Vorher-Nachher-Daten aus 240 Teilnehmern · Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote. Was 30 Tage messen und was nicht. Von Wlad Jachtchenko.',
-    keywords: ['Sprint Ergebnisse', 'LeaderOS Daten', 'Wlad Sprint Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Sprint Output'],
+    title: 'KI-Challenge: was 30 Tage messbar verändern',
+    description: 'KI-Challenge Ergebnisse: Vorher-Nachher-Daten aus 240 Teilnehmern · Reflex-Zeit, Deep-Work-Stunden, Prompt-Bibliothek, Stale-Quote. Was 30 Tage messen und was nicht. Von Wlad Jachtchenko.',
+    keywords: ['Challenge Ergebnisse', 'LeaderOS Daten', 'Wlad Challenge Vorher Nachher', '30 Tage Coaching Ergebnis', 'KI Challenge Output'],
   },
   related: ['output-messen-im-ki-zeitalter', 'der-business-case-fuer-leader-os'],
 };

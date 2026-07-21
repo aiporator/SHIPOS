@@ -23,7 +23,7 @@ export default {
     { type: 'heading', level: 2, text: 'Warum "noch eine Plattform" kein gutes Modell ist.' },
     { type: 'paragraph', text: 'Wir wissen: niemand braucht "noch eine Plattform". Niemand kauft sich LeaderOS um den Slack-Kanal "AI Tools" zu erweitern. Wir bauen explizit gegen den Plattform-Stacking-Reflex. LeaderOS soll in deinem Wochenfluss DIE Schicht sein die deine bestehenden Tools effektiv macht · nicht eine zusätzliche Tab.' },
     { type: 'callout', tone: 'lime', text: 'Wer ein neues Tool kauft und nichts daran ändert, baut Tool-Komplexität. Wer ein System einführt und seinen Wochenfluss daran anpasst, baut nachhaltigen Effekt. LeaderOS ist das System, nicht das Tool.' },
-    { type: 'paragraph', text: 'Im Sprint erlebst du in dreißig Tagen wie sich die drei Schichten in deinen echten Fluss einbauen. Nicht durch Theorie, sondern durch tägliche Anwendung am eigenen Case. Die kostenlose Diagnose ist der ehrlichste erste Schritt.' },
+    { type: 'paragraph', text: 'In der Challenge erlebst du in dreißig Tagen wie sich die drei Schichten in deinen echten Fluss einbauen. Nicht durch Theorie, sondern durch tägliche Anwendung am eigenen Case. Die kostenlose Diagnose ist der ehrlichste erste Schritt.' },
   ],
   seo: {
     title: 'Das System hinter dem System · LeaderOS',

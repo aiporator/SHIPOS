@@ -25,7 +25,7 @@ export default {
     { type: 'heading', level: 2, text: 'Die häufigste 100-Tage-Falle.' },
     { type: 'paragraph', text: '"Ich muss Wert zeigen." Falsch. Du musst in den ersten 100 Tagen weniger Wert zeigen, mehr Kontext aufbauen. Wer auf Tag 30 die erste große Re-Architektur ankündigt, hat sich zwei wichtige Vertrauens-Reserven verbrannt: das Team weiß "neuer CTO macht Politik", das Senior-Eng weiß "neuer CTO hört nicht zu".' },
     { type: 'callout', tone: 'lime', text: 'In den ersten 100 Tagen ist Zurückhaltung die Bewegung mit dem höchsten ROI. Wer das nicht aushält, kommuniziert "ich brauche das Drama" und wird damit gemessen.' },
-    { type: 'paragraph', text: 'Im Sprint trainierst du die ersten 100 Tage als konkrete Drill-Cases · dein erstes 1:1 mit dem Senior-Architect, deine erste Roadmap-Skizze für den CEO, deine erste Skip-Level-Konversation. Real, nicht Theorie.' },
+    { type: 'paragraph', text: 'In der Challenge trainierst du die ersten 100 Tage als konkrete Drill-Cases · dein erstes 1:1 mit dem Senior-Architect, deine erste Roadmap-Skizze für den CEO, deine erste Skip-Level-Konversation. Real, nicht Theorie.' },
   ],
   seo: {
     title: 'Erste 100 Tage als CTO oder VP Engineering: Anleitung',

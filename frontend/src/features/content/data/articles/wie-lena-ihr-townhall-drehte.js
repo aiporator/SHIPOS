@@ -13,7 +13,7 @@ export default {
   description:
     'VP Engineering, Series-B Startup, sechzig Leute im Raum. Sie ' +
     'hatte zwei Firmenreden hintereinander verloren. Was im dritten anders ' +
-    'war. Ein Sprint, ein Framework, vier Wochen Drill.',
+    'war. Eine Challenge, ein Framework, vier Wochen Drill.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-06-17',
   cover: null,
@@ -50,7 +50,7 @@ export default {
       tone: 'lime',
       text:
         'Die Diagnose-Empfehlung war eindeutig: SEXIER und Drei Säulen (Logos · Ethos · Pathos). Plus dreißig Tage ' +
-        'Sprint-Drill.',
+        'Challenge-Drill.',
     },
     {
       type: 'heading',
@@ -99,7 +99,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Im Plus-Plus gibt es alle zwei Wochen einen Live-Termin mit Wlad. Lena nutzte den ihres Sprints für eine ' +
+        'Im Plus-Plus gibt es alle zwei Wochen einen Live-Termin mit Wlad. Lena nutzte den ihrer Challenge für eine ' +
         'volle Vortrags-Probe. Sechzehn Minuten ungeschnitten, dann zwanzig Minuten Wlad-Feedback. Drei Korrekturen ' +
         'kamen heraus: das eXample im zweiten Block war zu lang, der Rebuttal-Block war zu defensiv, ' +
         'der Pathos-Anker im dritten Block war ein zwei-Sätze-Move statt einer kompletten Story.',
@@ -134,7 +134,7 @@ export default {
       type: 'quote',
       text:
         'Ich hatte zwölf Bücher zu Public Speaking gelesen. Ich hätte mehr lernen können wenn ich die zwölf Bücher in ' +
-        'einen Schrank gestellt und einen Sprint mit dreißig Drills gemacht hätte.',
+        'einen Schrank gestellt und eine Challenge mit dreißig Drills gemacht hätte.',
       attribution: 'Lena S., VP Engineering, Series-B Startup (anonymisiert auf Anfrage)',
     },
     {
@@ -162,8 +162,8 @@ export default {
   seo: {
     title: 'Firmenrede Case Study: wie Lena sie drehte',
     description:
-      'Firmenrede Case Study: VP Engineering, Series-B, zwei Firmenreden verloren. Wie ein 30-Tage-' +
-      'Sprint mit SEXIER und Drei Säulen die dritte drehte · inklusive Output-Zahlen. Von Wlad Jachtchenko.',
+      'Firmenrede Case Study: VP Engineering, Series-B, zwei Firmenreden verloren. Wie eine 30-Tage-' +
+      'Challenge mit SEXIER und Drei Säulen die dritte drehte · inklusive Output-Zahlen. Von Wlad Jachtchenko.',
     keywords: [
       'Firmenrede halten',
       'Public Speaking Engineering Leader',

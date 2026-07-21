@@ -274,7 +274,7 @@ export const POST_SERIES = [
     foot: 'BIB · 0001 · leader-os.de',
     caption:
       '30 Tage. Ein neues Du.\n\n' +
-      'Der LeaderOS-Sprint ist kein Kurs. Es ist ein Training · ' +
+      'Die LeaderOS-Challenge ist kein Kurs. Sie ist ein Training · ' +
       'jeden Tag eine Frage, jeden Tag ein Drill, jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst.\n\n' +
       'BIB 0001 jetzt starten. → leader-os.de',

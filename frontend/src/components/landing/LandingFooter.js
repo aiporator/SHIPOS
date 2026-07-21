@@ -263,7 +263,7 @@ export const LandingFooter = () => (
               leaderos.de
             </a>
             , der Plattform. Kein Abo, keine automatische Verlängerung,
-            14 Tage Geld-zurück-Garantie auf den Sprint.
+            14 Tage Geld-zurück-Garantie auf die Challenge.
           </p>
           {/* Direct-link price ladder · jede Zeile zeigt einen Tier mit Preis und
               klickt cross-host auf den App-Tier-Checkout. So sehen Visitor in der
@@ -287,7 +287,7 @@ export const LandingFooter = () => (
               className="flex items-baseline justify-between gap-3 py-1.5 border-b border-white/10 text-slate-300 hover:text-white transition-colors"
               data-testid="footer-tier-sprint"
             >
-              <span><span className="text-brand font-black">997 €</span> · Sprint · 30 T + 12 Mo</span>
+              <span><span className="text-brand font-black">997 €</span> · Challenge · 30 T + 12 Mo</span>
               <span className="text-white/40 group-hover:text-brand">→</span>
             </a>
             <a

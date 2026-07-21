@@ -16,7 +16,7 @@ export default {
     { type: 'heading', level: 2, text: '01. ChatGPT oder Claude für breite Sparring-Arbeit.' },
     { type: 'paragraph', text: 'Wenn du ein neutrales Skript-Gerüst brauchst, eine schnelle Übersetzung, eine breite zweite Meinung · ChatGPT oder Claude reichen. Beide sind gleichwertig für 90 Prozent der Anwendungsfälle. Wähle das mit dem du dich wohler fühlst.' },
     { type: 'heading', level: 2, text: '02. WladBot für methodische Tiefe.' },
-    { type: 'paragraph', text: 'Wenn du in der Wlad-Methodik (SEXIER, B-W-W, ALPEN etc.) trainieren willst, ist ein generisches Tool nicht ausreichend. WladBot kennt deinen Sprint-Score, deine letzten Drills, deinen Schreibstil. Die methodische Konsistenz ist der Unterschied.' },
+    { type: 'paragraph', text: 'Wenn du in der Wlad-Methodik (SEXIER, B-W-W, ALPEN etc.) trainieren willst, ist ein generisches Tool nicht ausreichend. WladBot kennt deinen Challenge-Score, deine letzten Drills, deinen Schreibstil. Die methodische Konsistenz ist der Unterschied.' },
     { type: 'heading', level: 2, text: '03. Notion AI oder Mem für Wissensmanagement.' },
     { type: 'paragraph', text: 'Wenn du Hunderte von Notizen, Meeting-Protokollen und 1:1-Sammlungen hast, brauchst du eine KI-Suche darüber. Notion AI ist gut wenn du eh Notion nutzt. Mem ist besser wenn dein Setup verteilter ist.' },
     { type: 'heading', level: 2, text: '04. Fathom oder Otter für Meeting-Notizen.' },
@@ -31,7 +31,7 @@ export default {
     ] },
     { type: 'framework', code: 'STACK', title: 'Der Wlad-Stack 2026', explanation: 'ChatGPT/Claude für Breite · WladBot für Methodik · Notion AI/Mem für Wissen · Fathom/Otter für Meetings · Granola für 1:1. Fünf Tools, deutlich getrennte Zwecke, keine Überlappung.' },
     { type: 'callout', tone: 'lime', text: 'Die Tool-Auswahl ist die einfachere Hälfte. Die schwere Hälfte: konsequent in den Wochenfluss integrieren. Wer drei Tools kauft und nur eins nutzt, hat zwei Tools zu viel.' },
-    { type: 'paragraph', text: 'Im Sprint diagnostizieren wir welche zwei oder drei Tools FÜR DICH den größten Hebel haben. Wer ohne Diagnose Tools sammelt, baut Tool-Müdigkeit. Wer mit Diagnose entscheidet, hat in drei Wochen einen funktionierenden Stack.' },
+    { type: 'paragraph', text: 'In der Challenge diagnostizieren wir welche zwei oder drei Tools FÜR DICH den größten Hebel haben. Wer ohne Diagnose Tools sammelt, baut Tool-Müdigkeit. Wer mit Diagnose entscheidet, hat in drei Wochen einen funktionierenden Stack.' },
   ],
   seo: {
     title: 'KI-Tools für Führungskräfte 2026: die Top 5',

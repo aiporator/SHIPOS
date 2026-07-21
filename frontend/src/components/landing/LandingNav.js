@@ -62,12 +62,11 @@ export const LandingNav = () => {
             On mobile the diagnose stays visible (sm:inline-flex) since
             it's the lower-friction option, the trial collapses to
             "14 Tage". */}
-        {/* Funnel-ordered: quiet leaderos.de login (the app) · the free
-            Leader-Check on leadercheck.de · and the lime primary is the
-            Beratungsgespräch, our preferred conversion (scrolls to the
-            cal.com booking section). All converge on the same email_lower
-            identity, so offering the soft (check), self-serve (app) and
-            consultative (call) paths side-by-side beats gating any of them. */}
+        {/* Funnel-ordered (team decision · Leader-Check first): quiet
+            leaderos.de login · bordered Beratungsgespräch · and the LIME
+            PRIMARY is now the free Leader-Check on leadercheck.de — the
+            lowest-friction, highest-converting top-of-funnel action. All
+            converge on the same email_lower identity. */}
         <nav className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href="https://leaderos.de/login"
@@ -78,32 +77,31 @@ export const LandingNav = () => {
           >
             Anmelden
           </a>
+          <Link
+            to="/#beratung"
+            className={`group hidden sm:inline-flex items-center gap-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background text-foreground font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-2.5 sm:px-3 text-[10px] sm:text-[11px]' : 'h-12 px-2.5 sm:px-4 text-[10.5px] sm:text-[12px]'
+            }`}
+            data-testid="landing-nav-cta"
+          >
+            Beratungsgespräch
+          </Link>
           <a
             href="https://leadercheck.de"
             target="_blank"
             rel="noopener noreferrer"
-            className={`group inline-flex items-center gap-1.5 border-2 border-foreground bg-background hover:bg-foreground hover:text-background text-foreground font-bold uppercase tracking-[0.12em] transition-colors ${
-              scrolled ? 'h-10 px-2.5 sm:px-3 text-[10px] sm:text-[11px]' : 'h-12 px-2.5 sm:px-4 text-[10.5px] sm:text-[12px]'
+            className={`group inline-flex items-center gap-1.5 sm:gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
+              scrolled ? 'h-10 px-3 sm:px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-3 sm:px-5 text-[11px] sm:text-[12px]'
             }`}
             data-testid="landing-nav-diagnose"
           >
             <span className="hidden sm:inline">Leader-Check · 10 Min</span>
-            <span className="sm:hidden">Check</span>
-          </a>
-          <Link
-            to="/#beratung"
-            className={`group inline-flex items-center gap-1.5 sm:gap-2.5 bg-brand text-black hover:bg-foreground hover:text-background font-bold uppercase tracking-[0.12em] transition-colors ${
-              scrolled ? 'h-10 px-3 sm:px-4 text-[10.5px] sm:text-[11px]' : 'h-12 px-3 sm:px-5 text-[11px] sm:text-[12px]'
-            }`}
-            data-testid="landing-nav-cta"
-          >
-            <span className="hidden sm:inline">Beratungsgespräch</span>
-            <span className="sm:hidden">Beratung</span>
+            <span className="sm:hidden">Leader-Check</span>
             <ArrowRight
               size={scrolled ? 14 : 16}
               className="group-hover:translate-x-0.5 transition-transform"
             />
-          </Link>
+          </a>
         </nav>
       </div>
     </header>

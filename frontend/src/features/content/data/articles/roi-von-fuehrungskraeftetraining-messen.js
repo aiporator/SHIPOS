@@ -123,7 +123,7 @@ export default {
       type: 'paragraph',
       text:
         'LeaderOS löst das Attributionsproblem nicht, das kann kein Tool. Aber es liefert wenigstens einen ' +
-        'lückenlosen Datentrail: Drill-Completion, Sprint-Fortschritt und Kompetenz-Scores über 30 Tage, die sich ' +
+        'lückenlosen Datentrail: Drill-Completion, Challenge-Fortschritt und Kompetenz-Scores über 30 Tage, die sich ' +
         'sauber neben eNPS- oder 360-Grad-Daten legen lassen, statt eines einzigen Zufriedenheits-Werts direkt nach ' +
         'einem Seminartag.',
     },

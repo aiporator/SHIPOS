@@ -15,7 +15,7 @@ export default {
     { type: 'heading', level: 2, text: 'Output-Metrik 01: Zurückgewonnene Deep-Work-Stunden pro Woche.' },
     { type: 'paragraph', text: 'Vorher: du hast Stand-up-Vorbereitung in dreißig Minuten gemacht. Nachher: in zwölf Minuten dank strukturierten Prompt. Differenz: achtzehn Minuten pro Tag, neunzig Minuten pro Woche. Hochgerechnet auf eine VP-Stunde (200 EUR fully-loaded) sind das 1 500 EUR pro Monat.' },
     { type: 'heading', level: 2, text: 'Output-Metrik 02: Reflex-Zeit für Standard-Skripte.' },
-    { type: 'paragraph', text: 'Wie lange brauchst du um einen B-W-W-Feedback-Eingang zu formulieren? Wenn du zu Beginn 90 Sekunden brauchtest und nach drei Wochen Sprint 22 Sekunden, hast du eine messbare Skill-Verbesserung. Diese Metrik wird selten getrackt · und ist die einzige die ehrlich zeigt ob du wirklich gelernt hast oder nur theoretisch.' },
+    { type: 'paragraph', text: 'Wie lange brauchst du um einen B-W-W-Feedback-Eingang zu formulieren? Wenn du zu Beginn 90 Sekunden brauchtest und nach drei Wochen Challenge 22 Sekunden, hast du eine messbare Skill-Verbesserung. Diese Metrik wird selten getrackt · und ist die einzige die ehrlich zeigt ob du wirklich gelernt hast oder nur theoretisch.' },
     { type: 'heading', level: 2, text: 'Output-Metrik 03: 1:1-Alignment-Anfragen nach Firmenreden.' },
     { type: 'paragraph', text: 'Verringert sich die Welle der "kannst du mir noch erklären was du gemeint hast"-Anfragen nach deinen Firmenreden? Wenn ja, ist deine SEXIER-Strukturierung wirksam. Wenn nicht, ist sie nicht.' },
     { type: 'heading', level: 2, text: 'Output-Metrik 04: Stale-Konversations-Quote.' },
@@ -30,7 +30,7 @@ export default {
     ] },
     { type: 'framework', code: '5+3', title: 'Output statt Input', explanation: 'Fünf Output-Metriken (Deep-Work-Zeit, Reflex-Zeit, Alignment-Welle, Stale-Quote, Sharing-Rate) plus drei Anti-Metriken (Stunden, Tool-Anzahl, Selbst-Bewertung) die du explizit ignorieren musst.' },
     { type: 'callout', tone: 'lime', text: 'Wer das Richtige misst, optimiert das Richtige. Wer Stunden misst, baut Stunden-Wirtschaft. Wer Output misst, baut Output-Wirtschaft.' },
-    { type: 'paragraph', text: 'Im Sprint führen wir für dich die fünf Output-Metriken über dreißig Tage. Du siehst nach dem Sprint schwarz auf weiß welche der fünf bei dir den stärksten Lift hatte.' },
+    { type: 'paragraph', text: 'In der Challenge führen wir für dich die fünf Output-Metriken über dreißig Tage. Du siehst nach der Challenge schwarz auf weiß welche der fünf bei dir den stärksten Lift hatte.' },
   ],
   seo: {
     title: 'Output messen im KI-Zeitalter: 5 Metriken · LeaderOS',

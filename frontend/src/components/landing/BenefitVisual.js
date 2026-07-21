@@ -229,7 +229,7 @@ const CertBody = ({ isDark }) => (
           Anna Schmidt
         </p>
         <p className="mt-3 text-[8.5px] leading-[1.45] text-black/65 px-2">
-          hat den 30-Tage-Führungs-Sprint abgeschlossen und alle elf
+          hat die 30-Tage-Führungs-Challenge abgeschlossen und alle elf
           Wlad-Frameworks gemeistert.
         </p>
       </div>

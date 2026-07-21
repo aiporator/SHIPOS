@@ -36,8 +36,8 @@ export default {
     { type: 'framework', code: '10 STUFEN', title: 'Zuhör-Hierarchie (aus Wlads Werk)', explanation: 'Stufe 1-3: abwesend. Stufe 4-6: aufmerksam. Stufe 7-10: tief. Die meisten Senior-Führungskräfte arbeiten auf 4-5. Plus-Plus-Drill bringt dich auf 7-8. Stufe 9 und 10 sind selten, aber lernbar.' },
     { type: 'heading', level: 2, text: 'Mikro-Übung für diese Woche.' },
     { type: 'paragraph', text: 'In deinem nächsten 1:1: stelle die erste Frage und dann SCHWEIGE für vollständige fünfzehn Sekunden, egal was passiert. Du wirst merken: die meisten füllen die Stille mit ihrer eigentlichen Antwort. Du wirst mehr lernen als sonst in dreißig Minuten.' },
-    { type: 'callout', tone: 'lime', text: 'Eine Stufe pro Woche ist optimistisch. Eine Stufe pro Monat ist die Sprint-Realität · und reicht, um in einem Jahr von Stufe 3 auf Stufe 6 oder 7 zu kommen.' },
-    { type: 'paragraph', text: 'Im Sprint diagnostizieren wir deine aktuelle Stufe und drillen dich auf die nächste. WladBot zeigt dir nach jedem geschriebenen 1:1-Transkript, welche Stufe deine Antworten hatten.' },
+    { type: 'callout', tone: 'lime', text: 'Eine Stufe pro Woche ist optimistisch. Eine Stufe pro Monat ist die Challenge-Realität · und reicht, um in einem Jahr von Stufe 3 auf Stufe 6 oder 7 zu kommen.' },
+    { type: 'paragraph', text: 'In der Challenge diagnostizieren wir deine aktuelle Stufe und drillen dich auf die nächste. WladBot zeigt dir nach jedem geschriebenen 1:1-Transkript, welche Stufe deine Antworten hatten.' },
   ],
   seo: {
     title: 'Zehn Stufen des Zuhörens: aktives Zuhören lernen',

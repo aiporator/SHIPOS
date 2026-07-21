@@ -227,12 +227,12 @@ export const HeroSection = () => {
       </motion.p>
 
       {/* 4 / 4 · CTAs · centered on mobile so the call-to-action moment
-          reads as a complete editorial poster on a 375px screen. Primary
-          (lime, big plus-halo) is the 14-day free trial. Secondary is the
-          even-lower-friction free diagnose · still a path for visitors
-          who want zero-signup. The Sprint sales push lives INSIDE the
-          app (post-signup email sequence + dashboard upsell) so it does
-          not crowd the marketing landing anymore. */}
+          reads as a complete editorial poster on a 375px screen.
+          Funnel priority (team decision): the FREE Leader-Check is the
+          primary action — lowest friction (10 min, no signup, instant
+          result), highest top-of-funnel conversion. The 14-day trial is
+          secondary, the Beratungsgespräch tertiary. The 30-Tage-Challenge
+          sales push lives INSIDE the app (post-signup sequence + upsell). */}
       <motion.div
         initial="hidden"
         animate="show"
@@ -240,26 +240,25 @@ export const HeroSection = () => {
         variants={FADE_UP}
         className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center sm:items-center justify-center md:justify-start gap-y-4 sm:gap-x-6"
       >
-        {/* Primary · the free trial · "Kostenlos testen" is the product-first
-            conversion (the page sells LeaderOS, the trial proves it). The
-            Beratungsgespräch keeps its own section further down (#beratung). */}
+        {/* Primary · the free Leader-Check on leadercheck.de · the
+            low-friction lead-magnet and the clear main action. Lime
+            plus-halo pulse draws the eye; opens in a new tab. */}
         <PlusCircleCTA
-          href={LANDING_META.cta.primary.href}
-          testId="hero-cta-trial-primary"
-          onClick={() => onCtaClick('trial_primary')}
-        >
-          Kostenlos testen
-        </PlusCircleCTA>
-        {/* Secondary · the free Leader-Check on leadercheck.de · the
-            low-friction lead-magnet at the top of the funnel. whileHover
-            lifts + tints lime before the full-invert active state lands,
-            so the affordance reads before the click commits. */}
-        <motion.a
           href={LANDING_META.cta.diagnose.href}
+          testId="hero-cta-diagnose"
+          onClick={() => onCtaClick('diagnose')}
+        >
+          Kostenlosen Leader-Check machen · 10 Min
+        </PlusCircleCTA>
+        {/* Secondary · the 14-day free trial on leaderos.de · for visitors
+            who already want the full platform. Bordered, calmer than the
+            lime primary so the Check stays the clear first step. */}
+        <motion.a
+          href={LANDING_META.cta.primary.href}
           target="_blank"
           rel="noopener noreferrer"
-          data-testid="hero-cta-diagnose"
-          onClick={() => onCtaClick('diagnose')}
+          data-testid="hero-cta-trial-primary"
+          onClick={() => onCtaClick('trial_primary')}
           whileHover={{ y: -3 }}
           whileTap={{ scale: 0.98 }}
           transition={{ type: 'spring', stiffness: 400, damping: 24 }}
@@ -269,30 +268,27 @@ export const HeroSection = () => {
             +
           </span>
           <span className="text-[12px] font-black uppercase tracking-[0.18em] text-foreground group-hover:text-background transition-colors">
-            Kostenloser Leader-Check · 10 Min
+            14 Tage kostenlos testen
           </span>
         </motion.a>
       </motion.div>
 
-      {/* Tertiary · the app itself · for visitors who want to start
-          self-serve on leaderos.de right now. Quiet text-link so it
-          doesn't compete with the Beratungsgespräch. */}
+      {/* Reassurance line under the CTAs · lowers the perceived cost of
+          the Check (the primary action) even further. */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.5 }}
         className="mt-5 text-center md:text-left text-[13px] md:text-[14px] text-foreground/60"
       >
-        Lieber direkt loslegen?{' '}
+        10 Minuten · kein Login · sofort dein persönliches Führungs-Ergebnis.{' '}
         <a
-          href={LANDING_META.cta.primary.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid="hero-cta-trial-tertiary"
-          onClick={() => onCtaClick('trial_tertiary')}
+          href="/#beratung"
+          data-testid="hero-cta-beratung-tertiary"
+          onClick={() => onCtaClick('beratung_tertiary')}
           className="font-bold text-foreground underline decoration-1 underline-offset-4 decoration-foreground/30 hover:decoration-foreground transition-all"
         >
-          14 Tage kostenlos auf leaderos.de →
+          Lieber persönlich? Beratungsgespräch →
         </a>
       </motion.p>
 

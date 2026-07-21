@@ -32,13 +32,13 @@ export default {
     { type: 'heading', level: 2, text: 'Was LeaderOS ist.' },
     { type: 'paragraph', text:
       'LeaderOS ist kein Kurs. Es ist ein Operating System für Führungskräfte. Drei Schichten greifen ineinander: ' +
-      'die elf Wlad-Frameworks als Methodik, der WladBot als 24/7-Sparrings-Partner, ein 30-Tage-Sprint der diese ' +
+      'die elf Wlad-Frameworks als Methodik, der WladBot als 24/7-Sparrings-Partner, eine 30-Tage-Challenge die diese ' +
       'beiden in einen Reflex verwandelt. Jede Schicht alleine ist hilfreich. Erst zusammen entsteht das System.' },
     { type: 'framework', code: 'OS', title: 'Drei Schichten',
       explanation:
         'Schicht 1: Methodik. Elf Frameworks von SEXIER bis ALPEN, jeder ist im echten Coaching erprobt. ' +
-        'Schicht 2: KI-Coach. WladBot ist auf 2200 Wlad-Lektionen trainiert und kennt deinen Sprint-Score. ' +
-        'Schicht 3: Sprint. 30 Tage täglicher Drill, der die Frameworks in deine Reflex-Bibliothek brennt.' },
+        'Schicht 2: KI-Coach. WladBot ist auf 2200 Wlad-Lektionen trainiert und kennt deinen Challenge-Score. ' +
+        'Schicht 3: Challenge. 30 Tage täglicher Drill, der die Frameworks in deine Reflex-Bibliothek brennt.' },
     { type: 'heading', level: 2, text: 'Was LeaderOS nicht ist.' },
     { type: 'list', style: 'bullet', items: [
       'Kein Selbsthilfe-Kurs mit Videos die du nie öffnest.',
@@ -52,13 +52,13 @@ export default {
     { type: 'paragraph', text:
       'Die kostenlose Diagnose auf leadercheck.de zeigt dir in zehn Minuten, ob LeaderOS gerade dein größter ' +
       'Hebel ist. Wenn der Score sagt: "deine Lücke ist Strategie, nicht Skill", machen wir dich nicht zum Kunden. ' +
-      'Wenn er sagt: "Skill", ist der Sprint der schnellste Weg sie zu schließen.' },
+      'Wenn er sagt: "Skill", ist die Challenge der schnellste Weg sie zu schließen.' },
   ],
   seo: {
     title: 'Warum LeaderOS: das Führungs-Betriebssystem',
     description:
       'Warum es LeaderOS gibt: die drei Engpässe der Führungs-Entwicklung · teures Coaching, ' +
-      'Bücher, Seminare · gelöst mit Frameworks, KI-Coach und Sprint. Von Wlad Jachtchenko.',
+      'Bücher, Seminare · gelöst mit Frameworks, KI-Coach und Challenge. Von Wlad Jachtchenko.',
     keywords: ['LeaderOS', 'Wlad Jachtchenko Plattform', 'KI Leadership Operating System', 'Führungskräfte System', 'Coaching Alternative'],
   },
   related: ['was-in-leader-os-drin-ist', 'wladbot-vs-chatgpt-vs-coach'],

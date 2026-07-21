@@ -29,7 +29,7 @@ export default {
       'Keine "schreibe mir 500 Wörter". Du bekommst Füllung, nicht Substanz.',
     ] },
     { type: 'callout', tone: 'lime', text: 'Wer mit den vier Patterns arbeitet, gewinnt typischerweise 60 Prozent Vorbereitungs-Zeit pro Skript. Wer ohne Patterns arbeitet, schreibt drei Versionen bevor er die brauchbare findet.' },
-    { type: 'paragraph', text: 'Im Sprint trainierst du Prompt Engineering an deinen drei häufigsten Konversations-Typen. WladBot ist bereits mit den Patterns vorkonfiguriert · du übst sie an Cases aus deinem Backlog.' },
+    { type: 'paragraph', text: 'In der Challenge trainierst du Prompt Engineering an deinen drei häufigsten Konversations-Typen. WladBot ist bereits mit den Patterns vorkonfiguriert · du übst sie an Cases aus deinem Backlog.' },
   ],
   seo: {
     title: 'Prompt Engineering für Führungskräfte · LeaderOS',

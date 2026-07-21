@@ -141,8 +141,8 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Im 30-Tage-Sprint trainierst du B-W-W an dreißig deiner echten Situationen. WladBot bekommt deinen Kontext ' +
-        '(Rolle, Team, dein Sprint-Score) und korrigiert jeden ersten Satz live. Nach den dreißig Tagen ist es kein ' +
+        'In der 30-Tage-Challenge trainierst du B-W-W an dreißig deiner echten Situationen. WladBot bekommt deinen Kontext ' +
+        '(Rolle, Team, dein Challenge-Score) und korrigiert jeden ersten Satz live. Nach den dreißig Tagen ist es kein ' +
         'Werkzeug mehr, das du anwendest. Es ist dein Default.',
     },
   ],

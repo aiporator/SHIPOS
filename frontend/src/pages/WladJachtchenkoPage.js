@@ -540,7 +540,7 @@ const FAQ_JSON_LD = {
       acceptedAnswer: {
         '@type': 'Answer',
         text:
-          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir LeaderOS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Sprint 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
+          '1:1-Coaching mit Wlad Jachtchenko persönlich ist limitiert · seine Zeit ist der Bottleneck. Stattdessen empfehlen wir LeaderOS · die KI-Coaching-Plattform die seine Methodik 24/7 verfügbar macht. Trial 14 Tage kostenlos, 30-Tage-Challenge 997 €, 12-Monats-Begleitung Leadership Plus Pro 4 797 € (oder in drei Raten). Monatliche Live-Sessions und der Drill-Channel sind im Leadership-Plus-Pro-Tier inkludiert.',
       },
     },
   ],

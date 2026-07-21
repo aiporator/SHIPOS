@@ -23,7 +23,7 @@ export default {
     { type: 'paragraph', text: 'Ohne Methodik: ChatGPT gibt dir "Wir streben nach ehrgeizigen aber realistischen Zielen." Mit Drei Säulen (Logos + Ethos + Pathos): "Wir haben in den letzten drei Quartalen unsere Pipeline-Genauigkeit um 35 Prozent gesteigert (Logos). Wir haben damit bewiesen dass wir disziplinierte Forecasts liefern können (Ethos). Wer im Q4 sein Quota verfehlt, sitzt nicht alleine · wir adjustieren als Team (Pathos)."' },
     { type: 'framework', code: 'METHODIK', title: 'Slop vs Substanz', explanation: 'KI ohne Methodik produziert generischen Output (Slop). KI mit Methodik produziert kontextspezifischen Output (Substanz). Der Unterschied ist nicht die Modell-Qualität · er ist die Methodik die du im Prompt installierst.' },
     { type: 'callout', tone: 'lime', text: 'Wer kein Methodik-Framework im Prompt hat, kann das beste Modell der Welt nutzen · der Output bleibt Slop. Wer eine klare Methodik hat, gewinnt mit jedem Modell.' },
-    { type: 'paragraph', text: 'Im Sprint übst du die Methodik-Installation in jedem deiner Prompts. Nach dreißig Tagen schreibst du Prompts mit eingebauter Methodik ohne darüber nachzudenken · das ist Reflex.' },
+    { type: 'paragraph', text: 'In der Challenge übst du die Methodik-Installation in jedem deiner Prompts. Nach dreißig Tagen schreibst du Prompts mit eingebauter Methodik ohne darüber nachzudenken · das ist Reflex.' },
   ],
   seo: {
     title: 'KI Slop vermeiden: 4 Beispiele mit Methodik · LeaderOS',

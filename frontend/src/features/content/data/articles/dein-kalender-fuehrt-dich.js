@@ -87,7 +87,7 @@ export default {
       text:
         'Block am Sonntagabend zwei Stunden im Kalender für Montag-Vormittag. Titel: "Strategie · nicht verschieben." ' +
         'Wenn du den Block nicht halten kannst, ist deine Schicht in die operative Maschine kompletter als du denkst. ' +
-        'Das ist keine Schande, das ist eine Information. Sie sagt dir wo dein Sprint-Hebel liegt.',
+        'Das ist keine Schande, das ist eine Information. Sie sagt dir wo dein Challenge-Hebel liegt.',
     },
     {
       type: 'paragraph',

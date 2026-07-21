@@ -57,7 +57,7 @@ export const LANDING_META = {
   // landing itself never leads with a Euro figure anymore.
   pricing: {
     trial:  { amount: '0', currency: '€', label: '14 TAGE KOSTENLOS' },
-    sprint: { amount: '997', currency: '€', label: '30-TAGE-SPRINT' },
+    sprint: { amount: '997', currency: '€', label: '30-TAGE-CHALLENGE' },
     os:     { amount: '4 797', currency: '€', label: 'OS · JAHR' },
     note:   'Erst testen. Dann entscheiden.',
   },
@@ -76,7 +76,7 @@ export const LANDING_MANIFESTO = {
     ['04', 'Die KI wird klüger.',           'Werde du es auch.'],
     ['05', 'Wer heute zögert,',             'führt morgen unter jemandem, der nicht zögert.'],
   ],
-  cta: 'Sprint sichern',
+  cta: 'Challenge sichern',
   href: 'https://leadercheck.de',
 };
 
@@ -104,7 +104,7 @@ export const HOW_IT_WORKS = [
       'Basierend auf deiner Diagnose: jeden Tag eine Aufgabe, ' +
       'ein Framework, ein Drill. WladBot begleitet dich mit Wlads ' +
       'Methodik. Am Ende: dein Zertifikat.',
-    cta: 'Sprint kennenlernen',
+    cta: 'Challenge kennenlernen',
     href: 'https://leadercheck.de',
     external: true,
   },
@@ -114,7 +114,7 @@ export const HOW_IT_WORKS = [
     duration: 'LEBENSLANG · OFFEN',
     title: 'Dein Operating System.',
     body:
-      'Nach dem Sprint: voller Zugriff auf alle elf Frameworks, ' +
+      'Nach der Challenge: voller Zugriff auf alle elf Frameworks, ' +
       'WladBot 24/7, monatliche Live-Sessions und das ' +
       'LeaderOS-Netzwerk.',
     cta: 'OS erkunden',
@@ -198,7 +198,7 @@ export const LANDING_BENEFITS = [
     eyebrow: 'BENEFIT 03 · SPRINT',
     headline: '30 Tage.',
     headlineAccent: 'Ein neues Du.',
-    subline: 'Andere Sprints enden mit einem Zertifikat. Deiner mit einem System.',
+    subline: 'Andere Challenges enden mit einem Zertifikat. Deine mit einem System.',
     body:
       'Jeden Tag eine Frage. Jeden Tag ein Drill. Jeden Tag etwas ' +
       'näher an der Führungskraft, die du werden willst. ' +
@@ -209,7 +209,7 @@ export const LANDING_BENEFITS = [
       ['END',   'ABSCHLUSS',      'Zertifikat 0001 · LinkedIn-ready'],
       ['SIGN',  'UNTERSCHRIFT',   'Wlad Jachtchenko persönlich'],
     ],
-    cta: 'Sprint starten',
+    cta: 'Challenge starten',
     href: 'https://leadercheck.de',
     variant: 'bib',
     photo: local('p-03-fuehrungs-sprint.webp'),
@@ -286,7 +286,7 @@ export const LANDING_BENEFITS = [
     headlineAccent: 'LinkedIn-ready.',
     subline: 'PDFs vergessen. Dieses Zertifikat trägst du.',
     body:
-      'Jeder Sprint endet mit einem persönlichen Zertifikat, ' +
+      'Jede Challenge endet mit einem persönlichen Zertifikat, ' +
       'signiert von Wlad Jachtchenko, mit deiner Startnummer 0001 ' +
       'und dem offiziellen LeaderOS-Siegel. Teilbar auf LinkedIn.',
     detail: [
@@ -316,7 +316,7 @@ export const LANDING_BENEFITS = [
       'echtes Enablement: tägliche Lernvideos, Live-Sessions im kleinen Kreis ' +
       'persönlich, der Drill-Channel in dem du das Gelernte sofort ' +
       'auf deinen echten Führungsalltag anwendest, und WladBot der ' +
-      'deine Sprint-Historie kennt. Du lernst nicht 11 Bücher, du ' +
+      'deine Challenge-Historie kennt. Du lernst nicht 11 Bücher, du ' +
       'setzt sie um.',
     detail: [
       ['BOT',  'WLADBOT',        'Dein 24/7 Coach in Wlads Stimme'],

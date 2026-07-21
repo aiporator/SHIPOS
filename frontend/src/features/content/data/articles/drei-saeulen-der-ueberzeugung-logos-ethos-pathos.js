@@ -28,7 +28,7 @@ export default {
       'Krisen-Kommunikation an Team: Ethos zuerst (50%), dann Pathos (30%), zuletzt Logos (20%).',
     ] },
     { type: 'callout', tone: 'lime', text: 'Wer ohne bewusste Säulen-Verteilung redet, dominiert automatisch in der Säule die ihm liegt · und ignoriert die zwei anderen.' },
-    { type: 'paragraph', text: 'Engineering-Verantwortliche neigen zu Logos-Übergewicht. Founder zu Pathos. Senior-Berater zu Ethos. Im Sprint diagnostizieren wir deine Default-Säule und drillen die zwei anderen explizit.' },
+    { type: 'paragraph', text: 'Engineering-Verantwortliche neigen zu Logos-Übergewicht. Founder zu Pathos. Senior-Berater zu Ethos. In der Challenge diagnostizieren wir deine Default-Säule und drillen die zwei anderen explizit.' },
     { type: 'paragraph', text: 'WladBot zeigt dir nach jedem geschriebenen Skript wie deine drei Säulen verteilt sind. Du siehst sofort wo du nachjustieren musst.' },
   ],
   seo: {

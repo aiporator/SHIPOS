@@ -31,7 +31,7 @@ Leader-Check           (kostenlos · personalisierte Auswertung)
         ↓
 14-Tage-Trial          (leaderos.de/signup?trial=14)
         ↓
-30-Tage-Sprint         (997 €)
+30-Tage-Challenge      (997 €)
         ↓
 Leadership Plus Pro    (4 797 € · 12 Monate)
 ```

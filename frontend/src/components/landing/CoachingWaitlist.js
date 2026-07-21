@@ -173,7 +173,7 @@ export const CoachingWaitlist = () => {
                   </p>
                   <p className="mt-3 text-[13.5px] text-white/65 leading-[1.55]">
                     Sobald Wlad den nächsten Quartals-Block öffnet, hörst
-                    du als erste:r davon. Bis dahin: Start mit dem Sprint
+                    du als erste:r davon. Bis dahin: Start mit der Challenge
                     bringt dich in die Vorrang-Liste.
                   </p>
                 </div>

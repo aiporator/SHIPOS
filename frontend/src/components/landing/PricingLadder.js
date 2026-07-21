@@ -55,9 +55,9 @@ const TIERS = [
   },
   {
     id: 'sprint',
-    eyebrow: '▸ 30-TAGE-SPRINT + 12 MONATE',
-    name: 'Sprint',
-    duration: '30 Tage Sprint · 12 Monate Mitgliedschaft',
+    eyebrow: '▸ 30-TAGE-CHALLENGE + 12 MONATE',
+    name: '30-Tage-Challenge',
+    duration: '30 Tage Challenge · 12 Monate Mitgliedschaft',
     price: '997 €',
     priceSub: 'einmalig · kein Abo',
     outcome: '11 Frameworks · Zertifikat · 12 Monate Plattform-Zugang',
@@ -71,7 +71,7 @@ const TIERS = [
       'Tägliche Lernvideos · Wöchen-Drills',
       'Zertifikat für dein LinkedIn',
     ],
-    cta: 'Sprint kaufen',
+    cta: 'Challenge kaufen',
     href: 'https://leaderos.de/checkout?tier=sprint',
     accent: true,
     badge: '★ BELIEBT',
@@ -83,14 +83,14 @@ const TIERS = [
     duration: '12 Monate Enablement',
     price: '4 797 €',
     priceSub: 'oder 3 × 1 599 €',
-    outcome: 'Sprint + Drill-Channel + Live-Sessions',
+    outcome: 'Challenge + Drill-Channel + Live-Sessions',
     packageLine: 'Das OS-Jahr: alle Kurse, Live-Formate, Drill-Channel, Community und WladBot — als ein System, 12 Monate lang.',
     audience: 'Für Führungskräfte, die volles Enablement wollen',
     bullets: [
-      'Alles aus dem Sprint',
+      'Alles aus der Challenge',
       'Monatliche Live-Sessions im kleinen Kreis',
       'Drill-Channel: Theorie sofort am echten Fall',
-      'Sprint-Historie als Kontext für WladBot',
+      'Challenge-Historie als Kontext für WladBot',
       'Vorrang für 1:1-Mentoring Warteliste',
     ],
     cta: 'Leadership Plus Pro starten',
@@ -146,7 +146,7 @@ const TIERS = [
     bullets: [
       'Custom-WladBot auf eurer Infrastruktur',
       'Bis 200+ User-Lizenzen',
-      '12-Monate Sprint-Curriculum auf eure Industry',
+      '12-Monate Challenge-Curriculum auf eure Industry',
       '6 × Quarterly Strategy-Reviews',
       'Mitarbeiter-Onboarding-Material',
       'SSO + Audit-Logs + Compliance-Reports',
@@ -317,7 +317,7 @@ export const PricingLadder = () => {
   return (
   <section
     id="pricing"
-    aria-label="Einstieg: 14 Tage Trial bis Sprint"
+    aria-label="Einstieg: 14 Tage Trial bis Challenge"
     className="relative w-full bg-[#F4F4F2] border-y-2 border-black"
     data-testid="pricing-ladder"
   >
@@ -334,7 +334,7 @@ export const PricingLadder = () => {
       <div className="mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
         <div className="md:col-span-7 text-center md:text-left">
           <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-4 font-mono">
-            ▸ DEIN EINSTIEG · TRIAL · DIAGNOSE · SPRINT
+            ▸ DEIN EINSTIEG · TRIAL · DIAGNOSE · CHALLENGE
           </p>
           <h2
             className="leading-[0.9] tracking-[-0.04em] text-black"
@@ -354,7 +354,7 @@ export const PricingLadder = () => {
           <p className="text-[15px] md:text-[17px] leading-[1.55] text-black/70">
             Vierzehn Tage. Ohne Karte. Voller Plattform-Zugang. WladBot 24/7,
             elf Frameworks, alle Lernvideos. Erst wenn es für dich passt,
-            wandelst du in den 30-Tage-Sprint mit 12 Monate Mitgliedschaft.
+            wandelst du in die 30-Tage-Challenge mit 12 Monate Mitgliedschaft.
             <span className="text-black font-bold"> Trial zuerst, immer.</span>
           </p>
         </div>

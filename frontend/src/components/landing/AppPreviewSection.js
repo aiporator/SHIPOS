@@ -48,7 +48,7 @@ const DashboardMock = () => (
           <div className="h-1 bg-brand" style={{ width: '23%' }} />
         </div>
         <div className="text-[9px] font-mono uppercase tracking-[0.18em] text-foreground/55">
-          23 % VOM SPRINT
+          23 % VON DER CHALLENGE
         </div>
         <div className="mt-2 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-black">
           <span className="w-5 h-5 rounded-full bg-brand inline-flex items-center justify-center font-black">+</span>
@@ -162,7 +162,7 @@ const ContextLayerMock = () => (
 const TILES = [
   {
     code: 'DASHBOARD',
-    label: 'Dein Sprint, jeden Tag.',
+    label: 'Deine Challenge, jeden Tag.',
     body: 'Eine Aufgabe pro Tag. Streak-Counter. Fortschritts-Balken. Kein Karussell-Overload. Du weißt was heute dran ist.',
     Mock: DashboardMock,
   },

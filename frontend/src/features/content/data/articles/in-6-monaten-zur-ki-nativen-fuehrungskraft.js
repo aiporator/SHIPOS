@@ -5,7 +5,7 @@ export default {
   title: 'In 6 Monaten von KI-Skeptiker zur KI-nativen Führungskraft.',
   description:
     'Was Wlads 6-Monats-Ausbildung mit KI macht · und warum 30 Tage ' +
-    'Sprint plus 5 Monate Vertiefung mehr verändern als 50 ChatGPT-' +
+    'Challenge plus 5 Monate Vertiefung mehr verändern als 50 ChatGPT-' +
     'Webinare. Der konkrete Monatsplan plus messbare Etappen.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-13',
@@ -14,7 +14,7 @@ export default {
   body: [
     { type: 'paragraph', text: 'Ich werde oft gefragt: "Wlad, wie lange dauert das eigentlich · bis ich wirklich mit KI führe und nicht nur ChatGPT-Tabs offen habe?". Die ehrliche Antwort: in 30 Tagen siehst du den ersten echten Hebel. In 6 Monaten bist du eine andere Führungskraft. Wer das in einem Wochenend-Bootcamp verspricht, hat noch nie eine Transformation begleitet.' },
     { type: 'paragraph', text: 'Hier ist der Pfad, den wir in LeaderOS gehen. Sechs Monate. Kein Wochenend-Hype, keine 8-Stunden-Video-Marathons. Sondern strukturiertes Training mit täglichem Coaching.' },
-    { type: 'heading', level: 2, text: 'Monat 1: Sprint 0001 · die KI-Routine baut sich auf.' },
+    { type: 'heading', level: 2, text: 'Monat 1: Challenge 0001 · die KI-Routine baut sich auf.' },
     { type: 'paragraph', text: '30 Tage täglicher Check-in, jeden Morgen 10 Minuten. Du installierst die Grundroutine: dein WladBot kennt deinen Job, deine Ziele, deinen Stil. Du lernst die vier Prompt-Patterns die in 90 Prozent aller Führungs-Situationen reichen. Am Tag 30 hast du eine Routine die hält.' },
     { type: 'paragraph', text: 'Messbar: median 5-7 Stunden zurückgewonnene Zeit pro Woche. Erste Manager berichten dass Entscheidungs-Zyklen sich halbieren. Team-Feedback wird konkreter, weil du nicht mehr aus dem Bauch heraus antwortest.' },
     { type: 'heading', level: 2, text: 'Monat 2: Die 5 Rollen · Vertiefung.' },
@@ -36,7 +36,7 @@ export default {
   ],
   seo: {
     title: 'In 6 Monaten zur KI-nativen Führungskraft: Plan',
-    description: 'In 6 Monaten vom KI-Skeptiker zur KI-nativen Führungskraft: der konkrete Monatsplan mit Sprint, 5 Rollen, Rhetorik und eigenen Agenten — plus messbare Etappen. Von Wlad Jachtchenko.',
+    description: 'In 6 Monaten vom KI-Skeptiker zur KI-nativen Führungskraft: der konkrete Monatsplan mit Challenge, 5 Rollen, Rhetorik und eigenen Agenten — plus messbare Etappen. Von Wlad Jachtchenko.',
   },
   related: [
     'der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern',

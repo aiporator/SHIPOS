@@ -14,13 +14,13 @@ import { ArrowUpRight } from 'lucide-react';
 
 const DELIVERABLES = [
   ['K·01', 'KURSE', '11 Framework-Kurse', 'Alle elf Wlad-Frameworks als drillbare Kurse · Harvard-Verhandlung, BWW-Feedback, 5 Rollen, Dunkle-Rhetorik-Defensive u. a.'],
-  ['K·02', 'KI-COACH', 'WladBot 24/7', 'Trainiert auf 13 Büchern und 15 Jahren Methodik · Text + Voice, Antwort in Sekunden, kennt deine Sprint-Historie.'],
+  ['K·02', 'KI-COACH', 'WladBot 24/7', 'Trainiert auf 13 Büchern und 15 Jahren Methodik · Text + Voice, Antwort in Sekunden, kennt deine Challenge-Historie.'],
   ['K·03', 'VIDEO', 'Lernvideo-Bibliothek', 'Tägliche Lernvideos plus die komplette Kurs-Bibliothek · strukturierte Pfade statt Playlist-Chaos.'],
   ['K·04', 'LIVE', 'Monatliche Live-Sessions', 'Geschlossene Live-Sessions im kleinen Kreis · echte Fälle, Q&A, ungeschnitten.'],
   ['K·05', 'DRILL', 'Drill-Channel', 'Theorie sofort am echten Fall: deine Situationen werden im Channel seziert und gedrillt.'],
   ['K·06', 'ZUGANG', '12 Monate Plattform', 'Voller Zugang zu allem · Simulationen, Playbooks, Video-Analyse, Workflows, Challenges.'],
   ['K·07', 'PEERS', 'LeaderOS Community', 'Führungskräfte auf demselben Weg · Austausch, Accountability, Challengers.'],
-  ['K·08', 'PROOF', 'Zertifikat', 'Sprint-Abschluss mit persönlicher Startnummer · LinkedIn-ready.'],
+  ['K·08', 'PROOF', 'Zertifikat', 'Challenge-Abschluss mit persönlicher Startnummer · LinkedIn-ready.'],
 ];
 
 // Externally verifiable only — every badge can be checked at the source.
