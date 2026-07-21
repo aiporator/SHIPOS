@@ -24,11 +24,11 @@ export default {
     { type: 'heading', level: 2, text: 'Zwölf-Wochen-Plan für jede Stufe.' },
     { type: 'list', style: 'bullet', items: [
       'Stufe 1 → 2: drei wiederverwendete Prompts bauen, daily-routine etablieren. 4 Wochen.',
-      'Stufe 2 → 3: Sprint absolvieren, Methodik anwenden, Output-Metriken einführen. 30 Tage Sprint + 6 Wochen Festigung.',
+      'Stufe 2 → 3: Challenge absolvieren, Methodik anwenden, Output-Metriken einführen. 30 Tage Challenge + 6 Wochen Festigung.',
       'Stufe 3 → 4: Team-Rollout planen, Sharing-Schichten bauen, eigene Operating-Model-Anpassung beschließen. 8-10 Wochen.',
     ] },
     { type: 'callout', tone: 'lime', text: 'Mehr als 70 Prozent der DACH-Führungskräfte hängen auf Stufe 1 und 2. Wer auf Stufe 3 kommt, gehört statistisch zur obersten Schicht.' },
-    { type: 'paragraph', text: 'Die Diagnose zeigt dir auf welcher Stufe du heute stehst. Der Sprint ist der schnellste bekannte Weg von Stufe 1-2 auf Stufe 3. Plus-Plus + Team-Rollout führt zu Stufe 4.' },
+    { type: 'paragraph', text: 'Die Diagnose zeigt dir auf welcher Stufe du heute stehst. Die Challenge ist der schnellste bekannte Weg von Stufe 1-2 auf Stufe 3. Plus-Plus + Team-Rollout führt zu Stufe 4.' },
   ],
   seo: {
     title: 'Vom KI-Nutzer zum KI-Leader: der Lernpfad in 4 Stufen',

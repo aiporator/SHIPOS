@@ -175,7 +175,7 @@ export const AD_SERIES = [
     photo: stock('phone-chat-night', 1080, 1080),
     photoFit: 'cover',
     caption:
-      'ChatGPT kennt das halbe Internet. WladBot kennt deinen Sprint, ' +
+      'ChatGPT kennt das halbe Internet. WladBot kennt deine Challenge, ' +
       'deine Frameworks-Historie, deinen Ton. Der Unterschied zwischen ' +
       'einem Tipp und der nächsten Antwort.',
   },
@@ -273,14 +273,14 @@ export const AD_SERIES = [
     format: '9x16',
     platform: 'stories',
     palette: 'rally',
-    topText: 'DEIN SPRINT\nDEIN ZERTIFIKAT',
+    topText: 'DEINE CHALLENGE\nDEIN ZERTIFIKAT',
     titleText: 'BIB 0001\nSICHERN.',
     bottomText: 'JETZT STARTEN · 14 TAGE KOSTENLOS',
     cta: 'JETZT DABEI',
     photo: stock('marathon-bib', 1080, 1920),
     photoFit: 'cover',
     caption:
-      'Starte deinen Sprint, wann du willst. Jeder bekommt das ' +
+      'Starte deine Challenge, wann du willst. Jeder bekommt das ' +
       'Zertifikat 0001 · handschriftlich von Wlad, mit dem Original-Siegel.',
   },
   {

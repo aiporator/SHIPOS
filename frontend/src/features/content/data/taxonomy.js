@@ -63,9 +63,9 @@ export const TAXONOMY = [
     code: 'C-05',
     slug: 'plattform',
     name: 'Plattform & LeaderOS',
-    tagline: 'Was LeaderOS ist, wie der Sprint läuft, für wen es passt.',
+    tagline: 'Was LeaderOS ist, wie die Challenge läuft, für wen es passt.',
     description:
-      'Konkretes über die Plattform, den 30-Tage-Sprint und alle Vorteile, ' +
+      'Konkretes über die Plattform, die 30-Tage-Challenge und alle Vorteile, ' +
       'die du ab Tag 1 bekommst.',
     tagMatches: ['Plattform', 'Sprint', 'LeaderOS'],
     funnelLabel: 'WIE GEHT ES WEITER',

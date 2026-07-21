@@ -66,7 +66,7 @@ export default {
     { type: 'paragraph', text:
       'Acht Jahre Coaching-Anfragen die nicht in einen Kalender passen waren das Signal. Wlads Zeit ist endlich. Wlads Methodik nicht. LeaderOS bündelt die Methodik in einem KI-Coach der 24/7 verfügbar ist · trainiert auf zweitausendzweihundert authentische Wlad-Chunks aus Büchern, Podcasts, Trainings, Vorträgen.' },
     { type: 'paragraph', text:
-      'Das ist nicht ChatGPT mit Persona-Layer. Das ist eine Plattform mit elf drillbaren Frameworks, einer Context-Schicht die deinen Sprint kennt, und einer LeaderOS-Community für alle Mitglieder die das System mit Wlad zusammen formen.' },
+      'Das ist nicht ChatGPT mit Persona-Layer. Das ist eine Plattform mit elf drillbaren Frameworks, einer Context-Schicht die deine Challenge kennt, und einer LeaderOS-Community für alle Mitglieder die das System mit Wlad zusammen formen.' },
     { type: 'callout', tone: 'lime', text:
       'Mehr zur Methodik im Pillar-Artikel Warum es LeaderOS gibt · zur Plattform-Struktur im Artikel Was in LeaderOS drin ist · zur ehrlichen Vergleichsfrage im Artikel WladBot vs ChatGPT vs Coach.' },
   ],

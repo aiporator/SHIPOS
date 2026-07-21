@@ -176,7 +176,7 @@ export default function DashboardPage() {
                 </h3>
                 <p className="text-[14px] text-muted-foreground mt-1.5 leading-relaxed">
                   {!c30.started
-                    ? (de ? 'Starte deinen 30-Tage KI-Leadership Sprint und lerne die Grundlagen.' : 'Start your 30-day AI Leadership sprint and learn the fundamentals.')
+                    ? (de ? 'Starte deine 30-Tage KI-Leadership-Challenge und lerne die Grundlagen.' : 'Start your 30-day AI Leadership challenge and learn the fundamentals.')
                     : (de ? `Mache weiter mit Tag ${c30.current_day} deiner Challenge · 10 interaktive Fragen warten.` : `Continue with Day ${c30.current_day} of your challenge · 10 interactive questions await.`)
                   }
                 </p>

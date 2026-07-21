@@ -17,7 +17,7 @@ export default {
       'In 30 Tagen messbar reduzierte Reflex-Zeit für mindestens eines deiner gewählten Frameworks (median 60-70 Prozent Reduktion in unseren Daten).',
       'Mindestens 3 wiederverwendete Prompts die in deinen Wochenfluss passen.',
       'Eine ehrliche Diagnose welche der elf Frameworks dein größter Hebel ist.',
-      '14 Tage Geld-zurück-Garantie wenn der Sprint nicht passt · ohne Begründung.',
+      '14 Tage Geld-zurück-Garantie wenn die Challenge nicht passt · ohne Begründung.',
       'Lebenslangen Zugriff auf das System, kein Abo-Lock-in.',
     ] },
     { type: 'heading', level: 2, text: 'Wir versprechen NICHT.' },
@@ -25,7 +25,7 @@ export default {
       'Eine Persönlichkeits-Transformation in 30 Tagen. Das ist nicht möglich, und wer es verspricht lügt.',
       'Eine Beförderung im nächsten Quartal. Das hängt von zu vielen anderen Variablen ab.',
       'Mehr Glück oder Erfüllung. Das ist Coaching-Erfahrungsmedizin, kein Skill-System.',
-      'Output-Lift in Bereichen die nicht von Skills abhängen. Wenn deine Lücke Strategie oder Markt ist, ist Sprint nicht der Hebel.',
+      'Output-Lift in Bereichen die nicht von Skills abhängen. Wenn deine Lücke Strategie oder Markt ist, ist die Challenge nicht der Hebel.',
       'Magie. Es ist Drill, nicht Magie.',
     ] },
     { type: 'heading', level: 2, text: 'Drei häufige falsche Erwartungen.' },
@@ -41,7 +41,7 @@ export default {
   seo: {
     title: 'LeaderOS Versprechen: was du bekommst · und was nicht',
     description: 'Das LeaderOS Versprechen ehrlich: messbare Skill-Verbesserung, Coaching-Garantie und lebenslanger Zugriff · aber keine Persönlichkeits-Transformation. Von Wlad Jachtchenko.',
-    keywords: ['LeaderOS Versprechen', 'Coaching Garantie', 'Ehrliches Leadership Training', 'Leadership Programm Erwartungen', 'Sprint Erwartung'],
+    keywords: ['LeaderOS Versprechen', 'Coaching Garantie', 'Ehrliches Leadership Training', 'Leadership Programm Erwartungen', 'Challenge Erwartung'],
   },
   related: ['mehr-als-eine-transformation', 'leader-os-vs-klassisches-coaching'],
 };

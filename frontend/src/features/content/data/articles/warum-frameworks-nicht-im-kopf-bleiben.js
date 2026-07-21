@@ -98,7 +98,7 @@ export default {
       type: 'callout',
       tone: 'lime',
       text:
-        'Drei Wochen Sprint, dreißig Drills am echten Fall, ein KI-Coach der deine Stilhistorie kennt. ' +
+        'Drei Wochen Challenge, dreißig Drills am echten Fall, ein KI-Coach der deine Stilhistorie kennt. ' +
         'Das ist der Trade, den die Methodik vorschlägt.',
     },
     {
@@ -116,7 +116,7 @@ export default {
       text:
         'Wenn dich das überzeugt, beginne mit der kostenlosen Diagnose auf leadercheck.de. Sie zeigt dir ' +
         'in fünf Minuten, an welchem der elf Frameworks dein größter Hebel liegt. Danach entscheidest du ' +
-        'ob ein Sprint sinnvoll ist.',
+        'ob eine Challenge sinnvoll ist.',
     },
   ],
   seo: {

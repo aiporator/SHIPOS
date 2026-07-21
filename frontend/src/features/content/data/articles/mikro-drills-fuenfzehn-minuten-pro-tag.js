@@ -14,13 +14,13 @@ export default {
   body: [
     { type: 'paragraph', text: 'Fünfzehn Minuten pro Tag klingt nach wenig. In deinem Kalender ist es enorm. Hier ist warum die Slot-Wahl wichtiger ist als die Slot-Länge.' },
     { type: 'heading', level: 2, text: 'Slot-Option A: morgens vor dem ersten Meeting.' },
-    { type: 'paragraph', text: '7:45 bis 8:00 Uhr. Du hast Reflexions-Kapazität. Du hast kein operatives Rauschen. Du integrierst den Drill in deine Morgen-Routine. Funktioniert in 60 Prozent der Sprint-Teilnehmer-Daten am besten.' },
+    { type: 'paragraph', text: '7:45 bis 8:00 Uhr. Du hast Reflexions-Kapazität. Du hast kein operatives Rauschen. Du integrierst den Drill in deine Morgen-Routine. Funktioniert in 60 Prozent der Challenge-Teilnehmer-Daten am besten.' },
     { type: 'heading', level: 2, text: 'Slot-Option B: nach dem letzten Meeting.' },
     { type: 'paragraph', text: '17:30 bis 17:45 Uhr. Du hast operatives Material aus dem Tag (echte Cases). Du transformierst Stress in Skill. Funktioniert für 25 Prozent der Teilnehmer am besten · vor allem Engineering-Verantwortliche.' },
     { type: 'heading', level: 2, text: 'Slot-Option C: Mittwoch- und Freitag-Mittag (Bundle).' },
     { type: 'paragraph', text: 'Wenn dein Kalender keinen festen Tages-Slot hat: zwei Bundle-Slots pro Woche je dreißig bis vierzig Minuten. Funktioniert in fünfzehn Prozent der Teilnehmer am besten · vor allem CEOs ohne festes Tages-Muster.' },
     { type: 'heading', level: 2, text: 'Anti-Pattern: "wann immer ich Zeit habe".' },
-    { type: 'paragraph', text: 'Das ist garantiertes Scheitern. Wer kein festes Slot reserviert, hat in Woche 3 den Sprint vergessen. Echte Termine kommen immer rein · wer den Drill nicht im Kalender festschreibt, opfert ihn.' },
+    { type: 'paragraph', text: 'Das ist garantiertes Scheitern. Wer kein festes Slot reserviert, hat in Woche 3 die Challenge vergessen. Echte Termine kommen immer rein · wer den Drill nicht im Kalender festschreibt, opfert ihn.' },
     { type: 'heading', level: 2, text: 'Was in den 15 Minuten passiert.' },
     { type: 'list', style: 'numbered', items: [
       '3 Min: Lektion lesen oder hören.',
@@ -35,7 +35,7 @@ export default {
   seo: {
     title: 'Mikro-Drills: 15 Minuten pro Tag · LeaderOS',
     description: 'Mikro-Drills mit 15 Minuten pro Tag: drei Slot-Optionen, was in den 15 Minuten passiert und die Anti-Patterns. Passt in jede Woche. Von Wlad Jachtchenko.',
-    keywords: ['Mikro Drills', 'KI Training 15 Minuten', 'Sprint Routine', 'Kurze Lern-Routinen', 'Leadership Routine'],
+    keywords: ['Mikro Drills', 'KI Training 15 Minuten', 'Challenge Routine', 'Kurze Lern-Routinen', 'Leadership Routine'],
   },
   related: ['dein-erster-tag-mit-leader-os', 'damit-es-jeder-schafft-die-zugaenglichkeits-philosophie'],
 };

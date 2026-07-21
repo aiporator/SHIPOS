@@ -40,7 +40,7 @@ export default {
     { type: 'heading', level: 2, text: 'WladBot: die methodische Tiefe in der Mitte.' },
     { type: 'paragraph', text:
       'Stark wenn: du innerhalb der Wlad-Methodik trainieren willst, ohne immer wartend auf den nächsten ' +
-      'Termin zu sein. WladBot kennt deinen Sprint-Score, deine letzten Drills, deinen Schreibstil. Er hält ' +
+      'Termin zu sein. WladBot kennt deinen Challenge-Score, deine letzten Drills, deinen Schreibstil. Er hält ' +
       'sich an die elf Frameworks und drillt dich auch wenn es unbequem wird.' },
     { type: 'paragraph', text:
       'Was er NICHT ist: ein Therapeut. Was er auch nicht ist: ein Quartals-Reflexions-Partner für tiefe ' +

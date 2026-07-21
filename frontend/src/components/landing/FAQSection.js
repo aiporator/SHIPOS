@@ -5,32 +5,32 @@ const FAQS = [
   {
     q: 'Was bekomme ich am Ende von 30 Tagen, konkret?',
     a:
-      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jeder Firmenrede sofort abrufen kannst. Ein WladBot, der deine Sprint-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner Startnummer 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
+      'Ein klareres Bild davon, wie du führst, geprüft an dreißig realen Drills aus deinem Alltag. Eine Bibliothek von elf Frameworks, die du in jeder Verhandlung, jedem 1:1 und jeder Firmenrede sofort abrufen kannst. Ein WladBot, der deine Challenge-Historie kennt und in deiner Sprache antwortet. Und ein Zertifikat mit deiner Startnummer 0001, das du auf LinkedIn teilen kannst, weil es zeigt, was du wirklich gelernt hast, nicht nur was du abgehakt hast.',
   },
   {
     q: 'Wie hilft mir der WladBot in einer realen Situation?',
     a:
-      'Beispiel Dienstag 22:47 Uhr: morgen früh musst du einem Senior-Mitarbeiter zum dritten Mal das gleiche Feedback geben. Du tippst die Situation in den Bot. Er gibt dir nicht "10 Tipps", sondern den nächsten Satz aus der Feedback-Formel (Beobachtung · Wirkung · Wunsch), abgestimmt auf das, was er über deinen Stil aus deinem Sprint weiß. Du gehst mit einem Skript ins Gespräch, nicht mit Bauchschmerzen.',
+      'Beispiel Dienstag 22:47 Uhr: morgen früh musst du einem Senior-Mitarbeiter zum dritten Mal das gleiche Feedback geben. Du tippst die Situation in den Bot. Er gibt dir nicht "10 Tipps", sondern den nächsten Satz aus der Feedback-Formel (Beobachtung · Wirkung · Wunsch), abgestimmt auf das, was er über deinen Stil aus deiner Challenge weiß. Du gehst mit einem Skript ins Gespräch, nicht mit Bauchschmerzen.',
   },
   {
     q: 'Was passiert nach den 30 Tagen, bleibt das System?',
     a:
-      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions und dem Drill-Channel will, upgradet auf Leadership Plus Pro. Der Sprint ist das Onboarding. Das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
+      'Ja. Du behältst lebenslangen Zugriff auf alle elf Frameworks, WladBot 24/7 in deiner Tasche und die Lernvideo-Bibliothek. Wer die volle 12-Monats-Enablement-Begleitung mit monatlichen Live-Sessions und dem Drill-Channel will, upgradet auf Leadership Plus Pro. Die Challenge ist das Onboarding. Das OS bleibt dein Werkzeug für die nächsten Jahre. Kein Abo-Lock-in: einmal gezahlt, dauerhaft drin.',
   },
   {
     q: 'Was kostet das genau?',
     a:
-      'Der Einstieg ist 14 Tage kostenlos, ohne Karte, jederzeit kündbar. In dieser Zeit hast du vollen Zugang zur Plattform · alle Frameworks, WladBot 24/7, alle Lernvideos. Wenn es für dich passt, wandelst du danach in den 30-Tage-Sprint mit 12 Monaten Mitgliedschaft (997 € einmalig) oder die volle 12-Monats-Begleitung Leadership Plus Pro (4 797 € einmalig oder in drei Raten). Die Diagnose auf leadercheck.de bleibt unabhängig davon kostenlos. Kein Abo, keine automatische Verlängerung.',
+      'Der Einstieg ist 14 Tage kostenlos, ohne Karte, jederzeit kündbar. In dieser Zeit hast du vollen Zugang zur Plattform · alle Frameworks, WladBot 24/7, alle Lernvideos. Wenn es für dich passt, wandelst du danach in die 30-Tage-Challenge mit 12 Monaten Mitgliedschaft (997 € einmalig) oder die volle 12-Monats-Begleitung Leadership Plus Pro (4 797 € einmalig oder in drei Raten). Die Diagnose auf leadercheck.de bleibt unabhängig davon kostenlos. Kein Abo, keine automatische Verlängerung.',
   },
   {
     q: 'Warum sollte ich für die Diagnose dieselbe Email nutzen?',
     a:
-      'Weil die Diagnose-App (leadercheck.de) und die Coaching-App (leaderos.de) dieselbe Identität sehen, sobald du die gleiche Email-Adresse benutzt. Deine Diagnose-Scores aus dem Check fließen in deinen Sprint-Plan ein. Der WladBot weiß ab Tag 1, wo deine Schwächen liegen. Du musst nichts nochmal angeben. Andere Email = zwei getrennte Profile = keine Personalisierung.',
+      'Weil die Diagnose-App (leadercheck.de) und die Coaching-App (leaderos.de) dieselbe Identität sehen, sobald du die gleiche Email-Adresse benutzt. Deine Diagnose-Scores aus dem Check fließen in deinen Challenge-Plan ein. Der WladBot weiß ab Tag 1, wo deine Schwächen liegen. Du musst nichts nochmal angeben. Andere Email = zwei getrennte Profile = keine Personalisierung.',
   },
   {
     q: 'Wie unterscheidet sich das von ChatGPT oder einem normalen Coaching?',
     a:
-      'ChatGPT kennt das halbe Internet, aber nicht dich und nicht die Methodik. Ein 1-zu-1-Coach kennt dich, ist aber nicht um 22:47 Uhr verfügbar und kostet pro Stunde, was bei LeaderOS einen ganzen Sprint kostet. WladBot ist beides zusammen: trainiert auf 2 212 authentische Wlad-Chunks und einer Context-Schicht, die deinen Sprint, deine Frameworks-Historie und deine letzten Drills kennt.',
+      'ChatGPT kennt das halbe Internet, aber nicht dich und nicht die Methodik. Ein 1-zu-1-Coach kennt dich, ist aber nicht um 22:47 Uhr verfügbar und kostet pro Stunde, was bei LeaderOS eine ganze Challenge kostet. WladBot ist beides zusammen: trainiert auf 2 212 authentische Wlad-Chunks und einer Context-Schicht, die deine Challenge, deine Frameworks-Historie und deine letzten Drills kennt.',
   },
   {
     q: 'Wie sicher sind meine Daten?',
@@ -40,7 +40,7 @@ const FAQS = [
   {
     q: 'Was, wenn ich merke, das ist nichts für mich?',
     a:
-      'Während der 14-tägigen Test-Phase kündigst du mit einem Klick, ohne Karte, ohne Begründung · es entsteht kein Risiko. Falls du danach in den Sprint wandelst und es doch nicht passt, gilt zusätzlich 14 Tage Geld-zurück-Garantie auf den Sprint, ohne Begründungspflicht. Bisher hat noch niemand zurückgefordert. Die Garantie steht trotzdem, damit du angstfrei starten kannst.',
+      'Während der 14-tägigen Test-Phase kündigst du mit einem Klick, ohne Karte, ohne Begründung · es entsteht kein Risiko. Falls du danach in die Challenge wandelst und es doch nicht passt, gilt zusätzlich 14 Tage Geld-zurück-Garantie auf die Challenge, ohne Begründungspflicht. Bisher hat noch niemand zurückgefordert. Die Garantie steht trotzdem, damit du angstfrei starten kannst.',
   },
 ];
 

@@ -44,22 +44,22 @@ export default {
       'ist für Gründer der vermutlich größte Hebel im ganzen System.' },
     { type: 'callout', tone: 'lime', text:
       'Drei Streich-Entscheidungen pro Woche, konsequent durchgezogen, geben dir im Schnitt sechs Stunden ' +
-      'Deep-Work zurück. Das ist die Größenordnung in Sprint-Daten aus Gründer-Teilnehmern.' },
-    { type: 'heading', level: 2, text: 'Wie der Sprint sich an Gründer-Rhythmus anpasst.' },
+      'Deep-Work zurück. Das ist die Größenordnung in Challenge-Daten aus Gründer-Teilnehmern.' },
+    { type: 'heading', level: 2, text: 'Wie die Challenge sich an Gründer-Rhythmus anpasst.' },
     { type: 'list', style: 'bullet', items: [
-      'Sprint-Pausen während Fundraising-Phasen sind eingebaut: du markierst die Woche, der Plan wartet.',
+      'Challenge-Pausen während Fundraising-Phasen sind eingebaut: du markierst die Woche, der Plan wartet.',
       'Drill-Inhalte können vor Investor-Pitchs auf SEXIER + Drei Säulen umgestellt werden für Vorbereitung.',
       'Co-Founder-Konflikt-Drills nutzen das Vier-Farben-Modell um die Spannungs-Achsen explizit zu machen.',
     ] },
-    { type: 'heading', level: 2, text: 'Wann der Sprint NICHT der richtige Schritt ist.' },
+    { type: 'heading', level: 2, text: 'Wann die Challenge NICHT der richtige Schritt ist.' },
     { type: 'paragraph', text:
-      'Ehrlich gesagt: wenn du gerade in einer Liquiditäts-Krise steckst, gehört das Investment in einen ' +
-      'Sprint nicht ganz oben. Es kostet 997 EUR und dreißig Stunden über vier Wochen. Wenn deine Cash-' +
+      'Ehrlich gesagt: wenn du gerade in einer Liquiditäts-Krise steckst, gehört das Investment in eine ' +
+      'Challenge nicht ganz oben. Es kostet 997 EUR und dreißig Stunden über vier Wochen. Wenn deine Cash-' +
       'Reichweite unter zwölf Monaten liegt, ist die kostenlose Diagnose der richtige erste Schritt · sie ' +
       'sagt dir ehrlich welcher Skill JETZT den größten Hebel auf deine Pipeline hat.' },
     { type: 'paragraph', text:
       'Für eine direkte Tier-Empfehlung: 30-Min-Beratung buchen. Wir hören uns dein Setup an und sagen dir ' +
-      'ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
+      'ob Challenge, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
     title: 'LeaderOS für Scaleup-Gründer: Series A bis C',

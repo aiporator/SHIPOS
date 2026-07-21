@@ -152,7 +152,7 @@ export default {
         'Ein Prompt ist wie ein Skript für einen Sparrings-Partner. Wenn das Skript schlecht ist, ist die ' +
         'Antwort schlecht. Wenn das Skript klar ist, kann sogar ein durchschnittliches Modell dir einen klaren ' +
         'Sparrings-Move geben. Investiere in die Klarheit deiner Prompts, nicht in immer teurere Modelle.',
-      attribution: 'Wlad, in einem Sprint-Briefing 2026',
+      attribution: 'Wlad, in einem Challenge-Briefing 2026',
     },
     {
       type: 'paragraph',

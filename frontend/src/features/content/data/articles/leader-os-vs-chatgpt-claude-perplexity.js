@@ -55,9 +55,9 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Was LeaderOS dazu liefert.' },
     { type: 'list', style: 'bullet', items: [
-      'WladBot kennt deinen Sprint, deine Diagnose-Scores, deine letzten Drills. Trainiert auf 2 212 authentische Wlad-Chunks und antwortet in Wlads Ton.',
+      'WladBot kennt deine Challenge, deine Diagnose-Scores, deine letzten Drills. Trainiert auf 2 212 authentische Wlad-Chunks und antwortet in Wlads Ton.',
       'Elf Frameworks · kuratiert, nicht zehntausend. B·W·W, Harvard-Verhandlung, Schulz von Thun, ALPEN, 5-Rollen. Du lernst eine Methode, drillst sie, hast sie verfügbar.',
-      '30-Tage-Sprint mit täglichen 15-Minuten-Übungen an deinen echten Fällen. Strukturierte Progression statt freier Spielwiese.',
+      '30-Tage-Challenge mit täglichen 15-Minuten-Übungen an deinen echten Fällen. Strukturierte Progression statt freier Spielwiese.',
       'Live-Sessions mit Wlad persönlich (Plus-Plus). Drill-Channel für sofortige Anwendung. LeaderOS-Community mit Peer-Sparring.',
     ] },
     { type: 'heading', level: 2, text: 'Die ehrliche Empfehlung.' },
@@ -71,8 +71,8 @@ export default {
       'Claude Pro · 18 € pro Monat · 216 € pro Jahr · Allzweck-Tool, längere Reasoning-Stärke.',
       'Perplexity Pro · 20 € pro Monat · 240 € pro Jahr · Recherche-Tool mit Quellen.',
       'LeaderOS Trial · 0 €, 14 Tage, volle Plattform.',
-      'LeaderOS Sprint · 997 € einmalig · 30 Tage strukturiert + 12 Monate Plattform.',
-      'LeaderOS Plus-Plus · 4 797 € einmalig · Sprint + monatliche Wlad-Live + Drill-Channel.',
+      'LeaderOS Challenge · 997 € einmalig · 30 Tage strukturiert + 12 Monate Plattform.',
+      'LeaderOS Plus-Plus · 4 797 € einmalig · Challenge + monatliche Wlad-Live + Drill-Channel.',
     ] },
     { type: 'callout', tone: 'lime', text:
       'Tiefer in den Vergleich: methodische Differenzierung in WladBot vs ChatGPT vs Coach · Tool-Stack-Strategie in KI-Tools für Führungskräfte 2026 · Effizienz-Fokus in Mit KI 12 Stunden pro Woche zurückgewinnen.' },

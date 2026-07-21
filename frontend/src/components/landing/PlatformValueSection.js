@@ -50,7 +50,7 @@ const FEATURES = [
       'Kein Theorie-Bingo. Jeden Tag eine konkrete Übung an deiner ' +
       'aktuellen Situation · Mitarbeitergespräch, Firmenrede, Konflikt. ' +
       'Output-fokussiert, von Wlad kuratiert.',
-    proof: '30 DRILLS IM SPRINT · 365 ÜBER 12 MONATE',
+    proof: '30 DRILLS IN DER CHALLENGE · 365 ÜBER 12 MONATE',
   },
   {
     bib: 'P·04',
@@ -82,7 +82,7 @@ const FEATURES = [
     body:
       'Eigener Slack-Channel mit anderen Führungskräften + Wlad. ' +
       'Peer-Sparring, Job-Board, Intros zwischen Klienten. ' +
-      'Lifetime-Zugang, auch nach Sprint-Ende.',
+      'Lifetime-Zugang, auch nach Challenge-Ende.',
     proof: 'PEER-COMMUNITY · LIFETIME',
   },
 ];
@@ -206,7 +206,7 @@ export const PlatformValueSection = () => (
             <p className="mt-4 text-[14.5px] md:text-[16px] leading-[1.6] text-white/75 max-w-2xl mx-auto md:mx-0">
               Volle Plattform · alle sechs Module · WladBot 24/7 · keine Karte
               nötig. Du loggst dich ein, du arbeitest mit dem System, du
-              entscheidest. Erst wenn es für dich passt, geht es in den Sprint.
+              entscheidest. Erst wenn es für dich passt, geht es in die Challenge.
             </p>
           </div>
           <div className="md:col-span-4 md:text-right">

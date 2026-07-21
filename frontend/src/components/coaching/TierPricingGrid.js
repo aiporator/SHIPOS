@@ -35,7 +35,7 @@ const TIERS = [
       { label: '12 Premium-Videokurse (1/Monat freigeschaltet)', has: true, bold: true },
       { label: 'WladBot KI-Coach 24/7 (GPT-5.2)', has: true, highlight: true },
       { label: 'Audio-Mode Voice-Chat (ElevenLabs)', has: true, highlight: true },
-      { label: '30-Tage Leadership Sprint komplett', has: true },
+      { label: '30-Tage Leadership-Challenge komplett', has: true },
       { label: 'Alle Frameworks & Playbooks', has: true },
       { label: 'AI Leadership Community', has: true },
       { label: 'Personalized Learning Journey', has: true },

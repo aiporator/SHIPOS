@@ -30,7 +30,7 @@ export default {
     { type: 'paragraph', text: 'Wer mehr als drei KI-Tools aktiv nutzt, baut Tool-Komplexität anstelle von Tool-Hebel. Drei klare Tools, jedes mit definierter Aufgabe (siehe "KI-Tools für Führungskräfte 2026"), ist der robuste Stack.' },
     { type: 'framework', code: '3-TOOLS', title: 'Maximal-Stack', explanation: 'Tool 1: generisches Sparring (ChatGPT/Claude). Tool 2: methodisches Drill (WladBot). Tool 3: Knowledge / Meeting-Support (Notion AI oder Fathom). Mehr als drei: du verbringst die Zeit mit Tool-Verwaltung statt mit Output. Weniger als drei: du opferst echte Capability-Gewinne.' },
     { type: 'callout', tone: 'lime', text: 'Aufräumen ist Führungs-Arbeit. Wer den eigenen KI-Stack nicht zustreichen kann, kann auch nicht das Team-Backlog priorisieren.' },
-    { type: 'paragraph', text: 'Im Sprint diagnostizieren wir mit dir welche drei Tools FÜR DICH der robuste Stack sind. Plus die methodische Anwendungs-Routine die aus drei Tools täglichen Output macht.' },
+    { type: 'paragraph', text: 'In der Challenge diagnostizieren wir mit dir welche drei Tools FÜR DICH der robuste Stack sind. Plus die methodische Anwendungs-Routine die aus drei Tools täglichen Output macht.' },
   ],
   seo: {
     title: 'KI-Tool-Müdigkeit: was zu tun ist · LeaderOS',

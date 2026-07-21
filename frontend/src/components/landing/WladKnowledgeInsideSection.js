@@ -52,13 +52,13 @@ const SOURCES = [
     title: 'Die 11 Leader-Frameworks.',
     body:
       'Die elf Methodiken die Wlad bei seinen Klienten am häufigsten ' +
-      'einsetzt · eingebaut als Sprint-Lektionen mit konkreten Übungen.',
+      'einsetzt · eingebaut als Challenge-Lektionen mit konkreten Übungen.',
     artifact: 'B-W-W Feedback · Harvard Verhandlung · 5 Rollen · Schulz von Thun · …',
   },
   {
     icon: Zap,
     bib: 'IN · 05',
-    title: 'Die 30-Tage Sprint-Methodik.',
+    title: 'Die 30-Tage Challenge-Methodik.',
     body:
       'Wlads Antwort auf "wie wird aus Wissen Können". Strukturierter Pfad ' +
       'mit täglichem Check-in, kleinen Drills und Wlads Wochen-Review.',

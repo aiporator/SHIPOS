@@ -48,14 +48,14 @@ export default {
       'Frameworks vor Tools. Eine KI-native Führungskraft hat eine begrenzte Bibliothek von Methodiken (Feedback-Formel, Verhandlungsstruktur, Rollen-Mapping) und nutzt KI um sie schneller anzuwenden · nicht um sie zu ersetzen.',
       'Reflex statt Tab-Open. KI ist im Reflex eingebaut. Wenn 22:47 Uhr eine schwierige Email kommt, formt sie keine ChatGPT-Suche · sie hat einen vorab trainierten Pfad.',
       'Output-Messung statt Input-Stolz. Sie misst nicht wie viele KI-Tools sie nutzt. Sie misst was sich in den 1:1-Gesprächen geändert hat, in den Firmenreden, in den Drei-Stunden-Strategie-Sitzungen.',
-      'Eigenes Wissen statt Halluzination. Sie weiß welche Antwort vom Modell halluziniert und welche aus eigener Kontextlage stammt · weil sie ihren Kontext aktiv pflegt (Sprint-Historie, Frameworks-Standard, Mitarbeiter-Profile).',
+      'Eigenes Wissen statt Halluzination. Sie weiß welche Antwort vom Modell halluziniert und welche aus eigener Kontextlage stammt · weil sie ihren Kontext aktiv pflegt (Challenge-Historie, Frameworks-Standard, Mitarbeiter-Profile).',
       'Methodik statt Vibes. Sie kann erklären welches Framework sie warum nutzt. Sie redet nicht von Game-Changer oder Synergy. Sie redet von B·W·W, Harvard-Verhandlung, 5-Rollen.',
     ] },
     { type: 'heading', level: 2, text: 'Selbsttest in fünf Fragen.' },
     { type: 'list', style: 'numbered', items: [
       'Wenn du gestern dein KI-Tool deinem Vorstand erklären müsstest, könntest du in zwei Sätzen sagen welche Methodik dahinter steht?',
       'Hast du in den letzten 7 Tagen mindestens drei Führungs-Entscheidungen mit KI-Sparring vorbereitet · konkret, nicht generell?',
-      'Hat dein Sparring-Partner (Bot oder Mensch) Zugang zu deiner Sprint-Historie und kann Fragen über deine letzten Entscheidungen beantworten?',
+      'Hat dein Sparring-Partner (Bot oder Mensch) Zugang zu deiner Challenge-Historie und kann Fragen über deine letzten Entscheidungen beantworten?',
       'Misst du den Effekt von KI in deiner Führung an konkretem Output, nicht an Tool-Anzahl?',
       'Würdest du heute mit Stift und Papier dieselbe Qualität von Entscheidung treffen können wie mit deinem KI-Stack?',
     ] },
@@ -66,8 +66,8 @@ export default {
       'Drei Schritte, in der Reihenfolge.' },
     { type: 'list', style: 'numbered', items: [
       'Diagnose. 10 Minuten kostenloser Check auf leadercheck.de in drei Dimensionen (KI-Readiness, Rhetorik, EQ). Ergebnis ist dein Startpunkt, nicht dein Urteil.',
-      'Sprint. 30 Tage mit System: täglich 15 Minuten an einem Framework drillen, WladBot als 24/7-Sparring, wöchentlicher Drill am echten Fall. Output: elf Frameworks die du auch im Stress abrufst.',
-      'Plattform. 12 Monate Plus-Plus Begleitung mit monatlichen Live-Sessions, Drill-Channel, Sprint-Historie als WladBot-Context. Hier verfestigt sich der Reflex.',
+      'Challenge. 30 Tage mit System: täglich 15 Minuten an einem Framework drillen, WladBot als 24/7-Sparring, wöchentlicher Drill am echten Fall. Output: elf Frameworks die du auch im Stress abrufst.',
+      'Plattform. 12 Monate Plus-Plus Begleitung mit monatlichen Live-Sessions, Drill-Channel, Challenge-Historie als WladBot-Context. Hier verfestigt sich der Reflex.',
     ] },
     { type: 'callout', tone: 'lime', text:
       'Weiterführend: Methodik im Detail in Die 5 Rollen einer KI-nativen Führungskraft · Selbsttest-Frage 4 erklärt in Output messen im KI-Zeitalter · Tool-Frage in Wenn KI dich verlangsamt.' },

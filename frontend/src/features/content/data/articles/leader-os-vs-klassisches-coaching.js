@@ -21,13 +21,13 @@ export default {
     { type: 'heading', level: 2, text: 'Stelle 01: Verfügbarkeit.' },
     { type: 'paragraph', text:
       'Klassisches Coaching: ein Termin alle zwei Wochen, vereinbart per E-Mail, kostet 300-800 EUR pro Stunde. ' +
-      'LeaderOS: 24/7-Zugang zu WladBot, drei bis fünf Minuten Antwortzeit, Sprint-Plan im Hintergrund. Wenn ' +
+      'LeaderOS: 24/7-Zugang zu WladBot, drei bis fünf Minuten Antwortzeit, Challenge-Plan im Hintergrund. Wenn ' +
       'du Dienstagabend 22:47 Uhr eine Skript-Korrektur brauchst, gewinnt LeaderOS klar.' },
     { type: 'heading', level: 2, text: 'Stelle 02: Methodische Konsistenz.' },
     { type: 'paragraph', text:
       'Klassisches Coaching: jeder Coach hat seine eigene Methodik. Du bekommst typischerweise ein Mischmasch ' +
       'aus drei Schulen, mit Lieblings-Frameworks die NICHT zu deinem konkreten Fall passen. LeaderOS: eine ' +
-      'klar definierte Methodik (elf Wlad-Frameworks), konsistent jeden Tag des Sprints, nichts wird ' +
+      'klar definierte Methodik (elf Wlad-Frameworks), konsistent jeden Tag der Challenge, nichts wird ' +
       'gewechselt nur weil der Coach gerade ein neues Buch gelesen hat.' },
     { type: 'heading', level: 2, text: 'Stelle 03: Output-Tracking.' },
     { type: 'paragraph', text:
@@ -56,10 +56,10 @@ export default {
     { type: 'list', style: 'numbered', items: [
       'Coaching für Skill-Wiederholung kaufen. Du verbrennst Geld auf Stunden, die mit einem Drill-Tool besser bedient wären.',
       'LeaderOS für Identitäts-Arbeit nutzen. Du wirst eine Lücke spüren · das Werkzeug ist nicht dafür gebaut.',
-      'Beides parallel ohne Koordination buchen. Coach und Sprint laufen aneinander vorbei, beides verliert an Schärfe.',
+      'Beides parallel ohne Koordination buchen. Coach und Challenge laufen aneinander vorbei, beides verliert an Schärfe.',
     ] },
     { type: 'paragraph', text:
-      'Wenn du gerade entscheidest, ob für dich Sprint, Coach oder Plus-Plus passt: 30-Min-Beratung kostet ' +
+      'Wenn du gerade entscheidest, ob für dich Challenge, Coach oder Plus-Plus passt: 30-Min-Beratung kostet ' +
       'dich nichts und liefert dir eine ehrliche Empfehlung. Kein Verkaufs-Druck · wir empfehlen explizit auch ' +
       'Coach oder gar kein Tool, wenn das die richtige Antwort ist.' },
   ],

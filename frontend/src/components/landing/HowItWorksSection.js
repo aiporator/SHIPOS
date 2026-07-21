@@ -15,13 +15,13 @@ const useHowToJsonLd = () => {
       '@type': 'HowTo',
       name: 'Wie werde ich eine KI-native Führungskraft mit LeaderOS',
       description:
-        'Drei-Schritt-Pfad von der kostenlosen Diagnose über den 30-Tage-Sprint ' +
+        'Drei-Schritt-Pfad von der kostenlosen Diagnose über die 30-Tage-Challenge ' +
         'zur langfristigen Plattform-Mitgliedschaft. Methodik von Wlad Jachtchenko, ' +
         '3× SPIEGEL-Bestseller-Autor.',
       totalTime: 'P30D',
       supply: [
         { '@type': 'HowToSupply', name: '10 Minuten für die Diagnose' },
-        { '@type': 'HowToSupply', name: '30 Tage Aufmerksamkeit für den Sprint' },
+        { '@type': 'HowToSupply', name: '30 Tage Aufmerksamkeit für die Challenge' },
         { '@type': 'HowToSupply', name: 'Eine reale Führungssituation pro Woche' },
       ],
       step: HOW_IT_WORKS.map((s, i) => ({
@@ -88,12 +88,12 @@ export const HowItWorksSection = () => {
             fontStyle: 'italic',
           }}
         >
-          Diagnose. Sprint. OS<span className="text-brand not-italic">.</span>
+          Diagnose. Challenge. OS<span className="text-brand not-italic">.</span>
         </h2>
         <p className="mt-6 max-w-xl text-[15px] md:text-[16px] leading-[1.55] text-foreground/70">
           Du startest immer mit der <strong className="text-foreground">kostenlosen Diagnose</strong>{' '}
-          auf leadercheck.de. Sie zeigt wo du stehst und schaltet danach den
-          passenden Sprint frei. Erst dann lohnt sich das OS.
+          auf leadercheck.de. Sie zeigt wo du stehst und schaltet danach die
+          passende Challenge frei. Erst dann lohnt sich das OS.
         </p>
       </motion.div>
 

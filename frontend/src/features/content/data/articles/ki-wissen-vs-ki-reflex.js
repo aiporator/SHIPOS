@@ -27,7 +27,7 @@ export default {
     ] },
     { type: 'heading', level: 2, text: 'Wie Wissen zu Reflex wird.' },
     { type: 'paragraph', text: 'Es gibt keinen Shortcut. Drei bis vier Wiederholungen am echten Case, mit unmittelbarer Korrektur, über eine Woche · und der erste Reflex bildet sich. Zwanzig bis dreißig Wiederholungen · und der Reflex hält auch unter Stress.' },
-    { type: 'paragraph', text: 'Das ist die Mechanik des Sprints. Nicht "lerne mehr Theorie" · sondern "übe die selbe Methodik dreißig Mal am echten Case mit Korrektur". Es ist langweilig, repetitiv, und es funktioniert.' },
+    { type: 'paragraph', text: 'Das ist die Mechanik der Challenge. Nicht "lerne mehr Theorie" · sondern "übe die selbe Methodik dreißig Mal am echten Case mit Korrektur". Es ist langweilig, repetitiv, und es funktioniert.' },
     { type: 'framework', code: 'REFLEX', title: 'Wiederholung am Case', explanation: 'Wissen + Wiederholung + Korrektur = Reflex. Wissen ohne Wiederholung verblasst in 72 Stunden. Wissen ohne Korrektur baut falsche Reflex auf. Beide zusammen brauchen Methodik, Disziplin und einen unmittelbaren Sparrings-Partner.' },
     { type: 'callout', tone: 'lime', text: 'Die meisten KI-Tools liefern dir Wissen schneller. LeaderOS liefert dir Reflex strukturierter. Das ist die ehrliche Trennlinie.' },
     { type: 'paragraph', text: 'Wenn du gerade die Lücke zwischen "ich weiß das" und "ich kann das im Moment des Bedarfs" spürst · die Diagnose zeigt dir welche der elf Frameworks gerade dein größter Reflex-Lift wäre.' },

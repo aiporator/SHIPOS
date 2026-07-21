@@ -14,15 +14,15 @@ export default {
     title: 'LeaderOS erste 7 Tage: Tag-für-Tag-Anleitung',
     description:
       'LeaderOS erste 7 Tage: was du an Tag 1, 3, 5 und 7 konkret tust – Drills, ' +
-      'Methodik, WladBot-Setup. Die Sprint-Eröffnung Schritt für Schritt erklärt.',
+      'Methodik, WladBot-Setup. Die Challenge-Eröffnung Schritt für Schritt erklärt.',
     canonical: 'https://leader-os.de/journal/die-ersten-7-tage-mit-leader-os',
     keywords: [
       'leader-os erste tage',
-      'sprint 0001 onboarding',
+      'challenge 0001 onboarding',
       'leader-os community',
       'wladbot setup',
       'ki coaching erste woche',
-      '30-tage-sprint',
+      '30-tage-challenge',
       'leader-os',
     ],
   },

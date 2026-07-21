@@ -212,7 +212,7 @@ den ersten Meilenstein. Wir melden uns in 3 Tagen wieder.""",
         "headline": "Dein Lizenzschlüssel ist aktiv. 1 Jahr Vollzugang.",
         "body": """Ab sofort nutzt du:<br>
 • WladBot AI Coach 24/7<br>
-• Den kompletten 30-Tage Sprint<br>
+• Die komplette 30-Tage-Challenge<br>
 • Alle Playbooks, Frameworks & Simulationen<br>
 • Die AI Leadership Community<br><br>
 <b>Dein heute-Ritual:</b> 5 Min Daily Check-in starten — dein XP-Konto wartet.""",
@@ -501,7 +501,7 @@ Aber das ist erst die Spitze. <b>Leadership OS Standard</b> öffnet das volle Sy
 </p>
 <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:18px 22px;margin-bottom:20px;">
   <p style="font-size:13px;color:#fff;margin:0 0 10px;line-height:1.55;"><b style="color:{BRAND_COLOR};">12 Videokurse</b> · 1/Monat freigeschaltet · Wert 2.388€</p>
-  <p style="font-size:13px;color:#fff;margin:0 0 10px;line-height:1.55;"><b style="color:{BRAND_COLOR};">30-Tage Sprint</b> · KI-personalisiert auf deine Diagnose</p>
+  <p style="font-size:13px;color:#fff;margin:0 0 10px;line-height:1.55;"><b style="color:{BRAND_COLOR};">30-Tage-Challenge</b> · KI-personalisiert auf deine Diagnose</p>
   <p style="font-size:13px;color:#fff;margin:0 0 10px;line-height:1.55;"><b style="color:{BRAND_COLOR};">Alle Frameworks</b> · Schwierige Gespräche, Verhandlung, Rhetorik, 5 Rollen</p>
   <p style="font-size:13px;color:#fff;margin:0;line-height:1.55;"><b style="color:{BRAND_COLOR};">Video-Analyse Bonus</b> · 5 frische Analysen direkt nach Kauf</p>
 </div>

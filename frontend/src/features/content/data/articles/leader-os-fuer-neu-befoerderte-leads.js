@@ -5,7 +5,7 @@ export default {
   title: 'LeaderOS für neu beförderte Leads.',
   description:
     'Erste 90 Tage nach der Beförderung. Die drei häufigsten Fehler, eine ' +
-    'klare Sprint-Struktur und warum die ersten dreißig Tage so viel mehr ' +
+    'klare Challenge-Struktur und warum die ersten dreißig Tage so viel mehr ' +
     'wiegen als jedes spätere Quartal.',
   author: 'Wlad Jachtchenko',
   publishedAt: '2026-07-05',
@@ -25,10 +25,10 @@ export default {
     { type: 'paragraph', text: 'Tag 31-60: Strategie. Erste größere Initiative starten. SEXIER strukturierte Roadmap-Kommunikation an dein Team. Drei B-W-W-Feedback-Konversationen mit den Personen die die größten Default-Reibungen verursachen.' },
     { type: 'paragraph', text: 'Tag 61-90: Festigung. Deine Routine ist eingespielt. Du hältst deine erste echte Firmenrede in der neuen Rolle (SEXIER-vorbereitet). Du hast deinen ersten klaren Quartals-Output zu zeigen.' },
     { type: 'framework', code: '90 TAGE', title: 'Vier Phasen', explanation: 'Tag 1-10: Diagnose (zuhören, nicht entscheiden). Tag 11-30: Stabilisierung (drei Mini-Verbesserungen). Tag 31-60: Strategie (erste Initiative + Feedback-Konversationen). Tag 61-90: Festigung (Firmenrede + Quartals-Output). Wer eine Phase überspringt, zahlt es im sechsten Monat.' },
-    { type: 'heading', level: 2, text: 'Warum genau hier ein Sprint passt.' },
-    { type: 'paragraph', text: 'Die ersten 30 Tage decken sich exakt mit dem Sprint-Format. Du bekommst täglich eine Mikro-Übung an deinen echten Cases. WladBot kennt deine Beförderung-Diagnose und passt die Drills auf "neu in der Rolle"-Modus an. Du lernst nicht generische Theorie · du lernst dich in deiner spezifischen Situation.' },
+    { type: 'heading', level: 2, text: 'Warum genau hier eine Challenge passt.' },
+    { type: 'paragraph', text: 'Die ersten 30 Tage decken sich exakt mit dem Challenge-Format. Du bekommst täglich eine Mikro-Übung an deinen echten Cases. WladBot kennt deine Beförderung-Diagnose und passt die Drills auf "neu in der Rolle"-Modus an. Du lernst nicht generische Theorie · du lernst dich in deiner spezifischen Situation.' },
     { type: 'callout', tone: 'lime', text: 'Beförderung-Onboarding ist der häufigste B2B-Use-Case für LeaderOS in HR-Sponsorenkonzepten. Eine Investition von 997 EUR pro Person, oft als Teil des Beförderungs-Pakets eingebaut.' },
-    { type: 'paragraph', text: 'Wer gerade befördert wurde oder befördert wird: starte mit der Diagnose. Sie zeigt dir in zehn Minuten welche der drei Lücken deine größte ist · und damit welches Sprint-Profil zu deinen ersten 30 Tagen passt.' },
+    { type: 'paragraph', text: 'Wer gerade befördert wurde oder befördert wird: starte mit der Diagnose. Sie zeigt dir in zehn Minuten welche der drei Lücken deine größte ist · und damit welches Challenge-Profil zu deinen ersten 30 Tagen passt.' },
   ],
   seo: {
     title: 'Erste 90 Tage nach Beförderung: die Anleitung',

@@ -100,12 +100,12 @@ const ARCHETYPES = {
     diagnose: [
       { title: 'KI-Reflex-Score',     body: 'Misst wie tief KI bereits in deinen Alltag eingebaut ist · und wo dein System hakt.' },
       { title: 'Hebel-Mapping',       body: 'Zeigt welche 3 Routinen den größten Multiplikator-Effekt für dich haben würden.' },
-      { title: '30-Tage Sprint-Match', body: 'Sagt dir ob Sprint 0001 für deinen Reifegrad passt oder ob du erst Grundlagen brauchst.' },
+      { title: '30-Tage-Challenge-Match', body: 'Sagt dir ob Challenge 0001 für deinen Reifegrad passt oder ob du erst Grundlagen brauchst.' },
     ],
     platform: [
       { title: 'Daily Check-in',          body: 'Strukturiertes 10-Minuten-Ritual jeden Morgen · KI macht deinen Tagesplan, du entscheidest.' },
       { title: 'WladBot als Sparring',    body: 'Dein persönlicher KI-Coach kennt deine Ziele, deine Themen, deinen Stil.' },
-      { title: 'Sprint 0001 · 30 Tage',   body: 'Strukturierter Pfad vom Reflex-Nutzer zum System-Operator. Klare Tagesziele, klare Drills.' },
+      { title: 'Challenge 0001 · 30 Tage',   body: 'Strukturierter Pfad vom Reflex-Nutzer zum System-Operator. Klare Tagesziele, klare Drills.' },
     ],
   },
   kreator: {
@@ -169,11 +169,11 @@ const ARCHETYPES = {
     diagnose: [
       { title: 'Wirkungs-Index',           body: 'Misst wie weit dein Output bereits andere prägt · Kollegen, Klienten, Markt, Umfeld.' },
       { title: 'Reife-Standortbestimmung', body: 'Zeigt klar in welcher der 5 Leader-Stufen du stehst und was der nächste Schritt ist.' },
-      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Sprint, Coaching, Peer-Community) du am schnellsten vorankommst.' },
+      { title: 'Format-Empfehlung',        body: 'Sagt dir mit welchem Format (Challenge, Coaching, Peer-Community) du am schnellsten vorankommst.' },
     ],
     platform: [
       { title: 'Deine Peer-Community',       body: 'Lerne mit anderen Führungskräften die vorausgehen statt nachzulaufen · echter Austausch auf Augenhöhe.' },
-      { title: 'Beschleunigter Sprint',     body: 'Strukturierter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
+      { title: 'Beschleunigte Challenge',     body: 'Strukturierter 30-Tage-Pfad für Erfahrene · direkt auf Wirkung, nicht Aufholen.' },
       { title: '1:1-Mentoring',     body: 'Persönliche Sparring-Calls auf Augenhöhe. Strategie, Beschleunigung, Vermächtnis.' },
     ],
   },

@@ -25,7 +25,7 @@ export default {
       'Wenn du selbst Chef bist: die unangenehme Übung ist, dich die letzten vier Wochen in genau diesen drei Momenten selbst zu beobachten.',
     ] },
     { type: 'callout', tone: 'lime', text: 'Gute Führung ist selten spektakulär. Sie zeigt sich in drei kurzen Sätzen, die unter Druck fallen · nicht in der großen Rede zur Firmenfeier.' },
-    { type: 'paragraph', text: 'Der Reflex hinter diesen drei Sätzen ist trainierbar, genau wie jede andere Führungsfähigkeit. Im LeaderOS-Sprint drillst du gezielt die Vorwärts-Frage statt der Schuld-Frage, das Team-zuerst-Statement statt des Ich-zuerst-Reflexes und das Widerspruchs-offen-halten · bis es im echten Meeting automatisch kommt, nicht erst nachträglich als guter Vorsatz.' },
+    { type: 'paragraph', text: 'Der Reflex hinter diesen drei Sätzen ist trainierbar, genau wie jede andere Führungsfähigkeit. In der LeaderOS-Challenge drillst du gezielt die Vorwärts-Frage statt der Schuld-Frage, das Team-zuerst-Statement statt des Ich-zuerst-Reflexes und das Widerspruchs-offen-halten · bis es im echten Meeting automatisch kommt, nicht erst nachträglich als guter Vorsatz.' },
   ],
   seo: {
     title: 'Gute vs. schlechte Chefs: 3 Sätze, die es verraten',

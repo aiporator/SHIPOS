@@ -19,7 +19,7 @@ import { WladMark } from '../components/brand/WladMark';
 // ── Copy-ready pitch (P-P-N) ─────────────────────────────────────────────────
 const PITCH_30S = `Führungskräfte verlieren heute Stunden pro Woche an Reaktions-Modus — und alle reden über KI, aber niemand zeigt ihnen, was das für IHRE Führung konkret heißt.
 
-LeaderOS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 400.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Sprint mit Zertifikat.
+LeaderOS ist das Betriebssystem dafür: Wlads komplette Methodik — 3× SPIEGEL-Bestseller, 400.000+ Klienten — als tägliches System. WladBot coacht 24/7 in Wlads Ton, 11 Frameworks, Video-Analyse, 30-Tage-Challenge mit Zertifikat.
 
 Der Einstieg kostet nichts: 14 Tage voller Zugang, ohne Karte. Wollen Sie es einmal live sehen?`;
 
@@ -56,7 +56,7 @@ const DEMO_FLOW = [
     href: '/missions',
   },
   {
-    nr: '06', label: 'SYSTEM', title: '30-Tage-Sprint & Lernpfad',
+    nr: '06', label: 'SYSTEM', title: '30-Tage-Challenge & Lernpfad',
     say: 'Damit es kein Strohfeuer wird: täglicher Drill, 30 Tage, am Ende das Zertifikat 0001 — LinkedIn-ready. Das ist der Unterschied zwischen Tool und System.',
     show: 'Challenge/Lernpfad zeigen · Zertifikats-Story erzählen',
     href: '/challenge',
@@ -98,11 +98,11 @@ const DISCOVERY = [
 const OBJECTIONS = [
   {
     q: '„Das ist zu teuer."',
-    a: 'Rahmen wechseln: Ein Wlad-Trainingstag kostet 10.000 € für EINEN Tag. Der Sprint kostet 997 € — einmalig, inklusive 12 Monaten Mitgliedschaft, pro Führungskraft. Und der Vergleichsmaßstab ist nicht der Preis, sondern eine einzige verhinderte Fehlbesetzung oder Eskalation. Dann: „Was kostet Sie Führungsschwäche pro Quartal?"',
+    a: 'Rahmen wechseln: Ein Wlad-Trainingstag kostet 10.000 € für EINEN Tag. Die Challenge kostet 997 € — einmalig, inklusive 12 Monaten Mitgliedschaft, pro Führungskraft. Und der Vergleichsmaßstab ist nicht der Preis, sondern eine einzige verhinderte Fehlbesetzung oder Eskalation. Dann: „Was kostet Sie Führungsschwäche pro Quartal?"',
   },
   {
     q: '„ChatGPT reicht uns doch."',
-    a: 'ChatGPT ist ein leeres Werkzeug — brillant, aber ohne Methodik, ohne Gedächtnis für Ihre Führungssituation, ohne System. WladBot ist auf 2.200+ Lektionen einer erprobten Methodik trainiert, antwortet in einem konsistenten Coaching-Rahmen und ist eingebettet in Drills, Simulationen und den 30-Tage-Sprint. Der Unterschied ist derselbe wie zwischen einem Klavier und einem Klavierlehrer.',
+    a: 'ChatGPT ist ein leeres Werkzeug — brillant, aber ohne Methodik, ohne Gedächtnis für Ihre Führungssituation, ohne System. WladBot ist auf 2.200+ Lektionen einer erprobten Methodik trainiert, antwortet in einem konsistenten Coaching-Rahmen und ist eingebettet in Drills, Simulationen und die 30-Tage-Challenge. Der Unterschied ist derselbe wie zwischen einem Klavier und einem Klavierlehrer.',
   },
   {
     q: '„Unsere Leute haben keine Zeit."',
@@ -134,7 +134,7 @@ const OBJECTIONS = [
 const PRICING = [
   ['Trial', '0 €', '14 Tage · ohne Karte', 'Default-Einstieg für JEDEN Prospect'],
   ['Diagnose', '0 €', '10 Min · leadercheck.de', 'Vor-Termin-Hausaufgabe / Rollout-Messung'],
-  ['Sprint', '997 €', '30 Tage + 12 Mon. Mitgliedschaft · einmalig', 'Einzelne Führungskraft · „Beliebt"'],
+  ['Challenge', '997 €', '30 Tage + 12 Mon. Mitgliedschaft · einmalig', 'Einzelne Führungskraft · „Beliebt"'],
   ['Plus-Plus', '4.797 €', '12 Monate Enablement · oder 3 × 1.599 €', 'Ambitionierte Einzelkämpfer / kleine Teams'],
   ['Mentoring 6', '14.800 €', '6 Monate · 1:1-Mentoring', 'C-Level mit persönlichem Anspruch'],
   ['Mentoring 12', '24.600 €', '12 Monate · 1:1-Mentoring', 'Langfrist-Transformation Einzelperson'],
@@ -346,7 +346,7 @@ export default function SalesRoomPage() {
             </table>
           </div>
           <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-            Anker-Reihenfolge im Gespräch: Wlad-Tagessatz (10.000 €) → Enterprise → dann wirkt der Sprint klein.
+            Anker-Reihenfolge im Gespräch: Wlad-Tagessatz (10.000 €) → Enterprise → dann wirkt die Challenge klein.
           </p>
         </Section>
 

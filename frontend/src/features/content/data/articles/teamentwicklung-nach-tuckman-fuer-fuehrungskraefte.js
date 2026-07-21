@@ -136,7 +136,7 @@ export default {
       type: 'paragraph',
       text:
         'Tuckman lässt sich nicht an einem Workshop-Tag verinnerlichen — die Storming-Phase kommt real, oft Wochen ' +
-        'nach dem Training, wenn niemand mehr an das Modell denkt. Im 30-Tage-Sprint tauchen genau solche Situationen ' +
+        'nach dem Training, wenn niemand mehr an das Modell denkt. In der 30-Tage-Challenge tauchen genau solche Situationen ' +
         'als Mikro-Drills auf: WladBot erkennt am geschilderten Fall, in welcher Phase dein Team gerade steckt, und ' +
         'übt mit dir die passende Reaktion, statt dir nur die Theorie zu erklären.',
     },

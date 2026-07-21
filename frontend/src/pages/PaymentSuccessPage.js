@@ -78,7 +78,7 @@ export default function PaymentSuccessPage() {
               {/* What's unlocked */}
               <div className="space-y-2">
                 {[
-                  { icon: Flame, label: de ? '30-Tage KI-Leadership Sprint' : '30-Day AI Leadership Sprint', unlocked: true },
+                  { icon: Flame, label: de ? '30-Tage KI-Leadership-Challenge' : '30-Day AI Leadership Challenge', unlocked: true },
                   { icon: Brain, label: de ? 'Unbegrenzter KI-Coach' : 'Unlimited AI Coach', unlocked: true },
                   { icon: Video, label: de ? '16 Video-Missionen' : '16 Video Missions', unlocked: true },
                   { icon: Target, label: de ? '10 Geführte Workflows' : '10 Guided Workflows', unlocked: true },

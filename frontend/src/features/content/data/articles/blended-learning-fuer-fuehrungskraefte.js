@@ -111,7 +111,7 @@ export default {
     {
       type: 'paragraph',
       text:
-        'Der 30-Tage-Sprint in LeaderOS ist so gebaut, wie gutes Blended Learning sein sollte: tägliche ' +
+        'Die 30-Tage-Challenge in LeaderOS ist so gebaut, wie gutes Blended Learning sein sollte: tägliche ' +
         'Mikro-Inputs, sofortige Anwendung in echten Situationen, und WladBot als ständig verfügbarer ' +
         'Coaching-Layer dazwischen, der die Anwendung live korrigiert statt erst Wochen später in einem ' +
         'Abschlussgespräch.',

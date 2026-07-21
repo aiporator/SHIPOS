@@ -96,7 +96,7 @@ export default {
       type: 'paragraph',
       text:
         'Der dritte Use Case ist der unterschätzte. Freitagnachmittag, du hast keine vierzig Minuten für ein ' +
-        'Coaching mit dir selbst. Du tippst drei Fragen in den Bot, der deine letzten Sprint-Drills und ' +
+        'Coaching mit dir selbst. Du tippst drei Fragen in den Bot, der deine letzten Challenge-Drills und ' +
         'deinen Score kennt: was war meine schwächste Reaktion diese Woche? Welcher Framework hätte sie ' +
         'verändert? Was probiere ich nächste Woche?',
     },

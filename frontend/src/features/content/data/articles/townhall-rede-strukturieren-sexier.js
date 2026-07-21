@@ -30,7 +30,7 @@ export default {
     { type: 'callout', tone: 'lime', text: 'Sechzehn Minuten reichen für vollständiges SEXIER. Wer eine Stunde redet, hat entweder zu viele eXamples oder das Statement ist nicht klar.' },
     { type: 'heading', level: 2, text: 'Nach SEXIER: der Anker.' },
     { type: 'paragraph', text: 'SEXIER liefert den Inhalt, nicht den Abschluss. Die letzten dreißig Sekunden bleiben trotzdem entscheidend: ein Satz Resümee, gefolgt vom konkreten nächsten Schritt — welcher Slack-Channel, welcher Termin, welche Slide. Wer ohne Anker schließt, hat die Rede verschenkt.' },
-    { type: 'paragraph', text: 'Im Sprint baust du SEXIER an deinen echten Roadmaps mit Live-Korrektur. Im Plus-Plus probst du die Firmenrede einmal mit Wlad selbst, ungeschnitten, dreißig Minuten Feedback.' },
+    { type: 'paragraph', text: 'In der Challenge baust du SEXIER an deinen echten Roadmaps mit Live-Korrektur. Im Plus-Plus probst du die Firmenrede einmal mit Wlad selbst, ungeschnitten, dreißig Minuten Feedback.' },
   ],
   seo: {
     title: 'Firmenrede strukturieren: SEXIER-Methode · LeaderOS',

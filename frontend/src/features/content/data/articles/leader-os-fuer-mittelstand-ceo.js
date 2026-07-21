@@ -20,7 +20,7 @@ export default {
       'Generationswechsel · entweder du übergibst an die nächste Familie oder verkaufst · verlangt strukturiertes Coaching, nicht Bauchgefühl.',
     ] },
     { type: 'heading', level: 2, text: 'Welche Frameworks am stärksten greifen.' },
-    { type: 'paragraph', text: 'Aus 47 Sprint-Teilnehmern aus dem DACH-Mittelstand sehen wir drei Frameworks dominieren: 5 Rollen der Führung (Identitäts-Klärung zwischen operativem Manager-Modus und strategischer Führung), Drei Säulen für Aufsichtsrat-Kommunikation, B-W-W für die schwierigen Senior-Gespräche die anstehen.' },
+    { type: 'paragraph', text: 'Aus 47 Challenge-Teilnehmern aus dem DACH-Mittelstand sehen wir drei Frameworks dominieren: 5 Rollen der Führung (Identitäts-Klärung zwischen operativem Manager-Modus und strategischer Führung), Drei Säulen für Aufsichtsrat-Kommunikation, B-W-W für die schwierigen Senior-Gespräche die anstehen.' },
     { type: 'framework', code: 'MITTEL', title: 'Mittelstand-Kombi', explanation: '5 Rollen für die Identitäts-Frage "wer bin ich als CEO 2026?". Drei Säulen für die Aufsichtsrat-Kommunikation. B-W-W für die Senior-Konversationen die anstehen · Generationswechsel, KI-Strategie, Konsolidierungs-Entscheidungen.' },
     { type: 'heading', level: 2, text: 'Was LeaderOS NICHT bietet.' },
     { type: 'list', style: 'bullet', items: [
@@ -29,9 +29,9 @@ export default {
       'Keine "Digitalisierungs-Roadmap". Wir helfen dir Führung anzupassen · die Roadmap macht jemand anderes.',
     ] },
     { type: 'heading', level: 2, text: 'Beispiel: Geschäftsführer Maschinenbau, 280 Mitarbeiter.' },
-    { type: 'paragraph', text: 'Anonymisiert: ein CEO im südwestdeutschen Mittelstand, drittes Familienmitglied an der Spitze. Sein Sprint fokussierte auf 5 Rollen · er hatte 18 Jahre fast nur im Manager-Modus operiert. Nach den 30 Tagen führte er sein erstes bewusst strategisches Quartal: er reservierte zwei Donnerstagvormittage pro Monat für strategische Arbeit, sagte drei Standard-Termine ab. Sein Senior-Team beschreibt seitdem seine Sitzungen als "fokussierter".' },
+    { type: 'paragraph', text: 'Anonymisiert: ein CEO im südwestdeutschen Mittelstand, drittes Familienmitglied an der Spitze. Seine Challenge fokussierte auf 5 Rollen · er hatte 18 Jahre fast nur im Manager-Modus operiert. Nach den 30 Tagen führte er sein erstes bewusst strategisches Quartal: er reservierte zwei Donnerstagvormittage pro Monat für strategische Arbeit, sagte drei Standard-Termine ab. Sein Senior-Team beschreibt seitdem seine Sitzungen als "fokussierter".' },
     { type: 'callout', tone: 'lime', text: 'Mittelstands-CEOs profitieren am stärksten vom Plus-Plus-Jahr, weil sie selten externe Sparring-Partner haben. Die monatliche Live-Session mit Wlad ist der Ersatz für das CEO-Netzwerk das in Familienunternehmen oft fehlt.' },
-    { type: 'paragraph', text: 'Für eine konkrete Empfehlung: 30-Min-Beratung. Wir hören uns deine Situation an und sagen ehrlich ob Sprint, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
+    { type: 'paragraph', text: 'Für eine konkrete Empfehlung: 30-Min-Beratung. Wir hören uns deine Situation an und sagen ehrlich ob Challenge, Plus-Plus oder ein anderer Weg gerade zu dir passt.' },
   ],
   seo: {
     title: 'LeaderOS für Mittelstand-CEOs: KI-Era trifft Tradition',

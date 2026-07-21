@@ -24,8 +24,8 @@ export default {
     { type: 'heading', level: 2, text: 'Frage 05: Kannst du deinem Senior-Manager in einem Satz erklären was dein KI-Lift ist?' },
     { type: 'paragraph', text: 'Wenn die Antwort "ich bin schneller" ist, hast du kein messbares Argument. Erfolgreiche KI-Nutzer können sagen: "Ich gewinne pro Woche vier Stunden Deep-Work durch B-W-W-Vorbereitung und SEXIER-Strukturierung · das zeigt sich an drei konkreten Outputs."' },
     { type: 'framework', code: '5 FRAGEN', title: 'Versickerungs-Diagnose', explanation: 'Wins benennen · Daily-Tools zählen · wiederverwendete Prompts haben · Team-Sharing-Layer existiert · Output-Lift in einem Satz beschreibbar. Wer weniger als drei der fünf bejahen kann, versickert KI-Zeit. Wer alle fünf bejaht, ist im obersten Quartil der DACH-Führungskräfte.' },
-    { type: 'callout', tone: 'lime', text: 'Diese Diagnose ersetzt keine strukturierte Sprint-Diagnose, ist aber der schnellste Selbst-Check. Wer Versickerung erkennt, kann sie stoppen.' },
-    { type: 'paragraph', text: 'Wenn die Diagnose zeigt dass deine KI-Zeit versickert, ist der Sprint die kürzeste Intervention. Dreißig Tage strukturierte Anwendung, am Ende kannst du jede der fünf Fragen klar beantworten.' },
+    { type: 'callout', tone: 'lime', text: 'Diese Diagnose ersetzt keine strukturierte Challenge-Diagnose, ist aber der schnellste Selbst-Check. Wer Versickerung erkennt, kann sie stoppen.' },
+    { type: 'paragraph', text: 'Wenn die Diagnose zeigt dass deine KI-Zeit versickert, ist die Challenge die kürzeste Intervention. Dreißig Tage strukturierte Anwendung, am Ende kannst du jede der fünf Fragen klar beantworten.' },
   ],
   seo: {
     title: 'KI-Investition versickert? 5 Diagnose-Fragen · LeaderOS',

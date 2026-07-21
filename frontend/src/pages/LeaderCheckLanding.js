@@ -52,7 +52,7 @@ const DIMENSIONS = [
 const PHASES = [
   ['01', '10 MIN', '30 Fragen · multiple choice'],
   ['02', 'SOFORT', 'Drei Scores · Gesamt-Score · Empfehlung'],
-  ['03', 'OPTIONAL', 'Wenn du willst: 30-Tage-Sprint starten'],
+  ['03', 'OPTIONAL', 'Wenn du willst: 30-Tage-Challenge starten'],
 ];
 
 export default function LeaderCheckLanding() {

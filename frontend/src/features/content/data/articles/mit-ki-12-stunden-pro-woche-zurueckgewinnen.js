@@ -29,7 +29,7 @@ export default {
     ],
   },
   body: [
-    { type: 'paragraph', text: 'In den letzten 30 Klient-Sprints habe ich pro Woche getrackt wie viel Zeit jeder durch KI-Einsatz zurückgewonnen hat. Median: 12 Stunden pro Woche. Top-Quartil: 18 Stunden. Bottom-Quartil: 4 Stunden. Was den Unterschied macht: nicht das Tool, sondern welche Aufgaben delegiert werden.' },
+    { type: 'paragraph', text: 'In den letzten 30 Klient-Challenges habe ich pro Woche getrackt wie viel Zeit jeder durch KI-Einsatz zurückgewonnen hat. Median: 12 Stunden pro Woche. Top-Quartil: 18 Stunden. Bottom-Quartil: 4 Stunden. Was den Unterschied macht: nicht das Tool, sondern welche Aufgaben delegiert werden.' },
     { type: 'paragraph', text: 'Hier sind die fünf Hebel mit echten Zeit-Werten.' },
 
     { type: 'heading', level: 2, text: 'Hebel 01 · Email-Drafts (3-4 h / Woche).' },
