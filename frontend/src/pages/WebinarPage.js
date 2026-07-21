@@ -600,8 +600,9 @@ export default function WebinarPage() {
     const restoreMeta = applyPageMeta({
       title: 'Kostenloses Live-Webinar · Trainiere Führung. Nicht nur Wissen. · LeaderOS',
       description:
-        'Live-Webinar am 20.08.2026 mit Wlad Jachtchenko: Warum Seminare Wissen verändern, aber nicht Verhalten — ' +
-        'und wie das erste Leadership Operating System Führung täglich trainierbar macht. Kostenlos, live, mit Q&A.',
+        'Du weißt, wie gute Führung geht — du kommst nur nicht dazu. Live-Webinar am 20.08.2026 mit ' +
+        'Wlad Jachtchenko (3× SPIEGEL-Bestseller): das erste Leadership Operating System, das Führung ' +
+        'täglich in 15 Minuten trainierbar macht statt einmal im Jahr im Seminar. Kostenlos, live, mit Q&A.',
       url: 'https://leader-os.de/webinar',
       image: 'https://leader-os.de/og-wlad.jpg',
     });
@@ -721,9 +722,9 @@ export default function WebinarPage() {
               initial="hidden" animate="show" custom={1} variants={FADE_UP}
               className="text-balance mt-6 max-w-2xl text-[18px] sm:text-[20px] leading-[1.55] text-[#4b4b4d]"
             >
-              Das erste Leadership Operating System, das dich jeden Tag mit KI besser macht.
-              Kostenloses Live-Webinar mit <span className="text-[#111111] font-semibold">Wlad Jachtchenko</span> —
-              90 Minuten, mit Q&amp;A.
+              In 90 Minuten zeigt dir 3× SPIEGEL-Bestseller <span className="text-[#111111] font-semibold">Wlad Jachtchenko</span> das
+              System, mit dem du schwierige Führungsgespräche nicht mehr einmal im Jahr im Seminar übst — sondern
+              jeden Tag in 15 Minuten trainierst. Kostenlos. Live. Mit Q&amp;A.
             </motion.p>
 
             {/* CTA dominates · then trust badges */}
@@ -846,8 +847,8 @@ export default function WebinarPage() {
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
             <SectionHeader
               eyebrow="▸ Das Problem"
-              headline={<>Führung scheitert heute nicht am Wissen. Sie scheitert am Alltag<span className="text-[#5A7700] not-italic">.</span></>}
-              intro="Jeder weiß, dass man Feedback geben sollte. Jeder weiß, dass man Konflikte früh anspricht. Warum passiert es trotzdem nicht? Weil Wissen kein Verhalten ist — und der Kalender jede gute Absicht frisst."
+              headline={<>Du weißt längst, wie gute Führung geht. Du kommst nur nicht dazu, sie zu leben<span className="text-[#5A7700] not-italic">.</span></>}
+              intro="Feedback geben. Konflikte früh ansprechen. Klar kommunizieren. Du weißt das alles — und trotzdem passiert es nicht. Nicht, weil dir Wissen fehlt. Sondern weil Wissen kein Verhalten ist. Und weil dieselbe Woche, die du gleich siehst, sich jedes Jahr wiederholt."
             />
             <div className="max-w-2xl mx-auto relative">
               {/* Timeline spine */}
@@ -1029,6 +1030,7 @@ export default function WebinarPage() {
             <SectionHeader
               eyebrow="▸ Value Stack"
               headline={<>Im Webinar bekommst du Zugriff auf<span className="text-[#5A7700] not-italic">:</span></>}
+              intro="Andere verlangen für weniger ein Ticket. Du bekommst alles hier — für nichts außer deiner E-Mail-Adresse."
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {VALUE_STACK.map(([Icon, title, desc], i) => (
