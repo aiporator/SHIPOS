@@ -137,6 +137,31 @@ function AppRouter() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location.pathname]);
 
+  // Smooth-scroll to in-page anchors (/#beratung, /#pricing, …).
+  // React Router performs no native hash jump on SPA navigation, and the
+  // landing sections are lazy/suspense-mounted — the target id may not be
+  // in the DOM yet on the first frame. Retry briefly (up to ~4s) so the
+  // nav CTA reliably lands on the Beratung section without layout shifts.
+  // location.key is in the deps so clicking the same anchor twice re-fires.
+  useEffect(() => {
+    if (!location.hash || typeof window === 'undefined') return undefined;
+    if (location.hash.includes('session_id=')) return undefined; // auth callback, not an anchor
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return undefined;
+    let tries = 0;
+    let timer;
+    const attempt = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      if (tries++ < 40) timer = window.setTimeout(attempt, 100);
+    };
+    attempt();
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, location.hash, location.key]);
+
   if (location.hash?.includes('session_id=')) {
     return (
       <Suspense fallback={<RouteLoader />}>
