@@ -129,15 +129,14 @@ export default function LandingPage() {
         {/* Trust-Aufbau in natürlicher Reihenfolge (CRO-Reorder Juli 2026):
             Results (WhatIs · "Ergebnisse statt Theorie")
               → Founder (WladIntroVideo · 30-Sek-Intro)
-              → Insights (JournalTeaser · Feldnotizen)
-              → Produkt → CTA.
+              → Produkt → CTA
+              → Insights (JournalTeaser · Feldnotizen · ganz unten).
             VimeoIntroSection wurde entfernt: zweites ~30-Sek-Intro
             derselben Person auf derselben Seite war redundant, seit das
             Intro-Video direkt nach dem Hero-Block steht. */}
         <HeroSection />
         <WhatIsLeaderOsSection />
         <WladIntroVideo />
-        <JournalTeaserSection />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
         <TrustProofSection />
@@ -178,6 +177,13 @@ export default function LandingPage() {
         <AppointmentBookingSection />
         <CoachingWaitlist />
         <FAQSection />
+
+        {/* Feldnotizen ganz ans Seitenende (Team-Entscheidung Juli 2026):
+            das Journal ist Content-Discovery für Leser, die den ganzen
+            Funnel durchgescrollt haben — nicht Teil der Conversion-Story.
+            Hier hält es SEO-/Deep-Reader auf der Seite, ohne den Weg zum
+            Pricing/Beratungs-CTA zu verlängern. */}
+        <JournalTeaserSection />
 
         <FinalCTA />
       </main>
