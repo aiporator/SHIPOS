@@ -20,6 +20,7 @@ from services_email import (
     drip_day1_email, drip_day3_email, drip_day7_email,
     video_drip_email, VIDEO_DRIP_VIDEOS,
     free_video_drip_email,
+    lead_nurture_email,
     is_enabled as email_enabled,
 )
 from services_free_videos import (
@@ -42,6 +43,19 @@ DRIP_STAGES = [
     (1, "drip_day1", drip_day1_email),
     (3, "drip_day3", drip_day3_email),
     (7, "drip_day7", drip_day7_email),
+]
+
+# Lead-nurture journey (email-only leads, db.nurture_leads):
+# step → day offset since capture. Step 1 is normally sent instantly at
+# capture time (routes/leader_check.py) — offset 0 here is the catch-up.
+LEAD_NURTURE_STEPS = [
+    (1, 0),
+    (2, 2),
+    (3, 4),
+    (4, 6),
+    (5, 8),
+    (6, 10),
+    (7, 12),
 ]
 
 
@@ -347,6 +361,108 @@ async def cron_free_video_drip(request: Request):
     }
 
 
+@router.post("/cron/lead-nurture")
+async def cron_lead_nurture(request: Request):
+    """Daily lead-nurture drip — 7 education-first mails over 12 days.
+
+    Scans `db.nurture_leads` (landing-page email captures, see
+    routes/leader_check.py) and sends the next due step per lead based on
+    capture age (offsets 0/2/4/6/8/10/12). Idempotent via the
+    `nurture_steps_sent` array on the lead doc (plus email_log entries).
+    At most ONE step per lead per run — a lead who is behind (e.g. the cron
+    was down) catches up one mail per day instead of getting a burst.
+    Respects the HMAC one-click unsubscribe and skips (and marks) leads who
+    have since converted to registered users — the user drips own them.
+    """
+    require_cron_auth(request)
+    if not email_enabled():
+        return {"sent": 0, "scanned": 0, "error": "RESEND_API_KEY not configured"}
+
+    from routes.leader_check import nurture_unsub_url  # local import avoids cycle
+
+    now = datetime.now(timezone.utc)
+    max_offset = LEAD_NURTURE_STEPS[-1][1]
+
+    sent_total = 0
+    sent_by_step = {}
+    scanned = 0
+    converted = 0
+
+    # 12 days of journey + 7 days of buffer for late cron catches.
+    cutoff = (now - timedelta(days=max_offset + 7)).isoformat()
+    candidates = await db.nurture_leads.find(
+        {
+            "email": {"$exists": True, "$ne": ""},
+            "created_at": {"$gte": cutoff},
+            "unsubscribed": {"$ne": True},
+            "converted": {"$ne": True},
+        },
+        {"_id": 0, "email": 1, "email_lower": 1, "name": 1, "created_at": 1,
+         "nurture_steps_sent": 1},
+    ).to_list(5000)
+
+    for lead in candidates:
+        scanned += 1
+        email = lead["email"]
+        # Converted to a registered user since capture? Mark + skip — the
+        # registered-user drips (signup_welcome, drip-sequence, …) own them.
+        existing_user = await db.users.find_one(
+            {"email_lower": email}, {"_id": 0, "user_id": 1}
+        )
+        if existing_user:
+            await db.nurture_leads.update_one(
+                {"email_lower": email},
+                {"$set": {"converted": True,
+                          "converted_user_id": existing_user["user_id"],
+                          "converted_at": now.isoformat()}},
+            )
+            converted += 1
+            continue
+
+        days = _days_since(lead.get("created_at"))
+        if days is None:
+            continue
+        already = set(lead.get("nurture_steps_sent") or [])
+        name = lead.get("name") or email.split("@")[0]
+
+        for step, offset in LEAD_NURTURE_STEPS:
+            if step in already:
+                continue
+            # Step fires once the lead is ≥ offset days old (0.25-day grace
+            # so the daily cron always catches the exact day).
+            if days < offset - 0.25:
+                continue
+
+            subject, html = lead_nurture_email(
+                step, name, unsubscribe_link=nurture_unsub_url(email)
+            )
+            result = await send_email(email, subject, html)
+            log_type = f"lead_nurture_s{step}"
+            await db.email_log.insert_one({
+                "email": email, "type": log_type, "step": step,
+                "sent": result["sent"], "email_id": result.get("email_id"),
+                "error": result.get("error"), "sent_at": now.isoformat(),
+            })
+            if result["sent"]:
+                await db.nurture_leads.update_one(
+                    {"email_lower": email},
+                    {"$addToSet": {"nurture_steps_sent": step},
+                     "$set": {"last_nurture_sent_at": now.isoformat()}},
+                )
+                sent_total += 1
+                sent_by_step[log_type] = sent_by_step.get(log_type, 0) + 1
+            # At most one step per lead per run (sent or failed-and-retried
+            # next run) — never burst-send the whole backlog.
+            break
+
+    return {
+        "sent": sent_total,
+        "scanned": scanned,
+        "by_step": sent_by_step,
+        "converted_skipped": converted,
+    }
+
+
 @router.get("/lifecycle/status")
 async def lifecycle_status():
     """Public health check for the lifecycle email system."""
@@ -354,6 +470,7 @@ async def lifecycle_status():
         "email_enabled": email_enabled(),
         "trial_reminder_days_before": list(TRIAL_REMINDER_DAYS_BEFORE),
         "drip_stages_days": [d for d, _, _ in DRIP_STAGES],
+        "lead_nurture_days": [offset for _, offset in LEAD_NURTURE_STEPS],
         "video_drip_weeks": [v["week"] for v in VIDEO_DRIP_VIDEOS],
         "free_video_days": [v["day"] for v in FREE_VIDEOS],
         "free_video_ready": [v["id"] for v in FREE_VIDEOS if free_video_ready(v)],

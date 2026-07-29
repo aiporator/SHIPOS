@@ -221,10 +221,10 @@ den ersten Meilenstein. Wir melden uns in 3 Tagen wieder.""",
     },
     "accelerator": {
         "subject": "Welcome, Accelerator. Deine 2 Jahre starten jetzt, {name}.",
-        "headline": "VIP-Zugang aktiv. Dein 1:1 mit Wlad steht bereit.",
+        "headline": "VIP-Zugang aktiv. Dein 1:1 mit Wlads Team steht bereit.",
         "body": """Du bekommst als einziger Tier:<br>
 • <b>Video-Analyse & Missionen exklusiv</b><br>
-• <b>6× 1:1 Calls mit Wlad Jachtchenko</b><br>
+• <b>6× 1:1 Calls mit Wlads Team</b><br>
 • AI Learning Path (personalisiert)<br>
 • Mastermind-Gruppe & Priority Support<br>
 • Quartals-Reviews + Abschluss-Call<br><br>
@@ -902,3 +902,261 @@ P.S. — Die Diagnose dauert wirklich nur fünf Minuten. Drei Dimensionen: KI, R
         preheader=f"WladBot ist live, {name}. Fünf-Minuten-Diagnose. Sofort dein Score.",
         bib_code="LIVE",
     )
+
+
+# ── Lead-Nurture Journey: 7 Mails über 12 Tage (Landing-Leads / Newsletter) ──
+# For NEW LEADS (email captures without an account): education-first sequence
+# converting toward webinar → trial → Beratung. Day offsets 0/2/4/6/8/10/12,
+# driven by /api/cron/lead-nurture (routes/lifecycle_emails.py). Step 1 is
+# also sent instantly at capture time (routes/leader_check.py).
+#
+# Facts policy (docs/WLAD_CANON.md): only verified numbers — the Day-6 case
+# data is the anonymized 240-participant cohort already published in the
+# Journal article "Die KI-Challenge: was 30 Tage strukturierte Anwendung
+# verändern" — NO invented people, NO invented testimonials.
+
+LEAD_NURTURE_TOTAL_STEPS = 7
+
+
+def lead_nurture_email(step: int, name: str, unsubscribe_link: str | None = None) -> tuple[str, str]:
+    """Return (subject, html) for lead-nurture step 1..7.
+
+    One CTA per mail, education > sales, every mail delivers standalone value.
+    Raises ValueError for an unknown step so the cron fails loudly instead of
+    silently sending nothing.
+    """
+    quiz_url = "https://leadercheck.de"
+    journal_url = "https://leader-os.de/journal"
+    case_article_url = "https://leader-os.de/journal/der-ki-sprint-was-dreissig-tage-strukturierte-anwendung-veraendern"
+    webinar_url = "https://leader-os.de/webinar"
+    trial_url = "https://leaderos.de/signup?trial=14"
+    beratung_url = "https://www.leader-os.de/#beratung"
+
+    unsub = (
+        f'<p style="font-size:10px;color:rgba(255,255,255,0.3);margin:24px 0 0;text-align:center;">'
+        f'<a href="{unsubscribe_link}" style="color:rgba(255,255,255,0.4);text-decoration:underline;">Keine weiteren Mails dieser Serie</a>'
+        f'</p>' if unsubscribe_link else ''
+    )
+
+    def _cta(url: str, label: str) -> str:
+        return f"""
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 8px;"><tr>
+  <td style="background:{BRAND_COLOR};padding:0;">
+    <a href="{url}" style="display:inline-block;padding:16px 28px;color:{BRAND_DARK};text-decoration:none;font-weight:900;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">+&nbsp;&nbsp;{label}</a>
+  </td>
+</tr></table>"""
+
+    def _kicker(text: str) -> str:
+        return (
+            f'<div style="font-family:\'SF Mono\',Menlo,Consolas,monospace;font-size:10px;'
+            f'letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;'
+            f'margin:12px 0 14px;">▸ {text} · {step:02d} / {LEAD_NURTURE_TOTAL_STEPS:02d}</div>'
+        )
+
+    def _headline(text: str) -> str:
+        return (
+            f'<div style="font-weight:900;font-style:italic;font-size:32px;line-height:1.02;'
+            f'letter-spacing:-0.03em;color:#ffffff;margin:0 0 24px;">{text}'
+            f'<span style="color:{BRAND_COLOR};">.</span></div>'
+        )
+
+    p = 'style="font-size:14.5px;color:rgba(255,255,255,0.80);line-height:1.65;margin:0 0 18px;"'
+    box_open = (
+        '<div style="border-top:2px solid rgba(255,255,255,0.15);'
+        'border-bottom:2px solid rgba(255,255,255,0.15);padding:18px 0;margin:0 0 24px;">'
+    )
+    mono_label = (
+        f'style="font-family:\'SF Mono\',Menlo,Consolas,monospace;font-size:9px;'
+        f'letter-spacing:0.22em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:12px;"'
+    )
+
+    if step == 1:
+        subject = f"Willkommen, {name} — dein erstes Werkzeug ist drin"
+        preheader = "Was dich erwartet + die B-W-W-Feedbackformel in 3 Sätzen."
+        body = f"""
+{_kicker("NURTURE")}
+{_headline("Schön, dass du da bist")}
+<p {p}>Hallo {name},</p>
+<p {p}>in den nächsten zwei Wochen bekommst du von uns eine Handvoll kurzer Mails: Führung, Kommunikation, KI — immer mit einem Werkzeug, das du am selben Tag einsetzen kannst. Kein Spam, kein Dauerfeuer. Abmelden geht jederzeit mit einem Klick.</p>
+<p {p}>Das erste Werkzeug bekommst du sofort. Wlads Feedbackformel — <b style="color:#fff;">B-W-W: Beobachtung, Wirkung, Wunsch</b> — in drei Sätzen:</p>
+{box_open}
+  <div {mono_label}>▸ B-W-W · FEEDBACK IN 3 SÄTZEN</div>
+  <p style="font-size:13.5px;color:#ffffff;line-height:1.6;margin:0 0 10px;"><b style="color:{BRAND_COLOR};">1 · Beobachtung:</b> „Mir ist aufgefallen, dass du im Meeting dreimal unterbrochen hast.“</p>
+  <p style="font-size:13.5px;color:#ffffff;line-height:1.6;margin:0 0 10px;"><b style="color:{BRAND_COLOR};">2 · Wirkung:</b> „Das wirkt auf das Team, als wäre ihre Sicht nicht relevant.“</p>
+  <p style="font-size:13.5px;color:#ffffff;line-height:1.6;margin:0;"><b style="color:{BRAND_COLOR};">3 · Wunsch:</b> „Ich wünsche mir, dass du erst ausreden lässt und dann einordnest.“</p>
+</div>
+<p {p}>Nie „Du bist …“, immer „Ich habe beobachtet, dass …“. Fakten statt Urteil — deshalb kommt die Botschaft an, statt Abwehr auszulösen. Probier die Formel heute in einem echten Gespräch.</p>
+<p {p}>Wenn du wissen willst, wo du als Führungskraft gerade stehst: Die kostenlose 5-Minuten-Diagnose zeigt es dir sofort.</p>
+{_cta(quiz_url, "Diagnose starten · 5 Min")}
+{unsub}
+"""
+
+    elif step == 2:
+        subject = "Führung ist Fähigkeit. Fähigkeit ist trainierbar."
+        preheader = "Warum Wissen allein dein Verhalten nicht ändert — und was stattdessen wirkt."
+        body = f"""
+{_kicker("MINDSET")}
+{_headline("Wissen ist nicht Verhalten")}
+<p {p}>Hallo {name},</p>
+<p {p}>die meisten Führungskräfte wissen längst, wie gutes Feedback geht. Sie haben Bücher gelesen, Seminare besucht. Und trotzdem läuft das nächste Kritikgespräch wie immer. Warum?</p>
+<p {p}><b style="color:#fff;">Weil Wissen und Verhalten zwei verschiedene Dinge sind.</b> Niemand lernt Klavier, indem er ein Buch über Klavier liest. Verhalten ändert sich durch Wiederholung unter realen Bedingungen — nicht durch Konsum.</p>
+{box_open}
+  <div {mono_label}>▸ DIE KERN-THESE</div>
+  <p style="font-size:16px;color:#ffffff;font-weight:800;line-height:1.5;margin:0;">Führung ist keine Persönlichkeitsfrage. Führung ist Fähigkeit — und Fähigkeit ist trainierbar<span style="color:{BRAND_COLOR};">.</span></p>
+</div>
+<p {p}>Wlad Jachtchenko trainiert seit 2007 Führungskräfte — über 400.000 Klienten, 3× SPIEGEL-Bestseller-Autor. Sein Fazit aus all den Jahren: Nicht Talent trennt gute von schwachen Führungskräften, sondern Trainingsstruktur.</p>
+<p {p}><b style="color:#fff;">Dein Übungsimpuls für diese Woche:</b> Wähl EINE wiederkehrende Situation (z.B. dein nächstes 1:1) und trainiere dort EIN Verhalten bewusst — etwa die B-W-W-Formel aus der letzten Mail. Ein Rep pro Woche schlägt zehn gelesene Bücher.</p>
+<p {p}>Mehr davon — kostenlos, im Journal:</p>
+{_cta(journal_url, "Zum Leadership-Journal")}
+{unsub}
+"""
+
+    elif step == 3:
+        subject = "Was ein KI-Betriebssystem für Führung wirklich ist"
+        preheader = "Kein weiteres Tool. Die 3 Use Cases, mit denen Führungskräfte Stunden pro Woche sparen."
+        body = f"""
+{_kicker("AI-OS")}
+{_headline("KI führt nicht für dich")}
+<p {p}>Hallo {name},</p>
+<p {p}>ehrlich vorweg: KI wird deine Mitarbeitergespräche nicht für dich führen. Wer dir das verkauft, verkauft dir Unsinn.</p>
+<p {p}>Was ein <b style="color:#fff;">KI-Betriebssystem für Führung</b> tatsächlich tut: Es nimmt dir die unstrukturierte Denkarbeit VOR und NACH den Momenten ab, in denen es auf dich ankommt. Drei Use Cases, die sich in der Praxis bewährt haben:</p>
+{box_open}
+  <div {mono_label}>▸ DIE 3 ECHTEN USE CASES</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="padding:7px 0;vertical-align:top;width:36px;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§01</span></td>
+    <td style="padding:7px 0;font-size:14px;color:#ffffff;line-height:1.5;"><b>Gesprächsvorbereitung</b> — das schwierige Gespräch vorher durchspielen: Einwände, Formulierungen, Eskalationspfade. Du gehst rein und bist schon einmal durch.</td></tr>
+    <tr><td style="padding:7px 0;vertical-align:top;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§02</span></td>
+    <td style="padding:7px 0;font-size:14px;color:#ffffff;line-height:1.5;"><b>Firmenrede-Strukturierung</b> — von der leeren Seite zur klaren Dramaturgie in Minuten statt Abenden. Die Rede bleibt deine; die Struktur kommt vom System.</td></tr>
+    <tr><td style="padding:7px 0;vertical-align:top;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§03</span></td>
+    <td style="padding:7px 0;font-size:14px;color:#ffffff;line-height:1.5;"><b>Freitag-Reflexion</b> — 15 Minuten strukturierte Wochenauswertung: Was lief, was hakte, was ändere ich Montag. Das Ritual, das aus Wochen Lernschleifen macht.</td></tr>
+  </table>
+</div>
+<p {p}>Der ehrliche Effekt ist nicht „10× Produktivität“, sondern zurückgewonnene Stunden: weniger unvorbereitete Gespräche, weniger Leerlauf-Meetings, mehr Deep Work. Die konkreten Zahlen aus 240 vermessenen Teilnehmern bekommst du übermorgen.</p>
+<p {p}>Bis dahin: Wie so ein System im Alltag aussieht, liest du im Journal.</p>
+{_cta(journal_url, "Zum Journal")}
+{unsub}
+"""
+
+    elif step == 4:
+        subject = "90 Sekunden → 22 Sekunden: Daten aus 240 Teilnehmern"
+        preheader = "Anonymisierte Vorher-Nachher-Daten der 30-Tage-Challenge — inklusive dem, was sich NICHT ändert."
+        body = f"""
+{_kicker("EVIDENZ")}
+{_headline("Was 30 Tage messbar verändern")}
+<p {p}>Hallo {name},</p>
+<p {p}>keine Erfolgsgeschichte mit Namen und Foto — sondern anonymisierte Kohorten-Daten. Wir haben über <b style="color:#fff;">240 Teilnehmer der 30-Tage-Challenge</b> (2025–2026) vorher und nachher vermessen. Das zeigt sich:</p>
+{box_open}
+  <div {mono_label}>▸ KOHORTE · N=240 · MEDIAN · TAG 1 VS. TAG 30</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Reflex-Zeit für B-W-W-Feedback-Eröffnungen</td>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);text-align:right;font-size:15px;color:{BRAND_COLOR};font-weight:900;white-space:nowrap;">90&nbsp;→&nbsp;22&nbsp;Sek</td>
+    </tr>
+    <tr>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Zurückgewonnene Deep-Work-Stunden pro Woche</td>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);text-align:right;font-size:15px;color:{BRAND_COLOR};font-weight:900;white-space:nowrap;">+4,2&nbsp;h</td>
+    </tr>
+    <tr>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">1:1-Gespräche ohne konkrete nächste Aktion („Stale-Quote“)</td>
+      <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.10);text-align:right;font-size:15px;color:{BRAND_COLOR};font-weight:900;white-space:nowrap;">38&nbsp;→&nbsp;14&nbsp;%</td>
+    </tr>
+    <tr>
+      <td style="padding:10px 0;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Wiederverwendete Prompts nach 30 Tagen</td>
+      <td style="padding:10px 0;text-align:right;font-size:15px;color:{BRAND_COLOR};font-weight:900;white-space:nowrap;">14</td>
+    </tr>
+  </table>
+</div>
+<p {p}><b style="color:#fff;">Und genauso wichtig — was sich in 30 Tagen NICHT messbar verändert:</b> Identität als Führungskraft, Quartalsumsatz, Team-Glück. Wer das Falsche misst, ist enttäuscht. Wer das Richtige misst, sieht den Effekt klar.</p>
+<p {p}>Die komplette Auswertung — inklusive der Bandbreiten und drei anonymisierter Beispiel-Profile — steht öffentlich im Journal:</p>
+{_cta(case_article_url, "Ganze Auswertung lesen")}
+{unsub}
+"""
+
+    elif step == 5:
+        subject = f"Live mit Wlad: dein Platz im Webinar, {name}"
+        preheader = "Live-Webinar mit Wlad Jachtchenko — Fragen live, Methodik live, kein Replay-Konsum."
+        body = f"""
+{_kicker("WEBINAR")}
+{_headline("Live schlägt Replay")}
+<p {p}>Hallo {name},</p>
+<p {p}>fünf Mails Theorie und Daten — jetzt der Schritt, bei dem du Wlad live erlebst: das <b style="color:#fff;">kostenlose Live-Webinar mit Wlad Jachtchenko</b>.</p>
+{box_open}
+  <div {mono_label}>▸ WAS DICH ERWARTET</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr><td style="padding:6px 0;vertical-align:top;width:36px;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§01</span></td>
+    <td style="padding:6px 0;font-size:14px;color:#ffffff;line-height:1.5;">Die Methodik live demonstriert — Rhetorik, EQ und KI-Einsatz an echten Führungssituationen, nicht an Folien.</td></tr>
+    <tr><td style="padding:6px 0;vertical-align:top;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§02</span></td>
+    <td style="padding:6px 0;font-size:14px;color:#ffffff;line-height:1.5;">Deine Fragen, live beantwortet — bring deine konkrete Führungs-Situation mit.</td></tr>
+    <tr><td style="padding:6px 0;vertical-align:top;"><span style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:10px;color:{BRAND_COLOR};font-weight:800;letter-spacing:0.08em;">§03</span></td>
+    <td style="padding:6px 0;font-size:14px;color:#ffffff;line-height:1.5;">Der Blick ins System — wie aus einem Impuls ein 30-Tage-Trainingsplan wird.</td></tr>
+  </table>
+</div>
+<p {p}><b style="color:#fff;">Warum live?</b> Weil Aufzeichnungen konsumiert und vergessen werden. Live stellst du DEINE Frage, bekommst DEINE Antwort — und ein fester Termin im Kalender ist der Unterschied zwischen „schau ich irgendwann“ und „mach ich“.</p>
+{_cta(webinar_url, "Platz im Webinar sichern")}
+{unsub}
+"""
+
+    elif step == 6:
+        subject = "Ein Blick in LeaderOS — 14 Tage, kostenlos"
+        preheader = "WladBot 24/7, Simulationen, 30-Tage-Challenge, 11 Frameworks — teste alles 14 Tage."
+        body = f"""
+{_kicker("LEADER·OS")}
+{_headline("Das System von innen")}
+<p {p}>Hallo {name},</p>
+<p {p}>du kennst jetzt die Methodik und die Daten. Zeit, dir zu zeigen, was drin ist, wenn du LeaderOS öffnest:</p>
+{box_open}
+  <div {mono_label}>▸ SPEC · WAS DRIN IST</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid rgba(255,255,255,0.12);">
+    <tr>
+      <td style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.10);border-right:1px solid rgba(255,255,255,0.10);width:50%;vertical-align:top;">
+        <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">24/7</div>
+        <div style="font-size:13px;color:#ffffff;font-weight:700;margin-bottom:4px;">WladBot</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">Dein KI-Coach auf Wlads Methodik — antwortet auch um 22:47.</div>
+      </td>
+      <td style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.10);width:50%;vertical-align:top;">
+        <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">TRAINING</div>
+        <div style="font-size:13px;color:#ffffff;font-weight:700;margin-bottom:4px;">Simulationen</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">Schwierige Gespräche im geschützten Raum üben — vor dem Ernstfall.</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:14px 18px;border-right:1px solid rgba(255,255,255,0.10);vertical-align:top;">
+        <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">30 TAGE</div>
+        <div style="font-size:13px;color:#ffffff;font-weight:700;margin-bottom:4px;">30-Tage-Challenge</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">Tägliche Mikro-Drills statt Einmal-Seminar — die Struktur hinter den Kohorten-Daten.</div>
+      </td>
+      <td style="padding:14px 18px;vertical-align:top;">
+        <div style="font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9px;letter-spacing:0.18em;color:{BRAND_COLOR};font-weight:800;text-transform:uppercase;margin-bottom:6px;">11×</div>
+        <div style="font-size:13px;color:#ffffff;font-weight:700;margin-bottom:4px;">11 Frameworks</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;">Von B-W-W bis SEXIER — Wlads Werkzeuge, einsatzbereit strukturiert.</div>
+      </td>
+    </tr>
+  </table>
+</div>
+<p {p}>Du testest alles <b style="color:#fff;">14 Tage kostenlos</b> — und entscheidest danach. Trustpilot: 4,9/5 aus 388 Bewertungen.</p>
+{_cta(trial_url, "14 Tage kostenlos testen")}
+{unsub}
+"""
+
+    elif step == 7:
+        subject = f"Der persönliche Weg, {name}"
+        preheader = "Wenn du es nicht allein herausfinden willst: 30 Minuten mit Wlads Team."
+        body = f"""
+{_kicker("BERATUNG")}
+{_headline("Sprich mit einem Menschen")}
+<p {p}>Hallo {name},</p>
+<p {p}>zwölf Tage, sieben Mails: Feedbackformel, Trainingslogik, KI-Use-Cases, Kohorten-Daten, Webinar, ein Blick ins System. Du hast jetzt mehr Substanz als die meisten nach einem Zwei-Tage-Seminar.</p>
+<p {p}>Ein Schritt fehlt noch — und der ist bewusst persönlich: <b style="color:#fff;">ein Gespräch, 1:1 mit Wlads Team.</b> Kein Verkaufs-Skript, sondern eine Standortbestimmung: Wo stehst du, was ist dein größter Hebel, und welcher Weg passt — die 30-Tage-Challenge, LeaderOS oder ein Coaching-Programm.</p>
+{box_open}
+  <div {mono_label}>▸ WARUM MIT WLADS TEAM</div>
+  <p style="font-size:13.5px;color:#ffffff;line-height:1.65;margin:0;">Hinter dem System stehen fünfzehn Jahre Trainingspraxis: über 400.000 Klienten, 13 Bücher, 3× SPIEGEL-Bestseller. Das Team, das täglich mit diesen Methoden arbeitet, hört sich deine Situation an und sagt dir ehrlich, was für dich sinnvoll ist — auch wenn die Antwort „noch nichts kaufen“ lautet.</p>
+</div>
+<p {p}>Wenn du den nächsten Schritt nicht allein am Bildschirm entscheiden willst: Such dir einen Termin aus.</p>
+{_cta(beratung_url, "Beratungsgespräch buchen")}
+{unsub}
+"""
+
+    else:
+        raise ValueError(f"lead_nurture_email: unknown step {step}")
+
+    return subject, _base_layout(body, preheader=preheader, bib_code=f"N-{step:02d}")
