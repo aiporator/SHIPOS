@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../../lib/brandAssets';
+import { WebinarFollowPopup } from './WebinarFollowPopup';
 
 const STORAGE_KEY = 'leader_os_lead_capture_seen_at';
 const COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // one popup per visitor per week
@@ -42,6 +43,9 @@ export const LeadCaptureModal = () => {
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  // Timestamp of a non-converting dismissal (X / backdrop / Escape). Arms
+  // the WebinarFollowPopup 35s countdown — never set on successful submit.
+  const [dismissedAt, setDismissedAt] = useState(0);
   const triggered = useRef(false);
   // Hard minimum dwell · the capture never opens before the visitor has
   // spent 1 minute on the page, no matter which trigger fires.
@@ -125,15 +129,25 @@ export const LeadCaptureModal = () => {
     };
   }, []);
 
+  // Any dismissal path (X, backdrop, Escape) counts as "closed without
+  // converting" and arms the webinar follow-up popup.
+  const close = () => {
+    setOpen(false);
+    setDismissedAt(Date.now());
+  };
+
   // Esc key closes
   useEffect(() => {
     if (!open) return undefined;
-    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        setDismissedAt(Date.now());
+      }
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
-
-  const close = () => setOpen(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -173,9 +187,12 @@ export const LeadCaptureModal = () => {
     navigate(`/thank-you?email=${encodeURIComponent(trimmed)}`);
   };
 
-  if (!open) return null;
-
   return (
+    <>
+      {/* Popup 2 · webinar follow-up, armed only by a non-converting close */}
+      <WebinarFollowPopup armedAt={dismissedAt} />
+
+      {open && (
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#0A0A0A]/85 backdrop-blur-xl"
@@ -382,5 +399,7 @@ export const LeadCaptureModal = () => {
         </motion.div>
       </motion.div>
     </AnimatePresence>
+      )}
+    </>
   );
 };
