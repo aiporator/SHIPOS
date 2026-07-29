@@ -7,7 +7,6 @@ import { HeroSection } from '../components/landing/HeroSection';
 import { WhatIsLeaderOsSection } from '../components/landing/WhatIsLeaderOsSection';
 import { SprintSpecimenStrip } from '../components/landing/SprintSpecimenStrip';
 import { HowItWorksSection } from '../components/landing/HowItWorksSection';
-import { VimeoIntroSection } from '../components/landing/VimeoIntroSection';
 import { WladIntroVideo } from '../components/landing/WladIntroVideo';
 import { TrackFieldSection } from '../components/landing/TrackFieldVisual';
 import { MiniChallenge } from '../components/landing/MiniChallenge';
@@ -127,13 +126,22 @@ export default function LandingPage() {
       <ScrollProgressRail />
 
       <main id="main-content">
+        {/* Trust-Aufbau in natürlicher Reihenfolge (CRO-Reorder Juli 2026):
+            Results (WhatIs · "Ergebnisse statt Theorie")
+              → Founder (WladIntroVideo · 30-Sek-Intro)
+              → Insights (JournalTeaser · Feldnotizen)
+              → Produkt → CTA.
+            VimeoIntroSection wurde entfernt: zweites ~30-Sek-Intro
+            derselben Person auf derselben Seite war redundant, seit das
+            Intro-Video direkt nach dem Hero-Block steht. */}
         <HeroSection />
         <WhatIsLeaderOsSection />
+        <WladIntroVideo />
+        <JournalTeaserSection />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
         <TrustProofSection />
         <WladKnowledgeInsideSection />
-        <WladIntroVideo />
         <FreeVideoTeaser />
         <ArchetypeQuizSection />
         <FreeToolsSection />
@@ -141,8 +149,6 @@ export default function LandingPage() {
         <ClassesRoadmapSection />
         <TrackFieldSection />
         <HowItWorksSection />
-        <VimeoIntroSection />
-        <JournalTeaserSection />
         <div className="max-w-[1280px] mx-auto px-5 md:px-10 py-16 md:py-20">
           <WebinarTicketAd placement="landing-page" />
         </div>

@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 
 const CUES = [
-  { start: 0.5,  end: 5.0,  eyebrow: '▸ WLAD JACHTCHENKO',           headline: 'Hi, ich bin',       accent: 'Wlad' },
+  { start: 0.5,  end: 5.0,  eyebrow: '▸ 3× SPIEGEL-BESTSELLER-AUTOR', headline: 'Hi, ich bin',       accent: 'Wlad' },
   { start: 5.5,  end: 11,   eyebrow: '▸ WAS WIR LÖSEN',              headline: 'KI bestimmt das Tempo.', accent: 'Du den Kurs.' },
   { start: 11.5, end: 18,   eyebrow: '▸ ZEHN MINUTEN',               headline: 'Diagnose.',         accent: 'Kostenlos.' },
   { start: 18.5, end: 24,   eyebrow: '▸ POWERED BY',                 headline: 'WladBot.',          accent: '24 / 7' },
@@ -170,7 +170,7 @@ export const WladIntroVideo = () => {
         <div className="mb-5 md:mb-7 flex items-end justify-between flex-wrap gap-3">
           <div className="min-w-0 flex-1">
             <p className="text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.28em] text-brand-strong mb-2.5 md:mb-3 font-mono">
-              ▸ INTRO · WLAD IN 90 SEK
+              ▸ INTRO · WLAD IN 30 SEK
             </p>
             <h2
               className="leading-[0.92] tracking-[-0.04em] text-black"
