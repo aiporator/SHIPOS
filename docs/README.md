@@ -65,6 +65,7 @@ lead-nurture emails (`backend/services_email.py` + `/api/cron/lead-nurture`).
 | --- | --- |
 | [`ops/RUNBOOK.md`](./ops/RUNBOOK.md) | **Main runbook** — deploy, secrets, common operations |
 | [`ops/RUNBOOK_DEPLOY.md`](./ops/RUNBOOK_DEPLOY.md) | Deploy specifics (Vercel + backend) |
+| [`ops/EMERGENT_DEPLOY_CHECKLIST.md`](./ops/EMERGENT_DEPLOY_CHECKLIST.md) | **Current deploy checklist** — env vars + smoke checks for the Juli-2026 features |
 | [`ops/DEPLOY.md`](./ops/DEPLOY.md) | Click-through deploy guide (Stripe live keys, webhooks, rollback) |
 | [`ops/RUNBOOK_DOMAINS.md`](./ops/RUNBOOK_DOMAINS.md) | DNS / domain operations |
 | [`ops/INCIDENT_RUNBOOK.md`](./ops/INCIDENT_RUNBOOK.md) | When production breaks |
