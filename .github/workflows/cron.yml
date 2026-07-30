@@ -1,6 +1,6 @@
 name: cron-jobs
 
-# Replaces SHIP_CHECKLIST §2 "Cron-Jobs (täglich extern triggern)":
+# Replaces docs/archive/SHIP_CHECKLIST.md §2 "Cron-Jobs (täglich extern triggern)":
 #   - installments-due → daily 09:00 Europe/Berlin (≈ 07:00–08:00 UTC depending on DST)
 #   - monthly-scorecard → 1st of month, 09:00 Europe/Berlin
 # Endpoints are public idempotent POSTs that no-op when there's nothing due.

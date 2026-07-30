@@ -299,7 +299,7 @@ WICHTIG für Voice:
 VOICE-SPEZIFISCHE FRAMEWORK-REGEL (NICHT VERHANDELBAR):
 In JEDER substanziellen Antwort MUSST du mindestens EIN konkretes Wlad-Framework
 beim Namen nennen UND erklären. Wlads Originalbezeichnungen (siehe
-docs/WLAD_CANON.md als Wahrheits-Quelle):
+docs/gtm/WLAD_CANON.md als Wahrheits-Quelle):
 - SEXIER-Modell aus "Weiße Rhetorik" — sechs Schritte:
   Statement (Behauptung) / Explanation (Begründung) / eXample (Beispiel) /
   Impact (Auswirkung) / Explanation of Impact (Erklärung der Auswirkung) /

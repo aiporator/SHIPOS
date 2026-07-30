@@ -207,4 +207,4 @@ more traffic. Each turn is cheaper than the last because the content compounds.
 4. **Keep classification client-side and synchronous in v1.** No network call
    in the funnel path — analytics must never block the CTA.
 5. **DB writes use `email_lower`** as the dedup/link key, same as everywhere
-   else in the schema (see `docs/SCHEMA.md`).
+   else in the schema (see `docs/app/SCHEMA.md`).

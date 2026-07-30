@@ -68,7 +68,7 @@ the EU host and project key `phc_xmMQne...`. Identity helpers in
 with `email_lower` from `frontend/src/contexts/AuthContext.js` on login,
 session rehydrate, and logout.
 
-See `docs/INTEGRATIONS.md §1` for the full wiring + optional migration to
+See `docs/ops/INTEGRATIONS.md §1` for the full wiring + optional migration to
 env-driven init with `posthog-js` npm package.
 
 ### Verifying region

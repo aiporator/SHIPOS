@@ -71,7 +71,7 @@ SIGNATURE_QUERIES: list[dict[str, str]] = [
     {"q": "Wie überzeuge ich ehrlich und ohne Manipulation, auch wenn die Fakten gegen mich stehen?", "expect": "Weiße Rhetorik"},
     # Explicit SEXIER probe: this framework had a documented corpus-chunk bug
     # (layer202_drills used Repeat/Implications/Evidence instead of the real
-    # Rebuttal/Impact/Explanation of Impact — see docs/WLAD_CANON.md). WLAD_HARD_RULES
+    # Rebuttal/Impact/Explanation of Impact — see docs/gtm/WLAD_CANON.md). WLAD_HARD_RULES
     # now hard-codes the correct definition, but nothing in this signature set
     # actually probed SEXIER directly until now — this closes that regression gap.
     {"q": "Ich muss nächste Woche eine wichtige Firmenrede halten und will sie strukturiert und überzeugend aufbauen. Wie gehe ich vor?", "expect": "SEXIER-Modell (Statement/Explanation/eXample/Impact/Explanation of Impact/Rebuttal)"},

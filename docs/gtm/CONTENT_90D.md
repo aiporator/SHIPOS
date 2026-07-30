@@ -1291,5 +1291,5 @@ Danke fürs Lesen. Jetzt führen.
 Generierungs-Workflow: jeder Post-Body lässt sich 1:1 in den Buffer / Hootsuite / Latergram laden. Lokalisierung
 (DE→EN) via WladBot mit Prompt „Übersetze in Wlads englischen Ton, ohne Idiome zu verlieren."
 
-Ads & 3 zusätzliche Funnels: siehe `docs/ADS_90D.md`.
+Ads & 3 zusätzliche Funnels: siehe `docs/gtm/ADS_90D.md`.
 

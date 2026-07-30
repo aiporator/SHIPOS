@@ -42,13 +42,26 @@ render at runtime.
 ## Repo layout
 
 ```
-frontend/    Create React App — builds for BOTH surfaces
-backend/     FastAPI — currently hosted on Emergent
-docs/        Schema, runbook, launch playbook
-.github/     CI + cron workflows
-.claude/     Claude Code skills
-vercel.json  CRA build → frontend/build, /api/* → emergent rewrite
+frontend/       Create React App — builds for BOTH surfaces
+backend/        FastAPI — auth, payments, chat, RAG, email funnel, cron
+supabase/       Edge functions + SQL migrations (deployed via Supabase CLI)
+docs/
+├── gtm/        Go-to-market: canon, content, funnels, ads, SEO, channels
+├── app/        Architecture: system, schema, identity, RAG, dashboards
+├── ops/        Run the app: runbooks, deploy, cron, alerts, access
+├── sql/        Loose SQL helpers (reference, not migrations)
+├── archive/    Historical one-offs (launch days, Emergent migration)
+└── CHANGELOG.md  Schema migration history (stable path — PR template)
+scripts/        Sitemap generation etc.
+deploy/         Backend Dockerfile + fly.toml
+tests/          Test scripts
+.github/        CI + cron workflows, issue/PR templates
+.claude/        Claude Code skills
+vercel.json     CRA build → frontend/build, /api/* rewrite
 ```
+
+**Start here:** [`docs/README.md`](./docs/README.md) — the index over
+all of it, split by GTM vs. app work.
 
 **Supabase project ref:** `srujvjjncrszhaaxepxf` (region `eu-north-1`).
 The MCP server is wired in `.mcp.json`.
@@ -61,7 +74,7 @@ on every push.
 ## Launch / deploy
 
 - **First-time Vercel setup** (or rebuilding from scratch):
-  see [`docs/LAUNCH_TOMORROW.md`](./docs/LAUNCH_TOMORROW.md)
+  see [`docs/archive/LAUNCH_TOMORROW.md`](./docs/archive/LAUNCH_TOMORROW.md)
 - **Required env vars per Vercel project:** none.
   All env vars in [`frontend/.env.example`](./frontend/.env.example) are
   optional and only activate observability (PostHog / Sentry) — the
@@ -74,8 +87,8 @@ Both surfaces write to the same Postgres tables. The dedup key is
 use the same lowercased email so a person stays the same across the
 funnel (`leader-check.de`) and the authed app (`leader-os.de`).
 
-See `CLAUDE.md` for the full contract, `docs/SCHEMA.md` for the
-database shape, and `docs/INTEGRATIONS.md` for the frontend wiring.
+See `CLAUDE.md` for the full contract, `docs/app/SCHEMA.md` for the
+database shape, and `docs/ops/INTEGRATIONS.md` for the frontend wiring.
 
 ## Quick start (local dev)
 
@@ -95,13 +108,15 @@ Copy `frontend/.env.example` to `frontend/.env.local` for local dev.
 
 ## Documentation
 
-| Doc                                              | What it covers                                |
-| ------------------------------------------------ | --------------------------------------------- |
-| [`CLAUDE.md`](./CLAUDE.md)                       | Briefing for Claude Code sessions             |
-| [`docs/LAUNCH_TOMORROW.md`](./docs/LAUNCH_TOMORROW.md) | Step-by-step Vercel dual-project setup   |
-| [`docs/SCHEMA.md`](./docs/SCHEMA.md)             | Postgres tables, triggers, RPCs               |
-| [`docs/DASHBOARD.md`](./docs/DASHBOARD.md)       | Supabase Studio dashboard views               |
-| [`docs/RUNBOOK.md`](./docs/RUNBOOK.md)           | Deploy, secrets, common ops                   |
-| [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) | PostHog EU + Sentry + Supabase wiring         |
-| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md)       | Schema migration history                      |
-| [`docs/BRANCH_CLEANUP.md`](./docs/BRANCH_CLEANUP.md) | Branch audit (proposal, not executed)     |
+| Doc                                                      | What it covers                                |
+| -------------------------------------------------------- | --------------------------------------------- |
+| [`docs/README.md`](./docs/README.md)                     | **Master index** — GTM · App · Ops · Archive  |
+| [`CLAUDE.md`](./CLAUDE.md)                               | Briefing for Claude Code sessions             |
+| [`ONBOARDING.md`](./ONBOARDING.md)                       | Full-system ramp for new people               |
+| [`docs/gtm/WLAD_CANON.md`](./docs/gtm/WLAD_CANON.md)     | Verified facts canon — every claim checks here |
+| [`docs/gtm/WEBINAR_FUNNEL.md`](./docs/gtm/WEBINAR_FUNNEL.md) | Ascension funnel map + honesty rules      |
+| [`docs/app/SCHEMA.md`](./docs/app/SCHEMA.md)             | Postgres tables, triggers, RPCs               |
+| [`docs/app/DASHBOARD.md`](./docs/app/DASHBOARD.md)       | Supabase Studio dashboard views               |
+| [`docs/ops/RUNBOOK.md`](./docs/ops/RUNBOOK.md)           | Deploy, secrets, common ops                   |
+| [`docs/ops/INTEGRATIONS.md`](./docs/ops/INTEGRATIONS.md) | PostHog EU + Sentry + Supabase wiring         |
+| [`docs/CHANGELOG.md`](./docs/CHANGELOG.md)               | Schema migration history                      |

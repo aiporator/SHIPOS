@@ -53,7 +53,7 @@ Der Funnel verkauft hart, aber lügt nie:
   (falsch).
 - **Alle Zahlen aus dem verifizierten Set:** 400.000+ Klienten, 20+ Länder,
   13 Bücher / 3× SPIEGEL, 4,9/5 Trustpilot (388), seit 2007 im Coaching.
-  Kanon: `docs/WLAD_CANON.md`.
+  Kanon: `docs/gtm/WLAD_CANON.md`.
 
 ## Fehlende Assets (Aufnahmen für Wlad / Team)
 

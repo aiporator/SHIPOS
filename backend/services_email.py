@@ -910,7 +910,7 @@ P.S. — Die Diagnose dauert wirklich nur fünf Minuten. Drei Dimensionen: KI, R
 # driven by /api/cron/lead-nurture (routes/lifecycle_emails.py). Step 1 is
 # also sent instantly at capture time (routes/leader_check.py).
 #
-# Facts policy (docs/WLAD_CANON.md): only verified numbers — the Day-6 case
+# Facts policy (docs/gtm/WLAD_CANON.md): only verified numbers — the Day-6 case
 # data is the anonymized 240-participant cohort already published in the
 # Journal article "Die KI-Challenge: was 30 Tage strukturierte Anwendung
 # verändern" — NO invented people, NO invented testimonials.
