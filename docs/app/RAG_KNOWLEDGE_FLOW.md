@@ -3,7 +3,7 @@
 > **Chunk counts and the retrieval mechanism below are stale** (this doc
 > predates the hybrid vector+lexical RRF retrieval and the corpus has
 > grown to 2212 chunks since). For current numbers and architecture, see
-> `docs/KNOWLEDGE_ONE_PAGER.md`. This file is kept for the per-surface
+> `docs/gtm/KNOWLEDGE_ONE_PAGER.md`. This file is kept for the per-surface
 > route/file mapping in the table below, which is still structurally
 > accurate.
 

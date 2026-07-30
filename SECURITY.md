@@ -37,4 +37,4 @@ Out-of-scope (report to the appropriate repo owners instead):
 `upsert_incomplete_attempt` is intentionally callable by `anon` so the
 leader-check landing page can save funnel progress before signup. The
 `authenticated` grant has been revoked. This is documented in
-`docs/RUNBOOK.md` and is not a finding.
+`docs/ops/RUNBOOK.md` and is not a finding.

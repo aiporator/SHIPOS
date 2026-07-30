@@ -6,7 +6,7 @@
  * HERE into one machine-readable shape, then fired as a single canonical
  * PostHog event. That uniformity is the whole point: one event name, one
  * schema, so the Intelligence Layer (clustering, content-gap detection)
- * has clean data to compound on. See docs/GROWTH_LOOP.md.
+ * has clean data to compound on. See docs/gtm/GROWTH_LOOP.md.
  *
  * Intent shape (stable contract · don't rename fields, only add):
  *   {

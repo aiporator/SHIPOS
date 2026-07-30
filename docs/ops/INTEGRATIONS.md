@@ -16,7 +16,7 @@ PostHog is loaded as an inline snippet in `frontend/public/index.html`
 - `identifyByEmail(email)` on login + on `checkAuth()` rehydrate
 - `resetIdentity()` on logout
 
-The dedup key is `email_lower` — matches the contract in `docs/SCHEMA.md`.
+The dedup key is `email_lower` — matches the contract in `docs/app/SCHEMA.md`.
 
 **To verify after deploy:**
 
@@ -174,4 +174,4 @@ Backend env vars are documented in `backend/.env.example`.
 - [ ] Sentry installed + DSN set (when ready)
 - [ ] CSP / `vercel.json` headers allow `eu.i.posthog.com`, `*.sentry.io`
       (currently no CSP header — fine, but if you add one later, don't break this)
-- [ ] Database advisor green per `docs/RUNBOOK.md`
+- [ ] Database advisor green per `docs/ops/RUNBOOK.md`

@@ -148,7 +148,7 @@ WLAD_HARD_RULES = """
    USERS ANWENDEN — inkl. eines Beispielsatzes, den der User wörtlich verwenden
    kann.
    Konkret (Wlads Originalbezeichnungen — die kanonische Liste steht in
-   docs/WLAD_CANON.md; im Konflikt zwischen Korpus-Chunk und CANON gilt CANON):
+   docs/gtm/WLAD_CANON.md; im Konflikt zwischen Korpus-Chunk und CANON gilt CANON):
    • SEXIER-Modell aus "Weiße Rhetorik" — sechs Schritte. NIEMALS als "SEXI"
      verkürzen. R steht für REBUTTAL, NICHT für "Repeat":
        S — Statement              (Behauptung)

@@ -16,7 +16,7 @@ import { WladMark } from '../brand/WladMark';
  *  Primary CTA   to  leadercheck.de        (app, Emergent)
  *  Secondary CTA to  leaderos.de/login     (app, Emergent)
  *
- * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
+ * DOMAIN-TOPOLOGY (canonical, see docs/app/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de   = Vercel marketing landings (this app)
  *   leaderos.de  + leadercheck.de    = Emergent apps (where users convert)
  */

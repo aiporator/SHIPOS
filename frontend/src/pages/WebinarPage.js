@@ -31,7 +31,7 @@ import { WladMark } from '../components/brand/WladMark';
  * (bright, friendly, approachable) and lime is the brand signature
  * (frontend/DESIGN.md). The ink StatementBands provide the dark moments.
  *
- * Honesty rules unchanged (docs/WEBINAR_FUNNEL.md): verified numbers only,
+ * Honesty rules unchanged (docs/gtm/WEBINAR_FUNNEL.md): verified numbers only,
  * no invented testimonials, no fake scarcity, no fake exclusivity.
  */
 

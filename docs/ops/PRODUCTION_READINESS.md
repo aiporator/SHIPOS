@@ -83,7 +83,7 @@ section is fair game to call vibe-coded.
 | Concern                            | Implementation                                                                                              | Evidence                              |
 |---                                 |---                                                                                                          |---                                    |
 | Duplicate-account prevention       | Mongo `users.email` UNIQUE with case-insensitive collation (strength=2) — `WLAD@x.de` vs `wlad@x.de` clash  | `backend/server.py:243-246`           |
-| Cross-platform identity            | `email_lower` is the dedup key across Mongo (Emergent) and Supabase Postgres mirror                          | `docs/SCHEMA.md`                      |
+| Cross-platform identity            | `email_lower` is the dedup key across Mongo (Emergent) and Supabase Postgres mirror                          | `docs/app/SCHEMA.md`                      |
 | Stripe-webhook idempotency         | `idempotency_keys` table keyed by Stripe event id · `succeeded` short-circuits replay                       | `supabase/functions/stripe-webhook/index.ts:302-360` |
 | Migration discipline               | Schema changes via Supabase MCP `apply_migration` only · raw SQL prohibited                                  | `CLAUDE.md` (workflow rule 1)         |
 | All views `security_invoker = true`| Postgres default is DEFINER, which Supabase flags as ERROR · enforced                                       | `CLAUDE.md` (workflow rule 3)         |

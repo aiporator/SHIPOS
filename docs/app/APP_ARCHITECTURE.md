@@ -586,7 +586,7 @@ first 2 weeks post-launch, then weekly.
 
 ### Incident Response
 
-Full incident runbook at `docs/INCIDENT_RUNBOOK.md` covering:
+Full incident runbook at `docs/ops/INCIDENT_RUNBOOK.md` covering:
 
 - Backend down (FastAPI/supervisor)
 - Stripe webhook failures
@@ -690,12 +690,12 @@ The one known intentional WARN is `upsert_incomplete_attempt` callable by
 ### Infrastructure
 
 - [ ] **Mongo to Supabase migration**: Phased plan documented in
-  `docs/SUPABASE_MIGRATION.md`. MongoDB remains system of record for now;
+  `docs/ops/SUPABASE_MIGRATION.md`. MongoDB remains system of record for now;
   Supabase is the sync sidecar. Full migration deferred to post-launch
   stability (auth swap is the riskiest phase).
 - [ ] **PostHog env-driven init**: Replace inline snippet in
   `public/index.html` with `posthog-js` npm package for cleaner CSP and
-  env-var control. Migration steps in `docs/INTEGRATIONS.md`.
+  env-var control. Migration steps in `docs/ops/INTEGRATIONS.md`.
 
 ---
 
@@ -715,13 +715,13 @@ The one known intentional WARN is `upsert_incomplete_attempt` callable by
 | Magic link service | `backend/services_magic_link.py` |
 | Login security | `backend/services_login_security.py` |
 | Rate limit middleware | `backend/middleware/__init__.py` |
-| Schema reference | `docs/SCHEMA.md` |
-| Incident runbook | `docs/INCIDENT_RUNBOOK.md` |
-| Integrations spec | `docs/INTEGRATIONS.md` |
-| Operational runbook | `docs/RUNBOOK.md` |
-| Migration plan | `docs/SUPABASE_MIGRATION.md` |
+| Schema reference | `docs/app/SCHEMA.md` |
+| Incident runbook | `docs/ops/INCIDENT_RUNBOOK.md` |
+| Integrations spec | `docs/ops/INTEGRATIONS.md` |
+| Operational runbook | `docs/ops/RUNBOOK.md` |
+| Migration plan | `docs/ops/SUPABASE_MIGRATION.md` |
 | Changelog | `docs/CHANGELOG.md` |
-| Go-live runbook | `docs/GO_LIVE.md` |
+| Go-live runbook | `docs/archive/GO_LIVE.md` |
 | Vercel config | `vercel.json` |
 | CI workflow | `.github/workflows/ci.yml` |
 | Cron workflow | `.github/workflows/cron.yml` |

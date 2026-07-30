@@ -44,8 +44,8 @@ Rules of thumb:
   Emergent serves. Host-based `if` checks at the top of `LandingPage.js`
   decide which surface to show. One codebase, four faces.
 
-Full topology with the DNS records: `README.md` + `docs/DOMAIN_TOPOLOGY.md`
-+ `docs/FINAL_TOPOLOGY.md`.
+Full topology with the DNS records: `README.md` + `docs/app/DOMAIN_TOPOLOGY.md`
++ `docs/app/FINAL_TOPOLOGY.md`.
 
 ---
 
@@ -106,8 +106,8 @@ There are **three** persistence layers. This trips everyone up at first.
    anonymous funnel writes incomplete attempts.
    - The dedup key across EVERYTHING is **`email_lower`**. Never create or
      link a user without it. Same key in PostHog `identify()`.
-   - Schema reference: `docs/SCHEMA.md`. Identity flow:
-     `docs/IDENTITY_ARCHITECTURE.md`.
+   - Schema reference: `docs/app/SCHEMA.md`. Identity flow:
+     `docs/app/IDENTITY_ARCHITECTURE.md`.
 
 3. **PostHog** (`eu.posthog.com`, project 181271) — product analytics +
    web-vitals RUM. Not a source of truth, but every funnel decision reads
@@ -278,7 +278,7 @@ you edit code on a feature branch
 - Emergent's own tooling sometimes auto-commits straight to `mvpcode` —
   that's why `ci.yml` also runs on `push: branches: [mvpcode]`, to catch
   drift those commits bypass.
-- Deploy details: `docs/RUNBOOK_DEPLOY.md`, `DEPLOY.md`, `deploy/`.
+- Deploy details: `docs/ops/RUNBOOK_DEPLOY.md`, `docs/ops/DEPLOY.md`, `deploy/`.
 
 ---
 
@@ -288,19 +288,19 @@ you edit code on a feature branch
 
 | "I need to understand…" | Read |
 |---|---|
-| the whole system at a glance | `docs/SYSTEM_OVERVIEW.md` |
-| the frontend app architecture | `docs/APP_ARCHITECTURE.md` |
-| the domain/host routing | `README.md`, `docs/DOMAIN_TOPOLOGY.md`, `docs/FINAL_TOPOLOGY.md` |
-| the database schema | `docs/SCHEMA.md` |
-| cross-platform user identity | `docs/IDENTITY_ARCHITECTURE.md` |
-| WladBot / RAG knowledge | `docs/WLADBOT_OVERVIEW.md`, `docs/RAG_KNOWLEDGE_FLOW.md` |
-| what's production-ready (with code refs) | `docs/PRODUCTION_READINESS.md` |
-| auth troubleshooting (magic-link / OAuth) | `docs/LAUNCH_AUTH_FIX_FRIDAY.md` |
-| an incident is happening right now | `docs/INCIDENT_RUNBOOK.md` |
-| deploy steps | `docs/RUNBOOK_DEPLOY.md`, `DEPLOY.md` |
-| the content/blog strategy | `docs/CONTENT_STRATEGY.md` |
-| Sentry alerting setup | `docs/SENTRY_ALERTS.md` |
-| the brand / design rules | `frontend/DESIGN.md`, `design_guidelines.md` |
+| the whole system at a glance | `docs/app/SYSTEM_OVERVIEW.md` |
+| the frontend app architecture | `docs/app/APP_ARCHITECTURE.md` |
+| the domain/host routing | `README.md`, `docs/app/DOMAIN_TOPOLOGY.md`, `docs/app/FINAL_TOPOLOGY.md` |
+| the database schema | `docs/app/SCHEMA.md` |
+| cross-platform user identity | `docs/app/IDENTITY_ARCHITECTURE.md` |
+| WladBot / RAG knowledge | `docs/app/WLADBOT_OVERVIEW.md`, `docs/app/RAG_KNOWLEDGE_FLOW.md` |
+| what's production-ready (with code refs) | `docs/ops/PRODUCTION_READINESS.md` |
+| auth troubleshooting (magic-link / OAuth) | `docs/archive/LAUNCH_AUTH_FIX_FRIDAY.md` |
+| an incident is happening right now | `docs/ops/INCIDENT_RUNBOOK.md` |
+| deploy steps | `docs/ops/RUNBOOK_DEPLOY.md`, `docs/ops/DEPLOY.md` |
+| the content/blog strategy | `docs/gtm/CONTENT_STRATEGY.md` |
+| Sentry alerting setup | `docs/ops/SENTRY_ALERTS.md` |
+| the brand / design rules | `frontend/DESIGN.md` (kanonisch) · Historie: `docs/archive/design_guidelines.md` |
 | Claude Code project rules | `CLAUDE.md` |
 
 ---
@@ -353,7 +353,7 @@ recipe.
   (`lib/pageMeta.js`) are correct for browsers + re-scrape validators, but
   classic LinkedIn/Facebook scrapers read the static `index.html`. Full
   per-route previews would need prerendering (tracked in
-  `docs/PRODUCTION_READINESS.md`).
+  `docs/ops/PRODUCTION_READINESS.md`).
 - **The Stripe webhook is NOT in the backend** (§7). The backend route
   returns 410 on purpose.
 - **`email_lower` is sacred.** Every user create/link uses it. Break this
@@ -385,7 +385,7 @@ Contact: **start@aiporate.com**.
 ## 12b. What to build next
 
 Once you're oriented, your scoped engineering tickets live in
-[`docs/DEVELOPER_TASKS.md`](./docs/DEVELOPER_TASKS.md) — three tracks
+[`docs/archive/DEVELOPER_TASKS.md`](./docs/archive/DEVELOPER_TASKS.md) — three tracks
 (Stripe automation, output quality, speed), each with context,
 acceptance criteria, files, and gotchas. Start with **T1.1 (trial →
 paid conversion)**; it's tied directly to launch revenue.
@@ -399,10 +399,10 @@ paid conversion)**; it's tied directly to launch revenue.
 - [ ] Open `/`, `/journal`, `/wlad-jachtchenko` locally · click around.
 - [ ] Read `CLAUDE.md` (the project working-rules) and `frontend/DESIGN.md`
       (the brand DNA — don't write UI before reading it).
-- [ ] Skim `docs/SYSTEM_OVERVIEW.md` and `docs/APP_ARCHITECTURE.md`.
+- [ ] Skim `docs/app/SYSTEM_OVERVIEW.md` and `docs/app/APP_ARCHITECTURE.md`.
 - [ ] Make a trivial copy change on a feature branch, open a PR, watch CI
       run, see the Vercel preview deploy. That round-trip teaches you the
       whole pipeline.
-- [ ] Bookmark `docs/INCIDENT_RUNBOOK.md` for when something breaks.
+- [ ] Bookmark `docs/ops/INCIDENT_RUNBOOK.md` for when something breaks.
 
 Welcome aboard.

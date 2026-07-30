@@ -1,6 +1,6 @@
 # 90-Tage Content-Strategie · LeaderOS
 
-Quelle der Stimme: Wlad Jachtchenkos Frameworks (siehe `docs/SCHEMA.md` ·
+Quelle der Stimme: Wlad Jachtchenkos Frameworks (siehe `docs/app/SCHEMA.md` ·
 2212 RAG-Chunks). Quelle der CTAs: `leader-check.de` (Diagnose, kostenlos).
 Sprache: Du-Form, Deutsch. Tonalität: athletic editorial — direkt, ohne
 Phrasen, mit Daten und Bildern.
@@ -86,11 +86,11 @@ Budget-Empfehlung Startphase: €30/Tag pro Set, A/B mit je 3 Creatives.
 Skalierung nach CPL — Diagnoses sind das KPI (Conversion zu `users`
 mit `meta_tags @> ARRAY['leader-check']`).
 
-Volltexte für die 9 Initial-Ads → `docs/ADS_90D.md`.
+Volltexte für die 9 Initial-Ads → `docs/gtm/ADS_90D.md`.
 
 ## Posting-Quelle
 
-Alle Posts → `docs/CONTENT_90D.md` (Tag 1–91). Format pro Tag:
+Alle Posts → `docs/gtm/CONTENT_90D.md` (Tag 1–91). Format pro Tag:
 
 ```
 ## DAY N · YYYY-MM-DD · WOCHE X · FRAMEWORK

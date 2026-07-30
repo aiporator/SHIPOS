@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 #   - profiles_sample_rate  = 0.10
 #   - before_send           = filters out known noise (cancelled requests,
 #                              client-disconnects, 401/404s, healthchecks)
-#   - in-Sentry alert rules (configured in Sentry UI, mirrored in docs/SENTRY_ALERTS.md):
+#   - in-Sentry alert rules (configured in Sentry UI, mirrored in docs/ops/SENTRY_ALERTS.md):
 #       * P0: any 5xx error > 5 events in 1 min → PagerDuty / Email
 #       * P1: any new unique issue (first-seen) → Email
 #       * P1: API latency p95 > 3000ms over 5 min → Email

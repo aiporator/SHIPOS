@@ -145,6 +145,6 @@ if [[ $FAIL -eq 0 ]]; then
 else
   echo -e "${RED}✗ ${FAIL} probe(s) failed out of $((PASS + FAIL)).${RESET}  Fix before launching."
   echo
-  echo "See docs/INCIDENT_RUNBOOK.md for symptom-by-symptom remediation."
+  echo "See docs/ops/INCIDENT_RUNBOOK.md for symptom-by-symptom remediation."
   exit 1
 fi

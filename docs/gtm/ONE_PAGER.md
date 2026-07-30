@@ -90,7 +90,7 @@ leader-check (anon)               leader-os (auth)
 
 ## Pointers
 
-- Schema reference: `docs/SCHEMA.md`
-- Dashboard views: `docs/DASHBOARD.md`
-- Deploy / secrets runbook: `docs/RUNBOOK.md`
+- Schema reference: `docs/app/SCHEMA.md`
+- Dashboard views: `docs/app/DASHBOARD.md`
+- Deploy / secrets runbook: `docs/ops/RUNBOOK.md`
 - Project rules: `CLAUDE.md`

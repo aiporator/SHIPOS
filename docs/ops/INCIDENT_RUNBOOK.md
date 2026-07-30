@@ -4,7 +4,7 @@ When production breaks, find the symptom below and follow the fix sequence.
 Don't improvise — each path has been thought through. Estimated time-to-fix
 is in parentheses; if you've exceeded it 2x, stop and escalate.
 
-For the green-state launch sequence, see `docs/LAUNCH_DAY.md`.
+For the green-state launch sequence, see `docs/archive/LAUNCH_DAY.md`.
 
 ---
 

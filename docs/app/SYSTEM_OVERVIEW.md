@@ -335,16 +335,16 @@ SELECT * FROM launch_monitor ORDER BY metric;
 
 | Topic | File |
 |---|---|
-| Schema reference | `docs/SCHEMA.md` |
-| Identity architecture | `docs/IDENTITY_ARCHITECTURE.md` |
-| App architecture (deeper) | `docs/APP_ARCHITECTURE.md` |
-| Operational runbook | `docs/RUNBOOK.md` |
-| Incident playbook | `docs/INCIDENT_RUNBOOK.md` |
-| Integration spec (PostHog / Sentry) | `docs/INTEGRATIONS.md` |
-| Cron schedule | `docs/CRON_SCHEDULE.md` |
+| Schema reference | `docs/app/SCHEMA.md` |
+| Identity architecture | `docs/app/IDENTITY_ARCHITECTURE.md` |
+| App architecture (deeper) | `docs/app/APP_ARCHITECTURE.md` |
+| Operational runbook | `docs/ops/RUNBOOK.md` |
+| Incident playbook | `docs/ops/INCIDENT_RUNBOOK.md` |
+| Integration spec (PostHog / Sentry) | `docs/ops/INTEGRATIONS.md` |
+| Cron schedule | `docs/ops/CRON_SCHEDULE.md` |
 | Migration history | `docs/CHANGELOG.md` |
-| Launch-day fix sequence | `docs/LAUNCH_FIX.md` |
-| Sentry alert config | `docs/SENTRY_ALERTS.md` |
-| Vimeo workflow | `docs/VIMEO_WORKFLOW.md` |
-| Production readiness | `docs/PRODUCTION_READINESS.md` |
+| Launch-day fix sequence | `docs/archive/LAUNCH_FIX.md` |
+| Sentry alert config | `docs/ops/SENTRY_ALERTS.md` |
+| Vimeo workflow | `docs/gtm/VIMEO_WORKFLOW.md` |
+| Production readiness | `docs/ops/PRODUCTION_READINESS.md` |
 | Contributor workflow | `../CONTRIBUTING.md` |

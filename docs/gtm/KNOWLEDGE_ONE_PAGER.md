@@ -1,7 +1,7 @@
 # Wlads Wissen im Produkt — ein Seiter
 
 > Diese Datei ist der aktuelle Stand (Stand: dieser Commit). Sie ersetzt
-> `docs/RAG_KNOWLEDGE_FLOW.md` (Stand 2026-06-05, 1605 Chunks, alte
+> `docs/app/RAG_KNOWLEDGE_FLOW.md` (Stand 2026-06-05, 1605 Chunks, alte
 > Vector-only-Architektur) als Referenz für aktuelle Zahlen — jenes
 > Dokument bleibt als Architektur-Geschichte erhalten, aber die Chunk-
 > Zahlen und der Retrieval-Mechanismus dort sind überholt.
@@ -23,7 +23,7 @@ allem, was hier im Git-Repo versioniert ist.
 
 ## 2. Die zwei Wahrheits-Schichten (in dieser Reihenfolge geprüft)
 
-1. **`docs/WLAD_CANON.md`** — die kanonische Referenz für jeden Framework-
+1. **`docs/gtm/WLAD_CANON.md`** — die kanonische Referenz für jeden Framework-
    Namen, jede Buchreferenz, jede Biografie-Aussage. Existiert, weil ein
    einzelner Korpus-Chunk (`layer202_drills`) eine falsche SEXIER-Definition
    enthielt (Repeat/Implications/Evidence statt Rebuttal/Impact/Explanation
@@ -71,7 +71,7 @@ Regel im selben Prompt, und ein fabriziertes Kommunikationsquadrant in
 Selbstoffenbarung/Beziehung/Appell). Details + zwei neue, NICHT
 code-fixbare offene Punkte (Dunkle- vs. Schwarze-Rhetorik-Namenskonflikt,
 Buchlisten-Diskrepanz Canon-vs-WladJachtchenkoPage) stehen in
-`docs/WLAD_CANON.md` unter "Offene Punkte".
+`docs/gtm/WLAD_CANON.md` unter "Offene Punkte".
 
 ## 3. Wie eine Antwort entsteht (Chat/Voice/Video)
 
@@ -131,7 +131,7 @@ auseinander wie beim SEXIER-Bug:
    — muss unabhängig vom RAG/Prompt-System stimmen, weil er direkt an
    Menschen und Suchmaschinen geht, ohne LLM dazwischen.
 
-`docs/WLAD_CANON.md` ist der einzige Ort, gegen den alle drei geprüft
+`docs/gtm/WLAD_CANON.md` ist der einzige Ort, gegen den alle drei geprüft
 werden sollten. Jeder neue Artikel, der ein Framework benennt, und jeder
 neue Korpus-Chunk sollte vor Veröffentlichung gegen diese Datei geprüft
 werden — das ist aktuell ein manueller Schritt, kein automatischer Gate.

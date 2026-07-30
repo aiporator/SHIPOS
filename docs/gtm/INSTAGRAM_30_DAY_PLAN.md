@@ -133,6 +133,6 @@ Chrome/Lime-Behandlung, die auch auf Instagram funktioniert:
 
 - UTM auf jedem Bio-Link/Story-Swipe-Up: `?utm_source=instagram&utm_medium=social&utm_campaign=30day-launch&utm_content=day-N`
   → landet automatisch in `funnel_attribution` auf dem User-Dokument, sobald
-  aus dem Lead ein Account wird (siehe `docs/RUNBOOK.md` „Lead → user bridge").
+  aus dem Lead ein Account wird (siehe `docs/ops/RUNBOOK.md` „Lead → user bridge").
 - Wöchentlicher Check: welcher Post-Typ (Reel vs. Carousel) bringt mehr
   Klicks auf `/fuehrung-beginnt-hier` → Budget/Aufwand in Woche 5+ danach verschieben.

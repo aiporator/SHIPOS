@@ -23,7 +23,7 @@ import { AnimatePresence, motion } from 'framer-motion';
  *                 EQ-Reflex. READINESS-Score routet in die volle
  *                 30-Fragen-Diagnose auf leadercheck.de (Emergent app).
  *
- * DOMAIN-TOPOLOGY (canonical, see docs/DOMAIN_TOPOLOGY.md):
+ * DOMAIN-TOPOLOGY (canonical, see docs/app/DOMAIN_TOPOLOGY.md):
  *   leader-os.de + leader-check.de  = Vercel marketing landings (where this pod lives)
  *   leaderos.de  + leadercheck.de   = Emergent apps (where the actual funnel converts)
  *
