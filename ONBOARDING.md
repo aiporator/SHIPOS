@@ -4,7 +4,35 @@
 > else in `docs/` is a deep-dive you reach for once you know where you are.
 > If you read only one file before touching code, read this one.
 
-Last verified: 2026-06-26.
+Last verified: 2026-07-30.
+
+---
+
+## 0. State of the product (Juli 2026 — read before the deep-dives)
+
+What is live in production right now, so you know what you're inheriting:
+
+- **Landing (leader-os.de)** — CRO-ordered: Hero → "Ergebnisse statt
+  Theorie" → 30-Sek-Wlad-Intro → product sections → Pricing → Beratung →
+  FAQ → Journal (Feldnotizen, deliberately last). Primary CTA everywhere
+  is the free Leader-Check. Two-step popup funnel (lead capture →
+  webinar popup 35s after dismiss).
+- **Webinar funnel** — `/webinar` (Hormozi ascension page, motion-first),
+  `/webinar/danke` (4-video unlock + referral), `/webinar/live`
+  (waiting room). Map + honesty rules: `docs/gtm/WEBINAR_FUNNEL.md`.
+- **Journal** — 150+ articles in `frontend/src/features/content/`,
+  rendered as an editorial broadsheet section + `/journal`. Every claim
+  must check against `docs/gtm/WLAD_CANON.md`.
+- **E-Mail** — full lifecycle in `backend/services_email.py`: signup
+  drips, free-video drip, webinar reminders/follow-up, and the
+  **7-step lead-nurture journey** (`/api/cron/lead-nurture`, day
+  0/2/4/6/8/10/12, Mongo collection `nurture_leads`).
+- **Terminology** — the paid entry tier is the **"30-Tage-Challenge"**
+  (never "Sprint" in copy; identifiers like `id:'sprint'` deliberately
+  keep the old key). Personal access is "1:1 mit Wlads Team".
+- **Docs** — reorganized by intent: `docs/gtm/`, `docs/app/`,
+  `docs/ops/`, `docs/archive/`. Index: `docs/README.md`. Deploy
+  prerequisites: `docs/ops/EMERGENT_DEPLOY_CHECKLIST.md`.
 
 ---
 
@@ -286,9 +314,16 @@ you edit code on a feature branch
 
 `docs/` has ~50 files. The ones that matter, by question:
 
+**Start at [`docs/README.md`](./docs/README.md)** — the master index
+(GTM | App | Ops | Archive). The rows below are the fast paths:
+
 | "I need to understand…" | Read |
 |---|---|
 | the whole system at a glance | `docs/app/SYSTEM_OVERVIEW.md` |
+| **every public claim/number (the canon)** | `docs/gtm/WLAD_CANON.md` |
+| the webinar/ascension funnel | `docs/gtm/WEBINAR_FUNNEL.md` |
+| all cron jobs | `docs/ops/CRON_SCHEDULE.md` |
+| what the next deploy needs | `docs/ops/EMERGENT_DEPLOY_CHECKLIST.md` |
 | the frontend app architecture | `docs/app/APP_ARCHITECTURE.md` |
 | the domain/host routing | `README.md`, `docs/app/DOMAIN_TOPOLOGY.md`, `docs/app/FINAL_TOPOLOGY.md` |
 | the database schema | `docs/app/SCHEMA.md` |
@@ -377,18 +412,23 @@ recipe.
 | Payments | Stripe | start@aiporate.com |
 | DNS | GoDaddy (A → Vercel) | start@aiporate.com |
 | Error monitoring | Sentry | start@aiporate.com |
+| Team wiki (human-readable summaries) | Google Drive folder "LeaderOS Wiki" — Start Here, Dev Onboarding, Product Overview, GTM Playbook, Ops Quick Reference | start@aiporate.com |
 
 Contact: **start@aiporate.com**.
+
+> Note on the wiki: the Drive docs summarize and link — **the repo is
+> always the source of truth**. If wiki and repo disagree, the repo wins.
 
 ---
 
 ## 12b. What to build next
 
-Once you're oriented, your scoped engineering tickets live in
-[`docs/archive/DEVELOPER_TASKS.md`](./docs/archive/DEVELOPER_TASKS.md) — three tracks
-(Stripe automation, output quality, speed), each with context,
-acceptance criteria, files, and gotchas. Start with **T1.1 (trial →
-paid conversion)**; it's tied directly to launch revenue.
+The historical ticket backlog lives in
+[`docs/archive/DEVELOPER_TASKS.md`](./docs/archive/DEVELOPER_TASKS.md)
+(archived — treat as context, not as your queue). Current work arrives
+as GitHub issues; GTM requests use the `gtm-campaign` issue template
+with its canon/terminology checkboxes. When in doubt what to pick up,
+ask in the team channel before starting from the archive.
 
 ---
 
