@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>WladBot — Dein KI-Coach für Führung</title>
+<meta name="description" content="Sprich mit dem Coach, der niemals schläft: WladBot bringt Wlads Methodik als KI-Coach in deine Tasche. Führung, Rhetorik und EQ, wann immer der Moment es verlangt."/>
+<link rel="canonical" href="https://leader-os.de/wladbot"/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="LeaderOS"/>
+<meta property="og:url" content="https://leader-os.de/wladbot"/>
+<meta property="og:title" content="WladBot — Dein KI-Coach für Führung"/>
+<meta property="og:description" content="Sprich mit dem Coach, der niemals schläft. Wähle deine Situation und beginne dein Training."/>
+<meta property="og:image" content="https://leader-os.de/wlad/wladbot3.0.png"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<!--
+  /wladbot · Standalone-Ad-Landing, pixel-treu nach der Auria-Cinematic-
+  Hero-Spec: Full-Bleed-Loop-Video (eigenes CloudFront-Asset, in der CSP
+  freigegeben), Frosted-Glass-Nav, Amber-Badge, Instrument-Serif-H1 mit
+  kursivem Kernwort, weiße CTA. Exakt die Spec-Klassenwerte (als CSS
+  übersetzt, da statisches HTML statt Vite/Tailwind-v4 — bewusste
+  Stack-Entscheidung wie bei /app und /os: null Dependencies, schnellste
+  TTFB für Ad-Traffic). Einzige Motionen: Video-Loop + CTA-Hover.
+
+  Brand-Signal ist der WladBot-Avatar (Team-Wunsch): rund im Nav, als
+  CTA-Icon und im OG-Image. Kein Apple-Logo (keine App-Store-App — das
+  wäre ein falsches Versprechen); Badge kanon-ehrlich
+  (3× SPIEGEL-Bestseller-Autor). Beide CTAs → Trial-Signup.
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{position:relative;height:100vh;height:100dvh;width:100%;overflow:hidden;background:#000;
+  font-family:"Instrument Serif",serif}
+a{text-decoration:none;color:inherit}
+.bg-video{position:absolute;inset:0;height:100%;width:100%;object-fit:cover}
+.col{position:relative;z-index:10;display:flex;height:100%;width:100%;flex-direction:column}
+
+/* nav */
+.nav-wrap{display:flex;width:100%;justify-content:center;padding:16px 16px 0}
+.nav{display:flex;width:100%;max-width:56rem;align-items:center;justify-content:space-between;
+  border-radius:16px;background:rgba(0,0,0,.4);padding:8px 8px 8px 20px;
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:24px;width:24px;border-radius:50%;object-fit:cover;display:block}
+.brand span{font-size:18px;letter-spacing:.025em;color:rgba(255,255,255,.9)}
+.cta{display:flex;align-items:center;gap:8px;border-radius:12px;background:#fff;padding:8px 16px;
+  font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.025em;color:#000;
+  transition:all .15s}
+.cta:hover{background:rgba(255,255,255,.9)}
+.cta img{height:16px;width:16px;border-radius:50%;object-fit:cover;display:block}
+
+/* hero */
+.hero{display:flex;flex-direction:column;align-items:center;padding:40px 24px 0;text-align:center}
+.badge{margin-bottom:24px;display:flex;align-items:center;gap:8px;border-radius:9999px;padding:6px 16px}
+.badge svg{height:16px;width:16px;color:#fbbf24}
+.badge span{font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.05em;color:#fcd34d}
+h1{max-width:56rem;font-size:36px;line-height:.95;font-weight:400;color:#fff}
+h1 em{font-style:italic}
+.sub{margin:20px auto 0;max-width:36rem;font-family:Inter,sans-serif;font-size:14px;line-height:1.375;
+  font-weight:300;color:rgba(255,255,255,.7)}
+.br-sm{display:none}
+
+@media (min-width:640px){
+  .nav-wrap{padding:24px 24px 0}
+  .nav{padding:10px 10px 10px 28px}
+  .brand img{height:28px;width:28px}
+  .brand span{font-size:20px}
+  .cta{padding:10px 20px;font-size:14px}
+  .cta img{height:20px;width:20px}
+  .hero{padding-top:64px}
+  .badge{margin-bottom:32px;padding:8px 20px}
+  .badge svg{height:20px;width:20px}
+  .badge span{font-size:14px}
+  h1{font-size:48px}
+  .sub{margin-top:28px;font-size:16px}
+  .br-sm{display:inline}
+}
+@media (min-width:768px){h1{font-size:60px}.sub{font-size:18px}}
+@media (min-width:1024px){.hero{padding-top:96px}h1{font-size:72px}}
+</style>
+</head>
+<body>
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_134653_2b70d062-3521-429b-a824-8d9f98de488a.mp4" type="video/mp4"/>
+  </video>
+
+  <div class="col">
+    <div class="nav-wrap">
+      <nav class="nav">
+        <a class="brand" href="/" aria-label="LeaderOS Startseite">
+          <img src="/wlad/wladbot3.0.webp" alt="" aria-hidden="true"/>
+          <span>WladBot</span>
+        </a>
+        <a class="cta" href="https://leaderos.de/signup?trial=14">
+          <img src="/wlad/wladbot3.0.webp" alt="" aria-hidden="true"/>
+          App starten
+        </a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div class="badge">
+        <svg viewBox="0 0 22 22" fill="currentColor" aria-hidden="true">
+          <path d="M12.48 2.19 14.24 5.74c.24.5.88.97 1.42 1.06l3.19.54c2.04.34 2.52 1.83 1.05 3.3l-2.48 2.5c-.42.43-.65 1.24-.52 1.83l.71 3.09c.56 2.45-.73 3.4-2.88 2.12l-2.99-1.78c-.54-.33-1.43-.33-1.98 0l-2.99 1.78c-2.14 1.28-3.44.32-2.88-2.12l.71-3.09c.13-.59-.1-1.4-.52-1.83l-2.48-2.5C.14 9.17.61 7.68 2.65 7.34l3.19-.54c.53-.09 1.17-.56 1.41-1.06l1.76-3.55c.96-1.93 2.52-1.93 3.47 0Z"/>
+        </svg>
+        <span>3× SPIEGEL-Bestseller-Autor</span>
+      </div>
+
+      <h1>
+        Sprich mit dem <em>Coach</em>,<br class="br-sm"/> der niemals schläft.
+      </h1>
+
+      <p class="sub">
+        WladBot bringt Wlads Methodik als KI-Coach in deine Tasche: Führung, Rhetorik und EQ.
+        <br class="br-sm"/> Wähle deine Situation und beginne dein Training.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
