@@ -11,7 +11,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
 /**
  * EventPage · /event · the free LIVE launch event for LeaderOS.
  *
- * A dated, high-conversion registration page (20.08.2026) built to onboard
+ * A dated, high-conversion registration page (17.09.2026) built to onboard
  * cold traffic + the Masterclass alumni into a free live event, then into
  * the LeaderOS trial. Copy is lifted from Wlad's own event framing
  * (charisma, natürliche Autorität, weniger arbeiten / mehr verdienen).
@@ -22,8 +22,8 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
  * existing double-opt-in newsletter endpoint · same keyless same-origin path.
  */
 
-// 20. August 2026, 10:00 Uhr Berlin (CEST, +02:00).
-const EVENT_TS = new Date('2026-08-20T10:00:00+02:00').getTime();
+// 17. September 2026, 10:00 Uhr Berlin (CEST, +02:00).
+const EVENT_TS = new Date('2026-09-17T10:00:00+02:00').getTime();
 
 const VALUE_PROPS = [
   {
@@ -54,7 +54,7 @@ const VALUE_PROPS = [
 
 const AGENDA = [
   {
-    day: 'TAG 1 · SA 20.08.',
+    day: 'TAG 1 · DO 17.09.',
     title: 'Mindset & Identität als Führungspersönlichkeit.',
     points: [
       'Das Mindset der Top-1%-Führungskräfte · Klarheit, Verantwortung, Souveränität',
@@ -160,7 +160,7 @@ const SignupForm = ({ idSuffix = '' }) => {
     const res = await subscribe({
       email,
       source: 'event-leader-in-you',
-      campaign: 'launch-2026-08-20',
+      campaign: 'launch-2026-09-17',
     });
     setState(res.ok ? 'done' : 'error');
   };
@@ -178,7 +178,7 @@ const SignupForm = ({ idSuffix = '' }) => {
           <p className="text-[15px] font-bold text-white">Fast geschafft · check deine Mails.</p>
           <p className="mt-1 text-[13px] leading-[1.5] text-white/60">
             Wir haben dir einen Bestätigungs-Link geschickt. Ein Klick · und dein
-            kostenloser Platz für den 20.08. ist reserviert.
+            kostenloser Platz für den 17.09. ist reserviert.
           </p>
         </div>
       </div>
@@ -231,7 +231,7 @@ export default function EventPage() {
     root.classList.add('dark');
 
     const restoreMeta = applyPageMeta({
-      title: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko · 20.08.2026',
+      title: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko · 17.09.2026',
       description:
         'Kostenloses Live-Event am 20.–21.08.2026 mit Europas führendem Leadership-Coach ' +
         'Wlad Jachtchenko. In 2 Tagen zur charismatischen Führungspersönlichkeit · ' +
@@ -247,7 +247,7 @@ export default function EventPage() {
       '@context': 'https://schema.org',
       '@type': 'Event',
       name: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko',
-      startDate: '2026-08-20T10:00:00+02:00',
+      startDate: '2026-09-17T10:00:00+02:00',
       endDate: '2026-08-21T16:00:00+02:00',
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
       eventStatus: 'https://schema.org/EventScheduled',
@@ -490,7 +490,7 @@ export default function EventPage() {
               Bist du bereit zu führen<span className="text-brand not-italic">?</span>
             </h2>
             <p className="mt-5 text-[15px] sm:text-[17px] leading-[1.55] text-foreground/70 max-w-xl mx-auto">
-              Melde dich jetzt an und starte am 20.08. deine Reise zu mehr Klarheit,
+              Melde dich jetzt an und starte am 17.09. deine Reise zu mehr Klarheit,
               Autorität und Respekt. Die Teilnahme ist komplett kostenlos.
             </p>
             <div className="mt-8 flex justify-center">

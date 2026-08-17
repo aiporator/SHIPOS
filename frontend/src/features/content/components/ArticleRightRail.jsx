@@ -5,7 +5,7 @@ import { WLADBOT_AVATAR, WLADBOT_AVATAR_FALLBACKS, withFallback } from '../../..
 
 /**
  * WebinarCard · sticky "join the free live webinar" card for the article
- * rail (leads from blog traffic → the 20.08 webinar squeeze page). Editorial
+ * rail (leads from blog traffic → the 17.09 webinar squeeze page). Editorial
  * DNA, not the generic blue webinar look. Links to /webinar.
  */
 const WebinarCard = () => {
@@ -29,7 +29,7 @@ const WebinarCard = () => {
         <dl className="space-y-2 mb-4">
           <div className="flex gap-3">
             <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Termin</dt>
-            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Mi, 20.08.2026 · 10 Uhr</dd>
+            <dd className="text-[12.5px] font-bold text-foreground leading-[1.35]">Do, 17.09.2026 · 10 Uhr</dd>
           </div>
           <div className="flex gap-3">
             <dt className="w-14 shrink-0 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45 pt-0.5">Format</dt>

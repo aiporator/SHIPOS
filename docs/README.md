@@ -26,6 +26,7 @@ The single most important file is the **canon**: every public claim
 | [`gtm/CONTENT_SPECIMENS.md`](./gtm/CONTENT_SPECIMENS.md) | Design-specimen system for content assets |
 | [`gtm/ADS_90D.md`](./gtm/ADS_90D.md) | 90-day paid-ads plan |
 | [`gtm/RUNBOOK_ADS_CHANNELS.md`](./gtm/RUNBOOK_ADS_CHANNELS.md) | Channel-by-channel ads runbook |
+| [`gtm/GOOGLE_ADS_SETUP.md`](./gtm/GOOGLE_ADS_SETUP.md) | Google Ads technical setup (account, gtag, Consent Mode v2, conversion actions, UTM) |
 | [`gtm/SEO_KEYWORDS.md`](./gtm/SEO_KEYWORDS.md) | Keyword universe (DACH leadership/AI/communication) |
 | [`gtm/GROWTH_LOOP.md`](./gtm/GROWTH_LOOP.md) | The growth loop: check → content → funnel → referral |
 | [`gtm/WEBINAR_FUNNEL.md`](./gtm/WEBINAR_FUNNEL.md) | **Ascension funnel map** (Ad → Webinar → 4 Videos → Trial → 30-Tage-Challenge → Leadership Plus) + honesty rules + missing video assets |
