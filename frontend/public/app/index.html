@@ -16,7 +16,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet"/>
 <!--
   /app · Device-Frame-Showcase fürs App-Marketing.
   Layout/Typo/Animation exakt nach der Referenz-Spec (zwei iOS-Frames
@@ -60,10 +60,11 @@ a{text-decoration:none;color:inherit}
 .s1-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;z-index:0}
 .s1-fade{position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;
   background:linear-gradient(to bottom,rgba(2,4,12,0) 0%,rgba(2,4,12,.35) 46%,rgba(2,4,12,.72) 100%)}
-.s1-logo{position:absolute;z-index:4;top:74px;left:0;right:0;text-align:center;
-  font-family:"Playfair Display",serif;font-weight:600;font-size:30px;letter-spacing:.06em;color:#fff;
+.s1-logo{position:absolute;z-index:4;top:74px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:12px;
   filter:drop-shadow(0 0 7px rgba(190,215,255,.28))}
-.s1-logo em{font-style:normal;color:#BFFF00}
+.s1-logo svg{width:52px;height:52px;display:block}
+.s1-logo .wordmark{font-family:Outfit,Inter,sans-serif;font-weight:900;font-size:30px;letter-spacing:-.03em;color:#fff;line-height:1}
+.s1-logo .wordmark em{font-style:normal;color:#BFFF00;margin:0 2px}
 .s1-title{position:absolute;z-index:4;top:618px;left:0;right:0;text-align:center;color:#fff;
   font-family:"ITC Garamond Std Narrow","Playfair Display",serif;font-weight:300;font-size:66px;line-height:68px;letter-spacing:.2px;
   text-shadow:0 0 34px rgba(255,255,255,.22),0 1px 2px rgba(0,0,0,.35)}
@@ -138,13 +139,40 @@ a{text-decoration:none;color:inherit}
         <video class="s1-video" data-anim="bg" autoplay loop muted playsinline
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260710_114906_ad7cee37-9e56-434f-99bc-92d5bdc4f9fe.mp4"></video>
         <div class="s1-fade"></div>
-        <p class="s1-logo" data-anim="drop" style="animation-delay:.45s">Leader<em>OS</em></p>
+        <div class="s1-logo" data-anim="drop" style="animation-delay:.45s" aria-label="LeaderOS">
+          <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg-bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#D4FF4D"/><stop offset="55%" stop-color="#BFFF00"/><stop offset="100%" stop-color="#A8E600"/>
+              </linearGradient>
+              <linearGradient id="lg-stroke" x1="2" y1="26" x2="30" y2="4" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0A0A0A" stop-opacity="0.92"/><stop offset="100%" stop-color="#0A0A0A"/>
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="9.6" fill="url(#lg-bg)"/>
+            <rect x="0.4" y="0.4" width="31.2" height="31.2" rx="9.4" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+            <g transform="translate(4.6 4.6) scale(0.71)" opacity="0.18">
+              <path d="M3.2 5.2 L9 24.8 Q10.4 26 11.8 24.6 L15.6 10.4 Q16.6 9.4 17.6 10.4 L21 24.6 Q22.4 26 23.8 24.8 L29.4 4.6" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <g transform="translate(4.2 4.2) scale(0.7375)">
+              <path d="M2.8 4.8 L8.6 24.4 Q10 25.8 11.4 24.2 L15.4 9.8 Q16.4 8.8 17.4 9.8 L20.8 24.2 Q22.2 25.8 23.6 24.4 L28.8 4" stroke="url(#lg-stroke)" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M28.8 4 Q30.2 4.6 29.6 6.4" stroke="url(#lg-stroke)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+              <circle cx="29.6" cy="6.4" r="1.2" fill="#0A0A0A"/>
+            </g>
+          </svg>
+          <span class="wordmark">Leader<em>·</em>OS</span>
+        </div>
         <h1 class="s1-title" data-anim="reveal" style="animation-delay:.62s">Führung ist<br/><i>trainierbar</i></h1>
         <p class="s1-sub" data-anim="reveal" style="animation-delay:.78s">Rhetorik, KI und EQ trainieren.
 15 Minuten am Tag.</p>
         <a class="s1-btn" data-anim="reveal" style="animation-delay:.94s" href="https://leaderos.de/signup?trial=14">
-          <svg width="18" height="21" viewBox="0 0 18 21" aria-hidden="true"><path fill="#1a1a1a" d="M14.94 11.19c-.02-2.28 1.86-3.37 1.95-3.43-1.06-1.55-2.72-1.77-3.31-1.79-1.4-.14-2.75.83-3.46.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.78.74 2.99.72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.43-3.72zM12.66 3.9c.63-.77 1.06-1.83.95-2.9-.91.04-2.02.61-2.68 1.37-.58.68-1.1 1.77-.96 2.81 1.02.08 2.05-.51 2.69-1.28z"/></svg>
-          Weiter mit Apple
+          <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
+            <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
+            <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34A21.9 21.9 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/>
+            <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+          </svg>
+          Weiter mit Google
         </a>
         <p class="s1-terms" data-anim="reveal" style="animation-delay:1.06s">Mit dem Fortfahren akzeptierst du die <b>Nutzungsbedingungen</b></p>
       </div>
