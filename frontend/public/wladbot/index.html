@@ -4,41 +4,41 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>WladBot — Dein KI-Coach für Führung</title>
-<meta name="description" content="Sprich mit dem Coach, der niemals schläft: WladBot bringt Wlads Methodik als KI-Coach in deine Tasche. Führung, Rhetorik und EQ, wann immer der Moment es verlangt."/>
+<meta name="description" content="Sprich mit dem Coach, der niemals schläft: WladBot bringt Wlads Methodik als KI-Coach in deine Tasche. Trag dich ein und starte kostenlos — Live-Webinar am 20.08."/>
 <link rel="canonical" href="https://leader-os.de/wladbot"/>
 <meta name="robots" content="index, follow"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="LeaderOS"/>
 <meta property="og:url" content="https://leader-os.de/wladbot"/>
 <meta property="og:title" content="WladBot — Dein KI-Coach für Führung"/>
-<meta property="og:description" content="Sprich mit dem Coach, der niemals schläft. Wähle deine Situation und beginne dein Training."/>
+<meta property="og:description" content="Sprich mit dem Coach, der niemals schläft. Trag dich ein und starte kostenlos."/>
 <meta property="og:image" content="https://leader-os.de/wlad/wladbot3.0.png"/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <!--
-  /wladbot · Standalone-Ad-Landing, pixel-treu nach der Auria-Cinematic-
-  Hero-Spec: Full-Bleed-Loop-Video (eigenes CloudFront-Asset, in der CSP
-  freigegeben), Frosted-Glass-Nav, Amber-Badge, Instrument-Serif-H1 mit
-  kursivem Kernwort, weiße CTA. Exakt die Spec-Klassenwerte (als CSS
-  übersetzt, da statisches HTML statt Vite/Tailwind-v4 — bewusste
-  Stack-Entscheidung wie bei /app und /os: null Dependencies, schnellste
-  TTFB für Ad-Traffic). Einzige Motionen: Video-Loop + CTA-Hover.
-
-  Brand-Signal ist der WladBot-Avatar (Team-Wunsch): rund im Nav, als
-  CTA-Icon und im OG-Image. Kein Apple-Logo (keine App-Store-App — das
-  wäre ein falsches Versprechen); Badge kanon-ehrlich
-  (3× SPIEGEL-Bestseller-Autor). Beide CTAs → Trial-Signup.
+  /wladbot · Standalone-Ad-Landing (Auria-Hero-DNA) + Lead-Capture.
+  V2 nach Team-Feedback: das CloudFront-Video (fremdes Motiv) ist raus —
+  der WladBot-Avatar IST das Gesicht der Seite, mit CSS-Effekten
+  (Breathing-Aura + rotierender Conic-Ring, reduced-motion-gated).
+  Dazu: Hero-CTA, E-Mail-Formular auf POST /api/leader-check/intent
+  (source: wladbot-landing → Mongo nurture_leads, Welcome-Mail sofort,
+  7-Mail-Journey via Cron) und EHRLICHE Scarcity: Live-Countdown zum
+  echten Webinar-Termin (20.08.2026, 10:00 · keine Aufzeichnung — Regel
+  aus docs/gtm/WEBINAR_FUNNEL.md, kein Fake-Zähler). Nach dem Termin
+  blendet das JS den Countdown aus statt zu lügen. Badge kanon-ehrlich.
 -->
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{position:relative;height:100vh;height:100dvh;width:100%;overflow:hidden;background:#000;
+html,body{min-height:100%}
+body{position:relative;min-height:100vh;min-height:100dvh;width:100%;overflow-x:hidden;
+  background:radial-gradient(130% 100% at 50% 0%,#101422 0%,#070910 52%,#02040c 100%);
   font-family:"Instrument Serif",serif}
 a{text-decoration:none;color:inherit}
-.bg-video{position:absolute;inset:0;height:100%;width:100%;object-fit:cover}
-.col{position:relative;z-index:10;display:flex;height:100%;width:100%;flex-direction:column}
+button{font:inherit;border:0;cursor:pointer}
+
+.col{position:relative;z-index:10;display:flex;min-height:100vh;min-height:100dvh;width:100%;flex-direction:column;padding-bottom:34px}
 
 /* nav */
 .nav-wrap{display:flex;width:100%;justify-content:center;padding:16px 16px 0}
@@ -48,47 +48,96 @@ a{text-decoration:none;color:inherit}
 .brand{display:flex;align-items:center;gap:10px}
 .brand img{height:24px;width:24px;border-radius:50%;object-fit:cover;display:block}
 .brand span{font-size:18px;letter-spacing:.025em;color:rgba(255,255,255,.9)}
-.cta{display:flex;align-items:center;gap:8px;border-radius:12px;background:#fff;padding:8px 16px;
-  font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.025em;color:#000;
-  transition:all .15s}
-.cta:hover{background:rgba(255,255,255,.9)}
-.cta img{height:16px;width:16px;border-radius:50%;object-fit:cover;display:block}
+.nav-cta{display:flex;align-items:center;gap:8px;border-radius:12px;background:#fff;padding:8px 16px;
+  font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.025em;color:#000;transition:all .15s}
+.nav-cta:hover{background:rgba(255,255,255,.9)}
+.nav-cta img{height:16px;width:16px;border-radius:50%;object-fit:cover;display:block}
 
-/* hero */
-.hero{display:flex;flex-direction:column;align-items:center;padding:40px 24px 0;text-align:center}
-.badge{margin-bottom:24px;display:flex;align-items:center;gap:8px;border-radius:9999px;padding:6px 16px}
+/* avatar face + effects */
+.face-wrap{position:relative;margin:30px auto 0;width:210px;height:210px;flex:0 0 auto}
+.aura{position:absolute;inset:-46%;border-radius:50%;
+  background:radial-gradient(circle,rgba(191,255,0,.20) 0%,rgba(191,255,0,.06) 46%,transparent 70%);
+  animation:breath 6s ease-in-out infinite}
+.ring{position:absolute;inset:-9px;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(191,255,0,0) 0%,rgba(191,255,0,.75) 18%,rgba(120,180,220,.4) 42%,rgba(191,255,0,0) 60%);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px));
+  animation:spin 14s linear infinite}
+.face{position:absolute;inset:0;border-radius:50%;overflow:hidden;
+  border:3px solid rgba(191,255,0,.55);
+  box-shadow:0 0 60px rgba(191,255,0,.22),0 26px 70px rgba(0,0,0,.6)}
+.face img{width:100%;height:100%;object-fit:cover;object-position:50% 16%;display:block}
+@keyframes breath{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.12);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* hero copy */
+.hero{display:flex;flex-direction:column;align-items:center;padding:26px 24px 0;text-align:center}
+.badge{margin-bottom:18px;display:flex;align-items:center;gap:8px;border-radius:9999px;padding:6px 16px}
 .badge svg{height:16px;width:16px;color:#fbbf24}
 .badge span{font-family:Inter,sans-serif;font-size:12px;font-weight:500;letter-spacing:.05em;color:#fcd34d}
 h1{max-width:56rem;font-size:36px;line-height:.95;font-weight:400;color:#fff}
 h1 em{font-style:italic}
-.sub{margin:20px auto 0;max-width:36rem;font-family:Inter,sans-serif;font-size:14px;line-height:1.375;
+.sub{margin:18px auto 0;max-width:36rem;font-family:Inter,sans-serif;font-size:14px;line-height:1.4;
   font-weight:300;color:rgba(255,255,255,.7)}
 .br-sm{display:none}
+
+/* lead form */
+.lead{margin:26px auto 0;width:100%;max-width:30rem;padding:0 24px;font-family:Inter,sans-serif}
+.lead-form{display:flex;gap:8px;border-radius:16px;background:rgba(0,0,0,.45);padding:8px;
+  border:1px solid rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.lead-form input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#fff;
+  font-size:15px;padding:10px 12px}
+.lead-form input::placeholder{color:rgba(255,255,255,.45)}
+.lead-form button{border-radius:11px;background:#BFFF00;color:#0c0f04;font-size:14px;font-weight:600;
+  letter-spacing:.02em;padding:12px 18px;white-space:nowrap;transition:all .15s}
+.lead-form button:hover{background:#d4ff4d}
+.lead-form button:disabled{opacity:.6;cursor:wait}
+.lead-note{margin-top:10px;text-align:center;font-size:11.5px;color:rgba(255,255,255,.45)}
+.lead-note a{color:rgba(255,255,255,.7);text-decoration:underline}
+.lead-alt{margin-top:14px;text-align:center;font-size:13px;color:rgba(255,255,255,.6)}
+.lead-alt a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.lead-success{display:none;text-align:center;border-radius:16px;border:1px solid rgba(191,255,0,.4);
+  background:rgba(191,255,0,.08);padding:20px}
+.lead-success p{color:#fff;font-size:15px;line-height:1.5}
+.lead-success a{display:inline-block;margin-top:12px;border-radius:11px;background:#fff;color:#000;
+  font-size:13.5px;font-weight:600;padding:10px 18px}
+.lead-error{display:none;margin-top:10px;text-align:center;font-size:12.5px;color:#fca5a5}
+
+/* honest scarcity · real webinar deadline */
+.scarcity{margin:26px auto 0;display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:0 24px;font-family:Inter,sans-serif;text-align:center}
+.count{display:flex;gap:10px}
+.count div{min-width:64px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.45);padding:10px 8px;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.count b{display:block;font-size:24px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.count span{display:block;margin-top:2px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.scarcity p{font-size:12.5px;color:rgba(255,255,255,.6);max-width:26rem;line-height:1.5}
+.scarcity p b{color:#fcd34d;font-weight:600}
+.scarcity a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 
 @media (min-width:640px){
   .nav-wrap{padding:24px 24px 0}
   .nav{padding:10px 10px 10px 28px}
   .brand img{height:28px;width:28px}
   .brand span{font-size:20px}
-  .cta{padding:10px 20px;font-size:14px}
-  .cta img{height:20px;width:20px}
-  .hero{padding-top:64px}
-  .badge{margin-bottom:32px;padding:8px 20px}
+  .nav-cta{padding:10px 20px;font-size:14px}
+  .nav-cta img{height:20px;width:20px}
+  .face-wrap{width:250px;height:250px;margin-top:38px}
+  .hero{padding-top:30px}
+  .badge{margin-bottom:24px;padding:8px 20px}
   .badge svg{height:20px;width:20px}
   .badge span{font-size:14px}
-  h1{font-size:48px}
-  .sub{margin-top:28px;font-size:16px}
+  h1{font-size:52px}
+  .sub{margin-top:24px;font-size:16px}
   .br-sm{display:inline}
 }
-@media (min-width:768px){h1{font-size:60px}.sub{font-size:18px}}
-@media (min-width:1024px){.hero{padding-top:96px}h1{font-size:72px}}
+@media (min-width:768px){h1{font-size:60px}.sub{font-size:17px}}
+@media (prefers-reduced-motion:reduce){.aura,.ring{animation:none}}
 </style>
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_134653_2b70d062-3521-429b-a824-8d9f98de488a.mp4" type="video/mp4"/>
-  </video>
-
   <div class="col">
     <div class="nav-wrap">
       <nav class="nav">
@@ -96,11 +145,23 @@ h1 em{font-style:italic}
           <img src="/wlad/wladbot3.0.webp" alt="" aria-hidden="true"/>
           <span>WladBot</span>
         </a>
-        <a class="cta" href="https://leaderos.de/signup?trial=14">
+        <a class="nav-cta" href="https://leaderos.de/signup?trial=14">
           <img src="/wlad/wladbot3.0.webp" alt="" aria-hidden="true"/>
           App starten
         </a>
       </nav>
+    </div>
+
+    <!-- Das Gesicht der Seite: der WladBot-Avatar mit Effekten -->
+    <div class="face-wrap" aria-hidden="true">
+      <div class="aura"></div>
+      <div class="ring"></div>
+      <div class="face">
+        <picture>
+          <source srcset="/wlad/wladbot3.0.webp" type="image/webp"/>
+          <img src="/wlad/wladbot3.0.png" alt=""/>
+        </picture>
+      </div>
     </div>
 
     <div class="hero">
@@ -111,15 +172,88 @@ h1 em{font-style:italic}
         <span>3× SPIEGEL-Bestseller-Autor</span>
       </div>
 
-      <h1>
-        Sprich mit dem <em>Coach</em>,<br class="br-sm"/> der niemals schläft.
-      </h1>
+      <h1>Sprich mit dem <em>Coach</em>,<br class="br-sm"/> der niemals schläft.</h1>
 
       <p class="sub">
         WladBot bringt Wlads Methodik als KI-Coach in deine Tasche: Führung, Rhetorik und EQ.
-        <br class="br-sm"/> Wähle deine Situation und beginne dein Training.
+        <br class="br-sm"/> Trag dich ein und starte kostenlos.
       </p>
     </div>
+
+    <!-- Lead-Capture -->
+    <div class="lead">
+      <form class="lead-form" id="lead-form" novalidate>
+        <input type="email" id="lead-email" name="email" required autocomplete="email"
+               placeholder="Deine E-Mail-Adresse" aria-label="E-Mail-Adresse"/>
+        <button type="submit" id="lead-btn">Kostenlos starten</button>
+      </form>
+      <p class="lead-error" id="lead-error">Das hat nicht geklappt. Versuch es nochmal oder geh direkt <a href="/webinar" style="color:#fff;text-decoration:underline">zum Webinar</a>.</p>
+      <div class="lead-success" id="lead-success" role="status">
+        <p><b>Schau in dein Postfach.</b><br/>Deine erste Mail von Wlads Trainings-Serie ist unterwegs.</p>
+        <a href="/webinar">Jetzt noch den Live-Platz sichern →</a>
+      </div>
+      <p class="lead-note">Kein Spam. Jederzeit mit einem Klick abmeldbar. <a href="/datenschutz">Datenschutz</a></p>
+      <p class="lead-alt">Oder direkt loslegen: <a href="https://leaderos.de/signup?trial=14">14 Tage kostenlos testen →</a></p>
+    </div>
+
+    <!-- Ehrliche Scarcity: echter Termin, echter Countdown -->
+    <div class="scarcity" id="scarcity" hidden>
+      <div class="count" aria-hidden="true">
+        <div><b id="c-d">–</b><span>Tage</span></div>
+        <div><b id="c-h">–</b><span>Std</span></div>
+        <div><b id="c-m">–</b><span>Min</span></div>
+        <div><b id="c-s">–</b><span>Sek</span></div>
+      </div>
+      <p><b>Live-Webinar mit Wlad am 20.08. um 10 Uhr.</b> Keine Aufzeichnung, dafür Live-Q&amp;A —
+        wer dabei sein will, ist live dabei. <a href="/webinar">Platz sichern →</a></p>
+    </div>
   </div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Lead capture → bestehender Nurture-Endpoint (Mongo nurture_leads,
+     Welcome-Mail sofort, 7-Mail-Journey via Cron). Same-origin /api. */
+  var form=document.getElementById('lead-form');
+  var input=document.getElementById('lead-email');
+  var btn=document.getElementById('lead-btn');
+  var ok=document.getElementById('lead-success');
+  var err=document.getElementById('lead-error');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=(input.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){input.focus();return;}
+    btn.disabled=true;btn.textContent='Einen Moment…';err.style.display='none';
+    fetch('/api/leader-check/intent',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,source:'wladbot-landing',campaign:'wladbot-hero'})
+    }).then(function(r){
+      if(!r.ok)throw new Error('bad status');
+      form.style.display='none';ok.style.display='block';
+    }).catch(function(){
+      err.style.display='block';btn.disabled=false;btn.textContent='Kostenlos starten';
+    });
+  });
+
+  /* Ehrlicher Countdown zum echten Webinar-Termin. Nach Ablauf wird der
+     Block ausgeblendet statt weiterzuzählen — keine Fake-Scarcity. */
+  var T=new Date('2026-08-20T10:00:00+02:00').getTime();
+  var box=document.getElementById('scarcity');
+  function pad(n){return n<10?'0'+n:String(n);}
+  function tick(){
+    var d=T-Date.now();
+    if(d<=0){box.hidden=true;return;}
+    box.hidden=false;
+    document.getElementById('c-d').textContent=String(Math.floor(d/86400000));
+    document.getElementById('c-h').textContent=pad(Math.floor(d/3600000)%24);
+    document.getElementById('c-m').textContent=pad(Math.floor(d/60000)%60);
+    document.getElementById('c-s').textContent=pad(Math.floor(d/1000)%60);
+    setTimeout(tick,1000);
+  }
+  tick();
+})();
+</script>
 </body>
 </html>
