@@ -23,8 +23,13 @@ supabase/
 # Docs sind Markdown — nicht für Production nötig.
 docs/
 
-# Lokale Tools / Scripts.
-scripts/
+# Lokale Tools / Scripts — NUR das Root-Verzeichnis (Branch-Cleanup,
+# Smoke-Tests etc.). Ohne führenden Slash matcht das Pattern auch
+# frontend/scripts/ und prunt damit Build-Steps aus dem Deployment
+# (so ist das prerender-articles-Deploy am 14.08. gefailed, während die
+# CI mit vollem Checkout grün war). frontend/scripts/ MUSS deployen:
+# yarn build ruft node scripts/prerender-articles.mjs auf.
+/scripts/
 seed_test_users.py
 
 # Tests die nicht in Production landen müssen.
