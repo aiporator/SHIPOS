@@ -16,6 +16,7 @@ import { WebinarTicketAd } from '../components/landing/WebinarTicketAd';
 import { FreeVideoTeaser } from '../components/landing/FreeVideoTeaser';
 import { FreeToolsSection } from '../components/landing/FreeToolsSection';
 import { WladAuthoritySection } from '../components/landing/WladAuthoritySection';
+import { LabSection } from '../components/landing/LabSection';
 import { TrustProofSection } from '../components/landing/TrustProofSection';
 import { WladKnowledgeInsideSection } from '../components/landing/WladKnowledgeInsideSection';
 import { ClassesRoadmapSection } from '../components/landing/ClassesRoadmapSection';
@@ -139,6 +140,9 @@ export default function LandingPage() {
         <WladIntroVideo />
         <SprintSpecimenStrip />
         <WladAuthoritySection />
+        {/* Über uns · das Lab — Beweis-Sektion mit Swipe-Deck
+            ("Wir liefern Ergebnisse, die Bestand haben.") */}
+        <LabSection />
         <TrustProofSection />
         <WladKnowledgeInsideSection />
         <FreeVideoTeaser />
