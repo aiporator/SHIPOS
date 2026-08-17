@@ -29,6 +29,7 @@ import { LicenseKeySection } from '../components/landing/LicenseKeySection';
 import { AppointmentBookingSection } from '../components/landing/AppointmentBookingSection';
 import { BenefitSection } from '../components/landing/BenefitSection';
 import { AppPreviewSection } from '../components/landing/AppPreviewSection';
+import { AppCinemaSection } from '../components/landing/AppCinemaSection';
 import { FAQSection } from '../components/landing/FAQSection';
 import { FinalCTA } from '../components/landing/FinalCTA';
 import { LandingFooter } from '../components/landing/LandingFooter';
@@ -168,6 +169,8 @@ export default function LandingPage() {
         ))}
 
         <AppPreviewSection />
+        {/* Cinematic App-Conversion (Auria-Referenz) · WladBot-Avatar als Figur */}
+        <AppCinemaSection />
 
         {/* MiniChallenge wandert weit nach unten · am Anfang konkurrierte
             sie mit dem Archetyp-Quiz. Hier nach AppPreview funktioniert sie
