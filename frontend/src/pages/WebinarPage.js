@@ -81,12 +81,6 @@ const WEEK = [
   ['Freitag', 'Vom letzten Seminar ist nichts mehr übrig außer den Folien.', true],
 ];
 
-const TRIPLES = [
-  ['Nicht Motivation.', 'Training.'],
-  ['Nicht Bücher.', 'Wiederholungen.'],
-  ['Nicht Glück.', 'System.'],
-];
-
 const SEMINAR_FLOW = ['Seminar', 'Notizen', 'Alltag', 'Vergessen'];
 const OS_FLOW = ['Täglich 15 Min', 'KI-Coach', 'Simulation', 'Feedback', 'Fortschritt'];
 
@@ -848,7 +842,7 @@ export default function WebinarPage() {
             <SectionHeader
               eyebrow="▸ Das Problem"
               headline={<>Du weißt längst, wie gute Führung geht. Du kommst nur nicht dazu, sie zu leben<span className="text-[#5A7700] not-italic">.</span></>}
-              intro="Feedback geben. Konflikte früh ansprechen. Klar kommunizieren. Du weißt das alles — und trotzdem passiert es nicht. Nicht, weil dir Wissen fehlt. Sondern weil Wissen kein Verhalten ist. Und weil dieselbe Woche, die du gleich siehst, sich jedes Jahr wiederholt."
+              intro="Du weißt, wie man Feedback gibt und Konflikte früh anspricht. Trotzdem passiert es im Alltag selten, denn Wissen wird erst durch Training zu Verhalten. Die Woche unten kennst du vermutlich auswendig."
             />
             <div className="max-w-2xl mx-auto relative">
               {/* Timeline spine */}
@@ -875,7 +869,7 @@ export default function WebinarPage() {
         </section>
 
         <StatementBand>
-          Seminare verändern Wissen.<br />Nicht Verhalten<span className="text-[#BFFF00] not-italic">.</span>
+          Seminare verändern Wissen,<br />noch kein Verhalten<span className="text-[#BFFF00] not-italic">.</span>
         </StatementBand>
 
         {/* ── NEUE OPPORTUNITY · gray-out vs light-up ──────────────────── */}
@@ -883,22 +877,9 @@ export default function WebinarPage() {
           <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-16 md:py-20">
             <SectionHeader
               eyebrow="▸ Die neue Möglichkeit"
-              headline={<>Was wäre, wenn Führung so trainierbar wäre wie Fitness<span className="text-[#5A7700] not-italic">?</span></>}
+              headline={<>Führung ist trainierbar wie Fitness<span className="text-[#5A7700] not-italic">.</span></>}
             />
-            <div className="grid sm:grid-cols-3 gap-4 md:gap-5 mb-12">
-              {TRIPLES.map(([not_, but], i) => (
-                <motion.div
-                  key={but}
-                  initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.5 }} custom={i} variants={FADE_UP}
-                  whileHover={{ y: -4 }}
-                  className="rounded-3xl bg-[#fafafa] border border-[#111111]/8 p-6 text-center"
-                >
-                  <div className="text-[15px] text-[#9e9ea0] line-through decoration-[#9e9ea0]/60" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700 }}>{not_}</div>
-                  <div className="mt-1 text-[24px] text-[#111111]" style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}>{but}</div>
-                </motion.div>
-              ))}
-            </div>
-
+            
             {/* THE graphic: old way grays out, LeaderOS lights up */}
             <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
               <motion.div
@@ -988,7 +969,7 @@ export default function WebinarPage() {
         </section>
 
         <StatementBand eyebrow="▸ Warum jetzt">
-          Die Zukunft gehört nicht den besten Führungskräften. Sondern denen, die am schnellsten besser werden<span className="text-[#BFFF00] not-italic">.</span>
+          Wer täglich trainiert, überholt jeden, der einmal im Jahr ins Seminar geht<span className="text-[#BFFF00] not-italic">.</span>
         </StatementBand>
 
         {/* ── DETAILS · agenda, scroll-activated ───────────────────────── */}
@@ -996,7 +977,7 @@ export default function WebinarPage() {
           <div className="max-w-[820px] mx-auto px-5 md:px-10 py-16 md:py-20">
             <SectionHeader
               eyebrow="▸ Der genaue Ablauf · 90 Minuten"
-              headline={<>Keine Überraschungen. Nur Substanz<span className="text-[#5A7700] not-italic">.</span></>}
+              headline={<>Die Agenda, Minute für Minute<span className="text-[#5A7700] not-italic">.</span></>}
             />
             <ol className="relative border-l-2 border-[#111111]/10 ml-3 space-y-0 max-w-xl mx-auto">
               {AGENDA.map(([time, title, desc], i) => (
@@ -1030,7 +1011,7 @@ export default function WebinarPage() {
             <SectionHeader
               eyebrow="▸ Value Stack"
               headline={<>Im Webinar bekommst du Zugriff auf<span className="text-[#5A7700] not-italic">:</span></>}
-              intro="Andere verlangen für weniger ein Ticket. Du bekommst alles hier — für nichts außer deiner E-Mail-Adresse."
+              intro="Andere verlangen für weniger ein Ticket. Du bekommst alles hier für nichts außer deiner E-Mail-Adresse."
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {VALUE_STACK.map(([Icon, title, desc], i) => (
@@ -1158,7 +1139,7 @@ export default function WebinarPage() {
             <SectionHeader
               eyebrow="▸ Die Methodik dahinter"
               headline={<>Ein Vorgeschmack auf Wlads Frameworks<span className="text-[#5A7700] not-italic">.</span></>}
-              intro="Kein Geheimwissen hinter der Anmelde-Wand — hier sind vier der Frameworks aus Wlads Büchern, exakt so, wie sie im Webinar und in LeaderOS trainiert werden. Zum Nachlesen verlinkt, zum Können brauchst du den Drill."
+              intro="Vier der Frameworks aus Wlads Büchern stehen hier offen, exakt so, wie sie im Webinar und in LeaderOS trainiert werden. Zum Nachlesen verlinkt; das Können kommt aus dem Drill."
             />
             <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
               {FRAMEWORK_PEEK.map(([name, def, href], i) => (
