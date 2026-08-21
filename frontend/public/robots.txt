@@ -10,6 +10,10 @@ Allow: /webinar
 Allow: /fuehrung-beginnt-hier
 Allow: /journal
 Allow: /journal/
+Allow: /fragen
+Allow: /os
+Allow: /app
+Allow: /wladbot
 Allow: /wlad-jachtchenko
 Allow: /wlad
 Allow: /about
@@ -51,10 +55,23 @@ Disallow: /newsletter/
 # Admin — never index (path is also non-guessable but defense in depth)
 Disallow: /wlad-control-x7k9q2
 
-# Slow down aggressive crawlers (Bing/Yandex)
+# Bing bekommt VOLLE Crawl-Geschwindigkeit (Aug 2026).
+# Vorher stand hier `Crawl-delay: 5` — das ist ein Limit von max.
+# 17.280 Seiten/Tag und hat uns doppelt geschadet: (a) Bing selbst,
+# (b) ChatGPT-Search, Copilot und DuckDuckGo, die alle auf dem
+# Bing-Index sitzen. Crawl-Budget-Steuerung gehört in die Bing
+# Webmaster Tools (Crawl Control), nicht in robots.txt.
 User-agent: bingbot
-Crawl-delay: 5
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
 
+User-agent: msnbot
+Allow: /
+Disallow: /api/
+
+# Yandex bleibt gedrosselt · kein relevanter Traffic für DACH-B2B,
+# aber aggressives Crawl-Verhalten.
 User-agent: YandexBot
 Crawl-delay: 10
 
@@ -153,6 +170,34 @@ Allow: /
 Disallow: /api/
 
 User-agent: DiffbotBot
+Allow: /
+Disallow: /api/
+
+# Apple Intelligence / Siri / Spotlight-Suggestions. Applebot-Extended
+# (oben) steuert nur das Training — Applebot selbst ist der Crawler,
+# der die Antworten ausliefert. Ohne ihn sind wir in Siri unsichtbar.
+User-agent: Applebot
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+# DuckDuckGo-Assist (sitzt auf Bing + eigenem Index)
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /api/
+
+# Amazon (Alexa+/Rufus-Antworten)
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+
+# Google Vertex-AI-Grounding · speist Gemini-Antworten mit Live-Quellen
+User-agent: Google-CloudVertexBot
+Allow: /
+Disallow: /api/
+
+# Microsoft Copilot (eigener Agent neben bingbot)
+User-agent: MicrosoftPreview
 Allow: /
 Disallow: /api/
 

@@ -87,6 +87,11 @@ const COL_EXPLORE = [
   { label: 'Podcast · Wlad spricht',        href: 'https://podcast.wladjachtchenko.de', external: true },
   { label: 'Bücher · 3 SPIEGEL-Bestseller', href: 'https://wladjachtchenko.de/buecher', external: true },
   { label: 'FAQ',                           to: '/#faq' },
+  // Statische Antwort-Seite (public/fragen/index.html) · bewusst `href`
+  // statt `to`: sie liegt außerhalb des React-Routers und wird von
+  // Vercel direkt ausgeliefert. Ein <Link> würde clientseitig routen
+  // und im SPA-404 landen.
+  { label: 'Fragen & Frameworks',           href: '/fragen' },
 ];
 
 const COL_COMPANY = [

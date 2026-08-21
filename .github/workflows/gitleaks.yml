@@ -40,7 +40,9 @@ jobs:
           # path which is sufficient for our threat model.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # Default rules cover ~150 secret patterns (AWS, Stripe, Google,
-          # Resend, Slack, Supabase, JWTs, SSH keys, …). We don't ship a
-          # custom .gitleaks.toml because the defaults are well-maintained.
-          config-path: ''
+          # .gitleaks.toml erweitert das Standard-Regelset (~150 Muster:
+          # AWS, Stripe, Google, Resend, Slack, Supabase, JWTs, SSH-Keys …)
+          # via `[extend] useDefault = true` und nimmt davon nur einzelne
+          # nachweislich öffentliche Werte per Regex aus — aktuell allein
+          # den IndexNow-Key, der per Protokoll öffentlich sein MUSS.
+          config-path: '.gitleaks.toml'

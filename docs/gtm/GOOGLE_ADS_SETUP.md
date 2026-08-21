@@ -23,11 +23,15 @@
 | UTM-Passthrough | `/wladbot`-Form liest `utm_campaign` aus der URL und schickt es als `campaign` an `POST /api/leader-check/intent` (Fallback `wladbot-hero`, max 64 Zeichen) | ✅ |
 | Lead-Persistenz | Mongo `nurture_leads` (Feld `campaign`) → sofortige Welcome-Mail → 7-Mail-Journey (`/api/cron/lead-nurture`, Tag 0/2/4/6/8/10/12) | ✅ |
 | Ehrliche Scarcity | Countdown auf den echten Webinar-Termin, blendet sich nach Ablauf aus | ✅ |
+| Google-Tag + Consent Mode v2 | `frontend/public/js/consent-gtag.js`, eingebunden in `/wladbot`, `/wladbot/danke`, `/app`, `/os` | ✅ gebaut, **inaktiv** bis die echte AW-ID gesetzt ist |
+| CSP für den Tag | `vercel.json` (`googletagmanager.com`, `*.doubleclick.net`, `*.google-analytics.com`, `td.doubleclick.net`) | ✅ |
 
-**Noch NICHT im Code:** das Google-Tag (gtag.js) und Consent Mode.
-Beides absichtlich — erst wenn das Konto existiert und die AW-ID bekannt
-ist (siehe §2/§3). Bis dahin ist die Conversion serverseitig über
-`nurture_leads.campaign` + PostHog messbar.
+**Der einzige verbleibende Code-Schritt ist eine Zeile:** in
+`frontend/public/js/consent-gtag.js` `AW_ID` von `'AW-XXXXXXXXXX'` auf
+die echte ID ändern. Solange der Platzhalter steht, lädt kein externes
+Skript und es erscheint kein Cookie-Banner — die Seiten bleiben exakt so
+schnell und cookie-frei wie heute. Bis dahin ist die Conversion
+serverseitig über `nurture_leads.campaign` + PostHog messbar.
 
 ---
 
@@ -63,73 +67,73 @@ Kein zusätzliches Event-Wiring nötig, kein Doppelzähl-Risiko.
 `wladbot_lead` als **primäre** Conversion markieren (steuert das
 Bidding), die anderen als sekundär.
 
-## 3. Google-Tag einbauen (Code-Aktion, wenn AW-ID vorliegt)
+## 3. Google-Tag scharfschalten (eine Zeile)
 
-Wenn die AW-ID da ist, in **beiden** wladbot-Seiten (`index.html` +
-`danke/index.html`) vor `</head>`:
-
-```html
-<!-- Consent Mode v2: Default DENIED, bevor gtag lädt -->
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent', 'default', {
-  ad_storage: 'denied',
-  ad_user_data: 'denied',
-  ad_personalization: 'denied',
-  analytics_storage: 'denied',
-  wait_for_update: 500
-});
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
-<script>
-gtag('js', new Date());
-gtag('config', 'AW-XXXXXXXXXX');
-</script>
-```
-
-Nach Consent-Opt-in (Cookie-Banner, siehe §4):
+Der komplette Tag- und Consent-Code liegt fertig in
+`frontend/public/js/consent-gtag.js` und ist auf `/wladbot`,
+`/wladbot/danke`, `/app` und `/os` eingebunden. Zum Aktivieren:
 
 ```js
-gtag('consent', 'update', {
-  ad_storage: 'granted',
-  ad_user_data: 'granted',
-  ad_personalization: 'granted',
-  analytics_storage: 'granted'
-});
+var AW_ID = 'AW-XXXXXXXXXX';   // ← echte Conversion-ID aus §1.3
 ```
 
-**CSP erweitern (Pflicht, sonst blockt der Browser das Tag).**
-In `vercel.json`, Header `Content-Security-Policy`:
+Der Guard `/^AW-\d{9,12}$/` sorgt dafür, dass der Platzhalter nichts
+lädt. Mit echter ID passiert automatisch:
 
-- `script-src` + ` https://www.googletagmanager.com`
-- `img-src` + ` https://www.googletagmanager.com https://*.google.com https://*.google.de https://*.doubleclick.net`
-- `connect-src` + ` https://www.googletagmanager.com https://*.google-analytics.com https://*.g.doubleclick.net https://*.google.com`
-- `frame-src` + ` https://td.doubleclick.net`
+1. `gtag('consent','default', …)` mit **allen vier Signalen auf
+   `denied`** und `wait_for_update: 500` — noch bevor `gtag.js` geladen
+   wird.
+2. `gtag.js` wird nachgeladen, `gtag('config', AW_ID)` gesetzt.
+3. Das Consent-Banner erscheint (nur wenn noch keine Entscheidung
+   gespeichert ist).
+4. Bei "Akzeptieren" → `gtag('consent','update', …)` auf `granted`.
 
-(Die Conversion-Pings laufen je nach Consent-Status über
-`google.com/pagead`, `googleads.g.doubleclick.net` oder — im
-Cookieless-Ping des Consent Mode — `google-analytics.com`.)
+Eine frühere Zustimmung wird aus `localStorage` **vor** dem Tag-Load
+wiederhergestellt, damit ein wiederkehrender Nutzer nicht fälschlich als
+cookieless gezählt wird. Die Entscheidung gilt 6 Monate, danach wird
+erneut gefragt (Speicherformat `granted|<timestamp>`; `localStorage`-
+Zugriffe sind in try/catch, Private Mode fällt sauber auf "erneut
+fragen" zurück).
+
+Die CSP in `vercel.json` ist bereits erweitert
+(`script-src`/`img-src`/`connect-src`/`frame-src` um
+`googletagmanager.com`, `*.google-analytics.com`, `*.doubleclick.net`,
+`td.doubleclick.net`, `*.google.com`/`.de`) — kein weiterer Eingriff
+nötig.
 
 ## 4. Consent Mode v2 · DSGVO
 
-Pflicht für EU-Traffic seit März 2024 — ohne v2-Signale verweigert
-Google Personalisierung & Remarketing komplett.
+Umgesetzt ist **Advanced Consent Mode**: das Tag lädt immer, Default ist
+`denied`, bis zur Zustimmung laufen nur cookieless Pings und Google
+modelliert die fehlenden Conversions. Die Alternative "Basic" (Tag erst
+nach Opt-in) verliert diese Modellierung.
 
-- **Modell: Advanced Consent Mode** (Tag lädt immer, Default `denied`,
-  cookieless Pings bis Opt-in). Alternative "Basic" (Tag erst nach
-  Opt-in laden) verliert die Modellierung — nicht empfohlen.
-- Die statischen wladbot-Seiten haben **kein** Cookie-Banner. Optionen:
-  1. **Minimal-Banner selbst bauen** (ein `<div>`, zwei Buttons,
-     `localStorage`-Flag, ruft `gtag('consent','update',…)`) — passt
-     zur Zero-Dependency-Philosophie der statischen Seiten. Empfohlen.
-  2. CMP (Cookiebot/Usercentrics) — erst nötig, wenn mehr Vendor-Tags
-     dazukommen. Kostet, lädt fremdes JS, braucht weitere CSP-Einträge.
-- Bis das Banner steht, **keine** Remarketing-Listen aktivieren — reine
-  Conversion-Messung mit Consent-Default-denied + Modellierung ist
-  zulässig und funktioniert.
-- Datenschutzerklärung (`/datenschutz`) um Google-Ads-Conversion-Tracking
-  + Consent-Mode-Abschnitt ergänzen, sobald das Tag live ist.
+Das Banner ist bewusst selbst gebaut (ein `<div>`, zwei Buttons, kein
+Fremd-JS) statt eine CMP wie Cookiebot/Usercentrics einzubinden — passt
+zur Zero-Dependency-Philosophie der statischen Seiten, kostet nichts und
+braucht keine weiteren CSP-Einträge. Eine CMP lohnt erst, wenn mehrere
+Vendor-Tags dazukommen.
+
+**Pflicht im selben PR wie das Scharfschalten:** `/datenschutz` um einen
+Google-Ads-Abschnitt ergänzen. Fertiger Textbaustein:
+
+> **Google Ads Conversion-Tracking.** Auf unseren Kampagnen-Seiten
+> setzen wir das Google-Tag der Google Ireland Limited ein, um zu
+> messen, welche Anzeige zu einer Anmeldung geführt hat. Ohne deine
+> Einwilligung werden dabei keine Cookies gesetzt und keine
+> personenbezogenen Kennungen übertragen (Google Consent Mode v2,
+> Standard: Ablehnung). Erst wenn du im Cookie-Hinweis zustimmst,
+> speichert Google eine Kennung in deinem Browser, um deinen Klick auf
+> die Anzeige mit der Anmeldung zu verknüpfen. Rechtsgrundlage ist deine
+> Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG; du
+> kannst sie jederzeit widerrufen, indem du die Website-Daten in deinem
+> Browser löschst. Empfänger ist Google Ireland Limited, Gordon House,
+> Barrow Street, Dublin 4, Irland; eine Übermittlung in die USA ist nicht
+> ausgeschlossen (Angemessenheitsbeschluss EU-US Data Privacy Framework).
+
+Solange keine Remarketing-Listen aktiviert sind, bleibt es bei reiner
+Conversion-Messung — das ist die datensparsamste Variante und deckt das
+Bidding vollständig ab.
 
 ## 5. Kampagnen-Struktur · Launch (30 €/Tag gesamt)
 
@@ -200,11 +204,16 @@ Google-Ads-Kostenexport = **CPL pro Kampagne**.
 
 ## 7. Launch-Checkliste
 
-- [ ] §1 Konto + Rechnungsprofil (User)
+Code-seitig ist alles gebaut — offen sind nur Konto-Schritte und der
+Ein-Zeilen-Flip.
+
+- [ ] §1 Konto + Rechnungsprofil, AW-ID notieren (User)
 - [ ] §2 Conversion-Actions angelegt, `wladbot_lead` primär (User)
-- [ ] §3 gtag + Consent-Default in beide wladbot-Seiten, CSP erweitert (Code-PR)
-- [ ] §4 Minimal-Consent-Banner auf beiden Seiten (Code-PR)
-- [ ] `/datenschutz` ergänzt (Code-PR)
+- [ ] §3 `AW_ID` in `frontend/public/js/consent-gtag.js` eintragen (Code, 1 Zeile)
+- [ ] §4 `/datenschutz` um den Google-Ads-Absatz ergänzen — **im selben PR**
+- [x] Consent-Banner gebaut (`consent-gtag.js`)
+- [x] CSP für googletagmanager / doubleclick erweitert (`vercel.json`)
+- [x] UTM-Passthrough im `/wladbot`-Formular
 - [ ] §5 Kampagnen S-01/S-02 mit RSAs + negativen Keywords (User)
 - [ ] Test: Ad-Preview-Klick → Formular mit Testmail → `/wladbot/danke`
       lädt → Conversion erscheint in Google Ads (bis 3 h Verzögerung)
