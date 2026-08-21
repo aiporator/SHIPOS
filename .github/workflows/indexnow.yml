@@ -1,0 +1,60 @@
+name: indexnow
+
+# Pingt Bing / Yandex / Seznam / Naver per IndexNow, sobald sich auf
+# mvpcode etwas an den öffentlichen Inhalten ändert. Bing indexiert
+# gepingte URLs typischerweise in Minuten statt Tagen — und weil
+# ChatGPT-Search, Copilot und DuckDuckGo auf dem Bing-Index sitzen, ist
+# das gleichzeitig der schnellste AEO-Hebel, den wir haben.
+#
+# Google nimmt an IndexNow nicht teil — dort zählen Sitemap + Search
+# Console (siehe docs/gtm/SEO_AEO_PLAYBOOK.md).
+#
+# Der Job wartet bewusst 3 Minuten, damit Vercel den neuen Deploy live
+# hat, bevor die Crawler anklopfen. Kein Secret nötig: der IndexNow-Key
+# ist per Definition öffentlich (er liegt als /<key>.txt auf der Domain).
+
+on:
+  push:
+    branches: [mvpcode]
+    paths:
+      - 'frontend/public/sitemap*.xml'
+      - 'frontend/src/features/content/data/articles/**'
+      - 'frontend/public/**/index.html'
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: 'Optional · einzelne URLs (Leerzeichen-getrennt). Leer = alle aus den Sitemaps.'
+        required: false
+        default: ''
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Wait for Vercel deploy to go live
+        if: github.event_name == 'push'
+        run: sleep 180
+
+      - name: Verify key file is reachable
+        run: |
+          KEY=57d353bdcebaa0a63677822fd59447f8
+          BODY=$(curl -sS --max-time 20 "https://leader-os.de/$KEY.txt" || true)
+          if [ "$BODY" != "$KEY" ]; then
+            echo "::error::Key-Datei /$KEY.txt liefert nicht den Key (bekommen: '${BODY:0:60}'). IndexNow würde 403 antworten."
+            exit 1
+          fi
+          echo "Key-Datei OK."
+
+      - name: Submit URLs
+        working-directory: frontend
+        run: node scripts/indexnow-submit.mjs ${{ github.event.inputs.urls }}

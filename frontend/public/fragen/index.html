@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Führung, Rhetorik & Feedback — die wichtigsten Fragen | LeaderOS</title>
+<meta name="description" content="Klare Antworten auf die häufigsten Fragen zu Führung, Argumentation und Feedback — inklusive SEXIER-Modell, Feedbackformel und den 5 Rollen einer Führungskraft nach Wlad Jachtchenko."/>
+<link rel="canonical" href="https://leader-os.de/fragen"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Führung, Rhetorik & Feedback — die wichtigsten Fragen"/>
+<meta property="og:description" content="SEXIER-Modell, Feedbackformel, die 5 Rollen einer Führungskraft — die Kern-Frameworks von Wlad Jachtchenko, kurz und präzise beantwortet."/>
+<meta property="og:url" content="https://leader-os.de/fragen"/>
+<meta property="og:image" content="https://leader-os.de/og-default.png"/>
+<meta property="og:locale" content="de_DE"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet"/>
+<!--
+  /fragen · Antwort-Seite (AEO).
+
+  Zweck: die informationalen Kern-Queries ("was ist das sexier modell",
+  "wie gibt man richtig feedback", "5 rollen einer führungskraft",
+  "wer ist wlad jachtchenko") mit vollständigen Antworten IM HTML
+  bedienen — ohne JavaScript. Der CRA-Build liefert auf allen SPA-Routen
+  nur eine leere Shell aus; GPTBot, ClaudeBot und PerplexityBot führen
+  kein JS aus und sehen dort nichts. Diese Datei liegt in public/ und
+  wird von Vercel vor dem SPA-Rewrite ausgeliefert, ist also für jeden
+  Crawler vollständig lesbar.
+
+  Das FAQPage-Schema unten spiegelt EXAKT den sichtbaren Text — Googles
+  Regel für strukturierte Daten und gleichzeitig die Bedingung dafür,
+  dass Antwort-Engines den Absatz sauber zitieren können.
+
+  Alle Zahlen und Framework-Definitionen aus docs/gtm/WLAD_CANON.md.
+  Achtung bei Änderungen: R in SEXIER = Rebuttal (nicht "Repeat"),
+  I = Impact (nicht "Implications") — im Kanon als harte Fehler notiert.
+
+  Design: Athletic-Editorial (frontend/DESIGN.md) — weißes Canvas,
+  Anton-Display in Versalien, BIB-Codes in Mono, Lime nur als Akzent.
+-->
+<style>
+:root{
+  --ink:#0A0A0A;
+  --canvas:#FFFFFF;
+  --cloud:#F5F5F5;
+  --line:#E4E4E4;
+  --muted:#6B6B6B;
+  --brand:#6B8A00;          /* WCAG-AA-Lime auf hellem Grund */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ── Nav ───────────────────────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{height:26px;width:26px;display:block}
+.brand .wm{font-family:Outfit,Inter,sans-serif;font-weight:900;font-size:19px;letter-spacing:-.03em}
+.brand .wm em{font-style:normal;color:var(--brand)}
+.nav .links{display:none;gap:26px;font-size:13.5px;font-weight:500}
+.nav .links a:hover{color:var(--brand)}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;
+  background:var(--ink);color:#fff;font-size:13px;font-weight:600;
+  padding:11px 20px;transition:background .15s,transform .15s}
+.pill:hover{background:#2b2b2b;transform:translateY(-1px)}
+
+/* ── Hero ──────────────────────────────────────────────────────── */
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero h1{font-family:Anton,Inter,Impact,sans-serif;font-weight:400;
+  text-transform:uppercase;letter-spacing:-.01em;line-height:.88;
+  font-size:clamp(44px,10.5vw,112px)}
+.hero h1 .dot{color:var(--brand)}
+.hero .lede{margin-top:22px;max-width:44rem;font-size:17px;line-height:1.55;
+  font-weight:300;color:#333}
+.hero .kicker{margin-bottom:20px}
+
+/* ── Index ─────────────────────────────────────────────────────── */
+.toc{padding:40px 0;border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;display:grid;gap:2px;margin-top:16px;
+  grid-template-columns:1fr}
+.toc a{display:flex;gap:14px;align-items:baseline;padding:11px 0;
+  border-bottom:1px solid var(--line);font-size:15px;font-weight:500}
+.toc a:hover{color:var(--brand)}
+.toc a span{flex:0 0 auto}
+
+/* ── Q&A ───────────────────────────────────────────────────────── */
+.qa{padding:8px 0 0}
+.q{padding:44px 0;border-bottom:1px solid var(--line);
+  display:grid;gap:8px;grid-template-columns:1fr}
+.q h2{font-size:clamp(23px,3.4vw,34px);line-height:1.18;font-weight:700;
+  letter-spacing:-.02em;max-width:36rem}
+.q .body{max-width:40rem}
+.q .body p{margin-top:14px;font-size:16px;line-height:1.65;color:#2a2a2a}
+.q .body p.first{margin-top:16px;font-size:17.5px;line-height:1.6;color:var(--ink)}
+.q .body strong{font-weight:600}
+.q .body ol{margin:16px 0 0 0;padding-left:0;list-style:none;counter-reset:s}
+.q .body ol li{counter-increment:s;position:relative;padding:9px 0 9px 42px;
+  border-top:1px solid var(--line);font-size:15.5px}
+.q .body ol li::before{content:counter(s);position:absolute;left:0;top:9px;
+  font-family:ui-monospace,monospace;font-size:12px;font-weight:700;
+  color:var(--brand);width:30px}
+.q .body a{color:var(--brand);text-decoration:underline;text-underline-offset:3px;font-weight:500}
+.tag{display:inline-block;margin-top:18px;font-family:ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+
+/* ── CTA ───────────────────────────────────────────────────────── */
+.cta{background:var(--ink);color:#fff;margin-top:0;padding:72px 0}
+.cta h2{font-family:Anton,Inter,sans-serif;font-weight:400;text-transform:uppercase;
+  line-height:.9;font-size:clamp(34px,7vw,72px);letter-spacing:-.01em}
+.cta h2 .dot{color:#BFFF00}
+.cta p{margin-top:18px;max-width:34rem;font-size:16px;font-weight:300;color:rgba(255,255,255,.72)}
+.cta .row{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+.cta .pill{background:#BFFF00;color:#0c0f04}
+.cta .pill:hover{background:#d4ff4d}
+.cta .ghost{background:transparent;border:1px solid rgba(255,255,255,.32);color:#fff}
+.cta .ghost:hover{background:rgba(255,255,255,.1)}
+.cta .mono{color:rgba(255,255,255,.5)}
+
+/* ── Footer ────────────────────────────────────────────────────── */
+.foot{padding:34px 0;border-top:1px solid var(--line)}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.foot a{font-size:13px;color:var(--muted)}
+.foot a:hover{color:var(--ink)}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+
+@media (min-width:760px){
+  .nav .links{display:flex}
+  .hero{padding:96px 0 64px}
+  .toc ol{grid-template-columns:1fr 1fr;column-gap:40px}
+  .q{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:40px;padding:56px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="LeaderOS Startseite">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="fq-bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#D4FF4D"/><stop offset="55%" stop-color="#BFFF00"/><stop offset="100%" stop-color="#A8E600"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="9.6" fill="url(#fq-bg)"/>
+        <g transform="translate(4.2 4.2) scale(0.7375)">
+          <path d="M2.8 4.8 L8.6 24.4 Q10 25.8 11.4 24.2 L15.4 9.8 Q16.4 8.8 17.4 9.8 L20.8 24.2 Q22.2 25.8 23.6 24.4 L28.8 4" stroke="#0A0A0A" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M28.8 4 Q30.2 4.6 29.6 6.4" stroke="#0A0A0A" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          <circle cx="29.6" cy="6.4" r="1.2" fill="#0A0A0A"/>
+        </g>
+      </svg>
+      <span class="wm">Leader<em>·</em>OS</span>
+    </a>
+    <nav class="links" aria-label="Hauptnavigation">
+      <a href="/journal">Journal</a>
+      <a href="/wlad-jachtchenko">Über Wlad</a>
+      <a href="/webinar">Webinar</a>
+    </nav>
+    <a class="pill" href="https://leadercheck.de">Leader-Check · kostenlos</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="mono kicker">Wissensbasis · Führung, Rhetorik, Feedback</p>
+      <h1>Die Fragen,<br/>die wirklich<br/>gestellt werden<span class="dot">.</span></h1>
+      <p class="lede">Keine Marketing-Umschreibungen, sondern die Frameworks so, wie Wlad
+        Jachtchenko sie in seinen Büchern und Trainings definiert — das SEXIER-Modell,
+        die Feedbackformel, die 5 Rollen einer Führungskraft. Kurz genug zum Nachschlagen,
+        präzise genug zum Anwenden.</p>
+    </div>
+  </section>
+
+  <section class="toc" aria-label="Übersicht">
+    <div class="wrap">
+      <p class="mono">Inhalt · 9 Antworten</p>
+      <ol>
+        <li><a href="#f01"><span class="mono">FRG-01</span> Was ist LeaderOS?</a></li>
+        <li><a href="#f02"><span class="mono">FRG-02</span> Wer ist Wlad Jachtchenko?</a></li>
+        <li><a href="#f03"><span class="mono">FRG-03</span> Was ist der Leader-Check?</a></li>
+        <li><a href="#f04"><span class="mono">FRG-04</span> WladBot vs. ChatGPT</a></li>
+        <li><a href="#f05"><span class="mono">FRG-05</span> Das SEXIER-Modell</a></li>
+        <li><a href="#f06"><span class="mono">FRG-06</span> Richtig Feedback geben</a></li>
+        <li><a href="#f07"><span class="mono">FRG-07</span> Die 5 Rollen einer Führungskraft</a></li>
+        <li><a href="#f08"><span class="mono">FRG-08</span> Was kostet LeaderOS?</a></li>
+        <li><a href="#f09"><span class="mono">FRG-09</span> Warum Seminare oft nicht wirken</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="wrap qa">
+
+    <article class="q" id="f01">
+      <h2>Was ist LeaderOS?</h2>
+      <div class="body">
+        <p class="first">LeaderOS ist ein Betriebssystem für Führungskräfte: tägliches Training
+          statt einmaliger Seminare. Es kombiniert eine Diagnostik (Leader-Check), einen
+          KI-Coach auf Basis der Methodik von Wlad Jachtchenko (WladBot) und eine
+          30-Tage-Challenge mit konkreten Übungen für Kommunikation, Argumentation und
+          Mitarbeiterführung. Der Kerngedanke: Führung ist trainierbar wie Fitness —
+          Verhalten ändert sich durch Wiederholung, nicht durch Wissen.</p>
+        <p>Praktisch heißt das: Du bekommst jeden Tag eine Einheit, die in den Arbeitstag
+          passt, statt zweimal im Jahr zwei Tage aus dem Kalender zu schneiden.</p>
+        <p class="tag">Kanon · Produktdefinition</p>
+      </div>
+    </article>
+
+    <article class="q" id="f02">
+      <h2>Wer ist Wlad Jachtchenko?</h2>
+      <div class="body">
+        <p class="first">Wlad Jachtchenko (Wladislaw Jachtchenko, geboren 1985 in Dnipro) ist
+          Rhetoriktrainer, Leadership-Coach und dreifacher SPIEGEL-Bestseller-Autor. Er ist
+          Volljurist, hat in München und an der Columbia University in New York studiert und
+          trainiert seit 2007 Führungskräfte — inzwischen über 400.000 Klienten in mehr als
+          20 Ländern. Er ist Gründer der Argumentorik-Akademie und Autor von Büchern wie
+          „Weiße Rhetorik“, „Dunkle Rhetorik“ und „Die 5 Rollen einer Führungskraft“. Die
+          Schreibweise ist immer Wlad mit W.</p>
+        <p>Ausführliches Profil, Bibliografie und Vita:
+          <a href="/wlad-jachtchenko">Über Wlad Jachtchenko</a>.</p>
+        <p class="tag">Kanon · Person</p>
+      </div>
+    </article>
+
+    <article class="q" id="f03">
+      <h2>Was ist der Leader-Check und was kostet er?</h2>
+      <div class="body">
+        <p class="first">Der Leader-Check ist eine kostenlose Standortbestimmung auf
+          leader-check.de. Er dauert rund 10 Minuten, braucht keinen Login und liefert einen
+          Score in drei Dimensionen: KI-Kompetenz, Rhetorik und emotionale Intelligenz. Aus dem
+          Ergebnis leitet LeaderOS ab, welches Training am schnellsten wirkt.</p>
+        <p><a href="https://leadercheck.de">Leader-Check starten →</a></p>
+        <p class="tag">Kanon · Diagnostik</p>
+      </div>
+    </article>
+
+    <article class="q" id="f04">
+      <h2>Was unterscheidet WladBot von ChatGPT oder Claude?</h2>
+      <div class="body">
+        <p class="first">WladBot antwortet nicht aus allgemeinem Internetwissen, sondern aus der
+          belegten Methodik von Wlad Jachtchenko: seine Bücher und Trainingsinhalte liegen als
+          durchsuchbare Wissensbasis vor, aus der jede Antwort zitiert wird. Ein
+          Allzweck-Chatbot gibt allgemeingültige Führungstipps; WladBot gibt die konkrete
+          Technik — etwa das SEXIER-Modell für ein Argument oder die Feedbackformel für ein
+          Kritikgespräch — und bezieht sie auf deine Situation.</p>
+        <p class="tag">Kanon · Produktabgrenzung</p>
+      </div>
+    </article>
+
+    <article class="q" id="f05">
+      <h2>Was ist das SEXIER-Modell?</h2>
+      <div class="body">
+        <p class="first">SEXIER ist Wlad Jachtchenkos Bauplan für ein vollständiges Argument aus
+          dem Buch „Weiße Rhetorik“. Sechs Schritte, jeder Pflicht: S — Statement (die
+          Behauptung), E — Explanation (die Begründung), X — eXample (das Beispiel), I — Impact
+          (die Auswirkung), E — Explanation of Impact (Erklärung der Auswirkung), R — Rebuttal
+          (die Widerlegung der zu erwartenden Gegenargumente). Wer nur Statement und Begründung
+          liefert, argumentiert unvollständig — das Beispiel macht ein Argument erinnerbar, der
+          Impact macht es relevant, und das Rebuttal nimmt dem Gegenüber den Einwand vorweg.</p>
+        <p><strong>Häufige Fehler:</strong> Die Verkürzung auf „SEXI“ lässt Rebuttal weg — genau
+          den Schritt, der ein Argument im Widerspruch stabil hält. Und das I steht für Impact,
+          nicht für Implications.</p>
+        <p class="tag">Kanon · Argumentorik</p>
+      </div>
+    </article>
+
+    <article class="q" id="f06">
+      <h2>Wie gibt man richtig Feedback?</h2>
+      <div class="body">
+        <p class="first">Wlad Jachtchenkos Feedbackformel lautet: Beobachtung + Wirkung + Wunsch.
+          Erst beschreiben, was konkret passiert ist („Ich habe beobachtet, dass …“), dann die
+          Wirkung auf dich oder das Team benennen, dann einen klaren Wunsch für die Zukunft
+          formulieren. Entscheidend ist der Verzicht auf Du-Botschaften: „Du bist unzuverlässig“
+          ist eine Charakterzuschreibung und löst Abwehr aus, „Die Zahlen kamen dreimal nach
+          Deadline“ ist eine überprüfbare Beobachtung.</p>
+        <p>Der Unterschied ist nicht Höflichkeit, sondern Angreifbarkeit: über eine Beobachtung
+          kann man sprechen, über eine Charakterzuschreibung kann man nur streiten.</p>
+        <p class="tag">Kanon · Feedback</p>
+      </div>
+    </article>
+
+    <article class="q" id="f07">
+      <h2>Was sind die 5 Rollen einer Führungskraft?</h2>
+      <div class="body">
+        <p class="first">Wlad Jachtchenkos Kern-Framework beschreibt fünf Rollen, zwischen denen
+          jede Führungskraft wechselt:</p>
+        <ol>
+          <li><strong>Kommunikator</strong> — charismatisch auftreten und souverän argumentieren.</li>
+          <li><strong>Manager</strong> — eigene Stärken nutzen und klar entscheiden.</li>
+          <li><strong>Team-Leader</strong> — die richtigen Leute finden, delegieren, motivieren.</li>
+          <li><strong>Psychologe</strong> — empathisch begegnen und Konflikte früh erkennen.</li>
+          <li><strong>Problemlöser</strong> — verhandeln, Kritikgespräche führen, Veränderung begleiten.</li>
+        </ol>
+        <p>Die meisten Führungsprobleme entstehen dadurch, dass jemand in der falschen Rolle
+          antwortet — etwa als Problemlöser auf etwas reagiert, das eine Psychologen-Frage war.</p>
+        <p class="tag">Kanon · Die 5 Rollen</p>
+      </div>
+    </article>
+
+    <article class="q" id="f08">
+      <h2>Was kostet LeaderOS?</h2>
+      <div class="body">
+        <p class="first">Der Leader-Check ist kostenlos. Der Zugang zu LeaderOS lässt sich 14 Tage
+          kostenlos testen. Danach startet die 30-Tage-Challenge ab 997 EUR; das erweiterte
+          Programm mit 1:1-Begleitung durch Wlads Team liegt bei 4.797 EUR. Aktuelle Konditionen
+          stehen auf leader-os.de.</p>
+        <p class="tag">Kanon · Preise</p>
+      </div>
+    </article>
+
+    <article class="q" id="f09">
+      <h2>Warum wirken Führungsseminare oft nicht?</h2>
+      <div class="body">
+        <p class="first">Weil ein Seminar Wissen verändert, aber noch kein Verhalten. Nach zwei
+          Tagen Training kehrt die Teilnehmerin in denselben Kalender, dieselben Meetings und
+          dieselben Gewohnheiten zurück — ohne tägliche Wiederholung fällt das Gelernte in sich
+          zusammen. Deshalb setzt LeaderOS auf kurze tägliche Einheiten über 30 Tage statt auf
+          ein einmaliges Event: wer täglich trainiert, überholt jeden, der einmal im Jahr ins
+          Seminar geht.</p>
+        <p>Mehr dazu im <a href="/journal">Journal</a> — dort stehen die Feldnotizen zu
+          Führungsalltag, Rhetorik und KI-Kompetenz.</p>
+        <p class="tag">Kanon · Trainingslogik</p>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="cta">
+    <div class="wrap">
+      <p class="mono">Nächster Schritt</p>
+      <h2>Wissen ist<br/>der leichte Teil<span class="dot">.</span></h2>
+      <p>Die 10-Minuten-Diagnose zeigt dir, wo du in KI-Kompetenz, Rhetorik und emotionaler
+        Intelligenz tatsächlich stehst — kostenlos, ohne Login.</p>
+      <div class="row">
+        <a class="pill" href="https://leadercheck.de">Leader-Check starten · 10 Min</a>
+        <a class="pill ghost" href="/webinar">Live-Webinar am 17.09.</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="mono">LeaderOS · Argumentorik-Akademie</span>
+    <nav>
+      <a href="/journal">Journal</a>
+      <a href="/wlad-jachtchenko">Über Wlad</a>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": "https://leader-os.de/fragen#faq",
+      "url": "https://leader-os.de/fragen",
+      "name": "Führung, Rhetorik & Feedback — die wichtigsten Fragen",
+      "inLanguage": "de-DE",
+      "isPartOf": { "@id": "https://leader-os.de/#website" },
+      "publisher": { "@id": "https://leader-os.de/#organization" },
+      "about": { "@id": "https://leader-os.de/wlad-jachtchenko#person" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was ist LeaderOS?",
+          "url": "https://leader-os.de/fragen#f01",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LeaderOS ist ein Betriebssystem für Führungskräfte: tägliches Training statt einmaliger Seminare. Es kombiniert eine Diagnostik (Leader-Check), einen KI-Coach auf Basis der Methodik von Wlad Jachtchenko (WladBot) und eine 30-Tage-Challenge mit konkreten Übungen für Kommunikation, Argumentation und Mitarbeiterführung. Der Kerngedanke: Führung ist trainierbar wie Fitness — Verhalten ändert sich durch Wiederholung, nicht durch Wissen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wer ist Wlad Jachtchenko?",
+          "url": "https://leader-os.de/fragen#f02",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wlad Jachtchenko (Wladislaw Jachtchenko, geboren 1985 in Dnipro) ist Rhetoriktrainer, Leadership-Coach und dreifacher SPIEGEL-Bestseller-Autor. Er ist Volljurist, hat in München und an der Columbia University in New York studiert und trainiert seit 2007 Führungskräfte — inzwischen über 400.000 Klienten in mehr als 20 Ländern. Er ist Gründer der Argumentorik-Akademie und Autor von Büchern wie „Weiße Rhetorik“, „Dunkle Rhetorik“ und „Die 5 Rollen einer Führungskraft“. Die Schreibweise ist immer Wlad mit W."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist der Leader-Check und was kostet er?",
+          "url": "https://leader-os.de/fragen#f03",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Der Leader-Check ist eine kostenlose Standortbestimmung auf leader-check.de. Er dauert rund 10 Minuten, braucht keinen Login und liefert einen Score in drei Dimensionen: KI-Kompetenz, Rhetorik und emotionale Intelligenz. Aus dem Ergebnis leitet LeaderOS ab, welches Training am schnellsten wirkt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was unterscheidet WladBot von ChatGPT oder Claude?",
+          "url": "https://leader-os.de/fragen#f04",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WladBot antwortet nicht aus allgemeinem Internetwissen, sondern aus der belegten Methodik von Wlad Jachtchenko: seine Bücher und Trainingsinhalte liegen als durchsuchbare Wissensbasis vor, aus der jede Antwort zitiert wird. Ein Allzweck-Chatbot gibt allgemeingültige Führungstipps; WladBot gibt die konkrete Technik — etwa das SEXIER-Modell für ein Argument oder die Feedbackformel für ein Kritikgespräch — und bezieht sie auf deine Situation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist das SEXIER-Modell?",
+          "url": "https://leader-os.de/fragen#f05",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SEXIER ist Wlad Jachtchenkos Bauplan für ein vollständiges Argument aus dem Buch „Weiße Rhetorik“. Sechs Schritte, jeder Pflicht: S — Statement (die Behauptung), E — Explanation (die Begründung), X — eXample (das Beispiel), I — Impact (die Auswirkung), E — Explanation of Impact (Erklärung der Auswirkung), R — Rebuttal (die Widerlegung der zu erwartenden Gegenargumente). Wer nur Statement und Begründung liefert, argumentiert unvollständig — das Beispiel macht ein Argument erinnerbar, der Impact macht es relevant, und das Rebuttal nimmt dem Gegenüber den Einwand vorweg."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie gibt man richtig Feedback?",
+          "url": "https://leader-os.de/fragen#f06",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wlad Jachtchenkos Feedbackformel lautet: Beobachtung + Wirkung + Wunsch. Erst beschreiben, was konkret passiert ist („Ich habe beobachtet, dass …“), dann die Wirkung auf dich oder das Team benennen, dann einen klaren Wunsch für die Zukunft formulieren. Entscheidend ist der Verzicht auf Du-Botschaften: „Du bist unzuverlässig“ ist eine Charakterzuschreibung und löst Abwehr aus, „Die Zahlen kamen dreimal nach Deadline“ ist eine überprüfbare Beobachtung."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was sind die 5 Rollen einer Führungskraft?",
+          "url": "https://leader-os.de/fragen#f07",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wlad Jachtchenkos Kern-Framework beschreibt fünf Rollen, zwischen denen jede Führungskraft wechselt: 1. Kommunikator — charismatisch auftreten und souverän argumentieren. 2. Manager — eigene Stärken nutzen und klar entscheiden. 3. Team-Leader — die richtigen Leute finden, delegieren, motivieren. 4. Psychologe — empathisch begegnen und Konflikte früh erkennen. 5. Problemlöser — verhandeln, Kritikgespräche führen, Veränderung begleiten. Die meisten Führungsprobleme entstehen dadurch, dass jemand in der falschen Rolle antwortet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was kostet LeaderOS?",
+          "url": "https://leader-os.de/fragen#f08",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Der Leader-Check ist kostenlos. Der Zugang zu LeaderOS lässt sich 14 Tage kostenlos testen. Danach startet die 30-Tage-Challenge ab 997 EUR; das erweiterte Programm mit 1:1-Begleitung durch Wlads Team liegt bei 4.797 EUR. Aktuelle Konditionen stehen auf leader-os.de."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Warum wirken Führungsseminare oft nicht?",
+          "url": "https://leader-os.de/fragen#f09",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Weil ein Seminar Wissen verändert, aber noch kein Verhalten. Nach zwei Tagen Training kehrt die Teilnehmerin in denselben Kalender, dieselben Meetings und dieselben Gewohnheiten zurück — ohne tägliche Wiederholung fällt das Gelernte in sich zusammen. Deshalb setzt LeaderOS auf kurze tägliche Einheiten über 30 Tage statt auf ein einmaliges Event: wer täglich trainiert, überholt jeden, der einmal im Jahr ins Seminar geht."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://leader-os.de/fragen#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Start", "item": "https://leader-os.de/" },
+        { "@type": "ListItem", "position": 2, "name": "Fragen", "item": "https://leader-os.de/fragen" }
+      ]
+    }
+  ]
+}
+</script>
+</body>
+</html>
