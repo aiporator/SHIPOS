@@ -35,7 +35,26 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = join(__dirname, '..', 'public');
 
 const KEY = '57d353bdcebaa0a63677822fd59447f8';
-const HOST = 'leader-os.de';
+
+// Der Host, an den gemeldet wird. IndexNow verlangt, dass keyLocation
+// und alle gemeldeten URLs auf DEMSELBEN Host liegen — ein Redirect
+// dazwischen ist ein 403/422-Risiko.
+//
+// Aktuell ist in Vercel `www` die Primary-Domain: der Apex antwortet mit
+// 308 auf www. Unsere Sitemaps und Canonicals zeigen dagegen auf den
+// Apex. Solange das so ist, muss an den Host gemeldet werden, der
+// tatsächlich 200 liefert — sonst zeigt keyLocation ins Leere.
+// Deshalb ist der Host überschreibbar (INDEXNOW_HOST): der Workflow
+// ermittelt ihn, indem er dem Redirect der Key-Datei folgt. Nach dem
+// Domain-Flip auf den Apex ergibt dieselbe Logik automatisch
+// `leader-os.de` — an diesem Skript ist dann nichts zu ändern.
+//
+// Für die Discovery ist das unkritisch: IndexNow ist ein
+// "diese URL hat sich geändert"-Signal, keine Canonical-Aussage. Bing
+// crawlt die gemeldete URL und wertet das <link rel="canonical"> der
+// Seite selbst aus.
+const HOST = process.env.INDEXNOW_HOST || 'leader-os.de';
+const SITEMAP_HOST = 'leader-os.de';   // so stehen die URLs in den XML-Dateien
 const ENDPOINT = 'https://api.indexnow.org/IndexNow';
 // IndexNow akzeptiert max. 10.000 URLs pro Request.
 const BATCH_SIZE = 10000;
@@ -59,6 +78,11 @@ async function main() {
   } else {
     const lists = await Promise.all(SITEMAPS.map(urlsFromSitemap));
     urls = [...new Set(lists.flat())];
+  }
+
+  // Sitemap-URLs auf den Meldehost umschreiben (siehe HOST oben).
+  if (HOST !== SITEMAP_HOST) {
+    urls = urls.map((u) => u.replace(`https://${SITEMAP_HOST}`, `https://${HOST}`));
   }
 
   // Nur URLs des eigenen Hosts — IndexNow lehnt fremde Hosts ab (422).
