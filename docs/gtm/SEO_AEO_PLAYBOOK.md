@@ -69,9 +69,23 @@ also immer zuerst diese Frage stellen.
   ChatGPT-Search auf Bing sitzt, ist das der **schnellste AEO-Hebel**,
   den wir haben. Google nimmt an IndexNow nicht teil.
   Key: `frontend/public/57d353bdcebaa0a63677822fd59447f8.txt`
-  (öffentlich per Definition, kein Secret). Der Workflow prüft vorab, ob
-  die Key-Datei live erreichbar ist — sonst antwortet IndexNow mit 403.
-  Manuell: `node scripts/indexnow-submit.mjs --dry-run`.
+  (öffentlich per Definition, kein Secret — deshalb im `.gitleaks.toml`
+  gezielt per Regex allowlisted, nicht per Pfad).
+
+  **Host-Auflösung:** IndexNow verlangt, dass die Key-Datei und alle
+  gemeldeten URLs auf demselben Host liegen — ein Redirect dazwischen
+  ist ein 403/422-Risiko. Weil in Vercel derzeit `www` Primary ist und
+  der Apex mit 308 dorthin weiterleitet, ermittelt der Workflow den
+  tatsächlich ausliefernden Host (`curl -sSL` + `url_effective`) und
+  meldet an diesen. Nach dem Domain-Flip (§4) ergibt dieselbe Logik
+  automatisch wieder `leader-os.de`; am Skript ist dann nichts zu
+  ändern. Für die Discovery ist das unkritisch: IndexNow ist ein
+  "diese URL hat sich geändert"-Signal, keine Canonical-Aussage — Bing
+  crawlt die gemeldete URL und wertet ihr `<link rel="canonical">
+  selbst aus.
+
+  Manuell: `node scripts/indexnow-submit.mjs --dry-run`, Host per
+  `INDEXNOW_HOST=` überschreibbar.
 
 ### Zitierbarkeit (AEO)
 
@@ -137,7 +151,7 @@ also immer zuerst diese Frage stellen.
 
 | Aktion | Wo | Warum |
 | --- | --- | --- |
-| **Domain-Flip** | Vercel → Project → Domains: `leader-os.de` als Primary, `www` redirect | Behebt "Seite mit Weiterleitung" in GSC. **Größter offener Hebel.** |
+| **Domain-Flip** | Vercel → Project → Domains: `leader-os.de` als Primary, `www` redirect | Behebt "Seite mit Weiterleitung" in GSC. **Größter offener Hebel.** Solange er aussteht, meldet IndexNow an `www.leader-os.de`, während alle Canonicals auf den Apex zeigen — das funktioniert, ist aber ein unnötig gemischtes Signal. |
 | **Bing Webmaster Tools** | bing.com/webmasters | Domain verifizieren (Import aus GSC geht in einem Klick), Sitemap einreichen, IndexNow-Key sichtbar machen. Ohne Verifizierung sehen wir keine Bing-Daten |
 | **GSC "Validate Fix"** | Search Console | Nach dem Domain-Flip die betroffenen Reports neu prüfen lassen + Sitemap neu einreichen |
 | **`msvalidate.01`-Meta** | `frontend/public/index.html` | Nur nötig, wenn die Bing-Verifizierung nicht per GSC-Import läuft — Code kommt aus Bing Webmaster Tools |
