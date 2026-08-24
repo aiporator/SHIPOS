@@ -87,6 +87,7 @@ lead-nurture emails (`backend/services_email.py` + `/api/cron/lead-nurture`).
 
 | Doc | Why it stays at `docs/` root |
 | --- | --- |
+| [`LAUNCH_PLAN.md`](./LAUNCH_PLAN.md) | **Master-Plan bis zum Webinar 17.09.2026** — drei Arbeitsströme, Woche für Woche, Gate-Logik, Risiken. Verweist quer über gtm/, app/ und ops/ |
 | [`CHANGELOG.md`](./CHANGELOG.md) | Schema migration history — the PR template requires recording migrations here; path is load-bearing |
 
 `sql/` holds loose SQL helpers for reference. Real migrations go through

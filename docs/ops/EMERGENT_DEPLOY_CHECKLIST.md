@@ -16,7 +16,14 @@ diese Liste betrifft nur das FastAPI-Backend auf Emergent.
 | `JWT_SECRET` | HMAC-Token für One-Click-Unsubscribe (free-videos **und neue Nurture-Mails**) | Unsubscribe-Links funktionieren nicht |
 | `WEBINAR_JOIN_URL` | Ziel der Webinar-Reminder-Mails → auf `https://leader-os.de/webinar/live` setzen (Warteraum-Seite) | Reminder verlinken auf Fallback |
 | `SYNC_JWT_SECRET` | leader-check → leader-os Sync-Handoff | Endpoint antwortet 503 (fail-safe) |
+| `ELEVENLABS_API_KEY` | Sprachausgabe, Audio-Modus, "Zitat des Tages" | Alles stumm — sieht für Nutzer wie ein kaputtes Feature aus, nicht wie fehlende Konfiguration |
 | `MONGO_URL` + `DB_NAME` | Neue Collection `nurture_leads` entsteht automatisch beim ersten Lead — keine Migration nötig | Backend startet nicht |
+
+**Neu prüfbar:** `/api/system/health` meldet seit 08/2026 auch `tts`
+(ElevenLabs) und `email` (Resend). Ein fehlender Key ist dort in 5
+Sekunden sichtbar — vorher sah er wie ein Produktfehler aus (im MA-Test
+haben vier Tester unabhängig "Sprachausgabe geht nicht" gemeldet, obwohl
+nur der Key fehlte). **Nach jedem Deploy dort zuerst nachsehen.**
 
 Unverändert nötig (wie bisher): `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`,
 `SUPABASE_ANON_KEY`, `STRIPE_API_KEY`, `VOYAGE_API_KEY`,

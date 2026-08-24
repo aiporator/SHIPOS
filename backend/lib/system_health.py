@@ -53,6 +53,36 @@ def _stt_status() -> dict:
             "note": "Voice-Mode disabled — set OPENAI_API_KEY to enable"}
 
 
+def _tts_status() -> dict:
+    # Sprachausgabe (ElevenLabs). Wie STT `optional: True` — wer Voice
+    # bewusst aus lässt, soll kein rotes Dashboard bekommen. Es taucht
+    # aber sichtbar als DOWN auf, und genau darum geht es: im
+    # MA-Test 08/2026 haben vier Tester unabhängig "Sprachausgabe geht
+    # nicht" gemeldet, während der Health-Report das Subsystem gar nicht
+    # kannte. Ein fehlender Key sah aus wie ein Produktfehler.
+    if _present("ELEVENLABS_API_KEY"):
+        return {"status": "go", "provider": "elevenlabs",
+                "note": "Sprachausgabe aktiv"}
+    return {"status": "down", "provider": None,
+            "optional": True,
+            "note": "ELEVENLABS_API_KEY fehlt — Sprachausgabe und "
+                    "'Zitat des Tages' bleiben stumm"}
+
+
+def _email_status() -> dict:
+    # NICHT optional: ohne Resend überspringt services_email still jeden
+    # Versand (`is_enabled()`-Gate). Kein Fehler im Log, keine Mail beim
+    # Kunden — der komplette Lead-Nurture- und Webinar-Reminder-Funnel
+    # läuft ins Leere, ohne dass es jemand merkt.
+    if _present("RESEND_API_KEY"):
+        return {"status": "go", "provider": "resend",
+                "sender": os.environ.get("SENDER_EMAIL", "(SENDER_EMAIL nicht gesetzt)"),
+                "note": "Transaktions- und Funnel-Mails aktiv"}
+    return {"status": "down", "provider": None,
+            "note": "RESEND_API_KEY fehlt — Welcome-Mails, 7-Mail-Journey "
+                    "und Webinar-Reminder werden STILL übersprungen"}
+
+
 def _stripe_status() -> dict:
     key = os.environ.get("STRIPE_API_KEY") or ""
     if not key:
@@ -121,6 +151,8 @@ def collect() -> dict:
     subsystems = {
         "llm":        _llm_status(),
         "stt":        _stt_status(),
+        "tts":        _tts_status(),
+        "email":      _email_status(),
         "stripe":     _stripe_status(),
         "storage":    _storage_status(),
         "supabase":   _supabase_db_status(),
