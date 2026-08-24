@@ -101,9 +101,15 @@ also immer zuerst diese Frage stellen.
   eine Liste **dokumentierter Falschzitate** ("SEXI", "R = Repeat", "5
   Ebenen des Zuhörens"), damit Modelle die richtige Variante wählen.
 - **Entity-Graph in `public/index.html`**: Organization, Person (Wlad),
-  Course, WebSite+SearchAction, SoftwareApplication — verknüpft über
-  `@id`. Artikel-Prerender hängt `BlogPosting` + `BreadcrumbList` an
-  dieselben `@id`s.
+  Course, WebSite, SoftwareApplication — verknüpft über `@id`.
+  Artikel-Prerender hängt `BlogPosting` + `BreadcrumbList` an dieselben
+  `@id`s.
+  Die `SearchAction` (Sitelinks-Searchbox) wurde im August 2026
+  entfernt: sie zeigte auf `//search?q={search_term_string}`, eine Route,
+  die es nie gab — die Journal-Suche ist reiner Client-State und in
+  keiner URL abbildbar. Google hat das Template wörtlich gecrawlt, es
+  landete als eigener Eintrag in der GSC-Abdeckung. Google zeigt die
+  Sitelinks-Searchbox seit Ende 2024 ohnehin nicht mehr an.
 
 > **Achtung bei FAQ-Schema:** `public/index.html` ist die SPA-Shell und
 > wird auf **jeder** Route ausgeliefert. Seiten-spezifisches Schema
@@ -120,6 +126,7 @@ also immer zuerst diese Frage stellen.
 | *Seite mit Weiterleitung* | Vercel hat `www` als Primary-Domain → Apex leitet mit 308 um, während alle Canonicals auf den Apex zeigen | **Offen · User-Aktion:** in Vercel `leader-os.de` als Primary setzen, `www` → 308 auf Apex. Gleiches für leader-check.de. Danach in GSC "Fehlerbehebung validieren" |
 | *Gefunden – zurzeit nicht indexiert* | SPA-Shell lieferte auf jeder tiefen URL den Homepage-Canonical | ✅ gelöst durch Prerendering + statische Seiten |
 | Seite ist in keiner Sitemap und hat keinen internen Link | Orphan — Crawler findet sie nie | Sitemap-Eintrag **und** interner Link (z. B. Footer) |
+| Eine URL im Report, die es gar nicht gibt (`/search?q=%7B…%7D`) | Ein JSON-LD-Template wurde wörtlich gecrawlt — Schema versprach einen Endpunkt, den die App nicht hat | ✅ `SearchAction` entfernt. **Regel: kein Schema für Funktionen, die nicht existieren.** |
 
 ---
 
@@ -151,7 +158,7 @@ also immer zuerst diese Frage stellen.
 
 | Aktion | Wo | Warum |
 | --- | --- | --- |
-| **Domain-Flip** | Vercel → Project → Domains: `leader-os.de` als Primary, `www` redirect | Behebt "Seite mit Weiterleitung" in GSC. **Größter offener Hebel.** Solange er aussteht, meldet IndexNow an `www.leader-os.de`, während alle Canonicals auf den Apex zeigen — das funktioniert, ist aber ein unnötig gemischtes Signal. |
+| **Domain-Flip** ⚠️ | Vercel → Team `INHALE` → Projekt **`leaderos`** → Settings → Domains → bei **`leader-os.de`** "Set as Primary"; `www.leader-os.de` steht danach automatisch auf Redirect. Für `leader-check.de` genauso. | **Der einzige noch offene Hebel für die 80 GSC-Fehler "Seite mit Weiterleitung".** Entscheidung bestätigt (Aug 2026): **`leader-os.de` ohne www ist der kanonische Host.** Aktuell ist `www` Primary, der Apex antwortet mit 308 — während alle 153 Artikel-Canonicals, Sitemaps, `llms.txt`, JSON-LD-`@id`s, Mail- und Ads-URLs auf den Apex zeigen. Deshalb wird **nichts am Code migriert**: nach dem Flip lösen sich die Fehler beim nächsten Crawl von selbst auf, und IndexNow meldet automatisch wieder an den Apex. |
 | **Bing Webmaster Tools** | bing.com/webmasters | Domain verifizieren (Import aus GSC geht in einem Klick), Sitemap einreichen, IndexNow-Key sichtbar machen. Ohne Verifizierung sehen wir keine Bing-Daten |
 | **GSC "Validate Fix"** | Search Console | Nach dem Domain-Flip die betroffenen Reports neu prüfen lassen + Sitemap neu einreichen |
 | **`msvalidate.01`-Meta** | `frontend/public/index.html` | Nur nötig, wenn die Bing-Verifizierung nicht per GSC-Import läuft — Code kommt aus Bing Webmaster Tools |
