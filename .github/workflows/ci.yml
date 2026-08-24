@@ -57,3 +57,18 @@ jobs:
       # in backend/. That catches the failure mode this job is shaped to
       # catch (broken Python on push) without needing the private wheel.
       - run: python -m compileall -q backend
+
+  public-urls:
+    name: sitemap + JSON-LD verweisen nur auf existierende Seiten
+    runs-on: ubuntu-latest
+    # Kein yarn install nötig — das Skript nutzt ausschließlich node:-Builtins.
+    # Hintergrund: eine SearchAction im JSON-LD zeigte auf /search, eine Route,
+    # die es nie gab. Google crawlte das Template wörtlich und meldete die
+    # Phantom-URL in der Abdeckung. Siehe docs/gtm/SEO_AEO_PLAYBOOK.md §2.
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - run: node scripts/check-public-urls.mjs
+        working-directory: frontend
