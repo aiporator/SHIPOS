@@ -11,6 +11,7 @@ Allow: /fuehrung-beginnt-hier
 Allow: /journal
 Allow: /journal/
 Allow: /fragen
+Allow: /start
 Allow: /os
 Allow: /app
 Allow: /wladbot

@@ -51,6 +51,7 @@ lead-nurture emails (`backend/services_email.py` + `/api/cron/lead-nurture`).
 | [`app/SYSTEM_OVERVIEW.md`](./app/SYSTEM_OVERVIEW.md) | The whole system on one page |
 | [`app/APP_ARCHITECTURE.md`](./app/APP_ARCHITECTURE.md) | Frontend + backend architecture deep-dive |
 | [`app/SCHEMA.md`](./app/SCHEMA.md) | **Postgres schema** — tables, triggers, RPCs, `email_lower` contract |
+| [`app/FEEDBACK_BACKLOG.md`](./app/FEEDBACK_BACKLOG.md) | **MA-Feedback WladBot 3.0 · Triage + To-dos** (P0/P1/P2) + Sizing der Supabase-Migration |
 | [`app/DASHBOARD.md`](./app/DASHBOARD.md) | Supabase Studio dashboard views |
 | [`app/IDENTITY_ARCHITECTURE.md`](./app/IDENTITY_ARCHITECTURE.md) | Cross-platform identity (`email_lower`, meta_tags, PostHog stitching) |
 | [`app/DOMAIN_TOPOLOGY.md`](./app/DOMAIN_TOPOLOGY.md) | Host-based routing: leader-os.de vs leader-check.de |
@@ -86,6 +87,7 @@ lead-nurture emails (`backend/services_email.py` + `/api/cron/lead-nurture`).
 
 | Doc | Why it stays at `docs/` root |
 | --- | --- |
+| [`LAUNCH_PLAN.md`](./LAUNCH_PLAN.md) | **Master-Plan bis zum Webinar 17.09.2026** — drei Arbeitsströme, Woche für Woche, Gate-Logik, Risiken. Verweist quer über gtm/, app/ und ops/ |
 | [`CHANGELOG.md`](./CHANGELOG.md) | Schema migration history — the PR template requires recording migrations here; path is load-bearing |
 
 `sql/` holds loose SQL helpers for reference. Real migrations go through
