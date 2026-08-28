@@ -121,6 +121,51 @@ also immer zuerst diese Frage stellen.
 
 ## 2. Warum Seiten trotzdem nicht ranken · Diagnose
 
+### Der Befund vom 28.08.2026 · zwei Exporte, eine Ursache
+
+Zwei Search-Console-Exporte, nebeneinandergelegt:
+
+| Bucket | Artikel |
+| --- | --- |
+| „Seite mit Weiterleitung" | 80 |
+| „Discovered – zurzeit nicht indexiert" | 67 |
+| **Überschneidung** | **0** |
+| **Vereinigung** | **147 von 153 Artikeln = 96 % des Journals** |
+
+Jeder Artikel steckt in **genau einem** der beiden Buckets. Das ist kein
+Zufall, sondern derselbe Mechanismus in zwei Stadien:
+
+1. Sitemaps und Canonicals nennen den **Apex** `leader-os.de`.
+2. Der Apex antwortet mit **308** auf `www` (Vercel-Primary-Einstellung).
+3. Die 80 URLs, die Google **abgeholt** hat, landen als „Seite mit
+   Weiterleitung".
+4. Die 67, die Google **noch nicht abgeholt** hat, bleiben „Discovered –
+   nicht indexiert": Google investiert kein Crawl-Budget in einen Host,
+   von dem es weiß, dass er weiterleitet.
+
+**Damit ist praktisch das gesamte Journal wegen einer einzigen
+Domain-Einstellung unsichtbar.** Jede weitere SEO- oder AEO-Maßnahme —
+Prerendering, `/fragen`, IndexNow, strukturierte Daten — wirkt erst,
+wenn diese Tür offen ist. Sie sind gebaut und korrekt, sie kommen nur
+nicht zum Tragen.
+
+> **Nicht „Fehlerbehebung validieren" klicken, solange der Flip
+> aussteht.** Im Export vom 28.08. stehen bereits **2 URLs auf
+> `Failed`** — genau die beiden zuletzt gecrawlten (21./22.08.). Google
+> hat nachgesehen, den Redirect unverändert vorgefunden und die
+> Validierung abgelehnt. Die übrigen 80 stehen auf `Pending` und werden
+> demselben Weg folgen. Eine fehlgeschlagene Validierung muss danach
+> komplett neu gestartet werden — vorschnelles Validieren kostet also
+> Zeit, statt sie zu sparen.
+
+Seit August 2026 wacht `.github/workflows/canonical-host.yml` täglich
+über genau diese Annahme (`frontend/scripts/check-canonical-host.mjs`):
+Es fragt die kanonische URL mit `redirect: 'manual'` ab und schlägt an,
+sobald sie nicht direkt mit 200 antwortet. Vorher hat diese Frage
+schlicht niemand gestellt — deshalb konnte der Zustand monatelang
+bestehen, ohne dass ein Test rot wurde.
+
+
 | GSC-Meldung | Wahre Ursache | Fix |
 | --- | --- | --- |
 | *Seite mit Weiterleitung* | Vercel hat `www` als Primary-Domain → Apex leitet mit 308 um, während alle Canonicals auf den Apex zeigen | **Offen · User-Aktion:** in Vercel `leader-os.de` als Primary setzen, `www` → 308 auf Apex. Gleiches für leader-check.de. Danach in GSC "Fehlerbehebung validieren" |
