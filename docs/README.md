@@ -26,6 +26,7 @@ The single most important file is the **canon**: every public claim
 | [`gtm/CONTENT_SPECIMENS.md`](./gtm/CONTENT_SPECIMENS.md) | Design-specimen system for content assets |
 | [`gtm/ADS_90D.md`](./gtm/ADS_90D.md) | 90-day paid-ads plan |
 | [`gtm/RUNBOOK_ADS_CHANNELS.md`](./gtm/RUNBOOK_ADS_CHANNELS.md) | Channel-by-channel ads runbook |
+| [`gtm/CREATIVE_MATRIX.md`](./gtm/CREATIVE_MATRIX.md) | **Mengenplanung Creatives** — 24 Angles × 3 Formate × 3 Varianten = 200, Produktionswellen, Namensschema, wie viele überhaupt testbar sind |
 | [`gtm/GOOGLE_ADS_SETUP.md`](./gtm/GOOGLE_ADS_SETUP.md) | Google Ads technical setup (account, gtag, Consent Mode v2, conversion actions, UTM) |
 | [`gtm/SEO_KEYWORDS.md`](./gtm/SEO_KEYWORDS.md) | Keyword universe (DACH leadership/AI/communication) |
 | [`gtm/SEO_AEO_PLAYBOOK.md`](./gtm/SEO_AEO_PLAYBOOK.md) | **Technical visibility** — why CRA breaks AI crawlers, prerendering vs static pages, robots/IndexNow/Bing, rules for new pages |
