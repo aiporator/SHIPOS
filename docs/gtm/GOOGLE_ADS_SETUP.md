@@ -225,3 +225,26 @@ Ein-Zeilen-Flip.
 *Pflege: Bei Webinar-Terminwechsel den Termin oben UND
 `utm_campaign=webinar-…`-Werte in `backend/routes/webinar.py`
 (`WEBINAR_CAMPAIGN`) mitziehen.*
+
+---
+
+## 6. Creatives · wo sie liegen
+
+Alle Google-Assets kommen aus dem Ad-Studio unter `/ads`, nicht aus
+Google-Ads-Vorlagen:
+
+| Asset | Wo | Limit |
+| --- | --- | --- |
+| RSA-Headlines, Beschreibungen, Keywords, Ausschlüsse | `/ads` → Tab **Google Text-Assets** (Daten: `frontend/src/data/googleAdsAssets.js`) | 30 / 90 Zeichen, im Studio geprüft |
+| Demand Gen / Display / PMax Text | ebenda, Kampagne `DEMAND-GEN-WEBINAR` | Headlines 30, Long Headline 90, Beschreibungen 90 |
+| Sitelinks, Callouts, Snippets | ebenda, „Erweiterungen" | 25 / 35 / 25 |
+| Bild-Assets | `/ads` → Bild-Creatives → Plattform **google** (Variante `g`, wenig Text im Bild) | 1.91x1 = 1200×628, 1x1 = 1080 (Google-Minimum 300, Empfehlung 1200: Screenshot bei Zoom 111 %) |
+| Logo | `/icon-512.png` | quadratisch |
+
+Fünf Kampagnen sind vorbereitet: `SEARCH-WEBINAR`, `SEARCH-BRAND`
+(5 €/Tag, eigene Kampagne), `SEARCH-FEEDBACK` (Landing ist der
+Journal-Artikel, nicht die Webinar-Seite), `DEMAND-GEN-WEBINAR` und
+`SEARCH-FRAMEWORKS` (Evergreen ab W2). Phrase-Match, keine Broad-Match-
+Keywords vor 30 Conversions. Jede finale URL trägt `utm_source=google`,
+damit `webinar_leads.utm` den Kanal trennt.
+
