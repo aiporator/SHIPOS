@@ -5,6 +5,7 @@ import "@/index.css";
 import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
 import { maybeInitMetaPixel } from "@/lib/metaPixel";
+import { maybeInitLinkedIn } from "@/lib/linkedinInsight";
 import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
 // Leader-Check → LeaderOS handoff · runs SYNCHRONOUSLY before anything else.
@@ -126,9 +127,11 @@ if (analyticsConsented) {
   maybeInitClarity();
 }
 
-// Meta-Pixel: eigene Consent-Kategorie „Marketing", inert bis Pixel-ID
-// (lib/metaPixel.js). Prüft den Consent selbst, daher hier ohne Guard.
+// Ad-Pixel (Meta, LinkedIn): eigene Consent-Kategorie „Marketing", inert
+// bis zur echten ID (lib/metaPixel.js, lib/linkedinInsight.js). Beide
+// prüfen den Consent selbst, daher hier ohne Guard.
 maybeInitMetaPixel();
+maybeInitLinkedIn();
 
 if (typeof window !== "undefined") {
   window.addEventListener("lo:consent", (e) => {
@@ -137,7 +140,7 @@ if (typeof window !== "undefined") {
       maybeInitPostHog();
       maybeInitClarity();
     }
-    if (c.marketing) maybeInitMetaPixel();
+    if (c.marketing) { maybeInitMetaPixel(); maybeInitLinkedIn(); }
   });
 }
 

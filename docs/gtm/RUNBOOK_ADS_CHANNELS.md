@@ -91,7 +91,9 @@ DSGVO-konform — Banner erlaubt Marketing-Cookies, Pixel feuert.
 LinkedIn ist teuer (CPM 60–120 €), aber bei Demo/Beratung-Funnel
 kannst du deutlich höheren CPL akzeptieren weil der Deal größer ist.
 
-- LinkedIn Insight-Tag installieren (Pixel-Äquivalent).
+- LinkedIn Insight-Tag: **gebaut, inaktiv bis Partner-ID** —
+  `frontend/src/lib/linkedinInsight.js`, consent-gated. Scharfschalten:
+  `LINKEDIN_ADS_WEBINAR.md` §4.
 - Conversions: `Lead` (Email-Submit) und `Schedule` (Cal-Booking).
 - Audiences:
   - Job-Title-Liste: "Head of Engineering, VP Sales, CTO, …"
