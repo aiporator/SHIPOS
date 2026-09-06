@@ -132,14 +132,16 @@ export const AD_SERIES = [
     format: '1x1',
     platform: 'meta',
     palette: 'paper',
-    topText: '400 000 KUNDEN\n3 BESTSELLER',
-    titleText: '14 MIO\nVIEWS.',
-    bottomText: 'WLAD JACHTCHENKO · METHODIK · LIVE',
+    topText: '400.000+ KLIENTEN\nSEIT 2007',
+    titleText: '3× SPIEGEL-\nBESTSELLER.',
+    bottomText: 'WLAD JACHTCHENKO · 13 BÜCHER',
     cta: 'LEADER-OS.DE',
-    photo: stock('books-shelf', 1080, 1080),
+    photo: '/wlad/wlad-portrait.jpg',
     photoFit: 'cover',
+    // Nur Kanon-Zahlen (docs/gtm/WLAD_CANON.md). „14 Mio. Views" stand
+    // hier ohne Beleg und ist raus.
     caption:
-      '400 000 Kunden. 3 SPIEGEL-Bestseller. 14 Millionen Views. ' +
+      '400.000+ Klienten. 13 Bücher, drei davon SPIEGEL-Bestseller. ' +
       'Diese Methodik landet jetzt in deiner Tasche.',
   },
 
@@ -209,9 +211,10 @@ export const AD_SERIES = [
     cta: 'LEADER-OS.DE',
     photo: stock('whiteboard-talk', 1080, 1080),
     photoFit: 'cover',
+    // Definition wörtlich aus dem Kanon: R = Rebuttal, nicht Resolution.
     caption:
-      'SEXIER · Statement, Explanation, Example, Impact, Exception, ' +
-      'Resolution. Das Argumentations-Modell, das in jeder Verhandlung ' +
+      'SEXIER · Statement, Explanation, eXample, Impact, Explanation of ' +
+      'Impact, Rebuttal. Das Argumentations-Modell, das in jeder Verhandlung ' +
       'trägt. Eines von 11 Frameworks im LeaderOS.',
   },
   {
@@ -301,5 +304,191 @@ export const AD_SERIES = [
       'Unterschrift. Trägst du, oder lässt du.',
   },
 ];
+
+// ─── Welle 1 · Webinar 17.09.2026 · 8 Angles × 3 Formate ────────────
+//
+// Mengenplanung: docs/gtm/CREATIVE_MATRIX.md §3 (W1). Kampagnenstruktur,
+// Zielgruppen, Meta-Copy-Felder: docs/gtm/META_ADS_WEBINAR.md.
+//
+// Ein Angle = ein Inhalt in drei Formaten (Variante „a"). Varianten b/c
+// (andere Palette, anderer Hook) kommen erst, wenn ein Angle ≥ 50 Klicks
+// hat — vorher ist jede Entscheidung Rauschen.
+//
+// Foto: ausschließlich eigene Assets (Wlad-Porträt). Kein Stock in Paid.
+// Jede Zahl aus docs/gtm/WLAD_CANON.md. Keine erfundene Verknappung.
+//
+// Meta-Felder je Ad: `caption` = Primärtext · `headline` (≤ 40 Zeichen) ·
+// `description` (≤ 30 Zeichen) · `url` mit UTM (utm_term setzt das Ad-Set
+// über {{adset.name}}, siehe META_ADS_WEBINAR.md §1).
+
+const WEBINAR_CAMPAIGN = 'webinar-2026-09';
+const WLAD_PORTRAIT = '/wlad/wlad-portrait.jpg';
+const WEBINAR_FORMATS = ['1x1', '4x5', '9x16'];
+
+const utmUrl = (base, id) =>
+  `${base}${base.includes('?') ? '&' : '?'}utm_source=meta&utm_medium=paid_social` +
+  `&utm_campaign=${WEBINAR_CAMPAIGN}&utm_content=${id}`;
+
+const WEBINAR_ANGLES = [
+  // ── D03 · Das Angebot selbst · Quadrant: convert ──────────────────
+  {
+    key: 'D03', slug: 'webinar-live', quadrant: 'convert', palette: 'midnight',
+    topText: 'LIVE-WEBINAR\n17. SEPT.',
+    titleText: 'FÜHRE BESSER.\nJEDEN TAG.',
+    bottomText: 'DO 17.09. · 10 UHR · 0 €',
+    cta: 'PLATZ SICHERN',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'Live-Webinar mit Wlad Jachtchenko',
+    description: '17. Sept · 10 Uhr · 90 Min',
+    caption:
+      'Du weißt, wie gute Führung geht. Du kommst nur nicht dazu, sie zu leben.\n\n' +
+      'Am 17. September zeigt Wlad Jachtchenko (3× SPIEGEL-Bestseller, seit 2007 Coach ' +
+      'für über 400.000 Klienten) live, wie Führung täglich trainierbar wird: der ' +
+      'Charisma-Code, das Leadership-Betriebssystem und ein echter Live-Case aus der ' +
+      'Community — mit deinen Fragen im Q&A.\n\n' +
+      '90 Minuten. Kostenlos. Keine Aufzeichnung.',
+  },
+  // ── B01 · Der Seminar-Schmerz · Quadrant: educate → convert ───────
+  {
+    key: 'B01', slug: 'seminar-drei-wochen', quadrant: 'educate', palette: 'heat',
+    topText: 'DAS SEMINAR\nWAR GUT.',
+    titleText: 'DREI WOCHEN\nSPÄTER: NICHTS.',
+    bottomText: 'TRAINIEREN STATT WISSEN',
+    cta: 'LIVE DABEI',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'Seminare ändern Wissen. Nicht Verhalten.',
+    description: '17. Sept · live · kostenlos',
+    caption:
+      'Kennst du das? Das Führungsseminar war wirklich gut. Drei Wochen später ist ' +
+      'vom Feedback-Vorsatz nichts übrig außer den Folien.\n\n' +
+      'Das ist kein Charakterfehler. Wissen wird gelehrt, Verhalten wird trainiert — ' +
+      'und zweimal im Jahr ist kein Training.\n\n' +
+      'Im Live-Webinar am 17. September zeigt Wlad Jachtchenko, wie Führung in 15 ' +
+      'Minuten am Tag trainierbar wird. Kostenlos, live, mit Q&A.',
+  },
+  // ── A02 · Feedbackformel · Quadrant: educate ──────────────────────
+  {
+    key: 'A02', slug: 'feedbackformel', quadrant: 'educate', palette: 'spark',
+    topText: 'FEEDBACK\nOHNE DRAMA.',
+    titleText: 'BEOBACHTUNG.\nWIRKUNG.\nWUNSCH.',
+    bottomText: 'FEEDBACKFORMEL · 17.09. LIVE',
+    cta: 'LIVE DABEI',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'Drei Sätze für jedes schwierige Gespräch',
+    description: 'Wlads Feedbackformel · live',
+    caption:
+      'Nie „Du bist…". Immer „Ich habe beobachtet, dass…".\n\n' +
+      'Beobachtung + Wirkung + Wunsch — mehr braucht kein Kritikgespräch. Mehr macht ' +
+      'es kaputt. Das ist Wlads Feedbackformel, und sie ist eines der Frameworks, ' +
+      'die im Live-Webinar am 17. September an einem echten Fall durchgespielt werden.\n\n' +
+      '90 Minuten, kostenlos, keine Aufzeichnung.',
+  },
+  // ── A01 · SEXIER · Quadrant: educate ──────────────────────────────
+  {
+    key: 'A01', slug: 'sexier-modell', quadrant: 'educate', palette: 'rally',
+    topText: 'SECHS SCHRITTE.\nEIN ARGUMENT.',
+    titleText: 'STATEMENT.\nEXPLANATION.\nEXAMPLE.',
+    bottomText: 'SEXIER-MODELL · 17.09. LIVE',
+    cta: 'LIVE DABEI',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'SEXIER: sechs Schritte, ein Argument',
+    description: 'SEXIER · live · kostenlos',
+    caption:
+      'Statement. Explanation. eXample. Impact. Explanation of Impact. Rebuttal.\n\n' +
+      'Sechs Schritte, und ein Argument ist vollständig — mit Widerlegung der ' +
+      'Gegenargumente, bevor jemand sie ausspricht. Das SEXIER-Modell aus Wlads ' +
+      'SPIEGEL-Bestseller „Weiße Rhetorik".\n\n' +
+      'Live am 17. September, mit deinen Fragen. Kostenlos.',
+  },
+  // ── C02 · 400.000+ seit 2007 · Quadrant: convert ──────────────────
+  {
+    key: 'C02', slug: 'seit-2007', quadrant: 'convert', palette: 'midnight',
+    topText: 'SEIT 2007.\n400.000+ KLIENTEN.',
+    titleText: 'JETZT LIVE.\nMIT DEINEN FRAGEN.',
+    bottomText: 'DO 17.09. · 10 UHR · KOSTENLOS',
+    cta: 'PLATZ SICHERN',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'Wlad Jachtchenko · live am 17. September',
+    description: '90 Min · Q&A · live',
+    caption:
+      'Seit 2007 trainiert Wlad Jachtchenko Führungskräfte — über 400.000 Klienten, ' +
+      '13 Bücher, drei davon SPIEGEL-Bestseller.\n\n' +
+      'Am 17. September zeigt er zum ersten Mal live, wie seine komplette Methodik ' +
+      'als tägliches Trainingssystem funktioniert. Und beantwortet deine Fragen ' +
+      'persönlich.\n\n' +
+      'Kostenlos. Live. Keine Aufzeichnung.',
+  },
+  // ── C01 · 3× SPIEGEL · Quadrant: convert ──────────────────────────
+  {
+    key: 'C01', slug: 'spiegel-bestseller', quadrant: 'convert', palette: 'paper',
+    topText: '3× SPIEGEL-\nBESTSELLER.',
+    titleText: 'LIVE. 90 MIN.\nKOSTENLOS.',
+    bottomText: 'WLAD JACHTCHENKO · 17.09.',
+    cta: 'PLATZ SICHERN',
+    landing: 'https://leader-os.de/webinar',
+    headline: 'Der Autor von „Weiße Rhetorik" — live',
+    description: '17. Sept · 10 Uhr · kostenlos',
+    caption:
+      '„Weiße Rhetorik", „Dunkle Rhetorik", „Die 5 Rollen einer Führungskraft" — ' +
+      'die Methodik aus Wlads Büchern, live an einem echten Führungsfall ' +
+      'durchgearbeitet.\n\n' +
+      'Live-Webinar am 17. September, 10 Uhr, 90 Minuten. Kostenlos, ohne ' +
+      'Aufzeichnung, mit Q&A.',
+  },
+  // ── D01 · Leader-Check · Quadrant: educate/no budget → organic-first ─
+  {
+    key: 'D01', slug: 'leader-check', quadrant: 'educate', palette: 'blaze',
+    topText: 'ZEHN MINUTEN.\nKEIN LOGIN.',
+    titleText: 'WO STEHST DU\nALS FÜHRUNGSKRAFT?',
+    bottomText: 'LEADER-CHECK · 10 MIN · 0 €',
+    cta: 'CHECK STARTEN',
+    landing: 'https://leader-check.de/',
+    headline: 'Dein Führungsprofil in 10 Minuten',
+    description: 'Kostenlos · ohne Login',
+    caption:
+      'KI-Readiness, Rhetorik, emotionale Intelligenz — drei Dimensionen, ' +
+      'zehn Minuten, kein Login.\n\n' +
+      'Der Leader-Check zeigt dir, wo du als Führungskraft stehst und woran du ' +
+      'als Erstes arbeiten solltest. Kostenlos, nach Wlad Jachtchenkos Methodik.',
+  },
+  // ── D02 · 30-Tage-Challenge · Quadrant: convert (Warm) ────────────
+  {
+    key: 'D02', slug: 'dreissig-tage', quadrant: 'convert', palette: 'rally',
+    topText: 'ZWEIMAL IM JAHR\nIST KEIN TRAINING.',
+    titleText: 'TÄGLICH.\n15 MINUTEN.',
+    bottomText: 'CHALLENGE · 14 TAGE KOSTENLOS',
+    cta: 'LEADER-OS.DE',
+    landing: 'https://leader-os.de/',
+    headline: 'Führung trainieren wie Fitness',
+    description: '14 Tage kostenlos · ohne Karte',
+    caption:
+      'Führung ist Fähigkeit. Fähigkeit ist trainierbar.\n\n' +
+      'Die 30-Tage-Challenge macht aus Wlads Methodik eine tägliche Routine: ' +
+      '15 Minuten, ein KI-Coach, der seine Bücher kennt, Simulationen echter ' +
+      'Führungssituationen, Feedback.\n\n' +
+      '14 Tage kostenlos, ohne Karte, jederzeit kündbar.',
+  },
+];
+
+export const WEBINAR_ADS = WEBINAR_ANGLES.flatMap(({ key, slug, landing, ...angle }) =>
+  WEBINAR_FORMATS.map((format) => {
+    const id = `AD-${key}-${format}-a`;
+    return {
+      ...angle,
+      id,
+      slug: `${slug}-${format}`,
+      format,
+      platform: format === '9x16' ? 'stories' : 'meta',
+      campaign: WEBINAR_CAMPAIGN,
+      photo: WLAD_PORTRAIT,
+      photoFit: 'cover',
+      url: utmUrl(landing, id),
+    };
+  }),
+);
+
+AD_SERIES.push(...WEBINAR_ADS);
+
+export const AD_CAMPAIGNS = ['evergreen', WEBINAR_CAMPAIGN];
 
 export const AD_BY_SLUG = Object.fromEntries(AD_SERIES.map((a) => [a.slug, a]));

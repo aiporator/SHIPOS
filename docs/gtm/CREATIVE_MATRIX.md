@@ -4,8 +4,10 @@
 > erfinden. Ergänzt `CONTENT_ADS.md` (Design-DNA, Formate, Wording-Regeln)
 > und `ADS_90D.md` (Funnel-Storys). Hier steht die **Mengenplanung**.
 >
-> Stand 05.09.2026 · Bestand: 7 Creatives in
-> `frontend/src/data/contentAds.js` + 12 Social-Karten unter `/social`.
+> Stand 06.09.2026 · Bestand: 13 Evergreen- + **24 Webinar-Creatives (W1
+> komplett)** in `frontend/src/data/contentAds.js` (Ad-Studio `/ads`,
+> Filter Kampagne) + 12 Social-Karten unter `/social`. Kampagnenstruktur
+> und Copy: `META_ADS_WEBINAR.md`.
 
 ---
 

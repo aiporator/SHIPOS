@@ -13,6 +13,7 @@ import { isValidEmail } from '../features/newsletter/lib/newsletterClient';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 import { WladMark } from '../components/brand/WladMark';
 import { CinematicHero } from '../components/webinar/CinematicHero';
+import { trackMeta, metaEventId } from '../lib/metaPixel';
 
 /**
  * WebinarPage · /webinar · Hormozi ascension funnel, motion-first build.
@@ -140,6 +141,22 @@ const track = (event, props = {}) => {
   if (typeof window !== 'undefined' && window.posthog?.capture) {
     try { window.posthog.capture(event, { surface: 'leader-os', funnel: 'webinar', ...props }); } catch {}
   }
+};
+
+/** UTM-Parameter der Anzeige: beim ersten Aufruf aus der URL gemerkt, damit
+ * sie auch nach Scrollen/Navigieren im SPA noch am Lead hängen. Landet in
+ * `webinar_leads.utm` (routes/webinar.py) — die Grundlage für CPL pro Ad. */
+const UTM_KEYS = ['source', 'medium', 'campaign', 'term', 'content'];
+const UTM_STORE = 'lo_webinar_utm';
+const captureUtm = () => {
+  try {
+    const q = new URLSearchParams(window.location.search);
+    const fresh = Object.fromEntries(UTM_KEYS.map((k) => [k, (q.get(`utm_${k}`) || '').slice(0, 120)]));
+    if (Object.values(fresh).some(Boolean)) sessionStorage.setItem(UTM_STORE, JSON.stringify(fresh));
+  } catch {}
+};
+const readUtm = () => {
+  try { return JSON.parse(sessionStorage.getItem(UTM_STORE) || 'null'); } catch { return null; }
 };
 
 const useCountdown = (target) => {
@@ -334,6 +351,8 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
     if (!valid) { setState('invalid'); return; }
     setState('loading');
     track('webinar_register_submit', { form: idSuffix || 'default' });
+    // Eine ID für Browser-Pixel UND Conversions API → Meta zählt den Lead einmal.
+    const eventId = metaEventId();
     try {
       const res = await fetch('/api/webinar/register', {
         method: 'POST',
@@ -341,6 +360,8 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
         body: JSON.stringify({
           email,
           source: 'webinar-lp',
+          utm: readUtm(),
+          meta_event_id: eventId,
           referrer: typeof document !== 'undefined' ? document.referrer || null : null,
           landing_path: typeof window !== 'undefined' ? window.location.pathname : null,
         }),
@@ -349,6 +370,7 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
       const ok = res.ok && data?.ok;
       track('webinar_register_result', { ok });
       if (ok) {
+        trackMeta('Lead', { content_name: 'webinar-2026-09-17', content_category: 'webinar' }, eventId);
         navigate(`/webinar/danke?email=${encodeURIComponent(email)}`);
         return;
       }
@@ -600,7 +622,9 @@ export default function WebinarPage() {
     const root = document.documentElement;
     const wasDark = root.classList.contains('dark');
     root.classList.remove('dark');
+    captureUtm();
     track('webinar_view');
+    trackMeta('ViewContent', { content_name: 'webinar-2026-09-17', content_category: 'webinar' });
 
     const restoreMeta = applyPageMeta({
       title: 'Kostenloses Live-Webinar · Trainiere Führung. Nicht nur Wissen. · LeaderOS',

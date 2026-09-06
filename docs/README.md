@@ -28,6 +28,7 @@ The single most important file is the **canon**: every public claim
 | [`gtm/RUNBOOK_ADS_CHANNELS.md`](./gtm/RUNBOOK_ADS_CHANNELS.md) | Channel-by-channel ads runbook |
 | [`gtm/CREATIVE_MATRIX.md`](./gtm/CREATIVE_MATRIX.md) | **Mengenplanung Creatives** — 24 Angles × 3 Formate × 3 Varianten = 200, Produktionswellen, Namensschema, wie viele überhaupt testbar sind |
 | [`gtm/GOOGLE_ADS_SETUP.md`](./gtm/GOOGLE_ADS_SETUP.md) | Google Ads technical setup (account, gtag, Consent Mode v2, conversion actions, UTM) |
+| [`gtm/META_ADS_WEBINAR.md`](./gtm/META_ADS_WEBINAR.md) | **Meta Ads Launch-Paket Webinar 17.09.** — Matrix educate/convert übersetzt, Kampagnenstruktur bei 30 €/Tag, 24 Creatives mit Copy, Pixel + Conversions API, Erwartungswerte |
 | [`gtm/SEO_KEYWORDS.md`](./gtm/SEO_KEYWORDS.md) | Keyword universe (DACH leadership/AI/communication) |
 | [`gtm/SEO_AEO_PLAYBOOK.md`](./gtm/SEO_AEO_PLAYBOOK.md) | **Technical visibility** — why CRA breaks AI crawlers, prerendering vs static pages, robots/IndexNow/Bing, rules for new pages |
 | [`gtm/GROWTH_LOOP.md`](./gtm/GROWTH_LOOP.md) | The growth loop: check → content → funnel → referral |

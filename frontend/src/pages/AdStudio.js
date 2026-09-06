@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AdSpecimen } from '../components/ads/AdSpecimen';
-import { AD_SERIES, AD_PALETTES } from '../data/contentAds';
+import { AD_SERIES, AD_PALETTES, AD_CAMPAIGNS } from '../data/contentAds';
 
 /**
  * AdStudio · internal Paid-Ad-Studio bei /ads.
@@ -18,6 +18,7 @@ import { AD_SERIES, AD_PALETTES } from '../data/contentAds';
 export default function AdStudio() {
   const [format, setFormat] = useState('all');
   const [palette, setPalette] = useState('all');
+  const [campaign, setCampaign] = useState('all');
   const [nativeId, setNativeId] = useState(null);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function AdStudio() {
   const ads = AD_SERIES.filter((a) => {
     if (format !== 'all' && a.format !== format) return false;
     if (palette !== 'all' && a.palette !== palette) return false;
+    if (campaign !== 'all' && (a.campaign || 'evergreen') !== campaign) return false;
     return true;
   });
 
@@ -66,6 +68,20 @@ export default function AdStudio() {
                 onClick={() => setFormat(k)}
                 className={`px-2.5 py-1.5 border transition-colors ${
                   format === k
+                    ? 'bg-black text-white border-black'
+                    : 'border-black/20 text-black/60 hover:border-black/60 hover:text-black'
+                }`}
+              >
+                {k}
+              </button>
+            ))}
+            <span className="text-black/45 mr-1 ml-2">▸ KAMPAGNE</span>
+            {['all', ...AD_CAMPAIGNS].map((k) => (
+              <button
+                key={k}
+                onClick={() => setCampaign(k)}
+                className={`px-2.5 py-1.5 border transition-colors ${
+                  campaign === k
                     ? 'bg-black text-white border-black'
                     : 'border-black/20 text-black/60 hover:border-black/60 hover:text-black'
                 }`}
@@ -141,12 +157,30 @@ export default function AdStudio() {
                 <pre className="mt-3 text-[12.5px] leading-[1.55] whitespace-pre-wrap font-sans text-black/80 bg-[#FAFAF7] p-3 border border-black/[0.06]">
                   {ad.caption}
                 </pre>
-                <button
-                  onClick={() => navigator.clipboard?.writeText(ad.caption)}
-                  className="mt-2 text-[10px] font-bold uppercase tracking-[0.22em] text-black/55 hover:text-black font-mono"
-                >
-                  ▸ Caption kopieren
-                </button>
+                {/* Meta-Felder · Headline ≤ 40, Beschreibung ≤ 30 Zeichen, URL mit UTM */}
+                {(ad.headline || ad.url) && (
+                  <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[11.5px] leading-[1.5] text-black/75">
+                    {ad.headline && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Headline</dt><dd>{ad.headline} <span className="text-black/35">({ad.headline.length})</span></dd></>}
+                    {ad.description && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Beschr.</dt><dd>{ad.description} <span className="text-black/35">({ad.description.length})</span></dd></>}
+                    {ad.url && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">URL</dt><dd className="break-all font-mono text-[10.5px]">{ad.url}</dd></>}
+                  </dl>
+                )}
+                <div className="mt-2 flex flex-wrap gap-4">
+                  <button
+                    onClick={() => navigator.clipboard?.writeText(ad.caption)}
+                    className="text-[10px] font-bold uppercase tracking-[0.22em] text-black/55 hover:text-black font-mono"
+                  >
+                    ▸ Primärtext kopieren
+                  </button>
+                  {ad.url && (
+                    <button
+                      onClick={() => navigator.clipboard?.writeText(ad.url)}
+                      className="text-[10px] font-bold uppercase tracking-[0.22em] text-black/55 hover:text-black font-mono"
+                    >
+                      ▸ URL kopieren
+                    </button>
+                  )}
+                </div>
               </details>
             </article>
           ))}

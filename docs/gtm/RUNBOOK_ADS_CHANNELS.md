@@ -23,9 +23,11 @@ eigene UTM-Konvention. Nichts mischen.
 - Business-Manager (`business.facebook.com`) angelegt.
 - Asset: `leader-os.de` als Domain verifiziert (DNS-TXT-Record oder
   Meta-Tag im `<head>` von `frontend/public/index.html`).
-- Meta-Pixel installiert. Status: **noch nicht im Code**. Wenn ihr
-  bereit seid: ich kann das Pixel + Conversions-API in einem
-  Cookie-Consent-Hook einbauen.
+- Meta-Pixel installiert. Status: **gebaut, inaktiv bis Pixel-ID** —
+  `frontend/src/lib/metaPixel.js` (consent-gated über die Kategorie
+  „Marketing") + Conversions API in `backend/routes/webinar.py`
+  (Env `META_PIXEL_ID`, `META_CAPI_TOKEN`). Scharfschalten:
+  `META_ADS_WEBINAR.md` §4.
 - Wlad-Profil und LeaderOS-Page sind beide im Business-Manager.
 
 ### Conversions tracken
