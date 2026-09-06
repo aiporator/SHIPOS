@@ -63,7 +63,7 @@ const AGENDA = [
     ],
   },
   {
-    day: 'TAG 2 · SO 21.08.',
+    day: 'TAG 2 · FR 18.09.',
     title: 'Die Tools & Techniken, um jede Situation zu meistern.',
     points: [
       'Zeitmangel bekämpfen · Prioritäten-Matrix & Energie-Management',
@@ -233,7 +233,7 @@ export default function EventPage() {
     const restoreMeta = applyPageMeta({
       title: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko · 17.09.2026',
       description:
-        'Kostenloses Live-Event am 20.–21.08.2026 mit Europas führendem Leadership-Coach ' +
+        'Kostenloses Live-Event am 17.–18.09.2026 mit Europas führendem Leadership-Coach ' +
         'Wlad Jachtchenko. In 2 Tagen zur charismatischen Führungspersönlichkeit · ' +
         'natürliche Autorität, weniger arbeiten, mehr bewirken. Jetzt gratis anmelden.',
       url: 'https://leader-os.de/event',
@@ -248,7 +248,7 @@ export default function EventPage() {
       '@type': 'Event',
       name: 'LeaderOS LIVE · Das Leadership-Event mit Wlad Jachtchenko',
       startDate: '2026-09-17T10:00:00+02:00',
-      endDate: '2026-08-21T16:00:00+02:00',
+      endDate: '2026-09-18T16:00:00+02:00',
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
       eventStatus: 'https://schema.org/EventScheduled',
       location: {
@@ -282,7 +282,7 @@ export default function EventPage() {
     scrollToSignup.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const dateLine = useMemo(() => 'SA 20. – SO 21. AUGUST 2026 · ONLINE · 10 – 16 UHR', []);
+  const dateLine = useMemo(() => 'DO 17. – FR 18. SEPTEMBER 2026 · ONLINE · 10 – 16 UHR', []);
 
   return (
     <div className="bg-background text-foreground min-h-screen antialiased" data-testid="event-page">
@@ -537,7 +537,7 @@ export default function EventPage() {
             Jetzt kostenlos anmelden <ArrowUpRight size={16} />
           </button>
           <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.2em] text-foreground/45">
-            20. – 21. August 2026 · online · live · keine Aufzeichnung
+            17. – 18. September 2026 · online · live · keine Aufzeichnung
           </p>
         </section>
       </main>

@@ -869,3 +869,18 @@ html {
   background-size: 4px 4px, 11px 11px;
   background-position: 0 0, 2px 2px;
 }
+
+/* ── CinematicHero (/webinar) · Vorlage-Keyframes, fill-mode both,
+   cubic-bezier(0.22,1,0.36,1). Elemente tragen die Klasse .ze; unter
+   prefers-reduced-motion werden sie sofort in den Endzustand gesetzt. */
+@keyframes zeRise       { from { opacity: 0; transform: translateY(110%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zeFadeUp     { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zeFadeDown   { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zeCardReveal { from { opacity: 0; transform: translateY(34px) scale(0.965); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes zeBloom      { 0% { opacity: 0; transform: scale(0.2) rotate(-90deg); } 60% { opacity: 1; transform: scale(1.12) rotate(8deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
+@keyframes zePillPop    { 0% { opacity: 0; transform: translateY(14px) scale(0.85); } 65% { opacity: 1; transform: translateY(-2px) scale(1.03); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes zeArrowDrop  { 0% { opacity: 0; transform: translateY(-10px); } 55% { opacity: 1; transform: translateY(3px); } 100% { opacity: 1; transform: translateY(0); } }
+.ze { animation-fill-mode: both; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .ze { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
