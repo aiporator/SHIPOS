@@ -642,7 +642,7 @@ export default function WebinarPage() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-[1100px] mx-auto px-5 md:px-10 pt-6 flex items-center justify-between"
+        className="max-w-[1100px] mx-auto px-5 md:px-10 pt-5 pb-4 md:pt-6 md:pb-0 flex items-center justify-between"
       >
         <Link to="/" className="flex items-center gap-3" aria-label="LeaderOS Startseite">
           <WladMark size={34} />
@@ -653,10 +653,12 @@ export default function WebinarPage() {
         <motion.span
           animate={{ opacity: [0.65, 1, 0.65] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          className="inline-flex items-center gap-2 rounded-full bg-[#BFFF00]/25 px-3.5 py-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#111111]"
+          className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#BFFF00]/25 px-3.5 py-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#111111]"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#111111] inline-block" />
-          Live-Webinar · kostenlos
+          {/* Mobil passt neben das Logo nur die Kurzform, sonst bricht die Pille. */}
+          <span className="sm:hidden">Live · kostenlos</span>
+          <span className="hidden sm:inline">Live-Webinar · kostenlos</span>
         </motion.span>
       </motion.header>
 
@@ -664,8 +666,8 @@ export default function WebinarPage() {
         {/* ── HOOK · headline → sub → CTA → trust → product ────────────── */}
         {/* ── HERO · zwei iPhone-Screens auf kinematischem Verlauf ──────
             Desktop: Bühne mit Auto-Scaling, Formular-Panel darunter.
-            Mobil: keine Rahmen — Screen 1 → Formular → Screen 2, damit
-            der Hook eine Wischbewegung vom Formular entfernt ist.
+            Mobil: ein Vollbild-Screen mit Termin, Dauer, 0 € und CTA im
+            ersten Viewport, Formular direkt darunter.
             Siehe components/webinar/CinematicHero.js. */}
         <CinematicHero
           onCta={scrollToForm}

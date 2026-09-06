@@ -884,3 +884,13 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .ze { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* Webinar-Hero mobil: auf kurzen Displays (iPhone SE, 667 px) Headline und
+   Bild-Abstand an der Viewport-Höhe deckeln, damit der CTA im ersten
+   Viewport bleibt. Fallback ohne svh: nur Breiten-Skalierung. */
+.ze-mobile-h1 { font-size: clamp(54px, 17.5vw, 78px); }
+.ze-mobile-air { flex: 1; min-height: 80px; }
+@supports (height: 1svh) {
+  .ze-mobile-h1 { font-size: clamp(54px, min(17.5vw, 9.5svh), 78px); }
+  .ze-mobile-air { min-height: clamp(80px, 12svh, 140px); }
+}

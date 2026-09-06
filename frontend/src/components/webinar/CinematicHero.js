@@ -15,9 +15,14 @@ import { WladMark } from '../brand/WladMark';
  * 370-px-Geräte samt 70-px-Lücke sind 810 px breit; auf einem 390-px-
  * Display würde die Bühne auf 0,43 skaliert — aus 13,5-px-Fließtext werden
  * 6 px, aus dem CTA ein Fingernagel. Ein Handy im Handy ist auf dem Handy
- * kein Design, sondern ein Hindernis. Deshalb lösen sich beide Screens
- * mobil in native, volle Panels auf, und der Formular-Slot rückt zwischen
- * Screen 1 und Screen 2 — eine Wischbewegung vom Hook zum Formular.
+ * kein Design, sondern ein Hindernis.
+ *
+ * Mobil gibt es deshalb genau EINEN Screen (MobileHero): Wlad als
+ * Vollbild-Video, die Headline ins Bild gebrannt, und im ersten Viewport
+ * alles, was eine Anzeige verspricht — Termin, Dauer, 0 €, ein CTA in
+ * Daumenbreite, Beleg-Zeile. Direkt darunter das Formular. Kein zweiter
+ * Screen, der die Headline wiederholt: Wer auf dem Handy dreimal dieselbe
+ * Zeile liest, hat noch nicht erfahren, wann das Webinar ist.
  *
  * Inhalte statt Platzhalter: kein „Bali Exclusive", kein „Zenith Escapes".
  * Logo ist die WladMark, jede Zahl aus docs/gtm/WLAD_CANON.md.
@@ -156,19 +161,12 @@ const IOSDevice = ({ dark = false, children }) => (
 
 const HEADLINE = ['Führe', 'besser.', 'Jeden Tag.'];
 
-const OfferScreen = ({ framed, onCta }) => (
-  <div
-    style={{
-      display: 'flex', flexDirection: 'column', background: '#f4f4f4',
-      height: framed ? '100%' : undefined, minHeight: framed ? undefined : '100svh',
-      padding: framed ? '66px 14px 14px' : '36px 14px 20px',
-    }}
-  >
+const OfferScreen = ({ onCta }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', background: '#f4f4f4', height: '100%', padding: '66px 14px 14px' }}>
     <h1
       style={{
         margin: 0, textAlign: 'center', textTransform: 'uppercase', color: '#2c2c2c',
-        fontFamily: ANTON, fontWeight: 900, letterSpacing: 0.5, lineHeight: 0.94,
-        fontSize: framed ? 69 : 'clamp(52px, 16vw, 69px)',
+        fontFamily: ANTON, fontWeight: 900, letterSpacing: 0.5, lineHeight: 0.94, fontSize: 69,
       }}
     >
       {HEADLINE.map((line, i) => (
@@ -184,7 +182,7 @@ const OfferScreen = ({ framed, onCta }) => (
       className="ze"
       style={{
         position: 'relative', flex: 1, borderRadius: 26, overflow: 'hidden', margin: '14px 8px 0',
-        minHeight: framed ? 0 : 420, background: '#2b3a2a',
+        minHeight: 0, background: '#2b3a2a',
         ...ze('zeCardReveal', 1.1, 0.45),
       }}
     >
@@ -268,13 +266,8 @@ const Stat = ({ label, value, delay, style }) => (
   </div>
 );
 
-const DetailScreen = ({ framed }) => (
-  <div
-    style={{
-      position: 'relative', overflow: 'hidden', background: '#000',
-      height: framed ? '100%' : undefined, minHeight: framed ? undefined : '100svh',
-    }}
-  >
+const DetailScreen = () => (
+  <div style={{ position: 'relative', overflow: 'hidden', background: '#000', height: '100%' }}>
     <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden>
       <filter id="ze-grade" colorInterpolationFilters="sRGB">
         <feColorMatrix
@@ -288,10 +281,7 @@ const DetailScreen = ({ framed }) => (
 
     <div aria-hidden style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '22%', background: 'linear-gradient(to bottom, rgba(8,12,16,0.30), transparent)' }} />
 
-    {/* Mobil nur jede zweite Schicht: sechs Vollbild-backdrop-filter über
-        Video ruckeln auf Mittelklasse-Android. Die Progression bleibt
-        erhalten (1.5 → 5 → 9 px), der Look ist praktisch identisch. */}
-    {(framed ? BLUR_LAYERS : BLUR_LAYERS.filter((_, i) => i % 2 === 1)).map(([blur, r0, r1]) => (
+    {BLUR_LAYERS.map(([blur, r0, r1]) => (
       <div
         key={blur}
         aria-hidden
@@ -315,30 +305,22 @@ const DetailScreen = ({ framed }) => (
       }}
     />
 
-    <div
-      style={{
-        position: framed ? 'absolute' : 'relative', inset: framed ? 0 : undefined,
-        minHeight: framed ? undefined : '100svh',
-        display: 'flex', flexDirection: 'column', padding: framed ? '64px 24px 48px' : '40px 24px 44px',
-      }}
-    >
-      {framed && (
-        <div className="ze" aria-hidden style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', ...ze('zeFadeDown', 0.7, 0.25) }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(90deg)' }}>
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-          <span style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-            <i style={{ display: 'block', width: 18, height: 2, background: '#fff' }} />
-            <i style={{ display: 'block', width: 18, height: 2, background: '#fff' }} />
-          </span>
-        </div>
-      )}
+    <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', padding: '64px 24px 48px' }}>
+      <div className="ze" aria-hidden style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', ...ze('zeFadeDown', 0.7, 0.25) }}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: 'rotate(90deg)' }}>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+        <span style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          <i style={{ display: 'block', width: 18, height: 2, background: '#fff' }} />
+          <i style={{ display: 'block', width: 18, height: 2, background: '#fff' }} />
+        </span>
+      </div>
 
-      <div style={{ textAlign: 'center', marginTop: framed ? 46 : 8 }}>
+      <div style={{ textAlign: 'center', marginTop: 46 }}>
         <h2
           style={{
             margin: 0, color: '#fff', textTransform: 'uppercase', fontFamily: ANTON, fontWeight: 900,
-            fontSize: framed ? 52 : 'clamp(44px, 13.5vw, 52px)', lineHeight: 1.0, letterSpacing: 0.5,
+            fontSize: 52, lineHeight: 1.0, letterSpacing: 0.5,
             textShadow: '0 2px 18px rgba(0,0,0,0.35)',
           }}
         >
@@ -409,12 +391,140 @@ const Stage = ({ onCta }) => {
           transform: `scale(${scale})`, transformOrigin: 'top center',
         }}
       >
-        <IOSDevice><OfferScreen framed onCta={onCta} /></IOSDevice>
-        <IOSDevice dark><DetailScreen framed /></IOSDevice>
+        <IOSDevice><OfferScreen onCta={onCta} /></IOSDevice>
+        <IOSDevice dark><DetailScreen /></IOSDevice>
       </div>
     </div>
   );
 };
+
+/* ── Mobil · ein Screen, alles im ersten Viewport ─────────────────────── */
+
+const MONO = 'ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace';
+const LIME = '#BFFF00';
+const INK = '#0A0A0A';
+
+const Bib = ({ children, style }) => (
+  <span style={{ fontFamily: MONO, fontSize: 9.5, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', ...style }}>
+    {children}
+  </span>
+);
+
+const MOBILE_FACTS = [
+  ['Termin', '17. SEPT'],
+  ['Dauer', '90 MIN'],
+  ['Teilnahme', '0 €'],
+];
+
+const MobileHero = ({ onCta }) => (
+  <div
+    data-testid="webinar-mobile-hero"
+    style={{
+      position: 'relative', overflow: 'hidden', background: INK, color: '#fff',
+      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      // Header darüber ist ~64 px; der Hero füllt den Rest des ersten Viewports.
+      minHeight: 'max(600px, calc(100svh - 64px))',
+    }}
+  >
+    {/* Bild: Wlad, Gesicht im oberen Drittel, Kopie brennt unten ins Bild. */}
+    <SafeVideo src={V_DETAIL} ariaHidden style={{ objectPosition: '50% 18%', filter: 'saturate(0.85) contrast(1.05)' }} />
+    <div
+      aria-hidden
+      style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background:
+          'linear-gradient(to top, #0A0A0A 0%, rgba(10,10,10,0.94) 24%, rgba(10,10,10,0.62) 46%, rgba(10,10,10,0.08) 70%, transparent 100%), ' +
+          'linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, transparent 28%)',
+      }}
+    />
+
+    {/* Kopfzeile im Fluss, nicht absolut: auf 667-px-Displays wächst der
+        Hero dann einfach, statt dass die Kopie in die Kopfzeile läuft. */}
+    <div style={{ position: 'relative', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="ze" style={ze('zeBloom', 0.8, 0.1)}><WladMark size={26} /></div>
+      <div className="ze" style={{ display: 'flex', alignItems: 'center', gap: 8, ...ze('zeFadeDown', 0.7, 0.2) }}>
+        <span aria-hidden style={{ width: 6, height: 6, borderRadius: 999, background: LIME, boxShadow: `0 0 0 3px rgba(191,255,0,0.25)` }} />
+        <Bib style={{ color: 'rgba(255,255,255,0.85)' }}>10:00 Uhr · Online</Bib>
+      </div>
+    </div>
+
+    {/* Luft fürs Gesicht: 80–140 px Bild zwischen Kopfzeile und Kopie (.ze-mobile-air, index.css). */}
+    <div aria-hidden className="ze-mobile-air" />
+
+    <div style={{ position: 'relative', padding: '0 20px 20px' }}>
+      <p className="ze" style={{ margin: '0 0 12px', ...ze('zeFadeUp', 0.8, 0.15) }}>
+        <Bib style={{ color: LIME }}>Kostenlos · Live · Keine Aufzeichnung</Bib>
+      </p>
+
+      <h1
+        className="ze-mobile-h1"
+        style={{
+          margin: 0, textTransform: 'uppercase', fontFamily: ANTON, fontWeight: 900,
+          lineHeight: 0.9, letterSpacing: 0.5, color: '#fff',
+          textShadow: '0 2px 24px rgba(0,0,0,0.45)',
+        }}
+      >
+        {[['Führe'], ['besser.'], ['Jeden Tag', '.']].map(([line, dot], i) => (
+          <span key={line} style={{ display: 'block', overflow: 'clip', overflowClipMargin: '0.14em' }}>
+            <span className="ze" style={{ display: 'block', ...ze('zeRise', 0.9, 0.22 + i * 0.11) }}>
+              {line}{dot && <span style={{ color: LIME }}>{dot}</span>}
+            </span>
+          </span>
+        ))}
+      </h1>
+
+      <p
+        className="ze"
+        style={{
+          margin: '12px 0 0', maxWidth: 360, fontFamily: HELV, fontSize: 15, lineHeight: 1.5,
+          color: 'rgba(255,255,255,0.84)', ...ze('zeFadeUp', 0.85, 0.6),
+        }}
+      >
+        Mit Wlad Jachtchenko: der Charisma-Code, das Leadership-Betriebssystem und ein echter Live-Case — mit deinen Fragen im Q&amp;A.
+      </p>
+
+      <div
+        className="ze"
+        style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', marginTop: 16, paddingTop: 14,
+          borderTop: '1px solid rgba(255,255,255,0.18)', ...ze('zeFadeUp', 0.85, 0.75),
+        }}
+      >
+        {MOBILE_FACTS.map(([label, value], i) => (
+          <div key={label} style={{ paddingLeft: i ? 14 : 0, borderLeft: i ? '1px solid rgba(255,255,255,0.18)' : 0 }}>
+            <Bib style={{ color: 'rgba(255,255,255,0.6)', display: 'block' }}>{label}</Bib>
+            <div style={{ fontFamily: ANTON, fontSize: 26, lineHeight: 1.05, marginTop: 3, whiteSpace: 'nowrap' }}>{value}</div>
+          </div>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={onCta}
+        className="ze"
+        data-testid="webinar-hero-cta"
+        style={{
+          marginTop: 20, width: '100%', height: 58, border: 0, borderRadius: 999, cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 6px 0 24px',
+          background: LIME, color: INK, boxShadow: '0 12px 32px rgba(191,255,0,0.28)',
+          fontFamily: HELV, fontSize: 15, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase',
+          ...ze('zePillPop', 0.75, 0.95),
+        }}
+      >
+        <span>Platz sichern</span>
+        <span style={{ width: 46, height: 46, borderRadius: 999, background: INK, display: 'grid', placeItems: 'center' }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={LIME} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </button>
+
+      <p className="ze" style={{ margin: '14px 0 0', textAlign: 'center', ...ze('zeFadeUp', 0.8, 1.1) }}>
+        <Bib style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '0.14em', whiteSpace: 'nowrap' }}>400.000+ Klienten · 3× SPIEGEL-Bestseller</Bib>
+      </p>
+    </div>
+  </div>
+);
 
 const Orb = ({ style }) => (
   <div aria-hidden style={{ position: 'absolute', borderRadius: '50%', pointerEvents: 'none', filter: 'blur(10px)', ...style }} />
@@ -425,17 +535,28 @@ const Orb = ({ style }) => (
 export const CinematicHero = ({ onCta, formSlot }) => {
   const desktop = useMedia('(min-width: 900px)');
   const formPanel = (
-    <div style={{ padding: desktop ? '40px 20px 56px' : '28px 16px 36px', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ padding: desktop ? '40px 20px 56px' : '16px 12px 40px', display: 'flex', justifyContent: 'center' }}>
       <div
         style={{
           width: '100%', maxWidth: 720, background: '#fff', borderRadius: 24, padding: desktop ? '28px 32px 30px' : '22px 18px 24px',
-          boxShadow: '0 30px 80px rgba(20,25,60,0.28), 0 0 0 1px rgba(255,255,255,0.35)',
+          boxShadow: desktop ? '0 30px 80px rgba(20,25,60,0.28), 0 0 0 1px rgba(255,255,255,0.35)' : '0 24px 60px rgba(0,0,0,0.5)',
         }}
       >
         {formSlot}
       </div>
     </div>
   );
+
+  if (!desktop) {
+    // Mobil: Ink-Canvas statt Farbverlauf — Hero und weißes Formular-Panel
+    // sind die einzigen zwei Flächen, nichts dazwischen lenkt ab.
+    return (
+      <section data-testid="webinar-cinematic-hero" style={{ background: INK }}>
+        <MobileHero onCta={onCta} />
+        {formPanel}
+      </section>
+    );
+  }
 
   return (
     <section
@@ -446,18 +567,8 @@ export const CinematicHero = ({ onCta, formSlot }) => {
       <Orb style={{ width: 700, height: 700, bottom: -260, right: -180, background: 'radial-gradient(circle, rgba(60,90,150,0.45) 0%, rgba(60,90,150,0) 70%)' }} />
 
       <div style={{ position: 'relative' }}>
-        {desktop ? (
-          <>
-            <div style={{ padding: '28px 20px 0' }}><Stage onCta={onCta} /></div>
-            {formPanel}
-          </>
-        ) : (
-          <>
-            <OfferScreen framed={false} onCta={onCta} />
-            {formPanel}
-            <DetailScreen framed={false} />
-          </>
-        )}
+        <div style={{ padding: '28px 20px 0' }}><Stage onCta={onCta} /></div>
+        {formPanel}
       </div>
     </section>
   );
