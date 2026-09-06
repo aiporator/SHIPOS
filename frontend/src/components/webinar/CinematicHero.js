@@ -166,11 +166,11 @@ const OfferScreen = ({ framed, onCta }) => (
       style={{
         margin: 0, textAlign: 'center', textTransform: 'uppercase', color: '#2c2c2c',
         fontFamily: ANTON, fontWeight: 900, letterSpacing: 0.5, lineHeight: 0.94,
-        fontSize: framed ? 69 : 'clamp(56px, 17.5vw, 69px)',
+        fontSize: framed ? 69 : 'clamp(52px, 16vw, 69px)',
       }}
     >
       {HEADLINE.map((line, i) => (
-        <span key={line} style={{ display: 'block', overflow: 'hidden' }}>
+        <span key={line} style={{ display: 'block', overflow: 'clip', overflowClipMargin: '0.14em' }}>
           <span className="ze" style={{ display: 'block', ...ze('zeRise', 0.9, 0.10 + i * 0.12) }}>
             {line}
           </span>
@@ -262,7 +262,7 @@ const BLUR_LAYERS = [
 const Stat = ({ label, value, delay, style }) => (
   <div className="ze" style={{ ...ze('zeFadeUp', 0.8, delay), ...style }}>
     <div style={{ fontFamily: HELV, fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.75)' }}>{label}</div>
-    <div style={{ fontFamily: ANTON, fontSize: 33, color: '#fff', lineHeight: 1.05, marginTop: 2 }}>{value}</div>
+    <div style={{ fontFamily: ANTON, fontSize: 33, color: '#fff', lineHeight: 1.05, marginTop: 2, whiteSpace: 'nowrap' }}>{value}</div>
   </div>
 );
 
@@ -341,7 +341,7 @@ const DetailScreen = ({ framed }) => (
           }}
         >
           {['Führe besser.', 'Jeden Tag.'].map((line, i) => (
-            <span key={line} style={{ display: 'block', overflow: 'hidden' }}>
+            <span key={line} style={{ display: 'block', overflow: 'clip', overflowClipMargin: '0.14em' }}>
               <span className="ze" style={{ display: 'block', ...ze('zeRise', 0.95, 0.35 + i * 0.13) }}>{line}</span>
             </span>
           ))}
@@ -359,7 +359,7 @@ const DetailScreen = ({ framed }) => (
       <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 20, paddingTop: 32 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
           <Stat label="Live" value="90 MIN" delay={0.85} />
-          <Stat label="Termin" value="17. SEPT" delay={0.98} style={{ marginLeft: 48 }} />
+          <Stat label="Termin" value="17. SEPT" delay={0.98} style={{ marginLeft: 24 }} />
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
           <p
