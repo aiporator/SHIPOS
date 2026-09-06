@@ -17,10 +17,11 @@ import { CinematicHero } from '../components/webinar/CinematicHero';
 /**
  * WebinarPage · /webinar · Hormozi ascension funnel, motion-first build.
  *
- * 2026-09 hero rebuild: the hero is now CinematicHero (two iPhone screens
- * on a cinematic gradient, per the team's device-showcase brief); on
- * phones the frames dissolve into native panels with the form between
- * them. Everything below the hero is the 2026-07 build:
+ * 2026-09 hero rebuild: the hero is now CinematicHero — Wlad full-bleed,
+ * the headline burned into the image, date/duration/0 € as facts, and the
+ * registration panel inside the first viewport on desktop (right column)
+ * and one swipe below it on phones. Everything below the hero is the
+ * 2026-07 build:
  *
  * 2026-07 interaction overhaul (Apple × Linear × Stripe direction from the
  * team brief): every animation serves the conversion — blur scroll-reveals,
@@ -314,7 +315,9 @@ const ScarcityBar = () => {
   );
 };
 
-const RegisterForm = ({ idSuffix = '', compact = false }) => {
+/** `stacked`: Eingabe und Button untereinander auf jeder Breite — für das
+ * 440-px-Formular-Panel im Desktop-Hero, wo nebeneinander nicht passt. */
+const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [state, setState] = useState('idle');
@@ -356,7 +359,7 @@ const RegisterForm = ({ idSuffix = '', compact = false }) => {
 
   return (
     <form onSubmit={submit} noValidate data-testid={`webinar-form${idSuffix}`} className="w-full">
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className={`flex flex-col gap-3 ${stacked ? '' : 'sm:flex-row'}`}>
         <div className="relative flex-1">
           <input
             type="email"
@@ -386,7 +389,7 @@ const RegisterForm = ({ idSuffix = '', compact = false }) => {
           whileHover={valid ? { y: -3, scale: 1.02 } : {}}
           whileTap={valid ? { scale: 0.97 } : {}}
           transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-          className={`${btnH} rounded-full bg-[#111111] hover:bg-[#BFFF00] hover:text-[#111111] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap`}
+          className={`${btnH} ${stacked ? 'w-full' : ''} rounded-full bg-[#111111] hover:bg-[#BFFF00] hover:text-[#111111] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap`}
         >
           {state === 'loading' ? 'Wird reserviert…' : 'Jetzt kostenlos anmelden'}
           {state !== 'loading' && <ArrowUpRight size={16} />}
@@ -664,11 +667,10 @@ export default function WebinarPage() {
 
       <main id="main-content">
         {/* ── HOOK · headline → sub → CTA → trust → product ────────────── */}
-        {/* ── HERO · zwei iPhone-Screens auf kinematischem Verlauf ──────
-            Desktop: Bühne mit Auto-Scaling, Formular-Panel darunter.
-            Mobil: ein Vollbild-Screen mit Termin, Dauer, 0 € und CTA im
-            ersten Viewport, Formular direkt darunter.
-            Siehe components/webinar/CinematicHero.js. */}
+        {/* ── HERO · Wlad als Vollbild, Headline ins Bild gebrannt ──────
+            Desktop: Kopie links, Formular-Panel rechts — beides im ersten
+            Viewport. Mobil: ein Vollbild-Screen mit Termin, Dauer, 0 € und
+            CTA, Formular direkt darunter. Siehe components/webinar/CinematicHero.js. */}
         <CinematicHero
           onCta={scrollToForm}
           formSlot={(
@@ -678,7 +680,7 @@ export default function WebinarPage() {
               </p>
               <div className="mt-4 flex justify-center"><Countdown /></div>
               <div className="w-full flex flex-col items-center"><ScarcityBar /></div>
-              <div className="mt-6 w-full"><RegisterForm idSuffix="-hero" /></div>
+              <div className="mt-6 w-full"><RegisterForm idSuffix="-hero" stacked /></div>
             </div>
           )}
         />
