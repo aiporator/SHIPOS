@@ -12,9 +12,15 @@ import { applyPageMeta } from '../lib/pageMeta';
 import { isValidEmail } from '../features/newsletter/lib/newsletterClient';
 import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAssets';
 import { WladMark } from '../components/brand/WladMark';
+import { CinematicHero } from '../components/webinar/CinematicHero';
 
 /**
  * WebinarPage · /webinar · Hormozi ascension funnel, motion-first build.
+ *
+ * 2026-09 hero rebuild: the hero is now CinematicHero (two iPhone screens
+ * on a cinematic gradient, per the team's device-showcase brief); on
+ * phones the frames dissolve into native panels with the form between
+ * them. Everything below the hero is the 2026-07 build:
  *
  * 2026-07 interaction overhaul (Apple × Linear × Stripe direction from the
  * team brief): every animation serves the conversion — blur scroll-reveals,
@@ -36,26 +42,15 @@ import { WladMark } from '../components/brand/WladMark';
  */
 
 const WEBINAR_TS = new Date('2026-09-17T10:00:00+02:00').getTime();
-const DATE_LINE = 'DO 20. AUGUST 2026 · 10:00 UHR · LIVE · ONLINE';
-
-const HERO_VIMEO_ID = '1197728183';
-const HERO_VIDEO_SRC =
-  `https://player.vimeo.com/video/${HERO_VIMEO_ID}` +
-  '?badge=0&autopause=0&player_id=0&app_id=58479&byline=0&portrait=0&title=0';
-
-const HERO_TRUST = [
-  '400.000+ Führungskräfte',
-  '3× SPIEGEL-Bestseller',
-  '4,9/5 Trustpilot',
-];
+const DATE_LINE = 'DO 17. SEPTEMBER 2026 · 10:00 UHR · LIVE · ONLINE';
 
 const STATS = [
   ['400.000+', 'trainierte Klienten'],
   ['20+', 'Länder'],
   ['4,9/5', 'Trustpilot · 388 Bewertungen'],
   ['3×', 'SPIEGEL-Bestseller · 13 Bücher'],
-  ['14 Mio.', 'Views · Podcast + YouTube'],
-  ['250.000+', 'verkaufte Bücher'],
+  ['2007', 'im Coaching seit'],
+  ['Columbia', 'University · Master of Arts'],
 ];
 
 const MEDIA = [
@@ -667,102 +662,24 @@ export default function WebinarPage() {
 
       <main id="main-content">
         {/* ── HOOK · headline → sub → CTA → trust → product ────────────── */}
-        <section className="relative isolate overflow-hidden">
-          {/* Slow-drifting gradient field (lime, not blue — brand accent) */}
-          <motion.div
-            aria-hidden
-            animate={{ x: [-40, 40], y: [-30, 30] }}
-            transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-            className="pointer-events-none absolute -inset-[10%] -z-10"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 22% 28%, rgba(191,255,0,0.16) 0px, transparent 45%), ' +
-                'radial-gradient(circle at 78% 18%, rgba(191,255,0,0.09) 0px, transparent 45%)',
-            }}
-          />
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-20" style={{ backgroundImage: 'linear-gradient(#ffffff, #fafafa)' }} />
-
-          <div className="max-w-[1000px] mx-auto px-5 md:px-10 pt-12 md:pt-16 pb-16 md:pb-20 flex flex-col items-center text-center">
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-3 mb-6 rounded-full bg-white border border-[#111111]/10 pl-1.5 pr-4 py-1.5 shadow-[0_10px_30px_-20px_rgba(17,17,17,0.3)]"
-            >
-              <img
-                src={WLAD_AVATAR}
-                onError={withFallback(WLAD_AVATAR_FALLBACKS)}
-                alt="Wlad Jachtchenko"
-                width="36"
-                height="36"
-                fetchpriority="high"
-                className="w-9 h-9 rounded-full object-cover object-top ring-2 ring-[#BFFF00]"
-              />
-              <span className="font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#39393b]">
+        {/* ── HERO · zwei iPhone-Screens auf kinematischem Verlauf ──────
+            Desktop: Bühne mit Auto-Scaling, Formular-Panel darunter.
+            Mobil: keine Rahmen — Screen 1 → Formular → Screen 2, damit
+            der Hook eine Wischbewegung vom Formular entfernt ist.
+            Siehe components/webinar/CinematicHero.js. */}
+        <CinematicHero
+          onCta={scrollToForm}
+          formSlot={(
+            <div ref={formRef} className="scroll-mt-24 text-left" data-testid="webinar-form-block">
+              <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#5A7700] text-center">
                 {DATE_LINE}
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 30, scale: 0.97, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-              transition={{ type: 'spring', stiffness: 190, damping: 22, delay: 0.05 }}
-              className="text-balance text-[44px] sm:text-[64px] md:text-[80px] leading-[0.98] tracking-[-0.04em] text-[#111111] max-w-4xl"
-              style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontStyle: 'italic' }}
-            >
-              Trainiere Führung.<br />Nicht nur Wissen<span className="text-[#5A7700] not-italic">.</span>
-            </motion.h1>
-            <motion.p
-              initial="hidden" animate="show" custom={1} variants={FADE_UP}
-              className="text-balance mt-6 max-w-2xl text-[18px] sm:text-[20px] leading-[1.55] text-[#4b4b4d]"
-            >
-              In 90 Minuten zeigt dir 3× SPIEGEL-Bestseller <span className="text-[#111111] font-semibold">Wlad Jachtchenko</span> das
-              System, mit dem du schwierige Führungsgespräche nicht mehr einmal im Jahr im Seminar übst — sondern
-              jeden Tag in 15 Minuten trainierst. Kostenlos. Live. Mit Q&amp;A.
-            </motion.p>
-
-            {/* CTA dominates · then trust badges */}
-            <motion.div initial="hidden" animate="show" custom={2} variants={FADE_UP} className="mt-9">
-              <CtaButton pulse onClick={scrollToForm} className="h-16 px-10 text-[14px]">
-                Kostenlosen Platz sichern <ArrowUpRight size={17} />
-              </CtaButton>
-            </motion.div>
-            <motion.ul
-              initial="hidden" animate="show" custom={3} variants={FADE_UP}
-              className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2"
-            >
-              {HERO_TRUST.map((t) => (
-                <li key={t} className="inline-flex items-center gap-1.5 font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#707072]">
-                  <Check size={12} className="text-[#5A7700]" strokeWidth={3} /> {t}
-                </li>
-              ))}
-            </motion.ul>
-
-            {/* Product · the video, immediately */}
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-12 md:mt-14 relative rounded-3xl overflow-hidden bg-[#111111] shadow-[0_40px_80px_-40px_rgba(17,17,17,0.4)] w-full max-w-[860px]"
-            >
-              <div className="aspect-video">
-                <iframe
-                  src={HERO_VIDEO_SRC}
-                  title="Wlad Jachtchenko — worum es im Webinar geht"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-            </motion.div>
-
-            <div className="mt-10 flex justify-center"><Countdown /></div>
-            <div className="w-full flex flex-col items-center"><ScarcityBar /></div>
-            <div ref={formRef} className="mt-9 w-full max-w-2xl scroll-mt-24 text-left">
-              <RegisterForm idSuffix="-hero" />
+              </p>
+              <div className="mt-4 flex justify-center"><Countdown /></div>
+              <div className="w-full flex flex-col items-center"><ScarcityBar /></div>
+              <div className="mt-6 w-full"><RegisterForm idSuffix="-hero" /></div>
             </div>
-          </div>
-        </section>
+          )}
+        />
 
         {/* ── BEWEIS · stats, press, clients — staggered in ────────────── */}
         <section className="border-t border-[#111111]/8 bg-white">

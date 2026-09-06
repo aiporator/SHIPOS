@@ -23,7 +23,7 @@ import { WladMark } from '../components/brand/WladMark';
  */
 
 const WEBINAR_TS = new Date('2026-09-17T10:00:00+02:00').getTime();
-const DATE_LINE = 'DO 20. AUGUST 2026 · 10:00 UHR · LIVE · ONLINE';
+const DATE_LINE = 'DO 17. SEPTEMBER 2026 · 10:00 UHR · LIVE · ONLINE';
 
 const WEBINAR_START = new Date('2026-09-17T10:00:00+02:00');
 const WEBINAR_END = new Date('2026-09-17T11:30:00+02:00');
