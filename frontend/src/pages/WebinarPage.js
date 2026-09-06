@@ -44,6 +44,8 @@ import { CinematicHero } from '../components/webinar/CinematicHero';
 
 const WEBINAR_TS = new Date('2026-09-17T10:00:00+02:00').getTime();
 const DATE_LINE = 'DO 17. SEPTEMBER 2026 · 10:00 UHR · LIVE · ONLINE';
+// Kurzform fürs 440-px-Formular-Panel im Hero — die Langform bricht dort um.
+const DATE_LINE_SHORT = 'DO 17. SEPT 2026 · 10:00 UHR · LIVE';
 
 const STATS = [
   ['400.000+', 'trainierte Klienten'],
@@ -326,7 +328,10 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!valid || state === 'loading') return;
+    if (state === 'loading') return;
+    // Der Button ist nie ausgegraut: ein grauer CTA im Hero liest sich wie
+    // "geht nicht". Ungültige Eingabe wird beim Absenden erklärt.
+    if (!valid) { setState('invalid'); return; }
     setState('loading');
     track('webinar_register_submit', { form: idSuffix || 'default' });
     try {
@@ -367,7 +372,7 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
             autoComplete="email"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => { setEmail(e.target.value); if (state === 'invalid') setState('idle'); }}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             placeholder="Deine beste E-Mail-Adresse"
@@ -385,11 +390,11 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
         </div>
         <motion.button
           type="submit"
-          disabled={!valid || state === 'loading'}
-          whileHover={valid ? { y: -3, scale: 1.02 } : {}}
-          whileTap={valid ? { scale: 0.97 } : {}}
+          disabled={state === 'loading'}
+          whileHover={{ y: -3, scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
           transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-          className={`${btnH} ${stacked ? 'w-full' : ''} rounded-full bg-[#111111] hover:bg-[#BFFF00] hover:text-[#111111] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap`}
+          className={`${btnH} ${stacked ? 'w-full' : ''} rounded-full bg-[#111111] hover:bg-[#BFFF00] hover:text-[#111111] disabled:opacity-60 disabled:cursor-wait text-white font-bold text-[13px] uppercase tracking-[0.14em] transition-colors inline-flex items-center justify-center gap-2 whitespace-nowrap`}
         >
           {state === 'loading' ? 'Wird reserviert…' : 'Jetzt kostenlos anmelden'}
           {state !== 'loading' && <ArrowUpRight size={16} />}
@@ -398,15 +403,23 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
       {!compact && (
         <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[#707072]">
           Keine Kreditkarte · 100 % kostenlos · live · keine Aufzeichnung
+          {state === 'invalid' && (
+            <span className="block mt-1.5 tracking-normal normal-case text-[12px] text-red-600" role="alert">
+              Bitte eine gültige E-Mail-Adresse eingeben.
+            </span>
+          )}
           {state === 'error' && (
-            <span className="block mt-1.5 tracking-normal normal-case text-[12px] text-red-600">
+            <span className="block mt-1.5 tracking-normal normal-case text-[12px] text-red-600" role="alert">
               Das hat nicht geklappt — bitte E-Mail prüfen und erneut senden.
             </span>
           )}
         </p>
       )}
+      {compact && state === 'invalid' && (
+        <p className="mt-2 text-[11.5px] text-red-600" role="alert">Bitte eine gültige E-Mail-Adresse eingeben.</p>
+      )}
       {compact && state === 'error' && (
-        <p className="mt-2 text-[11.5px] text-red-600">Bitte E-Mail prüfen und erneut senden.</p>
+        <p className="mt-2 text-[11.5px] text-red-600" role="alert">Bitte E-Mail prüfen und erneut senden.</p>
       )}
     </form>
   );
@@ -675,8 +688,8 @@ export default function WebinarPage() {
           onCta={scrollToForm}
           formSlot={(
             <div ref={formRef} className="scroll-mt-24 text-left" data-testid="webinar-form-block">
-              <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#5A7700] text-center">
-                {DATE_LINE}
+              <p className="font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#5A7700] text-center whitespace-nowrap">
+                {DATE_LINE_SHORT}
               </p>
               <div className="mt-4 flex justify-center"><Countdown /></div>
               <div className="w-full flex flex-col items-center"><ScarcityBar /></div>
