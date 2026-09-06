@@ -448,8 +448,8 @@ const MobileHero = ({ onCta }) => (
       </div>
     </div>
 
-    {/* Luft fürs Gesicht: mindestens 140 px Bild zwischen Kopfzeile und Kopie. */}
-    <div aria-hidden style={{ flex: 1, minHeight: 140 }} />
+    {/* Luft fürs Gesicht: 80–140 px Bild zwischen Kopfzeile und Kopie (.ze-mobile-air, index.css). */}
+    <div aria-hidden className="ze-mobile-air" />
 
     <div style={{ position: 'relative', padding: '0 20px 20px' }}>
       <p className="ze" style={{ margin: '0 0 12px', ...ze('zeFadeUp', 0.8, 0.15) }}>
@@ -457,9 +457,10 @@ const MobileHero = ({ onCta }) => (
       </p>
 
       <h1
+        className="ze-mobile-h1"
         style={{
           margin: 0, textTransform: 'uppercase', fontFamily: ANTON, fontWeight: 900,
-          fontSize: 'clamp(58px, 17.5vw, 78px)', lineHeight: 0.9, letterSpacing: 0.5, color: '#fff',
+          lineHeight: 0.9, letterSpacing: 0.5, color: '#fff',
           textShadow: '0 2px 24px rgba(0,0,0,0.45)',
         }}
       >
@@ -475,7 +476,7 @@ const MobileHero = ({ onCta }) => (
       <p
         className="ze"
         style={{
-          margin: '14px 0 0', maxWidth: 360, fontFamily: HELV, fontSize: 15, lineHeight: 1.5,
+          margin: '12px 0 0', maxWidth: 360, fontFamily: HELV, fontSize: 15, lineHeight: 1.5,
           color: 'rgba(255,255,255,0.84)', ...ze('zeFadeUp', 0.85, 0.6),
         }}
       >
@@ -485,7 +486,7 @@ const MobileHero = ({ onCta }) => (
       <div
         className="ze"
         style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', marginTop: 20, paddingTop: 14,
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', marginTop: 16, paddingTop: 14,
           borderTop: '1px solid rgba(255,255,255,0.18)', ...ze('zeFadeUp', 0.85, 0.75),
         }}
       >
