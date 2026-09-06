@@ -128,7 +128,7 @@ export default function AdStudio() {
           {ads.length} Ads.<span className="text-brand">.</span>
         </h1>
         <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-black/55 mb-3">
-          ▸ NATIVE GROSSE · TILE KLICKEN · SCREENSHOT · IN META ADS HOCHLADEN
+          ▸ NATIVE GROSSE · TILE KLICKEN · SCREENSHOT · IN META / LINKEDIN ADS HOCHLADEN
         </p>
         <p className="text-[13px] leading-[1.55] text-black/65 mb-12 max-w-2xl">
           Daten leben in <code className="px-1 py-0.5 bg-black/[0.06]">frontend/src/data/contentAds.js</code>.

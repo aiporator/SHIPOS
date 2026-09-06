@@ -127,7 +127,8 @@ export default function FrameworksPage() {
       <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-6 pt-10 sm:px-10 sm:pb-8 sm:pt-14 lg:px-16">
         {/* Oben · statische H1 links, wechselnde Beschreibung rechts */}
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-16">
-          <h1 className="max-w-xl text-3xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-7xl">
+          {/* font-geist auch direkt auf der H1: index.css setzt h1–h6 global auf Outfit. */}
+          <h1 className="font-geist max-w-xl text-3xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-7xl">
             LeaderOS ist die Methodik, mit der du jeden{' '}Tag führst
           </h1>
           <p
