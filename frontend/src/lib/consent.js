@@ -6,12 +6,17 @@
  * import from here so the shape stays in sync.
  *
  * Schema v1:
- *   { v: 1, ts: ISO8601, essential: true, analytics: bool, replays: bool }
+ *   { v: 1, ts: ISO8601, essential: true, analytics: bool, replays: bool,
+ *     marketing: bool }
  *
  * `essential` is always true and cannot be opted out of (login session, JWT).
  * `analytics` gates PostHog event capture.
  * `replays`  gates Sentry session-replay (alias kept for back-compat with
  *            older banners that wrote `session_replay`).
+ * `marketing` gates ad-platform pixels (Meta Pixel, see lib/metaPixel.js).
+ *            Added 2026-09; payloads written before that lack the key and
+ *            read as `false` — no re-prompt, pixels simply stay off until
+ *            the visitor decides again.
  */
 
 const KEY = "lo_consent_v1";
@@ -22,6 +27,7 @@ const DEFAULT_OPT_OUT = {
   essential: true,
   analytics: false,
   replays: false,
+  marketing: false,
 };
 
 export const readConsent = () => {

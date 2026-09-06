@@ -5,10 +5,14 @@
  * the catalog of trackers changes so old consent is re-prompted.
  *
  * Three options:
- *   - Accept all   → essential + analytics + session-replay
+ *   - Accept all   → essential + analytics + session-replay + marketing
  *   - Essential only → only Sentry error tracking (legitimate interest,
- *     Art. 6(1)(f) · no PII, no replay, no PostHog)
+ *     Art. 6(1)(f) · no PII, no replay, no PostHog, no ad pixels)
  *   - Customize    → granular toggles
+ *
+ * `marketing` (added 2026-09) gates the Meta Pixel (lib/metaPixel.js). It
+ * is listed even while the pixel ID is still a placeholder, so consent
+ * collected today already covers the pixel once it goes live.
  */
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -23,6 +27,7 @@ export const CookieConsent = () => {
     essential: true,
     analytics: CONSENT_DEFAULTS.analytics,
     replays: CONSENT_DEFAULTS.replays,
+    marketing: CONSENT_DEFAULTS.marketing,
   });
 
   useEffect(() => {
@@ -32,15 +37,15 @@ export const CookieConsent = () => {
   if (!show) return null;
 
   const acceptAll = () => {
-    writeConsent({ analytics: true, replays: true });
+    writeConsent({ analytics: true, replays: true, marketing: true });
     setShow(false);
   };
   const essentialOnly = () => {
-    writeConsent({ analytics: false, replays: false });
+    writeConsent({ analytics: false, replays: false, marketing: false });
     setShow(false);
   };
   const saveCustom = () => {
-    writeConsent({ analytics: opts.analytics, replays: opts.replays });
+    writeConsent({ analytics: opts.analytics, replays: opts.replays, marketing: opts.marketing });
     setShow(false);
   };
 
@@ -56,8 +61,8 @@ export const CookieConsent = () => {
               </h3>
               <p className="text-white/70 text-[12px] leading-relaxed">
                 {de
-                  ? 'Wir nutzen technisch notwendige Cookies für deinen Login. Optional helfen uns Analyse-Tools, die App besser zu machen. Du entscheidest.'
-                  : 'We use strictly necessary cookies for your login. Optional analytics tools help us improve. Your choice.'}
+                  ? 'Wir nutzen technisch notwendige Cookies für deinen Login. Optional helfen uns Analyse-Tools, die App besser zu machen, und Marketing-Pixel zeigen uns, welche Anzeige dich hergebracht hat. Du entscheidest.'
+                  : 'We use strictly necessary cookies for your login. Optional analytics tools help us improve, and marketing pixels tell us which ad brought you here. Your choice.'}
                 {' '}
                 <a href="/datenschutz" className="text-[#BFFF00] underline hover:no-underline">{de ? 'Datenschutzerklärung' : 'Privacy policy'}</a>
               </p>
@@ -70,6 +75,7 @@ export const CookieConsent = () => {
                 { k: 'essential', t_de: 'Technisch notwendig', t_en: 'Strictly necessary', desc_de: 'Login, Session · kann nicht deaktiviert werden', desc_en: 'Login, session · cannot be disabled', locked: true },
                 { k: 'analytics', t_de: 'Analyse (PostHog)', t_en: 'Analytics (PostHog)', desc_de: 'Anonyme Nutzungs-Statistiken', desc_en: 'Anonymous usage stats' },
                 { k: 'replays', t_de: 'Session-Replay (Sentry)', t_en: 'Session replay (Sentry)', desc_de: 'Für gezielte Fehler-Reproduktion', desc_en: 'For targeted bug repro' },
+                { k: 'marketing', t_de: 'Marketing (Meta-Pixel)', t_en: 'Marketing (Meta Pixel)', desc_de: 'Misst, welche Anzeige dich hergebracht hat', desc_en: 'Measures which ad brought you here' },
               ].map(({ k, t_de, t_en, desc_de, desc_en, locked }) => (
                 <label key={k} className="flex items-start gap-3 cursor-pointer">
                   <input

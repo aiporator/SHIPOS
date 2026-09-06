@@ -146,6 +146,64 @@ class RegisterPayload(BaseModel):
     utm: UTM | None = None
     referrer: str | None = Field(default="", max_length=500)
     landing_path: str | None = Field(default="", max_length=200)
+    # Browser-Pixel-Event-ID (lib/metaPixel.js) → dieselbe ID über die
+    # Conversions API, damit Meta Browser- und Server-Event dedupliziert.
+    meta_event_id: str | None = Field(default="", max_length=64)
+
+
+# ── Meta Conversions API ────────────────────────────────────────────────
+# Inert, solange META_PIXEL_ID / META_CAPI_TOKEN nicht gesetzt sind.
+# Setup + Test-Event-Code: docs/gtm/META_ADS_WEBINAR.md §4.
+META_PIXEL_ID = os.environ.get("META_PIXEL_ID", "")
+META_CAPI_TOKEN = os.environ.get("META_CAPI_TOKEN", "")
+META_TEST_EVENT_CODE = os.environ.get("META_TEST_EVENT_CODE", "")
+META_GRAPH_VERSION = os.environ.get("META_GRAPH_VERSION", "v21.0")
+
+
+def meta_capi_enabled() -> bool:
+    return bool(META_PIXEL_ID and META_CAPI_TOKEN)
+
+
+async def _forward_to_meta_capi(
+    email_lower: str, event_id: str | None, ip: str | None, user_agent: str, source_url: str,
+) -> None:
+    """Server-side `Lead` for Meta Ads. Best-effort, never blocks the funnel.
+
+    The e-mail travels only as SHA-256 (Meta's required normalisation:
+    lower-case, trimmed). IP + user agent improve match quality; both are
+    already in the request. `event_id` mirrors the browser pixel event so
+    Meta counts the lead once, not twice.
+    """
+    if not meta_capi_enabled():
+        return
+    payload = {
+        "data": [{
+            "event_name": "Lead",
+            "event_time": int(datetime.now(timezone.utc).timestamp()),
+            "event_id": event_id or None,
+            "action_source": "website",
+            "event_source_url": source_url,
+            "user_data": {
+                "em": [hashlib.sha256(email_lower.encode()).hexdigest()],
+                "client_ip_address": ip,
+                "client_user_agent": user_agent or None,
+            },
+            "custom_data": {"content_name": WEBINAR_CAMPAIGN, "content_category": "webinar"},
+        }],
+    }
+    if META_TEST_EVENT_CODE:
+        payload["test_event_code"] = META_TEST_EVENT_CODE
+    try:
+        async with httpx.AsyncClient(timeout=4.0) as client:
+            res = await client.post(
+                f"https://graph.facebook.com/{META_GRAPH_VERSION}/{META_PIXEL_ID}/events",
+                params={"access_token": META_CAPI_TOKEN},
+                json=payload,
+            )
+            if res.status_code >= 400:
+                logger.warning("webinar lead: meta capi %s: %s", res.status_code, res.text[:200])
+    except Exception as exc:
+        logger.warning("webinar lead: meta capi failed: %s", exc)
 
 
 async def _forward_to_supabase(email_lower: str, meta: dict) -> None:
@@ -228,6 +286,11 @@ async def register(payload: RegisterPayload, request: Request):
         "source": payload.source, "campaign": WEBINAR_CAMPAIGN,
         "name": name, "utm": utm, "referrer": payload.referrer, "funnel": "webinar",
     })
+    await _forward_to_meta_capi(
+        email, (payload.meta_event_id or "").strip() or None, ip,
+        request.headers.get("user-agent", ""),
+        f"https://leader-os.de{payload.landing_path or '/webinar'}",
+    )
 
     return {
         "ok": True,

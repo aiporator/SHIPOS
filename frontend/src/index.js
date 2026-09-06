@@ -4,6 +4,7 @@ import * as Sentry from "@sentry/react";
 import "@/index.css";
 import App from "@/App";
 import { bootstrapConsent, readConsent } from "@/lib/consent";
+import { maybeInitMetaPixel } from "@/lib/metaPixel";
 import { redirectAppRoutesToAppTier } from "@/lib/tierRedirect";
 
 // Leader-Check → LeaderOS handoff · runs SYNCHRONOUSLY before anything else.
@@ -125,6 +126,10 @@ if (analyticsConsented) {
   maybeInitClarity();
 }
 
+// Meta-Pixel: eigene Consent-Kategorie „Marketing", inert bis Pixel-ID
+// (lib/metaPixel.js). Prüft den Consent selbst, daher hier ohne Guard.
+maybeInitMetaPixel();
+
 if (typeof window !== "undefined") {
   window.addEventListener("lo:consent", (e) => {
     const c = e?.detail || {};
@@ -132,6 +137,7 @@ if (typeof window !== "undefined") {
       maybeInitPostHog();
       maybeInitClarity();
     }
+    if (c.marketing) maybeInitMetaPixel();
   });
 }
 
