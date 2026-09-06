@@ -438,13 +438,18 @@ const MobileHero = ({ onCta }) => (
       }}
     />
 
-    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    {/* Kopfzeile im Fluss, nicht absolut: auf 667-px-Displays wächst der
+        Hero dann einfach, statt dass die Kopie in die Kopfzeile läuft. */}
+    <div style={{ position: 'relative', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <div className="ze" style={ze('zeBloom', 0.8, 0.1)}><WladMark size={26} /></div>
       <div className="ze" style={{ display: 'flex', alignItems: 'center', gap: 8, ...ze('zeFadeDown', 0.7, 0.2) }}>
         <span aria-hidden style={{ width: 6, height: 6, borderRadius: 999, background: LIME, boxShadow: `0 0 0 3px rgba(191,255,0,0.25)` }} />
         <Bib style={{ color: 'rgba(255,255,255,0.85)' }}>10:00 Uhr · Online</Bib>
       </div>
     </div>
+
+    {/* Luft fürs Gesicht: mindestens 140 px Bild zwischen Kopfzeile und Kopie. */}
+    <div aria-hidden style={{ flex: 1, minHeight: 140 }} />
 
     <div style={{ position: 'relative', padding: '0 20px 20px' }}>
       <p className="ze" style={{ margin: '0 0 12px', ...ze('zeFadeUp', 0.8, 0.15) }}>
@@ -514,7 +519,7 @@ const MobileHero = ({ onCta }) => (
       </button>
 
       <p className="ze" style={{ margin: '14px 0 0', textAlign: 'center', ...ze('zeFadeUp', 0.8, 1.1) }}>
-        <Bib style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '0.14em' }}>400.000+ Klienten · 3× SPIEGEL-Bestseller · seit 2007</Bib>
+        <Bib style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '0.14em', whiteSpace: 'nowrap' }}>400.000+ Klienten · 3× SPIEGEL-Bestseller</Bib>
       </p>
     </div>
   </div>

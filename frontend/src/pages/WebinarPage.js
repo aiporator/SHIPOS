@@ -653,10 +653,12 @@ export default function WebinarPage() {
         <motion.span
           animate={{ opacity: [0.65, 1, 0.65] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          className="inline-flex items-center gap-2 rounded-full bg-[#BFFF00]/25 px-3.5 py-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#111111]"
+          className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#BFFF00]/25 px-3.5 py-1.5 font-mono text-[9.5px] font-bold uppercase tracking-[0.22em] text-[#111111]"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#111111] inline-block" />
-          Live-Webinar · kostenlos
+          {/* Mobil passt neben das Logo nur die Kurzform, sonst bricht die Pille. */}
+          <span className="sm:hidden">Live · kostenlos</span>
+          <span className="hidden sm:inline">Live-Webinar · kostenlos</span>
         </motion.span>
       </motion.header>
 
