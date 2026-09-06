@@ -33,7 +33,9 @@ import { WladMark } from '../brand/WladMark';
 
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const HELV = 'Helvetica, "Helvetica Neue", Arial, sans-serif';
-const ANTON = "'Anton', Impact, sans-serif";
+// Fallbacks bewusst schmal (Arial Narrow, Impact): während des Font-Swaps
+// bleibt "JEDEN TAG." so dreizeilig statt kurz vierzeilig zu flackern.
+const ANTON = "'Anton', 'Arial Narrow', Impact, 'Helvetica Neue', sans-serif";
 const SYS = '-apple-system, "SF Pro", system-ui, sans-serif';
 
 const V_OFFER = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260707_004919_5e1b7e08-d723-4ecb-8afe-d613d730984c.mp4';
