@@ -121,6 +121,10 @@ Ad-Studio unter `/ads`, Filter **Kampagne → webinar-2026-09**. Daten in
 | D01 Leader-Check | educate | `AD-D01-*` | organisch (Reserve) | leader-check.de |
 | D02 30-Tage-Challenge | convert | `AD-D02-*` | nach dem Webinar | leader-os.de |
 
+**Varianten b und c** liegen für alle acht Angles bereit (Filter „Variante"
+im Studio): gleicher Claim und Primärtext, andere Palette und Hook-Zeile —
+reine A/B-Tests, erst einsetzen, wenn Variante a ≥ 50 Klicks hat.
+
 D01 und D02 sind produziert, aber **nicht** in der Webinar-Kampagne: bei
 30 €/Tag verwässert jedes zusätzliche Ziel das Learning. D01 läuft
 organisch, D02 kommt in W2 als Retargeting für Registrierte.
