@@ -642,7 +642,7 @@ export default function WebinarPage() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-[1100px] mx-auto px-5 md:px-10 pt-6 flex items-center justify-between"
+        className="max-w-[1100px] mx-auto px-5 md:px-10 pt-5 pb-4 md:pt-6 md:pb-0 flex items-center justify-between"
       >
         <Link to="/" className="flex items-center gap-3" aria-label="LeaderOS Startseite">
           <WladMark size={34} />
@@ -664,8 +664,8 @@ export default function WebinarPage() {
         {/* ── HOOK · headline → sub → CTA → trust → product ────────────── */}
         {/* ── HERO · zwei iPhone-Screens auf kinematischem Verlauf ──────
             Desktop: Bühne mit Auto-Scaling, Formular-Panel darunter.
-            Mobil: keine Rahmen — Screen 1 → Formular → Screen 2, damit
-            der Hook eine Wischbewegung vom Formular entfernt ist.
+            Mobil: ein Vollbild-Screen mit Termin, Dauer, 0 € und CTA im
+            ersten Viewport, Formular direkt darunter.
             Siehe components/webinar/CinematicHero.js. */}
         <CinematicHero
           onCta={scrollToForm}
