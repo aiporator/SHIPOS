@@ -25,6 +25,16 @@ const RATIO = {
   '1x1':  { w: 1080, h: 1080 },
   '4x5':  { w: 1080, h: 1350 },
   '9x16': { w: 1080, h: 1920 },
+  // LinkedIn Single Image Ad (Querformat 1,91:1). 1x1 gilt dort ebenfalls.
+  '1.91x1': { w: 1200, h: 627 },
+};
+
+// Headline-Größen je Format: die Story darf lauter sein als der Feed, das
+// LinkedIn-Querformat hat nur 627 px Höhe für zwei Blöcke plus Strip.
+const SIZES = {
+  '9x16':   { hero: 132, sub: 116, pad: 72 },
+  '1.91x1': { hero: 84,  sub: 72,  pad: 56 },
+  default:  { hero: 116, sub: 102, pad: 72 },
 };
 
 const LINES = (raw) => raw.split('\n');
@@ -51,10 +61,7 @@ export const AdSpecimen = ({ ad, scale = 0.4 }) => {
   const dim = RATIO[ad.format] || RATIO['1x1'];
   const palette = AD_PALETTES[ad.palette] || AD_PALETTES.midnight;
 
-  // Headline-Größe skaliert mit dem Format, damit eine 9x16-Story
-  // nicht denselben Headline-Block hat wie ein 1x1-Feed.
-  const heroSize = ad.format === '9x16' ? 132 : 116;
-  const subSize = ad.format === '9x16' ? 116 : 102;
+  const { hero: heroSize, sub: subSize, pad } = SIZES[ad.format] || SIZES.default;
 
   return (
     <div
@@ -103,7 +110,7 @@ export const AdSpecimen = ({ ad, scale = 0.4 }) => {
         />
 
         {/* ── Inhalt ── */}
-        <div className="absolute inset-0 flex flex-col justify-between p-[72px]">
+        <div className="absolute inset-0 flex flex-col justify-between" style={{ padding: pad }}>
           {/* TOP: kleinere Eyebrow-Headline */}
           <HeadlineBlock
             text={ad.topText}

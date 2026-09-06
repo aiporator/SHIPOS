@@ -14,6 +14,7 @@ import { WLAD_AVATAR, WLAD_AVATAR_FALLBACKS, withFallback } from '../lib/brandAs
 import { WladMark } from '../components/brand/WladMark';
 import { CinematicHero } from '../components/webinar/CinematicHero';
 import { trackMeta, metaEventId } from '../lib/metaPixel';
+import { trackLinkedInLead } from '../lib/linkedinInsight';
 
 /**
  * WebinarPage · /webinar · Hormozi ascension funnel, motion-first build.
@@ -371,6 +372,7 @@ const RegisterForm = ({ idSuffix = '', compact = false, stacked = false }) => {
       track('webinar_register_result', { ok });
       if (ok) {
         trackMeta('Lead', { content_name: 'webinar-2026-09-17', content_category: 'webinar' }, eventId);
+        trackLinkedInLead();
         navigate(`/webinar/danke?email=${encodeURIComponent(email)}`);
         return;
       }

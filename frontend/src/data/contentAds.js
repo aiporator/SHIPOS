@@ -489,6 +489,73 @@ export const WEBINAR_ADS = WEBINAR_ANGLES.flatMap(({ key, slug, landing, ...angl
 
 AD_SERIES.push(...WEBINAR_ADS);
 
+// ─── LinkedIn · dieselben 8 Angles, Querformat 1200×627 ──────────────
+//
+// LinkedIn Single Image Ads nehmen 1,91:1 (1200×627) und 1:1. Die 1x1-
+// Webinar-Ads oben laufen dort unverändert; hier kommt je Angle das
+// Querformat dazu, mit LinkedIn-Copy: `liIntro` (Einleitungstext, ≤ 150
+// Zeichen bleiben ungekürzt), `liHeadline` (≤ 70 Zeichen). CTA-Button im
+// Campaign Manager: „Registrieren" (D03/C01/C02) bzw. „Mehr erfahren".
+// Struktur, Zielgruppen, Insight Tag: docs/gtm/LINKEDIN_ADS_WEBINAR.md.
+
+const LI_COPY = {
+  D03: {
+    liIntro: 'Kostenloses Live-Webinar am 17.09., 10 Uhr: Wlad Jachtchenko zeigt, wie Führung täglich trainierbar wird. 90 Min, Q&A, keine Aufzeichnung.',
+    liHeadline: 'Live-Webinar mit Wlad Jachtchenko · 17. September · kostenlos',
+  },
+  B01: {
+    liIntro: 'Das Seminar war gut. Drei Wochen später war alles wie vorher. Wissen wird gelehrt, Verhalten wird trainiert. Live am 17.09., kostenlos.',
+    liHeadline: 'Seminare ändern Wissen, nicht Verhalten. Live-Webinar am 17.09.',
+  },
+  A02: {
+    liIntro: 'Beobachtung + Wirkung + Wunsch. Wlads Feedbackformel, live an einem echten Fall durchgespielt. 17.09., 10 Uhr, kostenlos.',
+    liHeadline: 'Drei Sätze für jedes schwierige Gespräch · Live-Webinar',
+  },
+  A01: {
+    liIntro: 'Statement · Explanation · eXample · Impact · Explanation of Impact · Rebuttal. Das SEXIER-Modell, live erklärt. 17.09., kostenlos.',
+    liHeadline: 'SEXIER: sechs Schritte, ein vollständiges Argument · live',
+  },
+  C02: {
+    liIntro: 'Seit 2007, über 400.000 Klienten, 13 Bücher. Am 17.09. zeigt Wlad Jachtchenko live, wie seine Methodik als tägliches Training funktioniert.',
+    liHeadline: 'Wlad Jachtchenko live · 17. September · 90 Minuten · kostenlos',
+  },
+  C01: {
+    liIntro: 'Die Methodik aus „Weiße Rhetorik" und „Die 5 Rollen einer Führungskraft", live an einem Führungsfall durchgearbeitet. 17.09., 10 Uhr.',
+    liHeadline: 'Der Autor von „Weiße Rhetorik" live · kostenloses Webinar',
+  },
+  D01: {
+    liIntro: 'KI-Readiness, Rhetorik, EQ: dein Führungsprofil in zehn Minuten, ohne Login. Nach Wlad Jachtchenkos Methodik. Kostenlos.',
+    liHeadline: 'Leader-Check: dein Führungsprofil in 10 Minuten · kostenlos',
+  },
+  D02: {
+    liIntro: 'Führung ist Fähigkeit, Fähigkeit ist trainierbar: 15 Minuten am Tag, ein KI-Coach, der Wlads Bücher kennt. 14 Tage kostenlos.',
+    liHeadline: 'Führung trainieren wie Fitness · 14 Tage kostenlos testen',
+  },
+};
+
+const liUrl = (base, id) =>
+  `${base}${base.includes('?') ? '&' : '?'}utm_source=linkedin&utm_medium=paid_social` +
+  `&utm_campaign=${WEBINAR_CAMPAIGN}&utm_content=${id}`;
+
+export const LINKEDIN_ADS = WEBINAR_ANGLES.map(({ key, slug, landing, ...angle }) => {
+  const id = `AD-${key}-1.91x1-a`;
+  return {
+    ...angle,
+    ...LI_COPY[key],
+    id,
+    slug: `${slug}-li`,
+    format: '1.91x1',
+    platform: 'linkedin',
+    campaign: WEBINAR_CAMPAIGN,
+    photo: WLAD_PORTRAIT,
+    photoFit: 'cover',
+    url: liUrl(landing, id),
+  };
+});
+
+AD_SERIES.push(...LINKEDIN_ADS);
+
 export const AD_CAMPAIGNS = ['evergreen', WEBINAR_CAMPAIGN];
+export const AD_PLATFORMS = ['meta', 'stories', 'linkedin'];
 
 export const AD_BY_SLUG = Object.fromEntries(AD_SERIES.map((a) => [a.slug, a]));

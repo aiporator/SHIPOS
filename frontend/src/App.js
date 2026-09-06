@@ -63,6 +63,7 @@ const JournalIndex = lazyWithRetry(() => import("./features/content/pages/Journa
 const WladJachtchenkoPage = lazyWithRetry(() => import("./pages/WladJachtchenkoPage"));
 const EventPage = lazyWithRetry(() => import("./pages/EventPage"));
 const WebinarPage = lazyWithRetry(() => import("./pages/WebinarPage"));
+const FrameworksPage = lazyWithRetry(() => import("./pages/FrameworksPage"));
 const FreeVideosPage = lazyWithRetry(() => import("./pages/FreeVideosPage"));
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage"));
 const ArticlePage = lazyWithRetry(() => import("./features/content/pages/ArticlePage"));
@@ -233,6 +234,9 @@ function AppRouter() {
         {/* Public · dated free launch event · high-conversion signup */}
         <Route path="/event" element={<EventPage />} />
         <Route path="/live" element={<Navigate to="/event" replace />} />
+        {/* Public · ein Viewport, acht Frameworks (Kollektiva-Mechanik, Kanon-Inhalt) */}
+        <Route path="/frameworks" element={<FrameworksPage />} />
+        <Route path="/methodik" element={<Navigate to="/frameworks" replace />} />
         {/* Squeeze funnel for the free live webinar */}
         <Route path="/webinar" element={<WebinarPage />} />
         <Route path="/webinar/danke" element={<WebinarThankYouPage />} />

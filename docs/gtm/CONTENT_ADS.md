@@ -42,6 +42,7 @@
 | `1x1`  | 1080 × 1080 | Meta-Feed · LinkedIn-Feed                |
 | `4x5`  | 1080 × 1350 | Meta-Feed-Vertical (mehr Realestate)     |
 | `9x16` | 1080 × 1920 | Stories · Reels · TikTok · YT-Shorts     |
+| `1.91x1` | 1200 × 627 | LinkedIn Single Image (Querformat) · 1x1 gilt dort ebenfalls |
 
 ## Aktueller Bestand
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AdSpecimen } from '../components/ads/AdSpecimen';
-import { AD_SERIES, AD_PALETTES, AD_CAMPAIGNS } from '../data/contentAds';
+import { AD_SERIES, AD_PALETTES, AD_CAMPAIGNS, AD_PLATFORMS } from '../data/contentAds';
 
 /**
  * AdStudio · internal Paid-Ad-Studio bei /ads.
@@ -19,6 +19,7 @@ export default function AdStudio() {
   const [format, setFormat] = useState('all');
   const [palette, setPalette] = useState('all');
   const [campaign, setCampaign] = useState('all');
+  const [platform, setPlatform] = useState('all');
   const [nativeId, setNativeId] = useState(null);
 
   useEffect(() => {
@@ -29,8 +30,12 @@ export default function AdStudio() {
     if (format !== 'all' && a.format !== format) return false;
     if (palette !== 'all' && a.palette !== palette) return false;
     if (campaign !== 'all' && (a.campaign || 'evergreen') !== campaign) return false;
+    if (platform !== 'all' && a.platform !== platform) return false;
     return true;
   });
+
+  const chip = (active) =>
+    `px-2.5 py-1.5 border transition-colors ${active ? 'bg-black text-white border-black' : 'border-black/20 text-black/60 hover:border-black/60 hover:text-black'}`;
 
   const nativeAd = nativeId ? AD_SERIES.find((a) => a.id === nativeId) : null;
 
@@ -61,8 +66,12 @@ export default function AdStudio() {
 
           {/* Filters */}
           <div className="flex flex-wrap items-center gap-2 text-[10.5px] font-bold uppercase tracking-[0.18em] font-mono">
-            <span className="text-black/45 mr-1">▸ FORMAT</span>
-            {['all', '1x1', '4x5', '9x16'].map((k) => (
+            <span className="text-black/45 mr-1">▸ PLATTFORM</span>
+            {['all', ...AD_PLATFORMS].map((k) => (
+              <button key={k} onClick={() => setPlatform(k)} className={chip(platform === k)}>{k}</button>
+            ))}
+            <span className="text-black/45 mr-1 ml-2">▸ FORMAT</span>
+            {['all', '1x1', '4x5', '9x16', '1.91x1'].map((k) => (
               <button
                 key={k}
                 onClick={() => setFormat(k)}
@@ -119,7 +128,7 @@ export default function AdStudio() {
           {ads.length} Ads.<span className="text-brand">.</span>
         </h1>
         <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-black/55 mb-3">
-          ▸ NATIVE GROSSE · TILE KLICKEN · SCREENSHOT · IN META ADS HOCHLADEN
+          ▸ NATIVE GROSSE · TILE KLICKEN · SCREENSHOT · IN META / LINKEDIN ADS HOCHLADEN
         </p>
         <p className="text-[13px] leading-[1.55] text-black/65 mb-12 max-w-2xl">
           Daten leben in <code className="px-1 py-0.5 bg-black/[0.06]">frontend/src/data/contentAds.js</code>.
@@ -147,7 +156,7 @@ export default function AdStudio() {
               </div>
 
               <div className="flex justify-center bg-[#F5F5F2] py-6 border border-black/[0.06]">
-                <AdSpecimen ad={ad} scale={ad.format === '9x16' ? 0.22 : 0.32} />
+                <AdSpecimen ad={ad} scale={ad.format === '9x16' ? 0.22 : ad.format === '1.91x1' ? 0.29 : 0.32} />
               </div>
 
               <details className="border-t border-black/10 pt-3 group">
@@ -160,8 +169,17 @@ export default function AdStudio() {
                 {/* Meta-Felder · Headline ≤ 40, Beschreibung ≤ 30 Zeichen, URL mit UTM */}
                 {(ad.headline || ad.url) && (
                   <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[11.5px] leading-[1.5] text-black/75">
-                    {ad.headline && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Headline</dt><dd>{ad.headline} <span className="text-black/35">({ad.headline.length})</span></dd></>}
-                    {ad.description && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Beschr.</dt><dd>{ad.description} <span className="text-black/35">({ad.description.length})</span></dd></>}
+                    {ad.platform === 'linkedin' ? (
+                      <>
+                        {ad.liIntro && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">LI-Intro</dt><dd>{ad.liIntro} <span className="text-black/35">({ad.liIntro.length}/150)</span></dd></>}
+                        {ad.liHeadline && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">LI-Headline</dt><dd>{ad.liHeadline} <span className="text-black/35">({ad.liHeadline.length}/70)</span></dd></>}
+                      </>
+                    ) : (
+                      <>
+                        {ad.headline && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Headline</dt><dd>{ad.headline} <span className="text-black/35">({ad.headline.length}/40)</span></dd></>}
+                        {ad.description && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">Beschr.</dt><dd>{ad.description} <span className="text-black/35">({ad.description.length}/30)</span></dd></>}
+                      </>
+                    )}
                     {ad.url && <><dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-black/45 pt-0.5">URL</dt><dd className="break-all font-mono text-[10.5px]">{ad.url}</dd></>}
                   </dl>
                 )}
